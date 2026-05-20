@@ -1,19 +1,626 @@
 ---
-title: "Chapter 1: Introduction"
+pagetitle: "Chapter 1: Introduction"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 1"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    webr:
+      packages:
+        - tibble
+        - ggplot2
+    live:
+      show-solutions: true
 ---
 
-<div class="lecture-actions">
-<a href="chapter1-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
-<a href="chapter1-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+# Chapter 1: Introduction {.title-slide}
+
+<style>
+.reveal {
+  font-family: Arial, sans-serif;
+  color: #2f3437;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  color: #2f3437;
+}
+
+.reveal h2 {
+  border-bottom: 3px solid #00695c;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+.title-slide {
+  text-align: center;
+}
+
+.defbox {
+  background: #c8e6f3;
+  padding: 18px;
+  border-left: 7px solid #00695c;
+  border-radius: 10px;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.examplebox {
+  background: #eeeeee;
+  padding: 18px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.thinkbox {
+  background: #fff8e1;
+  padding: 18px;
+  border-left: 7px solid #f9a825;
+  border-radius: 10px;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.big {
+  font-size: 1.25em;
+  font-weight: bold;
+  color: #00695c;
+}
+
+.footer-note {
+  font-size: 0.65em;
+  color: #666666;
+}
+
+.center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.75em;
+}
+</style>
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability  
+University of Toronto Mississauga
+
+![](cat.png){width="300"}
+
+::: notes
+Use this as the opening slide. The cat image keeps the course style familiar and consistent.
+:::
+
+---
+
+## Roadmap {#roadmap}
+
+::::: columns
+::: {.column width="50%"}
+#### Core Concepts
+
+- [1.1 Foundations](#foundations)
+- [Population vs Sample](#population-and-sample)
+- [Unit, Observation, Variable](#unit-observation-variable)
+:::
+
+::: {.column width="50%"}
+#### Main Distinctions
+
+- [Parameter vs Statistic](#parameter-vs-statistic)
+- [Types of Data](#types-of-data)
+- [Descriptive vs Inferential Statistics](#descriptive-vs-inferential-statistics)
+:::
+:::::
+
+::: notes
+This roadmap works as a navigation slide — bullet points link to later slides.
+:::
+
+---
+
+## 1.1 Foundations {#foundations}
+
+<div class="defbox">
+<strong>Definition 1.1: Statistics</strong><br>
+Statistics is the science of collecting, classifying, summarizing, analyzing, and interpreting data.
+</div>
+
+<br>
+
+Statistics helps researchers use data to support conclusions about a larger group.
+
+. . .
+
+<div class="examplebox">
+<strong>Main idea:</strong> Statistics helps us move from data to evidence, and from evidence to decisions.
+</div>
+
+::: notes
+Emphasize that statistics is not just formulas — it is about learning from data when there is uncertainty.
+:::
+
+---
+
+## Population and Sample {#population-and-sample}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Population</strong><br>
+The entire group of individuals, items, or measurements we want to study.
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Sample</strong><br>
+A smaller subset selected from the population.
+</div>
+:::
+:::::
+
+<br>
+
+<div class="examplebox">
+<strong>Key idea:</strong> We usually study the sample because studying the entire population is too difficult, expensive, or impossible.
 </div>
 
 ---
 
-## Summary
+## Example: Population and Sample
 
-- Statistics = collecting, organizing, and interpreting data under uncertainty
-- **Categorical** data: labels (e.g. colour, yes/no)
-- **Discrete** data: countable numbers (e.g. number of students)
-- **Continuous** data: measured values (e.g. height, temperature)
-- A **sample** is used to make conclusions about a **population**
-- Always comes with uncertainty — that's the point of inference
+<div class="examplebox">
+<strong>Population:</strong> All students at the University of Toronto.
+<br><br>
+<strong>Sample:</strong> 50 randomly selected students from the University of Toronto.
+</div>
+
+<br>
+
+<span class="big">Main idea:</span>  
+We study the sample to learn about the population.
+
+::: notes
+Make sure students understand that the sample is not the final target — the population is.
+:::
+
+---
+
+## Unit, Observation, Variable {#unit-observation-variable}
+
+<div class="defbox">
+<strong>Unit</strong><br>
+The smallest entity from which data are collected.
+</div>
+
+<br>
+
+<div class="defbox">
+<strong>Observation</strong><br>
+The collection of measured values for one unit.
+</div>
+
+<br>
+
+<div class="defbox">
+<strong>Variable</strong><br>
+A characteristic that can be measured or recorded.
+</div>
+
+---
+
+## Example: Unit, Observation, Variable
+
+<div class="examplebox">
+If we record a student's age, height, and weight:
+<br><br>
+<ul>
+<li>The student is the <strong>unit</strong></li>
+<li>The full row of recorded values is the <strong>observation</strong></li>
+<li>Age, height, and weight are <strong>variables</strong></li>
+</ul>
+</div>
+
+. . .
+
+<div class="thinkbox">
+<strong>Quick check:</strong><br>
+If a dataset has 100 students and 4 measured characteristics per student, how many observations are there?
+</div>
+
+---
+
+## Population Unit vs Sample Unit
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Population unit</strong><br>
+One member of the full population.
+</div>
+
+<br>
+
+<div class="examplebox">
+If the population is all UTM students, one UTM student is a population unit.
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Sample unit</strong><br>
+One member of the selected sample.
+</div>
+
+<br>
+
+<div class="examplebox">
+If the sample is 80 selected UTM students, one selected student is a sample unit.
+</div>
+:::
+:::::
+
+---
+
+## Dataset Language
+
+| Term | Meaning | Example |
+|:---|:---|:---|
+| Unit | Who or what data are collected from | One student |
+| Observation | Full row of data for one unit | Age, height, weight for one student |
+| Variable | Characteristic being recorded | Age |
+
+<br>
+
+<div class="footer-note">
+This table is useful when students first learn how to read datasets.
+</div>
+
+---
+
+## Parameter vs Statistic {#parameter-vs-statistic}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Parameter</strong><br>
+A numerical quantity that describes a population.
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Statistic</strong><br>
+A numerical quantity that describes a sample.
+</div>
+:::
+:::::
+
+<br>
+
+<div class="thinkbox">
+<strong>Memory trick:</strong><br>
+Parameter → Population &nbsp;&nbsp;|&nbsp;&nbsp; Statistic → Sample
+</div>
+
+---
+
+## Parameter vs Statistic: Examples
+
+<div class="examplebox">
+<strong>Parameters (population-level):</strong>
+<ul>
+<li>Population mean, $\mu$</li>
+<li>Population standard deviation, $\sigma$</li>
+<li>Population proportion, $p$</li>
+</ul>
+
+<br>
+
+<strong>Statistics (sample-level):</strong>
+<ul>
+<li>Sample mean, $\bar{x}$</li>
+<li>Sample standard deviation, $s$</li>
+<li>Sample proportion, $\hat{p}$</li>
+</ul>
+</div>
+
+::: notes
+Students often mix up $p$ and $\hat{p}$. Stress that $p$ is population-level and $\hat{p}$ is sample-level.
+:::
+
+---
+
+## Parameter vs Statistic: Summary Table
+
+| Population Quantity | Sample Quantity | Meaning |
+|:---:|:---:|:---|
+| $\mu$ | $\bar{x}$ | Mean |
+| $\sigma$ | $s$ | Standard deviation |
+| $p$ | $\hat{p}$ | Proportion |
+
+. . .
+
+<br>
+
+<div class="examplebox">
+We use sample statistics like $\bar{x}$ or $\hat{p}$ to estimate population parameters like $\mu$ or $p$.
+</div>
+
+---
+
+## Descriptive vs Inferential Statistics {#descriptive-vs-inferential-statistics}
+
+<div class="defbox">
+<strong>Descriptive statistics</strong><br>
+Methods used to analyze, summarize, and represent data.
+</div>
+
+<br>
+
+<div class="defbox">
+<strong>Inferential statistics</strong><br>
+Using sample information to make conclusions about a larger population.
+</div>
+
+---
+
+## Descriptive vs Inferential: Examples
+
+::::: columns
+::: {.column width="50%"}
+#### Descriptive
+
+<div class="examplebox">
+The average mark in a class of 80 students is 72%.
+</div>
+:::
+
+::: {.column width="50%"}
+#### Inferential
+
+<div class="examplebox">
+Based on 80 students, we estimate the average mark for all STA258 students.
+</div>
+:::
+:::::
+
+---
+
+## 1.2 Types of Data {#types-of-data}
+
+<div class="defbox">
+<strong>Quantitative data</strong><br>
+Data that can be measured numerically.
+</div>
+
+<br>
+
+<div class="examplebox">
+Examples: height, weight, age, temperature
+</div>
+
+. . .
+
+<br>
+
+<div class="thinkbox">
+<strong>Question:</strong><br>
+Does every number automatically mean the variable is quantitative?
+</div>
+
+---
+
+## Qualitative Data
+
+<div class="defbox">
+<strong>Qualitative data</strong><br>
+Data that cannot be measured numerically — instead, it falls into categories.
+</div>
+
+<br>
+
+<div class="examplebox">
+Examples: favourite colour, eye colour, ice-cream flavour
+</div>
+
+---
+
+## Quantitative vs Qualitative
+
+| Data | Type | Reason |
+|:---|:---|:---|
+| Height | Quantitative | Measured numerically |
+| Number of courses | Quantitative | Counted numerically |
+| Favourite colour | Qualitative | Falls into a category |
+| Student number | Qualitative | The number is only an identifier |
+
+::: notes
+The student number example is useful — it shows that numbers are not always quantitative.
+:::
+
+---
+
+## Discrete and Continuous Data
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Discrete data</strong><br>
+Quantitative data that are countable.
+</div>
+
+<br>
+
+<div class="examplebox">
+Examples: number of siblings, number of defects
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Continuous data</strong><br>
+Quantitative data measured on a scale.
+</div>
+
+<br>
+
+<div class="examplebox">
+Examples: height, time, temperature
+</div>
+:::
+:::::
+
+---
+
+## Quick Check: Types of Data {#quick-check-types}
+
+Classify each variable:
+
+1. Number of courses a student is taking
+2. Student's major
+3. Time spent studying per week
+4. Whether a student lives on campus
+
+. . .
+
+<div class="examplebox">
+<strong>Answers:</strong>
+<ol>
+<li>Quantitative, discrete</li>
+<li>Qualitative</li>
+<li>Quantitative, continuous</li>
+<li>Qualitative</li>
+</ol>
+</div>
+
+---
+
+## 1.3 Introduction to Inferential Statistics {#introduction-to-inferential-statistics}
+
+<div class="center">
+<span class="big">Sample → Statistic → Estimate population parameter</span>
+</div>
+
+<br>
+
+Statistical inference uses sample data to estimate population values and measure uncertainty.
+
+$$
+\text{Sample} \rightarrow \text{Statistic} \rightarrow \text{Parameter}
+$$
+
+---
+
+## Big Picture
+
+<div class="examplebox">
+We usually cannot measure the whole population.
+<br><br>
+So we collect a sample, calculate a statistic, and use it to estimate the unknown parameter.
+</div>
+
+<br>
+
+<div class="thinkbox">
+<strong>Important:</strong><br>
+Because samples vary, inference must always include a measure of uncertainty.
+</div>
+
+---
+
+## Main Inference Tools
+
+<div class="defbox">
+<strong>Estimation</strong><br>
+Using sample data to guess the value of a population parameter.
+</div>
+
+<div class="defbox">
+<strong>Confidence intervals</strong><br>
+Giving a plausible range of values for a population parameter.
+</div>
+
+<div class="defbox">
+<strong>Hypothesis testing</strong><br>
+Checking whether sample data support a specific claim.
+</div>
+
+::: notes
+Pause before revealing the answers. This is a good check for whether students understand sample vs population and statistic vs parameter.
+:::
+
+---
+
+## Chapter 1 Summary {#chapter-1-summary}
+
+- Statistics is the science of learning from data
+- A sample is used to study a population
+- Parameters describe populations; statistics describe samples
+- Data can be quantitative or qualitative
+- Quantitative data can be discrete or continuous
+- Inference uses samples to draw population-level conclusions
+
+---
+
+## End of Chapter 1
+
+<div class="center">
+<br>
+<span class="big">End of Chapter 1</span>
+<br><br>
+<a href="test.html">← Back to Home</a>
+</div>
+
+::: notes
+Update the link if the landing page file name changes.
+:::
+
+---
+
+## Optional Interactive R Slide {.scrollable}
+
+Students can edit the code and run it directly inside the slide.
+
+```{webr}
+#| autorun: false
+#| caption: Try changing the commute times
+
+commute_time <- c(20, 35, 40, 15, 60, 25, 30)
+mean(commute_time)
+```
+
+---
+
+## Optional Practice Exercise {.scrollable}
+
+Change the code so it calculates the sample mean of the vector.
+
+```{webr}
+#| exercise: mean_exercise
+
+commute_time <- c(20, 35, 40, 15, 60, 25, 30)
+______(commute_time)
+```
+
+::: {.solution exercise="mean_exercise"}
+::: {.callout-tip title="Solution"}
+Use:
+
+```r
+mean(commute_time)
+```
+:::
+:::

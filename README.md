@@ -3,6 +3,32 @@ Slides for STA258
 
 # Things to do
 
+## For May 28 
+
+**CH1**
+- Add some additional examples to be completed in class for slide set 1
+
+**CH2 (no examples just WebR)**
+- for slide set 2 (intro to R) try to see if we can get a live web page to guide installation
+- include WebR components to learn basics
+    - using R as a calculator
+    - declaring variables
+    - declaring a numeric vector
+    - indexing from a vector
+    - try to see if you can read a file or dataset (.csv) in the form of a data frame, use in built if not readable
+        - isolating rows, columns
+    - installing and using a package (maybe tidy verse)
+
+ **CH3**
+ - continue usual work
+ - making nice slides with content given
+ - passive examples
+ - WebR blocks (numerical summaries and graphical summaries)
+ - examples to be completed in lecture
+ - big chapter, do as much as you can
+ - refer to ebook to compliment each other
+
+
 ## For May 21
 
 - Make the quarto slides appear more like slides

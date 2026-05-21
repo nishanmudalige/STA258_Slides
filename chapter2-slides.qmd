@@ -1,0 +1,906 @@
+---
+pagetitle: "Chapter 2: An Introduction to R — Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 2"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    webr:
+      packages:
+        - ggplot2
+    live:
+      show-solutions: true
+---
+
+# Chapter 2: An Introduction to R {.title-slide}
+
+<style>
+.reveal {
+  font-family: Arial, sans-serif;
+  color: #2f3437;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  color: #2f3437;
+}
+
+.reveal h2 {
+  border-bottom: 3px solid #00695c;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  font-size: 1.6em;
+}
+
+.title-slide {
+  text-align: center;
+}
+
+.reveal p, .reveal li {
+  font-size: 0.78em;
+  line-height: 1.35;
+}
+
+.defbox {
+  background: #c8e6f3;
+  padding: 10px 14px;
+  border-left: 6px solid #00695c;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.examplebox {
+  background: #eeeeee;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.thinkbox {
+  background: #fff8e1;
+  padding: 10px 14px;
+  border-left: 6px solid #f9a825;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.warnbox {
+  background: #ffebee;
+  padding: 10px 14px;
+  border-left: 6px solid #c62828;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.big {
+  font-size: 1.05em;
+  font-weight: bold;
+  color: #00695c;
+}
+
+.footer-note {
+  font-size: 0.65em;
+  color: #666666;
+}
+
+.center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.72em;
+}
+
+.reveal table {
+  font-size: 0.78em;
+}
+
+.defbox p, .examplebox p, .thinkbox p, .warnbox p,
+.defbox li, .examplebox li, .thinkbox li, .warnbox li {
+  font-size: 1em;
+  margin-bottom: 4px;
+}
+</style>
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability
+University of Toronto Mississauga
+
+![](cat.png){width="300"}
+
+::: notes
+This chapter introduces R, RStudio, and the first programming ideas needed for the course.
+:::
+
+---
+
+## Why Learn R? {#why-r .scrollable}
+
+<div class="center">
+<span class="big">Every statistician on Earth uses code.<br>You're about to learn why.</span>
+</div>
+
+. . .
+
+::: {.examplebox}
+**Three reasons:**
+
+- **Reproducibility** — every step is written down. Re-run it next year and get the same answer.
+- **Scale** — the same script that analyzes 10 rows also analyzes 10 million.
+- **Sharing** — send your code, not screenshots of your clicks.
+:::
+
+. . .
+
+::: {.thinkbox}
+This whole chapter is just enough R to do the rest of STA258. You don't need to become a software engineer.
+:::
+
+---
+
+## Roadmap {#roadmap .scrollable}
+
+::::: columns
+::: {.column width="50%"}
+#### 2.1 — 2.2 Setup
+- What R is (and what RStudio is)
+- Installing both
+- The RStudio panes
+:::
+
+::: {.column width="50%"}
+#### 2.3 Programming Basics
+- R as a calculator
+- Vectors and math functions
+- Data structures
+- Histograms
+- Packages
+:::
+:::::
+
+---
+
+## 2.1 The Statistical Computing Language {#statistical-computing-language .scrollable}
+
+<div class="defbox">
+<strong>Definition — R</strong><br>
+R is a programming language designed for data manipulation, statistics, graphics, and reproducible analysis.
+</div>
+
+::: {.examplebox}
+**R is good at:**
+
+- arithmetic on numbers, vectors, matrices
+- producing publication-quality graphs
+- using built-in and user-contributed packages
+- saving entire analyses as scripts that anyone can re-run
+:::
+
+::: notes
+Emphasize that R is free, open-source, and the standard tool in statistics.
+:::
+
+---
+
+## Point-and-click vs Code {#point-vs-code .scrollable}
+
+::::: columns
+::: {.column width="50%"}
+<div class="examplebox">
+<strong>Point-and-click software</strong><br><br>
+Quick at first. But every click is invisible — hard to repeat, hard to audit, hard to share.
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>R scripts</strong><br><br>
+Every step is written down. The script <em>is</em> the analysis — you can re-run it, version it, share it, or modify one line and re-run everything.
+</div>
+:::
+:::::
+
+. . .
+
+<div class="thinkbox">
+<strong>Bottom line:</strong> R makes statistical work reproducible, transparent, and automatic.
+</div>
+
+---
+
+## 2.2 R vs RStudio {#r-vs-rstudio .scrollable}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>R</strong><br>
+The programming language. The thing that does the calculations.
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>RStudio</strong><br>
+The interface. Where you write code, see plots, view files, and read output.
+</div>
+:::
+:::::
+
+. . .
+
+::: {.examplebox}
+**Analogy:** R is the **engine**. RStudio is the **dashboard**.<br>
+You can drive an engine without a dashboard — but you wouldn't want to.
+:::
+
+. . .
+
+<div class="warnbox">
+<strong>Install order matters:</strong> install <strong>R first</strong>, then RStudio on top.
+</div>
+
+---
+
+## 2.2.1 Installing R {#install-r .scrollable}
+
+<div class="defbox">
+Go to <code>cran.r-project.org</code> and pick your operating system.
+</div>
+
+::: {.examplebox}
+- **Windows** → Download R for Windows → `base` → run the installer
+- **macOS** → Download R for macOS → pick the matching `.pkg` file
+- **Linux** → follow your distribution's instructions
+:::
+
+. . .
+
+<div class="thinkbox">
+Once installed, R can run from a terminal — but in this course we always use it through RStudio.
+</div>
+
+---
+
+## 2.2.2 Installing RStudio {#install-rstudio .scrollable}
+
+<div class="defbox">
+<strong>RStudio</strong><br>
+An integrated development environment (IDE) designed for working with R.
+</div>
+
+::: {.examplebox}
+**RStudio gives you:**
+
+- a script editor (write code)
+- a console (run code)
+- environment & history (see your objects)
+- files / plots / packages / help (everything else)
+:::
+
+::: notes
+Mention: RStudio is now made by Posit. Same product, new company name.
+:::
+
+---
+
+## The Four RStudio Panes {#rstudio-panes .scrollable}
+
+| Pane | What it does |
+|:---|:---|
+| **Source** | Write and edit `.R` scripts and `.qmd` files |
+| **Console** | Run commands directly and see output |
+| **Environment / History** | Inspect saved objects and past commands |
+| **Files / Plots / Packages / Help** | Browse files, view graphs, manage packages |
+
+. . .
+
+<div class="thinkbox">
+<strong>Shortcut:</strong> <code>Cmd + Enter</code> (Mac) or <code>Ctrl + Enter</code> (Windows) runs the current line.
+</div>
+
+---
+
+## A Typical Workflow {#workflow .scrollable}
+
+::: {.examplebox}
+1. Open RStudio
+2. Create a new R script (File → New File → R Script)
+3. Type your code in the **Source** pane
+4. Hit `Cmd/Ctrl + Enter` to run the current line
+5. See results in the **Console** or **Plots** pane
+6. Save the script so you can re-run later
+:::
+
+. . .
+
+<div class="thinkbox">
+Saving the script is the whole point — your analysis lives in the file, not in the console.
+</div>
+
+---
+
+## 2.2.3 Positron {#positron .scrollable}
+
+<div class="defbox">
+<strong>Positron</strong><br>
+Another desktop environment from Posit, designed for modern data science.
+</div>
+
+. . .
+
+::: {.examplebox}
+**For STA258:** you only need RStudio. Positron is worth knowing about, but not required.
+:::
+
+---
+
+## 2.3 Programming in R {#programming-in-r .scrollable}
+
+R was designed for:
+
+- data analysis
+- statistical calculations
+- visualization
+- reproducible reporting
+
+. . .
+
+<div class="thinkbox">
+<strong>Goal for this course:</strong> learn enough R to compute, summarize, visualize, and report data clearly. Nothing more.
+</div>
+
+---
+
+## 2.3.1 R as a Calculator {#r-as-calculator .scrollable}
+
+<div class="defbox">
+R handles arithmetic, exponents, logs, trig, and many other operations out of the box.
+</div>
+
+| Operation | R Code | Result |
+|:---|:---:|:---:|
+| Addition | `2 + 3` | 5 |
+| Subtraction | `4 - 1` | 3 |
+| Multiplication | `6 * 2` | 12 |
+| Division | `8 / 2` | 4 |
+| Exponentiation | `5^2` | 25 |
+
+---
+
+## Try It: Basic Arithmetic {#try-arithmetic .scrollable}
+
+Edit any of the lines and run. Try `2 + 3 * 4` — what does R do first?
+
+```{webr}
+#| autorun: false
+
+2 + 3
+4 - 1
+6 * 2
+8 / 2
+5^2
+```
+
+---
+
+## Modulo and Integer Division {#modulo .scrollable}
+
+| Operation | R Code | Meaning |
+|:---|:---:|:---|
+| Modulo | `9 %% 4` | Remainder after division |
+| Integer division | `9 %/% 4` | Whole-number part of division |
+
+```{webr}
+#| autorun: false
+
+9 %% 4    # remainder: 1
+9 %/% 4   # quotient: 2
+```
+
+. . .
+
+::: {.examplebox}
+Modulo is surprisingly useful — checking if a number is even (`x %% 2 == 0`), wrapping indices, etc.
+:::
+
+---
+
+## Vectors {#vectors-intro .scrollable}
+
+<div class="defbox">
+<strong>Vector</strong><br>
+A one-dimensional sequence of values, all of the same type. Built with <code>c()</code>.
+</div>
+
+```{webr}
+#| autorun: false
+
+x <- c(1, 2, 3)
+y <- c(4, 5, 6)
+
+x + y      # element-wise
+x * y      # element-wise
+x^2        # square each element
+```
+
+. . .
+
+::: {.thinkbox}
+R applies operations **element-by-element**. No `for` loops needed for most arithmetic.
+:::
+
+---
+
+## Math Functions {#math-functions .scrollable}
+
+| Function | Meaning | Example |
+|:---|:---|:---|
+| `sqrt()` | Square root | `sqrt(16)` → 4 |
+| `log()` | Natural log | `log(10)` |
+| `log10()` | Log base 10 | `log10(100)` → 2 |
+| `exp()` | Exponential | `exp(1)` → e |
+| `abs()` | Absolute value | `abs(-5)` → 5 |
+| `round()` | Round to digits | `round(3.1415, 2)` → 3.14 |
+
+---
+
+## Try It: Math Functions {#try-math .scrollable}
+
+```{webr}
+#| autorun: false
+
+sqrt(16)
+log(10)
+log10(100)
+exp(1)
+abs(-5)
+round(3.1415, 2)
+sin(pi / 2)
+cos(0)
+```
+
+---
+
+## Summary Functions {#summary-functions .scrollable}
+
+The functions you'll use most in this course:
+
+| Function | Returns |
+|:---|:---|
+| `mean(x)` | Average ($\bar{x}$) |
+| `sum(x)` | Total |
+| `min(x)` / `max(x)` | Smallest / largest |
+| `sd(x)` | Standard deviation ($s$) |
+| `var(x)` | Variance ($s^2$) |
+| `length(x)` | Sample size ($n$) |
+
+---
+
+## Try It: Summary Functions {#try-summary .scrollable}
+
+Change the values in `x`, then re-run.
+
+```{webr}
+#| autorun: false
+
+x <- c(10, 3, 8, 25, 7)
+
+mean(x)
+sum(x)
+min(x)
+max(x)
+sd(x)
+var(x)
+length(x)
+```
+
+---
+
+## Quick Practice: Calculate the Mean {#mean-practice .scrollable}
+
+Fill in the function name to compute the sample mean of `x`.
+
+```{webr}
+#| exercise: mean-practice
+
+x <- c(10, 3, 8, 25, 7)
+____(x)
+```
+
+::: {.solution exercise="mean-practice"}
+::: {.callout-tip title="Solution"}
+```r
+mean(x)   # = 10.6
+```
+This is $\bar{x}$.
+:::
+:::
+
+---
+
+## 2.3.2 The Six Data Structures {#data-structures .scrollable}
+
+::::: columns
+::: {.column width="50%"}
+- **Vectors** — 1D, same type
+- **Lists** — flexible, mixed types
+- **Matrices** — 2D, same type
+:::
+
+::: {.column width="50%"}
+- **Arrays** — 3D+, same type
+- **Factors** — categorical
+- **Data frames** — real datasets
+:::
+:::::
+
+. . .
+
+<div class="thinkbox">
+You'll meet all six this chapter — but in STA258 you'll spend 80% of your time with **vectors** and **data frames**.
+</div>
+
+---
+
+## Vectors {#vectors .scrollable}
+
+<div class="defbox">
+One-dimensional sequence. All elements share a type (numeric, character, logical).
+</div>
+
+```{webr}
+#| autorun: false
+
+v <- c(1, 2, 3, 4, 5)
+v
+length(v)
+v[3]          # third element
+v[2:4]        # elements 2 through 4
+```
+
+---
+
+## Lists {#lists .scrollable}
+
+<div class="defbox">
+A list can hold anything — numbers, strings, vectors, even other lists. Elements can be named.
+</div>
+
+```{webr}
+#| autorun: false
+
+person <- list(
+  name   = "Alice",
+  age    = 25,
+  scores = c(90, 85, 88),
+  passed = TRUE
+)
+
+person$name
+person[[2]]
+person[["scores"]]
+```
+
+---
+
+## Matrices {#matrices .scrollable}
+
+<div class="defbox">
+Two dimensions, all the same type. Built with <code>matrix()</code>.
+</div>
+
+```{webr}
+#| autorun: false
+
+m <- matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2)
+m
+
+m[1, 2]    # row 1, column 2
+m[, 1]     # entire column 1
+m[2, ]     # entire row 2
+```
+
+---
+
+## Matrix Operations {#matrix-ops .scrollable}
+
+```{webr}
+#| autorun: false
+
+m <- matrix(c(1, 2, 3, 4, 5, 6), nrow = 3, ncol = 2)
+
+t(m)         # transpose
+m %*% t(m)   # matrix multiplication
+```
+
+. . .
+
+::: {.examplebox}
+`%*%` is **matrix** multiplication. Plain `*` is element-wise — they are very different!
+:::
+
+---
+
+## Arrays {#arrays .scrollable}
+
+<div class="defbox">
+A multi-dimensional structure. You can think of a 3D array as a stack of matrices.
+</div>
+
+```{webr}
+#| autorun: false
+
+a <- array(1:12, dim = c(2, 3, 2))
+a
+
+a[1, 2, 1]   # one element
+a[, , 2]     # slice 2
+```
+
+. . .
+
+::: {.footer-note}
+Arrays are rare in intro stats — included for completeness.
+:::
+
+---
+
+## Factors {#factors .scrollable}
+
+<div class="defbox">
+A factor stores a categorical variable. R remembers which values are valid (the "levels").
+</div>
+
+```{webr}
+#| autorun: false
+
+gender <- factor(c("Male", "Female", "Female", "Male"))
+gender
+levels(gender)
+table(gender)
+```
+
+. . .
+
+::: {.examplebox}
+Factors are how R handles qualitative data — gender, education level, treatment group, etc.
+:::
+
+---
+
+## Data Frames {#data-frames .scrollable}
+
+<div class="defbox">
+A table. Each <strong>column</strong> is a variable. Each <strong>row</strong> is an observation. Columns can be different types.
+</div>
+
+```{webr}
+#| autorun: false
+
+df <- data.frame(
+  name   = c("Alice", "Bob", "Charlie"),
+  age    = c(25, 30, 28),
+  passed = c(TRUE, TRUE, FALSE)
+)
+
+df
+df$name      # one column
+df[1, ]      # first row
+df[, 2]      # second column
+nrow(df); ncol(df)
+```
+
+. . .
+
+::: {.thinkbox}
+This is the structure you'll use for almost every real dataset in STA258.
+:::
+
+---
+
+## Cheat Sheet {#data-structures-cheat .scrollable}
+
+| Structure | Dimensions | Same type? | Use for |
+|:---|:---|:---:|:---|
+| Vector | 1D | Yes | A column of values |
+| List | flexible | No | Mixed information |
+| Matrix | 2D | Yes | Numerical tables |
+| Array | 3D+ | Yes | High-D data |
+| Factor | 1D | Yes | Categorical variable |
+| Data frame | 2D | No | Real datasets |
+
+---
+
+## 2.3.3 Functions {#functions .scrollable}
+
+<div class="defbox">
+Most R commands look like <code>function_name(input)</code>.<br>
+The function takes inputs and returns output.
+</div>
+
+```{webr}
+#| autorun: false
+
+x <- c(10, 3, 8, 25, 7)
+
+max(x)
+min(x)
+sort(x)
+sort(x, decreasing = TRUE)
+order(x)
+```
+
+. . .
+
+<div class="warnbox">
+<strong>Common error:</strong> missing brackets, commas, or quotes. R is unforgiving.
+</div>
+
+---
+
+## 2.3.4 Histograms {#histograms .scrollable}
+
+<div class="defbox">
+<strong>Histogram</strong><br>
+A graph showing the <strong>distribution</strong> of a numerical variable by grouping values into intervals (bins).
+</div>
+
+```{webr}
+#| autorun: false
+
+names(faithful)   # built-in dataset: Old Faithful geyser data
+head(faithful)
+```
+
+. . .
+
+::: {.footer-note}
+`faithful` records eruption length and waiting time between eruptions.
+:::
+
+---
+
+## Try It: Make a Histogram {#try-hist .scrollable}
+
+```{webr}
+#| autorun: false
+
+hist(faithful$waiting,
+     main = "Waiting time between eruptions",
+     xlab = "Minutes",
+     col  = "#80cbc4")
+```
+
+. . .
+
+::: {.examplebox}
+The shape (two humps!) tells you something real about the data — Old Faithful has two distinct eruption modes.
+:::
+
+---
+
+## Behind the Histogram {#hist-internals .scrollable}
+
+You can grab the numbers a histogram uses:
+
+```{webr}
+#| autorun: false
+
+h <- hist(faithful$waiting, plot = FALSE)
+h$breaks      # bin edges
+h$counts      # how many observations in each bin
+```
+
+. . .
+
+::: {.thinkbox}
+This is useful when you want exact counts for a report, or to compare two distributions.
+:::
+
+---
+
+## Practice: Change the Variable {#hist-practice .scrollable}
+
+Change the code below so it plots the histogram of `eruptions` instead of `waiting`.
+
+```{webr}
+#| exercise: histogram-practice
+
+hist(faithful$waiting)
+```
+
+::: {.solution exercise="histogram-practice"}
+::: {.callout-tip title="Solution"}
+```r
+hist(faithful$eruptions)
+```
+You should see two clear peaks — short eruptions (~2 min) and long eruptions (~4.5 min).
+:::
+:::
+
+---
+
+## 2.3.5 Packages {#packages .scrollable}
+
+<div class="defbox">
+<strong>Package</strong><br>
+A collection of extra functions, datasets, and tools that extend R.
+</div>
+
+::: {.examplebox}
+**Install once** (downloads to your computer):
+```r
+install.packages("ggplot2")
+```
+
+**Load every new session** (makes it available in this R session):
+```r
+library(ggplot2)
+```
+:::
+
+. . .
+
+<div class="warnbox">
+<strong>Common mistake:</strong> forgetting to <code>library()</code> after restarting RStudio. Installation is permanent; loading is per-session.
+</div>
+
+---
+
+## Try It: Inspect Packages {#try-packages .scrollable}
+
+```{webr}
+#| autorun: false
+
+# What's installed?
+rownames(installed.packages())[1:8]
+
+# Search help across all installed packages
+help.search("histogram")
+```
+
+---
+
+## Chapter 2 Summary {#chapter-2-summary .scrollable}
+
+::: {.examplebox}
+1. **R** runs the code; **RStudio** is where you write it.
+2. R can do everything a calculator can — and a lot more.
+3. **Vectors** and **data frames** are the structures you'll use most.
+4. Most R commands are functions: `function_name(input)`.
+5. **Histograms** show the shape of a numerical variable's distribution.
+6. **Packages** extend R: `install.packages()` once, `library()` every session.
+:::
+
+---
+
+## What's Next {#whats-next .scrollable}
+
+<div class="thinkbox">
+<strong>Chapter 3:</strong> we use these R tools to compute and visualize <strong>descriptive statistics</strong> — means, medians, spreads, and the shape of data.
+</div>
+
+<br>
+
+<div class="center">
+<span class="big">End of Chapter 2</span><br><br>
+<a href="chapter2.html">← Back to Chapter 2</a>
+</div>

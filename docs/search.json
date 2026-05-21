@@ -224,6 +224,300 @@
     "text": "Bonus Practice\nBelow are some ages of UTM students in a sample. Compute:\n\nThe sample size \\(n\\)\nThe sample mean \\(\\bar{x}\\)\nThe sample standard deviation \\(s\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nn    &lt;- length(ages)\nxbar &lt;- mean(ages)\ns    &lt;- sd(ages)\n\\(n = 12\\), \\(\\bar{x} \\approx 20.83\\), \\(s \\approx 1.59\\)."
   },
   {
+    "objectID": "chapter2-slides.html#why-r",
+    "href": "chapter2-slides.html#why-r",
+    "title": "STA258",
+    "section": "Why Learn R?",
+    "text": "Why Learn R?\n\nEvery statistician on Earth uses code.You’re about to learn why.\n\n\n\nThree reasons:\n\nReproducibility — every step is written down. Re-run it next year and get the same answer.\nScale — the same script that analyzes 10 rows also analyzes 10 million.\nSharing — send your code, not screenshots of your clicks.\n\n\n\n\n\nThis whole chapter is just enough R to do the rest of STA258. You don’t need to become a software engineer."
+  },
+  {
+    "objectID": "chapter2-slides.html#roadmap",
+    "href": "chapter2-slides.html#roadmap",
+    "title": "STA258",
+    "section": "Roadmap",
+    "text": "Roadmap\n\n\n2.1 — 2.2 Setup\n\nWhat R is (and what RStudio is)\nInstalling both\nThe RStudio panes\n\n\n2.3 Programming Basics\n\nR as a calculator\nVectors and math functions\nData structures\nHistograms\nPackages"
+  },
+  {
+    "objectID": "chapter2-slides.html#statistical-computing-language",
+    "href": "chapter2-slides.html#statistical-computing-language",
+    "title": "STA258",
+    "section": "2.1 The Statistical Computing Language",
+    "text": "2.1 The Statistical Computing Language\n\nDefinition — R R is a programming language designed for data manipulation, statistics, graphics, and reproducible analysis.\n\n\nR is good at:\n\narithmetic on numbers, vectors, matrices\nproducing publication-quality graphs\nusing built-in and user-contributed packages\nsaving entire analyses as scripts that anyone can re-run\n\n\n\nEmphasize that R is free, open-source, and the standard tool in statistics."
+  },
+  {
+    "objectID": "chapter2-slides.html#point-vs-code",
+    "href": "chapter2-slides.html#point-vs-code",
+    "title": "STA258",
+    "section": "Point-and-click vs Code",
+    "text": "Point-and-click vs Code\n\n\n\nPoint-and-click software Quick at first. But every click is invisible — hard to repeat, hard to audit, hard to share.\n\n\n\nR scripts Every step is written down. The script is the analysis — you can re-run it, version it, share it, or modify one line and re-run everything.\n\n\n\n\nBottom line: R makes statistical work reproducible, transparent, and automatic."
+  },
+  {
+    "objectID": "chapter2-slides.html#r-vs-rstudio",
+    "href": "chapter2-slides.html#r-vs-rstudio",
+    "title": "STA258",
+    "section": "2.2 R vs RStudio",
+    "text": "2.2 R vs RStudio\n\n\n\nR The programming language. The thing that does the calculations.\n\n\n\nRStudio The interface. Where you write code, see plots, view files, and read output.\n\n\n\n\nAnalogy: R is the engine. RStudio is the dashboard. You can drive an engine without a dashboard — but you wouldn’t want to.\n\n\n\n\nInstall order matters: install R first, then RStudio on top."
+  },
+  {
+    "objectID": "chapter2-slides.html#install-r",
+    "href": "chapter2-slides.html#install-r",
+    "title": "STA258",
+    "section": "2.2.1 Installing R",
+    "text": "2.2.1 Installing R\n\nGo to cran.r-project.org and pick your operating system.\n\n\n\nWindows → Download R for Windows → base → run the installer\nmacOS → Download R for macOS → pick the matching .pkg file\nLinux → follow your distribution’s instructions\n\n\n\n\nOnce installed, R can run from a terminal — but in this course we always use it through RStudio."
+  },
+  {
+    "objectID": "chapter2-slides.html#install-rstudio",
+    "href": "chapter2-slides.html#install-rstudio",
+    "title": "STA258",
+    "section": "2.2.2 Installing RStudio",
+    "text": "2.2.2 Installing RStudio\n\nRStudio An integrated development environment (IDE) designed for working with R.\n\n\nRStudio gives you:\n\na script editor (write code)\na console (run code)\nenvironment & history (see your objects)\nfiles / plots / packages / help (everything else)\n\n\n\nMention: RStudio is now made by Posit. Same product, new company name."
+  },
+  {
+    "objectID": "chapter2-slides.html#rstudio-panes",
+    "href": "chapter2-slides.html#rstudio-panes",
+    "title": "STA258",
+    "section": "The Four RStudio Panes",
+    "text": "The Four RStudio Panes\n\n\n\n\n\n\n\nPane\nWhat it does\n\n\n\n\nSource\nWrite and edit .R scripts and .qmd files\n\n\nConsole\nRun commands directly and see output\n\n\nEnvironment / History\nInspect saved objects and past commands\n\n\nFiles / Plots / Packages / Help\nBrowse files, view graphs, manage packages\n\n\n\n\n\nShortcut: Cmd + Enter (Mac) or Ctrl + Enter (Windows) runs the current line."
+  },
+  {
+    "objectID": "chapter2-slides.html#workflow",
+    "href": "chapter2-slides.html#workflow",
+    "title": "STA258",
+    "section": "A Typical Workflow",
+    "text": "A Typical Workflow\n\n\nOpen RStudio\nCreate a new R script (File → New File → R Script)\nType your code in the Source pane\nHit Cmd/Ctrl + Enter to run the current line\nSee results in the Console or Plots pane\nSave the script so you can re-run later\n\n\n\n\nSaving the script is the whole point — your analysis lives in the file, not in the console."
+  },
+  {
+    "objectID": "chapter2-slides.html#positron",
+    "href": "chapter2-slides.html#positron",
+    "title": "STA258",
+    "section": "2.2.3 Positron",
+    "text": "2.2.3 Positron\n\nPositron Another desktop environment from Posit, designed for modern data science.\n\n\n\nFor STA258: you only need RStudio. Positron is worth knowing about, but not required."
+  },
+  {
+    "objectID": "chapter2-slides.html#programming-in-r",
+    "href": "chapter2-slides.html#programming-in-r",
+    "title": "STA258",
+    "section": "2.3 Programming in R",
+    "text": "2.3 Programming in R\nR was designed for:\n\ndata analysis\nstatistical calculations\nvisualization\nreproducible reporting\n\n\n\nGoal for this course: learn enough R to compute, summarize, visualize, and report data clearly. Nothing more."
+  },
+  {
+    "objectID": "chapter2-slides.html#r-as-calculator",
+    "href": "chapter2-slides.html#r-as-calculator",
+    "title": "STA258",
+    "section": "2.3.1 R as a Calculator",
+    "text": "2.3.1 R as a Calculator\n\nR handles arithmetic, exponents, logs, trig, and many other operations out of the box.\n\n\n\n\nOperation\nR Code\nResult\n\n\n\n\nAddition\n2 + 3\n5\n\n\nSubtraction\n4 - 1\n3\n\n\nMultiplication\n6 * 2\n12\n\n\nDivision\n8 / 2\n4\n\n\nExponentiation\n5^2\n25"
+  },
+  {
+    "objectID": "chapter2-slides.html#try-arithmetic",
+    "href": "chapter2-slides.html#try-arithmetic",
+    "title": "STA258",
+    "section": "Try It: Basic Arithmetic",
+    "text": "Try It: Basic Arithmetic\nEdit any of the lines and run. Try 2 + 3 * 4 — what does R do first?"
+  },
+  {
+    "objectID": "chapter2-slides.html#modulo",
+    "href": "chapter2-slides.html#modulo",
+    "title": "STA258",
+    "section": "Modulo and Integer Division",
+    "text": "Modulo and Integer Division\n\n\n\nOperation\nR Code\nMeaning\n\n\n\n\nModulo\n9 %% 4\nRemainder after division\n\n\nInteger division\n9 %/% 4\nWhole-number part of division\n\n\n\n\n\n\n\n\n\n\n\n\n\nModulo is surprisingly useful — checking if a number is even (x %% 2 == 0), wrapping indices, etc."
+  },
+  {
+    "objectID": "chapter2-slides.html#vectors-intro",
+    "href": "chapter2-slides.html#vectors-intro",
+    "title": "STA258",
+    "section": "Vectors",
+    "text": "Vectors\n\nVector A one-dimensional sequence of values, all of the same type. Built with c().\n\n\n\n\n\n\n\n\n\n\n\nR applies operations element-by-element. No for loops needed for most arithmetic."
+  },
+  {
+    "objectID": "chapter2-slides.html#math-functions",
+    "href": "chapter2-slides.html#math-functions",
+    "title": "STA258",
+    "section": "Math Functions",
+    "text": "Math Functions\n\n\n\nFunction\nMeaning\nExample\n\n\n\n\nsqrt()\nSquare root\nsqrt(16) → 4\n\n\nlog()\nNatural log\nlog(10)\n\n\nlog10()\nLog base 10\nlog10(100) → 2\n\n\nexp()\nExponential\nexp(1) → e\n\n\nabs()\nAbsolute value\nabs(-5) → 5\n\n\nround()\nRound to digits\nround(3.1415, 2) → 3.14"
+  },
+  {
+    "objectID": "chapter2-slides.html#try-math",
+    "href": "chapter2-slides.html#try-math",
+    "title": "STA258",
+    "section": "Try It: Math Functions",
+    "text": "Try It: Math Functions"
+  },
+  {
+    "objectID": "chapter2-slides.html#summary-functions",
+    "href": "chapter2-slides.html#summary-functions",
+    "title": "STA258",
+    "section": "Summary Functions",
+    "text": "Summary Functions\nThe functions you’ll use most in this course:\n\n\n\nFunction\nReturns\n\n\n\n\nmean(x)\nAverage (\\(\\bar{x}\\))\n\n\nsum(x)\nTotal\n\n\nmin(x) / max(x)\nSmallest / largest\n\n\nsd(x)\nStandard deviation (\\(s\\))\n\n\nvar(x)\nVariance (\\(s^2\\))\n\n\nlength(x)\nSample size (\\(n\\))"
+  },
+  {
+    "objectID": "chapter2-slides.html#try-summary",
+    "href": "chapter2-slides.html#try-summary",
+    "title": "STA258",
+    "section": "Try It: Summary Functions",
+    "text": "Try It: Summary Functions\nChange the values in x, then re-run."
+  },
+  {
+    "objectID": "chapter2-slides.html#mean-practice",
+    "href": "chapter2-slides.html#mean-practice",
+    "title": "STA258",
+    "section": "Quick Practice: Calculate the Mean",
+    "text": "Quick Practice: Calculate the Mean\nFill in the function name to compute the sample mean of x.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmean(x)   # = 10.6\nThis is \\(\\bar{x}\\)."
+  },
+  {
+    "objectID": "chapter2-slides.html#data-structures",
+    "href": "chapter2-slides.html#data-structures",
+    "title": "STA258",
+    "section": "2.3.2 The Six Data Structures",
+    "text": "2.3.2 The Six Data Structures\n\n\n\nVectors — 1D, same type\nLists — flexible, mixed types\nMatrices — 2D, same type\n\n\n\nArrays — 3D+, same type\nFactors — categorical\nData frames — real datasets\n\n\n\n\nYou’ll meet all six this chapter — but in STA258 you’ll spend 80% of your time with vectors and data frames."
+  },
+  {
+    "objectID": "chapter2-slides.html#vectors",
+    "href": "chapter2-slides.html#vectors",
+    "title": "STA258",
+    "section": "Vectors",
+    "text": "Vectors\n\nOne-dimensional sequence. All elements share a type (numeric, character, logical)."
+  },
+  {
+    "objectID": "chapter2-slides.html#lists",
+    "href": "chapter2-slides.html#lists",
+    "title": "STA258",
+    "section": "Lists",
+    "text": "Lists\n\nA list can hold anything — numbers, strings, vectors, even other lists. Elements can be named."
+  },
+  {
+    "objectID": "chapter2-slides.html#matrices",
+    "href": "chapter2-slides.html#matrices",
+    "title": "STA258",
+    "section": "Matrices",
+    "text": "Matrices\n\nTwo dimensions, all the same type. Built with matrix()."
+  },
+  {
+    "objectID": "chapter2-slides.html#matrix-ops",
+    "href": "chapter2-slides.html#matrix-ops",
+    "title": "STA258",
+    "section": "Matrix Operations",
+    "text": "Matrix Operations\n\n\n\n\n\n\n\n\n\n\n%*% is matrix multiplication. Plain * is element-wise — they are very different!"
+  },
+  {
+    "objectID": "chapter2-slides.html#arrays",
+    "href": "chapter2-slides.html#arrays",
+    "title": "STA258",
+    "section": "Arrays",
+    "text": "Arrays\n\nA multi-dimensional structure. You can think of a 3D array as a stack of matrices.\n\n\n\n\n\n\n\n\n\n\n\nArrays are rare in intro stats — included for completeness."
+  },
+  {
+    "objectID": "chapter2-slides.html#factors",
+    "href": "chapter2-slides.html#factors",
+    "title": "STA258",
+    "section": "Factors",
+    "text": "Factors\n\nA factor stores a categorical variable. R remembers which values are valid (the “levels”).\n\n\n\n\n\n\n\n\n\n\n\nFactors are how R handles qualitative data — gender, education level, treatment group, etc."
+  },
+  {
+    "objectID": "chapter2-slides.html#data-frames",
+    "href": "chapter2-slides.html#data-frames",
+    "title": "STA258",
+    "section": "Data Frames",
+    "text": "Data Frames\n\nA table. Each column is a variable. Each row is an observation. Columns can be different types.\n\n\n\n\n\n\n\n\n\n\n\nThis is the structure you’ll use for almost every real dataset in STA258."
+  },
+  {
+    "objectID": "chapter2-slides.html#data-structures-cheat",
+    "href": "chapter2-slides.html#data-structures-cheat",
+    "title": "STA258",
+    "section": "Cheat Sheet",
+    "text": "Cheat Sheet\n\n\n\nStructure\nDimensions\nSame type?\nUse for\n\n\n\n\nVector\n1D\nYes\nA column of values\n\n\nList\nflexible\nNo\nMixed information\n\n\nMatrix\n2D\nYes\nNumerical tables\n\n\nArray\n3D+\nYes\nHigh-D data\n\n\nFactor\n1D\nYes\nCategorical variable\n\n\nData frame\n2D\nNo\nReal datasets"
+  },
+  {
+    "objectID": "chapter2-slides.html#functions",
+    "href": "chapter2-slides.html#functions",
+    "title": "STA258",
+    "section": "2.3.3 Functions",
+    "text": "2.3.3 Functions\n\nMost R commands look like function_name(input). The function takes inputs and returns output.\n\n\n\n\n\n\n\n\n\n\n\nCommon error: missing brackets, commas, or quotes. R is unforgiving."
+  },
+  {
+    "objectID": "chapter2-slides.html#histograms",
+    "href": "chapter2-slides.html#histograms",
+    "title": "STA258",
+    "section": "2.3.4 Histograms",
+    "text": "2.3.4 Histograms\n\nHistogram A graph showing the distribution of a numerical variable by grouping values into intervals (bins).\n\n\n\n\n\n\n\n\n\n\n\nfaithful records eruption length and waiting time between eruptions."
+  },
+  {
+    "objectID": "chapter2-slides.html#try-hist",
+    "href": "chapter2-slides.html#try-hist",
+    "title": "STA258",
+    "section": "Try It: Make a Histogram",
+    "text": "Try It: Make a Histogram\n\n\n\n\n\n\n\n\n\n\nThe shape (two humps!) tells you something real about the data — Old Faithful has two distinct eruption modes."
+  },
+  {
+    "objectID": "chapter2-slides.html#hist-internals",
+    "href": "chapter2-slides.html#hist-internals",
+    "title": "STA258",
+    "section": "Behind the Histogram",
+    "text": "Behind the Histogram\nYou can grab the numbers a histogram uses:\n\n\n\n\n\n\n\n\n\n\nThis is useful when you want exact counts for a report, or to compare two distributions."
+  },
+  {
+    "objectID": "chapter2-slides.html#hist-practice",
+    "href": "chapter2-slides.html#hist-practice",
+    "title": "STA258",
+    "section": "Practice: Change the Variable",
+    "text": "Practice: Change the Variable\nChange the code below so it plots the histogram of eruptions instead of waiting.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nhist(faithful$eruptions)\nYou should see two clear peaks — short eruptions (~2 min) and long eruptions (~4.5 min)."
+  },
+  {
+    "objectID": "chapter2-slides.html#packages",
+    "href": "chapter2-slides.html#packages",
+    "title": "STA258",
+    "section": "2.3.5 Packages",
+    "text": "2.3.5 Packages\n\nPackage A collection of extra functions, datasets, and tools that extend R.\n\n\nInstall once (downloads to your computer):\ninstall.packages(\"ggplot2\")\nLoad every new session (makes it available in this R session):\nlibrary(ggplot2)\n\n\n\nCommon mistake: forgetting to library() after restarting RStudio. Installation is permanent; loading is per-session."
+  },
+  {
+    "objectID": "chapter2-slides.html#try-packages",
+    "href": "chapter2-slides.html#try-packages",
+    "title": "STA258",
+    "section": "Try It: Inspect Packages",
+    "text": "Try It: Inspect Packages"
+  },
+  {
+    "objectID": "chapter2-slides.html#chapter-2-summary",
+    "href": "chapter2-slides.html#chapter-2-summary",
+    "title": "STA258",
+    "section": "Chapter 2 Summary",
+    "text": "Chapter 2 Summary\n\n\nR runs the code; RStudio is where you write it.\nR can do everything a calculator can — and a lot more.\nVectors and data frames are the structures you’ll use most.\nMost R commands are functions: function_name(input).\nHistograms show the shape of a numerical variable’s distribution.\nPackages extend R: install.packages() once, library() every session."
+  },
+  {
+    "objectID": "chapter2-slides.html#whats-next",
+    "href": "chapter2-slides.html#whats-next",
+    "title": "STA258",
+    "section": "What’s Next",
+    "text": "What’s Next\n\nChapter 3: we use these R tools to compute and visualize descriptive statistics — means, medians, spreads, and the shape of data.\n\n\n\nEnd of Chapter 2 ← Back to Chapter 2"
+  },
+  {
+    "objectID": "chapter2.html",
+    "href": "chapter2.html",
+    "title": "Chapter 2: An Introduction to R",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "chapter2.html#what-youll-learn",
+    "href": "chapter2.html#what-youll-learn",
+    "title": "Chapter 2: An Introduction to R",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 2 you’ll be able to:\n\nExplain why we use R rather than point-and-click software, and tell R apart from RStudio.\nInstall R and RStudio and navigate the four main panes of the IDE.\nUse R as a calculator — arithmetic, exponents, logs, and built-in math functions.\nCreate and work with the core R data structures: vectors, lists, matrices, arrays, factors, and data frames.\nCall built-in functions like mean(), sd(), hist() and read their output.\nInstall and load packages with install.packages() and library()."
+  },
+  {
+    "objectID": "chapter2.html#key-ideas",
+    "href": "chapter2.html#key-ideas",
+    "title": "Chapter 2: An Introduction to R",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nR vs RStudio\nR is the engine that runs the calculations. RStudio is the dashboard you use to drive it. You install R first, then RStudio on top of it.\n\n\nScripts beat point-and-click\nWriting analysis as code makes it reproducible, easy to share, and easy to re-run when the data changes. This is the single biggest reason statisticians use R.\n\n\nR as a calculator\nR handles + - * /, exponentiation ^, modulo %%, integer division %/%, and a full set of math functions (sqrt, log, exp, abs, round) and trig functions out of the box.\n\n\nData structures\n\nVectors — same-type values in one dimension\nLists — mixed types, any structure\nMatrices / Arrays — same type, 2+ dimensions\nFactors — categorical variables with named levels\nData frames — table of variables (columns) and observations (rows)\n\n\n\nFunctions and packages\nMost R commands look like function_name(input). Packages extend R with new functions — install once with install.packages(), load each session with library()."
+  },
+  {
+    "objectID": "chapter2.html#how-to-use-this-chapter",
+    "href": "chapter2.html#how-to-use-this-chapter",
+    "title": "Chapter 2: An Introduction to R",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough — every code block in the deck is editable and runs in your browser.\nUse the PDF button for an offline-friendly version.\nTry the in-slide exercises (mean, histogram). Change values, re-run, and check the output."
+  },
+  {
     "objectID": "chapter1.html",
     "href": "chapter1.html",
     "title": "Chapter 1: Introduction",
@@ -250,6 +544,27 @@
     "title": "Chapter 1: Introduction",
     "section": "How to use this chapter",
     "text": "How to use this chapter\n\nOpen the slides above for the full walkthrough, with interactive R code blocks you can edit and run in your browser.\nUse the PDF button for an offline-friendly version (interactive elements won’t run there).\nTry the practice exercises from the textbook at the end of Chapter 1."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "STA258 Slides",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "index.html#chapters",
+    "href": "index.html#chapters",
+    "title": "STA258 Slides",
+    "section": "Chapters",
+    "text": "Chapters\n\n\n\nChapter 1\n\n\nIntroduction, foundations, and types of data.\n\nOpen\n\n\n\nChapter 2\n\n\nAn introduction to R, RStudio, and basic programming.\n\nOpen\n\n\n\nChapter 3\n\n\nDescriptive statistics, graphs, boxplots, and numerical summaries.\n\nOpen\n\n\n\nChapter 4\n\n\nFoundations of inference, sampling distributions, CLT, and LLN.\n\nOpen\n\n\n\nChapter 5\n\n\nConfidence intervals for means, proportions, variances, and paired data.\n\nOpen\n\n\n\nChapter 6\n\n\nHypothesis tests: one-sample, two-sample, and paired.\n\nOpen\n\n\n\nChapter 7\n\n\nStatistical power, Type I & II errors, and sample size.\n\nOpen\n\n\n\nChapter 8\n\n\nAnalysis of variance (ANOVA) and the F-test.\n\nOpen\n\n\n\nChapter 9\n\n\nSimple linear regression, least squares, and residual analysis.\n\nOpen\n\n\n\nChapter 10\n\n\nAnalysis of categorical data and chi-square goodness of fit.\n\nOpen"
+  },
+  {
+    "objectID": "index.html#resources",
+    "href": "index.html#resources",
+    "title": "STA258 Slides",
+    "section": "Resources",
+    "text": "Resources\n\nSTA258 e-book"
   },
   {
     "objectID": "chapter2.html#roadmap",
@@ -523,26 +838,5 @@
     "title": "STA258",
     "section": "End of Chapter 2",
     "text": "End of Chapter 2\n\n End of Chapter 2  ← Back to Home\n\n\nUpdate the link if the landing page file name changes."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "STA258 Slides",
-    "section": "",
-    "text": "Work in Progress"
-  },
-  {
-    "objectID": "index.html#chapters",
-    "href": "index.html#chapters",
-    "title": "STA258 Slides",
-    "section": "Chapters",
-    "text": "Chapters\n\n\n\nChapter 1\n\n\nIntroduction, foundations, and types of data.\n\nOpen\n\n\n\nChapter 2\n\n\nAn introduction to R, RStudio, and basic programming.\n\nOpen\n\n\n\nChapter 3\n\n\nDescriptive statistics, graphs, boxplots, and numerical summaries.\n\nOpen\n\n\n\nChapter 4\n\n\nFoundations of inference, sampling distributions, CLT, and LLN.\n\nOpen\n\n\n\nChapter 5\n\n\nConfidence intervals for means, proportions, variances, and paired data.\n\nOpen\n\n\n\nChapter 6\n\n\nHypothesis tests: one-sample, two-sample, and paired.\n\nOpen\n\n\n\nChapter 7\n\n\nStatistical power, Type I & II errors, and sample size.\n\nOpen\n\n\n\nChapter 8\n\n\nAnalysis of variance (ANOVA) and the F-test.\n\nOpen\n\n\n\nChapter 9\n\n\nSimple linear regression, least squares, and residual analysis.\n\nOpen\n\n\n\nChapter 10\n\n\nAnalysis of categorical data and chi-square goodness of fit.\n\nOpen"
-  },
-  {
-    "objectID": "index.html#resources",
-    "href": "index.html#resources",
-    "title": "STA258 Slides",
-    "section": "Resources",
-    "text": "Resources\n\nSTA258 e-book"
   }
 ]

@@ -1,33 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "STA258 Slides",
-    "section": "",
-    "text": "Work in Progress"
-  },
-  {
-    "objectID": "index.html#chapters",
-    "href": "index.html#chapters",
-    "title": "STA258 Slides",
-    "section": "Chapters",
-    "text": "Chapters\n\n\n\nChapter 1\n\n\nIntroduction, foundations, and types of data.\n\nOpen\n\n\n\nChapter 2\n\n\nAn introduction to R, RStudio, and basic programming.\n\nOpen\n\n\n\nChapter 3\n\n\nDescriptive statistics, graphs, boxplots, and numerical summaries.\n\nOpen\n\n\n\nChapter 4\n\n\nFoundations of inference, sampling distributions, CLT, and LLN.\n\nOpen\n\n\n\nChapter 5\n\n\nConfidence intervals for means, proportions, variances, and paired data.\n\nOpen\n\n\n\nChapter 6\n\n\nHypothesis tests: one-sample, two-sample, and paired.\n\nOpen\n\n\n\nChapter 7\n\n\nStatistical power, Type I & II errors, and sample size.\n\nOpen\n\n\n\nChapter 8\n\n\nAnalysis of variance (ANOVA) and the F-test.\n\nOpen\n\n\n\nChapter 9\n\n\nSimple linear regression, least squares, and residual analysis.\n\nOpen\n\n\n\nChapter 10\n\n\nAnalysis of categorical data and chi-square goodness of fit.\n\nOpen"
-  },
-  {
-    "objectID": "index.html#resources",
-    "href": "index.html#resources",
-    "title": "STA258 Slides",
-    "section": "Resources",
-    "text": "Resources\n\nSTA258 e-book"
-  },
-  {
-    "objectID": "chapter1-slides.html",
-    "href": "chapter1-slides.html",
-    "title": "Chapter 1: Introduction",
-    "section": "",
-    "text": "The science of collecting, organizing, analyzing, and interpreting data to make decisions under uncertainty."
-  },
-  {
     "objectID": "chapter1-slides.html#what-is-statistics",
     "href": "chapter1-slides.html#what-is-statistics",
     "title": "Chapter 1: Introduction",
@@ -63,24 +35,472 @@
     "text": "Key Takeaways\n\nStatistics bridges data and decisions\nKnow whether your data is categorical or numerical\nInference always involves uncertainty — quantify it"
   },
   {
-    "objectID": "chapter2.html",
-    "href": "chapter2.html",
-    "title": "Chapter 2: Introduction to R",
-    "section": "",
-    "text": "Slides PDF\n\n\n\nWork in Progress"
+    "objectID": "chapter1.html#roadmap",
+    "href": "chapter1.html#roadmap",
+    "title": "STA258",
+    "section": "Roadmap",
+    "text": "Roadmap\n\n\nCore Concepts\n\n1.1 Foundations\nPopulation vs Sample\nUnit, Observation, Variable\n\n\nMain Distinctions\n\nParameter vs Statistic\nTypes of Data\nDescriptive vs Inferential Statistics\n\n\n\nThis roadmap works as a navigation slide — bullet points link to later slides."
   },
   {
-    "objectID": "chapter1.html",
-    "href": "chapter1.html",
-    "title": "Chapter 1: Introduction",
-    "section": "",
-    "text": "Slides PDF"
+    "objectID": "chapter1.html#foundations",
+    "href": "chapter1.html#foundations",
+    "title": "STA258",
+    "section": "1.1 Foundations",
+    "text": "1.1 Foundations\n\nDefinition 1.1: Statistics Statistics is the science of collecting, classifying, summarizing, analyzing, and interpreting data.\n\n\nStatistics helps researchers use data to support conclusions about a larger group.\n\n\nMain idea: Statistics helps us move from data to evidence, and from evidence to decisions.\n\n\nEmphasize that statistics is not just formulas — it is about learning from data when there is uncertainty."
   },
   {
-    "objectID": "chapter1.html#summary",
-    "href": "chapter1.html#summary",
-    "title": "Chapter 1: Introduction",
-    "section": "Summary",
-    "text": "Summary\n\nStatistics = collecting, organizing, and interpreting data under uncertainty\nCategorical data: labels (e.g. colour, yes/no)\nDiscrete data: countable numbers (e.g. number of students)\nContinuous data: measured values (e.g. height, temperature)\nA sample is used to make conclusions about a population\nAlways comes with uncertainty — that’s the point of inference"
+    "objectID": "chapter1.html#population-and-sample",
+    "href": "chapter1.html#population-and-sample",
+    "title": "STA258",
+    "section": "Population and Sample",
+    "text": "Population and Sample\n\n\n\nPopulation The entire group of individuals, items, or measurements we want to study.\n\n\n\nSample A smaller subset selected from the population.\n\n\n\n\nKey idea: We usually study the sample because studying the entire population is too difficult, expensive, or impossible."
+  },
+  {
+    "objectID": "chapter1.html#example-population-and-sample",
+    "href": "chapter1.html#example-population-and-sample",
+    "title": "STA258",
+    "section": "Example: Population and Sample",
+    "text": "Example: Population and Sample\n\nPopulation: All students at the University of Toronto.  Sample: 50 randomly selected students from the University of Toronto.\n\n\nMain idea:\nWe study the sample to learn about the population.\n\nMake sure students understand that the sample is not the final target — the population is."
+  },
+  {
+    "objectID": "chapter1.html#unit-observation-variable",
+    "href": "chapter1.html#unit-observation-variable",
+    "title": "STA258",
+    "section": "Unit, Observation, Variable",
+    "text": "Unit, Observation, Variable\n\nUnit The smallest entity from which data are collected.\n\n\n\nObservation The collection of measured values for one unit.\n\n\n\nVariable A characteristic that can be measured or recorded."
+  },
+  {
+    "objectID": "chapter1.html#example-unit-observation-variable",
+    "href": "chapter1.html#example-unit-observation-variable",
+    "title": "STA258",
+    "section": "Example: Unit, Observation, Variable",
+    "text": "Example: Unit, Observation, Variable\n\nIf we record a student’s age, height, and weight: \n\n\nThe student is the unit\n\n\nThe full row of recorded values is the observation\n\n\nAge, height, and weight are variables\n\n\n\n\n\nQuick check: If a dataset has 100 students and 4 measured characteristics per student, how many observations are there?"
+  },
+  {
+    "objectID": "chapter1.html#population-unit-vs-sample-unit",
+    "href": "chapter1.html#population-unit-vs-sample-unit",
+    "title": "STA258",
+    "section": "Population Unit vs Sample Unit",
+    "text": "Population Unit vs Sample Unit\n\n\n\nPopulation unit One member of the full population.\n\n\n\nIf the population is all UTM students, one UTM student is a population unit.\n\n\n\nSample unit One member of the selected sample.\n\n\n\nIf the sample is 80 selected UTM students, one selected student is a sample unit."
+  },
+  {
+    "objectID": "chapter1.html#dataset-language",
+    "href": "chapter1.html#dataset-language",
+    "title": "STA258",
+    "section": "Dataset Language",
+    "text": "Dataset Language\n\n\n\n\n\n\n\n\nTerm\nMeaning\nExample\n\n\n\n\nUnit\nWho or what data are collected from\nOne student\n\n\nObservation\nFull row of data for one unit\nAge, height, weight for one student\n\n\nVariable\nCharacteristic being recorded\nAge\n\n\n\n\n\nThis table is useful when students first learn how to read datasets."
+  },
+  {
+    "objectID": "chapter1.html#parameter-vs-statistic",
+    "href": "chapter1.html#parameter-vs-statistic",
+    "title": "STA258",
+    "section": "Parameter vs Statistic",
+    "text": "Parameter vs Statistic\n\n\n\nParameter A numerical quantity that describes a population.\n\n\n\nStatistic A numerical quantity that describes a sample.\n\n\n\n\nMemory trick: Parameter → Population   |   Statistic → Sample"
+  },
+  {
+    "objectID": "chapter1.html#parameter-vs-statistic-examples",
+    "href": "chapter1.html#parameter-vs-statistic-examples",
+    "title": "STA258",
+    "section": "Parameter vs Statistic: Examples",
+    "text": "Parameter vs Statistic: Examples\n\nParameters (population-level):\n\n\nPopulation mean, \\(\\mu\\)\n\n\nPopulation standard deviation, \\(\\sigma\\)\n\n\nPopulation proportion, \\(p\\)\n\n\n\nStatistics (sample-level):\n\n\nSample mean, \\(\\bar{x}\\)\n\n\nSample standard deviation, \\(s\\)\n\n\nSample proportion, \\(\\hat{p}\\)\n\n\n\n\nStudents often mix up \\(p\\) and \\(\\hat{p}\\). Stress that \\(p\\) is population-level and \\(\\hat{p}\\) is sample-level."
+  },
+  {
+    "objectID": "chapter1.html#parameter-vs-statistic-summary-table",
+    "href": "chapter1.html#parameter-vs-statistic-summary-table",
+    "title": "STA258",
+    "section": "Parameter vs Statistic: Summary Table",
+    "text": "Parameter vs Statistic: Summary Table\n\n\n\nPopulation Quantity\nSample Quantity\nMeaning\n\n\n\n\n\\(\\mu\\)\n\\(\\bar{x}\\)\nMean\n\n\n\\(\\sigma\\)\n\\(s\\)\nStandard deviation\n\n\n\\(p\\)\n\\(\\hat{p}\\)\nProportion\n\n\n\n\n\n\nWe use sample statistics like \\(\\bar{x}\\) or \\(\\hat{p}\\) to estimate population parameters like \\(\\mu\\) or \\(p\\)."
+  },
+  {
+    "objectID": "chapter1.html#descriptive-vs-inferential-statistics",
+    "href": "chapter1.html#descriptive-vs-inferential-statistics",
+    "title": "STA258",
+    "section": "Descriptive vs Inferential Statistics",
+    "text": "Descriptive vs Inferential Statistics\n\nDescriptive statistics Methods used to analyze, summarize, and represent data.\n\n\n\nInferential statistics Using sample information to make conclusions about a larger population."
+  },
+  {
+    "objectID": "chapter1.html#descriptive-vs-inferential-examples",
+    "href": "chapter1.html#descriptive-vs-inferential-examples",
+    "title": "STA258",
+    "section": "Descriptive vs Inferential: Examples",
+    "text": "Descriptive vs Inferential: Examples\n\n\nDescriptive\n\nThe average mark in a class of 80 students is 72%.\n\n\nInferential\n\nBased on 80 students, we estimate the average mark for all STA258 students."
+  },
+  {
+    "objectID": "chapter1.html#types-of-data",
+    "href": "chapter1.html#types-of-data",
+    "title": "STA258",
+    "section": "1.2 Types of Data",
+    "text": "1.2 Types of Data\n\nQuantitative data Data that can be measured numerically.\n\n\n\nExamples: height, weight, age, temperature\n\n\n\n\nQuestion: Does every number automatically mean the variable is quantitative?"
+  },
+  {
+    "objectID": "chapter1.html#qualitative-data",
+    "href": "chapter1.html#qualitative-data",
+    "title": "STA258",
+    "section": "Qualitative Data",
+    "text": "Qualitative Data\n\nQualitative data Data that cannot be measured numerically — instead, it falls into categories.\n\n\n\nExamples: favourite colour, eye colour, ice-cream flavour"
+  },
+  {
+    "objectID": "chapter1.html#quantitative-vs-qualitative",
+    "href": "chapter1.html#quantitative-vs-qualitative",
+    "title": "STA258",
+    "section": "Quantitative vs Qualitative",
+    "text": "Quantitative vs Qualitative\n\n\n\nData\nType\nReason\n\n\n\n\nHeight\nQuantitative\nMeasured numerically\n\n\nNumber of courses\nQuantitative\nCounted numerically\n\n\nFavourite colour\nQualitative\nFalls into a category\n\n\nStudent number\nQualitative\nThe number is only an identifier\n\n\n\n\nThe student number example is useful — it shows that numbers are not always quantitative."
+  },
+  {
+    "objectID": "chapter1.html#discrete-and-continuous-data",
+    "href": "chapter1.html#discrete-and-continuous-data",
+    "title": "STA258",
+    "section": "Discrete and Continuous Data",
+    "text": "Discrete and Continuous Data\n\n\n\nDiscrete data Quantitative data that are countable.\n\n\n\nExamples: number of siblings, number of defects\n\n\n\nContinuous data Quantitative data measured on a scale.\n\n\n\nExamples: height, time, temperature"
+  },
+  {
+    "objectID": "chapter1.html#quick-check-types",
+    "href": "chapter1.html#quick-check-types",
+    "title": "STA258",
+    "section": "Quick Check: Types of Data",
+    "text": "Quick Check: Types of Data\nClassify each variable:\n\nNumber of courses a student is taking\nStudent’s major\nTime spent studying per week\nWhether a student lives on campus\n\n\n\nAnswers:\n\n\nQuantitative, discrete\n\n\nQualitative\n\n\nQuantitative, continuous\n\n\nQualitative"
+  },
+  {
+    "objectID": "chapter1.html#introduction-to-inferential-statistics",
+    "href": "chapter1.html#introduction-to-inferential-statistics",
+    "title": "STA258",
+    "section": "1.3 Introduction to Inferential Statistics",
+    "text": "1.3 Introduction to Inferential Statistics\n\nSample → Statistic → Estimate population parameter\n\n\nStatistical inference uses sample data to estimate population values and measure uncertainty.\n\\[\n\\text{Sample} \\rightarrow \\text{Statistic} \\rightarrow \\text{Parameter}\n\\]"
+  },
+  {
+    "objectID": "chapter1.html#big-picture",
+    "href": "chapter1.html#big-picture",
+    "title": "STA258",
+    "section": "Big Picture",
+    "text": "Big Picture\n\nWe usually cannot measure the whole population.  So we collect a sample, calculate a statistic, and use it to estimate the unknown parameter.\n\n\n\nImportant: Because samples vary, inference must always include a measure of uncertainty."
+  },
+  {
+    "objectID": "chapter1.html#main-inference-tools",
+    "href": "chapter1.html#main-inference-tools",
+    "title": "STA258",
+    "section": "Main Inference Tools",
+    "text": "Main Inference Tools\n\nEstimation Using sample data to guess the value of a population parameter.\n\n\nConfidence intervals Giving a plausible range of values for a population parameter.\n\n\nHypothesis testing Checking whether sample data support a specific claim.\n\n\nPause before revealing the answers. This is a good check for whether students understand sample vs population and statistic vs parameter."
+  },
+  {
+    "objectID": "chapter1.html#chapter-1-summary",
+    "href": "chapter1.html#chapter-1-summary",
+    "title": "STA258",
+    "section": "Chapter 1 Summary",
+    "text": "Chapter 1 Summary\n\nStatistics is the science of learning from data\nA sample is used to study a population\nParameters describe populations; statistics describe samples\nData can be quantitative or qualitative\nQuantitative data can be discrete or continuous\nInference uses samples to draw population-level conclusions"
+  },
+  {
+    "objectID": "chapter1.html#end-of-chapter-1",
+    "href": "chapter1.html#end-of-chapter-1",
+    "title": "STA258",
+    "section": "End of Chapter 1",
+    "text": "End of Chapter 1\n\n End of Chapter 1  ← Back to Home\n\n\nUpdate the link if the landing page file name changes."
+  },
+  {
+    "objectID": "chapter1.html#optional-interactive-r-slide",
+    "href": "chapter1.html#optional-interactive-r-slide",
+    "title": "STA258",
+    "section": "Optional Interactive R Slide",
+    "text": "Optional Interactive R Slide\nStudents can edit the code and run it directly inside the slide."
+  },
+  {
+    "objectID": "chapter1.html#optional-practice-exercise",
+    "href": "chapter1.html#optional-practice-exercise",
+    "title": "STA258",
+    "section": "Optional Practice Exercise",
+    "text": "Optional Practice Exercise\nChange the code so it calculates the sample mean of the vector.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nUse:\nmean(commute_time)"
+  },
+  {
+    "objectID": "chapter2.html#roadmap",
+    "href": "chapter2.html#roadmap",
+    "title": "STA258",
+    "section": "Roadmap",
+    "text": "Roadmap\n\n\nSetup and Purpose\n\n2.1 The Statistical Computing Language\n2.2 Installing R and RStudio\n2.2.3 Positron\n\n\nProgramming Basics\n\n2.3 Programming in R\nR as a Calculator\nData Structures\nFunctions, Histograms, and Packages"
+  },
+  {
+    "objectID": "chapter2.html#statistical-computing-language",
+    "href": "chapter2.html#statistical-computing-language",
+    "title": "STA258",
+    "section": "2.1 The Statistical Computing Language",
+    "text": "2.1 The Statistical Computing Language\n\nR R is a programming language used for data manipulation, statistics, graphics, and reproducible analysis.\n\n\nR is useful because it can:\n\nperform calculations on numbers, vectors, arrays, and matrices\ngenerate high-quality graphs\nuse built-in functions and user-contributed packages\nsave analysis steps in scripts that can be reused later"
+  },
+  {
+    "objectID": "chapter2.html#why-use-r",
+    "href": "chapter2.html#why-use-r",
+    "title": "STA258",
+    "section": "Why Use R?",
+    "text": "Why Use R?\n\n\n\nPoint-and-click software Often easier at first, but steps may be harder to document and repeat.\n\n\n\nR scripts Each step is written down, so the analysis is easier to check, repeat, and modify.\n\n\n\n\nMain idea: R makes statistical work reproducible, transparent, and easier to automate."
+  },
+  {
+    "objectID": "chapter2.html#installing-r-and-rstudio",
+    "href": "chapter2.html#installing-r-and-rstudio",
+    "title": "STA258",
+    "section": "2.2 Installing R and RStudio",
+    "text": "2.2 Installing R and RStudio\nBefore working with R code, students need two things:\n\n\n\nR The programming language that performs the calculations.\n\n\n\nRStudio The interface used to write scripts, run code, view files, and inspect output.\n\n\n\n\nThink of R as the engine, and RStudio as the dashboard used to control it."
+  },
+  {
+    "objectID": "chapter2.html#installing-r",
+    "href": "chapter2.html#installing-r",
+    "title": "STA258",
+    "section": "2.2.1 Installing R",
+    "text": "2.2.1 Installing R\n\nStep 1 Go to the official R project website: cran.r-project.org\n\n\n\nChoose your operating system:\n\n\nWindows: Download R for Windows → base → download the installer\n\n\nmacOS: Download R for macOS → choose the correct .pkg file\n\n\nLinux: Follow the distribution-specific instructions\n\n\n\n\nAfter installation, R can be accessed from a terminal or through RStudio."
+  },
+  {
+    "objectID": "chapter2.html#installing-r-teaching-note",
+    "href": "chapter2.html#installing-r-teaching-note",
+    "title": "STA258",
+    "section": "Installing R: Teaching Note",
+    "text": "Installing R: Teaching Note\n\nImportant: Students should install R before installing RStudio, because RStudio needs an R installation to run code.\n\n\n\nThe ebook screenshot shows the CRAN page where students choose their operating system and download the correct installer."
+  },
+  {
+    "objectID": "chapter2.html#installing-rstudio",
+    "href": "chapter2.html#installing-rstudio",
+    "title": "STA258",
+    "section": "2.2.2 Installing RStudio",
+    "text": "2.2.2 Installing RStudio\n\nRStudio RStudio is an integrated development environment designed for working with R.\n\n\nIt provides:\n\na script editor\nan R console\nan environment and history viewer\na file browser\nplots, packages, help, viewer, and presentation panes"
+  },
+  {
+    "objectID": "chapter2.html#rstudio-workflow",
+    "href": "chapter2.html#rstudio-workflow",
+    "title": "STA258",
+    "section": "RStudio Workflow",
+    "text": "RStudio Workflow\n\nBasic workflow:\n\n\nOpen RStudio.\n\n\nCreate a new script.\n\n\nWrite code in the Source pane.\n\n\nRun the code.\n\n\nRead the output in the Console or Plots pane.\n\n\n\n\n\nShortcut: Use Cmd + Enter (Mac) or Ctrl + Enter (Windows) to run the current line of code."
+  },
+  {
+    "objectID": "chapter2.html#the-four-main-rstudio-panes",
+    "href": "chapter2.html#the-four-main-rstudio-panes",
+    "title": "STA258",
+    "section": "The Four Main RStudio Panes",
+    "text": "The Four Main RStudio Panes\n\n\n\n\n\n\n\nPane\nPurpose\n\n\n\n\nSource\nWrite and edit scripts or Quarto files\n\n\nConsole\nRun commands and view immediate output\n\n\nEnvironment / History\nView saved objects and past commands\n\n\nFiles / Plots / Packages / Help / Viewer\nManage files, plots, packages, and documentation\n\n\n\n\n\nThe ebook shows the RStudio home screen and the layout after opening a new script."
+  },
+  {
+    "objectID": "chapter2.html#positron",
+    "href": "chapter2.html#positron",
+    "title": "STA258",
+    "section": "2.2.3 Positron",
+    "text": "2.2.3 Positron\n\nPositron Positron is another desktop environment from Posit for data science and statistical computing.\n\n\nFor this course, students mainly need RStudio.\n\n\nPositron may be useful in future workflows, but it is not required for STA258."
+  },
+  {
+    "objectID": "chapter2.html#programming-in-r",
+    "href": "chapter2.html#programming-in-r",
+    "title": "STA258",
+    "section": "2.3 An Introduction to Programming in R",
+    "text": "2.3 An Introduction to Programming in R\nR is especially useful for statistics because it is designed for:\n\ndata analysis\nstatistical calculations\nvisualization\nreproducible reporting\n\n\n\nCourse goal: Students do not need to become software engineers. They need enough R to calculate, summarize, visualize, and report data clearly."
+  },
+  {
+    "objectID": "chapter2.html#r-as-calculator",
+    "href": "chapter2.html#r-as-calculator",
+    "title": "STA258",
+    "section": "2.3.1 R as a Powerful Calculator",
+    "text": "2.3.1 R as a Powerful Calculator\n\nR can be used like a calculator. It supports arithmetic, exponentiation, logarithms, trigonometric functions, and summary calculations.\n\n\n\n\n\nOperation\nR Code\nResult\n\n\n\n\nAddition\n2 + 3\n5\n\n\nSubtraction\n4 - 1\n3\n\n\nMultiplication\n6 * 2\n12\n\n\nDivision\n8 / 2\n4\n\n\nExponentiation\n5^2\n25"
+  },
+  {
+    "objectID": "chapter2.html#try-it-basic-arithmetic",
+    "href": "chapter2.html#try-it-basic-arithmetic",
+    "title": "STA258",
+    "section": "Try It: Basic Arithmetic",
+    "text": "Try It: Basic Arithmetic\nEdit the numbers and run the code."
+  },
+  {
+    "objectID": "chapter2.html#more-arithmetic-operators",
+    "href": "chapter2.html#more-arithmetic-operators",
+    "title": "STA258",
+    "section": "More Arithmetic Operators",
+    "text": "More Arithmetic Operators\n\n\n\nOperation\nR Code\nMeaning\n\n\n\n\nModulo\n9 %% 4\nRemainder after division\n\n\nInteger division\n9 %/% 4\nWhole-number part of division"
+  },
+  {
+    "objectID": "chapter2.html#vector-operations",
+    "href": "chapter2.html#vector-operations",
+    "title": "STA258",
+    "section": "Vector Operations",
+    "text": "Vector Operations\n\nVector A vector is a one-dimensional collection of values of the same type.\n\n\n\n\n\n\n\n\n\n\n\n\nOperations on vectors are performed element by element."
+  },
+  {
+    "objectID": "chapter2.html#math-functions-in-r",
+    "href": "chapter2.html#math-functions-in-r",
+    "title": "STA258",
+    "section": "Math Functions in R",
+    "text": "Math Functions in R\nR has many built-in mathematical functions.\n\n\n\nFunction\nMeaning\nExample\n\n\n\n\nsqrt()\nSquare root\nsqrt(16)\n\n\nlog()\nNatural log\nlog(10)\n\n\nlog10()\nLog base 10\nlog10(100)\n\n\nexp()\nExponential function\nexp(1)\n\n\nabs()\nAbsolute value\nabs(-5)\n\n\nround()\nRound to decimal places\nround(3.1415, 2)"
+  },
+  {
+    "objectID": "chapter2.html#try-it-math-functions",
+    "href": "chapter2.html#try-it-math-functions",
+    "title": "STA258",
+    "section": "Try It: Math Functions",
+    "text": "Try It: Math Functions"
+  },
+  {
+    "objectID": "chapter2.html#summary-functions",
+    "href": "chapter2.html#summary-functions",
+    "title": "STA258",
+    "section": "Summary Functions",
+    "text": "Summary Functions\nCommon functions for summarizing data:\n\n\n\nFunction\nMeaning\n\n\n\n\nmean(x)\nAverage\n\n\nsum(x)\nTotal\n\n\nmin(x)\nMinimum\n\n\nmax(x)\nMaximum\n\n\nsd(x)\nStandard deviation\n\n\nvar(x)\nVariance"
+  },
+  {
+    "objectID": "chapter2.html#try-it-summary-functions",
+    "href": "chapter2.html#try-it-summary-functions",
+    "title": "STA258",
+    "section": "Try It: Summary Functions",
+    "text": "Try It: Summary Functions\nChange the values in x, then rerun the code."
+  },
+  {
+    "objectID": "chapter2.html#quick-practice-calculate-the-mean",
+    "href": "chapter2.html#quick-practice-calculate-the-mean",
+    "title": "STA258",
+    "section": "Quick Practice: Calculate the Mean",
+    "text": "Quick Practice: Calculate the Mean\nFill in the blank to calculate the mean.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmean(x)"
+  },
+  {
+    "objectID": "chapter2.html#data-structures",
+    "href": "chapter2.html#data-structures",
+    "title": "STA258",
+    "section": "2.3.2 Basic R Data Structures",
+    "text": "2.3.2 Basic R Data Structures\nThe primary data structures introduced in the ebook are:\n\n\n\nVectors\nLists\nMatrices\n\n\n\nArrays\nFactors\nData frames\n\n\n\n\nMain idea: Different data structures organize information in different ways."
+  },
+  {
+    "objectID": "chapter2.html#vectors",
+    "href": "chapter2.html#vectors",
+    "title": "STA258",
+    "section": "Vectors",
+    "text": "Vectors\n\nVector A one-dimensional sequence of values of the same type.\n\n\n\n\n\n\n\n\n\n\n\n\nVectors are the basic building blocks for many R operations."
+  },
+  {
+    "objectID": "chapter2.html#lists",
+    "href": "chapter2.html#lists",
+    "title": "STA258",
+    "section": "Lists",
+    "text": "Lists\n\nList A flexible structure that can store elements of different types and sizes."
+  },
+  {
+    "objectID": "chapter2.html#matrices",
+    "href": "chapter2.html#matrices",
+    "title": "STA258",
+    "section": "Matrices",
+    "text": "Matrices\n\nMatrix A two-dimensional data structure with rows and columns. All elements must be the same type."
+  },
+  {
+    "objectID": "chapter2.html#matrix-operations",
+    "href": "chapter2.html#matrix-operations",
+    "title": "STA258",
+    "section": "Matrix Operations",
+    "text": "Matrix Operations\n\n\n\n\n\n\n\n\n\n\nThe operator %*% is used for matrix multiplication. t() transposes a matrix."
+  },
+  {
+    "objectID": "chapter2.html#arrays",
+    "href": "chapter2.html#arrays",
+    "title": "STA258",
+    "section": "Arrays",
+    "text": "Arrays\n\nArray A multi-dimensional structure that can have more than two dimensions."
+  },
+  {
+    "objectID": "chapter2.html#factors",
+    "href": "chapter2.html#factors",
+    "title": "STA258",
+    "section": "Factors",
+    "text": "Factors\n\nFactor A data structure used to represent categorical variables.\n\n\n\n\n\n\n\n\n\n\n\n\nFactors are useful for categorical data such as gender, education level, or survey responses."
+  },
+  {
+    "objectID": "chapter2.html#data-frames",
+    "href": "chapter2.html#data-frames",
+    "title": "STA258",
+    "section": "Data Frames",
+    "text": "Data Frames\n\nData frame A table-like structure where columns are variables and rows are observations."
+  },
+  {
+    "objectID": "chapter2.html#data-structure-summary",
+    "href": "chapter2.html#data-structure-summary",
+    "title": "STA258",
+    "section": "Data Structure Summary",
+    "text": "Data Structure Summary\n\n\n\nStructure\nShape\nBest Used For\n\n\n\n\nVector\nOne dimension\nValues of the same type\n\n\nList\nFlexible\nMixed types or grouped information\n\n\nMatrix\nTwo dimensions\nSame-type numerical tables\n\n\nArray\nMultiple dimensions\nHigher-dimensional data\n\n\nFactor\nOne dimension\nCategorical variables\n\n\nData frame\nRows and columns\nReal datasets"
+  },
+  {
+    "objectID": "chapter2.html#functions-histograms-packages",
+    "href": "chapter2.html#functions-histograms-packages",
+    "title": "STA258",
+    "section": "2.3.3 Using Basic Functions in R",
+    "text": "2.3.3 Using Basic Functions in R\nR has many built-in functions that help calculate, transform, and summarize data."
+  },
+  {
+    "objectID": "chapter2.html#function-logic",
+    "href": "chapter2.html#function-logic",
+    "title": "STA258",
+    "section": "Function Logic",
+    "text": "Function Logic\n\nGeneral form Most R functions use the structure function_name(input).\n\n\n\nFor example, mean(x) tells R to apply the function mean to the object x.\n\n\n\nCommon mistake: Forgetting brackets, commas, or quotation marks will cause R to return an error."
+  },
+  {
+    "objectID": "chapter2.html#make-a-histogram-using-rstudio",
+    "href": "chapter2.html#make-a-histogram-using-rstudio",
+    "title": "STA258",
+    "section": "2.3.4 Make a Histogram Using RStudio",
+    "text": "2.3.4 Make a Histogram Using RStudio\nThe ebook uses the built-in faithful dataset to demonstrate a histogram.\n\nHistogram A graph that shows the distribution of a numerical variable by grouping values into intervals called bins."
+  },
+  {
+    "objectID": "chapter2.html#try-it-create-a-histogram",
+    "href": "chapter2.html#try-it-create-a-histogram",
+    "title": "STA258",
+    "section": "Try It: Create a Histogram",
+    "text": "Try It: Create a Histogram\nRun the code to create a histogram of waiting times in the faithful dataset."
+  },
+  {
+    "objectID": "chapter2.html#histogram-breaks-and-counts",
+    "href": "chapter2.html#histogram-breaks-and-counts",
+    "title": "STA258",
+    "section": "Histogram Breaks and Counts",
+    "text": "Histogram Breaks and Counts\nThe ebook also shows how to access the numerical values behind a histogram.\n\n\n\n\n\n\n\n\n\n\nbreaks show the interval endpoints. counts show how many observations fall in each interval."
+  },
+  {
+    "objectID": "chapter2.html#quick-practice-histogram-variable",
+    "href": "chapter2.html#quick-practice-histogram-variable",
+    "title": "STA258",
+    "section": "Quick Practice: Histogram Variable",
+    "text": "Quick Practice: Histogram Variable\nChange the code so it creates a histogram of eruptions instead of waiting.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nhist(faithful$eruptions)"
+  },
+  {
+    "objectID": "chapter2.html#installing-and-loading-packages",
+    "href": "chapter2.html#installing-and-loading-packages",
+    "title": "STA258",
+    "section": "2.3.5 Installing and Loading Packages",
+    "text": "2.3.5 Installing and Loading Packages\n\nPackage A package is a collection of extra functions, data, and tools that extend what R can do.\n\n\n\nInstall a package once:\ninstall.packages(\"ggplot2\")\nLoad it every new R session:\nlibrary(ggplot2)"
+  },
+  {
+    "objectID": "chapter2.html#package-reminder",
+    "href": "chapter2.html#package-reminder",
+    "title": "STA258",
+    "section": "Package Reminder",
+    "text": "Package Reminder\n\nImportant: You install a package only once, but you must load it with library() every time you restart RStudio."
+  },
+  {
+    "objectID": "chapter2.html#chapter-2-summary",
+    "href": "chapter2.html#chapter-2-summary",
+    "title": "STA258",
+    "section": "Chapter 2 Summary",
+    "text": "Chapter 2 Summary\n\nR is used for statistics, graphics, data manipulation, and reproducible analysis\nRStudio is the main interface for writing and running R code\nR can be used as a calculator for arithmetic and mathematical functions\nVectors, lists, matrices, arrays, factors, and data frames each store data differently\nFunctions take inputs and produce outputs using the form function_name(input)\nHistograms display the distribution of a numerical variable\nPackages extend R’s functionality and must be loaded each session with library()"
+  },
+  {
+    "objectID": "chapter2.html#end-of-chapter-2",
+    "href": "chapter2.html#end-of-chapter-2",
+    "title": "STA258",
+    "section": "End of Chapter 2",
+    "text": "End of Chapter 2\n\n End of Chapter 2  ← Back to Home\n\n\nUpdate the link if the landing page file name changes."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "STA258 Slides",
+    "section": "",
+    "text": "Work in Progress"
+  },
+  {
+    "objectID": "index.html#chapters",
+    "href": "index.html#chapters",
+    "title": "STA258 Slides",
+    "section": "Chapters",
+    "text": "Chapters\n\n\n\nChapter 1\n\n\nIntroduction, foundations, and types of data.\n\nOpen\n\n\n\nChapter 2\n\n\nAn introduction to R, RStudio, and basic programming.\n\nOpen\n\n\n\nChapter 3\n\n\nDescriptive statistics, graphs, boxplots, and numerical summaries.\n\nOpen\n\n\n\nChapter 4\n\n\nFoundations of inference, sampling distributions, CLT, and LLN.\n\nOpen\n\n\n\nChapter 5\n\n\nConfidence intervals for means, proportions, variances, and paired data.\n\nOpen\n\n\n\nChapter 6\n\n\nHypothesis tests: one-sample, two-sample, and paired.\n\nOpen\n\n\n\nChapter 7\n\n\nStatistical power, Type I & II errors, and sample size.\n\nOpen\n\n\n\nChapter 8\n\n\nAnalysis of variance (ANOVA) and the F-test.\n\nOpen\n\n\n\nChapter 9\n\n\nSimple linear regression, least squares, and residual analysis.\n\nOpen\n\n\n\nChapter 10\n\n\nAnalysis of categorical data and chi-square goodness of fit.\n\nOpen"
+  },
+  {
+    "objectID": "index.html#resources",
+    "href": "index.html#resources",
+    "title": "STA258 Slides",
+    "section": "Resources",
+    "text": "Resources\n\nSTA258 e-book"
   }
 ]

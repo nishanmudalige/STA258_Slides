@@ -5,6 +5,9 @@ Slides for STA258
 
 ## For May 28 
 
+**Help Manual**
+- how to set up and maintain things in the future
+
 **CH1**
 - Add some additional examples to be completed in class for slide set 1
 
@@ -27,6 +30,7 @@ Slides for STA258
  - examples to be completed in lecture
  - big chapter, do as much as you can
  - refer to ebook to compliment each other
+
 
 
 ## For May 21

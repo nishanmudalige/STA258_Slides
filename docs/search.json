@@ -1,213 +1,255 @@
 [
   {
-    "objectID": "chapter1-slides.html#what-is-statistics",
-    "href": "chapter1-slides.html#what-is-statistics",
-    "title": "Chapter 1: Introduction",
-    "section": "What is Statistics?",
-    "text": "What is Statistics?\nThe science of collecting, organizing, analyzing, and interpreting data to make decisions under uncertainty."
+    "objectID": "chapter1-slides.html#big-question",
+    "href": "chapter1-slides.html#big-question",
+    "title": "STA258",
+    "section": "The Big Question",
+    "text": "The Big Question\n\nHow can we say something true aboutmillions of people we’ve never met?\n\n\n\n\nPollsters call ~1,000 Canadians and predict an election for 40 million. Doctors test a drug on 500 patients and recommend it for everyone. Netflix watches a sample of users and decides what shows to make.\n\n\n\n\nThat gap between “what we measured” and “what we want to know” — that’s what this whole course is about."
   },
   {
-    "objectID": "chapter1-slides.html#foundations",
-    "href": "chapter1-slides.html#foundations",
-    "title": "Chapter 1: Introduction",
-    "section": "1.1 Foundations",
-    "text": "1.1 Foundations\n\nPopulation — the full set of individuals of interest\nSample — a subset of the population we observe\nParameter — a numerical summary of the population\nStatistic — a numerical summary of the sample"
-  },
-  {
-    "objectID": "chapter1-slides.html#types-of-data",
-    "href": "chapter1-slides.html#types-of-data",
-    "title": "Chapter 1: Introduction",
-    "section": "1.2 Types of Data",
-    "text": "1.2 Types of Data\n\nCategorical — qualitative labels (e.g. gender, colour)\nDiscrete — countable values (e.g. number of defects)\nContinuous — measured on a scale (e.g. height, temperature)"
-  },
-  {
-    "objectID": "chapter1-slides.html#inferential-statistics",
-    "href": "chapter1-slides.html#inferential-statistics",
-    "title": "Chapter 1: Introduction",
-    "section": "1.3 Inferential Statistics",
-    "text": "1.3 Inferential Statistics\nWe use a sample to make conclusions about a population.\n\\[\n\\text{Sample} \\xrightarrow{\\text{inference}} \\text{Population}\n\\]\nKey tools: estimation, hypothesis testing, confidence intervals."
-  },
-  {
-    "objectID": "chapter1-slides.html#key-takeaways",
-    "href": "chapter1-slides.html#key-takeaways",
-    "title": "Chapter 1: Introduction",
-    "section": "Key Takeaways",
-    "text": "Key Takeaways\n\nStatistics bridges data and decisions\nKnow whether your data is categorical or numerical\nInference always involves uncertainty — quantify it"
-  },
-  {
-    "objectID": "chapter1.html#roadmap",
-    "href": "chapter1.html#roadmap",
+    "objectID": "chapter1-slides.html#roadmap",
+    "href": "chapter1-slides.html#roadmap",
     "title": "STA258",
     "section": "Roadmap",
-    "text": "Roadmap\n\n\nCore Concepts\n\n1.1 Foundations\nPopulation vs Sample\nUnit, Observation, Variable\n\n\nMain Distinctions\n\nParameter vs Statistic\nTypes of Data\nDescriptive vs Inferential Statistics\n\n\n\nThis roadmap works as a navigation slide — bullet points link to later slides."
+    "text": "Roadmap\n\n\n1.1 Foundations\n\nStatistics, population, sample\nUnit, observation, variable\nParameter vs statistic\nDescriptive vs inferential\n\n\n1.2 Types of Data\n\nQuantitative vs qualitative\nDiscrete vs continuous\nNominal vs ordinal\n\n1.3 Inference Preview\n\nSampling, bias, study types"
   },
   {
-    "objectID": "chapter1.html#foundations",
-    "href": "chapter1.html#foundations",
+    "objectID": "chapter1-slides.html#foundations-1",
+    "href": "chapter1-slides.html#foundations-1",
     "title": "STA258",
     "section": "1.1 Foundations",
-    "text": "1.1 Foundations\n\nDefinition 1.1: Statistics Statistics is the science of collecting, classifying, summarizing, analyzing, and interpreting data.\n\n\nStatistics helps researchers use data to support conclusions about a larger group.\n\n\nMain idea: Statistics helps us move from data to evidence, and from evidence to decisions.\n\n\nEmphasize that statistics is not just formulas — it is about learning from data when there is uncertainty."
+    "text": "1.1 Foundations\n\nDefinition 1.1 — Statistics The science of collecting, classifying, summarizing, analyzing, and interpreting data.\n\n\n\n\nThink of statistics as a pipeline:  Question → Data → Analysis → Decision\n\n\nThe five verbs in the definition map roughly to the chapters of the course."
   },
   {
-    "objectID": "chapter1.html#population-and-sample",
-    "href": "chapter1.html#population-and-sample",
+    "objectID": "chapter1-slides.html#population",
+    "href": "chapter1-slides.html#population",
     "title": "STA258",
-    "section": "Population and Sample",
-    "text": "Population and Sample\n\n\n\nPopulation The entire group of individuals, items, or measurements we want to study.\n\n\n\nSample A smaller subset selected from the population.\n\n\n\n\nKey idea: We usually study the sample because studying the entire population is too difficult, expensive, or impossible."
+    "section": "Population",
+    "text": "Population\n\nDefinition 1.2 — Population The entire group of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.\n\n\n\n\nExamples:\n\nAll students at the University of Toronto\nAll residents of Mississauga\nEvery possible hand in a game of poker (hypothetical!)\nEvery battery a factory will ever produce\n\n\n\n\n\nA population can be real or hypothetical, finite or essentially infinite. What matters is that it’s the group you actually want to learn about."
   },
   {
-    "objectID": "chapter1.html#example-population-and-sample",
-    "href": "chapter1.html#example-population-and-sample",
+    "objectID": "chapter1-slides.html#sample",
+    "href": "chapter1-slides.html#sample",
     "title": "STA258",
-    "section": "Example: Population and Sample",
-    "text": "Example: Population and Sample\n\nPopulation: All students at the University of Toronto.  Sample: 50 randomly selected students from the University of Toronto.\n\n\nMain idea:\nWe study the sample to learn about the population.\n\nMake sure students understand that the sample is not the final target — the population is."
+    "section": "Sample",
+    "text": "Sample\n\nDefinition 1.3 — Sample A subset selected from the population.\n\n\n\nExamples:\n\n50 randomly selected U of T students\n100 randomly selected Mississauga residents\n30 batteries pulled off the production line today\n\n\n\n\nWhy sample? Measuring everyone is usually too slow, too expensive, or simply impossible."
   },
   {
-    "objectID": "chapter1.html#unit-observation-variable",
-    "href": "chapter1.html#unit-observation-variable",
+    "objectID": "chapter1-slides.html#visualizing-population-vs-sample",
+    "href": "chapter1-slides.html#visualizing-population-vs-sample",
+    "title": "STA258",
+    "section": "Visualizing Population vs Sample",
+    "text": "Visualizing Population vs Sample\n\n\n\n\n\n\n\nHover over any dot to see which unit it is. Grey = population, teal = the sample."
+  },
+  {
+    "objectID": "chapter1-slides.html#poll-pop-sample",
+    "href": "chapter1-slides.html#poll-pop-sample",
+    "title": "STA258",
+    "section": "Your Turn: Identify Them",
+    "text": "Your Turn: Identify Them\n\nA researcher wants to know the average sleep of all UTM students. She randomly surveys 200 UTM students and finds they sleep 6.8 hours on average.  What is the population? What is the sample?\n\n\n\nPopulation: All UTM students. Sample: The 200 surveyed UTM students.\n\n\nPause and have students answer aloud before revealing."
+  },
+  {
+    "objectID": "chapter1-slides.html#unit-observation-variable",
+    "href": "chapter1-slides.html#unit-observation-variable",
     "title": "STA258",
     "section": "Unit, Observation, Variable",
-    "text": "Unit, Observation, Variable\n\nUnit The smallest entity from which data are collected.\n\n\n\nObservation The collection of measured values for one unit.\n\n\n\nVariable A characteristic that can be measured or recorded."
+    "text": "Unit, Observation, Variable\n\nUnit — the smallest entity from which data are collected (one row).\n\n\nObservation — the full set of measured values for one unit.\n\n\nVariable — a characteristic that varies from unit to unit (one column)."
   },
   {
-    "objectID": "chapter1.html#example-unit-observation-variable",
-    "href": "chapter1.html#example-unit-observation-variable",
+    "objectID": "chapter1-slides.html#reading-a-data-table",
+    "href": "chapter1-slides.html#reading-a-data-table",
     "title": "STA258",
-    "section": "Example: Unit, Observation, Variable",
-    "text": "Example: Unit, Observation, Variable\n\nIf we record a student’s age, height, and weight: \n\n\nThe student is the unit\n\n\nThe full row of recorded values is the observation\n\n\nAge, height, and weight are variables\n\n\n\n\n\nQuick check: If a dataset has 100 students and 4 measured characteristics per student, how many observations are there?"
+    "section": "Reading a Data Table",
+    "text": "Reading a Data Table\n\n\n\nStudent\nAge\nProgram\nStudy Hours\nOn Campus\n\n\n\n\n1\n19\nStatistics\n20\nYes\n\n\n2\n22\nComputer Science\n15\nNo\n\n\n3\n20\nBiology\n28\nYes\n\n\n4\n21\nPsychology\n18\nNo\n\n\n\n\n\n\nEach row is one observation (one student)\nEach column is one variable\nThe unit is a single student"
   },
   {
-    "objectID": "chapter1.html#population-unit-vs-sample-unit",
-    "href": "chapter1.html#population-unit-vs-sample-unit",
+    "objectID": "chapter1-slides.html#try-data",
+    "href": "chapter1-slides.html#try-data",
+    "title": "STA258",
+    "section": "Try It in R",
+    "text": "Try It in R\n\n\n\n\n\n\n\n\n\nRun it. Then change a value or add another student."
+  },
+  {
+    "objectID": "chapter1-slides.html#population-unit-vs-sample-unit",
+    "href": "chapter1-slides.html#population-unit-vs-sample-unit",
     "title": "STA258",
     "section": "Population Unit vs Sample Unit",
-    "text": "Population Unit vs Sample Unit\n\n\n\nPopulation unit One member of the full population.\n\n\n\nIf the population is all UTM students, one UTM student is a population unit.\n\n\n\nSample unit One member of the selected sample.\n\n\n\nIf the sample is 80 selected UTM students, one selected student is a sample unit."
+    "text": "Population Unit vs Sample Unit\n\n\n\nPopulation unit One member of the entire population.\n\n\nOne U of T student, when the population is all U of T students.\n\n\n\nSample unit One member of the selected sample.\n\n\nOne of the 50 students you actually surveyed.\n\n\n\n\nEvery sample unit is also a population unit — but not the other way around."
   },
   {
-    "objectID": "chapter1.html#dataset-language",
-    "href": "chapter1.html#dataset-language",
-    "title": "STA258",
-    "section": "Dataset Language",
-    "text": "Dataset Language\n\n\n\n\n\n\n\n\nTerm\nMeaning\nExample\n\n\n\n\nUnit\nWho or what data are collected from\nOne student\n\n\nObservation\nFull row of data for one unit\nAge, height, weight for one student\n\n\nVariable\nCharacteristic being recorded\nAge\n\n\n\n\n\nThis table is useful when students first learn how to read datasets."
-  },
-  {
-    "objectID": "chapter1.html#parameter-vs-statistic",
-    "href": "chapter1.html#parameter-vs-statistic",
+    "objectID": "chapter1-slides.html#parameter-vs-statistic",
+    "href": "chapter1-slides.html#parameter-vs-statistic",
     "title": "STA258",
     "section": "Parameter vs Statistic",
-    "text": "Parameter vs Statistic\n\n\n\nParameter A numerical quantity that describes a population.\n\n\n\nStatistic A numerical quantity that describes a sample.\n\n\n\n\nMemory trick: Parameter → Population   |   Statistic → Sample"
+    "text": "Parameter vs Statistic\n\n\n\nParameter A number that describes the population. Usually unknown.\n\n\n\nStatistic A number that describes the sample. Calculated from data — known.\n\n\n\n\nMemory trick:   Parameter ↔︎ Population  |  Statistic ↔︎ Sample  (both start with the same letter)."
   },
   {
-    "objectID": "chapter1.html#parameter-vs-statistic-examples",
-    "href": "chapter1.html#parameter-vs-statistic-examples",
+    "objectID": "chapter1-slides.html#notation-you-need-to-memorize",
+    "href": "chapter1-slides.html#notation-you-need-to-memorize",
     "title": "STA258",
-    "section": "Parameter vs Statistic: Examples",
-    "text": "Parameter vs Statistic: Examples\n\nParameters (population-level):\n\n\nPopulation mean, \\(\\mu\\)\n\n\nPopulation standard deviation, \\(\\sigma\\)\n\n\nPopulation proportion, \\(p\\)\n\n\n\nStatistics (sample-level):\n\n\nSample mean, \\(\\bar{x}\\)\n\n\nSample standard deviation, \\(s\\)\n\n\nSample proportion, \\(\\hat{p}\\)\n\n\n\n\nStudents often mix up \\(p\\) and \\(\\hat{p}\\). Stress that \\(p\\) is population-level and \\(\\hat{p}\\) is sample-level."
+    "section": "Notation You Need to Memorize",
+    "text": "Notation You Need to Memorize\n\n\n\nQuantity\nPopulation (parameter)\nSample (statistic)\n\n\n\n\nMean\n\\(\\mu\\)\n\\(\\bar{x}\\)\n\n\nStandard deviation\n\\(\\sigma\\)\n\\(s\\)\n\n\nProportion\n\\(p\\)\n\\(\\hat{p}\\)\n\n\nSize\n\\(N\\)\n\\(n\\)\n\n\n\n\n\nGreek letters → population.   Roman letters (or hats) → sample.\n\n\nStress this. Most algebra errors later in the course come from mixing \\(p\\) with \\(\\hat{p}\\) or \\(\\sigma\\) with \\(s\\)."
   },
   {
-    "objectID": "chapter1.html#parameter-vs-statistic-summary-table",
-    "href": "chapter1.html#parameter-vs-statistic-summary-table",
+    "objectID": "chapter1-slides.html#qc-param-stat",
+    "href": "chapter1-slides.html#qc-param-stat",
     "title": "STA258",
-    "section": "Parameter vs Statistic: Summary Table",
-    "text": "Parameter vs Statistic: Summary Table\n\n\n\nPopulation Quantity\nSample Quantity\nMeaning\n\n\n\n\n\\(\\mu\\)\n\\(\\bar{x}\\)\nMean\n\n\n\\(\\sigma\\)\n\\(s\\)\nStandard deviation\n\n\n\\(p\\)\n\\(\\hat{p}\\)\nProportion\n\n\n\n\n\n\nWe use sample statistics like \\(\\bar{x}\\) or \\(\\hat{p}\\) to estimate population parameters like \\(\\mu\\) or \\(p\\)."
+    "section": "Quick Check",
+    "text": "Quick Check\n\nFor each, decide: parameter or statistic?\n\n\nThe average height of all NBA players.\n\n\n63% of 500 surveyed Canadians support a policy.\n\n\nThe sample mean GPA of 80 UTM students is 3.12.\n\n\nThe standard deviation of grades for every student who has ever taken STA258.\n\n\n\n\n\n1 — parameter (all NBA players) 2 — statistic (500 surveyed) 3 — statistic (80 students) 4 — parameter (every student ever)"
   },
   {
-    "objectID": "chapter1.html#descriptive-vs-inferential-statistics",
-    "href": "chapter1.html#descriptive-vs-inferential-statistics",
+    "objectID": "chapter1-slides.html#compute-stat",
+    "href": "chapter1-slides.html#compute-stat",
+    "title": "STA258",
+    "section": "Compute a Statistic Yourself",
+    "text": "Compute a Statistic Yourself\nBelow are weekly study hours for a sample of 10 students. Calculate the sample mean.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmean(study_hours)   # 19.6\nThis is \\(\\bar{x}\\), our estimate of the unknown population mean \\(\\mu\\)."
+  },
+  {
+    "objectID": "chapter1-slides.html#descriptive-vs-inferential-statistics",
+    "href": "chapter1-slides.html#descriptive-vs-inferential-statistics",
     "title": "STA258",
     "section": "Descriptive vs Inferential Statistics",
-    "text": "Descriptive vs Inferential Statistics\n\nDescriptive statistics Methods used to analyze, summarize, and represent data.\n\n\n\nInferential statistics Using sample information to make conclusions about a larger population."
+    "text": "Descriptive vs Inferential Statistics\n\nDescriptive statistics Numerical and graphical methods used to summarize the data you have.\n\n\nInferential statistics Using a sample to generalize to a larger population."
   },
   {
-    "objectID": "chapter1.html#descriptive-vs-inferential-examples",
-    "href": "chapter1.html#descriptive-vs-inferential-examples",
+    "objectID": "chapter1-slides.html#spot-the-difference",
+    "href": "chapter1-slides.html#spot-the-difference",
     "title": "STA258",
-    "section": "Descriptive vs Inferential: Examples",
-    "text": "Descriptive vs Inferential: Examples\n\n\nDescriptive\n\nThe average mark in a class of 80 students is 72%.\n\n\nInferential\n\nBased on 80 students, we estimate the average mark for all STA258 students."
+    "section": "Spot the Difference",
+    "text": "Spot the Difference\n\n\nDescriptive\n\n“The average mark in this lecture of 80 students is 72%.”  “63% of these 400 Torontonians support the plan.”\n\n\nInferential\n\n“We estimate the average STA258 mark across all sections is around 72%.”  “We estimate ~63% of all Toronto residents support the plan.”\n\n\n\n\nTell: descriptive describes this data. Inferential makes a claim beyond the data."
   },
   {
-    "objectID": "chapter1.html#types-of-data",
-    "href": "chapter1.html#types-of-data",
+    "objectID": "chapter1-slides.html#types-of-data-1",
+    "href": "chapter1-slides.html#types-of-data-1",
     "title": "STA258",
     "section": "1.2 Types of Data",
-    "text": "1.2 Types of Data\n\nQuantitative data Data that can be measured numerically.\n\n\n\nExamples: height, weight, age, temperature\n\n\n\n\nQuestion: Does every number automatically mean the variable is quantitative?"
+    "text": "1.2 Types of Data\n\nQuantitative data Numerical measurements where arithmetic is meaningful.\n\n\nQualitative (categorical) data Values fall into categories; arithmetic doesn’t make sense.\n\n\n\nTrap: a number doesn’t automatically mean quantitative. Postal codes, jersey numbers, and student IDs look numeric but are categorical."
   },
   {
-    "objectID": "chapter1.html#qualitative-data",
-    "href": "chapter1.html#qualitative-data",
+    "objectID": "chapter1-slides.html#quantitative-discrete-vs-continuous",
+    "href": "chapter1-slides.html#quantitative-discrete-vs-continuous",
     "title": "STA258",
-    "section": "Qualitative Data",
-    "text": "Qualitative Data\n\nQualitative data Data that cannot be measured numerically — instead, it falls into categories.\n\n\n\nExamples: favourite colour, eye colour, ice-cream flavour"
+    "section": "Quantitative: Discrete vs Continuous",
+    "text": "Quantitative: Discrete vs Continuous\n\n\n\nDiscrete Countable values, often whole numbers.\n\n\n\nNumber of siblings\nCourses enrolled in\nDefective items in a batch\n\n\n\n\nContinuous Any value in a range; measured on a scale.\n\n\n\nHeight\nTime spent studying\nTemperature"
   },
   {
-    "objectID": "chapter1.html#quantitative-vs-qualitative",
-    "href": "chapter1.html#quantitative-vs-qualitative",
+    "objectID": "chapter1-slides.html#qualitative-nominal-vs-ordinal",
+    "href": "chapter1-slides.html#qualitative-nominal-vs-ordinal",
     "title": "STA258",
-    "section": "Quantitative vs Qualitative",
-    "text": "Quantitative vs Qualitative\n\n\n\nData\nType\nReason\n\n\n\n\nHeight\nQuantitative\nMeasured numerically\n\n\nNumber of courses\nQuantitative\nCounted numerically\n\n\nFavourite colour\nQualitative\nFalls into a category\n\n\nStudent number\nQualitative\nThe number is only an identifier\n\n\n\n\nThe student number example is useful — it shows that numbers are not always quantitative."
+    "section": "Qualitative: Nominal vs Ordinal",
+    "text": "Qualitative: Nominal vs Ordinal\n\n\n\nNominal Categories with no natural order.\n\n\n\nEye colour\nProgram of study\nPrimary device (phone/laptop/tablet)\n\n\n\n\nOrdinal Categories with a natural order.\n\n\n\nSelf-rated health (Poor → Excellent)\nMovie rating (1–5 stars)\nEducation level"
   },
   {
-    "objectID": "chapter1.html#discrete-and-continuous-data",
-    "href": "chapter1.html#discrete-and-continuous-data",
+    "objectID": "chapter1-slides.html#the-full-map",
+    "href": "chapter1-slides.html#the-full-map",
     "title": "STA258",
-    "section": "Discrete and Continuous Data",
-    "text": "Discrete and Continuous Data\n\n\n\nDiscrete data Quantitative data that are countable.\n\n\n\nExamples: number of siblings, number of defects\n\n\n\nContinuous data Quantitative data measured on a scale.\n\n\n\nExamples: height, time, temperature"
+    "section": "The Full Map",
+    "text": "The Full Map\n\n                       DATA\n                        |\n          +-------------+-------------+\n          |                           |\n    Quantitative                 Qualitative\n     (numeric)                  (categorical)\n          |                           |\n    +-----+------+              +-----+------+\n    |            |              |            |\n Discrete    Continuous     Nominal       Ordinal\n (counts)    (measured)   (no order)    (ordered)\n\n\n\nThis tree is the single most useful diagram in Chapter 1."
   },
   {
-    "objectID": "chapter1.html#quick-check-types",
-    "href": "chapter1.html#quick-check-types",
+    "objectID": "chapter1-slides.html#classify-exercise",
+    "href": "chapter1-slides.html#classify-exercise",
     "title": "STA258",
-    "section": "Quick Check: Types of Data",
-    "text": "Quick Check: Types of Data\nClassify each variable:\n\nNumber of courses a student is taking\nStudent’s major\nTime spent studying per week\nWhether a student lives on campus\n\n\n\nAnswers:\n\n\nQuantitative, discrete\n\n\nQualitative\n\n\nQuantitative, continuous\n\n\nQualitative"
+    "section": "Classify These",
+    "text": "Classify These\nTry classifying each one. Then click for the answer.\n\n\n\n\n\n\n\nVariable\nType\n\n\n\n\nNumber of pets a student owns\nQuantitative, discrete\n\n\nLanguage spoken at home\nQualitative, nominal\n\n\nBackpack weight (kg)\nQuantitative, continuous\n\n\nPostal code\nQualitative, nominal\n\n\nClassroom temperature (°C)\nQuantitative, continuous\n\n\nSelf-rated health (Poor/Fair/Good)\nQualitative, ordinal"
   },
   {
-    "objectID": "chapter1.html#introduction-to-inferential-statistics",
-    "href": "chapter1.html#introduction-to-inferential-statistics",
+    "objectID": "chapter1-slides.html#check-types",
+    "href": "chapter1-slides.html#check-types",
+    "title": "STA258",
+    "section": "Check Data Types in R",
+    "text": "Check Data Types in R\nR can tell you what type each variable is. Run it, then change a value."
+  },
+  {
+    "objectID": "chapter1-slides.html#introduction-to-inferential-statistics",
+    "href": "chapter1-slides.html#introduction-to-inferential-statistics",
     "title": "STA258",
     "section": "1.3 Introduction to Inferential Statistics",
-    "text": "1.3 Introduction to Inferential Statistics\n\nSample → Statistic → Estimate population parameter\n\n\nStatistical inference uses sample data to estimate population values and measure uncertainty.\n\\[\n\\text{Sample} \\rightarrow \\text{Statistic} \\rightarrow \\text{Parameter}\n\\]"
+    "text": "1.3 Introduction to Inferential Statistics\n\nSample → Statistic → Estimate of Parameter"
   },
   {
-    "objectID": "chapter1.html#big-picture",
-    "href": "chapter1.html#big-picture",
+    "objectID": "chapter1-slides.html#why-uncertainty-is-built-in",
+    "href": "chapter1-slides.html#why-uncertainty-is-built-in",
     "title": "STA258",
-    "section": "Big Picture",
-    "text": "Big Picture\n\nWe usually cannot measure the whole population.  So we collect a sample, calculate a statistic, and use it to estimate the unknown parameter.\n\n\n\nImportant: Because samples vary, inference must always include a measure of uncertainty."
+    "section": "Why Uncertainty Is Built In",
+    "text": "Why Uncertainty Is Built In\n\nTwo different samples of 100 UTM students will give two different sample means. So any estimate must come with a measure of how much it might be off.\n\n\n\nThis is where the tools in later chapters come from:\n\nConfidence intervals — a range of plausible parameter values\nHypothesis tests — checking whether data support a specific claim\nStatistical power — how likely we are to detect a real effect"
   },
   {
-    "objectID": "chapter1.html#main-inference-tools",
-    "href": "chapter1.html#main-inference-tools",
+    "objectID": "chapter1-slides.html#see-variability",
+    "href": "chapter1-slides.html#see-variability",
     "title": "STA258",
-    "section": "Main Inference Tools",
-    "text": "Main Inference Tools\n\nEstimation Using sample data to guess the value of a population parameter.\n\n\nConfidence intervals Giving a plausible range of values for a population parameter.\n\n\nHypothesis testing Checking whether sample data support a specific claim.\n\n\nPause before revealing the answers. This is a good check for whether students understand sample vs population and statistic vs parameter."
+    "section": "See Sampling Variability",
+    "text": "See Sampling Variability\n\n\n\n\n\n\n\n\n\nRun it 5 times. Notice the sample mean changes each time — even though the true population mean is exactly 70."
   },
   {
-    "objectID": "chapter1.html#chapter-1-summary",
-    "href": "chapter1.html#chapter-1-summary",
+    "objectID": "chapter1-slides.html#sampling-methods",
+    "href": "chapter1-slides.html#sampling-methods",
+    "title": "STA258",
+    "section": "A Closer Look at Sampling",
+    "text": "A Closer Look at Sampling\nHow you collect your sample determines whether inference is honest.\n\nSimple random sample (SRS) — every unit has an equal chance of being chosen.\n\n\nSystematic — every \\(k\\)-th unit from an ordered list (e.g., every 50th student).\n\n\nStratified — divide into groups, sample from each group.\n\n\nCluster — randomly pick whole groups, survey everyone inside.\n\n\nConvenience / Voluntary response — whoever is easy to reach or chooses to respond. ⚠ Usually biased."
+  },
+  {
+    "objectID": "chapter1-slides.html#bias-when-samples-lie",
+    "href": "chapter1-slides.html#bias-when-samples-lie",
+    "title": "STA258",
+    "section": "Bias: When Samples Lie",
+    "text": "Bias: When Samples Lie\n\nBias — a systematic tendency for a sample to differ from the population in a particular direction.\n\n\n\n\nClassic bias traps:\n\nSelection bias — surveying gym-goers about exercise habits\nVoluntary response — Instagram polls (only loud opinions answer)\nNon-response bias — the people who skip the survey are different from those who answer\nCoverage bias — your sampling frame misses parts of the population"
+  },
+  {
+    "objectID": "chapter1-slides.html#study-types",
+    "href": "chapter1-slides.html#study-types",
+    "title": "STA258",
+    "section": "Observational vs Experimental Studies",
+    "text": "Observational vs Experimental Studies\n\n\n\nObservational Record what’s already happening — no intervention.\n\n\nSurvey adults: do you take vitamins? Did you catch a cold?\n\n\n\nExperimental Randomly assign participants to treatments, then compare.\n\n\nRandomly give half the volunteers Vitamin C, half a placebo, and compare cold rates.\n\n\n\n\nOnly well-designed experiments can establish cause and effect."
+  },
+  {
+    "objectID": "chapter1-slides.html#chapter-1-summary",
+    "href": "chapter1-slides.html#chapter-1-summary",
     "title": "STA258",
     "section": "Chapter 1 Summary",
-    "text": "Chapter 1 Summary\n\nStatistics is the science of learning from data\nA sample is used to study a population\nParameters describe populations; statistics describe samples\nData can be quantitative or qualitative\nQuantitative data can be discrete or continuous\nInference uses samples to draw population-level conclusions"
+    "text": "Chapter 1 Summary\n\n\n\nStatistics = science of learning from data under uncertainty.\n\n\nWe study a sample to learn about a population.\n\n\nParameters describe populations (unknown); statistics describe samples (known).\n\n\nData are quantitative (discrete/continuous) or qualitative (nominal/ordinal).\n\n\nInference uses a sample statistic to estimate an unknown population parameter — with a measure of uncertainty.\n\n\nHow we sample (and whether we experiment) determines whether inference is trustworthy."
   },
   {
-    "objectID": "chapter1.html#end-of-chapter-1",
-    "href": "chapter1.html#end-of-chapter-1",
+    "objectID": "chapter1-slides.html#whats-next",
+    "href": "chapter1-slides.html#whats-next",
     "title": "STA258",
-    "section": "End of Chapter 1",
-    "text": "End of Chapter 1\n\n End of Chapter 1  ← Back to Home\n\n\nUpdate the link if the landing page file name changes."
+    "section": "What’s Next",
+    "text": "What’s Next\n\nChapter 2: we move into R — the tool we’ll use to compute statistics, simulate samples, and visualize uncertainty.\n\n\n\nEnd of Chapter 1 ← Back to Chapter 1"
   },
   {
-    "objectID": "chapter1.html#optional-interactive-r-slide",
-    "href": "chapter1.html#optional-interactive-r-slide",
+    "objectID": "chapter1-slides.html#bonus-practice",
+    "href": "chapter1-slides.html#bonus-practice",
     "title": "STA258",
-    "section": "Optional Interactive R Slide",
-    "text": "Optional Interactive R Slide\nStudents can edit the code and run it directly inside the slide."
+    "section": "Bonus Practice",
+    "text": "Bonus Practice\nBelow are some ages of UTM students in a sample. Compute:\n\nThe sample size \\(n\\)\nThe sample mean \\(\\bar{x}\\)\nThe sample standard deviation \\(s\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nn    &lt;- length(ages)\nxbar &lt;- mean(ages)\ns    &lt;- sd(ages)\n\\(n = 12\\), \\(\\bar{x} \\approx 20.83\\), \\(s \\approx 1.59\\)."
   },
   {
-    "objectID": "chapter1.html#optional-practice-exercise",
-    "href": "chapter1.html#optional-practice-exercise",
-    "title": "STA258",
-    "section": "Optional Practice Exercise",
-    "text": "Optional Practice Exercise\nChange the code so it calculates the sample mean of the vector.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nUse:\nmean(commute_time)"
+    "objectID": "chapter1.html",
+    "href": "chapter1.html",
+    "title": "Chapter 1: Introduction",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "chapter1.html#what-youll-learn",
+    "href": "chapter1.html#what-youll-learn",
+    "title": "Chapter 1: Introduction",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 1 you’ll be able to:\n\nDistinguish a population from a sample, and identify the unit, observation, and variables in a dataset.\nTell a parameter apart from a statistic — and know which is usually known.\nClassify data as quantitative (discrete or continuous) or qualitative (nominal or ordinal).\nRecognize common sampling methods and the biases they introduce.\nExplain the goal of statistical inference: using a sample to learn about a population, with a measure of uncertainty."
+  },
+  {
+    "objectID": "chapter1.html#key-ideas",
+    "href": "chapter1.html#key-ideas",
+    "title": "Chapter 1: Introduction",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nStatistics in one sentence\nThe science of learning from data under uncertainty — moving from what we measured to what we want to know.\n\n\nPopulation vs Sample\nA population is the full group we want to learn about. A sample is the subset we actually measure. We use the sample to make claims about the population.\n\n\nParameter vs Statistic\nA parameter (e.g. \\(\\mu\\), \\(p\\), \\(\\sigma\\)) summarizes the population — usually unknown. A statistic (e.g. \\(\\bar{x}\\), \\(\\hat{p}\\), \\(s\\)) summarizes the sample — known, and used to estimate the parameter.\n\n\nTypes of Data\nQuantitative data are numeric: discrete (counts) or continuous (measured). Qualitative data are categorical: nominal (no order) or ordinal (ordered).\n\n\nInference\nWe collect a sample, calculate a statistic, and use it to estimate an unknown population parameter — always with a measure of uncertainty. This sets up confidence intervals, hypothesis tests, and the rest of the course."
+  },
+  {
+    "objectID": "chapter1.html#how-to-use-this-chapter",
+    "href": "chapter1.html#how-to-use-this-chapter",
+    "title": "Chapter 1: Introduction",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides above for the full walkthrough, with interactive R code blocks you can edit and run in your browser.\nUse the PDF button for an offline-friendly version (interactive elements won’t run there).\nTry the practice exercises from the textbook at the end of Chapter 1."
   },
   {
     "objectID": "chapter2.html#roadmap",

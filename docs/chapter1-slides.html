@@ -6,10 +6,12 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.37">
 
-  <title>STA258 – Chapter 1: Introduction</title>
+  <title>STA258 – Chapter 1: Introduction — Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -30,8 +32,74 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -125,58 +193,888 @@
       margin-right: 0; 
     }
   </style>
+  <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <script src="site_libs/plotly-binding-4.12.0/plotly.js"></script>
+  <script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+  <script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+  <link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+  <script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+  <link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+  <script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Chapter 1: Introduction</h1>
-  <p class="subtitle">STA258 — University of Toronto Mississauga</p>
 
-<div class="quarto-title-authors">
+<section>
+<section id="chapter-1-introduction" class="title-slide slide level1 center">
+<h1>Chapter 1: Introduction</h1>
+<style>
+.reveal {
+  font-family: Arial, sans-serif;
+  color: #2f3437;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  color: #2f3437;
+}
+
+.reveal h2 {
+  border-bottom: 3px solid #00695c;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  font-size: 1.6em;
+}
+
+.title-slide {
+  text-align: center;
+}
+
+.reveal p, .reveal li {
+  font-size: 0.78em;
+  line-height: 1.35;
+}
+
+.defbox {
+  background: #c8e6f3;
+  padding: 10px 14px;
+  border-left: 6px solid #00695c;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.examplebox {
+  background: #eeeeee;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.thinkbox {
+  background: #fff8e1;
+  padding: 10px 14px;
+  border-left: 6px solid #f9a825;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.warnbox {
+  background: #ffebee;
+  padding: 10px 14px;
+  border-left: 6px solid #c62828;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.big {
+  font-size: 1.05em;
+  font-weight: bold;
+  color: #00695c;
+}
+
+.defbox p, .examplebox p, .thinkbox p, .warnbox p,
+.defbox li, .examplebox li, .thinkbox li, .warnbox li {
+  font-size: 1em;
+  margin-bottom: 4px;
+}
+
+.footer-note {
+  font-size: 0.65em;
+  color: #666666;
+}
+
+.center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.75em;
+}
+
+.reveal table {
+  font-size: 0.85em;
+}
+
+.answer-table td {
+  background: #eeeeee;
+}
+.answer-table th {
+  background: #c8e6f3;
+}
+</style>
+<p>STA258: Statistics with Applied Probability University of Toronto Mississauga</p>
+
+<img data-src="cat.png" width="300" class="r-stretch"><aside class="notes">
+<p>Welcome students. Set the tone: this course is about reasoning under uncertainty, not just plugging numbers into formulas.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="big-question" class="slide level2 scrollable">
+<h2>The Big Question</h2>
+<div class="center">
+<p><span class="big">How can we say something true about<br>millions of people we’ve never met?</span></p>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="examplebox">
+<p>Pollsters call ~1,000 Canadians and predict an election for 40 million.<br> Doctors test a drug on 500 patients and recommend it for everyone.<br> Netflix watches a sample of users and decides what shows to make.</p>
+</div>
+</div>
+<div class="fragment">
+<div class="thinkbox">
+<p>That gap between “what we measured” and “what we want to know” — that’s what this whole course is about.</p>
+</div>
+</div>
+</section>
+<section id="roadmap" class="slide level2 scrollable">
+<h2>Roadmap</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="foundations">1.1 Foundations</h4>
+<ul>
+<li>Statistics, population, sample</li>
+<li>Unit, observation, variable</li>
+<li>Parameter vs statistic</li>
+<li>Descriptive vs inferential</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h4 id="types-of-data">1.2 Types of Data</h4>
+<ul>
+<li>Quantitative vs qualitative</li>
+<li>Discrete vs continuous</li>
+<li>Nominal vs ordinal</li>
+</ul>
+<h4 id="inference-preview">1.3 Inference Preview</h4>
+<ul>
+<li>Sampling, bias, study types</li>
+</ul>
+</div></div>
+</section>
+<section id="foundations-1" class="slide level2 scrollable">
+<h2>1.1 Foundations</h2>
+<div class="defbox">
+<p><strong>Definition 1.1 — Statistics</strong><br> The science of <strong>collecting, classifying, summarizing, analyzing, and interpreting data</strong>.</p>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="examplebox">
+<p>Think of statistics as a pipeline: <br><br> <span class="big">Question → Data → Analysis → Decision</span></p>
+</div>
+<aside class="notes">
+<p>The five verbs in the definition map roughly to the chapters of the course.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="population" class="slide level2 scrollable">
+<h2>Population</h2>
+<div class="defbox">
+<p><strong>Definition 1.2 — Population</strong><br> The <strong>entire group</strong> of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.</p>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="examplebox">
+<p><strong>Examples:</strong></p>
+<ul>
+<li>All students at the University of Toronto</li>
+<li>All residents of Mississauga</li>
+<li>Every possible hand in a game of poker (hypothetical!)</li>
+<li>Every battery a factory will ever produce</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div class="thinkbox">
+<p>A population can be real or hypothetical, finite or essentially infinite. What matters is that it’s the group you actually want to learn about.</p>
+</div>
+</div>
+</section>
+<section id="sample" class="slide level2 scrollable">
+<h2>Sample</h2>
+<div class="defbox">
+<p><strong>Definition 1.3 — Sample</strong><br> A <strong>subset</strong> selected from the population.</p>
+</div>
+<p><br></p>
+<div class="examplebox">
+<p><strong>Examples:</strong></p>
+<ul>
+<li>50 randomly selected U of T students</li>
+<li>100 randomly selected Mississauga residents</li>
+<li>30 batteries pulled off the production line today</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="thinkbox">
+<p><strong>Why sample?</strong> Measuring everyone is usually too slow, too expensive, or simply impossible.</p>
+</div>
+</div>
+</section>
+<section id="visualizing-population-vs-sample" class="slide level2 scrollable">
+<h2>Visualizing Population vs Sample</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-6f1d6e5c5b0cf22f0651" style="width:864px;height:380px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6f1d6e5c5b0cf22f0651">{"x":{"data":[{"x":[2.6550866314209998,3.7212389963679016,5.7285336335189641,9.0820778999477625,2.016819310374558,8.9838968496769667,9.4467526860535145,6.6079779248684645,6.2911404389888048,0.61786270467564464,2.0597457489930093,1.7655675252899528,6.8702284665778279,3.8410371821373701,7.6984141999855638,4.9769924208521843,7.1761850826442242,9.919060948304832,3.8003517943434417,7.7744522131979465,9.3470523110590875,2.1214252128265798,6.5167376608587801,1.2555509596131742,2.6722066872753203,3.861140925437212,0.13390333158895373,3.8238795707002282,8.6969084572046995,3.4034899668768048,5.9956582542508841,4.9354130704887211,1.862176014110446,8.273733186069876,7.9423986072652042,1.0794362588785589,7.2371094604022801,4.1127442964352667,8.2094629411585629,6.4706019381992519,7.8293276228941977,5.5303631164133549,5.2971958019770682,7.8935623168945312,0.23331202333793044,4.7723006503656507,7.3231373867020011,6.9273155648261309,4.7761962213553488,4.3809710722416639,2.4479727703146636,0.70679047144949436,0.99466160172596574,3.1627170718275011,5.186342631932348,6.6200507641769946,4.0683018718846142,2.9360337276011705,4.5906572625972331,3.3239467418752611,6.5087046707049012,2.5801678071729839,7.6631067064590752,0.84246914368122816,8.7532133003696799,3.3907293784432113,8.3944035018794239,3.4668348915874958,3.337749307975173,4.763512450736016,8.9219833584502339,8.6433947063051164,3.8998954347334802,7.7732069883495569,9.606179972179234,4.3465948477387428,7.125146787147969,3.9999436889775097,7.5708714802749455,2.0269225514493883,7.1112122246995568,1.2169192102737725,2.4548851395957172,1.4330437942408025,2.3962941509671509,0.58934377273544669,6.4228825853206217,8.7626921269111335,7.7891467744484544,7.9730882588773966,4.5527445361949503,4.1008408204652369,8.1087024277076125,6.0493329027667642,6.5472392807714641,3.5319727193564177,2.7026014588773251,9.9268406117334962,6.3349326443858445,2.1320813521742821,1.2937234807759523,4.7811803431250155,9.2407446983270347,5.9876096714287996,9.761706949211657,3.5672691208310425,4.3147369055077434,1.48211560677737,0.13077575480565429,7.1556606609374285,1.0318423574790359,4.4628434861078858,6.4010104513727129,9.9183862004429102,4.8434952436946332,1.7344233486801386,7.5482094450853765,4.5389548921957612,5.1116978377103806,2.0754511328414083,2.2865814273245633,5.957119963131845,5.7487219828180969,0.77064380282536149,6.427954921964556,9.2861519963480532,5.980924223549664,5.6090074800886214,5.2602772391401231,9.8509522387757897,5.0764182233251631,6.8278807867318392,6.0154121764935553,2.3886867775581777,2.5816592667251825,7.293096233624965,4.5257083140313625,1.7512676841579378,1.0498764039948583,8.6454494902864099,6.1464497167617083,5.5715953884646297,3.2877731905318797,4.5313144545070827,5.0044097262434661,1.8086636113002896,5.2963060280308127,2.7775593264959753,2.1269951923750341,2.8479048097506166,4.4623532332479954,8.8061903486959636,4.1312420950271189,0.63808480510488153,3.3548749168403447,7.237259466201067,3.3761533349752426,6.3041412248276174,8.4061455400660634,8.5613166471011937,3.9135928102768958,3.8049388560466468,8.9544542599469423,7.4107864871621132,6.0530344652943313,9.0308161149732769,2.9373015509918332,1.9126010988838971,8.864509433042258,8.7705754302442074,1.8919362244196236,7.5810305238701403,7.2449889266863465,9.4372481829486787,5.4764658701606095,7.1174386772327125,1.0087312618270516,9.2730208858847618,2.8323250031098723,5.9057315881364048,1.1036060494370759,8.4050703211687505,3.1796368444338441,7.8285133698955178,2.675082073546946,2.1864528488367796,5.1679683639667928,2.6895059202797711,1.8116832734085619,5.185761374887079,5.6278293579816818,7.1793527598492801,9.6140993642620742,1.0014084656722844,7.6322268950752914,9.4796635466627777,8.1863468838855624,3.0829233070835471,6.4957946049980819,9.5335545111447573,9.5373265002854168,3.3997920341789722,2.6247411011718214,1.6545393317937851,3.2216805662028491,5.1012520655058324,9.2396847135387361,2.576212608255446,0.4646088695153594,4.1785625834017992,8.5400150227360427,3.4723067772574723,1.3144232053309679,3.7448686454445124,6.3142022839747369,3.9007893367670476,6.896278487984091,6.8941341247409582,5.5490062315948308,4.2962440778501332,4.5272006280720234,3.0644325888715684,5.7835394400171936,9.1037030424922705,1.4260408212430775,4.1504762531258166,2.1092575066722929,4.2875037086196244,1.3268997520208359,4.6009644586592913,7.6197386160492897,9.3290982884354889,4.7067849757149816,6.0358806769363582,4.8498968058265746,1.0880631650798023,2.477268329821527,4.9851453071460128,3.7286670808680356,9.3469137023203075,5.2398607786744833,3.1714467168785632,2.7796602947637439,7.8754050773568451,7.0246251253411174,1.6502763866446912,0.64457538770511746,7.5470562162809074,6.2041003303602338,1.6957676666788757,0.62214052304625511,1.0902926861308515,3.8171635172329843,1.6931091458536685,2.9865254205651581,2.5717002130113542,1.8123182281851768,4.7731370967812836,7.7073704288341105,0.27787122409790754,5.2731077698990703,3.7306337198242545,0.4795913165435195,1.3862824672833085,3.2149212039075792,1.5483161131851375,1.3222817215137184,2.263807961717248,1.3141653384082019,9.8156346031464636,3.2701372681185603,5.0693949707783759,6.8144251476041973,0.99169103195890784,1.18902558228001,0.50439659506082535,9.292539197485894,6.7371223284862936,0.94857855467125773,4.6155184064991772,3.7521653086878359,9.9109921953640878,1.7635071370750666,8.1343520851805806,0.68446637131273746,4.0044974675402045,1.4114432572387159,1.9330986239947379,8.4135171677917242,7.1991398837417364,2.6721208309754729,4.9500164482742548,0.83113897824659944,3.5388424061238766,9.6920880535617471,6.2471418967470527,6.646182497497648,3.1248965649865568,4.056896127294749,9.9607737152837217,8.5508235637098551,9.5354839600622654,8.1230509234592319,7.8218211582861841,2.6787812891416252,7.6215152954682708,9.8631158913485706,2.9360554902814329,3.9935110695660114,8.1213152385316789,3.6369680985808372,4.4259246718138456,1.5671413252130151,5.8220527018420398,9.7016217885538936,1.7645203648135066,3.8430389203131199,6.7616405081935227,2.6929377974011004,4.6925094234757125,1.7180008231662214,3.6918946239165962,7.2540527256205678,4.8614910431206226,0.63802466727793217,4.1832163580693305,9.8101808479987085,2.8288395586423576,8.4788214950822294,0.82239230861887336,8.864587505813688,4.7193073085509241,1.0910096345469356,3.3327798452228308,2.7684984169900417,5.8703514141961932,8.3673226973041892,0.71154023986309767,7.0277874334715307,6.9882453721947968,4.6396238100714982,4.3693111045286059,5.6217678776010871,9.2848322633653879,2.3046641424298286,2.2181375441141427,4.2021589330397546,3.3352080569602549,8.6480755032971501,1.7719453573226929,4.9331872863695025,5.6426384299993515,6.5616231551393867,9.7855406277813017,2.3216114845126867,2.4081159615889192,7.9683608398772776,8.3167171501554549,1.1350770643912256,9.6331201633438468,1.4732289966195822,1.4362694276496768,9.2522993520833552,5.0703560258261859,1.5485101705417037,3.4830205212347209,6.5982102579437196,3.1177237443625927,3.515734092798084,1.4784570690244436],"y":[3.2943880453240126,0.92534982250072062,4.7718906844966114,4.4892424601130188,4.7184852720238268,3.6184537562076002,1.8517853296361864,3.9050877012778074,0.055747543228790164,4.7015435609500855,4.9687461310531944,1.787028725957498,3.7381753174122423,3.9645451190881431,3.5292950319126248,2.3791251936927438,2.4732726300135255,1.5402622439432889,3.4750612312927842,4.1139665280934423,2.1735882037319243,2.5736632640473545,3.3150548383127898,0.71583293261937797,1.7224369687028229,2.028817911632359,0.42655502911657095,4.6628596412483603,4.1919203335419297,4.3971664807759225,0.36230316734872758,1.893797202501446,2.6893246138934046,0.52525069331750274,3.698208729038015,0.26074506691657007,2.4108478659763932,4.6025892032776028,0.207642144523561,1.4699589950032532,2.5042524363379925,3.0487446754705161,1.3212452479638159,2.1154930477496237,1.8328180816024542,4.7125266119837761,0.61861782567575574,0.35016339621506631,4.8215851897839457,1.851361901499331,0.8512179006356746,0.27095214696601033,3.2891403464600444,2.8908095834776759,4.9355088197626173,3.0189620074816048,0.32474959385581315,2.3769896023441106,0.0096641737036406994,2.2072957153432071,1.3046486862003803,4.6920687274541706,0.81542739178985357,2.3809400922618806,3.4512836148496717,2.3044758976902813,4.7757336916401982,3.562700612237677,1.9857396662700921,0.58860306045971811,1.2005813652649522,4.3181528325658292,2.1798820083495229,2.4893402599263936,3.4596383606549352,3.8015664089471102,0.77700611320324242,4.2472854652442038,2.9420959518756717,2.5112540763802826,0.948899588547647,0.0091842911206185818,4.3878903111908585,0.67055668914690614,0.11370612075552344,4.695683530298993,1.4647436141967773,0.82163287210278213,1.995512779103592,2.2978770604822785,2.1701542427763343,2.5850491318851709,4.2312287632375956,0.27582143200561404,2.7708853059448302,3.441376187838614,3.2902877684682608,3.3167136262636632,2.3611710127443075,4.8476408305577934,2.0109853136818856,4.2477605189196765,3.783224537037313,2.6630060968454927,4.3707483040634543,0.040642276871949434,3.6388350231572986,3.5829473938792944,0.93713185517117381,3.2303363841492683,2.7098963991738856,1.6766037989873439,3.1895436160266399,4.1460053191985935,1.7427517543546855,0.64163937466219068,1.9403924443759024,4.6408877416979522,4.0219538565725088,3.7934840354137123,4.7862494445871562,4.9695693934336305,3.0322049732785672,0.14688582741655409,1.388290433678776,0.5859877506736666,0.21609129500575364,1.8515489285346121,1.6843915439676493,0.86826276732608676,3.1088663975242525,1.9892181374598294,4.7783788433298469,3.2667472155299038,1.643718583509326,0.98573356750421226,0.57671162416227162,4.9798273935448378,2.8099404636304826,3.6635900882538408,4.3540277646388859,2.8608512983191758,0.055180354975163937,4.5315763063263148,3.8532681576907635,1.9125231169164181,0.47022944432683289,4.1058115905616432,4.1466215217951685,3.2736643787939101,1.7090495058801025,4.5364570803940296,3.4809849970042706,1.2078961113002151,3.220536143053323,1.4037510682828724,4.7881826036609709,0.79197978368028998,2.0916949585080147,1.2600489868782461,0.47195133869536221,4.138588848290965,2.6265275187324733,2.0413887989707291,4.2129495169501752,3.6865273397415876,1.7411220050416887,4.7446908871643245,3.2333959499374032,2.9822422785218805,2.0765900076366961,0.38448519073426723,2.6402443961706012,4.8116665426641703,3.5437002556864172,2.7673785178922117,3.8902126450557262,3.2597047172021121,4.1512285196222365,3.2427547371480614,2.3991789715364575,2.4753205280285329,1.8993629573378712,2.2524271858856082,4.0712587523739785,4.6438861289061606,0.73740522610023618,3.7491083249915391,4.878286748426035,4.8739623173605651,1.753127850824967,0.53324159816838801,4.6738005825318396,1.7308104992844164,2.6653030293527991,2.6939714967738837,3.5735897487029433,2.0289525005500764,0.76394070638343692,1.7011638067197055,3.1332742376253009,0.28686339152045548,4.2583381989970803,1.0632267291657627,2.6973101391922683,0.68243793095462024,1.624325702432543,1.279911242891103,3.1743789941538125,2.4283605348318815,4.6908845833968371,4.287507685367018,1.8544176884461194,1.571009149774909,4.1426717990543693,2.2592075658030808,1.5793920611031353,0.48904268769547343,0.32450268277898431,3.4472868323791772,3.3402530197054148,4.5227332389913499,1.5084663522429764,4.6640435233712196,1.0099150869064033,3.9618937799241394,1.1231525440234691,0.15378285548649728,4.310170206008479,3.4255375259090215,3.3792688022367656,4.2156007420271635,1.8094709247816354,1.9618294259998947,2.8384369879495353,0.47576066805049777,0.96892035799100995,2.9403319652192295,3.757520840736106,4.3361939361784607,1.8589786859229207,3.9940727478824556,0.29157196287997067,3.1171785469632596,1.7832070332951844,2.9396396619267762,4.5689232100266963,0.99721091450192034,1.8454181193374097,3.3570416388101876,3.8407227536663413,2.6112413802184165,4.1403750900644809,2.6354809734039009,2.5087741250172257,1.8114914163015783,0.61714455136097968,1.4908076473511755,1.3833824486937374,3.8511267781723291,3.8909065106417984,2.5776307529304177,2.9862024274189025,2.5292151200119406,1.9304981653112918,2.1304905042052269,0.058798673562705517,0.39719846565276384,2.5368712737690657,4.1008580848574638,2.9919770907144994,2.1207676304038614,2.7965513535309583,3.9454723603557795,0.83857628982514143,4.8522586503531784,2.3675154917873442,4.648716029478237,4.5046963519416749,3.3828438620548695,3.2400672289077193,0.3662343486212194,2.1177920920308679,2.6541218208149076,4.713523811660707,3.5611227969639003,3.6224528774619102,2.3506430885754526,0.60141127905808389,3.915488354396075,2.1907869854476303,2.1572798991110176,0.13748939498327672,0.73280921438708901,2.1129757899325341,3.8356858713086694,0.023832226870581508,3.0179784575011581,4.5278863026760519,3.5333076596725732,1.3126857962924987,4.2553810973186046,1.6680275753606111,2.8914213378448039,2.163865651236847,0.25797661510296166,3.6490164394490421,2.7408520714379847,3.7561099277809262,0.25385582353919744,1.4884722838178277,1.4173860487062484,4.1493856371380389,0.43197687598876655,0.21328559494577348,2.7116800507064909,1.3568604923784733,1.0261546599213034,1.9081607414409518,2.3627905768807977,4.1775897494517267,0.60735748149454594,3.3790406247135252,2.4834260996431112,4.5111887389793992,0.64282338251359761,2.2100489283911884,0.96148848184384406,2.174503110582009,1.1256670148577541,4.8054814105853438,2.2421373252291232,3.8857249263674021,0.79109887243248522,1.0307280288543552,0.88974841521121562,0.82445573178119957,2.8263448865618557,3.6359051056206226,4.3795949453487992,3.5421219188719988,2.3873160546645522,4.1013999679125845,0.08306105388328433,4.9805555061902851,3.1744741788133979,2.1423769043758512,0.14196466421708465,3.7666635029017925,1.0431698767933995,4.9972770258318633,3.5623251588549465,3.6546644195914268,2.3624396056402475,4.3125534348655492,0.82707561203278601,3.1021396280266345,1.4616569748613983,2.2807086689863354,0.22819604491814971,0.88830876047722995,0.28966033947654068,4.7220511676277965,1.7137173714581877,2.5897528533823788,3.1262266763951629,1.1863242683466524,2.5806195719633251,4.0327091387007385,1.7413236724678427],"text":["Unit #1<br>Population","Unit #2<br>Population","Unit #3<br>Population","Unit #4<br>Population","Unit #5<br>Population","Unit #6<br>Population","Unit #7<br>Population","Unit #8<br>Population","Unit #9<br>Population","Unit #10<br>Population","Unit #11<br>Population","Unit #12<br>Population","Unit #13<br>Population","Unit #14<br>Population","Unit #15<br>Population","Unit #16<br>Population","Unit #17<br>Population","Unit #18<br>Population","Unit #19<br>Population","Unit #20<br>Population","Unit #21<br>Population","Unit #22<br>Population","Unit #23<br>Population","Unit #24<br>Population","Unit #25<br>Population","Unit #26<br>Population","Unit #27<br>Population","Unit #28<br>Population","Unit #29<br>Population","Unit #30<br>Population","Unit #32<br>Population","Unit #33<br>Population","Unit #34<br>Population","Unit #35<br>Population","Unit #37<br>Population","Unit #38<br>Population","Unit #39<br>Population","Unit #40<br>Population","Unit #41<br>Population","Unit #42<br>Population","Unit #43<br>Population","Unit #44<br>Population","Unit #45<br>Population","Unit #46<br>Population","Unit #47<br>Population","Unit #48<br>Population","Unit #49<br>Population","Unit #50<br>Population","Unit #51<br>Population","Unit #53<br>Population","Unit #54<br>Population","Unit #55<br>Population","Unit #56<br>Population","Unit #57<br>Population","Unit #58<br>Population","Unit #59<br>Population","Unit #60<br>Population","Unit #62<br>Population","Unit #63<br>Population","Unit #64<br>Population","Unit #65<br>Population","Unit #66<br>Population","Unit #68<br>Population","Unit #69<br>Population","Unit #70<br>Population","Unit #71<br>Population","Unit #72<br>Population","Unit #73<br>Population","Unit #74<br>Population","Unit #75<br>Population","Unit #76<br>Population","Unit #77<br>Population","Unit #78<br>Population","Unit #79<br>Population","Unit #80<br>Population","Unit #81<br>Population","Unit #82<br>Population","Unit #83<br>Population","Unit #85<br>Population","Unit #86<br>Population","Unit #87<br>Population","Unit #88<br>Population","Unit #89<br>Population","Unit #90<br>Population","Unit #91<br>Population","Unit #92<br>Population","Unit #93<br>Population","Unit #94<br>Population","Unit #95<br>Population","Unit #96<br>Population","Unit #97<br>Population","Unit #98<br>Population","Unit #99<br>Population","Unit #100<br>Population","Unit #101<br>Population","Unit #102<br>Population","Unit #103<br>Population","Unit #104<br>Population","Unit #105<br>Population","Unit #106<br>Population","Unit #107<br>Population","Unit #108<br>Population","Unit #109<br>Population","Unit #110<br>Population","Unit #111<br>Population","Unit #113<br>Population","Unit #114<br>Population","Unit #115<br>Population","Unit #116<br>Population","Unit #117<br>Population","Unit #118<br>Population","Unit #119<br>Population","Unit #120<br>Population","Unit #121<br>Population","Unit #123<br>Population","Unit #124<br>Population","Unit #125<br>Population","Unit #126<br>Population","Unit #127<br>Population","Unit #128<br>Population","Unit #129<br>Population","Unit #130<br>Population","Unit #131<br>Population","Unit #132<br>Population","Unit #134<br>Population","Unit #135<br>Population","Unit #136<br>Population","Unit #137<br>Population","Unit #138<br>Population","Unit #139<br>Population","Unit #140<br>Population","Unit #141<br>Population","Unit #142<br>Population","Unit #143<br>Population","Unit #144<br>Population","Unit #145<br>Population","Unit #146<br>Population","Unit #147<br>Population","Unit #149<br>Population","Unit #150<br>Population","Unit #151<br>Population","Unit #152<br>Population","Unit #153<br>Population","Unit #154<br>Population","Unit #155<br>Population","Unit #156<br>Population","Unit #157<br>Population","Unit #159<br>Population","Unit #160<br>Population","Unit #161<br>Population","Unit #163<br>Population","Unit #165<br>Population","Unit #166<br>Population","Unit #167<br>Population","Unit #168<br>Population","Unit #169<br>Population","Unit #170<br>Population","Unit #171<br>Population","Unit #172<br>Population","Unit #173<br>Population","Unit #174<br>Population","Unit #175<br>Population","Unit #176<br>Population","Unit #178<br>Population","Unit #179<br>Population","Unit #180<br>Population","Unit #181<br>Population","Unit #182<br>Population","Unit #183<br>Population","Unit #185<br>Population","Unit #186<br>Population","Unit #187<br>Population","Unit #188<br>Population","Unit #189<br>Population","Unit #190<br>Population","Unit #191<br>Population","Unit #193<br>Population","Unit #194<br>Population","Unit #195<br>Population","Unit #196<br>Population","Unit #197<br>Population","Unit #198<br>Population","Unit #199<br>Population","Unit #200<br>Population","Unit #201<br>Population","Unit #202<br>Population","Unit #203<br>Population","Unit #204<br>Population","Unit #205<br>Population","Unit #206<br>Population","Unit #207<br>Population","Unit #210<br>Population","Unit #211<br>Population","Unit #212<br>Population","Unit #213<br>Population","Unit #214<br>Population","Unit #215<br>Population","Unit #216<br>Population","Unit #217<br>Population","Unit #218<br>Population","Unit #219<br>Population","Unit #220<br>Population","Unit #221<br>Population","Unit #222<br>Population","Unit #223<br>Population","Unit #224<br>Population","Unit #225<br>Population","Unit #227<br>Population","Unit #228<br>Population","Unit #229<br>Population","Unit #230<br>Population","Unit #231<br>Population","Unit #232<br>Population","Unit #233<br>Population","Unit #234<br>Population","Unit #235<br>Population","Unit #236<br>Population","Unit #237<br>Population","Unit #238<br>Population","Unit #239<br>Population","Unit #240<br>Population","Unit #241<br>Population","Unit #242<br>Population","Unit #243<br>Population","Unit #244<br>Population","Unit #245<br>Population","Unit #246<br>Population","Unit #247<br>Population","Unit #248<br>Population","Unit #249<br>Population","Unit #251<br>Population","Unit #252<br>Population","Unit #253<br>Population","Unit #254<br>Population","Unit #255<br>Population","Unit #256<br>Population","Unit #257<br>Population","Unit #258<br>Population","Unit #259<br>Population","Unit #260<br>Population","Unit #261<br>Population","Unit #262<br>Population","Unit #263<br>Population","Unit #264<br>Population","Unit #265<br>Population","Unit #266<br>Population","Unit #267<br>Population","Unit #268<br>Population","Unit #269<br>Population","Unit #270<br>Population","Unit #271<br>Population","Unit #272<br>Population","Unit #273<br>Population","Unit #274<br>Population","Unit #275<br>Population","Unit #277<br>Population","Unit #278<br>Population","Unit #279<br>Population","Unit #280<br>Population","Unit #281<br>Population","Unit #282<br>Population","Unit #284<br>Population","Unit #285<br>Population","Unit #286<br>Population","Unit #287<br>Population","Unit #288<br>Population","Unit #289<br>Population","Unit #291<br>Population","Unit #292<br>Population","Unit #293<br>Population","Unit #294<br>Population","Unit #295<br>Population","Unit #296<br>Population","Unit #297<br>Population","Unit #298<br>Population","Unit #299<br>Population","Unit #300<br>Population","Unit #301<br>Population","Unit #302<br>Population","Unit #304<br>Population","Unit #305<br>Population","Unit #306<br>Population","Unit #307<br>Population","Unit #308<br>Population","Unit #309<br>Population","Unit #310<br>Population","Unit #311<br>Population","Unit #312<br>Population","Unit #313<br>Population","Unit #314<br>Population","Unit #315<br>Population","Unit #316<br>Population","Unit #317<br>Population","Unit #318<br>Population","Unit #319<br>Population","Unit #320<br>Population","Unit #321<br>Population","Unit #322<br>Population","Unit #323<br>Population","Unit #324<br>Population","Unit #325<br>Population","Unit #326<br>Population","Unit #327<br>Population","Unit #328<br>Population","Unit #329<br>Population","Unit #330<br>Population","Unit #331<br>Population","Unit #332<br>Population","Unit #333<br>Population","Unit #334<br>Population","Unit #336<br>Population","Unit #337<br>Population","Unit #338<br>Population","Unit #339<br>Population","Unit #340<br>Population","Unit #342<br>Population","Unit #344<br>Population","Unit #345<br>Population","Unit #346<br>Population","Unit #347<br>Population","Unit #348<br>Population","Unit #349<br>Population","Unit #350<br>Population","Unit #351<br>Population","Unit #352<br>Population","Unit #354<br>Population","Unit #355<br>Population","Unit #356<br>Population","Unit #357<br>Population","Unit #358<br>Population","Unit #359<br>Population","Unit #360<br>Population","Unit #361<br>Population","Unit #362<br>Population","Unit #364<br>Population","Unit #365<br>Population","Unit #366<br>Population","Unit #367<br>Population","Unit #368<br>Population","Unit #369<br>Population","Unit #370<br>Population","Unit #371<br>Population","Unit #372<br>Population","Unit #373<br>Population","Unit #374<br>Population","Unit #375<br>Population","Unit #376<br>Population","Unit #377<br>Population","Unit #378<br>Population","Unit #379<br>Population","Unit #380<br>Population","Unit #382<br>Population","Unit #383<br>Population","Unit #384<br>Population","Unit #385<br>Population","Unit #386<br>Population","Unit #387<br>Population","Unit #388<br>Population","Unit #389<br>Population","Unit #390<br>Population","Unit #391<br>Population","Unit #392<br>Population","Unit #393<br>Population","Unit #394<br>Population","Unit #395<br>Population","Unit #396<br>Population","Unit #397<br>Population","Unit #398<br>Population","Unit #399<br>Population","Unit #400<br>Population"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(189,189,189,1)","opacity":0.84999999999999998,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(189,189,189,1)"}},"hoveron":"points","name":"Population","legendgroup":"Population","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.8208011547103524,6.6846673819236457,8.6120947683230042,9.1287592425942421,4.7854524827562273,3.2535215187817812,7.3179251188412309,4.9559357785619795,0.355405795853585,7.4669826962053776,0.75275745708495378,8.9509410294704139,7.7998488978482783,6.4431576291099191,5.0333948573097587,3.8890509982593358,1.2915685446932912,2.5636760401539505,5.1095969835296273,9.4295705924741924,1.9220953504554927,8.8031906890682876,2.2130592772737145,4.9259612080641091,0.77151669189333916,9.8949983343482018,5.4213042440824211,7.8454622998833656,8.3741656923666596,4.2971336678601801],"y":[4.6785623382311314,4.0084385278169066,2.2125505411531776,0.8105454093310982,3.579166418639943,4.7340890951454639,2.3355755780357867,3.5448759922292084,1.6822267894167453,1.8963836261536926,0.24826791952364147,0.66413906519301236,3.6568578949663788,3.3387381373904645,0.17638883437030017,1.2147830449976027,1.9697452848777175,4.7547550452873111,3.1053814687766135,4.7103745478671044,2.0998665993101895,0.71893640328198671,4.5966588519513607,3.7544109392911196,3.5748310619965196,1.7437040444929153,3.0473043175879866,2.7563198341522366,4.3340429128147662,4.5362459658645093],"text":["Unit #31<br>Sample","Unit #36<br>Sample","Unit #52<br>Sample","Unit #61<br>Sample","Unit #67<br>Sample","Unit #84<br>Sample","Unit #112<br>Sample","Unit #122<br>Sample","Unit #133<br>Sample","Unit #148<br>Sample","Unit #158<br>Sample","Unit #162<br>Sample","Unit #164<br>Sample","Unit #177<br>Sample","Unit #184<br>Sample","Unit #192<br>Sample","Unit #208<br>Sample","Unit #209<br>Sample","Unit #226<br>Sample","Unit #250<br>Sample","Unit #276<br>Sample","Unit #283<br>Sample","Unit #290<br>Sample","Unit #303<br>Sample","Unit #335<br>Sample","Unit #341<br>Sample","Unit #343<br>Sample","Unit #353<br>Sample","Unit #363<br>Sample","Unit #381<br>Sample"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,105,92,1)","opacity":0.84999999999999998,"size":15.118110236220474,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,105,92,1)"}},"hoveron":"points","name":"Sample","legendgroup":"Sample","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":16,"r":0,"b":0,"l":0},"paper_bgcolor":"rgba(0,0,0,0)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.36072414321824908,10.452273613307625],"tickmode":"array","ticktext":["0.0","2.5","5.0","7.5","10.0"],"tickvals":[0,2.4999999999999996,5,7.5,10],"categoryorder":"array","categoryarray":["0.0","2.5","5.0","7.5","10.0"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":0,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.24022034561494365,5.2466816625674255],"tickmode":"array","ticktext":["0","1","2","3","4","5"],"tickvals":[2.7755575615628914e-17,1,2,3,4,5],"categoryorder":"array","categoryarray":["0","1","2","3","4","5"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":0,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"shapes":[],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"orientation":"h","x":0.5,"y":-0.14999999999999999,"xanchor":"center","yanchor":"top","title":{"text":"group","font":{"color":null,"family":null,"size":0}}},"hovermode":"closest","height":380,"barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"source":"A","attrs":{"701c4ba9c5de":{"x":{},"y":{},"colour":{},"size":{},"text":{},"type":"scatter"}},"cur_data":"701c4ba9c5de","visdat":{"701c4ba9c5de":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="footer-note center">
+<p>Hover over any dot to see which unit it is. Grey = population, teal = the sample.</p>
+</div>
+</section>
+<section id="poll-pop-sample" class="slide level2 scrollable">
+<h2>Your Turn: Identify Them</h2>
+<div class="thinkbox">
+<p>A researcher wants to know the average sleep of all UTM students. She randomly surveys 200 UTM students and finds they sleep 6.8 hours on average. <br><br> What is the <strong>population</strong>? What is the <strong>sample</strong>?</p>
+</div>
+<div class="fragment">
+<div class="examplebox">
+<p><strong>Population:</strong> All UTM students.<br> <strong>Sample:</strong> The 200 surveyed UTM students.</p>
+</div>
+<aside class="notes">
+<p>Pause and have students answer aloud before revealing.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="unit-observation-variable" class="slide level2 scrollable">
+<h2>Unit, Observation, Variable</h2>
+<div class="defbox">
+<p><strong>Unit</strong> — the smallest entity from which data are collected (one row).</p>
+</div>
+<div class="defbox">
+<p><strong>Observation</strong> — the full set of measured values for one unit.</p>
+</div>
+<div class="defbox">
+<p><strong>Variable</strong> — a characteristic that varies from unit to unit (one column).</p>
+</div>
+</section>
+<section id="reading-a-data-table" class="slide level2 scrollable">
+<h2>Reading a Data Table</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Student</th>
+<th style="text-align: center;">Age</th>
+<th style="text-align: left;">Program</th>
+<th style="text-align: center;">Study Hours</th>
+<th style="text-align: center;">On Campus</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: left;">Statistics</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: left;">Computer Science</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: left;">Biology</td>
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">Yes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: left;">Psychology</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">No</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="examplebox">
+<ul>
+<li>Each <strong>row</strong> is one observation (one student)</li>
+<li>Each <strong>column</strong> is one variable</li>
+<li>The <strong>unit</strong> is a single student</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="try-data" class="slide level2 scrollable">
+<h2>Try It in R</h2>
+<div class="cell" data-autorun="true" data-caption="A small student data set">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImNhcHRpb24iOiJBIHNtYWxsIHN0dWRlbnQgZGF0YSBzZXQiLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxuc3R1ZGVudHMgPC0gZGF0YS5mcmFtZShcbiAgYWdlICAgICAgICAgID0gYygxOSwgMjIsIDIwLCAyMSksXG4gIHByb2dyYW0gICAgICA9IGMoXCJTdGF0c1wiLCBcIkNTXCIsIFwiQmlvXCIsIFwiUHN5Y2hcIiksXG4gIHN0dWR5X2hvdXJzICA9IGMoMjAsIDE1LCAyOCwgMTgpLFxuICBvbl9jYW1wdXMgICAgPSBjKFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJOb1wiKVxuKVxuXG5zdHVkZW50c1xubnJvdyhzdHVkZW50cykgICAjIGhvdyBtYW55IG9ic2VydmF0aW9ucz9cbm5jb2woc3R1ZGVudHMpICAgIyBob3cgbWFueSB2YXJpYWJsZXM/In0=
+</script>
+</div>
+</div>
+<div class="footer-note">
+<p>Run it. Then change a value or add another student.</p>
+</div>
+</section>
+<section id="population-unit-vs-sample-unit" class="slide level2 scrollable">
+<h2>Population Unit vs Sample Unit</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Population unit</strong><br> One member of the entire population.</p>
+</div>
+<div class="examplebox">
+<p>One U of T student, when the population is all U of T students.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Sample unit</strong><br> One member of the selected sample.</p>
+</div>
+<div class="examplebox">
+<p>One of the 50 students you actually surveyed.</p>
+</div>
+</div></div>
+<div class="fragment">
+<div class="thinkbox">
+<p>Every sample unit is also a population unit — but not the other way around.</p>
+</div>
+</div>
+</section>
+<section id="parameter-vs-statistic" class="slide level2 scrollable">
+<h2>Parameter vs Statistic</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Parameter</strong><br> A number that describes the <strong>population</strong>.<br><br> Usually <strong>unknown</strong>.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Statistic</strong><br> A number that describes the <strong>sample</strong>.<br><br> Calculated from data — <strong>known</strong>.</p>
+</div>
+</div></div>
+<div class="fragment">
+<div class="thinkbox">
+<p><strong>Memory trick:</strong> &nbsp; Parameter ↔︎ Population &nbsp;|&nbsp; Statistic ↔︎ Sample &nbsp;(both start with the same letter).</p>
+</div>
+</div>
+</section>
+<section id="notation-you-need-to-memorize" class="slide level2 scrollable">
+<h2>Notation You Need to Memorize</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: center;">Population (parameter)</th>
+<th style="text-align: center;">Sample (statistic)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mean</td>
+<td style="text-align: center;"><span class="math inline">\(\mu\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\bar{x}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Standard deviation</td>
+<td style="text-align: center;"><span class="math inline">\(\sigma\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(s\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Proportion</td>
+<td style="text-align: center;"><span class="math inline">\(p\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\hat{p}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Size</td>
+<td style="text-align: center;"><span class="math inline">\(N\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div class="examplebox">
+<p><strong>Greek letters → population.</strong> &nbsp; <strong>Roman letters (or hats) → sample.</strong></p>
+</div>
+<aside class="notes">
+<p>Stress this. Most algebra errors later in the course come from mixing <span class="math inline">\(p\)</span> with <span class="math inline">\(\hat{p}\)</span> or <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(s\)</span>.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="qc-param-stat" class="slide level2 scrollable">
+<h2>Quick Check</h2>
+<div class="thinkbox">
+For each, decide: <strong>parameter</strong> or <strong>statistic</strong>?
+<ol>
+<li>
+The average height of all NBA players.
+</li>
+<li>
+63% of 500 surveyed Canadians support a policy.
+</li>
+<li>
+The sample mean GPA of 80 UTM students is 3.12.
+</li>
+<li>
+The standard deviation of grades for every student who has ever taken STA258.
+</li>
+</ol>
+</div>
+<div class="fragment">
+<div class="examplebox">
+<p>1 — parameter (all NBA players)<br> 2 — statistic (500 surveyed)<br> 3 — statistic (80 students)<br> 4 — parameter (every student ever)</p>
+</div>
+</div>
+</section>
+<section id="compute-stat" class="slide level2 scrollable">
+<h2>Compute a Statistic Yourself</h2>
+<p>Below are weekly study hours for a sample of 10 students.<br> Calculate the sample mean.</p>
+<div class="cell" data-exercise="sample_mean">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwiY29kZSI6Ilxuc3R1ZHlfaG91cnMgPC0gYygxMiwgMTgsIDI1LCA5LCAyMiwgMzAsIDE1LCAyMCwgMTcsIDI4KVxuXG4jIEZpbGwgaW4gdGhlIGJsYW5rIHRvIGNvbXB1dGUgdGhlIHNhbXBsZSBtZWFuXG5fX19fX18oc3R1ZHlfaG91cnMpIn0=
+</script>
+</div>
+</div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="sample_mean">
+<div title="Solution">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">mean</span>(study_hours)   <span class="co"># 19.6</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is <span class="math inline">\(\bar{x}\)</span>, our estimate of the unknown population mean <span class="math inline">\(\mu\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="descriptive-vs-inferential-statistics" class="slide level2 scrollable">
+<h2>Descriptive vs Inferential Statistics</h2>
+<div class="defbox">
+<p><strong>Descriptive statistics</strong><br> Numerical and graphical methods used to <strong>summarize</strong> the data you have.</p>
+</div>
+<div class="defbox">
+<p><strong>Inferential statistics</strong><br> Using a sample to <strong>generalize</strong> to a larger population.</p>
+</div>
+</section>
+<section id="spot-the-difference" class="slide level2 scrollable">
+<h2>Spot the Difference</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="descriptive">Descriptive</h4>
+<div class="examplebox">
+<p>“The average mark in this lecture of 80 students is 72%.” <br><br> “63% of <em>these</em> 400 Torontonians support the plan.”</p>
+</div>
+</div><div class="column" style="width:50%;">
+<h4 id="inferential">Inferential</h4>
+<div class="examplebox">
+<p>“We estimate the average STA258 mark <em>across all sections</em> is around 72%.” <br><br> “We estimate ~63% of <em>all</em> Toronto residents support the plan.”</p>
+</div>
+</div></div>
+<div class="fragment">
+<div class="thinkbox">
+<p><strong>Tell:</strong> descriptive describes <em>this data</em>. Inferential makes a claim <em>beyond</em> the data.</p>
+</div>
+</div>
+</section>
+<section id="types-of-data-1" class="slide level2 scrollable">
+<h2>1.2 Types of Data</h2>
+<div class="defbox">
+<p><strong>Quantitative data</strong><br> Numerical measurements where arithmetic is meaningful.</p>
+</div>
+<div class="defbox">
+<p><strong>Qualitative (categorical) data</strong><br> Values fall into <strong>categories</strong>; arithmetic doesn’t make sense.</p>
+</div>
+<div class="fragment">
+<div class="warnbox">
+<p><strong>Trap:</strong> a number doesn’t automatically mean quantitative.<br> Postal codes, jersey numbers, and student IDs <em>look</em> numeric but are categorical.</p>
+</div>
+</div>
+</section>
+<section id="quantitative-discrete-vs-continuous" class="slide level2 scrollable">
+<h2>Quantitative: Discrete vs Continuous</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Discrete</strong><br> Countable values, often whole numbers.</p>
+</div>
+<div class="examplebox">
+<ul>
+<li>Number of siblings</li>
+<li>Courses enrolled in</li>
+<li>Defective items in a batch</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Continuous</strong><br> Any value in a range; measured on a scale.</p>
+</div>
+<div class="examplebox">
+<ul>
+<li>Height</li>
+<li>Time spent studying</li>
+<li>Temperature</li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="qualitative-nominal-vs-ordinal" class="slide level2 scrollable">
+<h2>Qualitative: Nominal vs Ordinal</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Nominal</strong><br> Categories with <strong>no natural order</strong>.</p>
+</div>
+<div class="examplebox">
+<ul>
+<li>Eye colour</li>
+<li>Program of study</li>
+<li>Primary device (phone/laptop/tablet)</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Ordinal</strong><br> Categories with a <strong>natural order</strong>.</p>
+</div>
+<div class="examplebox">
+<ul>
+<li>Self-rated health (Poor → Excellent)</li>
+<li>Movie rating (1–5 stars)</li>
+<li>Education level</li>
+</ul>
+</div>
+</div></div>
+</section>
+<section id="the-full-map" class="slide level2 scrollable">
+<h2>The Full Map</h2>
+<div class="center">
+<pre><code>                       DATA
+                        |
+          +-------------+-------------+
+          |                           |
+    Quantitative                 Qualitative
+     (numeric)                  (categorical)
+          |                           |
+    +-----+------+              +-----+------+
+    |            |              |            |
+ Discrete    Continuous     Nominal       Ordinal
+ (counts)    (measured)   (no order)    (ordered)</code></pre>
+</div>
+<div class="fragment">
+<div class="footer-note center">
+<p>This tree is the single most useful diagram in Chapter 1.</p>
+</div>
+</div>
+</section>
+<section id="classify-exercise" class="slide level2 scrollable">
+<h2>Classify These</h2>
+<p>Try classifying each one. Then click for the answer.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Number of pets a student owns</td>
+<td style="text-align: left;"><span class="fragment">Quantitative, <strong>discrete</strong></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Language spoken at home</td>
+<td style="text-align: left;"><span class="fragment">Qualitative, <strong>nominal</strong></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Backpack weight (kg)</td>
+<td style="text-align: left;"><span class="fragment">Quantitative, <strong>continuous</strong></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Postal code</td>
+<td style="text-align: left;"><span class="fragment">Qualitative, <strong>nominal</strong></span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Classroom temperature (°C)</td>
+<td style="text-align: left;"><span class="fragment">Quantitative, <strong>continuous</strong></span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Self-rated health (Poor/Fair/Good)</td>
+<td style="text-align: left;"><span class="fragment">Qualitative, <strong>ordinal</strong></span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="check-types" class="slide level2 scrollable">
+<h2>Check Data Types in R</h2>
+<p>R can tell you what type each variable is. Run it, then change a value.</p>
+<div class="cell" data-autorun="true" data-caption="class() reports the data type R is storing">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImNhcHRpb24iOiJjbGFzcygpIHJlcG9ydHMgdGhlIGRhdGEgdHlwZSBSIGlzIHN0b3JpbmciLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuYWdlICAgICAgPC0gMjBcbnByb2dyYW0gIDwtIFwiU3RhdGlzdGljc1wiXG5vbl9jYW1wdXMgPC0gVFJVRVxucGV0cyAgICAgPC0gMkxcblxuY2xhc3MoYWdlKSAgICAgICAgIyBudW1lcmljICDihpIgcXVhbnRpdGF0aXZlIGNvbnRpbnVvdXNcbmNsYXNzKHByb2dyYW0pICAgICMgY2hhcmFjdGVyIOKGkiBxdWFsaXRhdGl2ZVxuY2xhc3Mob25fY2FtcHVzKSAgIyBsb2dpY2FsICDihpIgcXVhbGl0YXRpdmUgKDIgY2F0ZWdvcmllcylcbmNsYXNzKHBldHMpICAgICAgICMgaW50ZWdlciAg4oaSIHF1YW50aXRhdGl2ZSBkaXNjcmV0ZSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="introduction-to-inferential-statistics" class="slide level2 scrollable">
+<h2>1.3 Introduction to Inferential Statistics</h2>
+<div class="center">
+<p><span class="big">Sample → Statistic → Estimate of Parameter</span></p>
+</div>
+<p><br></p>
+
+<img data-src="chapter1-slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="864" class="r-stretch"></section>
+<section id="why-uncertainty-is-built-in" class="slide level2 scrollable">
+<h2>Why Uncertainty Is Built In</h2>
+<div class="examplebox">
+<p>Two different samples of 100 UTM students will give two <strong>different</strong> sample means.<br><br> So any estimate must come with a measure of how much it might be off.</p>
+</div>
+<div class="fragment">
+<div class="thinkbox">
+<p>This is where the tools in later chapters come from:</p>
+<ul>
+<li><strong>Confidence intervals</strong> — a range of plausible parameter values</li>
+<li><strong>Hypothesis tests</strong> — checking whether data support a specific claim</li>
+<li><strong>Statistical power</strong> — how likely we are to detect a real effect</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="see-variability" class="slide level2 scrollable">
+<h2>See Sampling Variability</h2>
+<div class="cell" data-autorun="false" data-caption="Each click draws a new sample of 30 from a population with mean 70.">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJjYXB0aW9uIjoiRWFjaCBjbGljayBkcmF3cyBhIG5ldyBzYW1wbGUgb2YgMzAgZnJvbSBhIHBvcHVsYXRpb24gd2l0aCBtZWFuIDcwLiIsImVkaXQiOnRydWUsImV2YWwiOnRydWV9LCJjb2RlIjoiXG5zZXQuc2VlZChOVUxMKVxucG9wdWxhdGlvbiA8LSBybm9ybSgxMDAwMCwgbWVhbiA9IDcwLCBzZCA9IDEwKVxuc2FtcGxlXzMwICA8LSBzYW1wbGUocG9wdWxhdGlvbiwgMzApXG5tZWFuKHNhbXBsZV8zMCkifQ==
+</script>
+</div>
+</div>
+<div class="footer-note">
+<p>Run it 5 times. Notice the sample mean changes each time — even though the true population mean is exactly 70.</p>
+</div>
+</section>
+<section id="sampling-methods" class="slide level2 scrollable">
+<h2>A Closer Look at Sampling</h2>
+<p>How you collect your sample determines whether inference is honest.</p>
+<div class="defbox" style="font-size:0.85em">
+<p><strong>Simple random sample (SRS)</strong> — every unit has an equal chance of being chosen.</p>
+</div>
+<div class="defbox" style="font-size:0.85em">
+<p><strong>Systematic</strong> — every <span class="math inline">\(k\)</span>-th unit from an ordered list (e.g., every 50th student).</p>
+</div>
+<div class="defbox" style="font-size:0.85em">
+<p><strong>Stratified</strong> — divide into groups, sample from each group.</p>
+</div>
+<div class="defbox" style="font-size:0.85em">
+<p><strong>Cluster</strong> — randomly pick whole groups, survey everyone inside.</p>
+</div>
+<div class="defbox" style="font-size:0.85em">
+<p><strong>Convenience / Voluntary response</strong> — whoever is easy to reach or chooses to respond. ⚠ Usually biased.</p>
+</div>
+</section>
+<section id="bias-when-samples-lie" class="slide level2 scrollable">
+<h2>Bias: When Samples Lie</h2>
+<div class="defbox">
+<p><strong>Bias</strong> — a systematic tendency for a sample to differ from the population in a particular direction.</p>
+</div>
+<p><br></p>
+<div class="fragment">
+<div class="warnbox">
+<p><strong>Classic bias traps:</strong></p>
+<ul>
+<li><strong>Selection bias</strong> — surveying gym-goers about exercise habits</li>
+<li><strong>Voluntary response</strong> — Instagram polls (only loud opinions answer)</li>
+<li><strong>Non-response bias</strong> — the people who skip the survey are different from those who answer</li>
+<li><strong>Coverage bias</strong> — your sampling frame misses parts of the population</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="study-types" class="slide level2 scrollable">
+<h2>Observational vs Experimental Studies</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Observational</strong><br> Record what’s already happening — no intervention.</p>
+</div>
+<div class="examplebox">
+<p>Survey adults: do you take vitamins? Did you catch a cold?</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="defbox">
+<p><strong>Experimental</strong><br> Randomly assign participants to treatments, then compare.</p>
+</div>
+<div class="examplebox">
+<p>Randomly give half the volunteers Vitamin C, half a placebo, and compare cold rates.</p>
+</div>
+</div></div>
+<div class="fragment">
+<div class="thinkbox">
+<p>Only well-designed <strong>experiments</strong> can establish cause and effect.</p>
+</div>
+</div>
+</section>
+<section id="chapter-1-summary" class="slide level2 scrollable">
+<h2>Chapter 1 Summary</h2>
+<div class="examplebox">
+<ol>
+<li>
+Statistics = science of learning from data under uncertainty.
+</li>
+<li>
+We study a <strong>sample</strong> to learn about a <strong>population</strong>.
+</li>
+<li>
+<strong>Parameters</strong> describe populations (unknown); <strong>statistics</strong> describe samples (known).
+</li>
+<li>
+Data are <strong>quantitative</strong> (discrete/continuous) or <strong>qualitative</strong> (nominal/ordinal).
+</li>
+<li>
+Inference uses a sample statistic to estimate an unknown population parameter — with a measure of uncertainty.
+</li>
+<li>
+<strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.
+</li>
+</ol>
+</div>
+</section>
+<section id="whats-next" class="slide level2 scrollable">
+<h2>What’s Next</h2>
+<div class="thinkbox">
+<p><strong>Chapter 2:</strong> we move into R — the tool we’ll use to compute statistics, simulate samples, and visualize uncertainty.</p>
+</div>
+<p><br></p>
+<div class="center">
+<p><span class="big">End of Chapter 1</span><br><br> <a href="chapter1.html">← Back to Chapter 1</a></p>
+</div>
+</section>
+<section id="bonus-practice" class="slide level2 scrollable">
+<h2>Bonus Practice</h2>
+<p>Below are some ages of UTM students in a sample. Compute:</p>
+<ol type="1">
+<li>The sample size <span class="math inline">\(n\)</span></li>
+<li>The sample mean <span class="math inline">\(\bar{x}\)</span></li>
+<li>The sample standard deviation <span class="math inline">\(s\)</span></li>
+</ol>
+<div class="cell" data-exercise="bonus_practice">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiYm9udXNfcHJhY3RpY2UifSwiY29kZSI6IlxuYWdlcyA8LSBjKDE5LCAyMiwgMjAsIDIxLCAyMywgMTksIDIwLCAyNCwgMjIsIDIwLCAyMSwgMTkpXG5cbiMgRmlsbCBpbjpcbm4gIDwtIF9fX19fXyhhZ2VzKVxueGJhciA8LSBfX19fX18oYWdlcylcbnMgIDwtIF9fX19fXyhhZ2VzKVxuXG5jKG4gPSBuLCB4YmFyID0geGJhciwgcyA9IHMpIn0=
+</script>
+</div>
+</div>
+<div class="webr-ojs-exercise exercise-solution d-none" data-exercise="bonus_practice">
+<div title="Solution">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution</strong></p>
+</div>
+<div class="callout-content">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>n    <span class="ot">&lt;-</span> <span class="fu">length</span>(ages)</span>
+<span id="cb3-2"><a></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(ages)</span>
+<span id="cb3-3"><a></a>s    <span class="ot">&lt;-</span> <span class="fu">sd</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><span class="math inline">\(n = 12\)</span>, <span class="math inline">\(\bar{x} \approx 20.83\)</span>, <span class="math inline">\(s \approx 1.59\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 
-</section>
-<section id="what-is-statistics" class="slide level2">
-<h2>What is Statistics?</h2>
-<p>The science of collecting, organizing, analyzing, and interpreting data to make decisions under uncertainty.</p>
-</section>
-<section id="foundations" class="slide level2">
-<h2>1.1 Foundations</h2>
-<ul>
-<li><strong>Population</strong> — the full set of individuals of interest</li>
-<li><strong>Sample</strong> — a subset of the population we observe</li>
-<li><strong>Parameter</strong> — a numerical summary of the population</li>
-<li><strong>Statistic</strong> — a numerical summary of the sample</li>
-</ul>
-</section>
-<section id="types-of-data" class="slide level2">
-<h2>1.2 Types of Data</h2>
-<ul>
-<li class="fragment"><strong>Categorical</strong> — qualitative labels (e.g.&nbsp;gender, colour)</li>
-<li class="fragment"><strong>Discrete</strong> — countable values (e.g.&nbsp;number of defects)</li>
-<li class="fragment"><strong>Continuous</strong> — measured on a scale (e.g.&nbsp;height, temperature)</li>
-</ul>
-</section>
-<section id="inferential-statistics" class="slide level2">
-<h2>1.3 Inferential Statistics</h2>
-<p>We use a <strong>sample</strong> to make conclusions about a <strong>population</strong>.</p>
-<p><span class="math display">\[
-\text{Sample} \xrightarrow{\text{inference}} \text{Population}
-\]</span></p>
-<p>Key tools: estimation, hypothesis testing, confidence intervals.</p>
-</section>
-<section id="key-takeaways" class="slide level2">
-<h2>Key Takeaways</h2>
-<ul>
-<li class="fragment">Statistics bridges data and decisions</li>
-<li class="fragment">Know whether your data is categorical or numerical</li>
-<li class="fragment">Inference always involves uncertainty — quantify it</li>
-</ul>
 
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsInRpYmJsZSIsImdncGxvdDIiXSwicmVwb3MiOltdfSwicmVuZGVyX2RmIjoiZGVmYXVsdCJ9
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC01IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV81O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzUgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItNS1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzUgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzUsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzUgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzUuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTItY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV8yID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8yLCB7fSk7XG5fd2Vicl9mZWVkYmFja18yID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV8yLmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8xO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8xLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici1wcmVsdWRlIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoid2ViUk9qcyA9IHtcbiAgY29uc3QgeyBXZWJSLCBDaGFubmVsVHlwZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZS5XZWJSO1xuICBjb25zdCB7XG4gICAgV2ViUkV2YWx1YXRvcixcbiAgICBXZWJSRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyB3ZWJSIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIC8vIEluaXRpYWxpc2Ugd2ViUiBhbmQgc2V0dXAgZm9yIFIgY29kZSBldmFsdWF0aW9uXG4gIGxldCB3ZWJSUHJvbWlzZSA9IChhc3luYyAod2ViUikgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgd2ViUmA7XG4gICAgYXdhaXQgd2ViUi5pbml0KCk7XG5cbiAgICAvLyBJbnN0YWxsIHByb3ZpZGVkIGxpc3Qgb2YgcGFja2FnZXNcbiAgICAvLyBFbnN1cmUgd2ViUiBkZWZhdWx0IHJlcG8gaXMgaW5jbHVkZWRcbiAgICBkYXRhLnBhY2thZ2VzLnJlcG9zLnB1c2goXCJodHRwczovL3JlcG8uci13YXNtLm9yZ1wiKVxuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIHdlYlIuZXZhbFJWb2lkKGBcbiAgICAgICAgd2Vicjo6aW5zdGFsbChwa2csIHJlcG9zID0gcmVwb3MpXG4gICAgICAgIGxpYnJhcnkocGtnLCBjaGFyYWN0ZXIub25seSA9IFRSVUUpXG4gICAgICBgLCB7IGVudjoge1xuICAgICAgICBwa2c6IHBrZyxcbiAgICAgICAgcmVwb3M6IGRhdGEucGFja2FnZXMucmVwb3MsXG4gICAgICB9fSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgY29uc3QgYW5hbHlzaXMgPSBhd2FpdCB3ZWJSLkZTLmFuYWx5emVQYXRoKHBhdGgpO1xuICAgICAgICBpZiAoIWFuYWx5c2lzLmV4aXN0cykge1xuICAgICAgICAgIHRyeSB7XG4gICAgICAgICAgICBhd2FpdCB3ZWJSLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvcjogXCIke2UubWVzc2FnZX1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHJldHVybiBhd2FpdCB3ZWJSLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluc3RhbGxpbmcgd2ViUiBzaGltc2A7XG4gICAgYXdhaXQgd2ViUi5ldmFsUlZvaWQoYHdlYnI6OnNoaW1faW5zdGFsbCgpYCk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFdlYlIgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUih3ZWJSLCBkYXRhKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiB3ZWJSO1xuICB9KShuZXcgV2ViUihkYXRhLm9wdGlvbnMpKTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3Qgd2ViUiA9IGF3YWl0IHdlYlJQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBXZWJSRXZhbHVhdG9yKHdlYlIsIGNvbnRleHQpXG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHJvY2VzcyxcbiAgICB3ZWJSUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgfTtcbn1cbiJ9XX0=
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
 
-</section>
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -340,7 +1238,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
@@ -394,6 +1292,55 @@
         ]
       });
     </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../..";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

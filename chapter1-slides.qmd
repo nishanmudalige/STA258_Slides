@@ -1,57 +1,923 @@
 ---
-title: "Chapter 1: Introduction"
-subtitle: "STA258 — University of Toronto Mississauga"
+pagetitle: "Chapter 1: Introduction — Slides"
+engine: knitr
 format:
-  revealjs:
+  live-revealjs:
     theme: simple
+    transition: slide
     slide-number: true
+    toc: false
     chalkboard: true
     footer: "STA258 | Chapter 1"
     pdf-separate-fragments: false
     html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    webr:
+      packages:
+        - tibble
+        - ggplot2
+    live:
+      show-solutions: true
 ---
 
-## What is Statistics?
+# Chapter 1: Introduction {.title-slide}
 
-The science of collecting, organizing, analyzing, and interpreting data to make decisions under uncertainty.
+<style>
+.reveal {
+  font-family: Arial, sans-serif;
+  color: #2f3437;
+}
 
----
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  color: #2f3437;
+}
 
-## 1.1 Foundations
+.reveal h2 {
+  border-bottom: 3px solid #00695c;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+  font-size: 1.6em;
+}
 
-- **Population** — the full set of individuals of interest
-- **Sample** — a subset of the population we observe
-- **Parameter** — a numerical summary of the population
-- **Statistic** — a numerical summary of the sample
+.title-slide {
+  text-align: center;
+}
 
----
+.reveal p, .reveal li {
+  font-size: 0.78em;
+  line-height: 1.35;
+}
 
-## 1.2 Types of Data
+.defbox {
+  background: #c8e6f3;
+  padding: 10px 14px;
+  border-left: 6px solid #00695c;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
 
-::: {.incremental}
-- **Categorical** — qualitative labels (e.g. gender, colour)
-- **Discrete** — countable values (e.g. number of defects)
-- **Continuous** — measured on a scale (e.g. height, temperature)
+.examplebox {
+  background: #eeeeee;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.thinkbox {
+  background: #fff8e1;
+  padding: 10px 14px;
+  border-left: 6px solid #f9a825;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.warnbox {
+  background: #ffebee;
+  padding: 10px 14px;
+  border-left: 6px solid #c62828;
+  border-radius: 8px;
+  font-size: 0.72em;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.big {
+  font-size: 1.05em;
+  font-weight: bold;
+  color: #00695c;
+}
+
+.defbox p, .examplebox p, .thinkbox p, .warnbox p,
+.defbox li, .examplebox li, .thinkbox li, .warnbox li {
+  font-size: 1em;
+  margin-bottom: 4px;
+}
+
+.footer-note {
+  font-size: 0.65em;
+  color: #666666;
+}
+
+.center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.75em;
+}
+
+.reveal table {
+  font-size: 0.85em;
+}
+
+.answer-table td {
+  background: #eeeeee;
+}
+.answer-table th {
+  background: #c8e6f3;
+}
+</style>
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability
+University of Toronto Mississauga
+
+![](cat.png){width="300"}
+
+::: notes
+Welcome students. Set the tone: this course is about reasoning under uncertainty, not just plugging numbers into formulas.
 :::
 
 ---
 
-## 1.3 Inferential Statistics
+## The Big Question {#big-question .scrollable}
 
-We use a **sample** to make conclusions about a **population**.
+<div class="center">
+<span class="big">How can we say something true about<br>millions of people we've never met?</span>
+</div>
 
-$$
-\text{Sample} \xrightarrow{\text{inference}} \text{Population}
-$$
+<br>
 
-Key tools: estimation, hypothesis testing, confidence intervals.
+. . .
+
+<div class="examplebox">
+Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
+Doctors test a drug on 500 patients and recommend it for everyone.<br>
+Netflix watches a sample of users and decides what shows to make.
+</div>
+
+. . .
+
+<div class="thinkbox">
+That gap between "what we measured" and "what we want to know" — that's what this whole course is about.
+</div>
 
 ---
 
-## Key Takeaways
+## Roadmap {#roadmap .scrollable}
 
-::: {.incremental}
-- Statistics bridges data and decisions
-- Know whether your data is categorical or numerical
-- Inference always involves uncertainty — quantify it
+::::: columns
+::: {.column width="50%"}
+#### 1.1 Foundations
+- Statistics, population, sample
+- Unit, observation, variable
+- Parameter vs statistic
+- Descriptive vs inferential
+:::
+
+::: {.column width="50%"}
+#### 1.2 Types of Data
+- Quantitative vs qualitative
+- Discrete vs continuous
+- Nominal vs ordinal
+
+#### 1.3 Inference Preview
+- Sampling, bias, study types
+:::
+:::::
+
+---
+
+## 1.1 Foundations {.scrollable}
+
+<div class="defbox">
+<strong>Definition 1.1 — Statistics</strong><br>
+The science of <strong>collecting, classifying, summarizing, analyzing, and interpreting data</strong>.
+</div>
+
+<br>
+
+. . .
+
+<div class="examplebox">
+Think of statistics as a pipeline:
+<br><br>
+<span class="big">Question → Data → Analysis → Decision</span>
+</div>
+
+::: notes
+The five verbs in the definition map roughly to the chapters of the course.
+:::
+
+---
+
+## Population {#population .scrollable}
+
+<div class="defbox">
+<strong>Definition 1.2 — Population</strong><br>
+The <strong>entire group</strong> of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.
+</div>
+
+<br>
+
+. . .
+
+::: {.examplebox}
+**Examples:**
+
+- All students at the University of Toronto
+- All residents of Mississauga
+- Every possible hand in a game of poker (hypothetical!)
+- Every battery a factory will ever produce
+:::
+
+. . .
+
+<div class="thinkbox">
+A population can be real or hypothetical, finite or essentially infinite. What matters is that it's the group you actually want to learn about.
+</div>
+
+---
+
+## Sample {#sample .scrollable}
+
+<div class="defbox">
+<strong>Definition 1.3 — Sample</strong><br>
+A <strong>subset</strong> selected from the population.
+</div>
+
+<br>
+
+::: {.examplebox}
+**Examples:**
+
+- 50 randomly selected U of T students
+- 100 randomly selected Mississauga residents
+- 30 batteries pulled off the production line today
+:::
+
+. . .
+
+<div class="thinkbox">
+<strong>Why sample?</strong> Measuring everyone is usually too slow, too expensive, or simply impossible.
+</div>
+
+---
+
+## Visualizing Population vs Sample {.scrollable}
+
+```{r}
+#| echo: false
+#| fig-width: 9
+#| fig-height: 4.5
+set.seed(1)
+N <- 400
+pop <- data.frame(
+  id    = 1:N,
+  x     = runif(N, 0, 10),
+  y     = runif(N, 0, 5),
+  group = "Population"
+)
+samp_idx <- sample(N, 30)
+pop$group[samp_idx] <- "Sample"
+
+library(ggplot2)
+library(plotly)
+p <- ggplot(pop, aes(x, y, colour = group, size = group,
+                     text = paste0("Unit #", id, "<br>", group))) +
+  geom_point(alpha = 0.85) +
+  scale_colour_manual(values = c("Population" = "#bdbdbd", "Sample" = "#00695c")) +
+  scale_size_manual(values = c("Population" = 2, "Sample" = 4)) +
+  theme_void() +
+  theme(legend.title = element_blank(), legend.position = "bottom")
+
+ggplotly(p, tooltip = "text", height = 380) |>
+  config(displayModeBar = FALSE)
+```
+
+::: {.footer-note .center}
+Hover over any dot to see which unit it is. Grey = population, teal = the sample.
+:::
+
+---
+
+## Your Turn: Identify Them {#poll-pop-sample .scrollable}
+
+<div class="thinkbox">
+A researcher wants to know the average sleep of all UTM students. She randomly surveys 200 UTM students and finds they sleep 6.8 hours on average.
+<br><br>
+What is the <strong>population</strong>?  What is the <strong>sample</strong>?
+</div>
+
+. . .
+
+<div class="examplebox">
+<strong>Population:</strong> All UTM students.<br>
+<strong>Sample:</strong> The 200 surveyed UTM students.
+</div>
+
+::: notes
+Pause and have students answer aloud before revealing.
+:::
+
+---
+
+## Unit, Observation, Variable {#unit-observation-variable .scrollable}
+
+<div class="defbox">
+<strong>Unit</strong> — the smallest entity from which data are collected (one row).
+</div>
+
+<div class="defbox">
+<strong>Observation</strong> — the full set of measured values for one unit.
+</div>
+
+<div class="defbox">
+<strong>Variable</strong> — a characteristic that varies from unit to unit (one column).
+</div>
+
+---
+
+## Reading a Data Table {.scrollable}
+
+| Student | Age | Program | Study Hours | On Campus |
+|:---:|:---:|:---|:---:|:---:|
+| 1 | 19 | Statistics | 20 | Yes |
+| 2 | 22 | Computer Science | 15 | No |
+| 3 | 20 | Biology | 28 | Yes |
+| 4 | 21 | Psychology | 18 | No |
+
+. . .
+
+::: {.examplebox}
+- Each **row** is one observation (one student)
+- Each **column** is one variable
+- The **unit** is a single student
+:::
+
+---
+
+## Try It in R {#try-data .scrollable}
+
+```{webr}
+#| autorun: true
+#| caption: A small student data set
+
+students <- data.frame(
+  age          = c(19, 22, 20, 21),
+  program      = c("Stats", "CS", "Bio", "Psych"),
+  study_hours  = c(20, 15, 28, 18),
+  on_campus    = c("Yes", "No", "Yes", "No")
+)
+
+students
+nrow(students)   # how many observations?
+ncol(students)   # how many variables?
+```
+
+<div class="footer-note">
+Run it. Then change a value or add another student.
+</div>
+
+---
+
+## Population Unit vs Sample Unit {.scrollable}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Population unit</strong><br>
+One member of the entire population.
+</div>
+
+<div class="examplebox">
+One U of T student, when the population is all U of T students.
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Sample unit</strong><br>
+One member of the selected sample.
+</div>
+
+<div class="examplebox">
+One of the 50 students you actually surveyed.
+</div>
+:::
+:::::
+
+. . .
+
+<div class="thinkbox">
+Every sample unit is also a population unit — but not the other way around.
+</div>
+
+---
+
+## Parameter vs Statistic {#parameter-vs-statistic .scrollable}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Parameter</strong><br>
+A number that describes the <strong>population</strong>.<br><br>
+Usually <strong>unknown</strong>.
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Statistic</strong><br>
+A number that describes the <strong>sample</strong>.<br><br>
+Calculated from data — <strong>known</strong>.
+</div>
+:::
+:::::
+
+. . .
+
+<div class="thinkbox">
+<strong>Memory trick:</strong> &nbsp; Parameter ↔ Population &nbsp;|&nbsp; Statistic ↔ Sample &nbsp;(both start with the same letter).
+</div>
+
+---
+
+## Notation You Need to Memorize {.scrollable}
+
+| Quantity | Population (parameter) | Sample (statistic) |
+|:---|:---:|:---:|
+| Mean | $\mu$ | $\bar{x}$ |
+| Standard deviation | $\sigma$ | $s$ |
+| Proportion | $p$ | $\hat{p}$ |
+| Size | $N$ | $n$ |
+
+<br>
+
+<div class="examplebox">
+<strong>Greek letters → population.</strong> &nbsp; <strong>Roman letters (or hats) → sample.</strong>
+</div>
+
+::: notes
+Stress this. Most algebra errors later in the course come from mixing $p$ with $\hat{p}$ or $\sigma$ with $s$.
+:::
+
+---
+
+## Quick Check {#qc-param-stat .scrollable}
+
+<div class="thinkbox">
+For each, decide: <strong>parameter</strong> or <strong>statistic</strong>?
+<ol>
+<li>The average height of all NBA players.</li>
+<li>63% of 500 surveyed Canadians support a policy.</li>
+<li>The sample mean GPA of 80 UTM students is 3.12.</li>
+<li>The standard deviation of grades for every student who has ever taken STA258.</li>
+</ol>
+</div>
+
+. . .
+
+<div class="examplebox">
+1 — parameter (all NBA players)<br>
+2 — statistic (500 surveyed)<br>
+3 — statistic (80 students)<br>
+4 — parameter (every student ever)
+</div>
+
+---
+
+## Compute a Statistic Yourself {#compute-stat .scrollable}
+
+Below are weekly study hours for a sample of 10 students.<br>
+Calculate the sample mean.
+
+```{webr}
+#| exercise: sample_mean
+
+study_hours <- c(12, 18, 25, 9, 22, 30, 15, 20, 17, 28)
+
+# Fill in the blank to compute the sample mean
+______(study_hours)
+```
+
+::: {.solution exercise="sample_mean"}
+::: {.callout-tip title="Solution"}
+```r
+mean(study_hours)   # 19.6
+```
+This is $\bar{x}$, our estimate of the unknown population mean $\mu$.
+:::
+:::
+
+---
+
+## Descriptive vs Inferential Statistics {#descriptive-vs-inferential-statistics .scrollable}
+
+<div class="defbox">
+<strong>Descriptive statistics</strong><br>
+Numerical and graphical methods used to <strong>summarize</strong> the data you have.
+</div>
+
+<div class="defbox">
+<strong>Inferential statistics</strong><br>
+Using a sample to <strong>generalize</strong> to a larger population.
+</div>
+
+---
+
+## Spot the Difference {.scrollable}
+
+::::: columns
+::: {.column width="50%"}
+#### Descriptive
+
+<div class="examplebox">
+"The average mark in this lecture of 80 students is 72%."
+<br><br>
+"63% of <em>these</em> 400 Torontonians support the plan."
+</div>
+:::
+
+::: {.column width="50%"}
+#### Inferential
+
+<div class="examplebox">
+"We estimate the average STA258 mark <em>across all sections</em> is around 72%."
+<br><br>
+"We estimate ~63% of <em>all</em> Toronto residents support the plan."
+</div>
+:::
+:::::
+
+. . .
+
+<div class="thinkbox">
+<strong>Tell:</strong> descriptive describes <em>this data</em>. Inferential makes a claim <em>beyond</em> the data.
+</div>
+
+---
+
+## 1.2 Types of Data {.scrollable}
+
+<div class="defbox">
+<strong>Quantitative data</strong><br>
+Numerical measurements where arithmetic is meaningful.
+</div>
+
+<div class="defbox">
+<strong>Qualitative (categorical) data</strong><br>
+Values fall into <strong>categories</strong>; arithmetic doesn't make sense.
+</div>
+
+. . .
+
+<div class="warnbox">
+<strong>Trap:</strong> a number doesn't automatically mean quantitative.<br>
+Postal codes, jersey numbers, and student IDs <em>look</em> numeric but are categorical.
+</div>
+
+---
+
+## Quantitative: Discrete vs Continuous {.scrollable}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Discrete</strong><br>
+Countable values, often whole numbers.
+</div>
+
+::: {.examplebox}
+- Number of siblings
+- Courses enrolled in
+- Defective items in a batch
+:::
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Continuous</strong><br>
+Any value in a range; measured on a scale.
+</div>
+
+::: {.examplebox}
+- Height
+- Time spent studying
+- Temperature
+:::
+:::
+:::::
+
+---
+
+## Qualitative: Nominal vs Ordinal {.scrollable}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Nominal</strong><br>
+Categories with <strong>no natural order</strong>.
+</div>
+
+::: {.examplebox}
+- Eye colour
+- Program of study
+- Primary device (phone/laptop/tablet)
+:::
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Ordinal</strong><br>
+Categories with a <strong>natural order</strong>.
+</div>
+
+::: {.examplebox}
+- Self-rated health (Poor → Excellent)
+- Movie rating (1–5 stars)
+- Education level
+:::
+:::
+:::::
+
+---
+
+## The Full Map {.scrollable}
+
+<div class="center">
+
+```
+                       DATA
+                        |
+          +-------------+-------------+
+          |                           |
+    Quantitative                 Qualitative
+     (numeric)                  (categorical)
+          |                           |
+    +-----+------+              +-----+------+
+    |            |              |            |
+ Discrete    Continuous     Nominal       Ordinal
+ (counts)    (measured)   (no order)    (ordered)
+```
+
+</div>
+
+. . .
+
+<div class="footer-note center">
+This tree is the single most useful diagram in Chapter 1.
+</div>
+
+---
+
+## Classify These {#classify-exercise .scrollable}
+
+Try classifying each one. Then click for the answer.
+
+| Variable | Type |
+|:---|:---|
+| Number of pets a student owns | [Quantitative, **discrete**]{.fragment} |
+| Language spoken at home | [Qualitative, **nominal**]{.fragment} |
+| Backpack weight (kg) | [Quantitative, **continuous**]{.fragment} |
+| Postal code | [Qualitative, **nominal**]{.fragment} |
+| Classroom temperature (°C) | [Quantitative, **continuous**]{.fragment} |
+| Self-rated health (Poor/Fair/Good) | [Qualitative, **ordinal**]{.fragment} |
+
+---
+
+## Check Data Types in R {#check-types .scrollable}
+
+R can tell you what type each variable is. Run it, then change a value.
+
+```{webr}
+#| autorun: true
+#| caption: class() reports the data type R is storing
+
+age      <- 20
+program  <- "Statistics"
+on_campus <- TRUE
+pets     <- 2L
+
+class(age)        # numeric  → quantitative continuous
+class(program)    # character → qualitative
+class(on_campus)  # logical  → qualitative (2 categories)
+class(pets)       # integer  → quantitative discrete
+```
+
+---
+
+## 1.3 Introduction to Inferential Statistics {#introduction-to-inferential-statistics .scrollable}
+
+<div class="center">
+<span class="big">Sample → Statistic → Estimate of Parameter</span>
+</div>
+
+<br>
+
+```{r}
+#| echo: false
+#| fig-width: 9
+#| fig-height: 3
+library(ggplot2)
+df <- data.frame(
+  x = c(1, 4, 7),
+  label = c("Population\n(parameter μ, p, σ)", "Sample\n(n units)", "Statistic\n(x̄, p̂, s)")
+)
+ggplot(df, aes(x, 1)) +
+  geom_point(size = 30, colour = c("#bdbdbd", "#80cbc4", "#00695c")) +
+  geom_text(aes(label = label), vjust = -2.2, size = 4.5) +
+  annotate("segment", x = 1.5, xend = 3.5, y = 1, yend = 1,
+           arrow = arrow(length = unit(0.25, "cm")), colour = "#333", size = 0.6) +
+  annotate("text", x = 2.5, y = 1.15, label = "sample\nfrom", size = 3.5) +
+  annotate("segment", x = 4.5, xend = 6.5, y = 1, yend = 1,
+           arrow = arrow(length = unit(0.25, "cm")), colour = "#333", size = 0.6) +
+  annotate("text", x = 5.5, y = 1.15, label = "compute", size = 3.5) +
+  annotate("segment", x = 7, xend = 1, y = 0.8, yend = 0.8,
+           arrow = arrow(length = unit(0.25, "cm")), colour = "#c62828", size = 0.6) +
+  annotate("text", x = 4, y = 0.7, label = "infer back to population", size = 3.8, colour = "#c62828") +
+  xlim(0, 8) + ylim(0.5, 1.4) +
+  theme_void()
+```
+
+---
+
+## Why Uncertainty Is Built In {.scrollable}
+
+<div class="examplebox">
+Two different samples of 100 UTM students will give two <strong>different</strong> sample means.<br><br>
+So any estimate must come with a measure of how much it might be off.
+</div>
+
+. . .
+
+::: {.thinkbox}
+This is where the tools in later chapters come from:
+
+- **Confidence intervals** — a range of plausible parameter values
+- **Hypothesis tests** — checking whether data support a specific claim
+- **Statistical power** — how likely we are to detect a real effect
+:::
+
+---
+
+## See Sampling Variability {#see-variability .scrollable}
+
+```{webr}
+#| autorun: false
+#| caption: Each click draws a new sample of 30 from a population with mean 70.
+
+set.seed(NULL)
+population <- rnorm(10000, mean = 70, sd = 10)
+sample_30  <- sample(population, 30)
+mean(sample_30)
+```
+
+<div class="footer-note">
+Run it 5 times. Notice the sample mean changes each time — even though the true population mean is exactly 70.
+</div>
+
+---
+
+## A Closer Look at Sampling {#sampling-methods .scrollable}
+
+How you collect your sample determines whether inference is honest.
+
+<div class="defbox" style="font-size:0.85em">
+<strong>Simple random sample (SRS)</strong> — every unit has an equal chance of being chosen.
+</div>
+
+<div class="defbox" style="font-size:0.85em">
+<strong>Systematic</strong> — every $k$-th unit from an ordered list (e.g., every 50th student).
+</div>
+
+<div class="defbox" style="font-size:0.85em">
+<strong>Stratified</strong> — divide into groups, sample from each group.
+</div>
+
+<div class="defbox" style="font-size:0.85em">
+<strong>Cluster</strong> — randomly pick whole groups, survey everyone inside.
+</div>
+
+<div class="defbox" style="font-size:0.85em">
+<strong>Convenience / Voluntary response</strong> — whoever is easy to reach or chooses to respond. ⚠ Usually biased.
+</div>
+
+---
+
+## Bias: When Samples Lie {.scrollable}
+
+<div class="defbox">
+<strong>Bias</strong> — a systematic tendency for a sample to differ from the population in a particular direction.
+</div>
+
+<br>
+
+. . .
+
+::: {.warnbox}
+**Classic bias traps:**
+
+- **Selection bias** — surveying gym-goers about exercise habits
+- **Voluntary response** — Instagram polls (only loud opinions answer)
+- **Non-response bias** — the people who skip the survey are different from those who answer
+- **Coverage bias** — your sampling frame misses parts of the population
+:::
+
+---
+
+## Observational vs Experimental Studies {#study-types .scrollable}
+
+::::: columns
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Observational</strong><br>
+Record what's already happening — no intervention.
+</div>
+
+<div class="examplebox">
+Survey adults: do you take vitamins? Did you catch a cold?
+</div>
+:::
+
+::: {.column width="50%"}
+<div class="defbox">
+<strong>Experimental</strong><br>
+Randomly assign participants to treatments, then compare.
+</div>
+
+<div class="examplebox">
+Randomly give half the volunteers Vitamin C, half a placebo, and compare cold rates.
+</div>
+:::
+:::::
+
+. . .
+
+<div class="thinkbox">
+Only well-designed <strong>experiments</strong> can establish cause and effect.
+</div>
+
+---
+
+## Chapter 1 Summary {#chapter-1-summary .scrollable}
+
+<div class="examplebox">
+<ol>
+<li>Statistics = science of learning from data under uncertainty.</li>
+<li>We study a <strong>sample</strong> to learn about a <strong>population</strong>.</li>
+<li><strong>Parameters</strong> describe populations (unknown); <strong>statistics</strong> describe samples (known).</li>
+<li>Data are <strong>quantitative</strong> (discrete/continuous) or <strong>qualitative</strong> (nominal/ordinal).</li>
+<li>Inference uses a sample statistic to estimate an unknown population parameter — with a measure of uncertainty.</li>
+<li><strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.</li>
+</ol>
+</div>
+
+---
+
+## What's Next {.scrollable}
+
+<div class="thinkbox">
+<strong>Chapter 2:</strong> we move into R — the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
+</div>
+
+<br>
+
+<div class="center">
+<span class="big">End of Chapter 1</span><br><br>
+<a href="chapter1.html">← Back to Chapter 1</a>
+</div>
+
+---
+
+## Bonus Practice {.scrollable}
+
+Below are some ages of UTM students in a sample. Compute:
+
+1. The sample size $n$
+2. The sample mean $\bar{x}$
+3. The sample standard deviation $s$
+
+```{webr}
+#| exercise: bonus_practice
+
+ages <- c(19, 22, 20, 21, 23, 19, 20, 24, 22, 20, 21, 19)
+
+# Fill in:
+n  <- ______(ages)
+xbar <- ______(ages)
+s  <- ______(ages)
+
+c(n = n, xbar = xbar, s = s)
+```
+
+::: {.solution exercise="bonus_practice"}
+::: {.callout-tip title="Solution"}
+```r
+n    <- length(ages)
+xbar <- mean(ages)
+s    <- sd(ages)
+```
+$n = 12$, $\bar{x} \approx 20.83$, $s \approx 1.59$.
+:::
 :::

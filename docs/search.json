@@ -492,9 +492,9 @@
   {
     "objectID": "chapter2.html",
     "href": "chapter2.html",
-    "title": "Chapter 2: An Introduction to R",
+    "title": "STA258",
     "section": "",
-    "text": "Slides PDF"
+    "text": "Open CRAN in New Tab"
   },
   {
     "objectID": "chapter2.html#what-youll-learn",
@@ -571,14 +571,14 @@
     "href": "chapter2.html#roadmap",
     "title": "STA258",
     "section": "Roadmap",
-    "text": "Roadmap\n\n\nSetup and Purpose\n\n2.1 The Statistical Computing Language\n2.2 Installing R and RStudio\n2.2.3 Positron\n\n\nProgramming Basics\n\n2.3 Programming in R\nR as a Calculator\nData Structures\nFunctions, Histograms, and Packages"
+    "text": "Roadmap\n\n\n1. Setup Install R, install RStudio, understand CRAN, and identify the main RStudio panes.\n\n\n2. R basics Use R as a calculator, store values in variables, create vectors, and use basic functions.\n\n\n3. Data work Read data frames, select rows and columns, make histograms, and create plots with ggplot2.\n\n\n\n\nDesign rule for this deck: each WebR coding slide is self-contained, so students can jump around without depending on objects created on earlier slides."
   },
   {
     "objectID": "chapter2.html#statistical-computing-language",
     "href": "chapter2.html#statistical-computing-language",
     "title": "STA258",
     "section": "2.1 The Statistical Computing Language",
-    "text": "2.1 The Statistical Computing Language\n\nR R is a programming language used for data manipulation, statistics, graphics, and reproducible analysis.\n\n\nR is useful because it can:\n\nperform calculations on numbers, vectors, arrays, and matrices\ngenerate high-quality graphs\nuse built-in functions and user-contributed packages\nsave analysis steps in scripts that can be reused later"
+    "text": "2.1 The Statistical Computing Language\n\n\n\nR\nR is used for data manipulation, statistics, and graphics. It supports a wide range of operations (+, −, /, &lt;, etc.) on vectors, arrays, and matrices, and includes a large collection of built-in functions and user-contributed packages.\n\n\n\nInteroperability R can interface with C, C++, FORTRAN, and other languages. It is open-source and freely available from CRAN (the Comprehensive R Archive Network).\n\n\n\n\nPoint-and-click vs scripting\nPoint-and-click tools are useful for quick work, but the steps behind the result can be hard to review or repeat.\n\n\n\nWhy scripts matter\nR lets us write scripts that document each step of an analysis. This promotes reproducibility, version control, and transparency — analyses can be automated, customised, and rerun on new data with minimal effort."
   },
   {
     "objectID": "chapter2.html#why-use-r",
@@ -592,7 +592,7 @@
     "href": "chapter2.html#installing-r-and-rstudio",
     "title": "STA258",
     "section": "2.2 Installing R and RStudio",
-    "text": "2.2 Installing R and RStudio\nBefore working with R code, students need two things:\n\n\n\nR The programming language that performs the calculations.\n\n\n\nRStudio The interface used to write scripts, run code, view files, and inspect output.\n\n\n\n\nThink of R as the engine, and RStudio as the dashboard used to control it."
+    "text": "2.2 Installing R and RStudio\n\n\nR\nThe programming language that performs the calculations.\nInstall this first.\n\n\nRStudio\nThe interface for writing scripts, running code, viewing plots, and managing files.\nInstall this second.\n\n\n\n\n\nStep 1 Download R from CRAN.\n\n\nStep 2 Install RStudio Desktop from Posit.\n\n\nStep 3 Open RStudio and confirm the Console panel appears.\n\n\n\n\nRStudio is the interface but R does the computation — R must be installed first."
   },
   {
     "objectID": "chapter2.html#installing-r",
@@ -613,14 +613,14 @@
     "href": "chapter2.html#installing-rstudio",
     "title": "STA258",
     "section": "2.2.2 Installing RStudio",
-    "text": "2.2.2 Installing RStudio\n\nRStudio RStudio is an integrated development environment designed for working with R.\n\n\nIt provides:\n\na script editor\nan R console\nan environment and history viewer\na file browser\nplots, packages, help, viewer, and presentation panes"
+    "text": "2.2.2 Installing RStudio\n\n\nOpen RStudio Download\n\nInstall RStudio Desktop:\n\nOpen the Posit download page.\nChoose RStudio Desktop (free).\nDownload the installer for your OS.\nRun the installer.\nOpen RStudio and check the Console.\n\n\n\n\n\nNo embedded preview\nThe Posit page blocks embedded frames. Use the button above to open the official page.\n\n\n\nAfter installation\nRStudio auto-detects R if R was installed first. If the Console shows an error, reinstall R and then reopen RStudio."
   },
   {
     "objectID": "chapter2.html#rstudio-workflow",
     "href": "chapter2.html#rstudio-workflow",
     "title": "STA258",
     "section": "RStudio Workflow",
-    "text": "RStudio Workflow\n\nBasic workflow:\n\n\nOpen RStudio.\n\n\nCreate a new script.\n\n\nWrite code in the Source pane.\n\n\nRun the code.\n\n\nRead the output in the Console or Plots pane.\n\n\n\n\n\nShortcut: Use Cmd + Enter (Mac) or Ctrl + Enter (Windows) to run the current line of code."
+    "text": "RStudio Workflow\n\n\n1. Write Type commands in the Source pane so your work is saved.\n\n\n2. Run Send code to the Console to execute it.\n\n\n3. Check Use the Environment, Plots, Files, and Help tabs to inspect results.\n\n\n\n\nA good habit is to keep important work in a script instead of only typing commands directly into the Console."
   },
   {
     "objectID": "chapter2.html#the-four-main-rstudio-panes",
@@ -634,14 +634,14 @@
     "href": "chapter2.html#positron",
     "title": "STA258",
     "section": "2.2.3 Positron",
-    "text": "2.2.3 Positron\n\nPositron Positron is another desktop environment from Posit for data science and statistical computing.\n\n\nFor this course, students mainly need RStudio.\n\n\nPositron may be useful in future workflows, but it is not required for STA258."
+    "text": "2.2.3 Positron\n\n\n\nWhat is Positron?\nPositron is a cross-platform desktop IDE developed by Posit PBC (formerly RStudio). It is built on the Visual Studio Code architecture and powered by Electron, and runs on Windows, macOS, and Linux.\nIt supports R, Python, JavaScript, and Quarto documents.\nDownload: positron.posit.co\n\n\n\n\nRStudio and Posit\nRStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.\n\n\n\nPositron is not required for this course. RStudio is the standard tool. Positron may become relevant in future workflows involving collaborative or browser-based coding."
   },
   {
     "objectID": "chapter2.html#programming-in-r",
     "href": "chapter2.html#programming-in-r",
     "title": "STA258",
-    "section": "2.3 An Introduction to Programming in R",
-    "text": "2.3 An Introduction to Programming in R\nR is especially useful for statistics because it is designed for:\n\ndata analysis\nstatistical calculations\nvisualization\nreproducible reporting\n\n\n\nCourse goal: Students do not need to become software engineers. They need enough R to calculate, summarize, visualize, and report data clearly."
+    "section": "2.3 Programming in R",
+    "text": "2.3 Programming in R\n\nGoal of this section Use WebR to learn R basics directly inside the slide deck.\n\n\nWe will practice:\n\nR as a calculator\ndeclaring variables\ndeclaring numeric vectors\nindexing vectors\nusing data frames\nisolating rows and columns\nloading packages"
   },
   {
     "objectID": "chapter2.html#r-as-calculator",
@@ -718,21 +718,21 @@
     "href": "chapter2.html#vectors",
     "title": "STA258",
     "section": "Vectors",
-    "text": "Vectors\n\nVector A one-dimensional sequence of values of the same type.\n\n\n\n\n\n\n\n\n\n\n\n\nVectors are the basic building blocks for many R operations."
+    "text": "Vectors\n\n\n\n\n\n\n\n\n\n\n\n\n\nNumeric vector\nA vector stores multiple values of the same type in one object. The function c() combines values.\nmean() computes the average; length() counts the elements."
   },
   {
     "objectID": "chapter2.html#lists",
     "href": "chapter2.html#lists",
     "title": "STA258",
     "section": "Lists",
-    "text": "Lists\n\nList A flexible structure that can store elements of different types and sizes."
+    "text": "Lists\n\n\n\n\n\n\n\n\n\n\n\n\n\nList\nA list stores elements of different types in one object — unlike a vector, which requires all elements to be the same type.\nLists are used to organise complex or mixed data, and are the building block for data frames."
   },
   {
     "objectID": "chapter2.html#matrices",
     "href": "chapter2.html#matrices",
     "title": "STA258",
     "section": "Matrices",
-    "text": "Matrices\n\nMatrix A two-dimensional data structure with rows and columns. All elements must be the same type."
+    "text": "Matrices\n\n\n\n\n\n\n\n\n\n\n\n\n\nMatrix\nA matrix is a two-dimensional data structure storing elements of the same type. It supports addition, multiplication, transposition, and inversion.\nUsed in linear algebra, statistics, and data analysis."
   },
   {
     "objectID": "chapter2.html#matrix-operations",
@@ -759,8 +759,8 @@
     "objectID": "chapter2.html#data-frames",
     "href": "chapter2.html#data-frames",
     "title": "STA258",
-    "section": "Data Frames",
-    "text": "Data Frames\n\nData frame A table-like structure where columns are variables and rows are observations."
+    "section": "Reading CSV-Style Data",
+    "text": "Reading CSV-Style Data\n\n\n\n\n\n\n\n\n\n\n\n\n\nData frame\nA data frame is a table where each row is one observation and each column is one variable. Columns can hold different types.\nread.csv() reads comma-separated data into a data frame."
   },
   {
     "objectID": "chapter2.html#data-structure-summary",
@@ -788,7 +788,7 @@
     "href": "chapter2.html#make-a-histogram-using-rstudio",
     "title": "STA258",
     "section": "2.3.4 Make a Histogram Using RStudio",
-    "text": "2.3.4 Make a Histogram Using RStudio\nThe ebook uses the built-in faithful dataset to demonstrate a histogram.\n\nHistogram A graph that shows the distribution of a numerical variable by grouping values into intervals called bins."
+    "text": "2.3.4 Make a Histogram Using RStudio\n\n\n\n\n\n\n\n\n\n\n\n\nWhat the histogram shows\nA histogram groups numeric values into intervals and shows how many observations fall in each interval.\nHere, it shows the distribution of waiting times in the faithful dataset."
   },
   {
     "objectID": "chapter2.html#try-it-create-a-histogram",
@@ -830,14 +830,14 @@
     "href": "chapter2.html#chapter-2-summary",
     "title": "STA258",
     "section": "Chapter 2 Summary",
-    "text": "Chapter 2 Summary\n\nR is used for statistics, graphics, data manipulation, and reproducible analysis\nRStudio is the main interface for writing and running R code\nR can be used as a calculator for arithmetic and mathematical functions\nVectors, lists, matrices, arrays, factors, and data frames each store data differently\nFunctions take inputs and produce outputs using the form function_name(input)\nHistograms display the distribution of a numerical variable\nPackages extend R’s functionality and must be loaded each session with library()"
+    "text": "Chapter 2 Summary\n\n\nR Open-source language for statistics, graphics, and reproducible analysis. Interfaces with C, C++, and FORTRAN. Freely available from CRAN.\n\n\nRStudio The main interface for writing and running R code. Four panes: Source, Console, Environment/History, Files/Plots/Help.\n\n\nData Structures Vector, list, matrix, array, factor, data frame. The data frame is the most common structure in applied statistics.\n\n\nIndexing v[i] for vectors. df[row, col] for data frames. df$col to extract a column. R counts from 1.\n\n\n\n\n\nFunctions mean(), max(), min(), sort(), order(), hist(), names(), dim(), head(), summary()\n\n\nPackages install.packages() once. library() every session. installed.packages() to list. help.search() to find.\n\n\nggplot2 ggplot() + aes() + geom_*() + labs() builds professional labelled plots."
   },
   {
     "objectID": "chapter2.html#end-of-chapter-2",
     "href": "chapter2.html#end-of-chapter-2",
     "title": "STA258",
     "section": "End of Chapter 2",
-    "text": "End of Chapter 2\n\n End of Chapter 2  ← Back to Home\n\n\nUpdate the link if the landing page file name changes."
+    "text": "End of Chapter 2\n\nEnd of Chapter 2\n\nBack to Home"
   },
   {
     "objectID": "chapter2-slides.html#work-in-progress",
@@ -845,5 +845,425 @@
     "title": "STA258",
     "section": "Work in Progress",
     "text": "Work in Progress"
+  },
+  {
+    "objectID": "chapter2.html#install-r-and-rstudio",
+    "href": "chapter2.html#install-r-and-rstudio",
+    "title": "STA258",
+    "section": "Install R and RStudio",
+    "text": "Install R and RStudio\n\nBefore coding in RStudio, students need both R and RStudio.\n\n\n\n\n\nR The programming language that performs the calculations.\n\n\n\nRStudio The interface where students write scripts, run code, and view output.\n\n\n\n\nOrder: Install R first, then install RStudio."
+  },
+  {
+    "objectID": "chapter2.html#live-install-guide",
+    "href": "chapter2.html#live-install-guide",
+    "title": "STA258",
+    "section": "Live Install Guide",
+    "text": "Live Install Guide\n\nOpen CRAN: Install R\nOpen Posit: Install RStudio\n\n\n\nNote: Some official websites block embedding inside slides. If the live page does not load below, use the buttons above."
+  },
+  {
+    "objectID": "chapter2.html#rstudio-what-students-should-recognize",
+    "href": "chapter2.html#rstudio-what-students-should-recognize",
+    "title": "STA258",
+    "section": "RStudio: What Students Should Recognize",
+    "text": "RStudio: What Students Should Recognize\nAfter installation, students should recognize four main areas:\n\n\n\n\n\n\n\nPane\nPurpose\n\n\n\n\nSource\nwrite scripts and Quarto files\n\n\nConsole\nrun code and see immediate output\n\n\nEnvironment / History\nview saved objects and past commands\n\n\nFiles / Plots / Packages / Help / Viewer\nmanage files, plots, packages, help pages, and previews\n\n\n\n\nImportant shortcut: Use Command + Enter on Mac or Ctrl + Enter on Windows to run a line of code."
+  },
+  {
+    "objectID": "chapter2.html#what-webr-does",
+    "href": "chapter2.html#what-webr-does",
+    "title": "STA258",
+    "section": "What WebR Does",
+    "text": "What WebR Does\n\nWebR WebR lets students run R code directly inside the HTML slide deck.\n\n\n\nStudents can edit code, run it, make mistakes, fix them, and rerun the code without leaving the slides.\n\n\n\nGoal for this chapter: Learn R basics by doing them live."
+  },
+  {
+    "objectID": "chapter2.html#calculator",
+    "href": "chapter2.html#calculator",
+    "title": "STA258",
+    "section": "2.3.1 R as a Powerful Calculator",
+    "text": "2.3.1 R as a Powerful Calculator\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSymbol\nMeaning\n\n\n\n\n+\nAdd\n\n\n-\nSubtract\n\n\n*\nMultiply\n\n\n/\nDivide\n\n\n^\nPower\n\n\n\n\nR follows standard order of operations. Use parentheses to control evaluation."
+  },
+  {
+    "objectID": "chapter2.html#calculator-practice",
+    "href": "chapter2.html#calculator-practice",
+    "title": "STA258",
+    "section": "Calculator Practice",
+    "text": "Calculator Practice\n\n\nTask Edit the code to calculate:\n(12 + 8) / 5\n\nExpected result: 4\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\n(12 + 8) / 5"
+  },
+  {
+    "objectID": "chapter2.html#more-operators",
+    "href": "chapter2.html#more-operators",
+    "title": "STA258",
+    "section": "More Operators",
+    "text": "More Operators\n\n\n\n\n\n\n\n\n\n\n\n\n\n9 %% 4 → remainder after dividing 9 by 4.\n9 %/% 4 → how many complete 4s fit into 9.\nsqrt(), round(), and abs() take inputs inside parentheses — these are function calls."
+  },
+  {
+    "objectID": "chapter2.html#variables",
+    "href": "chapter2.html#variables",
+    "title": "STA258",
+    "section": "Declaring Variables",
+    "text": "Declaring Variables\n\n\n\n\n\n\n\n\n\n\n\n\n\nVariable\nA variable stores a value so it can be reused later. The assignment arrow &lt;- means “store the value on the right in the name on the left.”"
+  },
+  {
+    "objectID": "chapter2.html#variable-practice",
+    "href": "chapter2.html#variable-practice",
+    "title": "STA258",
+    "section": "Variable Practice",
+    "text": "Variable Practice\n\n\nTask Create a variable called mark storing the value 87, then display it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmark &lt;- 87\n\nmark"
+  },
+  {
+    "objectID": "chapter2.html#changing-variables",
+    "href": "chapter2.html#changing-variables",
+    "title": "STA258",
+    "section": "Changing Variables",
+    "text": "Changing Variables\nRun the code once. Then change hours and run it again.\n\n\n\n\n\n\n\n\n\nMain idea: If the stored values change, the result changes too."
+  },
+  {
+    "objectID": "chapter2.html#vector-practice",
+    "href": "chapter2.html#vector-practice",
+    "title": "STA258",
+    "section": "Vector Practice",
+    "text": "Vector Practice\n\n\nTask Create a vector temps with:\n21, 23, 20, 25, 24\nThen compute its mean.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ntemps &lt;- c(21, 23, 20, 25, 24)\n\nmean(temps)"
+  },
+  {
+    "objectID": "chapter2.html#indexing-from-a-vector",
+    "href": "chapter2.html#indexing-from-a-vector",
+    "title": "STA258",
+    "section": "Indexing from a Vector",
+    "text": "Indexing from a Vector\n\n\n\n\n\n\n\n\n\n\n\n\n\nIndexing\nSquare brackets [ ] select elements by position.\nR starts counting at 1, not 0.\n2:4 creates the sequence 2, 3, 4."
+  },
+  {
+    "objectID": "chapter2.html#vector-indexing-practice",
+    "href": "chapter2.html#vector-indexing-practice",
+    "title": "STA258",
+    "section": "Vector Indexing Practice",
+    "text": "Vector Indexing Practice\n\n\nTask Extract the second and fourth values from marks.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmarks &lt;- c(80, 75, 90, 88, 92)\n\nmarks[c(2, 4)]"
+  },
+  {
+    "objectID": "chapter2.html#isolating-columns",
+    "href": "chapter2.html#isolating-columns",
+    "title": "STA258",
+    "section": "Isolating Columns",
+    "text": "Isolating Columns\nUse $ to select one column from a data frame.\n\n\n\n\n\n\n\n\n\nclass_data$mark means “take the mark column from class_data.”"
+  },
+  {
+    "objectID": "chapter2.html#column-practice",
+    "href": "chapter2.html#column-practice",
+    "title": "STA258",
+    "section": "Column Practice",
+    "text": "Column Practice\n\n\nTask Find the average number of study hours.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nmean(class_data$hours)"
+  },
+  {
+    "objectID": "chapter2.html#isolating-rows-and-columns",
+    "href": "chapter2.html#isolating-rows-and-columns",
+    "title": "STA258",
+    "section": "Isolating Rows and Columns",
+    "text": "Isolating Rows and Columns\nUse square brackets:\n[ ]"
+  },
+  {
+    "objectID": "chapter2.html#row-and-column-practice",
+    "href": "chapter2.html#row-and-column-practice",
+    "title": "STA258",
+    "section": "Row and Column Practice",
+    "text": "Row and Column Practice\n\n\nTask Select the first two rows and only the student and mark columns.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nclass_data[1:2, c(\"student\", \"mark\")]"
+  },
+  {
+    "objectID": "chapter2.html#reading-a-csv-file",
+    "href": "chapter2.html#reading-a-csv-file",
+    "title": "STA258",
+    "section": "Reading a CSV File",
+    "text": "Reading a CSV File\nIn normal RStudio, we can read a CSV file using:\nmy_data &lt;- read.csv(\"my_file.csv\")\n\n\nIn WebR: Local file reading is harder because the code runs in the browser. For this slide set, we use built-in datasets that already behave like data frames."
+  },
+  {
+    "objectID": "chapter2.html#built-in-dataset-practice",
+    "href": "chapter2.html#built-in-dataset-practice",
+    "title": "STA258",
+    "section": "Built-in Dataset Practice",
+    "text": "Built-in Dataset Practice\nUse the built-in dataset faithful."
+  },
+  {
+    "objectID": "chapter2.html#histogram-from-a-data-frame",
+    "href": "chapter2.html#histogram-from-a-data-frame",
+    "title": "STA258",
+    "section": "Histogram from a Data Frame",
+    "text": "Histogram from a Data Frame"
+  },
+  {
+    "objectID": "chapter2.html#histogram-practice",
+    "href": "chapter2.html#histogram-practice",
+    "title": "STA258",
+    "section": "Histogram Practice",
+    "text": "Histogram Practice\n\n\nTask Change the histogram to show eruption duration instead of waiting time. Update the title and x-axis label.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ndata(faithful)\n\nhist(\n  faithful$eruptions,\n  main   = \"Duration of Old Faithful Eruptions\",\n  xlab   = \"Eruption duration (minutes)\",\n  col    = \"lightblue\",\n  border = \"white\"\n)"
+  },
+  {
+    "objectID": "chapter2.html#packages",
+    "href": "chapter2.html#packages",
+    "title": "STA258",
+    "section": "2.3.5 Installing and Loading Packages",
+    "text": "2.3.5 Installing and Loading Packages\n\n\n# 1. Install once (downloads from CRAN)\ninstall.packages(\"ggplot2\")\n\n# 2. Load every session\nlibrary(ggplot2)\n\n# View all installed packages\ninstalled.packages()\n\n# Search for packages by keyword\nhelp.search(\"regression\")\n\n\n\nPackages\nR packages provide specialised functions. They are stored on CRAN (the Comprehensive R Archive Network), which you accessed when installing R. GitHub-hosted packages also exist for advanced users.\nYou only need to install a package once, but you must load it with library() every time you restart RStudio.\n\n\n\n\n\nIn WebR: packages listed in the YAML are pre-loaded for browser use — no install.packages() call needed here."
+  },
+  {
+    "objectID": "chapter2.html#using-ggplot2-in-webr",
+    "href": "chapter2.html#using-ggplot2-in-webr",
+    "title": "STA258",
+    "section": "Using ggplot2 in WebR",
+    "text": "Using ggplot2 in WebR\n\n\n\n\n\n\n\n\n\n\n\n\nCode structure\nggplot() starts the plot.\naes() maps variables to axes.\ngeom_point() chooses the plot type.\nlabs() adds professional labels."
+  },
+  {
+    "objectID": "chapter2.html#ggplot2-practice",
+    "href": "chapter2.html#ggplot2-practice",
+    "title": "STA258",
+    "section": "ggplot2 Practice",
+    "text": "ggplot2 Practice\n\n\nTask Change the plot so the x-axis shows student and the y-axis shows mark, using a bar chart instead of points.\nHint: replace geom_point() with geom_col().\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nlibrary(ggplot2)\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nggplot(class_data, aes(x = student, y = mark)) +\n  geom_col(fill = \"#00695c\") +\n  labs(\n    title = \"Marks by Student\",\n    x     = \"Student\",\n    y     = \"Mark\"\n  ) +\n  theme_minimal(base_size = 14)"
+  },
+  {
+    "objectID": "chapter2.html#installing-r-live-page",
+    "href": "chapter2.html#installing-r-live-page",
+    "title": "STA258",
+    "section": "2.2.1 Installing R: Live Page",
+    "text": "2.2.1 Installing R: Live Page\n\n Open CRAN in New Tab \n\n\nSteps:\n\n\nGo to CRAN.\n\n\nChoose your operating system: Windows, macOS, or Linux.\n\n\nDownload and run the installer.\n\n\nUse the default installation settings."
+  },
+  {
+    "objectID": "chapter2.html#installing-rstudio-live-page",
+    "href": "chapter2.html#installing-rstudio-live-page",
+    "title": "STA258",
+    "section": "2.2.2 Installing RStudio: Live Page",
+    "text": "2.2.2 Installing RStudio: Live Page\n\n Open RStudio Desktop Download \n\n\nSteps:\n\n\nGo to the Posit RStudio Desktop download page.\n\n\nDownload the free RStudio Desktop version for your operating system.\n\n\nRun the installer.\n\n\nOpen RStudio and check that the Console appears."
+  },
+  {
+    "objectID": "chapter2.html#if-the-webpage-does-not-load",
+    "href": "chapter2.html#if-the-webpage-does-not-load",
+    "title": "STA258",
+    "section": "If the Webpage Does Not Load",
+    "text": "If the Webpage Does Not Load\n\nImportant: Some websites block embedded pages inside slides. If the live page does not appear, use the green button to open the real page in a new tab.\n\n\n\nTeaching use: The slide still works as a live install guide because the button opens the current official website."
+  },
+  {
+    "objectID": "chapter2.html#rstudio-panes",
+    "href": "chapter2.html#rstudio-panes",
+    "title": "STA258",
+    "section": "RStudio Panes",
+    "text": "RStudio Panes\n\n\nSource Write and save R scripts, R Markdown, and Quarto files here.\n\n\nConsole Run commands and see immediate output, messages, and errors.\n\n\nEnvironment / History View objects currently in memory and commands that have been run.\n\n\nFiles / Plots / Packages / Help Manage files, view plots, load packages, and read help pages.\n\n\n\n\n\nWrite Type commands in the Source pane so the work is saved.\n\n\nRun Cmd + Enter (Mac) or Ctrl + Enter (Windows).\n\n\nCheck Inspect objects, plots, and help pages using the other panes."
+  },
+  {
+    "objectID": "chapter2.html#iframe-test-slide",
+    "href": "chapter2.html#iframe-test-slide",
+    "title": "STA258",
+    "section": "",
+    "text": "Open CRAN in New Tab"
+  },
+  {
+    "objectID": "chapter2.html#installing-r-live-cran-page",
+    "href": "chapter2.html#installing-r-live-cran-page",
+    "title": "STA258",
+    "section": "2.2.1 Installing R: Live CRAN Page",
+    "text": "2.2.1 Installing R: Live CRAN Page\n\n\n Open CRAN in New Tab \n\nInstall R:\n\n\nOpen CRAN.\n\n\nChoose Windows, macOS, or Linux.\n\n\nDownload the installer.\n\n\nUse the default installation settings.\n\n\n\n\nIf the embedded page is hard to use, open the official site with the button."
+  },
+  {
+    "objectID": "chapter2.html#installing-rstudio-live-posit-page",
+    "href": "chapter2.html#installing-rstudio-live-posit-page",
+    "title": "STA258",
+    "section": "2.2.2 Installing RStudio: Live Posit Page",
+    "text": "2.2.2 Installing RStudio: Live Posit Page\n\n\n Open RStudio Download \n\nInstall RStudio:\n\n\nOpen the Posit download page.\n\n\nDownload RStudio Desktop.\n\n\nRun the installer.\n\n\nOpen RStudio and check the Console.\n\n\n\n\nRStudio should automatically detect the R installation."
+  },
+  {
+    "objectID": "chapter2.html#if-a-live-page-does-not-load",
+    "href": "chapter2.html#if-a-live-page-does-not-load",
+    "title": "STA258",
+    "section": "If a Live Page Does Not Load",
+    "text": "If a Live Page Does Not Load\n\nImportant: Some websites block embedded pages inside slide decks. If a page is blank or too small to use, open the official site with the green button instead.\n\n\n\nTeaching use: The slide still works because the button sends students to the current official website."
+  },
+  {
+    "objectID": "chapter2.html#introduction-to-programming-in-r",
+    "href": "chapter2.html#introduction-to-programming-in-r",
+    "title": "STA258",
+    "section": "2.3 Introduction to Programming in R",
+    "text": "2.3 Introduction to Programming in R\n\n\nCalculator Use R for arithmetic, powers, roots, rounding, and functions.\n\n\nObjects Store values in variables and reuse them in later commands.\n\n\nData Structures Work with vectors, lists, matrices, arrays, factors, and data frames.\n\n\nSelection Use indexing to select elements, rows, and columns.\n\n\nPlots Make histograms and simple graphics from data.\n\n\nPackages Load extra tools such as ggplot2."
+  },
+  {
+    "objectID": "chapter2.html#why-scripts-matter",
+    "href": "chapter2.html#why-scripts-matter",
+    "title": "STA258",
+    "section": "Why Scripts Matter",
+    "text": "Why Scripts Matter\n\n\n\nPoint-and-click workflow Useful for quick work, but the exact steps can be harder to document, repeat, or check.\n\n\n\nScript workflow Each step is written down, so the analysis can be rerun, edited, and shared.\n\n\n\n\nThis is why R is useful for reproducible statistics and academic research."
+  },
+  {
+    "objectID": "chapter2.html#data-frame-basics",
+    "href": "chapter2.html#data-frame-basics",
+    "title": "STA258",
+    "section": "Data Frame Basics",
+    "text": "Data Frame Basics\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCommand\nWhat it does\n\n\n\n\nhead()\nView first rows\n\n\ndim()\nCount rows and columns\n\n\nnames()\nList column names\n\n\nsummary()\nSummary statistics\n\n\n\n\nRun these checks whenever you open a new dataset."
+  },
+  {
+    "objectID": "chapter2.html#built-in-dataset-faithful",
+    "href": "chapter2.html#built-in-dataset-faithful",
+    "title": "STA258",
+    "section": "Built-In Dataset: faithful",
+    "text": "Built-In Dataset: faithful\n\n\n\n\n\n\n\n\n\n\n\n\nfaithful\nA built-in R dataset about the Old Faithful geyser.\nIt has two numeric variables: eruption duration and waiting time between eruptions."
+  },
+  {
+    "objectID": "chapter2.html#scripts-make-statistics-reproducible",
+    "href": "chapter2.html#scripts-make-statistics-reproducible",
+    "title": "STA258",
+    "section": "Scripts Make Statistics Reproducible",
+    "text": "Scripts Make Statistics Reproducible\n\n\nPoint-and-click workflow\nUseful for quick work, but the exact steps can be difficult to document, repeat, or debug.\nRisk: the result may be hard for another person to verify.\n\n\nScript workflow\nEvery command is written down, so the analysis can be rerun, edited, checked, and shared.\nBenefit: the same code can be used on new datasets.\n\n\n\n\nMain idea: scripts support reproducibility, version control, and transparency in data analysis."
+  },
+  {
+    "objectID": "chapter2.html#installing-r-cran-page",
+    "href": "chapter2.html#installing-r-cran-page",
+    "title": "STA258",
+    "section": "2.2.1 Installing R: CRAN Page",
+    "text": "2.2.1 Installing R: CRAN Page\n\n\nOpen CRAN in New Tab\n\nInstall R:\n\nOpen CRAN.\nChoose Windows, macOS, or Linux.\nDownload the installer.\nUse the default installation settings.\n\n\n\nThe embedded page is included because CRAN usually renders inside the slide deck. If it does not load, use the button."
+  },
+  {
+    "objectID": "chapter2.html#more-calculator-tools",
+    "href": "chapter2.html#more-calculator-tools",
+    "title": "STA258",
+    "section": "More Calculator Tools",
+    "text": "More Calculator Tools\n\n\n\n\n\n\n\n\n\n\n\n\nRead the code\n9 %% 4 asks for the remainder after dividing 9 by 4.\n9 %/% 4 asks how many complete 4s fit into 9.\nFunctions such as sqrt(), round(), and abs() take inputs inside parentheses."
+  },
+  {
+    "objectID": "chapter2.html#basic-r-data-structures",
+    "href": "chapter2.html#basic-r-data-structures",
+    "title": "STA258",
+    "section": "2.3.2 Basic R Data Structures",
+    "text": "2.3.2 Basic R Data Structures\nThe primary data structures in R are vectors, lists, matrices, arrays, factors, and data frames.\n\n\n\nStructure\nStores\nDimensions\nTypes mixed?\n\n\n\n\nVector\nOne type of value\n1-D\nNo\n\n\nList\nAny types\n1-D\nYes\n\n\nMatrix\nOne type of value\n2-D\nNo\n\n\nArray\nOne type of value\nn-D\nNo\n\n\nFactor\nCategorical values\n1-D\nNo\n\n\nData frame\nAny types per column\n2-D\nYes\n\n\n\n\nFor most applied statistics the main structure is the data frame, because it resembles a spreadsheet where each column can hold a different type."
+  },
+  {
+    "objectID": "chapter2.html#lists-and-matrices",
+    "href": "chapter2.html#lists-and-matrices",
+    "title": "STA258",
+    "section": "Lists and Matrices",
+    "text": "Lists and Matrices"
+  },
+  {
+    "objectID": "chapter2.html#arrays-factors-and-data-frames",
+    "href": "chapter2.html#arrays-factors-and-data-frames",
+    "title": "STA258",
+    "section": "Arrays, Factors, and Data Frames",
+    "text": "Arrays, Factors, and Data Frames\n\n\nArray\nMulti-dimensional values of the same type.\narray(1:12, dim = c(2, 3, 2))\n\n\nFactor\nCategorical values with levels.\nfactor(c(\"A\", \"B\", \"A\"))\n\n\nData frame\nA table where columns can have different types.\ndata.frame(name, mark)"
+  },
+  {
+    "objectID": "chapter2.html#isolating-columns-and-rows",
+    "href": "chapter2.html#isolating-columns-and-rows",
+    "title": "STA258",
+    "section": "Isolating Columns and Rows",
+    "text": "Isolating Columns and Rows\n\n\n\n\n\n\n\n\n\n\n\n\n\nTwo selection methods\ndata$column — select a column by name (returns a vector).\ndata[row, column] — select rows and columns by position or name."
+  },
+  {
+    "objectID": "chapter2.html#using-basic-functions-in-r",
+    "href": "chapter2.html#using-basic-functions-in-r",
+    "title": "STA258",
+    "section": "2.3.3 Using Basic Functions in R",
+    "text": "2.3.3 Using Basic Functions in R\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunction\nPurpose\n\n\n\n\nmax(), min()\nLargest and smallest values\n\n\nmean(), sum()\nAverage and total\n\n\nsort()\nSorted values\n\n\norder()\nRank positions\n\n\n\n\nThese functions work on vectors, and many also apply to data-frame columns or matrices with additional arguments."
+  },
+  {
+    "objectID": "chapter2.html#histogram-components",
+    "href": "chapter2.html#histogram-components",
+    "title": "STA258",
+    "section": "Histogram Components",
+    "text": "Histogram Components\n\n\n\n\n\n\n\n\n\n\n\n\n\nplot = FALSE suppresses the graph and returns the underlying values — useful for checking breakpoints and counts directly."
+  },
+  {
+    "objectID": "chapter2.html#chapter-roadmap",
+    "href": "chapter2.html#chapter-roadmap",
+    "title": "STA258",
+    "section": "Chapter Roadmap",
+    "text": "Chapter Roadmap\n\n\n1 — Setup Install R and RStudio, understand the four RStudio panes, and learn about Positron.\n\n\n2 — R Basics Use R as a calculator, create variables, build vectors, and apply common built-in functions.\n\n\n3 — Data Work Read data frames, select rows and columns, make histograms, and use ggplot2.\n\n\n\n\n\nCore skill Writing commands that make statistical work clear and repeatable.\n\n\nCore tool RStudio — scripts, output, plots, and help pages in one place.\n\n\nCore habit Save work in scripts rather than relying on the Console alone."
+  },
+  {
+    "objectID": "chapter2.html#r-packages-and-reproducible-work",
+    "href": "chapter2.html#r-packages-and-reproducible-work",
+    "title": "STA258",
+    "section": "R, Packages, and Reproducible Work",
+    "text": "R, Packages, and Reproducible Work\n\n\nLanguage R gives us the commands used to calculate, transform, summarize, and visualize data.\n\n\nPackages Packages are collections of extra functions, datasets, and tools that extend what R can do.\n\n\nScripts Scripts store commands in order, making an analysis easier to repeat, edit, check, and share.\n\n\n\n\nTextbook connection: instead of only clicking through menus, students learn to write commands that document each step of the analysis."
+  },
+  {
+    "objectID": "chapter2.html#calculator-practice-solution",
+    "href": "chapter2.html#calculator-practice-solution",
+    "title": "STA258",
+    "section": "Calculator Practice: Solution",
+    "text": "Calculator Practice: Solution\n\n\nSolution idea Parentheses make R add 12 + 8 first. Then R divides the result by 5.\nThe calculation is:\n(12 + 8) / 5 = 4\n\n\n(12 + 8) / 5"
+  },
+  {
+    "objectID": "chapter2.html#variable-practice-solution",
+    "href": "chapter2.html#variable-practice-solution",
+    "title": "STA258",
+    "section": "Variable Practice: Solution",
+    "text": "Variable Practice: Solution\n\n\nSolution idea Use &lt;- to assign the value 87 to the object name mark.\nThen type mark to print the stored value.\n\n\nmark &lt;- 87\n\nmark"
+  },
+  {
+    "objectID": "chapter2.html#vector-practice-solution",
+    "href": "chapter2.html#vector-practice-solution",
+    "title": "STA258",
+    "section": "Vector Practice: Solution",
+    "text": "Vector Practice: Solution\n\n\nSolution idea Use c() to combine the five numbers into one vector.\nThen use mean(temps) to calculate the average.\n\n\ntemps &lt;- c(21, 23, 20, 25, 24)\n\nmean(temps)"
+  },
+  {
+    "objectID": "chapter2.html#vector-indexing-practice-solution",
+    "href": "chapter2.html#vector-indexing-practice-solution",
+    "title": "STA258",
+    "section": "Vector Indexing Practice: Solution",
+    "text": "Vector Indexing Practice: Solution\n\n\nSolution idea The second value is selected with 2, and the fourth value is selected with 4.\nUse c(2, 4) because we want two positions at the same time.\n\n\nmarks &lt;- c(80, 75, 90, 88, 92)\n\nmarks[c(2, 4)]"
+  },
+  {
+    "objectID": "chapter2.html#column-practice-solution",
+    "href": "chapter2.html#column-practice-solution",
+    "title": "STA258",
+    "section": "Column Practice: Solution",
+    "text": "Column Practice: Solution\n\n\nSolution idea The column we need is hours, not mark.\nUse $hours to select the study-hours column.\n\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nmean(class_data$hours)"
+  },
+  {
+    "objectID": "chapter2.html#row-and-column-practice-solution",
+    "href": "chapter2.html#row-and-column-practice-solution",
+    "title": "STA258",
+    "section": "Row and Column Practice: Solution",
+    "text": "Row and Column Practice: Solution\n\n\nSolution idea Rows 1:2 select the first two students.\nColumns c(\"student\", \"mark\") keep only the student name and mark columns.\n\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nclass_data[1:2, c(\"student\", \"mark\")]"
+  },
+  {
+    "objectID": "chapter2.html#histogram-practice-solution",
+    "href": "chapter2.html#histogram-practice-solution",
+    "title": "STA258",
+    "section": "Histogram Practice: Solution",
+    "text": "Histogram Practice: Solution\n\n\nSolution idea Use faithful$eruptions instead of faithful$waiting.\nUpdate the title and axis label so the plot matches the new variable.\n\n\ndata(faithful)\n\nhist(\n  faithful$eruptions,\n  main = \"Duration of Old Faithful Eruptions\",\n  xlab = \"Eruption duration in minutes\",\n  col = \"lightblue\",\n  border = \"white\"\n)"
+  },
+  {
+    "objectID": "chapter2.html#ggplot2-practice-solution",
+    "href": "chapter2.html#ggplot2-practice-solution",
+    "title": "STA258",
+    "section": "ggplot2 Practice: Solution",
+    "text": "ggplot2 Practice: Solution\n\n\nSolution idea Map student to the x-axis and mark to the y-axis.\nUse geom_col() because each student should have one bar.\n\n\nlibrary(ggplot2)\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nggplot(class_data, aes(x = student, y = mark)) +\n  geom_col(fill = \"#00695c\") +\n  labs(\n    title = \"Marks by Student\",\n    x = \"Student\",\n    y = \"Mark\"\n  ) +\n  theme_minimal(base_size = 14)"
+  },
+  {
+    "objectID": "chapter2.html#installing-r-cran",
+    "href": "chapter2.html#installing-r-cran",
+    "title": "STA258",
+    "section": "2.2.1 Installing R: CRAN",
+    "text": "2.2.1 Installing R: CRAN\n\n\nOpen CRAN in New Tab\n\nInstall R:\n\nOpen CRAN.\nChoose Windows, macOS, or Linux.\nDownload the installer.\nUse the default installation settings.\n\n\n\nIf the page below does not load, use the button to open the official site directly."
+  },
+  {
+    "objectID": "chapter2.html#an-introduction-to-programming-in-r",
+    "href": "chapter2.html#an-introduction-to-programming-in-r",
+    "title": "STA258",
+    "section": "2.3 An Introduction to Programming in R",
+    "text": "2.3 An Introduction to Programming in R\n\n\n\nWhy R for statistics?\nR is specifically designed for data analysis, statistics, and visualization. It offers a rich ecosystem of packages and built-in functions that make complex statistical tasks straightforward.\nR is especially popular in academia due to its open-source nature, strong support for reproducible reporting, and integration with tools like R Markdown and Shiny.\n\n\n\n\n\n\nTopic\nSlides cover\n\n\n\n\nCalculator\nArithmetic, operators, functions\n\n\nObjects\nVariables and assignment\n\n\nData structures\nVector, list, matrix, array, factor, data frame\n\n\nSelection\nIndexing rows and columns\n\n\nPlots\nHistograms and ggplot2\n\n\nPackages\nInstall, load, search"
+  },
+  {
+    "objectID": "chapter2.html#arrays-and-factors",
+    "href": "chapter2.html#arrays-and-factors",
+    "title": "STA258",
+    "section": "Arrays and Factors",
+    "text": "Arrays and Factors\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nArrays extend matrices to n dimensions. Useful for simulations and higher-dimensional data.\n\n\nFactors store unique values (called levels) efficiently. Automatically treated as categorical in models."
+  },
+  {
+    "objectID": "chapter2.html#histogram-the-faithful-dataset",
+    "href": "chapter2.html#histogram-the-faithful-dataset",
+    "title": "STA258",
+    "section": "2.3.4 Histogram: the faithful Dataset",
+    "text": "2.3.4 Histogram: the faithful Dataset\n\n\n\n\n\n\n\n\n\n\n\n\n\nfaithful\nA built-in R dataset recording Old Faithful geyser eruptions. It has two numeric variables: eruption duration and waiting time between eruptions.\n\n\n\nA histogram groups values into intervals and shows how many observations fall in each interval."
+  },
+  {
+    "objectID": "chapter2.html#using-ggplot2",
+    "href": "chapter2.html#using-ggplot2",
+    "title": "STA258",
+    "section": "Using ggplot2",
+    "text": "Using ggplot2\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot2 structure\nggplot() — start the plot.\naes() — map variables to axes.\ngeom_point() — choose the plot type.\nlabs() — add labels.\ntheme_minimal() — clean background."
   }
 ]

@@ -1,0 +1,85 @@
+---
+title: "Chapter 1: Introduction"
+subtitle: "STA258 — University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.lecture-actions .btn-dark {
+  background: #00695c;
+  border-color: #00695c;
+}
+.lecture-actions .btn-dark:hover {
+  background: #00574c;
+  border-color: #00574c;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="chapter1-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="chapter1-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 1 you'll be able to:
+
+- Distinguish a **population** from a **sample**, and identify the unit, observation, and variables in a dataset.
+- Tell a **parameter** apart from a **statistic** — and know which is usually known.
+- Classify data as **quantitative** (discrete or continuous) or **qualitative** (nominal or ordinal).
+- Recognize common **sampling methods** and the **biases** they introduce.
+- Explain the goal of **statistical inference**: using a sample to learn about a population, with a measure of uncertainty.
+
+## Key ideas
+
+::: {.summary-card}
+### Statistics in one sentence
+The science of learning from data **under uncertainty** — moving from what we measured to what we want to know.
+:::
+
+::: {.summary-card}
+### Population vs Sample
+A **population** is the full group we want to learn about. A **sample** is the subset we actually measure. We use the sample to make claims about the population.
+:::
+
+::: {.summary-card}
+### Parameter vs Statistic
+A **parameter** (e.g. $\mu$, $p$, $\sigma$) summarizes the population — usually unknown. A **statistic** (e.g. $\bar{x}$, $\hat{p}$, $s$) summarizes the sample — known, and used to estimate the parameter.
+:::
+
+::: {.summary-card}
+### Types of Data
+**Quantitative** data are numeric: discrete (counts) or continuous (measured).
+**Qualitative** data are categorical: nominal (no order) or ordinal (ordered).
+:::
+
+::: {.summary-card}
+### Inference
+We collect a sample, calculate a statistic, and use it to estimate an unknown population parameter — always with a measure of uncertainty. This sets up confidence intervals, hypothesis tests, and the rest of the course.
+:::
+
+## How to use this chapter
+
+- Open the **slides** above for the full walkthrough, with interactive R code blocks you can edit and run in your browser.
+- Use the **PDF** button for an offline-friendly version (interactive elements won't run there).
+- Try the practice exercises from the textbook at the end of Chapter 1.

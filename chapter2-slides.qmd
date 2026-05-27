@@ -21,6 +21,7 @@ format:
 webr:
   packages:
     - ggplot2
+    - dplyr
 live:
   show-solutions: true
 ---
@@ -1241,9 +1242,12 @@ hist(
 ```r
 # 1. Install once (downloads from CRAN)
 install.packages("ggplot2")
+install.packages("tidyverse")
 
 # 2. Load every session
 library(ggplot2)
+library(tidyverse)   # loads dplyr, tidyr,
+                     # readr, purrr, and more
 
 # View all installed packages
 installed.packages()
@@ -1257,18 +1261,18 @@ help.search("regression")
 ::: {.defbox .fragment}
 **Packages**
 
-R packages provide specialised functions. They are stored on CRAN (the Comprehensive R Archive Network), which you accessed when installing R. GitHub-hosted packages also exist for advanced users.
+R packages provide specialised functions stored on CRAN (the Comprehensive R Archive Network), which you accessed when installing R.
 
-You only need to install a package once, but you must load it with `library()` every time you restart RStudio.
+Install a package once with `install.packages()`, then load it each session with `library()`.
+:::
+
+::: {.examplebox .fragment}
+**tidyverse**
+
+A meta-package that bundles `ggplot2` (plots), `dplyr` (filter/select/mutate), `tidyr`, `readr`, `purrr`, and others. One install, one library call, the full data-science toolkit.
 :::
 :::
 ::::
-
-<br>
-
-::: {.thinkbox .fragment}
-**In WebR:** packages listed in the YAML are pre-loaded for browser use - no `install.packages()` call needed here.
-:::
 
 ---
 
@@ -1313,6 +1317,48 @@ ggplot(class_data, aes(x = hours, y = mark)) +
 `labs()` - add labels.
 
 `theme_minimal()` - clean background.
+:::
+:::
+::::
+
+---
+
+## Using tidyverse: `dplyr` {.compact}
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+library(dplyr)
+
+csv_text <- "student,mark,hours
+A,80,6
+B,75,5
+C,90,8
+D,88,7
+E,62,3"
+
+class_data <- read.csv(text = csv_text)
+
+class_data |>
+  filter(mark >= 80) |>
+  select(student, mark) |>
+  arrange(desc(mark))
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**dplyr verbs**
+
+`filter()` - keep rows that match a condition.
+
+`select()` - keep only the columns you name.
+
+`arrange()` - sort rows by one or more columns.
+
+The pipe `|>` (or `%>%`) chains verbs together: read it as "then".
 :::
 :::
 ::::

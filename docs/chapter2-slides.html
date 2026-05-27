@@ -11,7 +11,7 @@
 <link href="site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.37">
 
-  <title>STA258 – Chapter 2: An Introduction to R — Slides</title>
+  <title>STA258 – Chapter 2: An Introduction to R - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -222,9 +222,8 @@
 
 /* ── Base ─────────────────────────────────────────────── */
 .reveal {
-  font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   color: var(--sta-text);
-  font-size: 26px !important;
 }
 .reveal .slides section {
   text-align: left;
@@ -233,18 +232,17 @@
 }
 .reveal h1, .reveal h2, .reveal h3 {
   color: var(--sta-text);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 .reveal h1  { font-size: 1.72em !important; }
 .reveal h2  {
-  font-size: 1.18em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
-  padding-bottom: 6px;
-  margin-bottom: 0.4em;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
 }
-.reveal h3  { font-size: 0.92em !important; margin-bottom: 0.2em; }
-.reveal p, .reveal li { line-height: 1.3; }
+.reveal h3  { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
 
 /* ── Title slide ──────────────────────────────────────── */
 .title-slide { text-align: center !important; }
@@ -352,17 +350,24 @@
 /* ── Web slides ───────────────────────────────────────── */
 .reveal section.web-slide h2 { font-size: 1.12em !important; margin-bottom: 0.3em; }
 .button-link {
-  display: block;
-  background: var(--sta-teal);
+  display: block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
   color: white !important;
-  padding: 10px 13px;
-  border-radius: 9px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.74em;
-  text-align: center;
+  padding: 10px 13px !important;
+  border-radius: 9px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  font-size: 0.74em !important;
+  text-align: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  border: 2px solid var(--sta-teal-dark) !important;
 }
-.button-link:hover { background: var(--sta-teal-dark); }
+.button-link:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+}
 
 .web-slide .examplebox,
 .web-slide .thinkbox,
@@ -374,7 +379,7 @@
  */
 .frame-wrap {
   width: 100%;
-  height: 525px;
+  height: 470px;
   border: 2px solid var(--sta-border);
   border-radius: 9px;
   overflow: hidden;
@@ -398,91 +403,92 @@ University of Toronto Mississauga</p>
 <section id="chapter-roadmap" class="slide level2 compact">
 <h2>Chapter Roadmap</h2>
 <div class="three-col">
-<div class="card">
-<p><span class="label">1 — Setup</span> Install R and RStudio, understand the four RStudio panes, and learn about Positron.</p>
+<div class="card fragment">
+<p><span class="label">1 - Setup</span> Install R and RStudio, understand the four RStudio panes, and learn about Positron.</p>
 </div>
-<div class="card">
-<p><span class="label">2 — R Basics</span> Use R as a calculator, create variables, build vectors, and apply common built-in functions.</p>
+<div class="card fragment">
+<p><span class="label">2 - R Basics</span> Use R as a calculator, create variables, build vectors, and apply common built-in functions.</p>
 </div>
-<div class="card">
-<p><span class="label">3 — Data Work</span> Read data frames, select rows and columns, make histograms, and use ggplot2.</p>
+<div class="card fragment">
+<p><span class="label">3 - Data Work</span> Read data frames, select rows and columns, make histograms, and use ggplot2.</p>
 </div>
 </div>
 <p><br></p>
 <div class="three-col">
-<div class="stat-card">
+<div class="stat-card fragment">
 <p><span class="label">Core skill</span> Writing commands that make statistical work clear and repeatable.</p>
 </div>
-<div class="stat-card">
-<p><span class="label">Core tool</span> RStudio — scripts, output, plots, and help pages in one place.</p>
+<div class="stat-card fragment">
+<p><span class="label">Core tool</span> RStudio - scripts, output, plots, and help pages in one place.</p>
 </div>
-<div class="stat-card">
+<div class="stat-card fragment">
 <p><span class="label">Core habit</span> Save work in scripts rather than relying on the Console alone.</p>
 </div>
 </div>
 </section>
 <section id="statistical-computing-language" class="slide level2">
-<h2>2.1 The Statistical Computing Language</h2>
-<div class="two-col-lean">
-<div class="col">
-<div class="defbox">
+<h2>2.1 What is R?</h2>
+<div class="defbox fragment">
 <p><strong>R</strong></p>
 <p>R is used for data manipulation, statistics, and graphics. It supports a wide range of operations (<code>+</code>, <code>−</code>, <code>/</code>, <code>&lt;</code>, etc.) on vectors, arrays, and matrices, and includes a large collection of built-in functions and user-contributed packages.</p>
 </div>
 <p><br></p>
-<div class="mini-card">
-<p><span class="label">Interoperability</span> R can interface with C, C++, FORTRAN, and other languages. It is open-source and freely available from <a href="https://cran.r-project.org">CRAN</a> (the Comprehensive R Archive Network).</p>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Free</span> Open-source and free to install on any platform.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Vast</span> 20,000+ contributed packages on CRAN.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Speaks Many Languages</span> Interfaces with C, C++, FORTRAN, Python, and SQL.</p>
 </div>
 </div>
-<div class="col">
-<div class="examplebox">
+</section>
+<section id="why-scripts-not-clicks" class="slide level2">
+<h2>2.1 Why Scripts, Not Clicks?</h2>
+<div class="examplebox fragment">
 <p><strong>Point-and-click vs scripting</strong></p>
 <p>Point-and-click tools are useful for quick work, but the steps behind the result can be hard to review or repeat.</p>
 </div>
 <p><br></p>
-<div class="thinkbox">
+<div class="two-col">
+<div class="mini-card fragment">
+<p><span class="label">Click workflow</span> Open menu → choose options → click Run. Six months later: which options did you pick?</p>
+</div>
+<div class="mini-card fragment">
+<p><span class="label">Script workflow</span> <code>mean(marks)</code> saved to a <code>.R</code> file. Re-run on new data with one keystroke.</p>
+</div>
+</div>
+<p><br></p>
+<div class="thinkbox fragment">
 <p><strong>Why scripts matter</strong></p>
-<p>R lets us write scripts that document each step of an analysis. This promotes <strong>reproducibility</strong>, version control, and transparency — analyses can be automated, customised, and rerun on new data with minimal effort.</p>
-</div>
-</div>
+<p>R lets us write scripts that document each step of an analysis. This promotes <strong>reproducibility</strong>, version control, and transparency - analyses can be automated, customised, and rerun on new data with minimal effort.</p>
 </div>
 </section>
 <section id="installing-r-and-rstudio" class="slide level2">
 <h2>2.2 Installing R and RStudio</h2>
 <div class="two-col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>R</strong></p>
 <p>The programming language that performs the calculations.</p>
 <p><strong>Install this first.</strong></p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>RStudio</strong></p>
 <p>The interface for writing scripts, running code, viewing plots, and managing files.</p>
 <p><strong>Install this second.</strong></p>
 </div>
 </div>
 <p><br></p>
-<div class="three-col">
-<div class="mini-card">
-<p><span class="label">Step 1</span> Download R from CRAN.</p>
-</div>
-<div class="mini-card">
-<p><span class="label">Step 2</span> Install RStudio Desktop from Posit.</p>
-</div>
-<div class="mini-card">
-<p><span class="label">Step 3</span> Open RStudio and confirm the Console panel appears.</p>
-</div>
-</div>
-<p><br></p>
-<div class="thinkbox">
-<p>RStudio is the interface but R does the computation — R must be installed first.</p>
+<div class="thinkbox fragment">
+<p>RStudio is the interface but R does the computation - R must be installed first. The next two slides walk through each install.</p>
 </div>
 </section>
 <section id="installing-r-cran" class="slide level2 web-slide">
 <h2>2.2.1 Installing R: CRAN</h2>
 <div class="web-grid">
 <div class="install-panel">
-<p><a href="https://cran.r-project.org/" class="button-link" target="_blank" rel="noopener">Open CRAN in New Tab</a></p>
 <div class="examplebox tight">
 <p><strong>Install R:</strong></p>
 <ol type="1">
@@ -495,18 +501,18 @@ University of Toronto Mississauga</p>
 <div class="thinkbox">
 <p>If the page below does not load, use the button to open the official site directly.</p>
 </div>
+<p><a href="https://cran.r-project.org/" class="button-link" target="_blank" rel="noopener">Open CRAN in New Tab</a></p>
 </div>
 <div class="frame-wrap">
-<iframe src="https://cran.r-project.org/" loading="lazy" title="CRAN — Comprehensive R Archive Network">
+<iframe src="https://cran.r-project.org/" loading="lazy" title="CRAN - Comprehensive R Archive Network">
 </iframe>
 </div>
 </div>
 </section>
-<section id="installing-rstudio" class="slide level2 compact">
+<section id="installing-rstudio" class="slide level2 web-slide">
 <h2>2.2.2 Installing RStudio</h2>
-<div class="two-col-lean">
+<div class="web-grid">
 <div class="install-panel">
-<p><a href="https://posit.co/download/rstudio-desktop/" class="button-link" target="_blank" rel="noopener">Open RStudio Download</a></p>
 <div class="examplebox tight">
 <p><strong>Install RStudio Desktop:</strong></p>
 <ol type="1">
@@ -517,17 +523,14 @@ University of Toronto Mississauga</p>
 <li>Open RStudio and check the Console.</li>
 </ol>
 </div>
+<div class="thinkbox">
+<p>RStudio auto-detects R if R was installed first.</p>
 </div>
-<div class="col">
-<div class="warnbox">
-<p><strong>No embedded preview</strong></p>
-<p>The Posit page blocks embedded frames. Use the button above to open the official page.</p>
+<p><a href="https://posit.co/download/rstudio-desktop/" class="button-link" target="_blank" rel="noopener">Open RStudio Download</a></p>
 </div>
-<p><br></p>
-<div class="defbox">
-<p><strong>After installation</strong></p>
-<p>RStudio auto-detects R if R was installed first. If the Console shows an error, reinstall R and then reopen RStudio.</p>
-</div>
+<div class="frame-wrap">
+<iframe src="https://web.archive.org/web/2024if_/https://posit.co/download/rstudio-desktop/" loading="lazy" title="Posit - RStudio Desktop download">
+</iframe>
 </div>
 </div>
 </section>
@@ -535,7 +538,7 @@ University of Toronto Mississauga</p>
 <h2>2.2.3 Positron</h2>
 <div class="two-col-lean">
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>What is Positron?</strong></p>
 <p>Positron is a cross-platform desktop IDE developed by <strong>Posit PBC</strong> (formerly RStudio). It is built on the <strong>Visual Studio Code</strong> architecture and powered by <strong>Electron</strong>, and runs on Windows, macOS, and Linux.</p>
 <p>It supports R, Python, JavaScript, and Quarto documents.</p>
@@ -543,12 +546,12 @@ University of Toronto Mississauga</p>
 </div>
 </div>
 <div class="col">
-<div class="examplebox">
+<div class="examplebox fragment">
 <p><strong>RStudio and Posit</strong></p>
 <p>RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.</p>
 </div>
 <p><br></p>
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p>Positron is not required for this course. RStudio is the standard tool. Positron may become relevant in future workflows involving collaborative or browser-based coding.</p>
 </div>
 </div>
@@ -557,79 +560,42 @@ University of Toronto Mississauga</p>
 <section id="rstudio-panes" class="slide level2">
 <h2>RStudio Panes</h2>
 <div class="four-grid">
-<div class="card">
+<div class="card fragment">
 <p><span class="label">Source</span> Write and save R scripts, R Markdown, and Quarto files here.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">Console</span> Run commands and see immediate output, messages, and errors.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">Environment / History</span> View objects currently in memory and commands that have been run.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">Files / Plots / Packages / Help</span> Manage files, view plots, load packages, and read help pages.</p>
 </div>
 </div>
 <p><br></p>
 <div class="three-col">
-<div class="mini-card">
+<div class="mini-card fragment">
 <p><span class="label">Write</span> Type commands in the Source pane so the work is saved.</p>
 </div>
-<div class="mini-card">
+<div class="mini-card fragment">
 <p><span class="label">Run</span> <code>Cmd + Enter</code> (Mac) or <code>Ctrl + Enter</code> (Windows).</p>
 </div>
-<div class="mini-card">
+<div class="mini-card fragment">
 <p><span class="label">Check</span> Inspect objects, plots, and help pages using the other panes.</p>
 </div>
 </div>
 </section>
 <section id="an-introduction-to-programming-in-r" class="slide level2 compact">
 <h2>2.3 An Introduction to Programming in R</h2>
-<div class="two-col-lean">
-<div class="col">
-<div class="defbox">
 <p><strong>Why R for statistics?</strong></p>
-<p>R is specifically designed for data analysis, statistics, and visualization. It offers a rich ecosystem of packages and built-in functions that make complex statistical tasks straightforward.</p>
-<p>R is especially popular in academia due to its open-source nature, strong support for reproducible reporting, and integration with tools like R Markdown and Shiny.</p>
-</div>
-</div>
-<div class="col">
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Topic</th>
-<th>Slides cover</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Calculator</td>
-<td>Arithmetic, operators, functions</td>
-</tr>
-<tr class="even">
-<td>Objects</td>
-<td>Variables and assignment</td>
-</tr>
-<tr class="odd">
-<td>Data structures</td>
-<td>Vector, list, matrix, array, factor, data frame</td>
-</tr>
-<tr class="even">
-<td>Selection</td>
-<td>Indexing rows and columns</td>
-</tr>
-<tr class="odd">
-<td>Plots</td>
-<td>Histograms and ggplot2</td>
-</tr>
-<tr class="even">
-<td>Packages</td>
-<td>Install, load, search</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<ul>
+<li class="fragment">Built specifically for data analysis, statistics, and visualization</li>
+<li class="fragment">Rich ecosystem of packages and built-in statistical functions</li>
+<li class="fragment">Open source and free on every major operating system</li>
+<li class="fragment">Strong support for reproducible reporting through R Markdown and Quarto</li>
+<li class="fragment">Widely used in academia, industry, and government</li>
+</ul>
 </section>
 <section id="calculator" class="slide level2">
 <h2>2.3.1 R as a Powerful Calculator</h2>
@@ -702,7 +668,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <div class="examplebox">
 <p><code>9 %% 4</code> → remainder after dividing 9 by 4.</p>
 <p><code>9 %/% 4</code> → how many complete 4s fit into 9.</p>
-<p><code>sqrt()</code>, <code>round()</code>, and <code>abs()</code> take inputs inside parentheses — these are <strong>function calls</strong>.</p>
+<p><code>sqrt()</code>, <code>round()</code>, and <code>abs()</code> take inputs inside parentheses - these are <strong>function calls</strong>.</p>
 </div>
 </div>
 </div>
@@ -711,10 +677,10 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <h2>Calculator Practice</h2>
 <div class="exercise-grid">
 <div class="taskbox">
-<p><span class="label">Task</span> Edit the code to calculate:</p>
-<p><span class="formula">(12 + 8) / 5</span></p>
+<p><span class="label">Task</span> Translate this math expression into R and evaluate it:</p>
+<p><span class="formula">(12 + 8) ÷ 5</span></p>
 <p><br></p>
-<p>Expected result: <code>4</code></p>
+<p>Then try: <span class="formula">3<sup>4</sup> − √25</span></p>
 </div>
 <div class="col">
 <div class="cell" data-exercise="calculator-practice">
@@ -723,7 +689,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 
 </div>
 <script type="webr-3-contents">
-eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiY2FsY3VsYXRvci1wcmFjdGljZSJ9LCJjb2RlIjoiXG4wIn0=
+eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiY2FsY3VsYXRvci1wcmFjdGljZSJ9LCJjb2RlIjoiXG4jIHdyaXRlIHlvdXIgUiBjb2RlIGhlcmUifQ==
 </script>
 </div>
 </div>
@@ -738,7 +704,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiY2FsY3VsYXRvci1wcmFj
 <p><strong>Solution</strong></p>
 </div>
 <div class="callout-content">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>(<span class="dv">12</span> <span class="sc">+</span> <span class="dv">8</span>) <span class="sc">/</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>(<span class="dv">12</span> <span class="sc">+</span> <span class="dv">8</span>) <span class="sc">/</span> <span class="dv">5</span></span>
+<span id="cb1-2"><a></a><span class="dv">3</span><span class="sc">^</span><span class="dv">4</span> <span class="sc">-</span> <span class="fu">sqrt</span>(<span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -860,7 +827,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoidmFyaWFibGUtcHJhY3Rp
 </tr>
 </tbody>
 </table>
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p>For most applied statistics the main structure is the <strong>data frame</strong>, because it resembles a spreadsheet where each column can hold a different type.</p>
 </div>
 </section>
@@ -1011,7 +978,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <div class="col">
 <div class="defbox">
 <p><strong>List</strong></p>
-<p>A list stores elements of <strong>different types</strong> in one object — unlike a vector, which requires all elements to be the same type.</p>
+<p>A list stores elements of <strong>different types</strong> in one object - unlike a vector, which requires all elements to be the same type.</p>
 <p>Lists are used to organise complex or mixed data, and are the building block for data frames.</p>
 </div>
 </div>
@@ -1169,8 +1136,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <div class="col">
 <div class="examplebox">
 <p><strong>Two selection methods</strong></p>
-<p><code>data$column</code> — select a column by name (returns a vector).</p>
-<p><code>data[row, column]</code> — select rows and columns by position or name.</p>
+<p><code>data$column</code> - select a column by name (returns a vector).</p>
+<p><code>data[row, column]</code> - select rows and columns by position or name.</p>
 </div>
 </div>
 </div>
@@ -1323,7 +1290,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 
 </div>
 <script type="webr-20-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuZGF0YShmYWl0aGZ1bClcblxuIyBTdGVwIDEg4oCUIGNoZWNrIHRoZSB2YXJpYWJsZSBuYW1lc1xubmFtZXMoZmFpdGhmdWwpXG5cbiMgU3RlcCAyIOKAlCBjcmVhdGUgYSBiYXNpYyBoaXN0b2dyYW1cbmhpc3QoZmFpdGhmdWwkd2FpdGluZykifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuZGF0YShmYWl0aGZ1bClcblxuIyBTdGVwIDEgLSBjaGVjayB0aGUgdmFyaWFibGUgbmFtZXNcbm5hbWVzKGZhaXRoZnVsKVxuXG4jIFN0ZXAgMiAtIGNyZWF0ZSBhIGJhc2ljIGhpc3RvZ3JhbVxuaGlzdChmYWl0aGZ1bCR3YWl0aW5nKSJ9
 </script>
 </div>
 </div>
@@ -1350,14 +1317,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 
 </div>
 <script type="webr-21-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuZGF0YShmYWl0aGZ1bClcblxuIyBTdGVwIDMg4oCUIGFkZCBsYWJlbHMgYW5kIGNvbG91clxuaGlzdChcbiAgZmFpdGhmdWwkd2FpdGluZyxcbiAgbWFpbiAgID0gXCJXYWl0aW5nIFRpbWUgQmV0d2VlbiBFcnVwdGlvbnNcIixcbiAgeGxhYiAgID0gXCJXYWl0aW5nIHRpbWUgKG1pbnV0ZXMpXCIsXG4gIGNvbCAgICA9IFwibGlnaHRibHVlXCIsXG4gIGJvcmRlciA9IFwid2hpdGVcIlxuKVxuXG4jIFN0ZXAgNCDigJQgaW5zcGVjdCBudW1lcmljIGNvbXBvbmVudHMgd2l0aG91dCBkcmF3aW5nXG5oaXN0KGZhaXRoZnVsJHdhaXRpbmcsIHBsb3QgPSBGQUxTRSkkYnJlYWtzICAgIyBpbnRlcnZhbCBlbmRwb2ludHNcbmhpc3QoZmFpdGhmdWwkd2FpdGluZywgcGxvdCA9IEZBTFNFKSRjb3VudHMgICAjIGNvdW50cyBwZXIgaW50ZXJ2YWwifQ==
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuZGF0YShmYWl0aGZ1bClcblxuIyBTdGVwIDMgLSBhZGQgbGFiZWxzIGFuZCBjb2xvdXJcbmhpc3QoXG4gIGZhaXRoZnVsJHdhaXRpbmcsXG4gIG1haW4gICA9IFwiV2FpdGluZyBUaW1lIEJldHdlZW4gRXJ1cHRpb25zXCIsXG4gIHhsYWIgICA9IFwiV2FpdGluZyB0aW1lIChtaW51dGVzKVwiLFxuICBjb2wgICAgPSBcImxpZ2h0Ymx1ZVwiLFxuICBib3JkZXIgPSBcIndoaXRlXCJcbilcblxuIyBTdGVwIDQgLSBpbnNwZWN0IG51bWVyaWMgY29tcG9uZW50cyB3aXRob3V0IGRyYXdpbmdcbmhpc3QoZmFpdGhmdWwkd2FpdGluZywgcGxvdCA9IEZBTFNFKSRicmVha3MgICAjIGludGVydmFsIGVuZHBvaW50c1xuaGlzdChmYWl0aGZ1bCR3YWl0aW5nLCBwbG90ID0gRkFMU0UpJGNvdW50cyAgICMgY291bnRzIHBlciBpbnRlcnZhbCJ9
 </script>
 </div>
 </div>
 </div>
 <div class="col">
 <div class="thinkbox">
-<p><code>plot = FALSE</code> suppresses the graph and returns the underlying values — useful for checking breakpoints and counts directly.</p>
+<p><code>plot = FALSE</code> suppresses the graph and returns the underlying values - useful for checking breakpoints and counts directly.</p>
 </div>
 </div>
 </div>
@@ -1424,7 +1391,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiaGlzdG9ncmFtLXByYWN0
 <span id="cb8-11"><a></a><span class="fu">help.search</span>(<span class="st">"regression"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Packages</strong></p>
 <p>R packages provide specialised functions. They are stored on CRAN (the Comprehensive R Archive Network), which you accessed when installing R. GitHub-hosted packages also exist for advanced users.</p>
 <p>You only need to install a package once, but you must load it with <code>library()</code> every time you restart RStudio.</p>
@@ -1432,8 +1399,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiaGlzdG9ncmFtLXByYWN0
 </div>
 </div>
 <p><br></p>
-<div class="thinkbox">
-<p><strong>In WebR:</strong> packages listed in the YAML are pre-loaded for browser use — no <code>install.packages()</code> call needed here.</p>
+<div class="thinkbox fragment">
+<p><strong>In WebR:</strong> packages listed in the YAML are pre-loaded for browser use - no <code>install.packages()</code> call needed here.</p>
 </div>
 </section>
 <section id="using-ggplot2" class="slide level2 compact">
@@ -1454,11 +1421,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <div class="col">
 <div class="examplebox">
 <p><strong>ggplot2 structure</strong></p>
-<p><code>ggplot()</code> — start the plot.</p>
-<p><code>aes()</code> — map variables to axes.</p>
-<p><code>geom_point()</code> — choose the plot type.</p>
-<p><code>labs()</code> — add labels.</p>
-<p><code>theme_minimal()</code> — clean background.</p>
+<p><code>ggplot()</code> - start the plot.</p>
+<p><code>aes()</code> - map variables to axes.</p>
+<p><code>geom_point()</code> - choose the plot type.</p>
+<p><code>labs()</code> - add labels.</p>
+<p><code>theme_minimal()</code> - clean background.</p>
 </div>
 </div>
 </div>
@@ -1521,28 +1488,28 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZ2dwbG90LXByYWN0aWNl
 <section id="chapter-2-summary" class="slide level2 compact">
 <h2>Chapter 2 Summary</h2>
 <div class="four-grid">
-<div class="card">
+<div class="card fragment">
 <p><span class="label">R</span> Open-source language for statistics, graphics, and reproducible analysis. Interfaces with C, C++, and FORTRAN. Freely available from CRAN.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">RStudio</span> The main interface for writing and running R code. Four panes: Source, Console, Environment/History, Files/Plots/Help.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">Data Structures</span> Vector, list, matrix, array, factor, data frame. The data frame is the most common structure in applied statistics.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">Indexing</span> <code>v[i]</code> for vectors. <code>df[row, col]</code> for data frames. <code>df$col</code> to extract a column. R counts from 1.</p>
 </div>
 </div>
 <p><br></p>
 <div class="three-col">
-<div class="mini-card">
+<div class="mini-card fragment">
 <p><span class="label">Functions</span> <code>mean()</code>, <code>max()</code>, <code>min()</code>, <code>sort()</code>, <code>order()</code>, <code>hist()</code>, <code>names()</code>, <code>dim()</code>, <code>head()</code>, <code>summary()</code></p>
 </div>
-<div class="mini-card">
+<div class="mini-card fragment">
 <p><span class="label">Packages</span> <code>install.packages()</code> once. <code>library()</code> every session. <code>installed.packages()</code> to list. <code>help.search()</code> to find.</p>
 </div>
-<div class="mini-card">
+<div class="mini-card fragment">
 <p><span class="label">ggplot2</span> <code>ggplot()</code> + <code>aes()</code> + <code>geom_*()</code> + <code>labs()</code> builds professional labelled plots.</p>
 </div>
 </div>

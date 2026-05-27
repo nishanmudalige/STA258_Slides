@@ -1,5 +1,5 @@
 ---
-pagetitle: "Chapter 2: An Introduction to R — Slides"
+pagetitle: "Chapter 2: An Introduction to R - Slides"
 engine: knitr
 format:
   live-revealjs:
@@ -13,6 +13,7 @@ format:
     html-math-method: mathjax
     code-copy: true
     code-fold: false
+    incremental: true
     width: 1280
     height: 720
     margin: 0.055
@@ -44,9 +45,8 @@ live:
 
 /* ── Base ─────────────────────────────────────────────── */
 .reveal {
-  font-family: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   color: var(--sta-text);
-  font-size: 26px !important;
 }
 .reveal .slides section {
   text-align: left;
@@ -55,18 +55,17 @@ live:
 }
 .reveal h1, .reveal h2, .reveal h3 {
   color: var(--sta-text);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 .reveal h1  { font-size: 1.72em !important; }
 .reveal h2  {
-  font-size: 1.18em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
-  padding-bottom: 6px;
-  margin-bottom: 0.4em;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
 }
-.reveal h3  { font-size: 0.92em !important; margin-bottom: 0.2em; }
-.reveal p, .reveal li { line-height: 1.3; }
+.reveal h3  { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
 
 /* ── Title slide ──────────────────────────────────────── */
 .title-slide { text-align: center !important; }
@@ -174,17 +173,24 @@ live:
 /* ── Web slides ───────────────────────────────────────── */
 .reveal section.web-slide h2 { font-size: 1.12em !important; margin-bottom: 0.3em; }
 .button-link {
-  display: block;
-  background: var(--sta-teal);
+  display: block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
   color: white !important;
-  padding: 10px 13px;
-  border-radius: 9px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.74em;
-  text-align: center;
+  padding: 10px 13px !important;
+  border-radius: 9px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  font-size: 0.74em !important;
+  text-align: center !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  border: 2px solid var(--sta-teal-dark) !important;
 }
-.button-link:hover { background: var(--sta-teal-dark); }
+.button-link:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+}
 
 .web-slide .examplebox,
 .web-slide .thinkbox,
@@ -196,7 +202,7 @@ live:
  */
 .frame-wrap {
   width: 100%;
-  height: 525px;
+  height: 470px;
   border: 2px solid var(--sta-border);
   border-radius: 9px;
   overflow: hidden;
@@ -226,16 +232,16 @@ University of Toronto Mississauga
 ## Chapter Roadmap {.compact}
 
 :::: {.three-col}
-::: {.card}
-<span class="label">1 — Setup</span>
+::: {.card .fragment}
+<span class="label">1 - Setup</span>
 Install R and RStudio, understand the four RStudio panes, and learn about Positron.
 :::
-::: {.card}
-<span class="label">2 — R Basics</span>
+::: {.card .fragment}
+<span class="label">2 - R Basics</span>
 Use R as a calculator, create variables, build vectors, and apply common built-in functions.
 :::
-::: {.card}
-<span class="label">3 — Data Work</span>
+::: {.card .fragment}
+<span class="label">3 - Data Work</span>
 Read data frames, select rows and columns, make histograms, and use ggplot2.
 :::
 ::::
@@ -243,15 +249,15 @@ Read data frames, select rows and columns, make histograms, and use ggplot2.
 <br>
 
 :::: {.three-col}
-::: {.stat-card}
+::: {.stat-card .fragment}
 <span class="label">Core skill</span>
 Writing commands that make statistical work clear and repeatable.
 :::
-::: {.stat-card}
+::: {.stat-card .fragment}
 <span class="label">Core tool</span>
-RStudio — scripts, output, plots, and help pages in one place.
+RStudio - scripts, output, plots, and help pages in one place.
 :::
-::: {.stat-card}
+::: {.stat-card .fragment}
 <span class="label">Core habit</span>
 Save work in scripts rather than relying on the Console alone.
 :::
@@ -259,11 +265,9 @@ Save work in scripts rather than relying on the Console alone.
 
 ---
 
-## 2.1 The Statistical Computing Language {#statistical-computing-language}
+## 2.1 What is R? {#statistical-computing-language}
 
-:::: {.two-col-lean}
-::: {.col}
-::: {.defbox}
+::: {.defbox .fragment}
 **R**
 
 R is used for data manipulation, statistics, and graphics. It supports a wide range of operations (`+`, `−`, `/`, `<`, etc.) on vectors, arrays, and matrices, and includes a large collection of built-in functions and user-contributed packages.
@@ -271,14 +275,26 @@ R is used for data manipulation, statistics, and graphics. It supports a wide ra
 
 <br>
 
-::: {.mini-card}
-<span class="label">Interoperability</span>
-R can interface with C, C++, FORTRAN, and other languages. It is open-source and freely available from [CRAN](https://cran.r-project.org) (the Comprehensive R Archive Network).
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Free</span>
+Open-source and free to install on any platform.
 :::
+::: {.stat-card .fragment}
+<span class="label">Vast</span>
+20,000+ contributed packages on CRAN.
 :::
+::: {.stat-card .fragment}
+<span class="label">Speaks Many Languages</span>
+Interfaces with C, C++, FORTRAN, Python, and SQL.
+:::
+::::
 
-::: {.col}
-::: {.examplebox}
+---
+
+## 2.1 Why Scripts, Not Clicks?
+
+::: {.examplebox .fragment}
 **Point-and-click vs scripting**
 
 Point-and-click tools are useful for quick work, but the steps behind the result can be hard to review or repeat.
@@ -286,27 +302,38 @@ Point-and-click tools are useful for quick work, but the steps behind the result
 
 <br>
 
-::: {.thinkbox}
-**Why scripts matter**
-
-R lets us write scripts that document each step of an analysis. This promotes **reproducibility**, version control, and transparency — analyses can be automated, customised, and rerun on new data with minimal effort.
+:::: {.two-col}
+::: {.mini-card .fragment}
+<span class="label">Click workflow</span>
+Open menu → choose options → click Run. Six months later: which options did you pick?
 :::
+::: {.mini-card .fragment}
+<span class="label">Script workflow</span>
+`mean(marks)` saved to a `.R` file. Re-run on new data with one keystroke.
 :::
 ::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**Why scripts matter**
+
+R lets us write scripts that document each step of an analysis. This promotes **reproducibility**, version control, and transparency - analyses can be automated, customised, and rerun on new data with minimal effort.
+:::
 
 ---
 
 ## 2.2 Installing R and RStudio {#installing-r-and-rstudio}
 
 :::: {.two-col}
-::: {.defbox}
+::: {.defbox .fragment}
 **R**
 
 The programming language that performs the calculations.
 
 **Install this first.**
 :::
-::: {.defbox}
+::: {.defbox .fragment}
 **RStudio**
 
 The interface for writing scripts, running code, viewing plots, and managing files.
@@ -317,25 +344,8 @@ The interface for writing scripts, running code, viewing plots, and managing fil
 
 <br>
 
-:::: {.three-col}
-::: {.mini-card}
-<span class="label">Step 1</span>
-Download R from CRAN.
-:::
-::: {.mini-card}
-<span class="label">Step 2</span>
-Install RStudio Desktop from Posit.
-:::
-::: {.mini-card}
-<span class="label">Step 3</span>
-Open RStudio and confirm the Console panel appears.
-:::
-::::
-
-<br>
-
-::: {.thinkbox}
-RStudio is the interface but R does the computation — R must be installed first.
+::: {.thinkbox .fragment}
+RStudio is the interface but R does the computation - R must be installed first. The next two slides walk through each install.
 :::
 
 ---
@@ -344,9 +354,7 @@ RStudio is the interface but R does the computation — R must be installed firs
 
 :::: {.web-grid}
 ::: {.install-panel}
-[Open CRAN in New Tab](https://cran.r-project.org/){.button-link target="_blank" rel="noopener"}
-
-::: {.examplebox .tight}
+::: {.examplebox .tight .nonincremental}
 **Install R:**
 
 1. Open CRAN.
@@ -358,22 +366,22 @@ RStudio is the interface but R does the computation — R must be installed firs
 ::: {.thinkbox}
 If the page below does not load, use the button to open the official site directly.
 :::
+
+[Open CRAN in New Tab](https://cran.r-project.org/){.button-link target="_blank" rel="noopener"}
 :::
 
 ::: {.frame-wrap}
-<iframe src="https://cran.r-project.org/" loading="lazy" title="CRAN — Comprehensive R Archive Network"></iframe>
+<iframe src="https://cran.r-project.org/" loading="lazy" title="CRAN - Comprehensive R Archive Network"></iframe>
 :::
 ::::
 
 ---
 
-## 2.2.2 Installing RStudio {.compact}
+## 2.2.2 Installing RStudio {.web-slide}
 
-:::: {.two-col-lean}
+:::: {.web-grid}
 ::: {.install-panel}
-[Open RStudio Download](https://posit.co/download/rstudio-desktop/){.button-link target="_blank" rel="noopener"}
-
-::: {.examplebox .tight}
+::: {.examplebox .tight .nonincremental}
 **Install RStudio Desktop:**
 
 1. Open the Posit download page.
@@ -382,22 +390,16 @@ If the page below does not load, use the button to open the official site direct
 4. Run the installer.
 5. Open RStudio and check the Console.
 :::
+
+::: {.thinkbox}
+RStudio auto-detects R if R was installed first.
 :::
 
-::: {.col}
-::: {.warnbox}
-**No embedded preview**
-
-The Posit page blocks embedded frames. Use the button above to open the official page.
+[Open RStudio Download](https://posit.co/download/rstudio-desktop/){.button-link target="_blank" rel="noopener"}
 :::
 
-<br>
-
-::: {.defbox}
-**After installation**
-
-RStudio auto-detects R if R was installed first. If the Console shows an error, reinstall R and then reopen RStudio.
-:::
+::: {.frame-wrap}
+<iframe src="https://web.archive.org/web/2024if_/https://posit.co/download/rstudio-desktop/" loading="lazy" title="Posit - RStudio Desktop download"></iframe>
 :::
 ::::
 
@@ -407,7 +409,7 @@ RStudio auto-detects R if R was installed first. If the Console shows an error, 
 
 :::: {.two-col-lean}
 ::: {.col}
-::: {.defbox}
+::: {.defbox .fragment}
 **What is Positron?**
 
 Positron is a cross-platform desktop IDE developed by **Posit PBC** (formerly RStudio). It is built on the **Visual Studio Code** architecture and powered by **Electron**, and runs on Windows, macOS, and Linux.
@@ -419,7 +421,7 @@ Download: [positron.posit.co](https://positron.posit.co)
 :::
 
 ::: {.col}
-::: {.examplebox}
+::: {.examplebox .fragment}
 **RStudio and Posit**
 
 RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.
@@ -427,7 +429,7 @@ RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and 
 
 <br>
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 Positron is not required for this course. RStudio is the standard tool. Positron may become relevant in future workflows involving collaborative or browser-based coding.
 :::
 :::
@@ -438,19 +440,19 @@ Positron is not required for this course. RStudio is the standard tool. Positron
 ## RStudio Panes {#rstudio-panes}
 
 :::: {.four-grid}
-::: {.card}
+::: {.card .fragment}
 <span class="label">Source</span>
 Write and save R scripts, R Markdown, and Quarto files here.
 :::
-::: {.card}
+::: {.card .fragment}
 <span class="label">Console</span>
 Run commands and see immediate output, messages, and errors.
 :::
-::: {.card}
+::: {.card .fragment}
 <span class="label">Environment / History</span>
 View objects currently in memory and commands that have been run.
 :::
-::: {.card}
+::: {.card .fragment}
 <span class="label">Files / Plots / Packages / Help</span>
 Manage files, view plots, load packages, and read help pages.
 :::
@@ -459,15 +461,15 @@ Manage files, view plots, load packages, and read help pages.
 <br>
 
 :::: {.three-col}
-::: {.mini-card}
+::: {.mini-card .fragment}
 <span class="label">Write</span>
 Type commands in the Source pane so the work is saved.
 :::
-::: {.mini-card}
+::: {.mini-card .fragment}
 <span class="label">Run</span>
 `Cmd + Enter` (Mac) or `Ctrl + Enter` (Windows).
 :::
-::: {.mini-card}
+::: {.mini-card .fragment}
 <span class="label">Check</span>
 Inspect objects, plots, and help pages using the other panes.
 :::
@@ -477,28 +479,13 @@ Inspect objects, plots, and help pages using the other panes.
 
 ## 2.3 An Introduction to Programming in R {.compact}
 
-:::: {.two-col-lean}
-::: {.col}
-::: {.defbox}
 **Why R for statistics?**
 
-R is specifically designed for data analysis, statistics, and visualization. It offers a rich ecosystem of packages and built-in functions that make complex statistical tasks straightforward.
-
-R is especially popular in academia due to its open-source nature, strong support for reproducible reporting, and integration with tools like R Markdown and Shiny.
-:::
-:::
-
-::: {.col}
-| Topic | Slides cover |
-|---|---|
-| Calculator | Arithmetic, operators, functions |
-| Objects | Variables and assignment |
-| Data structures | Vector, list, matrix, array, factor, data frame |
-| Selection | Indexing rows and columns |
-| Plots | Histograms and ggplot2 |
-| Packages | Install, load, search |
-:::
-::::
+- Built specifically for data analysis, statistics, and visualization
+- Rich ecosystem of packages and built-in statistical functions
+- Open source and free on every major operating system
+- Strong support for reproducible reporting through R Markdown and Quarto
+- Widely used in academia, industry, and government
 
 ---
 
@@ -555,7 +542,7 @@ abs(-10)            # absolute value
 
 `9 %/% 4` → how many complete 4s fit into 9.
 
-`sqrt()`, `round()`, and `abs()` take inputs inside parentheses — these are **function calls**.
+`sqrt()`, `round()`, and `abs()` take inputs inside parentheses - these are **function calls**.
 :::
 :::
 ::::
@@ -567,26 +554,28 @@ abs(-10)            # absolute value
 ::::: {.exercise-grid}
 :::: {.taskbox}
 <span class="label">Task</span>
-Edit the code to calculate:
+Translate this math expression into R and evaluate it:
 
-<span class="formula">(12 + 8) / 5</span>
+<span class="formula">(12 + 8) ÷ 5</span>
 
 <br>
 
-Expected result: `4`
+Then try: <span class="formula">3<sup>4</sup> − √25</span>
 ::::
 
 :::: {.col}
 ```{webr}
 #| exercise: calculator-practice
 
-0
+# write your R code here
+
 ```
 
 ::: {.solution exercise="calculator-practice"}
 ::: {.callout-tip title="Solution"}
 ```r
 (12 + 8) / 5
+3^4 - sqrt(25)
 ```
 :::
 :::
@@ -666,7 +655,7 @@ The primary data structures in R are **vectors**, **lists**, **matrices**, **arr
 | Factor | Categorical values | 1-D | No |
 | Data frame | Any types per column | 2-D | Yes |
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 For most applied statistics the main structure is the **data frame**, because it resembles a spreadsheet where each column can hold a different type.
 :::
 
@@ -829,7 +818,7 @@ my_list
 ::: {.defbox}
 **List**
 
-A list stores elements of **different types** in one object — unlike a vector, which requires all elements to be the same type.
+A list stores elements of **different types** in one object - unlike a vector, which requires all elements to be the same type.
 
 Lists are used to organise complex or mixed data, and are the building block for data frames.
 :::
@@ -1002,9 +991,9 @@ class_data[1:2, c("student","mark")]  # rows and columns
 ::: {.examplebox}
 **Two selection methods**
 
-`data$column` — select a column by name (returns a vector).
+`data$column` - select a column by name (returns a vector).
 
-`data[row, column]` — select rows and columns by position or name.
+`data[row, column]` - select rows and columns by position or name.
 :::
 :::
 ::::
@@ -1144,10 +1133,10 @@ These functions work on vectors, and many also apply to data-frame columns or ma
 
 data(faithful)
 
-# Step 1 — check the variable names
+# Step 1 - check the variable names
 names(faithful)
 
-# Step 2 — create a basic histogram
+# Step 2 - create a basic histogram
 hist(faithful$waiting)
 ```
 :::
@@ -1178,7 +1167,7 @@ A histogram groups values into intervals and shows how many observations fall in
 
 data(faithful)
 
-# Step 3 — add labels and colour
+# Step 3 - add labels and colour
 hist(
   faithful$waiting,
   main   = "Waiting Time Between Eruptions",
@@ -1187,7 +1176,7 @@ hist(
   border = "white"
 )
 
-# Step 4 — inspect numeric components without drawing
+# Step 4 - inspect numeric components without drawing
 hist(faithful$waiting, plot = FALSE)$breaks   # interval endpoints
 hist(faithful$waiting, plot = FALSE)$counts   # counts per interval
 ```
@@ -1195,7 +1184,7 @@ hist(faithful$waiting, plot = FALSE)$counts   # counts per interval
 
 ::: {.col}
 ::: {.thinkbox}
-`plot = FALSE` suppresses the graph and returns the underlying values — useful for checking breakpoints and counts directly.
+`plot = FALSE` suppresses the graph and returns the underlying values - useful for checking breakpoints and counts directly.
 :::
 :::
 ::::
@@ -1265,7 +1254,7 @@ help.search("regression")
 :::
 
 ::: {.col}
-::: {.defbox}
+::: {.defbox .fragment}
 **Packages**
 
 R packages provide specialised functions. They are stored on CRAN (the Comprehensive R Archive Network), which you accessed when installing R. GitHub-hosted packages also exist for advanced users.
@@ -1277,8 +1266,8 @@ You only need to install a package once, but you must load it with `library()` e
 
 <br>
 
-::: {.thinkbox}
-**In WebR:** packages listed in the YAML are pre-loaded for browser use — no `install.packages()` call needed here.
+::: {.thinkbox .fragment}
+**In WebR:** packages listed in the YAML are pre-loaded for browser use - no `install.packages()` call needed here.
 :::
 
 ---
@@ -1315,15 +1304,15 @@ ggplot(class_data, aes(x = hours, y = mark)) +
 ::: {.examplebox}
 **ggplot2 structure**
 
-`ggplot()` — start the plot.
+`ggplot()` - start the plot.
 
-`aes()` — map variables to axes.
+`aes()` - map variables to axes.
 
-`geom_point()` — choose the plot type.
+`geom_point()` - choose the plot type.
 
-`labs()` — add labels.
+`labs()` - add labels.
 
-`theme_minimal()` — clean background.
+`theme_minimal()` - clean background.
 :::
 :::
 ::::
@@ -1396,19 +1385,19 @@ ggplot(class_data, aes(x = student, y = mark)) +
 ## Chapter 2 Summary {.compact}
 
 :::: {.four-grid}
-::: {.card}
+::: {.card .fragment}
 <span class="label">R</span>
 Open-source language for statistics, graphics, and reproducible analysis. Interfaces with C, C++, and FORTRAN. Freely available from CRAN.
 :::
-::: {.card}
+::: {.card .fragment}
 <span class="label">RStudio</span>
 The main interface for writing and running R code. Four panes: Source, Console, Environment/History, Files/Plots/Help.
 :::
-::: {.card}
+::: {.card .fragment}
 <span class="label">Data Structures</span>
 Vector, list, matrix, array, factor, data frame. The data frame is the most common structure in applied statistics.
 :::
-::: {.card}
+::: {.card .fragment}
 <span class="label">Indexing</span>
 `v[i]` for vectors. `df[row, col]` for data frames. `df$col` to extract a column. R counts from 1.
 :::
@@ -1417,15 +1406,15 @@ Vector, list, matrix, array, factor, data frame. The data frame is the most comm
 <br>
 
 :::: {.three-col}
-::: {.mini-card}
+::: {.mini-card .fragment}
 <span class="label">Functions</span>
 `mean()`, `max()`, `min()`, `sort()`, `order()`, `hist()`, `names()`, `dim()`, `head()`, `summary()`
 :::
-::: {.mini-card}
+::: {.mini-card .fragment}
 <span class="label">Packages</span>
 `install.packages()` once. `library()` every session. `installed.packages()` to list. `help.search()` to find.
 :::
-::: {.mini-card}
+::: {.mini-card .fragment}
 <span class="label">ggplot2</span>
 `ggplot()` + `aes()` + `geom_*()` + `labs()` builds professional labelled plots.
 :::

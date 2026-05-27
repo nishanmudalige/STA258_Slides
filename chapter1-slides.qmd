@@ -1,5 +1,5 @@
 ---
-pagetitle: "Chapter 1: Introduction — Slides"
+pagetitle: "Chapter 1: Introduction - Slides"
 engine: knitr
 format:
   live-revealjs:
@@ -13,6 +13,7 @@ format:
     html-math-method: mathjax
     code-copy: true
     code-fold: false
+    incremental: true
     webr:
       packages:
         - tibble
@@ -159,7 +160,7 @@ Netflix watches a sample of users and decides what shows to make.
 . . .
 
 <div class="thinkbox">
-That gap between "what we measured" and "what we want to know" — that's what this whole course is about.
+That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
 </div>
 
 ---
@@ -191,7 +192,7 @@ That gap between "what we measured" and "what we want to know" — that's what t
 ## 1.1 Foundations {.scrollable}
 
 <div class="defbox">
-<strong>Definition 1.1 — Statistics</strong><br>
+<strong>Definition 1.1 - Statistics</strong><br>
 The science of <strong>collecting, classifying, summarizing, analyzing, and interpreting data</strong>.
 </div>
 
@@ -214,7 +215,7 @@ The five verbs in the definition map roughly to the chapters of the course.
 ## Population {#population .scrollable}
 
 <div class="defbox">
-<strong>Definition 1.2 — Population</strong><br>
+<strong>Definition 1.2 - Population</strong><br>
 The <strong>entire group</strong> of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.
 </div>
 
@@ -222,7 +223,7 @@ The <strong>entire group</strong> of individuals, items, or measurements that sh
 
 . . .
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 **Examples:**
 
 - All students at the University of Toronto
@@ -242,13 +243,13 @@ A population can be real or hypothetical, finite or essentially infinite. What m
 ## Sample {#sample .scrollable}
 
 <div class="defbox">
-<strong>Definition 1.3 — Sample</strong><br>
+<strong>Definition 1.3 - Sample</strong><br>
 A <strong>subset</strong> selected from the population.
 </div>
 
 <br>
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 **Examples:**
 
 - 50 randomly selected U of T students
@@ -325,15 +326,15 @@ Pause and have students answer aloud before revealing.
 ## Unit, Observation, Variable {#unit-observation-variable .scrollable}
 
 <div class="defbox">
-<strong>Unit</strong> — the smallest entity from which data are collected (one row).
+<strong>Unit</strong> - the smallest entity from which data are collected (one row).
 </div>
 
 <div class="defbox">
-<strong>Observation</strong> — the full set of measured values for one unit.
+<strong>Observation</strong> - the full set of measured values for one unit.
 </div>
 
 <div class="defbox">
-<strong>Variable</strong> — a characteristic that varies from unit to unit (one column).
+<strong>Variable</strong> - a characteristic that varies from unit to unit (one column).
 </div>
 
 ---
@@ -349,7 +350,7 @@ Pause and have students answer aloud before revealing.
 
 . . .
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 - Each **row** is one observation (one student)
 - Each **column** is one variable
 - The **unit** is a single student
@@ -410,7 +411,7 @@ One of the 50 students you actually surveyed.
 . . .
 
 <div class="thinkbox">
-Every sample unit is also a population unit — but not the other way around.
+Every sample unit is also a population unit - but not the other way around.
 </div>
 
 ---
@@ -430,7 +431,7 @@ Usually <strong>unknown</strong>.
 <div class="defbox">
 <strong>Statistic</strong><br>
 A number that describes the <strong>sample</strong>.<br><br>
-Calculated from data — <strong>known</strong>.
+Calculated from data - <strong>known</strong>.
 </div>
 :::
 :::::
@@ -479,10 +480,10 @@ For each, decide: <strong>parameter</strong> or <strong>statistic</strong>?
 . . .
 
 <div class="examplebox">
-1 — parameter (all NBA players)<br>
-2 — statistic (500 surveyed)<br>
-3 — statistic (80 students)<br>
-4 — parameter (every student ever)
+1 - parameter (all NBA players)<br>
+2 - statistic (500 surveyed)<br>
+3 - statistic (80 students)<br>
+4 - parameter (every student ever)
 </div>
 
 ---
@@ -588,7 +589,7 @@ Postal codes, jersey numbers, and student IDs <em>look</em> numeric but are cate
 Countable values, often whole numbers.
 </div>
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 - Number of siblings
 - Courses enrolled in
 - Defective items in a batch
@@ -601,7 +602,7 @@ Countable values, often whole numbers.
 Any value in a range; measured on a scale.
 </div>
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 - Height
 - Time spent studying
 - Temperature
@@ -620,7 +621,7 @@ Any value in a range; measured on a scale.
 Categories with <strong>no natural order</strong>.
 </div>
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 - Eye colour
 - Program of study
 - Primary device (phone/laptop/tablet)
@@ -633,7 +634,7 @@ Categories with <strong>no natural order</strong>.
 Categories with a <strong>natural order</strong>.
 </div>
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 - Self-rated health (Poor → Excellent)
 - Movie rating (1–5 stars)
 - Education level
@@ -751,12 +752,12 @@ So any estimate must come with a measure of how much it might be off.
 
 . . .
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 This is where the tools in later chapters come from:
 
-- **Confidence intervals** — a range of plausible parameter values
-- **Hypothesis tests** — checking whether data support a specific claim
-- **Statistical power** — how likely we are to detect a real effect
+- **Confidence intervals** - a range of plausible parameter values
+- **Hypothesis tests** - checking whether data support a specific claim
+- **Statistical power** - how likely we are to detect a real effect
 :::
 
 ---
@@ -774,7 +775,7 @@ mean(sample_30)
 ```
 
 <div class="footer-note">
-Run it 5 times. Notice the sample mean changes each time — even though the true population mean is exactly 70.
+Run it 5 times. Notice the sample mean changes each time - even though the true population mean is exactly 70.
 </div>
 
 ---
@@ -784,23 +785,23 @@ Run it 5 times. Notice the sample mean changes each time — even though the tru
 How you collect your sample determines whether inference is honest.
 
 <div class="defbox" style="font-size:0.85em">
-<strong>Simple random sample (SRS)</strong> — every unit has an equal chance of being chosen.
+<strong>Simple random sample (SRS)</strong> - every unit has an equal chance of being chosen.
 </div>
 
 <div class="defbox" style="font-size:0.85em">
-<strong>Systematic</strong> — every $k$-th unit from an ordered list (e.g., every 50th student).
+<strong>Systematic</strong> - every $k$-th unit from an ordered list (e.g., every 50th student).
 </div>
 
 <div class="defbox" style="font-size:0.85em">
-<strong>Stratified</strong> — divide into groups, sample from each group.
+<strong>Stratified</strong> - divide into groups, sample from each group.
 </div>
 
 <div class="defbox" style="font-size:0.85em">
-<strong>Cluster</strong> — randomly pick whole groups, survey everyone inside.
+<strong>Cluster</strong> - randomly pick whole groups, survey everyone inside.
 </div>
 
 <div class="defbox" style="font-size:0.85em">
-<strong>Convenience / Voluntary response</strong> — whoever is easy to reach or chooses to respond. ⚠ Usually biased.
+<strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. ⚠ Usually biased.
 </div>
 
 ---
@@ -808,20 +809,20 @@ How you collect your sample determines whether inference is honest.
 ## Bias: When Samples Lie {.scrollable}
 
 <div class="defbox">
-<strong>Bias</strong> — a systematic tendency for a sample to differ from the population in a particular direction.
+<strong>Bias</strong> - a systematic tendency for a sample to differ from the population in a particular direction.
 </div>
 
 <br>
 
 . . .
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 **Classic bias traps:**
 
-- **Selection bias** — surveying gym-goers about exercise habits
-- **Voluntary response** — Instagram polls (only loud opinions answer)
-- **Non-response bias** — the people who skip the survey are different from those who answer
-- **Coverage bias** — your sampling frame misses parts of the population
+- **Selection bias** - surveying gym-goers about exercise habits
+- **Voluntary response** - Instagram polls (only loud opinions answer)
+- **Non-response bias** - the people who skip the survey are different from those who answer
+- **Coverage bias** - your sampling frame misses parts of the population
 :::
 
 ---
@@ -832,7 +833,7 @@ How you collect your sample determines whether inference is honest.
 ::: {.column width="50%"}
 <div class="defbox">
 <strong>Observational</strong><br>
-Record what's already happening — no intervention.
+Record what's already happening - no intervention.
 </div>
 
 <div class="examplebox">
@@ -868,7 +869,7 @@ Only well-designed <strong>experiments</strong> can establish cause and effect.
 <li>We study a <strong>sample</strong> to learn about a <strong>population</strong>.</li>
 <li><strong>Parameters</strong> describe populations (unknown); <strong>statistics</strong> describe samples (known).</li>
 <li>Data are <strong>quantitative</strong> (discrete/continuous) or <strong>qualitative</strong> (nominal/ordinal).</li>
-<li>Inference uses a sample statistic to estimate an unknown population parameter — with a measure of uncertainty.</li>
+<li>Inference uses a sample statistic to estimate an unknown population parameter - with a measure of uncertainty.</li>
 <li><strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.</li>
 </ol>
 </div>
@@ -878,7 +879,7 @@ Only well-designed <strong>experiments</strong> can establish cause and effect.
 ## What's Next {.scrollable}
 
 <div class="thinkbox">
-<strong>Chapter 2:</strong> we move into R — the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
+<strong>Chapter 2:</strong> we move into R - the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
 </div>
 
 <br>

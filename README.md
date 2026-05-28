@@ -75,3 +75,4 @@ Slides for STA258
   - [https://github.com/vrbiki/quarto-web](https://github.com/vrbiki/quarto-web)
 - Other
   - [https://www.lucymcgowan.com/teaching/](https://www.lucymcgowan.com/teaching/)
+  - [https://github.com/nishanmudalige/CanCOTS_2025_Interactive_R_Tutorials](https://github.com/nishanmudalige/CanCOTS_2025_Interactive_R_Tutorials)

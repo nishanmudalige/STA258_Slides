@@ -199,22 +199,22 @@ live:
 
 /*
  * frame-wrap: visible container.
- * iframe scaled to 80% → 125% × 0.8 = 100% in both dimensions.
+ * iframe matches the box 1:1 so the embedded page fills the width and
+ * scrolls internally for content below the fold.
  */
 .frame-wrap {
   width: 100%;
-  height: 470px;
+  height: 520px;
   border: 2px solid var(--sta-border);
   border-radius: 9px;
   overflow: hidden;
   background: #fff;
 }
 .frame-wrap iframe {
-  width: 125%;
-  height: 125%;
+  width: 100%;
+  height: 100%;
   border: 0;
-  transform: scale(0.8);
-  transform-origin: 0 0;
+  display: block;
 }
 
 /* ── Solution callouts ────────────────────────────────── */

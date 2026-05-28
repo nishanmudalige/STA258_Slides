@@ -513,6 +513,22 @@ This is $\bar{x}$, our estimate of the unknown population mean $\mu$.
 
 ---
 
+## Exercise: Inference {.scrollable}
+
+<div class="thinkbox">
+A student wellness survey is sent to <strong>500 randomly selected undergraduates</strong> on campus, out of a total enrolled population of roughly <strong>15,000 students</strong>. The survey asks whether the student reports <strong>high levels of academic stress</strong>.
+</div>
+
+::: {.nonincremental}
+1. Identify the population.
+2. Identify the sample.
+3. What is the parameter of interest?
+4. What is the corresponding statistic?
+5. Why do we use the statistic to draw conclusions about the parameter, rather than computing the parameter directly?
+:::
+
+---
+
 ## Descriptive vs Inferential Statistics {#descriptive-vs-inferential-statistics .scrollable}
 
 <div class="defbox">
@@ -644,34 +660,6 @@ Categories with a <strong>natural order</strong>.
 
 ---
 
-## The Full Map {.scrollable}
-
-<div class="center">
-
-```
-                       DATA
-                        |
-          +-------------+-------------+
-          |                           |
-    Quantitative                 Qualitative
-     (numeric)                  (categorical)
-          |                           |
-    +-----+------+              +-----+------+
-    |            |              |            |
- Discrete    Continuous     Nominal       Ordinal
- (counts)    (measured)   (no order)    (ordered)
-```
-
-</div>
-
-. . .
-
-<div class="footer-note center">
-This tree is the single most useful diagram in Chapter 1.
-</div>
-
----
-
 ## Classify These {#classify-exercise .scrollable}
 
 Try classifying each one. Then click for the answer.
@@ -684,6 +672,32 @@ Try classifying each one. Then click for the answer.
 | Postal code | [Qualitative, **nominal**]{.fragment} |
 | Classroom temperature (°C) | [Quantitative, **continuous**]{.fragment} |
 | Self-rated health (Poor/Fair/Good) | [Qualitative, **ordinal**]{.fragment} |
+
+---
+
+## Exercise: Types of Data {.scrollable}
+
+<div class="thinkbox">
+Classify each variable as <strong>quantitative</strong> or <strong>qualitative</strong>. For each quantitative one, also say whether it is <strong>discrete</strong> or <strong>continuous</strong>. We will go through these together in class.
+</div>
+
+::: {.nonincremental}
+- Age
+- Age cohort (e.g. 18-25, 26-35)
+- Weight
+- Gender
+- Cost of a textbook
+- Major at university
+- Classroom seating capacity
+- Interest rate
+- Average annual return of a stock
+- Shoe size
+- Year of university (by credits completed)
+- A student's academic program (e.g. Statistics, Economics)
+- The campus a student attends (UTM, UTSG, UTSC)
+- Letter grade received in a course (A+, A, A-, B+, ...)
+- Response on a course evaluation (Strongly Agree, ..., Strongly Disagree)
+:::
 
 ---
 
@@ -827,6 +841,22 @@ How you collect your sample determines whether inference is honest.
 
 ---
 
+## Exercise: Identify the Bias {.scrollable}
+
+<div class="thinkbox">
+For each scenario, identify the type of bias present and explain why it is a problem. We will discuss in class.
+</div>
+
+::: {.nonincremental}
+1. The Office of the Registrar wants to estimate the average GPA of all undergraduates. They collect data by emailing only students who belong to an academic club.
+2. A student newspaper posts an online poll asking "How satisfied are you with library hours?" and reports the results as representative of all students.
+3. A course evaluation survey is sent to a random sample of 1,000 students, but only 200 respond.
+4. A study on student commuting habits recruits participants by posting flyers only in on-campus residence buildings.
+5. A survey asks students to self-report how many hours per week they spend studying.
+:::
+
+---
+
 ## Observational vs Experimental Studies {#study-types .scrollable}
 
 ::::: columns
@@ -858,6 +888,22 @@ Randomly give half the volunteers Vitamin C, half a placebo, and compare cold ra
 <div class="thinkbox">
 Only well-designed <strong>experiments</strong> can establish cause and effect.
 </div>
+
+---
+
+## Exercise: Types of Studies {.scrollable}
+
+<div class="thinkbox">
+Classify each as an <strong>observational study</strong>, <strong>experimental study</strong>, or <strong>sample survey</strong>. Briefly justify your answer. We will take these up in class.
+</div>
+
+::: {.nonincremental}
+1. A researcher records the GPA and weekly study hours of students in STA258 without intervening, to see whether there is an association between the two.
+2. First-year students are randomly assigned to either a weekly tutoring program or no tutoring. Their final exam grades are compared at the end of term.
+3. At the end of the semester, a random sample of students is emailed a questionnaire asking about teaching quality, workload, and course organization.
+4. A study tracks whether students who commute more than 1 hour to campus report higher stress levels than those who live on campus.
+5. Students are randomly given one of two versions of a course syllabus (one with weekly deadlines, one with monthly deadlines) and their assignment submission rates are recorded.
+:::
 
 ---
 

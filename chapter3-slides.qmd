@@ -236,6 +236,31 @@ set.seed(258)
 
 /* ── Solution callouts ────────────────────────────────── */
 .callout { font-size: 0.75em; }
+
+/* ── Home button ──────────────────────────────────────── */
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
 </style>
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -330,6 +355,41 @@ Once we write data as $x_1, \ldots, x_n$, every formula in this chapter (mean, v
 :::
 :::
 ::::
+
+---
+
+## Example: Commute Methods {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+A survey asked 40 STA258 students how they usually commute to campus.
+
+| Method | Bus | Car | Walk | Train | Other |
+|---|---|---|---|---|---|
+| Frequency | 14 | 9 | 5 | 8 | 4 |
+
+**(a)** Is this variable **qualitative** or **quantitative**?
+
+**(b)** Create a **relative frequency** table.
+
+**(c)** Which method is most common?
+
+**(d)** What percentage use **public transport** (Bus and Train)?
+:::
+
+---
+
+## Commute Methods - Check in R
+
+```{webr}
+#| autorun: false
+
+freq <- c(Bus = 14, Car = 9, Walk = 5, Train = 8, Other = 4)
+
+freq / sum(freq)                              # relative frequency
+names(freq)[which.max(freq)]                  # most common
+(freq["Bus"] + freq["Train"]) / sum(freq)     # transit share
+```
 
 ---
 
@@ -475,6 +535,41 @@ names(counts)[which.max(counts)]  # the mode
 ```
 :::
 ::::
+
+---
+
+## Example: Study Hours {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Ten students reported the number of hours they studied for a midterm:
+
+$$2, 4, 5, 5, 6, 7, 7, 7, 9, 12$$
+
+**(a)** Find the **mean** study time.
+
+**(b)** Find the **median** study time.
+
+**(c)** Find the **mode**.
+
+**(d)** Which measure of centre is most affected by the value $12$? Explain briefly.
+:::
+
+---
+
+## Study Hours - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(2, 4, 5, 5, 6, 7, 7, 7, 9, 12)
+
+mean(x)
+median(x)
+
+counts <- table(x)
+names(counts)[which.max(counts)]   # mode
+```
 
 ---
 
@@ -635,6 +730,39 @@ diff(range(x))    # also gives the range
 
 ---
 
+## Example: Quiz Scores {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+A student recorded their quiz scores out of $10$:
+
+$$6, 7, 7, 8, 9, 10$$
+
+**(a)** Find the **range**.
+
+**(b)** Find the **sample variance** $s^{2}$.
+
+**(c)** Find the **sample standard deviation** $s$.
+
+**(d)** What does the standard deviation tell us in this context?
+:::
+
+---
+
+## Quiz Scores - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(6, 7, 7, 8, 9, 10)
+
+diff(range(x))   # range
+var(x)           # sample variance
+sd(x)            # sample standard deviation
+```
+
+---
+
 ## 3.2.7 Percentiles
 
 ::: {.defbox .fragment}
@@ -698,6 +826,43 @@ IQR(x)            # Q3 - Q1
 ```
 :::
 ::::
+
+---
+
+## Example: Final Exam Scores {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+The final exam scores for $12$ students are:
+
+$$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
+
+**(a)** Find the **median**.
+
+**(b)** Find the **first quartile**, $Q_{1}$.
+
+**(c)** Find the **third quartile**, $Q_{3}$.
+
+**(d)** Find the **interquartile range** (IQR).
+
+**(e)** Using the $1.5 \times \text{IQR}$ rule, which scores would be flagged as unusually low or high?
+:::
+
+---
+
+## Final Exam Scores - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96)
+
+summary(x)
+IQR(x)
+
+q1 <- quantile(x, 0.25); q3 <- quantile(x, 0.75); iqr <- q3 - q1
+c(lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr)
+```
 
 ---
 
@@ -1084,6 +1249,39 @@ ggplot(df_box, aes(x = value, y = shape, fill = shape)) +
 
 ---
 
+## Example: Online Quiz Times {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+A professor records the time, in minutes, that students spent completing an online quiz:
+
+$$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
+
+**(a)** Would a **histogram** or **boxplot** better show the **shape** of the distribution?
+
+**(b)** Would a **boxplot** or **histogram** be better for **identifying possible outliers**?
+
+**(c)** Describe the likely **shape**: symmetric, left-skewed, or right-skewed.
+
+**(d)** Which value seems most likely to be an outlier?
+:::
+
+---
+
+## Online Quiz Times - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42)
+
+summary(x)
+hist(x, col = "#00695c", border = "white", main = NULL, xlab = "Minutes")
+boxplot(x, horizontal = TRUE, col = "#00695c")
+```
+
+---
+
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
@@ -1141,6 +1339,39 @@ Both groups have $\bar{x} = 15$, but Group B is much more spread out. Mean alone
 :::
 :::
 ::::
+
+---
+
+## Example: Two Sections {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Two sections of a course report the following midterm marks. **Section A:** $62, 65, 68, 70, 72, 75, 78$. **Section B:** $45, 65, 68, 70, 72, 75, 95$.
+
+**(a)** Find the **mean** mark for each section.
+
+**(b)** Find the **median** mark for each section.
+
+**(c)** Which section has more **spread**? Explain.
+
+**(d)** For Section B, would the mean or the median better represent a typical student? Explain.
+:::
+
+---
+
+## Two Sections - Check in R
+
+```{webr}
+#| autorun: false
+
+A <- c(62, 65, 68, 70, 72, 75, 78)
+B <- c(45, 65, 68, 70, 72, 75, 95)
+
+mean(A); median(A); sd(A)
+mean(B); median(B); sd(B)
+
+boxplot(list(A = A, B = B), col = c("#00695c", "#f9a825"), main = "Midterm marks")
+```
 
 ---
 
@@ -1204,6 +1435,44 @@ Read **skewness** from a histogram (which way does the tail point?) or a boxplot
 
 ---
 
+## Bonus Example: Textbooks Owned {.scrollable}
+
+::: {.taskbox}
+<span class="label">Bonus Example</span>
+The number of textbooks owned by $15$ students:
+
+$$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
+
+**(a)** Is the variable **discrete** or **continuous**?
+
+**(b)** Find the **mean**, **median**, and **mode**.
+
+**(c)** Find the **range** and the **IQR**.
+
+**(d)** Would a **histogram** or **boxplot** better show the overall shape?
+
+**(e)** Would a **boxplot** or **histogram** be more useful for detecting outliers?
+:::
+
+---
+
+## Bonus Example: Textbooks Owned - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10)
+
+mean(x); median(x)
+table(x)                   # mode = most frequent
+diff(range(x)); IQR(x)
+
+hist(x, col = "#00695c", border = "white", main = NULL, xlab = "Textbooks")
+boxplot(x, horizontal = TRUE, col = "#00695c")
+```
+
+---
+
 ## Up Next
 
 ::: {.examplebox}
@@ -1211,3 +1480,7 @@ Read **skewness** from a histogram (which way does the tail point?) or a boxplot
 
 We move from describing **the data we have** (this chapter) to making statements about **a wider population** based on a sample. You will meet sampling distributions, point estimates, and the start of confidence intervals.
 :::
+
+<div class="home-button-row">
+<a href="index.html" class="home-button">Back to Homepage</a>
+</div>

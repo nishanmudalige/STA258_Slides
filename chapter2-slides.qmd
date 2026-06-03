@@ -930,6 +930,43 @@ A data frame is a table where each **row** is one observation and each **column*
 
 ---
 
+## Reading CSV from a URL
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+url <- "https://raw.githubusercontent.com/allisonhorst/palmerpenguins/main/inst/extdata/penguins.csv"
+
+penguins <- read.csv(url)
+
+head(penguins)
+dim(penguins)
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**Loading from a public source**
+
+`read.csv()` also accepts a URL. This is the **Palmer Penguins** dataset (344 penguins, 3 species).
+:::
+
+::: {.thinkbox}
+**Where to find datasets:**
+
+- [Kaggle](https://www.kaggle.com/datasets)
+- [UCI Machine Learning Repository](https://archive.ics.uci.edu/)
+- [Statistics Canada](https://www.statcan.gc.ca/en/data)
+- [data.gov](https://www.data.gov/)
+- [Google Dataset Search](https://datasetsearch.research.google.com/)
+:::
+:::
+::::
+
+---
+
 ## Data Frame Basics
 
 :::: {.two-col-lean}

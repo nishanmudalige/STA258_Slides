@@ -219,6 +219,61 @@ live:
 
 /* ── Solution callouts ────────────────────────────────── */
 .callout { font-size: 0.75em; }
+
+/* ── RStudio panes diagram ────────────────────────────── */
+.rstudio-diagram {
+  display: grid;
+  grid-template-columns: 230px 730px 230px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px auto;
+}
+.rstudio-diagram .pane-img {
+  grid-column: 2;
+  width: 100%;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  display: block;
+}
+.rstudio-diagram .label-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 14px 0;
+  gap: 14px;
+}
+.rstudio-diagram .label-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.62em;
+  line-height: 1.3;
+}
+.rstudio-diagram .label-stack.right .label-cell { flex-direction: row-reverse; }
+.rstudio-diagram .label-box {
+  flex: 1;
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: left;
+}
+.rstudio-diagram .label-box .pane-name {
+  display: block;
+  font-weight: 700;
+  color: var(--sta-teal-dark);
+  margin-bottom: 4px;
+  font-size: 1.1em;
+}
+.rstudio-diagram .arrow {
+  color: var(--sta-teal);
+  font-size: 1.8em;
+  font-weight: 700;
+  line-height: 1;
+}
 </style>
 
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -440,31 +495,54 @@ Positron is not required for this course. RStudio is the standard tool. Positron
 
 ## RStudio Panes {#rstudio-panes}
 
-:::: {.four-grid}
-::: {.card .fragment}
-<span class="label">Source</span>
-Write and save R scripts, R Markdown, and Quarto files here.
-:::
-::: {.card .fragment}
-<span class="label">Console</span>
-Run commands and see immediate output, messages, and errors.
-:::
-::: {.card .fragment}
-<span class="label">Environment / History</span>
-View objects currently in memory and commands that have been run.
-:::
-::: {.card .fragment}
-<span class="label">Files / Plots / Packages / Help</span>
-Manage files, view plots, load packages, and read help pages.
-:::
-::::
+<div class="rstudio-diagram">
 
-<br>
+<div class="label-stack left">
+<div class="label-cell">
+<div class="label-box">
+<span class="pane-name">Source</span>
+Write and save R scripts, R Markdown, and Quarto files.
+</div>
+<span class="arrow">→</span>
+</div>
+<div class="label-cell">
+<div class="label-box">
+<span class="pane-name">Console</span>
+Run commands and see immediate output, messages, and errors.
+</div>
+<span class="arrow">→</span>
+</div>
+</div>
+
+<img src="images/rstudio_interface.png" class="pane-img" alt="RStudio interface screenshot">
+
+<div class="label-stack right">
+<div class="label-cell">
+<div class="label-box">
+<span class="pane-name">Environment / History</span>
+Objects currently in memory and commands that have been run.
+</div>
+<span class="arrow">←</span>
+</div>
+<div class="label-cell">
+<div class="label-box">
+<span class="pane-name">Files / Plots / Packages / Help</span>
+Browse files, view plots, load packages, and read help pages.
+</div>
+<span class="arrow">←</span>
+</div>
+</div>
+
+</div>
+
+---
+
+## RStudio Workflow {.compact}
 
 :::: {.three-col}
 ::: {.mini-card .fragment}
 <span class="label">Write</span>
-Type commands in the Source pane so the work is saved.
+Type commands in the **Source** pane so the work is saved.
 :::
 ::: {.mini-card .fragment}
 <span class="label">Run</span>
@@ -475,6 +553,10 @@ Type commands in the Source pane so the work is saved.
 Inspect objects, plots, and help pages using the other panes.
 :::
 ::::
+
+::: {.fragment}
+<img src="images/RStudio_overview.png" alt="Annotated RStudio overview" style="display: block; margin: 14px auto 0 auto; max-width: 88%; max-height: 400px; border: 1px solid var(--sta-border); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.18);">
+:::
 
 ---
 

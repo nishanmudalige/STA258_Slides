@@ -3,6 +3,15 @@ Slides for STA258
 
 # Things to do
 
+## For June 11
+
+- Work on Chapter 4 (priority)
+- Fix the help manual to match the one in the quiz repo
+- Fix minor spacing in chapter 2 (remove second image for rstudio ex)
+- In CH3 add pictures for the examples with plots
+- Reorder file structure (chapters, slides, etc.)
+- Do as much as you can for chapter 5
+
 ## For June 4
 
 - Work more on help manual (new html)

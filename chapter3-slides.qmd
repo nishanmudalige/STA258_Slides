@@ -1,0 +1,1486 @@
+---
+pagetitle: "Chapter 3: Descriptive Statistics - Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 3"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+live:
+  show-solutions: true
+---
+
+```{r setup}
+#| include: false
+library(ggplot2)
+library(dplyr)
+theme_set(theme_minimal(base_size = 13))
+set.seed(258)
+```
+
+# Chapter 3: Descriptive Statistics {.title-slide}
+
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1  { font-size: 1.72em !important; }
+.reveal h2  {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3  { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+/* ── Title slide ──────────────────────────────────────── */
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p  { font-size: 0.78em; color: var(--sta-muted); }
+
+/* ── Grid layouts ─────────────────────────────────────── */
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid {
+  display: grid;
+  gap: 14px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: 1fr 1fr; }
+.two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide  { grid-template-columns: 1.1fr 0.9fr; }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 16px; }
+.col           { min-width: 0; }
+
+/* ── Boxes ────────────────────────────────────────────── */
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* ── Utility ──────────────────────────────────────────── */
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+/* ── Tables ───────────────────────────────────────────── */
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+/* ── Code ─────────────────────────────────────────────── */
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+/* ── Compact ──────────────────────────────────────────── */
+.reveal section.compact h2  { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li  { font-size: 0.74em; }
+
+/* ── Quiz polish ──────────────────────────────────────── */
+/* center the slide content vertically and use most of the slide width */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
+.reveal .quiz-question .callout-note { margin: 4px 0 12px 0 !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p { font-size: 0.78em !important; line-height: 1.3; margin: 4px 0; }
+.reveal .quiz-question .callout-title { font-size: 0.82em !important; padding: 5px 12px !important; }
+.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+/* the actual clickable elements created by the quiz plugin */
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+
+/* explanation / feedback text after Check */
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation { font-size: 0.7em !important; margin-top: 8px; }
+
+/* hint shown above options on quiz slides */
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+
+/* ── Solution callouts ────────────────────────────────── */
+.callout { font-size: 0.75em; }
+
+/* ── Home button ──────────────────────────────────────── */
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
+</style>
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability
+University of Toronto Mississauga
+
+![](cat.png){width="245" fig-alt="Course mascot"}
+
+---
+
+## Chapter Roadmap {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">1 - Numerical Summaries</span>
+Centre (mean, median, mode), spread (variance, SD, range, IQR), and position (percentiles, quartiles).
+:::
+::: {.card .fragment}
+<span class="label">2 - Graphical Summaries</span>
+Histograms and boxplots. Read shape, spread, and outliers from a plot.
+:::
+::: {.card .fragment}
+<span class="label">3 - Reading & Comparing</span>
+Decide which summary tells the right story and compare distributions side by side.
+:::
+::::
+
+<br>
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Core skill</span>
+Describing a dataset in numbers and in pictures.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core tool</span>
+R functions like `mean()`, `summary()`, `hist()`, and `boxplot()`.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core habit</span>
+Pair a number with a plot - one rarely tells the whole story.
+:::
+::::
+
+---
+
+## 3.1 Representing Data {#representing-data}
+
+::: {.defbox .fragment}
+**Data and notation**
+
+Data are **measurements** we write symbolically. For $n$ observations, we use a lowercase letter $x$ with a subscript for the index:
+
+$$x_1, \; x_2, \; \ldots, \; x_n$$
+
+where $x_i$ is one observation and $i = 1, \ldots, n$. The value $n$ is the **sample size**.
+:::
+
+<br>
+
+::: {.examplebox .fragment}
+**Condensed form**: $\; x_i : i = 1, \ldots, n$
+:::
+
+---
+
+## 3.1 Tabular Form
+
+:::: {.two-col-lean}
+::: {.col}
+| Index | 1 | 2 | $\cdots$ | $n$ |
+|---|---|---|---|---|
+| Observation | $x_1$ | $x_2$ | $\cdots$ | $x_n$ |
+
+<br>
+
+::: {.examplebox .fragment}
+**Example.** Five students' study hours:
+
+$$3, \; 4, \; 4, \; 6, \; 8$$
+
+Here $n = 5$, $x_1 = 3$, $x_2 = 4$, $\ldots$, $x_5 = 8$.
+:::
+:::
+
+::: {.col}
+::: {.thinkbox .fragment}
+**Why bother with notation?**
+
+Once we write data as $x_1, \ldots, x_n$, every formula in this chapter (mean, variance, IQR) reads the same regardless of what the data actually measure.
+:::
+:::
+::::
+
+---
+
+## Example: Commute Methods {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+A survey asked 40 STA258 students how they usually commute to campus.
+
+| Method | Bus | Car | Walk | Train | Other |
+|---|---|---|---|---|---|
+| Frequency | 14 | 9 | 5 | 8 | 4 |
+
+**(a)** Is this variable **qualitative** or **quantitative**?
+
+**(b)** Create a **relative frequency** table.
+
+**(c)** Which method is most common?
+
+**(d)** What percentage use **public transport** (Bus and Train)?
+:::
+
+---
+
+## Commute Methods - Check in R
+
+```{webr}
+#| autorun: false
+
+freq <- c(Bus = 14, Car = 9, Walk = 5, Train = 8, Other = 4)
+
+freq / sum(freq)                              # relative frequency
+names(freq)[which.max(freq)]                  # most common
+(freq["Bus"] + freq["Train"]) / sum(freq)     # transit share
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+A class collects the daily steps walked by ten students: $4, 6, 6, 7, 8, 8, 9, 10, 11, 12$ (thousands of steps). In the notation $x_1, x_2, \ldots, x_n$, what is $n$?
+::::
+
+- 4
+- 8
+- [10]{.correct data-explanation="$n$ is the sample size — the number of observations."}
+- 12
+
+---
+
+## 3.2 Numerical Measures {#numerical-measures}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Centre</span>
+Where is the "typical" value? Mean, median, mode.
+:::
+::: {.card .fragment}
+<span class="label">Spread</span>
+How dispersed are the values? Variance, SD, range, IQR.
+:::
+::: {.card .fragment}
+<span class="label">Position</span>
+Where does one value sit relative to the rest? Percentiles, quartiles.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+No single number tells the whole story. We pair centre with spread, and read both alongside a plot.
+:::
+
+---
+
+## 3.2.1 Mean
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox}
+**Sample mean** $\bar{x}$
+
+For a sample $x_1, x_2, \ldots, x_n$,
+
+$$\bar{x} \; = \; \frac{\displaystyle\sum_{i=1}^{n} x_i}{n} \; = \; \frac{x_1 + x_2 + \cdots + x_n}{n}$$
+:::
+
+::: {.examplebox .fragment}
+The mean is the **arithmetic average** - the one most people mean when they say "average."
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+hours <- c(3, 4, 4, 6, 8)
+
+sum(hours)        # numerator
+length(hours)     # n
+mean(hours)       # built-in
+```
+:::
+::::
+
+---
+
+## 3.2.2 Median
+
+::: {.defbox .fragment}
+**Median**
+
+The middle value of a data set once the observations are sorted in ascending order.
+
+Let $x_{(1)}, x_{(2)}, \ldots, x_{(n)}$ be the sorted values. Then:
+
+- If $n$ is **odd**:  $\;\;$ Median $=$ observation $\left(\dfrac{n+1}{2}\right)$
+- If $n$ is **even**:  $\;\;$ Median $=$ average of observations $\left(\dfrac{n}{2}\right)$ and $\left(\dfrac{n}{2} + 1\right)$
+:::
+
+---
+
+## 3.2.2 Median in R
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+odd_data  <- c(3, 1, 4, 1, 5)
+even_data <- c(3, 1, 4, 1, 5, 9)
+
+sort(odd_data)         # see the order
+median(odd_data)       # middle value
+
+sort(even_data)
+median(even_data)      # average of the two middle values
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**Sorted odd:** 1, 1, **3**, 4, 5 → middle value is 3.
+
+**Sorted even:** 1, 1, 3, 4, 5, 9 → middle pair is **3** and **4**, so median $= (3 + 4)/2 = 3.5$.
+:::
+:::
+::::
+
+---
+
+## 3.2.3 Mode
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox}
+**Mode**
+
+The most frequently occurring value in a data set.
+
+A data set can be **unimodal**, **bimodal**, or have no mode if every value appears the same number of times.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- c(2, 3, 3, 4, 4, 5, 5, 5, 6, 8)
+
+# R has no built-in mode() for the statistical mode
+counts <- table(x)
+counts                            # frequency of each value
+names(counts)[which.max(counts)]  # the mode
+```
+:::
+::::
+
+---
+
+## Example: Study Hours {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Ten students reported the number of hours they studied for a midterm:
+
+$$2, 4, 5, 5, 6, 7, 7, 7, 9, 12$$
+
+**(a)** Find the **mean** study time.
+
+**(b)** Find the **median** study time.
+
+**(c)** Find the **mode**.
+
+**(d)** Which measure of centre is most affected by the value $12$? Explain briefly.
+:::
+
+---
+
+## Study Hours - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(2, 4, 5, 5, 6, 7, 7, 7, 9, 12)
+
+mean(x)
+median(x)
+
+counts <- table(x)
+names(counts)[which.max(counts)]   # mode
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+A class has the following test scores out of 100:
+$72, 75, 78, 80, 82, 85, 12$.
+One student missed most of the term and scored 12. **Which measure best describes a "typical" score?**
+::::
+
+- Mean
+- [Median]{.correct data-explanation="The mean is dragged down by the 12. The median (80) sits in the middle of the rest of the class and is **resistant** to that one extreme value."}
+- Mode
+- Range
+
+---
+
+## 3.2.4 Variance
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox .fragment}
+**Sample variance** $s^2$
+
+The average squared deviation from the mean:
+
+$$s^{2} \; = \; \frac{\displaystyle\sum_{i=1}^{n} (x_i - \bar{x})^2}{n - 1}$$
+
+where $\bar{x}$ is the sample mean.
+:::
+:::
+
+::: {.col}
+::: {.examplebox .fragment}
+**Each term is squared**, so $s^2 \ge 0$ always.
+
+The **units** of $s^2$ are the units of the data **squared** (e.g. dollars²). That is awkward to interpret, which is why we usually report the standard deviation instead.
+:::
+:::
+::::
+
+---
+
+## Why divide by $n-1$?
+
+::: {.thinkbox .fragment}
+**Bessel's correction.** We use sample data $\bar{x}$ to estimate the (unknown) population mean $\mu$. That estimation step "uses up" one piece of information.
+
+Dividing by $n - 1$ instead of $n$ corrects for this, and makes $s^2$ an **unbiased** estimator of the population variance.
+:::
+
+::: {.examplebox .fragment}
+You will see a formal proof of this in **STA260**. For now, just remember:
+
+- **Sample** variance → divide by $n - 1$
+- **Population** variance → divide by $N$
+:::
+
+---
+
+## 3.2.4 Variance in R
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- c(2, 4, 4, 6, 6, 8)
+
+# Step by step
+xbar <- mean(x)
+xbar
+
+dev  <- x - xbar          # deviations
+sq   <- dev^2             # squared deviations
+sum(sq) / (length(x) - 1) # variance by formula
+
+var(x)                    # built-in (same answer)
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**Tip.** Build the table $(x_i, x_i - \bar{x}, (x_i - \bar{x})^2)$ on paper before reaching for `var()`. Several exam questions ask for the table.
+:::
+:::
+::::
+
+---
+
+## 3.2.5 Standard Deviation
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox}
+**Sample standard deviation** $s$
+
+$$s \; = \; +\sqrt{s^{2}}$$
+
+where $s^2$ is the sample variance.
+:::
+
+::: {.examplebox .fragment}
+Taking the square root returns us to the **original units**, which is why we usually report $s$ rather than $s^2$.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- c(2, 4, 4, 6, 6, 8)
+
+var(x)        # variance
+sd(x)         # standard deviation
+sqrt(var(x))  # the same thing
+```
+:::
+::::
+
+---
+
+## 3.2.6 Range
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox}
+**Range**
+
+$$\text{Range} \; = \; \max(x_1, \ldots, x_n) \; - \; \min(x_1, \ldots, x_n)$$
+
+The difference between the largest and smallest observations.
+:::
+
+::: {.warnbox .fragment}
+**Caution.** The range uses only two values, so a single extreme observation can change it dramatically. It is a quick summary, not a robust one.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- c(3, 4, 5, 5, 6, 7, 8, 9, 10, 12, 13, 30)
+
+min(x)
+max(x)
+max(x) - min(x)   # range
+
+range(x)          # returns min and max as a vector
+diff(range(x))    # also gives the range
+```
+:::
+::::
+
+---
+
+## Example: Quiz Scores {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+A student recorded their quiz scores out of $10$:
+
+$$6, 7, 7, 8, 9, 10$$
+
+**(a)** Find the **range**.
+
+**(b)** Find the **sample variance** $s^{2}$.
+
+**(c)** Find the **sample standard deviation** $s$.
+
+**(d)** What does the standard deviation tell us in this context?
+:::
+
+---
+
+## Quiz Scores - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(6, 7, 7, 8, 9, 10)
+
+diff(range(x))   # range
+var(x)           # sample variance
+sd(x)            # sample standard deviation
+```
+
+---
+
+## 3.2.7 Percentiles
+
+::: {.defbox .fragment}
+**$p^{\text{th}}$ percentile**
+
+In an ordered data set, the $p^{\text{th}}$ percentile is the value such that $p\%$ of all observations lie **below** it.
+:::
+
+::: {.examplebox .fragment}
+**Example.** A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the **90th percentile** for this test - the student scored higher than 90% of the class.
+
+A relative position can matter more than the raw mark.
+:::
+
+---
+
+## 3.2.8 Quartiles
+
+::: {.defbox .fragment}
+**Quartiles**
+
+Three values that split the sorted data into four equal-size groups.
+
+- **First quartile** $Q_1$: 25% of values below it.
+- **Second quartile** $Q_2$: 50% of values below it. **This is the median.**
+- **Third quartile** $Q_3$: 75% of values below it.
+:::
+
+::: {.examplebox .fragment}
+Quartiles are just three specific percentiles: $Q_1 = P_{25}$, $Q_2 = P_{50}$, $Q_3 = P_{75}$.
+:::
+
+---
+
+## Interquartile Range (IQR)
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox}
+**IQR**
+
+$$\text{IQR} \; = \; Q_3 - Q_1$$
+
+The width of the middle 50% of the data.
+:::
+
+::: {.examplebox .fragment}
+Unlike the range, the IQR is **resistant to outliers** because the bottom 25% and top 25% of the data are ignored.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- c(3, 4, 5, 5, 6, 7, 8, 9, 10, 12, 13, 30)
+
+summary(x)        # min, Q1, median, mean, Q3, max
+quantile(x)       # the five-number quartile breaks
+IQR(x)            # Q3 - Q1
+```
+:::
+::::
+
+---
+
+## Example: Final Exam Scores {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+The final exam scores for $12$ students are:
+
+$$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
+
+**(a)** Find the **median**.
+
+**(b)** Find the **first quartile**, $Q_{1}$.
+
+**(c)** Find the **third quartile**, $Q_{3}$.
+
+**(d)** Find the **interquartile range** (IQR).
+
+**(e)** Using the $1.5 \times \text{IQR}$ rule, which scores would be flagged as unusually low or high?
+:::
+
+---
+
+## Final Exam Scores - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96)
+
+summary(x)
+IQR(x)
+
+q1 <- quantile(x, 0.25); q3 <- quantile(x, 0.75); iqr <- q3 - q1
+c(lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr)
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+For a sample with $Q_1 = 5$ and $Q_3 = 11$, would an observation of $25$ be flagged as a potential outlier by the $1.5 \times \text{IQR}$ rule?
+::::
+
+- [Yes - it sits above the upper cutoff]{.correct data-explanation="IQR $= 6$, upper cutoff $= 11 + 1.5 \\times 6 = 20$. Since $25 > 20$, the value is flagged as a high outlier."}
+- No - it sits inside the whiskers
+- We cannot tell without the median
+- We cannot tell without the sample size
+
+---
+
+## 3.3 Graphical Techniques {#graphical-techniques}
+
+:::: {.two-col}
+::: {.card .fragment}
+<span class="label">Why plot at all?</span>
+Numbers alone hide the **shape** of a distribution. A picture reveals skewness, gaps, clusters, and unusual values.
+:::
+::: {.card .fragment}
+<span class="label">Two workhorses</span>
+**Histograms** show the full shape of one variable. **Boxplots** highlight centre, spread, and outliers, and stack neatly for group comparisons.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**Pair numbers with pictures.** A mean of 65 looks different on a symmetric bell than on a right-skewed pile with a long tail. Always look at both.
+:::
+
+---
+
+## Skewness
+
+::: {.defbox .fragment}
+**Skewness**
+
+A measure of the **symmetry** (or lack of it) in the distribution of data.
+:::
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Left-skewed</span>
+Long tail on the **left**. Most values bunched on the right. Also called **negatively skewed**.
+:::
+::: {.stat-card .fragment}
+<span class="label">Symmetric</span>
+Roughly mirror-image around the centre. Mean $\approx$ median.
+:::
+::: {.stat-card .fragment}
+<span class="label">Right-skewed</span>
+Long tail on the **right**. Most values bunched on the left. Also called **positively skewed**.
+:::
+::::
+
+---
+
+## Skewness Illustrated {.compact}
+
+```{r}
+#| fig-width: 12
+#| fig-height: 3.6
+#| fig-align: center
+#| echo: false
+
+set.seed(1)
+left  <- 100 - rgamma(3000, shape = 3, rate = 0.6)
+sym   <- rnorm(3000, mean = 60, sd = 15)
+right <- rgamma(3000, shape = 3, rate = 0.15)
+
+df <- rbind(
+  data.frame(value = left,  shape = "Left skew"),
+  data.frame(value = sym,   shape = "Symmetric"),
+  data.frame(value = right, shape = "Right skew")
+)
+df$shape <- factor(df$shape, levels = c("Left skew", "Symmetric", "Right skew"))
+
+ggplot(df, aes(value)) +
+  geom_histogram(bins = 30, fill = "#9c8cd4", colour = "white") +
+  facet_wrap(~ shape, scales = "free", ncol = 3) +
+  labs(x = "Value", y = "Frequency") +
+  theme(panel.grid.minor = element_blank(),
+        strip.text = element_text(face = "bold"))
+```
+
+::: {.thinkbox}
+The **tail** points in the direction of the skew. "Right-skewed" = tail to the right. The mean is pulled toward the tail; the median stays near the bulk.
+:::
+
+---
+
+## Skewness vs Mean & Median
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.examplebox}
+**Rule of thumb**
+
+- Left-skewed: **Mean $<$ Median**
+- Symmetric: **Mean $\approx$ Median**
+- Right-skewed: **Mean $>$ Median**
+
+The mean is pulled toward the long tail. The median is not.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+# Right-skewed sample (waiting times)
+set.seed(258)
+wait <- rexp(200, rate = 0.1)
+
+mean(wait)
+median(wait)
+# mean > median  ->  right-skewed
+```
+:::
+::::
+
+---
+
+## Outliers
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox .fragment}
+**Outlier**
+
+A data point that appears to lie outside the overall pattern of the rest of the data.
+:::
+
+::: {.thinkbox .fragment}
+**Do not just delete outliers.**
+
+Investigate first - is it a data-entry error, a measurement error, or a genuine rare observation? The right call depends on the cause.
+:::
+:::
+
+::: {.col}
+::: {.examplebox .fragment}
+**Common causes**
+
+- Transcription error (typing 100 instead of 10)
+- Measurement error (broken instrument)
+- A real but unusual case (a millionaire in a sample of incomes)
+:::
+:::
+::::
+
+---
+
+## 3.3.1 Histograms
+
+::: {.defbox .fragment}
+**Histogram**
+
+A plot of a **quantitative** variable, built by:
+
+1. Splitting the range of the data into intervals (**bins**).
+2. Counting how many observations fall in each bin.
+3. Drawing a bar over each bin with height equal to its frequency.
+
+The $x$-axis shows the bins, and the $y$-axis shows frequency (or relative frequency).
+:::
+
+::: {.thinkbox .fragment}
+**Frequency vs relative frequency.** Frequency histograms show raw counts; relative-frequency histograms show proportions (each bar height $= f_i / F$, where $F = \sum f_i$).
+:::
+
+---
+
+## Histogram Construction {.compact}
+
+::: {.examplebox}
+**Table 3.1 - How a histogram is constructed**
+:::
+
+| Class Interval | Frequency | Relative Frequency |
+|---|---|---|
+| $[a_1, b_1)$ | $f_1$ | $r_1 = f_1 / F$ |
+| $[a_2, b_2)$ | $f_2$ | $r_2 = f_2 / F$ |
+| $[a_3, b_3)$ | $f_3$ | $r_3 = f_3 / F$ |
+| $\vdots$ | $\vdots$ | $\vdots$ |
+| $[a_m, b_m]$ | $f_m$ | $r_m = f_m / F$ |
+| **Total** | $F = \sum_{i=1}^{m} f_i$ | $1$ |
+
+::: {.examplebox .fragment}
+**Bin widths are usually equal** but do not have to be. We choose a width that shows the structure of the data without too much noise.
+:::
+
+---
+
+## 3.3.1 Histogram in R
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+# Old Faithful eruption waiting times
+data(faithful)
+
+waiting <- faithful$waiting
+
+hist(waiting,
+     main = "Old Faithful waiting times",
+     xlab = "Waiting time (minutes)",
+     col  = "#00695c",
+     border = "white")
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**Try it.** Add the argument `breaks = 5` (or 30) to the `hist()` call to see how bin width changes the picture.
+
+The faithful waiting times are **bimodal** - two distinct clusters around 55 and 80 minutes.
+:::
+:::
+::::
+
+---
+
+## Bin Width Matters {.compact}
+
+```{r}
+#| fig-width: 12
+#| fig-height: 3.6
+#| fig-align: center
+#| echo: false
+
+data(faithful)
+w <- faithful$waiting
+
+df_b <- rbind(
+  data.frame(value = w, panel = "breaks = 5"),
+  data.frame(value = w, panel = "breaks = 15"),
+  data.frame(value = w, panel = "breaks = 40")
+)
+df_b$panel <- factor(df_b$panel, levels = c("breaks = 5", "breaks = 15", "breaks = 40"))
+
+ggplot(df_b, aes(value)) +
+  geom_histogram(data = subset(df_b, panel == "breaks = 5"),  bins = 5,  fill = "#00695c", colour = "white") +
+  geom_histogram(data = subset(df_b, panel == "breaks = 15"), bins = 15, fill = "#00695c", colour = "white") +
+  geom_histogram(data = subset(df_b, panel == "breaks = 40"), bins = 40, fill = "#00695c", colour = "white") +
+  facet_wrap(~ panel, ncol = 3) +
+  labs(x = "Waiting time (minutes)", y = "Frequency") +
+  theme(strip.text = element_text(face = "bold"))
+```
+
+::: {.thinkbox}
+Too few bins hide the **bimodal** shape; too many bins make it look noisy. The middle picture (15 bins) shows both clusters clearly.
+:::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+A right-skewed histogram shows the **annual salaries** at a tech company. A reporter writes: *"The average salary is \$95,000, so most employees earn around that amount."*
+
+Which is the better summary of a **typical** employee's salary?
+::::
+
+- The mean
+- [The median]{.correct data-explanation="Right-skew means a few very high salaries pull the mean above the typical value. The median sits closer to where most employees actually are."}
+- They give the same answer
+- Neither - use the mode
+
+---
+
+## 3.3.2 Boxplots
+
+::: {.defbox .fragment}
+**Boxplot** (box-and-whisker plot)
+
+A five-number summary in graphical form:
+
+- **Box** spans from $Q_1$ to $Q_3$.
+- **Line** inside the box marks the median.
+- **Whiskers** extend out to the most extreme observation **inside** the outlier cutoffs.
+- **Dots** beyond the whiskers are flagged as potential outliers.
+:::
+
+---
+
+## The $1.5 \times \text{IQR}$ Rule
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox .fragment}
+**Outlier cutoffs (fences)**
+
+$$\text{Lower cutoff} = Q_1 - 1.5 \times \text{IQR}$$
+$$\text{Upper cutoff} = Q_3 + 1.5 \times \text{IQR}$$
+
+Any value outside these cutoffs is flagged as a **potential outlier**.
+:::
+:::
+
+::: {.col}
+::: {.examplebox .fragment}
+**Example.** A dataset has $Q_1 = 5$, $Q_3 = 11$, so $\text{IQR} = 6$ and $1.5 \times \text{IQR} = 9$.
+
+- Lower cutoff: $5 - 9 = -4$
+- Upper cutoff: $11 + 9 = 20$
+
+Any value below $-4$ or above $20$ would be flagged.
+:::
+:::
+::::
+
+---
+
+## 3.3.2 Boxplot in R
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- c(3, 4, 5, 5, 6, 7, 8, 9, 10, 12, 13, 30)
+
+# Five-number summary
+summary(x)
+
+boxplot(x,
+        horizontal = TRUE,
+        main = "Bus wait times (minutes)",
+        col  = "#00695c")
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**What to look for**
+
+- Where does the median sit inside the box? Off-centre suggests skew.
+- How long are the whiskers? Unequal whisker lengths also suggest skew.
+- Any dots? Those are potential outliers.
+:::
+:::
+::::
+
+---
+
+## Skewness from a Boxplot
+
+```{r}
+#| fig-width: 12
+#| fig-height: 3.6
+#| fig-align: center
+#| echo: false
+
+set.seed(3)
+df_box <- rbind(
+  data.frame(value = 30 - rgamma(150, shape = 3, rate = 0.5),  shape = "Left skew"),
+  data.frame(value = rnorm(150, mean = 10, sd = 3),            shape = "Symmetric"),
+  data.frame(value = rgamma(150, shape = 3, rate = 0.5),       shape = "Right skew")
+)
+df_box$shape <- factor(df_box$shape, levels = c("Left skew", "Symmetric", "Right skew"))
+
+ggplot(df_box, aes(x = value, y = shape, fill = shape)) +
+  geom_boxplot(width = 0.5, colour = "#004d40", outlier.colour = "#e34a6f") +
+  scale_fill_manual(values = c("#9c8cd4", "#00aa88", "#f9a825"), guide = "none") +
+  labs(x = "Value", y = NULL) +
+  theme(panel.grid.major.y = element_blank())
+```
+
+::: {.thinkbox .fragment}
+**Reading skew from a box.** Median **closer to $Q_3$** + long lower whisker → left skew. Median **closer to $Q_1$** + long upper whisker → right skew. The longer tail points in the direction of the skew.
+:::
+
+---
+
+## Example: Online Quiz Times {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+A professor records the time, in minutes, that students spent completing an online quiz:
+
+$$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
+
+**(a)** Would a **histogram** or **boxplot** better show the **shape** of the distribution?
+
+**(b)** Would a **boxplot** or **histogram** be better for **identifying possible outliers**?
+
+**(c)** Describe the likely **shape**: symmetric, left-skewed, or right-skewed.
+
+**(d)** Which value seems most likely to be an outlier?
+:::
+
+---
+
+## Online Quiz Times - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42)
+
+summary(x)
+hist(x, col = "#00695c", border = "white", main = NULL, xlab = "Minutes")
+boxplot(x, horizontal = TRUE, col = "#00695c")
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+Boxplots of 80 delivery times. Restaurant **A** has a short box, short whiskers, and no outliers. Restaurant **B** has a wider box, a long upper whisker, and two high outliers. One sells sushi (careful, consistent prep), the other pizza (occasional rush orders). **Which is the sushi restaurant?**
+::::
+
+- [Restaurant A]{.correct data-explanation="Tight spread = consistent delivery. B's long upper whisker and high outliers fit pizza rush orders."}
+- Restaurant B
+- Both equally consistent
+- Cannot tell
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+In a sample, the median sits noticeably **closer to $Q_3$** than to $Q_1$, and the **lower whisker is longer**. What does this suggest?
+::::
+
+- The distribution is right-skewed
+- [The distribution is left-skewed]{.correct data-explanation="Mass is concentrated on the high side ($Q_3$ end), with a long tail to the left. Mean would be **less** than median."}
+- The distribution is symmetric
+- There must be a high outlier
+
+---
+
+## Comparing Two Groups
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+groupA <- c(14, 15, 14, 16, 15, 14, 16, 15, 15, 16)
+groupB <- c( 8, 12, 15, 19, 18, 11, 17, 20, 20, 10)
+
+mean(groupA); sd(groupA)
+mean(groupB); sd(groupB)
+
+boxplot(list(A = groupA, B = groupB),
+        col = c("#00695c", "#f9a825"),
+        main = "Quiz scores by group")
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**Same mean, different stories.**
+
+Both groups have $\bar{x} = 15$, but Group B is much more spread out. Mean alone hides this - the standard deviation and the side-by-side boxplots make it obvious.
+:::
+:::
+::::
+
+---
+
+## Example: Two Sections {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Two sections of a course report the following midterm marks. **Section A:** $62, 65, 68, 70, 72, 75, 78$. **Section B:** $45, 65, 68, 70, 72, 75, 95$.
+
+**(a)** Find the **mean** mark for each section.
+
+**(b)** Find the **median** mark for each section.
+
+**(c)** Which section has more **spread**? Explain.
+
+**(d)** For Section B, would the mean or the median better represent a typical student? Explain.
+:::
+
+---
+
+## Two Sections - Check in R
+
+```{webr}
+#| autorun: false
+
+A <- c(62, 65, 68, 70, 72, 75, 78)
+B <- c(45, 65, 68, 70, 72, 75, 95)
+
+mean(A); median(A); sd(A)
+mean(B); median(B); sd(B)
+
+boxplot(list(A = A, B = B), col = c("#00695c", "#f9a825"), main = "Midterm marks")
+```
+
+---
+
+## Worked Example: Variance Table {.compact}
+
+::: {.examplebox}
+**Six study hours**: $x = 2, 4, 4, 6, 6, 8$. $\;\;\bar{x} = 30 / 6 = 5$.
+:::
+
+| $x_i$ | $x_i - \bar{x}$ | $(x_i - \bar{x})^2$ |
+|---|---|---|
+| 2 | $-3$ | $9$ |
+| 4 | $-1$ | $1$ |
+| 4 | $-1$ | $1$ |
+| 6 | $+1$ | $1$ |
+| 6 | $+1$ | $1$ |
+| 8 | $+3$ | $9$ |
+| **Sum** | $0$ | $22$ |
+
+$$s^2 = \frac{22}{6 - 1} = 4.4, \quad s = \sqrt{4.4} \approx 2.10$$
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+A teaching assistant wants to **compare the distribution of test scores between two tutorial sections**. Which graph is best suited for this comparison?
+::::
+
+- A bar chart
+- Two separate histograms
+- [Side-by-side boxplots]{.correct data-explanation="Boxplots stack cleanly for group comparison and show centre, spread, and outliers at once. Histograms work but are harder to compare side by side."}
+- A scatterplot
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Centre</span>
+**Mean** uses every value. **Median** ignores extremes. **Mode** is the most common value.
+:::
+::: {.card .fragment}
+<span class="label">Spread</span>
+**Range** = max − min (sensitive). **IQR** = $Q_3 - Q_1$ (resistant). **SD** $s$ is the typical distance from $\bar{x}$.
+:::
+::: {.card .fragment}
+<span class="label">Shape</span>
+Read **skewness** from a histogram (which way does the tail point?) or a boxplot (which whisker is longer?).
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Always report a number **and** a picture. A mean without a histogram, or a histogram without a summary, leaves half the story untold.
+:::
+
+---
+
+## Bonus Example: Textbooks Owned {.scrollable}
+
+::: {.taskbox}
+<span class="label">Bonus Example</span>
+The number of textbooks owned by $15$ students:
+
+$$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
+
+**(a)** Is the variable **discrete** or **continuous**?
+
+**(b)** Find the **mean**, **median**, and **mode**.
+
+**(c)** Find the **range** and the **IQR**.
+
+**(d)** Would a **histogram** or **boxplot** better show the overall shape?
+
+**(e)** Would a **boxplot** or **histogram** be more useful for detecting outliers?
+:::
+
+---
+
+## Bonus Example: Textbooks Owned - Check in R
+
+```{webr}
+#| autorun: false
+
+x <- c(0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10)
+
+mean(x); median(x)
+table(x)                   # mode = most frequent
+diff(range(x)); IQR(x)
+
+hist(x, col = "#00695c", border = "white", main = NULL, xlab = "Textbooks")
+boxplot(x, horizontal = TRUE, col = "#00695c")
+```
+
+---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 4 - Foundations of Inference**
+
+We move from describing **the data we have** (this chapter) to making statements about **a wider population** based on a sample. You will meet sampling distributions, point estimates, and the start of confidence intervals.
+:::
+
+<div class="home-button-row">
+<a href="index.html" class="home-button">Back to Homepage</a>
+</div>

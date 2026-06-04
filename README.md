@@ -3,6 +3,13 @@ Slides for STA258
 
 # Things to do
 
+## For June 4
+
+- Work more on help manual (new html)
+- Work on Chapter 3
+- In CH2, try uploading csv from root (kaggle, UCI machine learning repository, public datasets
+- Low Priority: Fix Margins in CH2 embedded webpages
+
 ## For May 28 
 
 **Help Manual**
@@ -68,3 +75,4 @@ Slides for STA258
   - [https://github.com/vrbiki/quarto-web](https://github.com/vrbiki/quarto-web)
 - Other
   - [https://www.lucymcgowan.com/teaching/](https://www.lucymcgowan.com/teaching/)
+  - [https://github.com/nishanmudalige/CanCOTS_2025_Interactive_R_Tutorials](https://github.com/nishanmudalige/CanCOTS_2025_Interactive_R_Tutorials)

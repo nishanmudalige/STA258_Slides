@@ -277,7 +277,7 @@
     "href": "chapter2-slides.html#rstudio-panes",
     "title": "STA258",
     "section": "RStudio Panes",
-    "text": "RStudio Panes\n\n\nSource Write and save R scripts, R Markdown, and Quarto files here.\n\n\nConsole Run commands and see immediate output, messages, and errors.\n\n\nEnvironment / History View objects currently in memory and commands that have been run.\n\n\nFiles / Plots / Packages / Help Manage files, view plots, load packages, and read help pages.\n\n\n\n\n\nWrite Type commands in the Source pane so the work is saved.\n\n\nRun Cmd + Enter (Mac) or Ctrl + Enter (Windows).\n\n\nCheck Inspect objects, plots, and help pages using the other panes."
+    "text": "RStudio Panes\n\n\n\n\nSource Write and save R scripts, R Markdown, and Quarto files.\n\n→\n\n\n\nConsole Run commands and see immediate output, messages, and errors.\n\n→\n\n\n\n\n\n\nEnvironment / History Objects currently in memory and commands that have been run.\n\n←\n\n\n\nFiles / Plots / Packages / Help Browse files, view plots, load packages, and read help pages.\n\n←"
   },
   {
     "objectID": "chapter2-slides.html#workflow",
@@ -1517,5 +1517,502 @@
     "title": "STA258",
     "section": "Exercise: Types of Studies",
     "text": "Exercise: Types of Studies\n\nClassify each as an observational study, experimental study, or sample survey. Briefly justify your answer. We will take these up in class.\n\n\nA researcher records the GPA and weekly study hours of students in STA258 without intervening, to see whether there is an association between the two.\nFirst-year students are randomly assigned to either a weekly tutoring program or no tutoring. Their final exam grades are compared at the end of term.\nAt the end of the semester, a random sample of students is emailed a questionnaire asking about teaching quality, workload, and course organization.\nA study tracks whether students who commute more than 1 hour to campus report higher stress levels than those who live on campus.\nStudents are randomly given one of two versions of a course syllabus (one with weekly deadlines, one with monthly deadlines) and their assignment submission rates are recorded."
+  },
+  {
+    "objectID": "chapter2-slides.html#reading-csv-from-a-url",
+    "href": "chapter2-slides.html#reading-csv-from-a-url",
+    "title": "STA258",
+    "section": "Reading CSV from a URL",
+    "text": "Reading CSV from a URL\n\n\n\n\n\n\n\n\n\n\n\n\n\nLoading from a public source\nread.csv() also accepts a URL. This is the Palmer Penguins dataset (344 penguins, 3 species).\n\n\nWhere to find datasets:\n\nKaggle\nUCI Machine Learning Repository\nStatistics Canada\ndata.gov\nGoogle Dataset Search"
+  },
+  {
+    "objectID": "chapter3-slides.html#chapter-roadmap",
+    "href": "chapter3-slides.html#chapter-roadmap",
+    "title": "STA258",
+    "section": "Chapter Roadmap",
+    "text": "Chapter Roadmap\n\n\n1 - Numerical Summaries Centre (mean, median, mode), spread (variance, SD, range, IQR), and position (percentiles, quartiles).\n\n\n2 - Graphical Summaries Histograms and boxplots. Read shape, spread, and outliers from a plot.\n\n\n3 - Reading & Comparing Decide which summary tells the right story and compare distributions side by side.\n\n\n\n\n\nCore skill Describing a dataset in numbers and in pictures.\n\n\nCore tool R functions like mean(), summary(), hist(), and boxplot().\n\n\nCore habit Pair a number with a plot - one rarely tells the whole story."
+  },
+  {
+    "objectID": "chapter3-slides.html#representing-data",
+    "href": "chapter3-slides.html#representing-data",
+    "title": "STA258",
+    "section": "3.1 Representing Data",
+    "text": "3.1 Representing Data\n\nData and notation\nData are measurements we write symbolically. For \\(n\\) observations, we use a lowercase letter \\(x\\) with a subscript for the index:\n\\[x_1, \\; x_2, \\; \\ldots, \\; x_n\\]\nwhere \\(x_i\\) is one observation and \\(i = 1, \\ldots, n\\). The value \\(n\\) is the sample size.\n\n\n\nCondensed form: \\(\\; x_i : i = 1, \\ldots, n\\)"
+  },
+  {
+    "objectID": "chapter3-slides.html#tabular-form",
+    "href": "chapter3-slides.html#tabular-form",
+    "title": "STA258",
+    "section": "3.1 Tabular Form",
+    "text": "3.1 Tabular Form\n\n\n\n\n\nIndex\n1\n2\n\\(\\cdots\\)\n\\(n\\)\n\n\n\n\nObservation\n\\(x_1\\)\n\\(x_2\\)\n\\(\\cdots\\)\n\\(x_n\\)\n\n\n\n\n\nExample. Five students’ study hours:\n\\[3, \\; 4, \\; 4, \\; 6, \\; 8\\]\nHere \\(n = 5\\), \\(x_1 = 3\\), \\(x_2 = 4\\), \\(\\ldots\\), \\(x_5 = 8\\).\n\n\n\n\nWhy bother with notation?\nOnce we write data as \\(x_1, \\ldots, x_n\\), every formula in this chapter (mean, variance, IQR) reads the same regardless of what the data actually measure."
+  },
+  {
+    "objectID": "chapter3-slides.html#numerical-measures",
+    "href": "chapter3-slides.html#numerical-measures",
+    "title": "STA258",
+    "section": "3.2 Numerical Measures",
+    "text": "3.2 Numerical Measures\n\n\nCentre Where is the “typical” value? Mean, median, mode.\n\n\nSpread How dispersed are the values? Variance, SD, range, IQR.\n\n\nPosition Where does one value sit relative to the rest? Percentiles, quartiles.\n\n\n\n\nNo single number tells the whole story. We pair centre with spread, and read both alongside a plot."
+  },
+  {
+    "objectID": "chapter3-slides.html#mean",
+    "href": "chapter3-slides.html#mean",
+    "title": "STA258",
+    "section": "3.2.1 Mean",
+    "text": "3.2.1 Mean\n\n\n\nSample mean \\(\\bar{x}\\)\nFor a sample \\(x_1, x_2, \\ldots, x_n\\),\n\\[\\bar{x} \\; = \\; \\frac{\\displaystyle\\sum_{i=1}^{n} x_i}{n} \\; = \\; \\frac{x_1 + x_2 + \\cdots + x_n}{n}\\]\n\n\nThe mean is the arithmetic average - the one most people mean when they say “average.”"
+  },
+  {
+    "objectID": "chapter3-slides.html#median",
+    "href": "chapter3-slides.html#median",
+    "title": "STA258",
+    "section": "3.2.2 Median",
+    "text": "3.2.2 Median\n\nMedian\nThe middle value of a data set once the observations are sorted in ascending order.\nLet \\(x_{(1)}, x_{(2)}, \\ldots, x_{(n)}\\) be the sorted values. Then:\n\nIf \\(n\\) is odd: \\(\\;\\;\\) Median \\(=\\) observation \\(\\left(\\dfrac{n+1}{2}\\right)\\)\nIf \\(n\\) is even: \\(\\;\\;\\) Median \\(=\\) average of observations \\(\\left(\\dfrac{n}{2}\\right)\\) and \\(\\left(\\dfrac{n}{2} + 1\\right)\\)"
+  },
+  {
+    "objectID": "chapter3-slides.html#median-in-r",
+    "href": "chapter3-slides.html#median-in-r",
+    "title": "STA258",
+    "section": "3.2.2 Median in R",
+    "text": "3.2.2 Median in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nSorted odd: 1, 1, 3, 4, 5 → middle value is 3.\nSorted even: 1, 1, 3, 4, 5, 9 → middle pair is 3 and 4, so median \\(= (3 + 4)/2 = 3.5\\)."
+  },
+  {
+    "objectID": "chapter3-slides.html#mode",
+    "href": "chapter3-slides.html#mode",
+    "title": "STA258",
+    "section": "3.2.3 Mode",
+    "text": "3.2.3 Mode\n\n\n\nMode\nThe most frequently occurring value in a data set.\nA data set can be unimodal, bimodal, or have no mode if every value appears the same number of times."
+  },
+  {
+    "objectID": "chapter3-slides.html#poll-which-measure-of-centre",
+    "href": "chapter3-slides.html#poll-which-measure-of-centre",
+    "title": "STA258",
+    "section": "Poll: Which Measure of Centre?",
+    "text": "Poll: Which Measure of Centre?\n\nScenario. A class has the following test scores out of 100:\n\\[72, \\; 75, \\; 78, \\; 80, \\; 82, \\; 85, \\; 12\\]\nOne student missed most of the term and scored 12. Which measure best describes a “typical” score?\n\nMean\nMedian\nMode\n\n\n\n\nAnswer (b) Median. The mean is dragged down by the 12. The median (80) sits in the middle of the rest of the class and is resistant to that one extreme value."
+  },
+  {
+    "objectID": "chapter3-slides.html#variance",
+    "href": "chapter3-slides.html#variance",
+    "title": "STA258",
+    "section": "3.2.4 Variance",
+    "text": "3.2.4 Variance\n\n\n\nSample variance \\(s^2\\)\nThe average squared deviation from the mean:\n\\[s^{2} \\; = \\; \\frac{\\displaystyle\\sum_{i=1}^{n} (x_i - \\bar{x})^2}{n - 1}\\]\nwhere \\(\\bar{x}\\) is the sample mean.\n\n\n\n\nEach term is squared, so \\(s^2 \\ge 0\\) always.\nThe units of \\(s^2\\) are the units of the data squared (e.g. dollars²). That is awkward to interpret, which is why we usually report the standard deviation instead."
+  },
+  {
+    "objectID": "chapter3-slides.html#why-divide-by-n-1",
+    "href": "chapter3-slides.html#why-divide-by-n-1",
+    "title": "STA258",
+    "section": "Why divide by \\(n-1\\)?",
+    "text": "Why divide by \\(n-1\\)?\n\nBessel’s correction. We use sample data \\(\\bar{x}\\) to estimate the (unknown) population mean \\(\\mu\\). That estimation step “uses up” one piece of information.\nDividing by \\(n - 1\\) instead of \\(n\\) corrects for this, and makes \\(s^2\\) an unbiased estimator of the population variance.\n\n\nYou will see a formal proof of this in STA260. For now, just remember:\n\nSample variance → divide by \\(n - 1\\)\nPopulation variance → divide by \\(N\\)"
+  },
+  {
+    "objectID": "chapter3-slides.html#variance-in-r",
+    "href": "chapter3-slides.html#variance-in-r",
+    "title": "STA258",
+    "section": "3.2.4 Variance in R",
+    "text": "3.2.4 Variance in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip. Build the table \\((x_i, x_i - \\bar{x}, (x_i - \\bar{x})^2)\\) on paper before reaching for var(). Several exam questions ask for the table."
+  },
+  {
+    "objectID": "chapter3-slides.html#standard-deviation",
+    "href": "chapter3-slides.html#standard-deviation",
+    "title": "STA258",
+    "section": "3.2.5 Standard Deviation",
+    "text": "3.2.5 Standard Deviation\n\n\n\nSample standard deviation \\(s\\)\n\\[s \\; = \\; +\\sqrt{s^{2}}\\]\nwhere \\(s^2\\) is the sample variance.\n\n\nTaking the square root returns us to the original units, which is why we usually report \\(s\\) rather than \\(s^2\\)."
+  },
+  {
+    "objectID": "chapter3-slides.html#range",
+    "href": "chapter3-slides.html#range",
+    "title": "STA258",
+    "section": "3.2.6 Range",
+    "text": "3.2.6 Range\n\n\n\nRange\n\\[\\text{Range} \\; = \\; \\max(x_1, \\ldots, x_n) \\; - \\; \\min(x_1, \\ldots, x_n)\\]\nThe difference between the largest and smallest observations.\n\n\nCaution. The range uses only two values, so a single extreme observation can change it dramatically. It is a quick summary, not a robust one."
+  },
+  {
+    "objectID": "chapter3-slides.html#percentiles",
+    "href": "chapter3-slides.html#percentiles",
+    "title": "STA258",
+    "section": "3.2.7 Percentiles",
+    "text": "3.2.7 Percentiles\n\n\\(p^{\\text{th}}\\) percentile\nIn an ordered data set, the \\(p^{\\text{th}}\\) percentile is the value such that \\(p\\%\\) of all observations lie below it.\n\n\nExample. A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the 90th percentile for this test - the student scored higher than 90% of the class.\nA relative position can matter more than the raw mark."
+  },
+  {
+    "objectID": "chapter3-slides.html#quartiles",
+    "href": "chapter3-slides.html#quartiles",
+    "title": "STA258",
+    "section": "3.2.8 Quartiles",
+    "text": "3.2.8 Quartiles\n\nQuartiles\nThree values that split the sorted data into four equal-size groups.\n\nFirst quartile \\(Q_1\\): 25% of values below it.\nSecond quartile \\(Q_2\\): 50% of values below it. This is the median.\nThird quartile \\(Q_3\\): 75% of values below it.\n\n\n\nQuartiles are just three specific percentiles: \\(Q_1 = P_{25}\\), \\(Q_2 = P_{50}\\), \\(Q_3 = P_{75}\\)."
+  },
+  {
+    "objectID": "chapter3-slides.html#interquartile-range-iqr",
+    "href": "chapter3-slides.html#interquartile-range-iqr",
+    "title": "STA258",
+    "section": "Interquartile Range (IQR)",
+    "text": "Interquartile Range (IQR)\n\n\n\nIQR\n\\[\\text{IQR} \\; = \\; Q_3 - Q_1\\]\nThe width of the middle 50% of the data.\n\n\nUnlike the range, the IQR is resistant to outliers because the bottom 25% and top 25% of the data are ignored."
+  },
+  {
+    "objectID": "chapter3-slides.html#in-class-exercise-study-hours",
+    "href": "chapter3-slides.html#in-class-exercise-study-hours",
+    "title": "STA258",
+    "section": "In-Class Exercise: Study Hours",
+    "text": "In-Class Exercise: Study Hours\n\n\nTask Ten students recorded how many hours they spent studying for a quiz:\n\\[2, 3, 3, 4, 4, 5, 5, 5, 6, 8\\]\nFind the mean, median, mode, and range. Is the mean larger or smaller than the median? Why?"
+  },
+  {
+    "objectID": "chapter3-slides.html#graphical-techniques",
+    "href": "chapter3-slides.html#graphical-techniques",
+    "title": "STA258",
+    "section": "3.3 Graphical Techniques",
+    "text": "3.3 Graphical Techniques\n\n\nWhy plot at all? Numbers alone hide the shape of a distribution. A picture reveals skewness, gaps, clusters, and unusual values.\n\n\nTwo workhorses Histograms show the full shape of one variable. Boxplots highlight centre, spread, and outliers, and stack neatly for group comparisons.\n\n\n\n\nPair numbers with pictures. A mean of 65 looks different on a symmetric bell than on a right-skewed pile with a long tail. Always look at both."
+  },
+  {
+    "objectID": "chapter3-slides.html#skewness",
+    "href": "chapter3-slides.html#skewness",
+    "title": "STA258",
+    "section": "Skewness",
+    "text": "Skewness\n\nSkewness\nA measure of the symmetry (or lack of it) in the distribution of data.\n\n\n\nLeft-skewed Long tail on the left. Most values bunched on the right. Also called negatively skewed.\n\n\nSymmetric Roughly mirror-image around the centre. Mean \\(\\approx\\) median.\n\n\nRight-skewed Long tail on the right. Most values bunched on the left. Also called positively skewed."
+  },
+  {
+    "objectID": "chapter3-slides.html#skewness-and-the-mean-vs-median",
+    "href": "chapter3-slides.html#skewness-and-the-mean-vs-median",
+    "title": "STA258",
+    "section": "Skewness and the Mean vs Median",
+    "text": "Skewness and the Mean vs Median\n\n\n\nRule of thumb\n\nLeft-skewed: Mean \\(&lt;\\) Median\nSymmetric: Mean \\(\\approx\\) Median\nRight-skewed: Mean \\(&gt;\\) Median\n\nThe mean is pulled toward the long tail. The median is not."
+  },
+  {
+    "objectID": "chapter3-slides.html#outliers",
+    "href": "chapter3-slides.html#outliers",
+    "title": "STA258",
+    "section": "Outliers",
+    "text": "Outliers\n\n\n\nOutlier\nA data point that appears to lie outside the overall pattern of the rest of the data.\n\n\nDo not just delete outliers.\nInvestigate first - is it a data-entry error, a measurement error, or a genuine rare observation? The right call depends on the cause.\n\n\n\n\nCommon causes\n\nTranscription error (typing 100 instead of 10)\nMeasurement error (broken instrument)\nA real but unusual case (a millionaire in a sample of incomes)"
+  },
+  {
+    "objectID": "chapter3-slides.html#histograms",
+    "href": "chapter3-slides.html#histograms",
+    "title": "STA258",
+    "section": "3.3.1 Histograms",
+    "text": "3.3.1 Histograms\n\nHistogram\nA plot of a quantitative variable, built by:\n\nSplitting the range of the data into intervals (bins).\nCounting how many observations fall in each bin.\nDrawing a bar over each bin with height equal to its frequency.\n\nThe \\(x\\)-axis shows the bins, and the \\(y\\)-axis shows frequency (or relative frequency).\n\n\nFrequency vs relative frequency. Frequency histograms show raw counts; relative-frequency histograms show proportions (each bar height \\(= f_i / F\\), where \\(F = \\sum f_i\\))."
+  },
+  {
+    "objectID": "chapter3-slides.html#histogram-in-r",
+    "href": "chapter3-slides.html#histogram-in-r",
+    "title": "STA258",
+    "section": "3.3.1 Histogram in R",
+    "text": "3.3.1 Histogram in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nTry it. Add the argument breaks = 5 (or 30) to the hist() call to see how bin width changes the picture.\nThe faithful waiting times are bimodal - two distinct clusters around 55 and 80 minutes."
+  },
+  {
+    "objectID": "chapter3-slides.html#reading-skewness-from-a-histogram",
+    "href": "chapter3-slides.html#reading-skewness-from-a-histogram",
+    "title": "STA258",
+    "section": "Reading Skewness from a Histogram",
+    "text": "Reading Skewness from a Histogram\n\n\nLeft-skewed Tall bars on the right, tail trailing left. Mean pulled down.\n\n\nSymmetric Tallest bars in the middle, fading evenly to both sides.\n\n\nRight-skewed Tall bars on the left, tail trailing right. Mean pulled up.\n\n\n\n\nThe tail points in the direction of the skew. “Right-skewed” = tail to the right."
+  },
+  {
+    "objectID": "chapter3-slides.html#poll-read-the-histogram",
+    "href": "chapter3-slides.html#poll-read-the-histogram",
+    "title": "STA258",
+    "section": "Poll: Read the Histogram",
+    "text": "Poll: Read the Histogram\n\nA right-skewed histogram shows the annual salaries at a tech company. A reporter writes:\n\n“The average salary is $95,000, so most employees earn around that amount.”\n\nWhich is the better summary of a typical employee’s salary - the mean or the median?\n\n\n\nAnswer The median. Right-skew means a few very high salaries pull the mean above the typical value. The median sits closer to where most employees actually are, so it represents a “typical” salary better."
+  },
+  {
+    "objectID": "chapter3-slides.html#boxplots",
+    "href": "chapter3-slides.html#boxplots",
+    "title": "STA258",
+    "section": "3.3.2 Boxplots",
+    "text": "3.3.2 Boxplots\n\nBoxplot (box-and-whisker plot)\nA five-number summary in graphical form:\n\nBox spans from \\(Q_1\\) to \\(Q_3\\).\nLine inside the box marks the median.\nWhiskers extend out to the most extreme observation inside the outlier cutoffs.\nDots beyond the whiskers are flagged as potential outliers."
+  },
+  {
+    "objectID": "chapter3-slides.html#the-1.5-times-textiqr-rule",
+    "href": "chapter3-slides.html#the-1.5-times-textiqr-rule",
+    "title": "STA258",
+    "section": "The \\(1.5 \\times \\text{IQR}\\) Rule",
+    "text": "The \\(1.5 \\times \\text{IQR}\\) Rule\n\n\n\nOutlier cutoffs (fences)\n\\[\\text{Lower cutoff} = Q_1 - 1.5 \\times \\text{IQR}\\] \\[\\text{Upper cutoff} = Q_3 + 1.5 \\times \\text{IQR}\\]\nAny value outside these cutoffs is flagged as a potential outlier.\n\n\n\n\nExample. A dataset has \\(Q_1 = 5\\), \\(Q_3 = 11\\), so \\(\\text{IQR} = 6\\) and \\(1.5 \\times \\text{IQR} = 9\\).\n\nLower cutoff: \\(5 - 9 = -4\\)\nUpper cutoff: \\(11 + 9 = 20\\)\n\nAny value below \\(-4\\) or above \\(20\\) would be flagged."
+  },
+  {
+    "objectID": "chapter3-slides.html#boxplot-in-r",
+    "href": "chapter3-slides.html#boxplot-in-r",
+    "title": "STA258",
+    "section": "3.3.2 Boxplot in R",
+    "text": "3.3.2 Boxplot in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat to look for\n\nWhere does the median sit inside the box? Off-centre suggests skew.\nHow long are the whiskers? Unequal whisker lengths also suggest skew.\nAny dots? Those are potential outliers."
+  },
+  {
+    "objectID": "chapter3-slides.html#reading-skewness-from-a-boxplot",
+    "href": "chapter3-slides.html#reading-skewness-from-a-boxplot",
+    "title": "STA258",
+    "section": "Reading Skewness from a Boxplot",
+    "text": "Reading Skewness from a Boxplot\n\n\nLeft-skewed Median is closer to \\(Q_3\\) (top of box). Lower whisker is longer.\n\n\nSymmetric Median near the centre of the box. Whiskers roughly equal.\n\n\nRight-skewed Median is closer to \\(Q_1\\) (bottom of box). Upper whisker is longer.\n\n\n\n\nThe longer whisker points in the direction of the skew. Same logic as for histograms - look where the tail goes."
+  },
+  {
+    "objectID": "chapter3-slides.html#poll-sushi-or-pizza",
+    "href": "chapter3-slides.html#poll-sushi-or-pizza",
+    "title": "STA258",
+    "section": "Poll: Sushi or Pizza?",
+    "text": "Poll: Sushi or Pizza?\n\nTwo restaurants near UTM, A and B. A boxplot of 80 delivery times shows:\n\nRestaurant A: short box, short whiskers, no outliers.\nRestaurant B: wider box, long upper whisker, two high outliers.\n\nOne is a sushi restaurant known for careful, consistent preparation. The other is a pizza restaurant that gets large rush orders. Which is which?\n\n\n\nAnswer A is the sushi restaurant. Tight spread = consistent delivery times. B’s long upper whisker and high outliers fit the pizza pattern: occasional very long waits when a rush order lands."
+  },
+  {
+    "objectID": "chapter3-slides.html#comparing-two-groups",
+    "href": "chapter3-slides.html#comparing-two-groups",
+    "title": "STA258",
+    "section": "Comparing Two Groups",
+    "text": "Comparing Two Groups\n\n\n\n\n\n\n\n\n\n\n\n\n\nSame mean, different stories.\nBoth groups have \\(\\bar{x} = 15\\), but Group B is much more spread out. Mean alone hides this - the standard deviation and the side-by-side boxplots make it obvious."
+  },
+  {
+    "objectID": "chapter3-slides.html#in-class-exercise-plot-the-scores",
+    "href": "chapter3-slides.html#in-class-exercise-plot-the-scores",
+    "title": "STA258",
+    "section": "In-Class Exercise: Plot the Scores",
+    "text": "In-Class Exercise: Plot the Scores\n\n\nTask The exam scores for 20 students are below.\n\nDraw a histogram and describe the shape.\nDraw a boxplot and identify any outlier dots.\nDo the histogram and boxplot agree about the shape?\n\n\\(40, 61, 65, 68, 70, 72, 74, 75, 76, 78,\\) \\(79, 80, 82, 84, 85, 87, 88, 90, 92, 97\\)"
+  },
+  {
+    "objectID": "chapter3-slides.html#chapter-summary",
+    "href": "chapter3-slides.html#chapter-summary",
+    "title": "STA258",
+    "section": "Chapter Summary",
+    "text": "Chapter Summary\n\n\nCentre Mean uses every value. Median ignores extremes. Mode is the most common value.\n\n\nSpread Range = max − min (sensitive). IQR = \\(Q_3 - Q_1\\) (resistant). SD \\(s\\) is the typical distance from \\(\\bar{x}\\).\n\n\nShape Read skewness from a histogram (which way does the tail point?) or a boxplot (which whisker is longer?).\n\n\n\n\nOne slide takeaway. Always report a number and a picture. A mean without a histogram, or a histogram without a summary, leaves half the story untold."
+  },
+  {
+    "objectID": "chapter3-slides.html#up-next",
+    "href": "chapter3-slides.html#up-next",
+    "title": "STA258",
+    "section": "Up Next",
+    "text": "Up Next\n\nChapter 4 - Foundations of Inference\nWe move from describing the data we have (this chapter) to making statements about a wider population based on a sample. You will meet sampling distributions, point estimates, and the start of confidence intervals.\n\n\nBack to Homepage"
+  },
+  {
+    "objectID": "chapter3.html",
+    "href": "chapter3.html",
+    "title": "Chapter 3: Descriptive Statistics",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "chapter3.html#what-youll-learn",
+    "href": "chapter3.html#what-youll-learn",
+    "title": "Chapter 3: Descriptive Statistics",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 3 you’ll be able to:\n\nWrite a data set in the standard notation \\(x_1, x_2, \\ldots, x_n\\) and explain what each symbol stands for.\nCompute and interpret the mean, median, and mode as measures of centre.\nCompute and interpret the range, variance, standard deviation, and IQR as measures of spread.\nFind percentiles and quartiles and use them to describe relative position.\nRead skewness and outliers from a histogram or a boxplot.\nUse R functions (mean, median, var, sd, summary, quantile, IQR, hist, boxplot) on real data."
+  },
+  {
+    "objectID": "chapter3.html#key-ideas",
+    "href": "chapter3.html#key-ideas",
+    "title": "Chapter 3: Descriptive Statistics",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nCentre\nThe mean uses every value and is sensitive to extremes. The median is the middle value and is resistant to outliers. The mode is the most frequent value.\n\n\nSpread\nThe range is max minus min — quick but easily distorted by one extreme value. The standard deviation \\(s\\) is the typical distance from \\(\\bar{x}\\). The IQR \\(= Q_3 - Q_1\\) is the width of the middle 50% of the data and is resistant to outliers.\n\n\nWhy divide by \\(n-1\\) for the sample variance?\nWe use \\(\\bar{x}\\) to estimate the population mean \\(\\mu\\), which costs us one piece of information. Dividing by \\(n-1\\) corrects for that and makes \\(s^2\\) an unbiased estimator of the population variance. (Bessel’s correction.)\n\n\nPosition\nThe \\(p^{\\text{th}}\\) percentile is the value such that \\(p\\%\\) of observations lie below it. Quartiles \\(Q_1, Q_2, Q_3\\) split the sorted data into four equal-size groups — \\(Q_2\\) is just the median.\n\n\nShape and outliers\nA histogram shows the full shape of one variable. A boxplot highlights the five-number summary and flags potential outliers using the \\(1.5 \\times \\text{IQR}\\) rule. The longer tail / whisker points in the direction of the skew.\n\n\nPair numbers with pictures\nA single number rarely tells the whole story. Always report a summary statistic alongside a plot so the shape of the distribution is visible."
+  },
+  {
+    "objectID": "chapter3.html#how-to-use-this-chapter",
+    "href": "chapter3.html#how-to-use-this-chapter",
+    "title": "Chapter 3: Descriptive Statistics",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough — every WebR block in the deck is editable and runs in your browser.\nUse the PDF button for an offline-friendly version.\nTry the in-slide exercises (study hours, exam scores). Change values, re-run, and check the output."
+  },
+  {
+    "objectID": "chapter3-slides.html#section",
+    "href": "chapter3-slides.html#section",
+    "title": "STA258",
+    "section": "",
+    "text": "Example\n\n\nA class collects the daily steps walked by ten students: \\(4, 6, 6, 7, 8, 8, 9, 10, 11, 12\\) (thousands of steps). In the notation \\(x_1, x_2, \\ldots, x_n\\), what is \\(n\\)?\n\n\n\n\n4\n8\n10\n12"
+  },
+  {
+    "objectID": "chapter3-slides.html#section-1",
+    "href": "chapter3-slides.html#section-1",
+    "title": "STA258",
+    "section": "",
+    "text": "Example\n\n\nA class has the following test scores out of 100: \\(72, 75, 78, 80, 82, 85, 12\\). One student missed most of the term and scored 12. Which measure best describes a “typical” score?\n\n\n\n\nMean\nMedian\nMode\nRange"
+  },
+  {
+    "objectID": "chapter3-slides.html#section-2",
+    "href": "chapter3-slides.html#section-2",
+    "title": "STA258",
+    "section": "",
+    "text": "Example\n\n\nFor a sample with \\(Q_1 = 5\\) and \\(Q_3 = 11\\), would an observation of \\(25\\) be flagged as a potential outlier by the \\(1.5 \\times \\text{IQR}\\) rule?\n\n\n\n\nYes - it sits above the upper cutoff\nNo - it sits inside the whiskers\nWe cannot tell without the median\nWe cannot tell without the sample size"
+  },
+  {
+    "objectID": "chapter3-slides.html#skewness-illustrated",
+    "href": "chapter3-slides.html#skewness-illustrated",
+    "title": "STA258",
+    "section": "Skewness Illustrated",
+    "text": "Skewness Illustrated\n\n\nThe tail points in the direction of the skew. “Right-skewed” = tail to the right. The mean is pulled toward the tail; the median stays near the bulk."
+  },
+  {
+    "objectID": "chapter3-slides.html#skewness-vs-mean-median",
+    "href": "chapter3-slides.html#skewness-vs-mean-median",
+    "title": "STA258",
+    "section": "Skewness vs Mean & Median",
+    "text": "Skewness vs Mean & Median\n\n\n\nRule of thumb\n\nLeft-skewed: Mean \\(&lt;\\) Median\nSymmetric: Mean \\(\\approx\\) Median\nRight-skewed: Mean \\(&gt;\\) Median\n\nThe mean is pulled toward the long tail. The median is not."
+  },
+  {
+    "objectID": "chapter3-slides.html#histogram-construction",
+    "href": "chapter3-slides.html#histogram-construction",
+    "title": "STA258",
+    "section": "Histogram Construction",
+    "text": "Histogram Construction\n\nTable 3.1 - How a histogram is constructed\n\n\n\n\nClass Interval\nFrequency\nRelative Frequency\n\n\n\n\n\\([a_1, b_1)\\)\n\\(f_1\\)\n\\(r_1 = f_1 / F\\)\n\n\n\\([a_2, b_2)\\)\n\\(f_2\\)\n\\(r_2 = f_2 / F\\)\n\n\n\\([a_3, b_3)\\)\n\\(f_3\\)\n\\(r_3 = f_3 / F\\)\n\n\n\\(\\vdots\\)\n\\(\\vdots\\)\n\\(\\vdots\\)\n\n\n\\([a_m, b_m]\\)\n\\(f_m\\)\n\\(r_m = f_m / F\\)\n\n\nTotal\n\\(F = \\sum_{i=1}^{m} f_i\\)\n\\(1\\)\n\n\n\n\nBin widths are usually equal but do not have to be. We choose a width that shows the structure of the data without too much noise."
+  },
+  {
+    "objectID": "chapter3-slides.html#bin-width-matters",
+    "href": "chapter3-slides.html#bin-width-matters",
+    "title": "STA258",
+    "section": "Bin Width Matters",
+    "text": "Bin Width Matters\n\n\nToo few bins hide the bimodal shape; too many bins make it look noisy. The middle picture (15 bins) shows both clusters clearly."
+  },
+  {
+    "objectID": "chapter3-slides.html#section-3",
+    "href": "chapter3-slides.html#section-3",
+    "title": "STA258",
+    "section": "",
+    "text": "Example\n\n\nA right-skewed histogram shows the annual salaries at a tech company. A reporter writes: “The average salary is $95,000, so most employees earn around that amount.”\nWhich is the better summary of a typical employee’s salary?\n\n\n\n\nThe mean\nThe median\nThey give the same answer\nNeither - use the mode"
+  },
+  {
+    "objectID": "chapter3-slides.html#anatomy-of-a-boxplot",
+    "href": "chapter3-slides.html#anatomy-of-a-boxplot",
+    "title": "STA258",
+    "section": "Anatomy of a Boxplot",
+    "text": "Anatomy of a Boxplot\n\n\nThe box runs from \\(Q_1\\) to \\(Q_3\\). The line inside is the median. The whiskers reach the most extreme non-outlier values. The dots beyond the whiskers are potential outliers flagged by the \\(1.5 \\times \\text{IQR}\\) rule."
+  },
+  {
+    "objectID": "chapter3-slides.html#skewness-from-a-boxplot",
+    "href": "chapter3-slides.html#skewness-from-a-boxplot",
+    "title": "STA258",
+    "section": "Skewness from a Boxplot",
+    "text": "Skewness from a Boxplot\n\n\nReading skew from a box. Median closer to \\(Q_3\\) + long lower whisker → left skew. Median closer to \\(Q_1\\) + long upper whisker → right skew. The longer tail points in the direction of the skew."
+  },
+  {
+    "objectID": "chapter3-slides.html#section-4",
+    "href": "chapter3-slides.html#section-4",
+    "title": "STA258",
+    "section": "",
+    "text": "Example\n\n\nBoxplots of 80 delivery times. Restaurant A has a short box, short whiskers, and no outliers. Restaurant B has a wider box, a long upper whisker, and two high outliers. One sells sushi (careful, consistent prep), the other pizza (occasional rush orders). Which is the sushi restaurant?\n\n\n\n\nRestaurant A\nRestaurant B\nBoth equally consistent\nCannot tell"
+  },
+  {
+    "objectID": "chapter3-slides.html#section-5",
+    "href": "chapter3-slides.html#section-5",
+    "title": "STA258",
+    "section": "",
+    "text": "Example\n\n\nIn a sample, the median sits noticeably closer to \\(Q_3\\) than to \\(Q_1\\), and the lower whisker is longer. What does this suggest?\n\n\n\n\nThe distribution is right-skewed\nThe distribution is left-skewed\nThe distribution is symmetric\nThere must be a high outlier"
+  },
+  {
+    "objectID": "chapter3-slides.html#worked-example-variance-table",
+    "href": "chapter3-slides.html#worked-example-variance-table",
+    "title": "STA258",
+    "section": "Worked Example: Variance Table",
+    "text": "Worked Example: Variance Table\n\nSix study hours: \\(x = 2, 4, 4, 6, 6, 8\\). \\(\\;\\;\\bar{x} = 30 / 6 = 5\\).\n\n\n\n\n\\(x_i\\)\n\\(x_i - \\bar{x}\\)\n\\((x_i - \\bar{x})^2\\)\n\n\n\n\n2\n\\(-3\\)\n\\(9\\)\n\n\n4\n\\(-1\\)\n\\(1\\)\n\n\n4\n\\(-1\\)\n\\(1\\)\n\n\n6\n\\(+1\\)\n\\(1\\)\n\n\n6\n\\(+1\\)\n\\(1\\)\n\n\n8\n\\(+3\\)\n\\(9\\)\n\n\nSum\n\\(0\\)\n\\(22\\)\n\n\n\n\\[s^2 = \\frac{22}{6 - 1} = 4.4, \\quad s = \\sqrt{4.4} \\approx 2.10\\]"
+  },
+  {
+    "objectID": "chapter3-slides.html#section-6",
+    "href": "chapter3-slides.html#section-6",
+    "title": "STA258",
+    "section": "",
+    "text": "Example\n\n\nA teaching assistant wants to compare the distribution of test scores between two tutorial sections. Which graph is best suited for this comparison?\n\n\n\n\nA bar chart\nTwo separate histograms\nSide-by-side boxplots\nA scatterplot"
+  },
+  {
+    "objectID": "chapter3-slides.html#example-commute-methods",
+    "href": "chapter3-slides.html#example-commute-methods",
+    "title": "STA258",
+    "section": "Example: Commute Methods",
+    "text": "Example: Commute Methods\n\nExample A survey asked 40 STA258 students how they usually commute to campus.\n\n\n\nMethod\nBus\nCar\nWalk\nTrain\nOther\n\n\n\n\nFrequency\n14\n9\n5\n8\n4\n\n\n\n(a) Is this variable qualitative or quantitative?\n(b) Create a relative frequency table.\n(c) Which method is most common?\n(d) What percentage use public transport (Bus and Train)?"
+  },
+  {
+    "objectID": "chapter3-slides.html#example-study-hours",
+    "href": "chapter3-slides.html#example-study-hours",
+    "title": "STA258",
+    "section": "Example: Study Hours",
+    "text": "Example: Study Hours\n\nExample Ten students reported the number of hours they studied for a midterm:\n\\[2, 4, 5, 5, 6, 7, 7, 7, 9, 12\\]\n(a) Find the mean study time.\n(b) Find the median study time.\n(c) Find the mode.\n(d) Which measure of centre is most affected by the value \\(12\\)? Explain briefly."
+  },
+  {
+    "objectID": "chapter3-slides.html#example-quiz-scores",
+    "href": "chapter3-slides.html#example-quiz-scores",
+    "title": "STA258",
+    "section": "Example: Quiz Scores",
+    "text": "Example: Quiz Scores\n\nExample A student recorded their quiz scores out of \\(10\\):\n\\[6, 7, 7, 8, 9, 10\\]\n(a) Find the range.\n(b) Find the sample variance \\(s^{2}\\).\n(c) Find the sample standard deviation \\(s\\).\n(d) What does the standard deviation tell us in this context?"
+  },
+  {
+    "objectID": "chapter3-slides.html#example-final-exam-scores",
+    "href": "chapter3-slides.html#example-final-exam-scores",
+    "title": "STA258",
+    "section": "Example: Final Exam Scores",
+    "text": "Example: Final Exam Scores\n\nExample The final exam scores for \\(12\\) students are:\n\\[52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96\\]\n(a) Find the median.\n(b) Find the first quartile, \\(Q_{1}\\).\n(c) Find the third quartile, \\(Q_{3}\\).\n(d) Find the interquartile range (IQR).\n(e) Using the \\(1.5 \\times \\text{IQR}\\) rule, which scores would be flagged as unusually low or high?"
+  },
+  {
+    "objectID": "chapter3-slides.html#example-online-quiz-times",
+    "href": "chapter3-slides.html#example-online-quiz-times",
+    "title": "STA258",
+    "section": "Example: Online Quiz Times",
+    "text": "Example: Online Quiz Times\n\nExample A professor records the time, in minutes, that students spent completing an online quiz:\n\\[12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42\\]\n(a) Would a histogram or boxplot better show the shape of the distribution?\n(b) Would a boxplot or histogram be better for identifying possible outliers?\n(c) Describe the likely shape: symmetric, left-skewed, or right-skewed.\n(d) Which value seems most likely to be an outlier?"
+  },
+  {
+    "objectID": "chapter3-slides.html#example-two-sections",
+    "href": "chapter3-slides.html#example-two-sections",
+    "title": "STA258",
+    "section": "Example: Two Sections",
+    "text": "Example: Two Sections\n\nExample Two sections of a course report the following midterm marks. Section A: \\(62, 65, 68, 70, 72, 75, 78\\). Section B: \\(45, 65, 68, 70, 72, 75, 95\\).\n(a) Find the mean mark for each section.\n(b) Find the median mark for each section.\n(c) Which section has more spread? Explain.\n(d) For Section B, would the mean or the median better represent a typical student? Explain."
+  },
+  {
+    "objectID": "chapter3-slides.html#example-textbooks-owned",
+    "href": "chapter3-slides.html#example-textbooks-owned",
+    "title": "STA258",
+    "section": "Example: Textbooks Owned",
+    "text": "Example: Textbooks Owned\n\nExample The number of textbooks owned by \\(15\\) students:\n\\[0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10\\]\n(a) Is the variable discrete or continuous?\n(b) Find the mean, median, and mode.\n(c) Find the range and the IQR.\n(d) Would a histogram or boxplot better show the overall shape?\n(e) Would a boxplot or histogram be more useful for detecting outliers?"
+  },
+  {
+    "objectID": "chapter3-slides.html#commute-methods---check-in-r",
+    "href": "chapter3-slides.html#commute-methods---check-in-r",
+    "title": "STA258",
+    "section": "Commute Methods - Check in R",
+    "text": "Commute Methods - Check in R"
+  },
+  {
+    "objectID": "chapter3-slides.html#study-hours---check-in-r",
+    "href": "chapter3-slides.html#study-hours---check-in-r",
+    "title": "STA258",
+    "section": "Study Hours - Check in R",
+    "text": "Study Hours - Check in R"
+  },
+  {
+    "objectID": "chapter3-slides.html#quiz-scores---check-in-r",
+    "href": "chapter3-slides.html#quiz-scores---check-in-r",
+    "title": "STA258",
+    "section": "Quiz Scores - Check in R",
+    "text": "Quiz Scores - Check in R"
+  },
+  {
+    "objectID": "chapter3-slides.html#final-exam-scores---check-in-r",
+    "href": "chapter3-slides.html#final-exam-scores---check-in-r",
+    "title": "STA258",
+    "section": "Final Exam Scores - Check in R",
+    "text": "Final Exam Scores - Check in R"
+  },
+  {
+    "objectID": "chapter3-slides.html#online-quiz-times---check-in-r",
+    "href": "chapter3-slides.html#online-quiz-times---check-in-r",
+    "title": "STA258",
+    "section": "Online Quiz Times - Check in R",
+    "text": "Online Quiz Times - Check in R"
+  },
+  {
+    "objectID": "chapter3-slides.html#two-sections---check-in-r",
+    "href": "chapter3-slides.html#two-sections---check-in-r",
+    "title": "STA258",
+    "section": "Two Sections - Check in R",
+    "text": "Two Sections - Check in R"
+  },
+  {
+    "objectID": "chapter3-slides.html#textbooks-owned---check-in-r",
+    "href": "chapter3-slides.html#textbooks-owned---check-in-r",
+    "title": "STA258",
+    "section": "Textbooks Owned - Check in R",
+    "text": "Textbooks Owned - Check in R"
+  },
+  {
+    "objectID": "chapter3-slides.html#bonus-example-textbooks-owned",
+    "href": "chapter3-slides.html#bonus-example-textbooks-owned",
+    "title": "STA258",
+    "section": "Bonus Example: Textbooks Owned",
+    "text": "Bonus Example: Textbooks Owned\n\nBonus Example The number of textbooks owned by \\(15\\) students:\n\\[0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10\\]\n(a) Is the variable discrete or continuous?\n(b) Find the mean, median, and mode.\n(c) Find the range and the IQR.\n(d) Would a histogram or boxplot better show the overall shape?\n(e) Would a boxplot or histogram be more useful for detecting outliers?"
+  },
+  {
+    "objectID": "chapter3-slides.html#bonus-example-textbooks-owned---check-in-r",
+    "href": "chapter3-slides.html#bonus-example-textbooks-owned---check-in-r",
+    "title": "STA258",
+    "section": "Bonus Example: Textbooks Owned - Check in R",
+    "text": "Bonus Example: Textbooks Owned - Check in R"
+  },
+  {
+    "objectID": "chapter2-slides.html#rstudio-workflow",
+    "href": "chapter2-slides.html#rstudio-workflow",
+    "title": "STA258",
+    "section": "RStudio Workflow",
+    "text": "RStudio Workflow\n\n\nWrite Type commands in the Source pane so the work is saved.\n\n\nRun Cmd + Enter (Mac) or Ctrl + Enter (Windows).\n\n\nCheck Inspect objects, plots, and help pages using the other panes."
   }
 ]

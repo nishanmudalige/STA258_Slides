@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>browseURL("Help Manual(Until Ch3).html")
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STA258 Website Help Manual</title>
+
+  <style>
+    body {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 24px 60px 24px;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #2f3437;
+      background: #fafafa;
+    }
+
+    h1 {
+      color: #00695c;
+      border-bottom: 4px solid #00695c;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      color: #2f3437;
+      border-bottom: 2px solid #c8e6f3;
+      padding-bottom: 6px;
+      margin-top: 34px;
+    }
+
+    h3 {
+      color: #00695c;
+      margin-top: 24px;
+    }
+
+    code {
+      background: #f1f3f4;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.95em;
+    }
+
+    pre {
+      background: #f1f3f4;
+      border-left: 5px solid #00695c;
+      padding: 14px 18px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.95em;
+      white-space: pre-wrap;
+    }
+
+    .file-box {
+      background: white;
+      border: 1px solid #d8dee2;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 14px 0;
+    }
+
+    ul, ol {
+      padding-left: 26px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>STA258 Website Help Manual</h1>
+
+  <p>This manual explains how to maintain and troubleshoot the STA258 slide website.</p>
+
+  <p>It is written for future students, TAs, or project maintainers who take over the repository.</p>
+
+  <h2>1. Purpose of this manual</h2>
+
+  <p>This manual is not meant to explain every line of code. It is meant to help someone understand which files matter, what each one controls, and what to check when something breaks.</p>
+
+  <h2>2. Files of importance</h2>
+
+  <div class="file-box">
+    <h3><code>index.qmd</code></h3>
+    <p>This is the main website landing page. It controls the page where students choose chapters.</p>
+    <p>Edit this file when changing the main homepage text, chapter cards, chapter links, or resource links.</p>
+  </div>
+
+  <div class="file-box">
+    <h3><code>chapter1.qmd</code>, <code>chapter2.qmd</code>, <code>chapter3.qmd</code></h3>
+    <p>These are the chapter landing pages.</p>
+    <p>Each landing page gives a short overview of the chapter and links students to the slide deck and PDF version.</p>
+    <p>Edit these files when changing the chapter overview page, not when changing the slides themselves.</p>
+  </div>
+
+  <div class="file-box">
+    <h3><code>chapter1-slides.qmd</code>, <code>chapter2-slides.qmd</code>, <code>chapter3-slides.qmd</code></h3>
+    <p>These are the actual slide decks.</p>
+    <p>Edit these files when changing lecture slide content, WebR examples, practice exercises, solutions, plots, or slide navigation.</p>
+  </div>
+
+  <div class="file-box">
+    <h3><code>styles.css</code></h3>
+    <p>This controls shared website styling.</p>
+    <p>Edit this file when changing the general appearance of the website, such as cards, spacing, buttons, colours, or fonts.</p>
+  </div>
+
+  <div class="file-box">
+    <h3><code>_quarto.yml</code></h3>
+    <p>This controls project-wide Quarto settings.</p>
+    <p>Only edit this file for project-level changes, because it can affect the whole website.</p>
+  </div>
+
+  <div class="file-box">
+    <h3><code>docs/</code></h3>
+    <p>This folder contains the rendered website output.</p>
+    <p>Normally, do not edit this folder directly. Edit the source <code>.qmd</code> files, then render again.</p>
+  </div>
+
+  <h2>3. Which file to edit</h2>
+
+  <pre>Home page issue       → edit index.qmd
+Chapter overview      → edit chapterX.qmd
+Slide content         → edit chapterX-slides.qmd
+General styling       → edit styles.css
+Project settings      → edit _quarto.yml
+Rendered website      → generated in docs/ after rendering</pre>
+
+  <h2>4. Which files to render</h2>
+
+  <p>Render the source <code>.qmd</code> files.</p>
+
+  <pre>index.qmd
+chapter1.qmd
+chapter1-slides.qmd
+chapter2.qmd
+chapter2-slides.qmd
+chapter3.qmd
+chapter3-slides.qmd</pre>
+
+  <p>The HTML help manual is a guide document and does not need to be rendered through Quarto.</p>
+
+  <h2>5. Link rules</h2>
+
+  <p>Use consistent links between landing pages, slide decks, and PDF versions.</p>
+
+  <pre>chapter3.qmd → chapter3.html
+chapter3-slides.qmd → chapter3-slides.html
+PDF link → chapter3-slides.html?print-pdf</pre>
+
+  <p>Avoid old temporary links like:</p>
+
+  <pre>test.html</pre>
+
+  <h2>6. If a link is broken</h2>
+
+  <ol>
+    <li>Check that the file name in the link is correct.</li>
+    <li>Check that the matching <code>.qmd</code> file exists.</li>
+    <li>Check that the file has been rendered into <code>.html</code>.</li>
+    <li>Check that the link points to the rendered <code>.html</code> file, not the source <code>.qmd</code> file.</li>
+  </ol>
+
+  <p>Example:</p>
+
+  <pre>&lt;a href="chapter3.html"&gt;Open&lt;/a&gt;</pre>
+
+  <p>This should correspond to:</p>
+
+  <pre>chapter3.qmd → chapter3.html</pre>
+
+  <h2>7. If WebR does not work</h2>
+
+  <ol>
+    <li>Check that the file is a slide deck such as <code>chapter2-slides.qmd</code>.</li>
+    <li>Check that the code chunk uses <code>{webr}</code>.</li>
+    <li>Check that the <code>_extensions/</code> folder still exists.</li>
+    <li>Check that the slide deck includes the WebR helper line.</li>
+    <li>Check that required packages are listed in the YAML.</li>
+    <li>Do not use <code>install.packages()</code> inside WebR chunks.</li>
+  </ol>
+
+  <p>Example YAML:</p>
+
+  <pre>webr:
+  packages:
+    - ggplot2</pre>
+
+  <p>If using <code>ggplot2</code>, also load it inside the relevant code chunk:</p>
+
+  <pre>library(ggplot2)</pre>
+
+  <h2>8. If WebR solutions do not show</h2>
+
+  <p>Check that the exercise name and solution name match exactly.</p>
+
+  <pre>#| exercise: sample-mean</pre>
+
+  <p>must match:</p>
+
+  <pre>::: {.solution exercise="sample-mean"}</pre>
+
+  <p>If the names are different, the solution may not attach to the correct exercise.</p>
+
+  <h2>9. If an image does not load</h2>
+
+  <p>Check the image path in the file where the image is used.</p>
+
+  <p>If the code says:</p>
+
+  <pre>![](cat.png)</pre>
+
+  <p>then the image file must be in the expected location and the name must match exactly.</p>
+
+  <p>If the image is moved into another folder, update the path.</p>
+
+  <pre>![](images/cat.png)</pre>
+
+  <h2>10. If the PDF button does not work</h2>
+
+  <p>PDF buttons should point to the rendered slide deck with <code>?print-pdf</code> added.</p>
+
+  <pre>chapter3-slides.html?print-pdf</pre>
+
+  <p>If the PDF button fails, check that the slide deck renders and that the link points to the slide deck, not the chapter landing page.</p>
+
+  <h2>11. If rendering fails</h2>
+
+  <p>Read the first error message. Common causes include broken YAML, missing backticks, broken HTML tags, wrong file names, image path errors, package issues, or trying to render the wrong type of file.</p>
+
+  <p>Fix the first error first, then render again.</p>
+
+  <h2>12. Final check after rendering</h2>
+
+  <p>After rendering, open the website in the browser and check that the main pages, chapter pages, slide decks, PDF buttons, images, WebR chunks, solutions, and back links work as expected.</p>
+
+</body>
+</html>

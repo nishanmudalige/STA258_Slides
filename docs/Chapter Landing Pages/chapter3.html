@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chapter 2: An Introduction to R – STA258</title>
+<title>Chapter 3: Descriptive Statistics – STA258</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,19 +26,19 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6033a600180109c3731f6a886c29932c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -55,8 +55,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -66,7 +95,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">STA258</span>
     </a>
   </div>
@@ -76,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -85,43 +114,43 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-chapters">    
         <li>
-    <a class="dropdown-item" href="./chapter1.html">
+    <a class="dropdown-item" href="../Chapter Landing Pages/chapter1.html">
  <span class="dropdown-text">1 — Introduction</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter2.html">
+    <a class="dropdown-item" href="../Chapter Landing Pages/chapter2.html">
  <span class="dropdown-text">2 — Introduction to R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter3.html">
+    <a class="dropdown-item" href="../Chapter Landing Pages/chapter3.html">
  <span class="dropdown-text">3 — Descriptive Statistics</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter4.qmd">
+    <a class="dropdown-item" href="../chapter4.qmd">
  <span class="dropdown-text">4 — Foundations of Inference</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter5.qmd">
+    <a class="dropdown-item" href="../chapter5.qmd">
  <span class="dropdown-text">5 — Confidence Intervals</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter6.qmd">
+    <a class="dropdown-item" href="../chapter6.qmd">
  <span class="dropdown-text">6 — Hypothesis Tests</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter7.qmd">
+    <a class="dropdown-item" href="../chapter7.qmd">
  <span class="dropdown-text">7 — Statistical Power</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter8.qmd">
+    <a class="dropdown-item" href="../chapter8.qmd">
  <span class="dropdown-text">8 — Analysis of Variance</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter9.qmd">
+    <a class="dropdown-item" href="../chapter9.qmd">
  <span class="dropdown-text">9 — Simple Linear Regression</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./chapter10.qmd">
+    <a class="dropdown-item" href="../chapter10.qmd">
  <span class="dropdown-text">10 — Categorical Data</span></a>
   </li>  
     </ul>
@@ -143,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chapter 2: An Introduction to R</h1>
+<h1 class="title">Chapter 3: Descriptive Statistics</h1>
 <p class="subtitle lead">STA258 — University of Toronto Mississauga</p>
 </div>
 
@@ -185,55 +214,53 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 <div class="lecture-actions">
-<p><a href="chapter2-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a> <a href="chapter2-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a></p>
+<p><a href="../Chapter Slides/chapter3-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a> <a href="../Chapter Slides/chapter3-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a></p>
 </div>
 <section id="what-youll-learn" class="level2">
 <h2 class="anchored" data-anchor-id="what-youll-learn">What you’ll learn</h2>
-<p>By the end of Chapter 2 you’ll be able to:</p>
+<p>By the end of Chapter 3 you’ll be able to:</p>
 <ul>
-<li>Explain why we use <strong>R</strong> rather than point-and-click software, and tell <strong>R</strong> apart from <strong>RStudio</strong>.</li>
-<li>Install R and RStudio and navigate the four main panes of the IDE.</li>
-<li>Use R as a <strong>calculator</strong> — arithmetic, exponents, logs, and built-in math functions.</li>
-<li>Create and work with the core R <strong>data structures</strong>: vectors, lists, matrices, arrays, factors, and data frames.</li>
-<li>Call built-in <strong>functions</strong> like <code>mean()</code>, <code>sd()</code>, <code>hist()</code> and read their output.</li>
-<li>Install and load <strong>packages</strong> with <code>install.packages()</code> and <code>library()</code>.</li>
+<li>Write a data set in the standard notation <span class="math inline">\(x_1, x_2, \ldots, x_n\)</span> and explain what each symbol stands for.</li>
+<li>Compute and interpret the <strong>mean</strong>, <strong>median</strong>, and <strong>mode</strong> as measures of centre.</li>
+<li>Compute and interpret the <strong>range</strong>, <strong>variance</strong>, <strong>standard deviation</strong>, and <strong>IQR</strong> as measures of spread.</li>
+<li>Find <strong>percentiles</strong> and <strong>quartiles</strong> and use them to describe relative position.</li>
+<li>Read <strong>skewness</strong> and <strong>outliers</strong> from a histogram or a boxplot.</li>
+<li>Use R functions (<code>mean</code>, <code>median</code>, <code>var</code>, <code>sd</code>, <code>summary</code>, <code>quantile</code>, <code>IQR</code>, <code>hist</code>, <code>boxplot</code>) on real data.</li>
 </ul>
 </section>
 <section id="key-ideas" class="level2">
 <h2 class="anchored" data-anchor-id="key-ideas">Key ideas</h2>
-<section id="r-vs-rstudio" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="r-vs-rstudio">R vs RStudio</h3>
-<p><strong>R</strong> is the engine that runs the calculations. <strong>RStudio</strong> is the dashboard you use to drive it. You install R first, then RStudio on top of it.</p>
+<section id="centre" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="centre">Centre</h3>
+<p>The <strong>mean</strong> uses every value and is sensitive to extremes. The <strong>median</strong> is the middle value and is resistant to outliers. The <strong>mode</strong> is the most frequent value.</p>
 </section>
-<section id="scripts-beat-point-and-click" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="scripts-beat-point-and-click">Scripts beat point-and-click</h3>
-<p>Writing analysis as code makes it <strong>reproducible</strong>, easy to share, and easy to re-run when the data changes. This is the single biggest reason statisticians use R.</p>
+<section id="spread" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="spread">Spread</h3>
+<p>The <strong>range</strong> is max minus min — quick but easily distorted by one extreme value. The <strong>standard deviation</strong> <span class="math inline">\(s\)</span> is the typical distance from <span class="math inline">\(\bar{x}\)</span>. The <strong>IQR</strong> <span class="math inline">\(= Q_3 - Q_1\)</span> is the width of the middle 50% of the data and is resistant to outliers.</p>
 </section>
-<section id="r-as-a-calculator" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="r-as-a-calculator">R as a calculator</h3>
-<p>R handles <code>+ - * /</code>, exponentiation <code>^</code>, modulo <code>%%</code>, integer division <code>%/%</code>, and a full set of math functions (<code>sqrt</code>, <code>log</code>, <code>exp</code>, <code>abs</code>, <code>round</code>) and trig functions out of the box.</p>
+<section id="why-divide-by-n-1-for-the-sample-variance" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="why-divide-by-n-1-for-the-sample-variance">Why divide by <span class="math inline">\(n-1\)</span> for the sample variance?</h3>
+<p>We use <span class="math inline">\(\bar{x}\)</span> to estimate the population mean <span class="math inline">\(\mu\)</span>, which costs us one piece of information. Dividing by <span class="math inline">\(n-1\)</span> corrects for that and makes <span class="math inline">\(s^2\)</span> an <strong>unbiased</strong> estimator of the population variance. (Bessel’s correction.)</p>
 </section>
-<section id="data-structures" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="data-structures">Data structures</h3>
-<ul>
-<li><strong>Vectors</strong> — same-type values in one dimension</li>
-<li><strong>Lists</strong> — mixed types, any structure</li>
-<li><strong>Matrices / Arrays</strong> — same type, 2+ dimensions</li>
-<li><strong>Factors</strong> — categorical variables with named levels</li>
-<li><strong>Data frames</strong> — table of variables (columns) and observations (rows)</li>
-</ul>
+<section id="position" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="position">Position</h3>
+<p>The <span class="math inline">\(p^{\text{th}}\)</span> <strong>percentile</strong> is the value such that <span class="math inline">\(p\%\)</span> of observations lie below it. <strong>Quartiles</strong> <span class="math inline">\(Q_1, Q_2, Q_3\)</span> split the sorted data into four equal-size groups — <span class="math inline">\(Q_2\)</span> is just the median.</p>
 </section>
-<section id="functions-and-packages" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="functions-and-packages">Functions and packages</h3>
-<p>Most R commands look like <code>function_name(input)</code>. <strong>Packages</strong> extend R with new functions — install once with <code>install.packages()</code>, load each session with <code>library()</code>.</p>
+<section id="shape-and-outliers" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="shape-and-outliers">Shape and outliers</h3>
+<p>A <strong>histogram</strong> shows the full shape of one variable. A <strong>boxplot</strong> highlights the five-number summary and flags potential outliers using the <span class="math inline">\(1.5 \times \text{IQR}\)</span> rule. The longer tail / whisker points in the direction of the skew.</p>
+</section>
+<section id="pair-numbers-with-pictures" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="pair-numbers-with-pictures">Pair numbers with pictures</h3>
+<p>A single number rarely tells the whole story. Always report a summary statistic alongside a plot so the shape of the distribution is visible.</p>
 </section>
 </section>
 <section id="how-to-use-this-chapter" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-use-this-chapter">How to use this chapter</h2>
 <ul>
-<li>Open the <strong>slides</strong> for an interactive walkthrough — every code block in the deck is editable and runs in your browser.</li>
+<li>Open the <strong>slides</strong> for an interactive walkthrough — every WebR block in the deck is editable and runs in your browser.</li>
 <li>Use the <strong>PDF</strong> button for an offline-friendly version.</li>
-<li>Try the in-slide exercises (mean, histogram). Change values, re-run, and check the output.</li>
+<li>Try the in-slide exercises (study hours, exam scores). Change values, re-run, and check the output.</li>
 </ul>
 
 

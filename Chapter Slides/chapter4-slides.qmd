@@ -85,27 +85,29 @@ set.seed(258)
 
 /* ── Grid layouts ─────────────────────────────────────── */
 .two-col, .two-col-lean, .two-col-wide,
-.three-col, .four-grid, .web-grid, .exercise-grid {
+.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
   display: grid;
-  gap: 14px;
+  gap: 28px;
   align-items: start;
 }
 .two-col       { grid-template-columns: 1fr 1fr; }
 .two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
 .two-col-wide  { grid-template-columns: 1.1fr 0.9fr; }
 .three-col     { grid-template-columns: repeat(3, 1fr); }
+.one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
-.exercise-grid { grid-template-columns: 340px 1fr; gap: 16px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col           { min-width: 0; }
 
 /* ── Boxes ────────────────────────────────────────────── */
 .defbox, .examplebox, .thinkbox, .card,
 .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 12px 15px;
+  padding: 16px 18px;
   border-radius: 10px;
   font-size: 0.74em;
   line-height: 1.28;
   box-sizing: border-box;
+  margin-bottom: 8px;
 }
 .defbox, .card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));

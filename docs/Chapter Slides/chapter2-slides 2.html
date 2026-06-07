@@ -251,36 +251,29 @@
 
 /* ── Grid layouts ─────────────────────────────────────── */
 .two-col, .two-col-lean, .two-col-wide,
-.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+.three-col, .four-grid, .web-grid, .exercise-grid {
   display: grid;
-  gap: 36px;
+  gap: 14px;
   align-items: start;
 }
 .two-col       { grid-template-columns: 1fr 1fr; }
 .two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
 .two-col-wide  { grid-template-columns: 1.1fr 0.9fr; }
 .three-col     { grid-template-columns: repeat(3, 1fr); }
-.one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
 .web-grid      { grid-template-columns: 270px 1fr; }
-.exercise-grid { grid-template-columns: 340px 1fr; gap: 36px; }
-.col           {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 16px; }
+.col           { min-width: 0; }
 .install-panel { display: flex; flex-direction: column; gap: 10px; }
 
 /* ── Boxes ────────────────────────────────────────────── */
 .defbox, .examplebox, .thinkbox, .card,
 .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 16px 18px;
+  padding: 12px 15px;
   border-radius: 10px;
   font-size: 0.74em;
   line-height: 1.28;
   box-sizing: border-box;
-  margin-bottom: 8px;
 }
 .defbox, .card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
@@ -406,13 +399,11 @@
 /* ── RStudio panes diagram ────────────────────────────── */
 .rstudio-diagram {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
+  grid-template-columns: 230px 730px 230px;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 12px auto;
-  width: 100%;
-  max-width: 1100px;
+  gap: 8px;
+  margin: 8px auto;
 }
 .rstudio-diagram .pane-img {
   grid-column: 2;
@@ -638,7 +629,7 @@ University of Toronto Mississauga</p>
 <p><span class="arrow">→</span></p>
 </div>
 </div>
-<p><img src="../images/rstudio_interface.png" class="pane-img" alt="RStudio interface screenshot"></p>
+<p><img src="images/rstudio_interface.png" class="pane-img" alt="RStudio interface screenshot"></p>
 <div class="label-stack right">
 <div class="label-cell">
 <div class="label-box">
@@ -653,6 +644,23 @@ University of Toronto Mississauga</p>
 <p><span class="arrow">←</span></p>
 </div>
 </div>
+</div>
+</section>
+<section id="rstudio-workflow" class="slide level2 compact">
+<h2>RStudio Workflow</h2>
+<div class="three-col">
+<div class="mini-card fragment">
+<p><span class="label">Write</span> Type commands in the <strong>Source</strong> pane so the work is saved.</p>
+</div>
+<div class="mini-card fragment">
+<p><span class="label">Run</span> <code>Cmd + Enter</code> (Mac) or <code>Ctrl + Enter</code> (Windows).</p>
+</div>
+<div class="mini-card fragment">
+<p><span class="label">Check</span> Inspect objects, plots, and help pages using the other panes.</p>
+</div>
+</div>
+<div class="fragment">
+<p><img src="images/RStudio_overview.png" alt="Annotated RStudio overview" style="display: block; margin: 14px auto 0 auto; max-width: 88%; max-height: 400px; border: 1px solid var(--sta-border); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.18);"></p>
 </div>
 </section>
 <section id="an-introduction-to-programming-in-r" class="slide level2 compact">
@@ -1650,7 +1658,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZ2dwbG90LXByYWN0aWNl
 <div class="center">
 <p><span class="big">End of Chapter 2</span></p>
 <p><br><br></p>
-<p><a href="../index.html" class="button-link">Back to Home</a></p>
+<p><a href="test.html" class="button-link">Back to Home</a></p>
 </div>
 
 

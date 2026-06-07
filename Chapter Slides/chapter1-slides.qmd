@@ -126,6 +126,71 @@ format:
 .answer-table th {
   background: #c8e6f3;
 }
+
+.scrollable .defbox,
+.scrollable .examplebox,
+.scrollable .thinkbox,
+.scrollable .warnbox {
+  margin-bottom: 4px;
+}
+
+/* ── Grid layouts ─────────────────────────────────────── */
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── Cards ────────────────────────────────────────────── */
+.card, .stat-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.card {
+  background: linear-gradient(160deg, #c8e6f3, #eef8fb);
+  border-left: 7px solid #00695c;
+}
+.stat-card {
+  background: white;
+  border: 1px solid #d8dee2;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .stat-card .label {
+  display: block;
+  color: #004d40;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* ── Home button ──────────────────────────────────────── */
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: #00695c !important;
+  background-color: #00695c !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid #004d40 !important;
+  margin-top: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.reveal a.home-button:hover {
+  background: #004d40 !important;
+  background-color: #004d40 !important;
+  color: white !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
 </style>
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -167,25 +232,37 @@ That gap between "what we measured" and "what we want to know" - that's what thi
 
 ## Roadmap {#roadmap .scrollable}
 
-::::: columns
-::: {.column width="50%"}
-#### 1.1 Foundations
-- Statistics, population, sample
-- Unit, observation, variable
-- Parameter vs statistic
-- Descriptive vs inferential
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">1 - Foundations</span>
+Statistics, population, sample, unit, observation, variable, and the difference between descriptive and inferential ideas.
 :::
-
-::: {.column width="50%"}
-#### 1.2 Types of Data
-- Quantitative vs qualitative
-- Discrete vs continuous
-- Nominal vs ordinal
-
-#### 1.3 Inference Preview
-- Sampling, bias, study types
+::: {.card .fragment}
+<span class="label">2 - Types of Data</span>
+Quantitative vs qualitative data, plus discrete vs continuous and nominal vs ordinal categories.
 :::
-:::::
+::: {.card .fragment}
+<span class="label">3 - Inference Preview</span>
+Sampling, bias, study types, and the first ideas behind drawing conclusions from data.
+:::
+::::
+
+<br>
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Core skill</span>
+Thinking carefully about what data represent before you compute anything.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core tool</span>
+Vocabulary like population, sample, parameter, statistic, and variable.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core habit</span>
+Match every numerical claim with the correct data context.
+:::
+::::
 
 ---
 
@@ -219,8 +296,6 @@ The five verbs in the definition map roughly to the chapters of the course.
 The <strong>entire group</strong> of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.
 </div>
 
-<br>
-
 . . .
 
 ::: {.examplebox .fragment}
@@ -246,8 +321,6 @@ A population can be real or hypothetical, finite or essentially infinite. What m
 <strong>Definition 1.3 - Sample</strong><br>
 A <strong>subset</strong> selected from the population.
 </div>
-
-<br>
 
 ::: {.examplebox .fragment}
 **Examples:**
@@ -722,42 +795,18 @@ class(pets)       # integer  → quantitative discrete
 
 ---
 
-## 1.3 Introduction to Inferential Statistics {#introduction-to-inferential-statistics .scrollable}
+## 1.3 Introduction to Inferential Statistics {#introduction-to-inferential-statistics}
 
 <div class="center">
-<span class="big">Sample → Statistic → Estimate of Parameter</span>
-</div>
-
-<br>
-
 ```{r}
 #| echo: false
-#| fig-width: 9
-#| fig-height: 3
-library(ggplot2)
-df <- data.frame(
-  x = c(1, 4, 7),
-  label = c("Population\n(parameter μ, p, σ)", "Sample\n(n units)", "Statistic\n(x̄, p̂, s)")
-)
-ggplot(df, aes(x, 1)) +
-  geom_point(size = 30, colour = c("#bdbdbd", "#80cbc4", "#00695c")) +
-  geom_text(aes(label = label), vjust = -2.2, size = 4.5) +
-  annotate("segment", x = 1.5, xend = 3.5, y = 1, yend = 1,
-           arrow = arrow(length = unit(0.25, "cm")), colour = "#333", size = 0.6) +
-  annotate("text", x = 2.5, y = 1.15, label = "sample\nfrom", size = 3.5) +
-  annotate("segment", x = 4.5, xend = 6.5, y = 1, yend = 1,
-           arrow = arrow(length = unit(0.25, "cm")), colour = "#333", size = 0.6) +
-  annotate("text", x = 5.5, y = 1.15, label = "compute", size = 3.5) +
-  annotate("segment", x = 7, xend = 1, y = 0.8, yend = 0.8,
-           arrow = arrow(length = unit(0.25, "cm")), colour = "#c62828", size = 0.6) +
-  annotate("text", x = 4, y = 0.7, label = "infer back to population", size = 3.8, colour = "#c62828") +
-  xlim(0, 8) + ylim(0.5, 1.4) +
-  theme_void()
+knitr::include_graphics("../images/pop_sample_stat_diagram.png")
 ```
+</div>
 
 ---
 
-## Why Uncertainty Is Built In {.scrollable}
+## Why Uncertainty Is Built In
 
 <div class="examplebox">
 Two different samples of 100 UTM students will give two <strong>different</strong> sample means.<br><br>
@@ -932,7 +981,9 @@ Classify each as an <strong>observational study</strong>, <strong>experimental s
 
 <div class="center">
 <span class="big">End of Chapter 1</span><br><br>
-<a href="chapter1.html">← Back to Chapter 1</a>
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Homepage</a>
+</div>
 </div>
 
 ---

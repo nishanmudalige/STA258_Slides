@@ -75,29 +75,36 @@ live:
 
 /* ── Grid layouts ─────────────────────────────────────── */
 .two-col, .two-col-lean, .two-col-wide,
-.three-col, .four-grid, .web-grid, .exercise-grid {
+.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
   display: grid;
-  gap: 14px;
+  gap: 36px;
   align-items: start;
 }
 .two-col       { grid-template-columns: 1fr 1fr; }
 .two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
 .two-col-wide  { grid-template-columns: 1.1fr 0.9fr; }
 .three-col     { grid-template-columns: repeat(3, 1fr); }
+.one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
 .web-grid      { grid-template-columns: 270px 1fr; }
-.exercise-grid { grid-template-columns: 340px 1fr; gap: 16px; }
-.col           { min-width: 0; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 36px; }
+.col           {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 .install-panel { display: flex; flex-direction: column; gap: 10px; }
 
 /* ── Boxes ────────────────────────────────────────────── */
 .defbox, .examplebox, .thinkbox, .card,
 .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 12px 15px;
+  padding: 16px 18px;
   border-radius: 10px;
   font-size: 0.74em;
   line-height: 1.28;
   box-sizing: border-box;
+  margin-bottom: 8px;
 }
 .defbox, .card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
@@ -223,11 +230,13 @@ live:
 /* ── RStudio panes diagram ────────────────────────────── */
 .rstudio-diagram {
   display: grid;
-  grid-template-columns: 230px 730px 230px;
+  grid-template-columns: 200px 1fr 200px;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin: 8px auto;
+  gap: 12px;
+  margin: 12px auto;
+  width: 100%;
+  max-width: 1100px;
 }
 .rstudio-diagram .pane-img {
   grid-column: 2;
@@ -514,7 +523,7 @@ Run commands and see immediate output, messages, and errors.
 </div>
 </div>
 
-<img src="images/rstudio_interface.png" class="pane-img" alt="RStudio interface screenshot">
+<img src="../images/rstudio_interface.png" class="pane-img" alt="RStudio interface screenshot">
 
 <div class="label-stack right">
 <div class="label-cell">
@@ -535,30 +544,7 @@ Browse files, view plots, load packages, and read help pages.
 
 </div>
 
----
 
-## RStudio Workflow {.compact}
-
-:::: {.three-col}
-::: {.mini-card .fragment}
-<span class="label">Write</span>
-Type commands in the **Source** pane so the work is saved.
-:::
-::: {.mini-card .fragment}
-<span class="label">Run</span>
-`Cmd + Enter` (Mac) or `Ctrl + Enter` (Windows).
-:::
-::: {.mini-card .fragment}
-<span class="label">Check</span>
-Inspect objects, plots, and help pages using the other panes.
-:::
-::::
-
-::: {.fragment}
-<img src="images/RStudio_overview.png" alt="Annotated RStudio overview" style="display: block; margin: 14px auto 0 auto; max-width: 88%; max-height: 400px; border: 1px solid var(--sta-border); border-radius: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.18);">
-:::
-
----
 
 ## 2.3 An Introduction to Programming in R {.compact}
 
@@ -1594,5 +1580,5 @@ Vector, list, matrix, array, factor, data frame. The data frame is the most comm
 
 <br><br>
 
-[Back to Home](test.html){.button-link}
+[Back to Home](../index.html){.button-link}
 :::

@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
+
+  <title>STA258 – Chapter 4: Foundations of Inference - Slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+<section id="chapter-4-foundations-of-inference" class="title-slide slide level1 center">
+<h1>Chapter 4: Foundations of Inference</h1>
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1  { font-size: 1.72em !important; }
+.reveal h2  {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3  { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+/* ── Title slide ──────────────────────────────────────── */
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p  { font-size: 0.78em; color: var(--sta-muted); }
+
+/* ── Grid layouts ─────────────────────────────────────── */
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid {
+  display: grid;
+  gap: 14px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: 1fr 1fr; }
+.two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide  { grid-template-columns: 1.1fr 0.9fr; }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 16px; }
+.col           { min-width: 0; }
+
+/* ── Boxes ────────────────────────────────────────────── */
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* ── Utility ──────────────────────────────────────────── */
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+/* ── Tables ───────────────────────────────────────────── */
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+/* ── Code ─────────────────────────────────────────────── */
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+/* ── Compact ──────────────────────────────────────────── */
+.reveal section.compact h2  { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li  { font-size: 0.74em; }
+
+/* ── Quiz polish ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
+.reveal .quiz-question .callout-note { margin: 4px 0 12px 0 !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p { font-size: 0.78em !important; line-height: 1.3; margin: 4px 0; }
+.reveal .quiz-question .callout-title { font-size: 0.82em !important; padding: 5px 12px !important; }
+.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation { font-size: 0.7em !important; margin-top: 8px; }
+
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+
+/* ── Solution callouts ────────────────────────────────── */
+.callout { font-size: 0.75em; }
+
+/* ── Home button ──────────────────────────────────────── */
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
+
+/* ── Interactive distribution widget ─────────────────── */
+.dist-widget {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.72em;
+}
+.dist-widget label { font-weight: 600; color: var(--sta-teal-dark); }
+.dist-widget input[type=range] { width: 100%; accent-color: var(--sta-teal); }
+.dist-widget canvas { width: 100% !important; }
+</style>
+<p>STA258: Statistics with Applied Probability University of Toronto Mississauga</p>
+
+<img data-src="../images/cat.png" alt="Course mascot" width="245" class="r-stretch"></section>
+<section id="chapter-roadmap" class="slide level2 compact">
+<h2>Chapter Roadmap</h2>
+<div class="three-col">
+<div class="card fragment">
+<p><span class="label">1 - Key Distributions</span> Normal, Chi-square, Student’s <span class="math inline">\(t\)</span>, and <span class="math inline">\(F\)</span>. Shape, parameters, and when each appears.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">2 - Sampling Distributions</span> Statistics have distributions too. The CLT explains why the sample mean is (approximately) normal for large <span class="math inline">\(n\)</span>.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">3 - Law of Large Numbers</span> Sample averages converge to the true mean. The mathematical bridge from data to probability.</p>
+</div>
+</div>
+<p><br></p>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Core skill</span> Identify which distribution applies and read probability from it.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Core tool</span> R functions <code>pnorm()</code>, <code>qnorm()</code>, <code>pchisq()</code>, <code>pt()</code>, <code>pf()</code>.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Core habit</span> Check the degrees of freedom before looking up any critical value.</p>
+</div>
+</div>
+</section>
+<section id="what-is-statistical-inference" class="slide level2">
+<h2>What is Statistical Inference?</h2>
+<div class="defbox fragment">
+<p><strong>Statistical Inference</strong></p>
+<p>The aim is to produce <strong>estimators</strong> of population parameters based on a smaller sample, and to quantify the accuracy of those estimators via a probability statement.</p>
+<p>We collect data from a <strong>sample</strong> → compute <strong>statistics</strong> → make statements about the <strong>population</strong>.</p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p><strong>Classic inferential question</strong></p>
+<p>“How sure are we that the sample mean <span class="math inline">\(\bar{x}\)</span> is close to the true population mean <span class="math inline">\(\mu\)</span>?”</p>
+</div>
+<div class="thinkbox fragment">
+<p><strong>Why not measure everyone?</strong></p>
+<p>Populations are usually infinite, very large, or expensive to enumerate. Sampling + inference is the practical solution.</p>
+</div>
+</div>
+</section>
+<section id="the-normal-distribution" class="slide level2">
+<h2>4.1 The Normal Distribution</h2>
+<div class="two-col-lean">
+<div class="col">
+<div class="defbox">
+<p><strong>Normal Distribution</strong> — <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span></p>
+<p><span class="math display">\[f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\]</span></p>
+<p>for <span class="math inline">\(-\infty &lt; x &lt; \infty\)</span>.</p>
+<p>Parameters: mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2 &gt; 0\)</span>.</p>
+</div>
+<div class="examplebox fragment">
+<p>Also called the <strong>Gaussian distribution</strong>, after Carl Friedrich Gauss (1809). It is symmetric and bell-shaped, completely characterized by <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+</div>
+</div>
+<div class="col">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="chapter4-slides_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="528"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-standard-normal-distribution" class="slide level2">
+<h2>4.1.1 The Standard Normal Distribution</h2>
+<div class="defbox fragment">
+<p><strong>Standard Normal</strong> — <span class="math inline">\(Z \sim N(0, 1)\)</span></p>
+<p><span class="math display">\[f(z) = \frac{1}{\sqrt{2\pi}} \cdot e^{-z^2/2}\]</span></p>
+<p>A special case with <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma^2 = 1\)</span>. Denoted <span class="math inline">\(Z\)</span>.</p>
+</div>
+<div class="examplebox fragment">
+<p><strong>Standardising.</strong> Any <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> can be converted:</p>
+<p><span class="math display">\[Z = \frac{X - \mu}{\sigma} \sim N(0,1)\]</span></p>
+<p>This lets us use a single table (or <code>pnorm()</code>) for any normal distribution.</p>
+</div>
+</section>
+<section id="the-empirical-rule" class="slide level2">
+<h2>The Empirical Rule</h2>
+<div class="defbox">
+<p><strong>Empirical Rule</strong> (68–95–99.7)</p>
+<p>For any <span class="math inline">\(N(\mu, \sigma^2)\)</span> distribution:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Interval</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\((\mu - \sigma,\ \mu + \sigma)\)</span></td>
+<td><span class="math inline">\(\approx 68.27\%\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((\mu - 2\sigma,\ \mu + 2\sigma)\)</span></td>
+<td><span class="math inline">\(\approx 95.45\%\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((\mu - 3\sigma,\ \mu + 3\sigma)\)</span></td>
+<td><span class="math inline">\(\approx 99.73\%\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="thinkbox fragment">
+<p><strong>Quick SD estimate.</strong> For a roughly normal sample, <span class="math inline">\(\hat{\sigma} \approx \dfrac{\text{Range}}{4}\)</span>. Useful as a sanity check.</p>
+</div>
+</section>
+<section id="empirical-rule-interactive-explorer" class="slide level2">
+<h2>Empirical Rule — Interactive Explorer</h2>
+<div style="border:1px solid var(--sta-border); border-radius:10px; padding:12px 16px; background:#fff; font-size:0.72em;">
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;">
+<div>
+<p><label style="font-weight:700; color:#004d40;">Mean (μ): <span id="mu-val">0</span></label><br> <input type="range" id="mu-slide" min="-5" max="5" step="0.5" value="0" oninput="updateDist()" style="width:100%; accent-color:#00695c;"></p>
+</div>
+<div>
+<p><label style="font-weight:700; color:#004d40;">Std Dev (σ): <span id="sd-val">1</span></label><br> <input type="range" id="sd-slide" min="0.5" max="3" step="0.25" value="1" oninput="updateDist()" style="width:100%; accent-color:#00695c;"></p>
+</div>
+</div>
+<canvas id="empCanvas" height="210" style="width:100%; border-radius:6px;">
+</canvas>
+<div id="emp-readout" style="margin-top:6px; display:grid; grid-template-columns:repeat(3,1fr); gap:6px; text-align:center;">
+
+</div>
+</div>
+<script>
+(function(){
+function phi(x){ return 0.5*(1+erf((x)/Math.SQRT2)); }
+function erf(x){
+  var t=1/(1+0.3275911*Math.abs(x));
+  var y=1-((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t*0.254829592*Math.exp(-x*x);
+  return x>=0?y:-y;
+}
+function dnorm(x,mu,sd){ return Math.exp(-0.5*((x-mu)/sd)**2)/(sd*Math.sqrt(2*Math.PI)); }
+
+function updateDist(){
+  var mu=+document.getElementById('mu-slide').value;
+  var sd=+document.getElementById('sd-slide').value;
+  document.getElementById('mu-val').textContent=mu;
+  document.getElementById('sd-val').textContent=sd;
+  var canvas=document.getElementById('empCanvas');
+  var ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth*2; canvas.height=420;
+  ctx.scale(2,2);
+  var W=canvas.offsetWidth/2, H=210;
+  ctx.clearRect(0,0,W,H);
+  var xmin=mu-4*sd, xmax=mu+4*sd;
+  function toX(v){ return (v-xmin)/(xmax-xmin)*W; }
+  function toY(v){ return H-10-v*(H-30)/dnorm(mu,mu,sd)*0.92; }
+
+  var cols=['#00C0B8','#00B0F6','#7997FF'];
+  var sigmas=[1,2,3];
+  sigmas.slice().reverse().forEach(function(k,i){
+    ctx.beginPath();
+    var pts=[];
+    for(var xi=mu-k*sd;xi<=mu+k*sd;xi+=(2*k*sd)/300) pts.push([toX(xi),toY(dnorm(xi,mu,sd))]);
+    pts.push([toX(mu+k*sd),toY(0)]); pts.push([toX(mu-k*sd),toY(0)]);
+    ctx.moveTo(pts[0][0],pts[0][1]);
+    pts.slice(1).forEach(function(p){ ctx.lineTo(p[0],p[1]); });
+    ctx.closePath();
+    ctx.fillStyle=cols[2-i]+'99'; ctx.fill();
+  });
+
+  ctx.beginPath(); ctx.strokeStyle='#004d40'; ctx.lineWidth=2;
+  var first=true;
+  for(var xi=xmin;xi<=xmax;xi+=(xmax-xmin)/400){
+    var py=toY(dnorm(xi,mu,sd));
+    if(first){ctx.moveTo(toX(xi),py);first=false;}else ctx.lineTo(toX(xi),py);
+  }
+  ctx.stroke();
+
+  // axis
+  ctx.beginPath(); ctx.strokeStyle='#888'; ctx.lineWidth=1;
+  ctx.moveTo(0,toY(0)); ctx.lineTo(W,toY(0)); ctx.stroke();
+
+  // labels
+  ctx.fillStyle='#2f3437'; ctx.font='11px Arial'; ctx.textAlign='center';
+  [-3,-2,-1,0,1,2,3].forEach(function(k){
+    var xv=mu+k*sd;
+    if(xv>=xmin&&xv<=xmax){
+      ctx.fillText((k===0?'μ':k+'σ'),toX(xv),toY(0)+14);
+    }
+  });
+
+  // readout
+  var probs=[(phi(1)-phi(-1))*100,(phi(2)-phi(-2))*100,(phi(3)-phi(-3))*100];
+  var labels=['μ ± 1σ','μ ± 2σ','μ ± 3σ'];
+  var ro=document.getElementById('emp-readout');
+  ro.innerHTML=probs.map(function(p,i){
+    return '<div style="background:'+cols[i]+'33;border-radius:6px;padding:4px 0;font-weight:700;">'+labels[i]+'<br>'+p.toFixed(2)+'%</div>';
+  }).join('');
+}
+window.updateDist=updateDist;
+setTimeout(updateDist,100);
+window.addEventListener('resize',updateDist);
+})();
+</script>
+</section>
+<section id="normal-probabilities-in-r" class="slide level2">
+<h2>Normal Probabilities in R</h2>
+<div class="two-col-lean">
+<div class="col">
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBQKFogPD0gMS45NilcbnBub3JtKDEuOTYpXG5cbiMgUChaID4gMS45NikgICAocmlnaHQgdGFpbClcbnBub3JtKDEuOTYsIGxvd2VyLnRhaWwgPSBGQUxTRSlcblxuIyBQKC0xLjk2IDwgWiA8IDEuOTYpXG5wbm9ybSgxLjk2KSAtIHBub3JtKC0xLjk2KVxuXG4jIENyaXRpY2FsIHZhbHVlOiBmaW5kIHogc3VjaCB0aGF0IFAoWiA8PSB6KSA9IDAuOTc1XG5xbm9ybSgwLjk3NSkifQ==
+</script>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="examplebox">
+<p><strong><code>pnorm(q, mean, sd)</code></strong> gives <span class="math inline">\(P(X \le q)\)</span>.</p>
+<p><strong><code>qnorm(p, mean, sd)</code></strong> inverts: gives <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(X \le q) = p\)</span>.</p>
+<p>Default: <code>mean = 0</code>, <code>sd = 1</code> (standard normal).</p>
+</div>
+<div class="thinkbox fragment">
+<p><strong>Try it.</strong> What is <span class="math inline">\(P(X &lt; 130)\)</span> when <span class="math inline">\(X \sim N(100, 15^2)\)</span>? Use <code>pnorm(130, mean = 100, sd = 15)</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-heights" class="slide level2 scrollable">
+<h2>Example: Heights</h2>
+<div class="taskbox">
+<p><span class="label">Example</span> Adult heights in a population follow <span class="math inline">\(X \sim N(170, 8^2)\)</span> cm.</p>
+<p><strong>(a)</strong> Find <span class="math inline">\(P(X &lt; 180)\)</span>.</p>
+<p><strong>(b)</strong> Find <span class="math inline">\(P(X &gt; 160)\)</span>.</p>
+<p><strong>(c)</strong> Find <span class="math inline">\(P(162 &lt; X &lt; 178)\)</span>.</p>
+<p><strong>(d)</strong> Find the height <span class="math inline">\(h\)</span> such that only 5% of people are taller than <span class="math inline">\(h\)</span>.</p>
+</div>
+</section>
+<section id="heights-check-in-r" class="slide level2">
+<h2>Heights — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxubXUgPC0gMTcwOyBzaWdtYSA8LSA4XG5cbiMgKGEpIFAoWCA8IDE4MClcbnBub3JtKDE4MCwgbWVhbiA9IG11LCBzZCA9IHNpZ21hKVxuXG4jIChiKSBQKFggPiAxNjApXG5wbm9ybSgxNjAsIG1lYW4gPSBtdSwgc2QgPSBzaWdtYSwgbG93ZXIudGFpbCA9IEZBTFNFKVxuXG4jIChjKSBQKDE2MiA8IFggPCAxNzgpXG5wbm9ybSgxNzgsIG1lYW4gPSBtdSwgc2QgPSBzaWdtYSkgLSBwbm9ybSgxNjIsIG1lYW4gPSBtdSwgc2QgPSBzaWdtYSlcblxuIyAoZCkgOTV0aCBwZXJjZW50aWxlIChvbmx5IDUlIGFib3ZlKVxucW5vcm0oMC45NSwgbWVhbiA9IG11LCBzZCA9IHNpZ21hKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="section" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>For <span class="math inline">\(Z \sim N(0,1)\)</span>, the Empirical Rule tells us <span class="math inline">\(P(-2 &lt; Z &lt; 2) \approx 0.9545\)</span>. Using <strong>symmetry</strong>, what is <span class="math inline">\(P(Z &gt; 2)\)</span>?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>0.9545</li>
+<li>0.0455</li>
+<li><span class="correct" data-explanation="The total area outside $(-2,2)$ is $1 - 0.9545 = 0.0455$. By symmetry, each tail has area $0.0455/2 = 0.02275$.">0.02275</span></li>
+<li>0.0500</li>
+</ul>
+</section>
+<section id="section-1" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(X \sim N(50, 100)\)</span>. What is the standardised value <span class="math inline">\(z\)</span> corresponding to <span class="math inline">\(x = 65\)</span>?</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(z = 0.65\)</span></li>
+<li><span class="math inline">\(z = 1.5\)</span></li>
+<li><span class="correct" data-explanation="$z = (65 - 50)/10 = 1.5$. Note: $\sigma = \sqrt{100} = 10$, not 100."><span class="math inline">\(z = 1.5\)</span></span></li>
+<li><span class="math inline">\(z = 2.5\)</span></li>
+</ul>
+<div class="quiz-hint">
+<p>Remember: <span class="math inline">\(\sigma = \sqrt{\sigma^2}\)</span></p>
+</div>
+</section>
+<section id="the-chi-square-distribution" class="slide level2">
+<h2>4.1.2 The Chi-Square Distribution</h2>
+<div class="defbox">
+<p><strong>Chi-Square Random Variable</strong> — <span class="math inline">\(X \sim \chi^2_k\)</span></p>
+<p>If <span class="math inline">\(Z_1, Z_2, \ldots, Z_k \overset{\text{iid}}{\sim} N(0,1)\)</span>, then</p>
+<p><span class="math display">\[X = \sum_{i=1}^{k} Z_i^2 \sim \chi^2_k\]</span></p>
+<p>The pdf for <span class="math inline">\(x &gt; 0\)</span> is:</p>
+<p><span class="math display">\[f(x; k) = \frac{1}{2^{k/2}\,\Gamma(k/2)}\, x^{k/2 - 1}\, e^{-x/2}\]</span></p>
+</div>
+<div class="examplebox fragment">
+<p>The distribution is <strong>right-skewed</strong> and supported on <span class="math inline">\((0, \infty)\)</span>. As <span class="math inline">\(k\)</span> increases, it becomes more symmetric. <span class="math inline">\(E[X] = k\)</span>, <span class="math inline">\(\text{Var}(X) = 2k\)</span>.</p>
+</div>
+</section>
+<section id="chi-square-shape-by-degrees-of-freedom" class="slide level2">
+<h2>Chi-Square: Shape by Degrees of Freedom</h2>
+
+<img data-src="chapter4-slides_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center r-stretch" width="864"><div class="thinkbox fragment">
+<p><strong>Key fact.</strong> The chi-square distribution is always positive and right-skewed. It plays a central role in tests for variance and for categorical data (Chapter 7+).</p>
+</div>
+</section>
+<section id="chi-square-in-r" class="slide level2">
+<h2>Chi-Square in R</h2>
+<div class="two-col-lean">
+<div class="col">
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBQKFggPD0gMTApIHdoZXJlIFggfiBjaGktc3EoNSlcbnBjaGlzcSgxMCwgZGYgPSA1KVxuXG4jIFVwcGVyIHRhaWw6IFAoWCA+IDEwKVxucGNoaXNxKDEwLCBkZiA9IDUsIGxvd2VyLnRhaWwgPSBGQUxTRSlcblxuIyBDcml0aWNhbCB2YWx1ZTogOTV0aCBwZXJjZW50aWxlIHdpdGggZGY9MTBcbnFjaGlzcSgwLjk1LCBkZiA9IDEwKVxuXG4jIFBsb3QgdGhlIGRpc3RyaWJ1dGlvblxuY3VydmUoZGNoaXNxKHgsIGRmID0gNSksIGZyb20gPSAwLCB0byA9IDIwLFxuICAgICAgY29sID0gXCIjRjg3NjZEXCIsIGx3ZCA9IDIsXG4gICAgICBtYWluID0gXCJDaGktU3F1YXJlKDUpXCIsIHlsYWIgPSBcIkRlbnNpdHlcIikifQ==
+</script>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="defbox">
+<p><strong>Mean &amp; Variance</strong></p>
+<p>For <span class="math inline">\(X \sim \chi^2_k\)</span>:</p>
+<p><span class="math display">\[E[X] = k, \qquad \text{Var}(X) = 2k\]</span></p>
+<p>As <span class="math inline">\(k \to \infty\)</span>, the chi-square distribution approaches a normal distribution (by the CLT).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-chi-square-probability" class="slide level2 scrollable">
+<h2>Example: Chi-Square Probability</h2>
+<div class="taskbox">
+<p><span class="label">Example</span> Let <span class="math inline">\(X \sim \chi^2_{8}\)</span>.</p>
+<p><strong>(a)</strong> Find <span class="math inline">\(P(X \leq 15.507)\)</span>.</p>
+<p><strong>(b)</strong> Find the 95th percentile of <span class="math inline">\(X\)</span>.</p>
+<p><strong>(c)</strong> If <span class="math inline">\(Z_1, Z_2, Z_3 \overset{\text{iid}}{\sim} N(0,1)\)</span>, what is the distribution of <span class="math inline">\(Z_1^2 + Z_2^2 + Z_3^2\)</span>?</p>
+<p><strong>(d)</strong> What are <span class="math inline">\(E[X]\)</span> and <span class="math inline">\(\text{Var}(X)\)</span>?</p>
+</div>
+</section>
+<section id="chi-square-example-check-in-r" class="slide level2">
+<h2>Chi-Square Example — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyAoYSkgUChYIDw9IDE1LjUwNykgd2l0aCBkZj04XG5wY2hpc3EoMTUuNTA3LCBkZiA9IDgpXG5cbiMgKGIpIDk1dGggcGVyY2VudGlsZVxucWNoaXNxKDAuOTUsIGRmID0gOClcblxuIyAoYykgc3VtIG9mIDMgc3F1YXJlZCBzdGFuZGFyZCBub3JtYWxzIH4gY2hpLXNxKDMpXG4jIChkKSBtZWFuID0gaywgdmFyID0gMmtcbmsgPC0gOFxuY2F0KFwiTWVhbjpcIiwgaywgXCIgIFZhcjpcIiwgMiprLCBcIlxcblwiKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="section-2" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(Z_1, Z_2, Z_3, Z_4 \overset{\text{iid}}{\sim} N(0,1)\)</span>. What is the distribution of <span class="math inline">\(W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2\)</span>?</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(W \sim N(0,4)\)</span></li>
+<li><span class="math inline">\(W \sim \chi^2_2\)</span></li>
+<li><span class="correct" data-explanation="The sum of squares of $k$ independent standard normals is $\chi^2_k$. Here $k = 4$."><span class="math inline">\(W \sim \chi^2_4\)</span></span></li>
+<li><span class="math inline">\(W \sim t_4\)</span></li>
+</ul>
+</section>
+<section id="the-students-t-distribution" class="slide level2">
+<h2>4.1.3 The Student’s <span class="math inline">\(t\)</span>-Distribution</h2>
+<div class="defbox">
+<p><strong>Student’s <span class="math inline">\(t\)</span> Distribution</strong> — <span class="math inline">\(T \sim t_\nu\)</span></p>
+<p>If <span class="math inline">\(Z \sim N(0,1)\)</span> and <span class="math inline">\(U \sim \chi^2_\nu\)</span> are <strong>independent</strong>, then</p>
+<p><span class="math display">\[T = \frac{Z}{\sqrt{U/\nu}} \sim t_\nu\]</span></p>
+<p>The pdf is:</p>
+<p><span class="math display">\[f_T(t;\nu) = \frac{\Gamma\!\left(\frac{\nu+1}{2}\right)}{\sqrt{\pi\nu}\,\Gamma\!\left(\frac{\nu}{2}\right)} \left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}}, \quad -\infty &lt; t &lt; \infty\]</span></p>
+</div>
+<div class="warnbox fragment">
+<p>The <span class="math inline">\(t\)</span>-distribution has <strong>heavier tails</strong> than the normal. As <span class="math inline">\(\nu \to \infty\)</span>, <span class="math inline">\(t_\nu \to N(0,1)\)</span>.</p>
+</div>
+</section>
+<section id="t-vs-normal-heavier-tails" class="slide level2">
+<h2><span class="math inline">\(t\)</span> vs Normal: Heavier Tails</h2>
+
+<img data-src="chapter4-slides_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center r-stretch" width="864"><div class="thinkbox fragment">
+<p><strong>Why does this matter?</strong> When estimating a mean from a small sample with unknown <span class="math inline">\(\sigma\)</span>, we use <span class="math inline">\(t\)</span> critical values — they are larger than <span class="math inline">\(z\)</span> values, reflecting extra uncertainty.</p>
+</div>
+</section>
+<section id="t-distribution-interactive-tail-comparison" class="slide level2">
+<h2><span class="math inline">\(t\)</span>-Distribution: Interactive Tail Comparison</h2>
+<div style="border:1px solid var(--sta-border); border-radius:10px; padding:12px 16px; background:#fff; font-size:0.72em;">
+<p><label style="font-weight:700; color:#004d40;">Degrees of Freedom (ν): <span id="df-val">5</span></label><br> <input type="range" id="df-slide" min="1" max="50" step="1" value="5" oninput="updateT()" style="width:60%; accent-color:#00695c; margin-bottom:8px;"><br></p>
+<canvas id="tCanvas" height="180" style="width:100%; border-radius:6px;">
+</canvas>
+<div id="t-readout" style="margin-top:6px; display:flex; gap:10px; justify-content:center;">
+
+</div>
+</div>
+<script>
+(function(){
+// Approx t-pdf via log-gamma
+function lgamma(x){
+  var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,
+         0.1208650973866179e-2,-0.5395239384953e-5];
+  var y=x, tmp=x+5.5, ser=1.000000000190015;
+  tmp-=(x+0.5)*Math.log(tmp);
+  for(var j=0;j<6;j++) ser+=c[j]/++y;
+  return -tmp+Math.log(2.5066282746310005*ser/x);
+}
+function dtpdf(t,nu){
+  var lg1=lgamma((nu+1)/2), lg2=lgamma(nu/2);
+  return Math.exp(lg1-lg2)*Math.pow(1+t*t/nu,-(nu+1)/2)/(Math.sqrt(nu*Math.PI));
+}
+function dnorm(x){ return Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI); }
+
+function updateT(){
+  var nu=+document.getElementById('df-slide').value;
+  document.getElementById('df-val').textContent=nu;
+  var canvas=document.getElementById('tCanvas');
+  var ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth*2; canvas.height=360;
+  ctx.scale(2,2);
+  var W=canvas.offsetWidth/2, H=180;
+  ctx.clearRect(0,0,W,H);
+
+  var xmin=-4.5, xmax=4.5, n=400;
+  function toX(v){ return (v-xmin)/(xmax-xmin)*W; }
+  var ymax=0.42;
+  function toY(v){ return H-12-v/ymax*(H-28); }
+
+  // draw normal
+  ctx.beginPath(); ctx.strokeStyle='#F8766D'; ctx.lineWidth=2;
+  for(var i=0;i<=n;i++){
+    var xv=xmin+i*(xmax-xmin)/n, yv=dnorm(xv);
+    i===0?ctx.moveTo(toX(xv),toY(yv)):ctx.lineTo(toX(xv),toY(yv));
+  }
+  ctx.stroke();
+
+  // shade t tails (|t|>2)
+  ctx.beginPath();
+  var shade=false;
+  for(var i=0;i<=n;i++){
+    var xv=xmin+i*(xmax-xmin)/n, yv=dtpdf(xv,nu);
+    if(Math.abs(xv)>=2){
+      if(!shade){ ctx.moveTo(toX(xv),toY(0)); shade=true; }
+      ctx.lineTo(toX(xv),toY(yv));
+    } else if(shade){ ctx.lineTo(toX(xv),toY(0)); shade=false; }
+  }
+  ctx.fillStyle='#619CFF55'; ctx.fill();
+
+  // draw t
+  ctx.beginPath(); ctx.strokeStyle='#619CFF'; ctx.lineWidth=2;
+  for(var i=0;i<=n;i++){
+    var xv=xmin+i*(xmax-xmin)/n, yv=dtpdf(xv,nu);
+    i===0?ctx.moveTo(toX(xv),toY(yv)):ctx.lineTo(toX(xv),toY(yv));
+  }
+  ctx.stroke();
+
+  // axis
+  ctx.beginPath(); ctx.strokeStyle='#aaa'; ctx.lineWidth=1;
+  ctx.moveTo(0,toY(0)); ctx.lineTo(W,toY(0)); ctx.stroke();
+  ctx.fillStyle='#555'; ctx.font='11px Arial'; ctx.textAlign='center';
+  [-4,-3,-2,-1,0,1,2,3,4].forEach(function(v){
+    ctx.fillText(v,toX(v),toY(0)+12);
+  });
+
+  // legend
+  ctx.textAlign='left';
+  ctx.fillStyle='#F8766D'; ctx.fillRect(10,8,18,4);
+  ctx.fillStyle='#2f3437'; ctx.fillText('N(0,1)',32,13);
+  ctx.fillStyle='#619CFF'; ctx.fillRect(10,18,18,4);
+  ctx.fillText('t('+nu+')',32,23);
+
+  // tail probability readout
+  // numeric approx of P(T > 2)
+  var step=0.001, tail=0;
+  for(var tv=2;tv<=10;tv+=step) tail+=dtpdf(tv,nu)*step;
+  tail=tail*2; // two tails
+  var ro=document.getElementById('t-readout');
+  ro.innerHTML='<div style="background:#619CFF22;border-radius:6px;padding:5px 10px;font-weight:700;">P(|T| > 2) = '+tail.toFixed(4)+'</div>'+
+    '<div style="background:#F8766D22;border-radius:6px;padding:5px 10px;font-weight:700;">P(|Z| > 2) = 0.0455</div>';
+}
+window.updateT=updateT;
+setTimeout(updateT,100);
+window.addEventListener('resize',updateT);
+})();
+</script>
+</section>
+<section id="t-distribution-in-r" class="slide level2">
+<h2><span class="math inline">\(t\)</span>-Distribution in R</h2>
+<div class="two-col-lean">
+<div class="col">
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBQKFQgPD0gMi4wKSB3aXRoIGRmID0gMTBcbnB0KDIuMCwgZGYgPSAxMClcblxuIyBDcml0aWNhbCB2YWx1ZTogdCBzdWNoIHRoYXQgUChUIDw9IHQpID0gMC45NzUsIGRmPTEwXG5xdCgwLjk3NSwgZGYgPSAxMClcblxuIyBDb21wYXJlIHRvIHogY3JpdGljYWwgdmFsdWVcbnFub3JtKDAuOTc1KVxuXG4jIEhvdyBtYW55IGRmIHVudGlsIHQg4omIIHo/XG5xdCgwLjk3NSwgZGYgPSBjKDUsIDEwLCAzMCwgMTAwLCAxMDAwKSkifQ==
+</script>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="examplebox">
+<p><strong><code>pt(q, df)</code></strong> → <span class="math inline">\(P(T \le q)\)</span></p>
+<p><strong><code>qt(p, df)</code></strong> → inverse CDF</p>
+<p>Notice <code>qt(0.975, df=10) = 2.228</code> vs <code>qnorm(0.975) = 1.960</code>. The <span class="math inline">\(t\)</span> critical value is larger — reflecting extra uncertainty in small samples.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="example-t-critical-values" class="slide level2 scrollable">
+<h2>Example: <span class="math inline">\(t\)</span> Critical Values</h2>
+<div class="taskbox">
+<p><span class="label">Example</span> <strong>(a)</strong> For <span class="math inline">\(T \sim t_{15}\)</span>, find <span class="math inline">\(P(T \leq 2.131)\)</span>.</p>
+<p><strong>(b)</strong> For <span class="math inline">\(T \sim t_{20}\)</span>, find the value <span class="math inline">\(c\)</span> such that <span class="math inline">\(P(-c \leq T \leq c) = 0.95\)</span>.</p>
+<p><strong>(c)</strong> For <span class="math inline">\(T \sim t_{5}\)</span>, find <span class="math inline">\(P(|T| &gt; 2.571)\)</span>.</p>
+<p><strong>(d)</strong> Compare the 97.5th percentile of <span class="math inline">\(t_{5}\)</span>, <span class="math inline">\(t_{30}\)</span>, and <span class="math inline">\(N(0,1)\)</span>. What do you notice?</p>
+</div>
+</section>
+<section id="t-example-check-in-r" class="slide level2">
+<h2><span class="math inline">\(t\)</span> Example — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyAoYSkgUChUIDw9IDIuMTMxKSwgZGY9MTVcbnB0KDIuMTMxLCBkZiA9IDE1KVxuXG4jIChiKSBjIHN1Y2ggdGhhdCBQKC1jIDw9IFQgPD0gYykgPSAwLjk1LCBkZj0yMFxucXQoMC45NzUsIGRmID0gMjApXG5cbiMgKGMpIFAofFR8ID4gMi41NzEpLCBkZj01XG4yICogcHQoMi41NzEsIGRmID0gNSwgbG93ZXIudGFpbCA9IEZBTFNFKVxuXG4jIChkKSA5Ny41dGggcGVyY2VudGlsZSBjb21wYXJpc29uXG5xdCgwLjk3NSwgZGYgPSBjKDUsIDMwKSk7IHFub3JtKDAuOTc1KSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="section-3" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Why do we use the <span class="math inline">\(t\)</span>-distribution instead of the normal when making inferences about a mean from a small sample?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The <span class="math inline">\(t\)</span> is easier to compute</li>
+<li><span class="correct" data-explanation="Replacing unknown $\sigma$ with $s$ introduces additional variability. The $t$ distribution has heavier tails than the normal, producing wider and more honest confidence intervals.">We must estimate <span class="math inline">\(\sigma\)</span> from the data, adding uncertainty — <span class="math inline">\(t\)</span> has heavier tails to account for this</span></li>
+<li>The normal distribution is only valid for large populations</li>
+<li>Small samples always have skewed data</li>
+</ul>
+</section>
+<section id="the-f-distribution" class="slide level2">
+<h2>4.1.4 The <span class="math inline">\(F\)</span>-Distribution</h2>
+<div class="defbox">
+<p><strong><span class="math inline">\(F\)</span> Random Variable</strong> — <span class="math inline">\(F \sim F_{\nu_1, \nu_2}\)</span></p>
+<p>If <span class="math inline">\(U \sim \chi^2_{\nu_1}\)</span> and <span class="math inline">\(V \sim \chi^2_{\nu_2}\)</span> are <strong>independent</strong>, then</p>
+<p><span class="math display">\[F = \frac{U/\nu_1}{V/\nu_2} \sim F_{\nu_1, \nu_2}\]</span></p>
+<p>The <span class="math inline">\(F\)</span> distribution is supported on <span class="math inline">\((0, \infty)\)</span> and characterised by two degrees of freedom: <strong>numerator</strong> <span class="math inline">\(\nu_1\)</span> and <strong>denominator</strong> <span class="math inline">\(\nu_2\)</span>.</p>
+</div>
+<div class="examplebox fragment">
+<p>The <span class="math inline">\(F\)</span> distribution is used to <strong>compare two variances</strong> and is the backbone of <strong>ANOVA</strong> (Analysis of Variance). You will see it a lot in later chapters.</p>
+</div>
+</section>
+<section id="f-distribution-shape" class="slide level2">
+<h2><span class="math inline">\(F\)</span>-Distribution: Shape</h2>
+
+<img data-src="chapter4-slides_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center r-stretch" width="864"></section>
+<section id="f-distribution-in-r" class="slide level2">
+<h2><span class="math inline">\(F\)</span>-Distribution in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBQKEYgPD0gMykgd2l0aCBkZjE9NSwgZGYyPTEwXG5wZigzLCBkZjEgPSA1LCBkZjIgPSAxMClcblxuIyA5NXRoIHBlcmNlbnRpbGUgKHVzZWQgYXMgY3JpdGljYWwgdmFsdWUgaW4gQU5PVkEpXG5xZigwLjk1LCBkZjEgPSA1LCBkZjIgPSAxMClcblxuIyBQbG90XG5jdXJ2ZShkZih4LCBkZjE9NSwgZGYyPTEwKSwgZnJvbT0wLCB0bz02LFxuICAgICAgY29sPVwiI0Y4NzY2RFwiLCBsd2Q9MixcbiAgICAgIG1haW49XCJGKDUsMTApIERpc3RyaWJ1dGlvblwiLCB5bGFiPVwiRGVuc2l0eVwiKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="section-4" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Which statement correctly describes the relationship between the <span class="math inline">\(\chi^2\)</span> and <span class="math inline">\(F\)</span> distributions?</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(F\)</span> is the square of a <span class="math inline">\(\chi^2\)</span> random variable</li>
+<li><span class="correct" data-explanation="Formally $F = (U/\nu_1)/(V/\nu_2)$ where $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ independently."><span class="math inline">\(F\)</span> is the ratio of two independent <span class="math inline">\(\chi^2\)</span> variables, each divided by its degrees of freedom</span></li>
+<li><span class="math inline">\(F\)</span> is the sum of two <span class="math inline">\(\chi^2\)</span> random variables</li>
+<li><span class="math inline">\(F\)</span> is always symmetric like the normal</li>
+</ul>
+</section>
+<section id="distribution-summary-table" class="slide level2">
+<h2>Distribution Summary Table</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th>Parameters</th>
+<th>Support</th>
+<th><span class="math inline">\(E[X]\)</span></th>
+<th>Key use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(N(\mu,\sigma^2)\)</span></td>
+<td><span class="math inline">\(\mu, \sigma^2\)</span></td>
+<td><span class="math inline">\(\mathbb{R}\)</span></td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td>General continuous</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\chi^2_k\)</span></td>
+<td><span class="math inline">\(k\)</span> (df)</td>
+<td><span class="math inline">\((0,\infty)\)</span></td>
+<td><span class="math inline">\(k\)</span></td>
+<td>Variance tests</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(t_\nu\)</span></td>
+<td><span class="math inline">\(\nu\)</span> (df)</td>
+<td><span class="math inline">\(\mathbb{R}\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td>Small-sample mean</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(F_{\nu_1,\nu_2}\)</span></td>
+<td><span class="math inline">\(\nu_1, \nu_2\)</span></td>
+<td><span class="math inline">\((0,\infty)\)</span></td>
+<td><span class="math inline">\(\dfrac{\nu_2}{\nu_2-2}\)</span></td>
+<td>Variance ratios</td>
+</tr>
+</tbody>
+</table>
+<div class="thinkbox fragment">
+<p><strong>Connections.</strong> <span class="math inline">\(Z^2 \sim \chi^2_1\)</span>; <span class="math inline">\(\;\)</span> <span class="math inline">\(t_\nu^2 \sim F_{1,\nu}\)</span>; <span class="math inline">\(\;\)</span> <span class="math inline">\(t_\nu \to N(0,1)\)</span> and <span class="math inline">\(\chi^2_k/k \to 1\)</span> as degrees of freedom grow.</p>
+</div>
+</section>
+<section id="built-in-distribution-calculator" class="slide level2">
+<h2>Built-in Distribution Calculator</h2>
+<div class="two-col-lean">
+<div class="col">
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyAtLS0gTm9ybWFsIC0tLVxuIyBQKFggPD0gcSksIFggfiBOKG11LCBzaWdtYV4yKVxubXUgPC0gMDsgc2lnbWEgPC0gMTsgcSA8LSAxLjk2XG5wbm9ybShxLCBtZWFuID0gbXUsIHNkID0gc2lnbWEpXG5cbiMgLS0tIENoaS1zcXVhcmUgLS0tXG5wY2hpc3EoOS40ODgsIGRmID0gNClcblxuIyAtLS0gdCAtLS1cbnB0KDIuMjYyLCBkZiA9IDkpXG5cbiMgLS0tIEYgLS0tXG5wZig0Ljc1LCBkZjEgPSAzLCBkZjIgPSAyMCkifQ==
+</script>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="defbox">
+<p><strong>Quick reference</strong></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Dist</th>
+<th>CDF</th>
+<th>Quantile</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normal</td>
+<td><code>pnorm</code></td>
+<td><code>qnorm</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\chi^2\)</span></td>
+<td><code>pchisq</code></td>
+<td><code>qchisq</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(t\)</span></td>
+<td><code>pt</code></td>
+<td><code>qt</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(F\)</span></td>
+<td><code>pf</code></td>
+<td><code>qf</code></td>
+</tr>
+</tbody>
+</table>
+<p>All accept <code>lower.tail = FALSE</code> for upper-tail probabilities.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sampling-distributions" class="slide level2">
+<h2>4.2 Sampling Distributions</h2>
+<div class="defbox fragment">
+<p><strong>Sampling Distribution</strong></p>
+<p>The <strong>probability distribution</strong> of a statistic (such as <span class="math inline">\(\bar{X}\)</span>) computed from all possible random samples of a given size <span class="math inline">\(n\)</span> drawn from the same population.</p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p><strong>Key idea.</strong> <span class="math inline">\(\bar{X}\)</span> is not a fixed number — it is a <strong>random variable</strong>. Each new sample of size <span class="math inline">\(n\)</span> gives a different value of <span class="math inline">\(\bar{X}\)</span>. The sampling distribution describes how those values vary.</p>
+</div>
+<div class="thinkbox fragment">
+<p><strong>Why it matters.</strong> Understanding the variability of <span class="math inline">\(\bar{X}\)</span> from sample to sample is the foundation for confidence intervals and hypothesis tests.</p>
+</div>
+</div>
+</section>
+<section id="sampling-distribution-of-barx" class="slide level2">
+<h2>Sampling Distribution of <span class="math inline">\(\bar{X}\)</span></h2>
+<div class="defbox">
+<p><strong>Distribution of the sample mean</strong></p>
+<p>If <span class="math inline">\(X_1, \ldots, X_n \overset{\text{iid}}{\sim}\)</span> population with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, then:</p>
+<p><span class="math display">\[E[\bar{X}] = \mu \qquad \text{Var}(\bar{X}) = \frac{\sigma^2}{n}\]</span></p>
+<p>The <strong>standard error</strong> of <span class="math inline">\(\bar{X}\)</span> is <span class="math inline">\(\text{SE}(\bar{X}) = \dfrac{\sigma}{\sqrt{n}}\)</span>.</p>
+</div>
+<div class="warnbox fragment">
+<p><strong>Larger <span class="math inline">\(n\)</span> → smaller SE.</strong> Collecting more data shrinks the variability of the sample mean. This is why bigger samples give more precise estimates.</p>
+</div>
+</section>
+<section id="sampling-distribution-simulation" class="slide level2">
+<h2>Sampling Distribution — Simulation</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBTaW11bGF0ZSBzYW1wbGluZyBkaXN0cmlidXRpb24gb2YgWC1iYXJcbiMgUG9wdWxhdGlvbjogRXhwb25lbnRpYWwocmF0ZT0xKSwgbXU9MSwgc2lnbWFeMj0xXG5cbm4gICAgIDwtIDMwICAgICAgIyBzYW1wbGUgc2l6ZVxucmVwcyAgPC0gNTAwMCAgICAjIG51bWJlciBvZiBzYW1wbGVzXG5cbnhiYXJfdmFscyA8LSByZXBsaWNhdGUocmVwcywgbWVhbihyZXhwKG4sIHJhdGUgPSAxKSkpXG5cbmhpc3QoeGJhcl92YWxzLCBicmVha3MgPSA1MCxcbiAgICAgY29sID0gXCIjMDA2OTVjXCIsIGJvcmRlciA9IFwid2hpdGVcIixcbiAgICAgbWFpbiA9IHBhc3RlKFwiU2FtcGxpbmcgZGlzdHJpYnV0aW9uOiBuID1cIiwgbiksXG4gICAgIHhsYWIgPSBcIlNhbXBsZSBtZWFuXCIsIGZyZXEgPSBGQUxTRSlcblxuIyBPdmVybGF5IHRoZW9yZXRpY2FsIG5vcm1hbFxuY3VydmUoZG5vcm0oeCwgbWVhbiA9IDEsIHNkID0gMS9zcXJ0KG4pKSxcbiAgICAgIGFkZCA9IFRSVUUsIGNvbCA9IFwiI0Y4NzY2RFwiLCBsd2QgPSAyKSJ9
+</script>
+</div>
+</div>
+<div class="small-text">
+<p>Change <code>n</code> to 5 or 2 and re-run. Watch the distribution become less normal.</p>
+</div>
+</section>
+<section id="section-5" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A population has mean <span class="math inline">\(\mu = 40\)</span> and variance <span class="math inline">\(\sigma^2 = 100\)</span>. A random sample of size <span class="math inline">\(n = 25\)</span> is drawn. What is the standard error of <span class="math inline">\(\bar{X}\)</span>?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>10</li>
+<li>4</li>
+<li><span class="correct" data-explanation="$SE(\bar{X}) = \sigma/\sqrt{n} = 10/\sqrt{25} = 10/5 = 2$.">2</span></li>
+<li>0.4</li>
+</ul>
+</section>
+<section id="the-central-limit-theorem" class="slide level2">
+<h2>4.3 The Central Limit Theorem</h2>
+<div class="defbox">
+<p><strong>Central Limit Theorem (CLT)</strong></p>
+<p>Let <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span> be i.i.d. with <span class="math inline">\(E[X_i] = \mu\)</span> and <span class="math inline">\(\text{Var}(X_i) = \sigma^2 &lt; \infty\)</span>. Then as <span class="math inline">\(n \to \infty\)</span>:</p>
+<p><span class="math display">\[\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \;\overset{d}{\longrightarrow}\; N(0,1)\]</span></p>
+<p>Equivalently, for large <span class="math inline">\(n\)</span>: <span class="math inline">\(\quad \bar{X}_n \;\dot{\sim}\; N\!\left(\mu,\, \frac{\sigma^2}{n}\right)\)</span></p>
+</div>
+<div class="thinkbox fragment">
+<p><strong>Remarkable.</strong> The CLT holds for <strong>any</strong> parent distribution with finite variance — uniform, exponential, Poisson, or anything else. The shape of <span class="math inline">\(\bar{X}\)</span> approaches normal as <span class="math inline">\(n\)</span> grows.</p>
+</div>
+</section>
+<section id="clt-what-large-n-means-in-practice" class="slide level2">
+<h2>CLT: What “Large <span class="math inline">\(n\)</span>” Means in Practice</h2>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Symmetric distributions</span> Even <span class="math inline">\(n = 10\)</span>–<span class="math inline">\(15\)</span> is often enough. The normal approximation kicks in quickly.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Moderately skewed</span> <span class="math inline">\(n = 30\)</span> is a common rule of thumb. Check with a histogram.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Heavily skewed</span> May need <span class="math inline">\(n = 50\)</span>–<span class="math inline">\(100\)</span> or more. The more extreme the skew, the larger <span class="math inline">\(n\)</span> must be.</p>
+</div>
+</div>
+<p><br></p>
+<div class="examplebox fragment">
+<p><strong>Practical consequence.</strong> For large <span class="math inline">\(n\)</span>, we can use <span class="math inline">\(z\)</span>-based confidence intervals and hypothesis tests for <span class="math inline">\(\mu\)</span> even when the parent distribution is unknown or skewed.</p>
+</div>
+</section>
+<section id="clt-interactive-simulator" class="slide level2">
+<h2>CLT — Interactive Simulator</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBDTFQgU2ltdWxhdG9yOiBjaGFuZ2UgZGlzdCBhbmQgblxuZGlzdCA8LSBcImV4cG9uZW50aWFsXCIgICAjIHRyeTogXCJ1bmlmb3JtXCIsIFwicG9pc3NvblwiLCBcImV4cG9uZW50aWFsXCJcbm4gICAgPC0gMzBcbnJlcHMgPC0gNDAwMFxuXG5kcmF3X3NhbXBsZSA8LSBmdW5jdGlvbihuKSB7XG4gIHN3aXRjaChkaXN0LFxuICAgIHVuaWZvcm0gICAgID0gcnVuaWYobiwgMCwgMSksXG4gICAgZXhwb25lbnRpYWwgPSByZXhwKG4sIHJhdGUgPSAxKSxcbiAgICBwb2lzc29uICAgICA9IHJwb2lzKG4sIGxhbWJkYSA9IDMpLFxuICAgIHJub3JtKG4pXG4gIClcbn1cblxueGJhcnMgPC0gcmVwbGljYXRlKHJlcHMsIG1lYW4oZHJhd19zYW1wbGUobikpKVxuXG4jIFRoZW9yZXRpY2FsIHBhcmFtZXRlcnNcbm11X21hcCAgICA8LSBjKHVuaWZvcm09MC41LCBleHBvbmVudGlhbD0xLCBwb2lzc29uPTMsIG5vcm1hbD0wKVxudmFyX21hcCAgIDwtIGModW5pZm9ybT0xLzEyLCBleHBvbmVudGlhbD0xLCBwb2lzc29uPTMsIG5vcm1hbD0xKVxubXVfdCAgPC0gbXVfbWFwW2Rpc3RdOyBzZV90IDwtIHNxcnQodmFyX21hcFtkaXN0XS9uKVxuXG5oaXN0KHhiYXJzLCBicmVha3M9NTAsIGZyZXE9RkFMU0UsIGNvbD1cIiMwMDY5NWNcIiwgYm9yZGVyPVwid2hpdGVcIixcbiAgICAgbWFpbj1wYXN0ZShcIkNMVDpcIiwgZGlzdCwgXCJ8IG4gPVwiLCBuKSwgeGxhYj1cIlNhbXBsZSBtZWFuXCIpXG5jdXJ2ZShkbm9ybSh4LCBtdV90LCBzZV90KSwgYWRkPVRSVUUsIGNvbD1cIiNGODc2NkRcIiwgbHdkPTIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="clt-example-poisson-sums" class="slide level2 scrollable">
+<h2>CLT Example: Poisson Sums</h2>
+<div class="taskbox">
+<p><span class="label">Example</span> Customers arrive at a bank at rate <span class="math inline">\(\lambda = 4\)</span> per minute. <span class="math inline">\(X_i \sim \text{Pois}(4)\)</span>.</p>
+<p><strong>(a)</strong> What are <span class="math inline">\(E[X_i]\)</span> and <span class="math inline">\(\text{Var}(X_i)\)</span>?</p>
+<p><strong>(b)</strong> For a sample of <span class="math inline">\(n = 36\)</span> one-minute intervals, find <span class="math inline">\(P(\bar{X} \leq 4.5)\)</span> approximately.</p>
+<p><strong>(c)</strong> Find <span class="math inline">\(P(\bar{X} &gt; 3.8)\)</span> approximately.</p>
+<p><strong>(d)</strong> What sample size <span class="math inline">\(n\)</span> would make <span class="math inline">\(P(|\bar{X} - 4| &lt; 0.25) \geq 0.95\)</span>?</p>
+</div>
+</section>
+<section id="poisson-clt-check-in-r" class="slide level2">
+<h2>Poisson CLT — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-11" class="exercise-cell">
+
+</div>
+<script type="webr-11-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxubXUgPC0gNDsgc2lnbWEyIDwtIDQ7IG4gPC0gMzZcbnNlIDwtIHNxcnQoc2lnbWEyIC8gbilcblxuIyAoYikgUChYLWJhciA8PSA0LjUpXG5wbm9ybSg0LjUsIG1lYW4gPSBtdSwgc2QgPSBzZSlcblxuIyAoYykgUChYLWJhciA+IDMuOClcbnBub3JtKDMuOCwgbWVhbiA9IG11LCBzZCA9IHNlLCBsb3dlci50YWlsID0gRkFMU0UpXG5cbiMgKGQpIFAofFgtYmFyIC0gbXV8IDwgMC4yNSkgPj0gMC45NVxuIyBOZWVkIDIqcG5vcm0oMC4yNS9zZV9uKS0xID49IDAuOTVcbiMgMC4yNS9zZV9uID49IDEuOTYgID0+ICBzZV9uIDw9IDAuMjUvMS45NlxuIyBzaWdtYS9zcXJ0KG4pIDw9IDAuMjUvMS45Nlxubl9uZWVkZWQgPC0gY2VpbGluZygoMiAqIDEuOTYgLyAwLjI1KV4yKVxuY2F0KFwiTWluaW11bSBuOlwiLCBuX25lZWRlZCwgXCJcXG5cIikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="section-6" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>The Central Limit Theorem says the sample mean <span class="math inline">\(\bar{X}_n\)</span> is <strong>approximately normal</strong> for large <span class="math inline">\(n\)</span>. What conditions are required?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The population must be normal</li>
+<li>The sample size must equal exactly 30</li>
+<li><span class="correct" data-explanation="The CLT requires independence, identical distribution, and finite variance. The population distribution can be anything — that's the power of the theorem.">The observations must be i.i.d. with finite mean and variance</span></li>
+<li>The population must be symmetric</li>
+</ul>
+</section>
+<section id="convergence-in-probability" class="slide level2">
+<h2>4.4 Convergence in Probability</h2>
+<div class="defbox fragment">
+<p><strong>Convergence in Probability</strong></p>
+<p>A sequence <span class="math inline">\(X_1, X_2, \ldots\)</span> converges in probability to constant <span class="math inline">\(c\)</span> if for every <span class="math inline">\(\varepsilon &gt; 0\)</span>:</p>
+<p><span class="math display">\[\lim_{n\to\infty} P\!\left(|X_n - c| \leq \varepsilon\right) = 1\]</span></p>
+<p>Written <span class="math inline">\(X_n \overset{p}{\longrightarrow} c\)</span>.</p>
+</div>
+<div class="examplebox fragment">
+<p><strong>Intuition.</strong> As <span class="math inline">\(n\)</span> grows, the probability that <span class="math inline">\(X_n\)</span> is far from <span class="math inline">\(c\)</span> shrinks to zero. The sequence settles down near <span class="math inline">\(c\)</span>.</p>
+</div>
+</section>
+<section id="chebyshevs-inequality" class="slide level2">
+<h2>Chebyshev’s Inequality</h2>
+<div class="defbox">
+<p><strong>Chebyshev’s Inequality</strong></p>
+<p>For any random variable <span class="math inline">\(X\)</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>, and any <span class="math inline">\(k &gt; 0\)</span>:</p>
+<p><span class="math display">\[P(|X - \mu| \geq k) \leq \frac{\sigma^2}{k^2}\]</span></p>
+<p>Equivalently: <span class="math inline">\(P(|X - \mu| &lt; k) \geq 1 - \dfrac{\sigma^2}{k^2}\)</span></p>
+</div>
+<div class="thinkbox fragment">
+<p><strong>No distributional assumption.</strong> Chebyshev’s inequality holds for <strong>any</strong> distribution with finite variance. It is the key tool in proving the WLLN.</p>
+</div>
+</section>
+<section id="chebyshev-example" class="slide level2 scrollable">
+<h2>Chebyshev Example</h2>
+<div class="taskbox">
+<p><span class="label">Example</span> <span class="math inline">\(X\)</span> has mean <span class="math inline">\(\mu = 10\)</span> and standard deviation <span class="math inline">\(\sigma = 3\)</span>.</p>
+<p><strong>(a)</strong> Use Chebyshev to bound <span class="math inline">\(P(|X - 10| \geq 9)\)</span>.</p>
+<p><strong>(b)</strong> Use Chebyshev to bound <span class="math inline">\(P(1 &lt; X &lt; 19)\)</span> from below.</p>
+<p><strong>(c)</strong> Now suppose <span class="math inline">\(X\)</span> is actually <span class="math inline">\(N(10, 9)\)</span>. Compute the exact probability <span class="math inline">\(P(1 &lt; X &lt; 19)\)</span> and compare with the Chebyshev bound.</p>
+</div>
+</section>
+<section id="chebyshev-check-in-r" class="slide level2">
+<h2>Chebyshev — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-12" class="exercise-cell">
+
+</div>
+<script type="webr-12-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxubXUgPC0gMTA7IHNpZ21hIDwtIDNcblxuIyAoYSkgQ2hlYnlzaGV2IHVwcGVyIGJvdW5kIG9uIFAofFgtMTB8ID49IDkpXG4jIGsgPSA5XG5rIDwtIDlcbmNoZWJfdXBwZXIgPC0gc2lnbWFeMiAvIGteMlxuY2F0KFwiQ2hlYnlzaGV2IHVwcGVyIGJvdW5kOlwiLCBjaGViX3VwcGVyLCBcIlxcblwiKVxuXG4jIChiKSBMb3dlciBib3VuZCBvbiBQKDEgPCBYIDwgMTkpID0gUCh8WC0xMHwgPCA5KVxuY2F0KFwiQ2hlYnlzaGV2IGxvd2VyIGJvdW5kOlwiLCAxIC0gY2hlYl91cHBlciwgXCJcXG5cIilcblxuIyAoYykgRXhhY3QgKGFzc3VtaW5nIFggfiBOKDEwLCA5KSlcbmV4YWN0IDwtIHBub3JtKDE5LCBtZWFuPTEwLCBzZD0zKSAtIHBub3JtKDEsIG1lYW49MTAsIHNkPTMpXG5jYXQoXCJFeGFjdCAobm9ybWFsKTpcIiwgZXhhY3QsIFwiXFxuXCIpXG5jYXQoXCJDaGVieXNoZXYgaXMgY29uc2VydmF0aXZlIOKAlCBleGFjdCBwcm9iYWJpbGl0eSBpcyBoaWdoZXIuXFxuXCIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="weak-law-of-large-numbers" class="slide level2">
+<h2>4.4.2 Weak Law of Large Numbers</h2>
+<div class="defbox">
+<p><strong>Weak Law of Large Numbers (WLLN)</strong></p>
+<p>Let <span class="math inline">\(X_1, X_2, \ldots\)</span> be i.i.d. with <span class="math inline">\(E[X_i] = \mu\)</span> and <span class="math inline">\(\text{Var}(X_i) = \sigma^2 &lt; \infty\)</span>. Then for any <span class="math inline">\(\varepsilon &gt; 0\)</span>:</p>
+<p><span class="math display">\[P\!\left(\left|\bar{X}_n - \mu\right| \geq \varepsilon\right) \longrightarrow 0 \quad \text{as } n \to \infty\]</span></p>
+<p>Written <span class="math inline">\(\bar{X}_n \overset{p}{\longrightarrow} \mu\)</span>.</p>
+</div>
+<div class="warnbox fragment">
+<p>This does <strong>not</strong> say <span class="math inline">\(\bar{X}_n = \mu\)</span> for large <span class="math inline">\(n\)</span>. It says the probability of being far from <span class="math inline">\(\mu\)</span> goes to zero. Individual realisations can still deviate.</p>
+</div>
+</section>
+<section id="proof-sketch-wlln-via-chebyshev" class="slide level2">
+<h2>Proof Sketch: WLLN via Chebyshev</h2>
+<div class="two-col-lean">
+<div class="col">
+<div class="examplebox">
+<p><strong>Key steps</strong></p>
+<ol type="1">
+<li><p><span class="math inline">\(\text{Var}(\bar{X}_n) = \dfrac{\sigma^2}{n}\)</span></p></li>
+<li><p>Apply Chebyshev with <span class="math inline">\(k = \varepsilon\)</span>:</p></li>
+</ol>
+<p><span class="math display">\[P\!\left(|\bar{X}_n - \mu| \geq \varepsilon\right) \leq \frac{\sigma^2}{n\varepsilon^2}\]</span></p>
+<ol start="3" type="1">
+<li><p>As <span class="math inline">\(n \to \infty\)</span>, right side <span class="math inline">\(\to 0\)</span>.</p></li>
+<li><p>Since probability <span class="math inline">\(\geq 0\)</span>, conclude the limit is <span class="math inline">\(0\)</span>. <span class="math inline">\(\square\)</span></p></li>
+</ol>
+</div>
+</div>
+<div class="col">
+<div class="thinkbox">
+<p><strong>What does the proof need?</strong></p>
+<ul>
+<li>Finite variance <span class="math inline">\(\sigma^2\)</span></li>
+<li>Independence (for <span class="math inline">\(\text{Var}(\bar{X}_n) = \sigma^2/n\)</span>)</li>
+<li>Identical distribution (for common <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span>)</li>
+</ul>
+<p>The CLT is not required — Chebyshev alone is enough.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="wlln-simulation" class="slide level2">
+<h2>WLLN — Simulation</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-13" class="exercise-cell">
+
+</div>
+<script type="webr-13-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBXYXRjaCB0aGUgcnVubmluZyBtZWFuIGNvbnZlcmdlIHRvIHRoZSB0cnV0aFxuc2V0LnNlZWQoNDIpXG5uICA8LSAyMDBcbnAgIDwtIDAuNSAgICAjIHRydWUgbWVhbiBvZiBCZXJub3VsbGkoMC41KVxuXG54ICAgICA8LSByYmlub20obiwgMSwgcClcbnRyaWFsIDwtIDE6blxucm1lYW4gPC0gY3Vtc3VtKHgpIC8gdHJpYWxcblxucGxvdCh0cmlhbCwgcm1lYW4sIHR5cGUgPSBcImxcIiwgY29sID0gXCIjNjE5Q0ZGXCIsIGx3ZCA9IDEuNSxcbiAgICAgeWxpbSA9IGMoMCwgMSksIHhsYWIgPSBcIm5cIiwgeWxhYiA9IFwiUnVubmluZyBtZWFuXCIsXG4gICAgIG1haW4gPSBcIldMTE46IEJlcm5vdWxsaSgwLjUpIHJ1bm5pbmcgbWVhblwiKVxuYWJsaW5lKGggPSBwLCBsdHkgPSAyLCBjb2wgPSBcImJsYWNrXCIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="wlln-multiple-paths" class="slide level2">
+<h2>WLLN — Multiple Paths</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-14" class="exercise-cell">
+
+</div>
+<script type="webr-14-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxuc2V0LnNlZWQoMjU4KVxubiAgPC0gMjAwOyBwIDwtIDAuNVxuY29scyA8LSByYWluYm93KDgpXG5cbiMgRmlyc3QgcGF0aFxueCA8LSByYmlub20obiwxLHApOyB0cmlhbCA8LSAxOm5cbnBsb3QodHJpYWwsIGN1bXN1bSh4KS90cmlhbCwgdHlwZT1cImxcIiwgY29sPWNvbHNbMV0sXG4gICAgIHlsaW09YygwLDEpLCB4bGFiPVwiblwiLCB5bGFiPVwiUnVubmluZyBtZWFuXCIsXG4gICAgIG1haW49XCJXTExOOiA4IGluZGVwZW5kZW50IHBhdGhzXCIpXG5cbiMgUmVtYWluaW5nIHBhdGhzXG5mb3IoaSBpbiAyOjgpe1xuICB4IDwtIHJiaW5vbShuLDEscClcbiAgbGluZXModHJpYWwsIGN1bXN1bSh4KS90cmlhbCwgY29sPWNvbHNbaV0pXG59XG5hYmxpbmUoaD1wLCBsdHk9MiwgbHdkPTIsIGNvbD1cImJsYWNrXCIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="example-poisson-wlln" class="slide level2 scrollable">
+<h2>Example: Poisson WLLN</h2>
+<div class="taskbox">
+<p><span class="label">Example</span> Let <span class="math inline">\(X_i \overset{\text{iid}}{\sim} \text{Poisson}(\lambda = 3)\)</span> for <span class="math inline">\(i = 1, 2, \ldots\)</span></p>
+<p><strong>(a)</strong> State <span class="math inline">\(E[X_i]\)</span> and <span class="math inline">\(\text{Var}(X_i)\)</span>.</p>
+<p><strong>(b)</strong> Apply Chebyshev’s inequality to bound <span class="math inline">\(P(|\bar{X}_n - 3| \geq \varepsilon)\)</span>.</p>
+<p><strong>(c)</strong> Show that <span class="math inline">\(\bar{X}_n \overset{p}{\longrightarrow} 3\)</span>.</p>
+<p><strong>(d)</strong> Simulate the convergence in R for <span class="math inline">\(n = 500\)</span> trials.</p>
+</div>
+</section>
+<section id="poisson-wlln-check-in-r" class="slide level2">
+<h2>Poisson WLLN — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-15" class="exercise-cell">
+
+</div>
+<script type="webr-15-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyAoYiktKGMpOiBDaGVieXNoZXYgYm91bmQgYXMgZnVuY3Rpb24gb2YgblxubGFtYmRhIDwtIDM7IGVwcyA8LSAwLjI1OyBuX3ZhbHMgPC0gc2VxKDEwLCA1MDAsIGJ5PTEwKVxuYm91bmRzIDwtIGxhbWJkYSAvIChuX3ZhbHMgKiBlcHNeMilcblxucGxvdChuX3ZhbHMsIGJvdW5kcywgdHlwZT1cImxcIiwgY29sPVwiI0Y4NzY2RFwiLCBsd2Q9MixcbiAgICAgeGxhYj1cIm5cIiwgeWxhYj1cIkNoZWJ5c2hldiBib3VuZCBvbiBQKHxYLWJhciAtIDN8ID49IDAuMjUpXCIsXG4gICAgIG1haW49XCJDaGVieXNoZXYgYm91bmQg4oaSIDAgYXMgbiDihpIg4oieXCIpXG5hYmxpbmUoaD0wLCBsdHk9MilcblxuIyAoZCkgU2ltdWxhdGVcbnNldC5zZWVkKDEpOyBuIDwtIDUwMFxueCA8LSBycG9pcyhuLCBsYW1iZGEpXG5wbG90KDE6biwgY3Vtc3VtKHgpLygxOm4pLCB0eXBlPVwibFwiLCBjb2w9XCIjMDA2OTVjXCIsIGx3ZD0xLjUsXG4gICAgIHlsaW09YygxLDUpLCB4bGFiPVwiblwiLCB5bGFiPVwiUnVubmluZyBtZWFuXCIpXG5hYmxpbmUoaD1sYW1iZGEsIGx0eT0yKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="section-7" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>The Weak Law of Large Numbers guarantees that for large <span class="math inline">\(n\)</span>, <span class="math inline">\(\bar{X}_n\)</span> is close to <span class="math inline">\(\mu\)</span> with high probability. Which mathematical tool is used in the standard proof?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The Central Limit Theorem</li>
+<li><span class="correct" data-explanation="Applying Chebyshev to $\bar{X}_n$ gives $P(|\bar{X}_n - \mu| \geq \varepsilon) \leq \sigma^2/(n\varepsilon^2) \to 0$. No normality assumption is needed.">Chebyshev’s Inequality</span></li>
+<li>Jensen’s Inequality</li>
+<li>The Empirical Rule</li>
+</ul>
+</section>
+<section id="section-8" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Example</strong></p>
+</div>
+<div class="callout-content">
+<p>A fair die is rolled repeatedly. Let <span class="math inline">\(\bar{X}_n\)</span> be the average of the first <span class="math inline">\(n\)</span> rolls. By the WLLN, <span class="math inline">\(\bar{X}_n\)</span> converges in probability to which value?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>3</li>
+<li><span class="correct" data-explanation="$E[X] = (1+2+3+4+5+6)/6 = 3.5$. The WLLN says $\bar{X}_n \overset{p}{\to} E[X] = 3.5$.">3.5</span></li>
+<li>4</li>
+<li>6</li>
+</ul>
+</section>
+<section id="empirical-probability-connection" class="slide level2">
+<h2>Empirical Probability Connection</h2>
+<div class="defbox">
+<p><strong>Empirical Probability from the WLLN</strong></p>
+<p>Define indicator <span class="math inline">\(X_i = \mathbf{1}[\text{event } A \text{ occurs on trial } i]\)</span>.</p>
+<p>Then <span class="math inline">\(E[X_i] = P(A)\)</span>, and by the WLLN:</p>
+<p><span class="math display">\[\bar{X}_n = \frac{\text{number of times } A \text{ occurs}}{n} \;\overset{p}{\longrightarrow}\; P(A)\]</span></p>
+</div>
+<div class="examplebox fragment">
+<p><strong>Coin flip.</strong> Tossing a fair coin: <span class="math inline">\(P(\text{heads}) = 0.5\)</span>. After many flips, the proportion of heads converges to <span class="math inline">\(0.5\)</span>. This is precisely the WLLN at work.</p>
+</div>
+</section>
+<section id="chapter-summary" class="slide level2 compact">
+<h2>Chapter Summary</h2>
+<div class="three-col">
+<div class="card fragment">
+<p><span class="label">Key Distributions</span> <span class="math inline">\(N(\mu,\sigma^2)\)</span> for continuous data; <span class="math inline">\(\chi^2_k\)</span> for variance; <span class="math inline">\(t_\nu\)</span> for small-sample means; <span class="math inline">\(F_{\nu_1,\nu_2}\)</span> for variance ratios.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">CLT</span> For i.i.d. data with finite variance, <span class="math inline">\(\bar{X}_n\)</span> is approximately <span class="math inline">\(N(\mu, \sigma^2/n)\)</span> for large <span class="math inline">\(n\)</span>, regardless of the parent distribution.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">LLN</span> <span class="math inline">\(\bar{X}_n \overset{p}{\to} \mu\)</span>. Sample averages settle near the population mean. Proof uses Chebyshev’s inequality.</p>
+</div>
+</div>
+<p><br></p>
+<div class="thinkbox fragment">
+<p><strong>One slide takeaway.</strong> The CLT and LLN together justify why normal-based inference (confidence intervals, <span class="math inline">\(t\)</span>-tests) works in practice. Learn the distributions now — everything in Chapters 5+ builds on them.</p>
+</div>
+</section>
+<section id="bonus-example-applying-the-clt" class="slide level2 scrollable">
+<h2>Bonus Example: Applying the CLT</h2>
+<div class="taskbox">
+<p><span class="label">Bonus Example</span> Let <span class="math inline">\(X \sim \text{Uniform}(0, 1)\)</span>, so <span class="math inline">\(E[X] = 0.5\)</span> and <span class="math inline">\(\text{Var}(X) = 1/12\)</span>.</p>
+<p><strong>(a)</strong> For <span class="math inline">\(n = 48\)</span> i.i.d. draws, find <span class="math inline">\(P(\bar{X} \leq 0.52)\)</span> approximately.</p>
+<p><strong>(b)</strong> Find <span class="math inline">\(P(0.48 \leq \bar{X} \leq 0.52)\)</span> approximately.</p>
+<p><strong>(c)</strong> Simulate the sampling distribution and overlay the CLT approximation. Do they agree?</p>
+</div>
+</section>
+<section id="bonus-example-check-in-r" class="slide level2">
+<h2>Bonus Example — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-16" class="exercise-cell">
+
+</div>
+<script type="webr-16-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxubiA8LSA0ODsgbXUgPC0gMC41OyBzaWdtYTIgPC0gMS8xMjsgc2UgPC0gc3FydChzaWdtYTIvbilcblxuIyAoYSkgUChYLWJhciA8PSAwLjUyKVxucG5vcm0oMC41MiwgbWVhbj1tdSwgc2Q9c2UpXG5cbiMgKGIpIFAoMC40OCA8PSBYLWJhciA8PSAwLjUyKVxucG5vcm0oMC41MiwgbXUsIHNlKSAtIHBub3JtKDAuNDgsIG11LCBzZSlcblxuIyAoYykgU2ltdWxhdGlvblxuc2V0LnNlZWQoNDIpXG54YmFycyA8LSByZXBsaWNhdGUoNTAwMCwgbWVhbihydW5pZihuKSkpXG5oaXN0KHhiYXJzLCBicmVha3M9NTAsIGZyZXE9RkFMU0UsIGNvbD1cIiMwMDY5NWNcIiwgYm9yZGVyPVwid2hpdGVcIixcbiAgICAgbWFpbj1wYXN0ZShcIkNMVDogVW5pZm9ybSgwLDEpLCBuPVwiLCBuKSwgeGxhYj1cIlNhbXBsZSBtZWFuXCIpXG5jdXJ2ZShkbm9ybSh4LCBtdSwgc2UpLCBhZGQ9VFJVRSwgY29sPVwiI0Y4NzY2RFwiLCBsd2Q9MikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="up-next" class="slide level2">
+<h2>Up Next</h2>
+<div class="examplebox">
+<p><strong>Chapter 5 — Confidence Intervals</strong></p>
+<p>We use the CLT and the <span class="math inline">\(t\)</span>-distribution to build <strong>confidence intervals</strong> for unknown population means and proportions. You will finally answer: <em>“How sure are we that <span class="math inline">\(\bar{x}\)</span> is close to <span class="math inline">\(\mu\)</span>?”</em></p>
+</div>
+<div class="home-button-row">
+<p><a href="../index.html" class="home-button">Back to Homepage</a></p>
+</div>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImdncGxvdDIiLCJkcGx5ciJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzExID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici03LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>STA258 | Chapter 4</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"","defaultIncorrect":"","includeScore":false,"disableReset":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 5.5e-2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealQuiz, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../Chapter Slides";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "..";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/nishanmudalige\.github\.io\/STA258_Slides");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

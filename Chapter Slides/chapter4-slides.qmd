@@ -1,0 +1,1698 @@
+---
+pagetitle: "Chapter 4: Foundations of Inference - Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 4"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+live:
+  show-solutions: true
+---
+
+```{r setup}
+#| include: false
+library(ggplot2)
+library(dplyr)
+theme_set(theme_minimal(base_size = 13))
+set.seed(258)
+```
+
+# Chapter 4: Foundations of Inference {.title-slide}
+
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1  { font-size: 1.72em !important; }
+.reveal h2  {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3  { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+/* ── Title slide ──────────────────────────────────────── */
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p  { font-size: 0.78em; color: var(--sta-muted); }
+
+/* ── Grid layouts ─────────────────────────────────────── */
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid {
+  display: grid;
+  gap: 14px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: 1fr 1fr; }
+.two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide  { grid-template-columns: 1.1fr 0.9fr; }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 16px; }
+.col           { min-width: 0; }
+
+/* ── Boxes ────────────────────────────────────────────── */
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* ── Utility ──────────────────────────────────────────── */
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+/* ── Tables ───────────────────────────────────────────── */
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+/* ── Code ─────────────────────────────────────────────── */
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+/* ── Compact ──────────────────────────────────────────── */
+.reveal section.compact h2  { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li  { font-size: 0.74em; }
+
+/* ── Quiz polish ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
+.reveal .quiz-question .callout-note { margin: 4px 0 12px 0 !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p { font-size: 0.78em !important; line-height: 1.3; margin: 4px 0; }
+.reveal .quiz-question .callout-title { font-size: 0.82em !important; padding: 5px 12px !important; }
+.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation { font-size: 0.7em !important; margin-top: 8px; }
+
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+
+/* ── Solution callouts ────────────────────────────────── */
+.callout { font-size: 0.75em; }
+
+/* ── Home button ──────────────────────────────────────── */
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
+
+/* ── Interactive distribution widget ─────────────────── */
+.dist-widget {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.72em;
+}
+.dist-widget label { font-weight: 600; color: var(--sta-teal-dark); }
+.dist-widget input[type=range] { width: 100%; accent-color: var(--sta-teal); }
+.dist-widget canvas { width: 100% !important; }
+</style>
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability
+University of Toronto Mississauga
+
+![](../images/cat.png){width="245" fig-alt="Course mascot"}
+
+---
+
+## Chapter Roadmap {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">1 - Key Distributions</span>
+Normal, Chi-square, Student's $t$, and $F$. Shape, parameters, and when each appears.
+:::
+::: {.card .fragment}
+<span class="label">2 - Sampling Distributions</span>
+Statistics have distributions too. The CLT explains why the sample mean is (approximately) normal for large $n$.
+:::
+::: {.card .fragment}
+<span class="label">3 - Law of Large Numbers</span>
+Sample averages converge to the true mean. The mathematical bridge from data to probability.
+:::
+::::
+
+<br>
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Core skill</span>
+Identify which distribution applies and read probability from it.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core tool</span>
+R functions `pnorm()`, `qnorm()`, `pchisq()`, `pt()`, `pf()`.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core habit</span>
+Check the degrees of freedom before looking up any critical value.
+:::
+::::
+
+---
+
+## What is Statistical Inference?
+
+::: {.defbox .fragment}
+**Statistical Inference**
+
+The aim is to produce **estimators** of population parameters based on a smaller sample, and to quantify the accuracy of those estimators via a probability statement.
+
+We collect data from a **sample** → compute **statistics** → make statements about the **population**.
+:::
+
+:::: {.two-col}
+::: {.examplebox .fragment}
+**Classic inferential question**
+
+"How sure are we that the sample mean $\bar{x}$ is close to the true population mean $\mu$?"
+:::
+::: {.thinkbox .fragment}
+**Why not measure everyone?**
+
+Populations are usually infinite, very large, or expensive to enumerate. Sampling + inference is the practical solution.
+:::
+::::
+
+---
+
+## 4.1 The Normal Distribution
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox}
+**Normal Distribution** — $X \sim N(\mu, \sigma^2)$
+
+$$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
+
+for $-\infty < x < \infty$.
+
+Parameters: mean $\mu$ and variance $\sigma^2 > 0$.
+:::
+
+::: {.examplebox .fragment}
+Also called the **Gaussian distribution**, after Carl Friedrich Gauss (1809). It is symmetric and bell-shaped, completely characterized by $\mu$ and $\sigma$.
+:::
+:::
+
+::: {.col}
+```{r}
+#| echo: false
+#| fig-width: 5.5
+#| fig-height: 3.6
+#| fig-align: center
+library(ggplot2)
+ggplot(data.frame(x = c(-6, 10)), aes(x)) +
+  stat_function(fun = dnorm, args = list(mean = -2, sd = 0.5),
+                aes(colour = "N(-2, 0.5²)"), size = 1.3, geom = "area",
+                fill = "#00BA38", alpha = 0.4, n = 500) +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1),
+                aes(colour = "N(0, 1²)"), size = 1.3, geom = "area",
+                fill = "#F8766D", alpha = 0.4, n = 500) +
+  stat_function(fun = dnorm, args = list(mean = 3, sd = 1.5),
+                aes(colour = "N(3, 1.5²)"), size = 1.3, geom = "area",
+                fill = "#619CFF", alpha = 0.4, n = 500) +
+  scale_colour_manual("", values = c("N(-2, 0.5²)" = "#00BA38",
+                                     "N(0, 1²)"   = "#F8766D",
+                                     "N(3, 1.5²)" = "#619CFF")) +
+  labs(x = "x", y = "Density") +
+  theme_minimal(base_size = 12) +
+  theme(panel.grid = element_blank(), legend.position = "top",
+        legend.text = element_text(size = 9))
+```
+:::
+::::
+
+---
+
+## 4.1.1 The Standard Normal Distribution
+
+::: {.defbox .fragment}
+**Standard Normal** — $Z \sim N(0, 1)$
+
+$$f(z) = \frac{1}{\sqrt{2\pi}} \cdot e^{-z^2/2}$$
+
+A special case with $\mu = 0$ and $\sigma^2 = 1$. Denoted $Z$.
+:::
+
+::: {.examplebox .fragment}
+**Standardising.** Any $X \sim N(\mu, \sigma^2)$ can be converted:
+
+$$Z = \frac{X - \mu}{\sigma} \sim N(0,1)$$
+
+This lets us use a single table (or `pnorm()`) for any normal distribution.
+:::
+
+---
+
+## The Empirical Rule
+
+::: {.defbox}
+**Empirical Rule** (68–95–99.7)
+
+For any $N(\mu, \sigma^2)$ distribution:
+
+| Interval | Probability |
+|---|---|
+| $(\mu - \sigma,\ \mu + \sigma)$ | $\approx 68.27\%$ |
+| $(\mu - 2\sigma,\ \mu + 2\sigma)$ | $\approx 95.45\%$ |
+| $(\mu - 3\sigma,\ \mu + 3\sigma)$ | $\approx 99.73\%$ |
+:::
+
+::: {.thinkbox .fragment}
+**Quick SD estimate.** For a roughly normal sample, $\hat{\sigma} \approx \dfrac{\text{Range}}{4}$. Useful as a sanity check.
+:::
+
+---
+
+## Empirical Rule — Interactive Explorer
+
+<div style="border:1px solid var(--sta-border); border-radius:10px; padding:12px 16px; background:#fff; font-size:0.72em;">
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;">
+<div>
+<label style="font-weight:700; color:#004d40;">Mean (μ): <span id="mu-val">0</span></label><br>
+<input type="range" id="mu-slide" min="-5" max="5" step="0.5" value="0" oninput="updateDist()" style="width:100%; accent-color:#00695c;">
+</div>
+<div>
+<label style="font-weight:700; color:#004d40;">Std Dev (σ): <span id="sd-val">1</span></label><br>
+<input type="range" id="sd-slide" min="0.5" max="3" step="0.25" value="1" oninput="updateDist()" style="width:100%; accent-color:#00695c;">
+</div>
+</div>
+
+<canvas id="empCanvas" height="210" style="width:100%; border-radius:6px;"></canvas>
+
+<div id="emp-readout" style="margin-top:6px; display:grid; grid-template-columns:repeat(3,1fr); gap:6px; text-align:center;"></div>
+
+</div>
+
+<script>
+(function(){
+function phi(x){ return 0.5*(1+erf((x)/Math.SQRT2)); }
+function erf(x){
+  var t=1/(1+0.3275911*Math.abs(x));
+  var y=1-((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t*0.254829592*Math.exp(-x*x);
+  return x>=0?y:-y;
+}
+function dnorm(x,mu,sd){ return Math.exp(-0.5*((x-mu)/sd)**2)/(sd*Math.sqrt(2*Math.PI)); }
+
+function updateDist(){
+  var mu=+document.getElementById('mu-slide').value;
+  var sd=+document.getElementById('sd-slide').value;
+  document.getElementById('mu-val').textContent=mu;
+  document.getElementById('sd-val').textContent=sd;
+  var canvas=document.getElementById('empCanvas');
+  var ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth*2; canvas.height=420;
+  ctx.scale(2,2);
+  var W=canvas.offsetWidth/2, H=210;
+  ctx.clearRect(0,0,W,H);
+  var xmin=mu-4*sd, xmax=mu+4*sd;
+  function toX(v){ return (v-xmin)/(xmax-xmin)*W; }
+  function toY(v){ return H-10-v*(H-30)/dnorm(mu,mu,sd)*0.92; }
+
+  var cols=['#00C0B8','#00B0F6','#7997FF'];
+  var sigmas=[1,2,3];
+  sigmas.slice().reverse().forEach(function(k,i){
+    ctx.beginPath();
+    var pts=[];
+    for(var xi=mu-k*sd;xi<=mu+k*sd;xi+=(2*k*sd)/300) pts.push([toX(xi),toY(dnorm(xi,mu,sd))]);
+    pts.push([toX(mu+k*sd),toY(0)]); pts.push([toX(mu-k*sd),toY(0)]);
+    ctx.moveTo(pts[0][0],pts[0][1]);
+    pts.slice(1).forEach(function(p){ ctx.lineTo(p[0],p[1]); });
+    ctx.closePath();
+    ctx.fillStyle=cols[2-i]+'99'; ctx.fill();
+  });
+
+  ctx.beginPath(); ctx.strokeStyle='#004d40'; ctx.lineWidth=2;
+  var first=true;
+  for(var xi=xmin;xi<=xmax;xi+=(xmax-xmin)/400){
+    var py=toY(dnorm(xi,mu,sd));
+    if(first){ctx.moveTo(toX(xi),py);first=false;}else ctx.lineTo(toX(xi),py);
+  }
+  ctx.stroke();
+
+  // axis
+  ctx.beginPath(); ctx.strokeStyle='#888'; ctx.lineWidth=1;
+  ctx.moveTo(0,toY(0)); ctx.lineTo(W,toY(0)); ctx.stroke();
+
+  // labels
+  ctx.fillStyle='#2f3437'; ctx.font='11px Arial'; ctx.textAlign='center';
+  [-3,-2,-1,0,1,2,3].forEach(function(k){
+    var xv=mu+k*sd;
+    if(xv>=xmin&&xv<=xmax){
+      ctx.fillText((k===0?'μ':k+'σ'),toX(xv),toY(0)+14);
+    }
+  });
+
+  // readout
+  var probs=[(phi(1)-phi(-1))*100,(phi(2)-phi(-2))*100,(phi(3)-phi(-3))*100];
+  var labels=['μ ± 1σ','μ ± 2σ','μ ± 3σ'];
+  var ro=document.getElementById('emp-readout');
+  ro.innerHTML=probs.map(function(p,i){
+    return '<div style="background:'+cols[i]+'33;border-radius:6px;padding:4px 0;font-weight:700;">'+labels[i]+'<br>'+p.toFixed(2)+'%</div>';
+  }).join('');
+}
+window.updateDist=updateDist;
+setTimeout(updateDist,100);
+window.addEventListener('resize',updateDist);
+})();
+</script>
+
+---
+
+## Normal Probabilities in R
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+# P(Z <= 1.96)
+pnorm(1.96)
+
+# P(Z > 1.96)   (right tail)
+pnorm(1.96, lower.tail = FALSE)
+
+# P(-1.96 < Z < 1.96)
+pnorm(1.96) - pnorm(-1.96)
+
+# Critical value: find z such that P(Z <= z) = 0.975
+qnorm(0.975)
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**`pnorm(q, mean, sd)`** gives $P(X \le q)$.
+
+**`qnorm(p, mean, sd)`** inverts: gives $q$ such that $P(X \le q) = p$.
+
+Default: `mean = 0`, `sd = 1` (standard normal).
+:::
+
+::: {.thinkbox .fragment}
+**Try it.** What is $P(X < 130)$ when $X \sim N(100, 15^2)$? Use `pnorm(130, mean = 100, sd = 15)`.
+:::
+:::
+::::
+
+---
+
+## Example: Heights {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Adult heights in a population follow $X \sim N(170, 8^2)$ cm.
+
+**(a)** Find $P(X < 180)$.
+
+**(b)** Find $P(X > 160)$.
+
+**(c)** Find $P(162 < X < 178)$.
+
+**(d)** Find the height $h$ such that only 5% of people are taller than $h$.
+:::
+
+---
+
+## Heights — Check in R
+
+```{webr}
+#| autorun: false
+
+mu <- 170; sigma <- 8
+
+# (a) P(X < 180)
+pnorm(180, mean = mu, sd = sigma)
+
+# (b) P(X > 160)
+pnorm(160, mean = mu, sd = sigma, lower.tail = FALSE)
+
+# (c) P(162 < X < 178)
+pnorm(178, mean = mu, sd = sigma) - pnorm(162, mean = mu, sd = sigma)
+
+# (d) 95th percentile (only 5% above)
+qnorm(0.95, mean = mu, sd = sigma)
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+For $Z \sim N(0,1)$, the Empirical Rule tells us $P(-2 < Z < 2) \approx 0.9545$. Using **symmetry**, what is $P(Z > 2)$?
+::::
+
+- 0.9545
+- 0.0455
+- [0.02275]{.correct data-explanation="The total area outside $(-2,2)$ is $1 - 0.9545 = 0.0455$. By symmetry, each tail has area $0.0455/2 = 0.02275$."}
+- 0.0500
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+$X \sim N(50, 100)$. What is the standardised value $z$ corresponding to $x = 65$?
+::::
+
+- $z = 0.65$
+- $z = 1.5$
+- [$z = 1.5$]{.correct data-explanation="$z = (65 - 50)/10 = 1.5$. Note: $\sigma = \sqrt{100} = 10$, not 100."}
+- $z = 2.5$
+
+::: {.quiz-hint}
+Remember: $\sigma = \sqrt{\sigma^2}$
+:::
+
+---
+
+## 4.1.2 The Chi-Square Distribution
+
+::: {.defbox}
+**Chi-Square Random Variable** — $X \sim \chi^2_k$
+
+If $Z_1, Z_2, \ldots, Z_k \overset{\text{iid}}{\sim} N(0,1)$, then
+
+$$X = \sum_{i=1}^{k} Z_i^2 \sim \chi^2_k$$
+
+The pdf for $x > 0$ is:
+
+$$f(x; k) = \frac{1}{2^{k/2}\,\Gamma(k/2)}\, x^{k/2 - 1}\, e^{-x/2}$$
+:::
+
+::: {.examplebox .fragment}
+The distribution is **right-skewed** and supported on $(0, \infty)$. As $k$ increases, it becomes more symmetric.  $E[X] = k$, $\text{Var}(X) = 2k$.
+:::
+
+---
+
+## Chi-Square: Shape by Degrees of Freedom
+
+```{r}
+#| echo: false
+#| fig-width: 9
+#| fig-height: 3.6
+#| fig-align: center
+library(ggplot2)
+x_vals <- seq(0.01, 25, length.out = 600)
+df_plot <- rbind(
+  data.frame(x = x_vals, y = dchisq(x_vals, df=2),  dist = "χ²(2)"),
+  data.frame(x = x_vals, y = dchisq(x_vals, df=5),  dist = "χ²(5)"),
+  data.frame(x = x_vals, y = dchisq(x_vals, df=10), dist = "χ²(10)")
+)
+ggplot(df_plot, aes(x, y, colour=dist, fill=dist)) +
+  geom_area(alpha=0.4, position="identity") +
+  geom_line(size=1.2) +
+  scale_colour_manual(values=c("#00BA38","#F8766D","#619CFF")) +
+  scale_fill_manual(values=c("#00BA38","#F8766D","#619CFF")) +
+  labs(x="x", y="Density", colour=NULL, fill=NULL) +
+  theme_minimal(base_size=12) +
+  theme(panel.grid=element_blank(), legend.position="top")
+```
+
+::: {.thinkbox .fragment}
+**Key fact.** The chi-square distribution is always positive and right-skewed. It plays a central role in tests for variance and for categorical data (Chapter 7+).
+:::
+
+---
+
+## Chi-Square in R
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+# P(X <= 10) where X ~ chi-sq(5)
+pchisq(10, df = 5)
+
+# Upper tail: P(X > 10)
+pchisq(10, df = 5, lower.tail = FALSE)
+
+# Critical value: 95th percentile with df=10
+qchisq(0.95, df = 10)
+
+# Plot the distribution
+curve(dchisq(x, df = 5), from = 0, to = 20,
+      col = "#F8766D", lwd = 2,
+      main = "Chi-Square(5)", ylab = "Density")
+```
+:::
+
+::: {.col}
+::: {.defbox}
+**Mean & Variance**
+
+For $X \sim \chi^2_k$:
+
+$$E[X] = k, \qquad \text{Var}(X) = 2k$$
+
+As $k \to \infty$, the chi-square distribution approaches a normal distribution (by the CLT).
+:::
+:::
+::::
+
+---
+
+## Example: Chi-Square Probability {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Let $X \sim \chi^2_{8}$.
+
+**(a)** Find $P(X \leq 15.507)$.
+
+**(b)** Find the 95th percentile of $X$.
+
+**(c)** If $Z_1, Z_2, Z_3 \overset{\text{iid}}{\sim} N(0,1)$, what is the distribution of $Z_1^2 + Z_2^2 + Z_3^2$?
+
+**(d)** What are $E[X]$ and $\text{Var}(X)$?
+:::
+
+---
+
+## Chi-Square Example — Check in R
+
+```{webr}
+#| autorun: false
+
+# (a) P(X <= 15.507) with df=8
+pchisq(15.507, df = 8)
+
+# (b) 95th percentile
+qchisq(0.95, df = 8)
+
+# (c) sum of 3 squared standard normals ~ chi-sq(3)
+# (d) mean = k, var = 2k
+k <- 8
+cat("Mean:", k, "  Var:", 2*k, "\n")
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+$Z_1, Z_2, Z_3, Z_4 \overset{\text{iid}}{\sim} N(0,1)$. What is the distribution of $W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2$?
+::::
+
+- $W \sim N(0,4)$
+- $W \sim \chi^2_2$
+- [$W \sim \chi^2_4$]{.correct data-explanation="The sum of squares of $k$ independent standard normals is $\chi^2_k$. Here $k = 4$."}
+- $W \sim t_4$
+
+---
+
+## 4.1.3 The Student's $t$-Distribution
+
+::: {.defbox}
+**Student's $t$ Distribution** — $T \sim t_\nu$
+
+If $Z \sim N(0,1)$ and $U \sim \chi^2_\nu$ are **independent**, then
+
+$$T = \frac{Z}{\sqrt{U/\nu}} \sim t_\nu$$
+
+The pdf is:
+
+$$f_T(t;\nu) = \frac{\Gamma\!\left(\frac{\nu+1}{2}\right)}{\sqrt{\pi\nu}\,\Gamma\!\left(\frac{\nu}{2}\right)} \left(1 + \frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}}, \quad -\infty < t < \infty$$
+:::
+
+::: {.warnbox .fragment}
+The $t$-distribution has **heavier tails** than the normal. As $\nu \to \infty$, $t_\nu \to N(0,1)$.
+:::
+
+---
+
+## $t$ vs Normal: Heavier Tails
+
+```{r}
+#| echo: false
+#| fig-width: 9
+#| fig-height: 3.6
+#| fig-align: center
+x_vals <- seq(-4, 4, length.out = 400)
+df_t <- rbind(
+  data.frame(x=x_vals, y=dnorm(x_vals),       dist="Standard Normal"),
+  data.frame(x=x_vals, y=dt(x_vals, df=2),    dist="t(2)"),
+  data.frame(x=x_vals, y=dt(x_vals, df=9),    dist="t(9)")
+)
+ggplot(df_t, aes(x, y, colour=dist, linetype=dist)) +
+  geom_line(size=1.3) +
+  scale_colour_manual(values=c("#F8766D","#00BA38","#619CFF")) +
+  scale_linetype_manual(values=c("solid","dashed","dashed")) +
+  labs(x="t", y="Density", colour=NULL, linetype=NULL) +
+  theme_minimal(base_size=12) +
+  theme(panel.grid=element_blank(), legend.position="top")
+```
+
+::: {.thinkbox .fragment}
+**Why does this matter?** When estimating a mean from a small sample with unknown $\sigma$, we use $t$ critical values — they are larger than $z$ values, reflecting extra uncertainty.
+:::
+
+---
+
+## $t$-Distribution: Interactive Tail Comparison
+
+<div style="border:1px solid var(--sta-border); border-radius:10px; padding:12px 16px; background:#fff; font-size:0.72em;">
+<label style="font-weight:700; color:#004d40;">Degrees of Freedom (ν): <span id="df-val">5</span></label><br>
+<input type="range" id="df-slide" min="1" max="50" step="1" value="5"
+  oninput="updateT()" style="width:60%; accent-color:#00695c; margin-bottom:8px;"><br>
+
+<canvas id="tCanvas" height="180" style="width:100%; border-radius:6px;"></canvas>
+
+<div id="t-readout" style="margin-top:6px; display:flex; gap:10px; justify-content:center;"></div>
+</div>
+
+<script>
+(function(){
+// Approx t-pdf via log-gamma
+function lgamma(x){
+  var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,
+         0.1208650973866179e-2,-0.5395239384953e-5];
+  var y=x, tmp=x+5.5, ser=1.000000000190015;
+  tmp-=(x+0.5)*Math.log(tmp);
+  for(var j=0;j<6;j++) ser+=c[j]/++y;
+  return -tmp+Math.log(2.5066282746310005*ser/x);
+}
+function dtpdf(t,nu){
+  var lg1=lgamma((nu+1)/2), lg2=lgamma(nu/2);
+  return Math.exp(lg1-lg2)*Math.pow(1+t*t/nu,-(nu+1)/2)/(Math.sqrt(nu*Math.PI));
+}
+function dnorm(x){ return Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI); }
+
+function updateT(){
+  var nu=+document.getElementById('df-slide').value;
+  document.getElementById('df-val').textContent=nu;
+  var canvas=document.getElementById('tCanvas');
+  var ctx=canvas.getContext('2d');
+  canvas.width=canvas.offsetWidth*2; canvas.height=360;
+  ctx.scale(2,2);
+  var W=canvas.offsetWidth/2, H=180;
+  ctx.clearRect(0,0,W,H);
+
+  var xmin=-4.5, xmax=4.5, n=400;
+  function toX(v){ return (v-xmin)/(xmax-xmin)*W; }
+  var ymax=0.42;
+  function toY(v){ return H-12-v/ymax*(H-28); }
+
+  // draw normal
+  ctx.beginPath(); ctx.strokeStyle='#F8766D'; ctx.lineWidth=2;
+  for(var i=0;i<=n;i++){
+    var xv=xmin+i*(xmax-xmin)/n, yv=dnorm(xv);
+    i===0?ctx.moveTo(toX(xv),toY(yv)):ctx.lineTo(toX(xv),toY(yv));
+  }
+  ctx.stroke();
+
+  // shade t tails (|t|>2)
+  ctx.beginPath();
+  var shade=false;
+  for(var i=0;i<=n;i++){
+    var xv=xmin+i*(xmax-xmin)/n, yv=dtpdf(xv,nu);
+    if(Math.abs(xv)>=2){
+      if(!shade){ ctx.moveTo(toX(xv),toY(0)); shade=true; }
+      ctx.lineTo(toX(xv),toY(yv));
+    } else if(shade){ ctx.lineTo(toX(xv),toY(0)); shade=false; }
+  }
+  ctx.fillStyle='#619CFF55'; ctx.fill();
+
+  // draw t
+  ctx.beginPath(); ctx.strokeStyle='#619CFF'; ctx.lineWidth=2;
+  for(var i=0;i<=n;i++){
+    var xv=xmin+i*(xmax-xmin)/n, yv=dtpdf(xv,nu);
+    i===0?ctx.moveTo(toX(xv),toY(yv)):ctx.lineTo(toX(xv),toY(yv));
+  }
+  ctx.stroke();
+
+  // axis
+  ctx.beginPath(); ctx.strokeStyle='#aaa'; ctx.lineWidth=1;
+  ctx.moveTo(0,toY(0)); ctx.lineTo(W,toY(0)); ctx.stroke();
+  ctx.fillStyle='#555'; ctx.font='11px Arial'; ctx.textAlign='center';
+  [-4,-3,-2,-1,0,1,2,3,4].forEach(function(v){
+    ctx.fillText(v,toX(v),toY(0)+12);
+  });
+
+  // legend
+  ctx.textAlign='left';
+  ctx.fillStyle='#F8766D'; ctx.fillRect(10,8,18,4);
+  ctx.fillStyle='#2f3437'; ctx.fillText('N(0,1)',32,13);
+  ctx.fillStyle='#619CFF'; ctx.fillRect(10,18,18,4);
+  ctx.fillText('t('+nu+')',32,23);
+
+  // tail probability readout
+  // numeric approx of P(T > 2)
+  var step=0.001, tail=0;
+  for(var tv=2;tv<=10;tv+=step) tail+=dtpdf(tv,nu)*step;
+  tail=tail*2; // two tails
+  var ro=document.getElementById('t-readout');
+  ro.innerHTML='<div style="background:#619CFF22;border-radius:6px;padding:5px 10px;font-weight:700;">P(|T| > 2) = '+tail.toFixed(4)+'</div>'+
+    '<div style="background:#F8766D22;border-radius:6px;padding:5px 10px;font-weight:700;">P(|Z| > 2) = 0.0455</div>';
+}
+window.updateT=updateT;
+setTimeout(updateT,100);
+window.addEventListener('resize',updateT);
+})();
+</script>
+
+---
+
+## $t$-Distribution in R
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+# P(T <= 2.0) with df = 10
+pt(2.0, df = 10)
+
+# Critical value: t such that P(T <= t) = 0.975, df=10
+qt(0.975, df = 10)
+
+# Compare to z critical value
+qnorm(0.975)
+
+# How many df until t ≈ z?
+qt(0.975, df = c(5, 10, 30, 100, 1000))
+```
+:::
+
+::: {.col}
+::: {.examplebox}
+**`pt(q, df)`** → $P(T \le q)$
+
+**`qt(p, df)`** → inverse CDF
+
+Notice `qt(0.975, df=10) = 2.228` vs `qnorm(0.975) = 1.960`. The $t$ critical value is larger — reflecting extra uncertainty in small samples.
+:::
+:::
+::::
+
+---
+
+## Example: $t$ Critical Values {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+**(a)** For $T \sim t_{15}$, find $P(T \leq 2.131)$.
+
+**(b)** For $T \sim t_{20}$, find the value $c$ such that $P(-c \leq T \leq c) = 0.95$.
+
+**(c)** For $T \sim t_{5}$, find $P(|T| > 2.571)$.
+
+**(d)** Compare the 97.5th percentile of $t_{5}$, $t_{30}$, and $N(0,1)$. What do you notice?
+:::
+
+---
+
+## $t$ Example — Check in R
+
+```{webr}
+#| autorun: false
+
+# (a) P(T <= 2.131), df=15
+pt(2.131, df = 15)
+
+# (b) c such that P(-c <= T <= c) = 0.95, df=20
+qt(0.975, df = 20)
+
+# (c) P(|T| > 2.571), df=5
+2 * pt(2.571, df = 5, lower.tail = FALSE)
+
+# (d) 97.5th percentile comparison
+qt(0.975, df = c(5, 30)); qnorm(0.975)
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+Why do we use the $t$-distribution instead of the normal when making inferences about a mean from a small sample?
+::::
+
+- The $t$ is easier to compute
+- [We must estimate $\sigma$ from the data, adding uncertainty — $t$ has heavier tails to account for this]{.correct data-explanation="Replacing unknown $\sigma$ with $s$ introduces additional variability. The $t$ distribution has heavier tails than the normal, producing wider and more honest confidence intervals."}
+- The normal distribution is only valid for large populations
+- Small samples always have skewed data
+
+---
+
+## 4.1.4 The $F$-Distribution
+
+::: {.defbox}
+**$F$ Random Variable** — $F \sim F_{\nu_1, \nu_2}$
+
+If $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ are **independent**, then
+
+$$F = \frac{U/\nu_1}{V/\nu_2} \sim F_{\nu_1, \nu_2}$$
+
+The $F$ distribution is supported on $(0, \infty)$ and characterised by two degrees of freedom: **numerator** $\nu_1$ and **denominator** $\nu_2$.
+:::
+
+::: {.examplebox .fragment}
+The $F$ distribution is used to **compare two variances** and is the backbone of **ANOVA** (Analysis of Variance). You will see it a lot in later chapters.
+:::
+
+---
+
+## $F$-Distribution: Shape
+
+```{r}
+#| echo: false
+#| fig-width: 9
+#| fig-height: 3.4
+#| fig-align: center
+x_f <- seq(0.01, 5, length.out=600)
+df_f <- rbind(
+  data.frame(x=x_f, y=df(x_f,2,5),   dist="F(2,5)"),
+  data.frame(x=x_f, y=df(x_f,5,10),  dist="F(5,10)"),
+  data.frame(x=x_f, y=df(x_f,10,30), dist="F(10,30)")
+)
+ggplot(df_f, aes(x,y,colour=dist,fill=dist)) +
+  geom_area(alpha=0.4, position="identity") +
+  geom_line(size=1.2) +
+  coord_cartesian(ylim=c(0,1.2)) +
+  scale_colour_manual(values=c("#00BA38","#F8766D","#619CFF")) +
+  scale_fill_manual(values=c("#00BA38","#F8766D","#619CFF")) +
+  labs(x="x", y="Density", colour=NULL, fill=NULL) +
+  theme_minimal(base_size=12) +
+  theme(panel.grid=element_blank(), legend.position="top")
+```
+
+---
+
+## $F$-Distribution in R
+
+```{webr}
+#| autorun: false
+
+# P(F <= 3) with df1=5, df2=10
+pf(3, df1 = 5, df2 = 10)
+
+# 95th percentile (used as critical value in ANOVA)
+qf(0.95, df1 = 5, df2 = 10)
+
+# Plot
+curve(df(x, df1=5, df2=10), from=0, to=6,
+      col="#F8766D", lwd=2,
+      main="F(5,10) Distribution", ylab="Density")
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+Which statement correctly describes the relationship between the $\chi^2$ and $F$ distributions?
+::::
+
+- $F$ is the square of a $\chi^2$ random variable
+- [$F$ is the ratio of two independent $\chi^2$ variables, each divided by its degrees of freedom]{.correct data-explanation="Formally $F = (U/\nu_1)/(V/\nu_2)$ where $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ independently."}
+- $F$ is the sum of two $\chi^2$ random variables
+- $F$ is always symmetric like the normal
+
+---
+
+## Distribution Summary Table
+
+| Distribution | Parameters | Support | $E[X]$ | Key use |
+|---|---|---|---|---|
+| $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | General continuous |
+| $\chi^2_k$ | $k$ (df) | $(0,\infty)$ | $k$ | Variance tests |
+| $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ | Small-sample mean |
+| $F_{\nu_1,\nu_2}$ | $\nu_1, \nu_2$ | $(0,\infty)$ | $\dfrac{\nu_2}{\nu_2-2}$ | Variance ratios |
+
+::: {.thinkbox .fragment}
+**Connections.** $Z^2 \sim \chi^2_1$; $\;$ $t_\nu^2 \sim F_{1,\nu}$; $\;$ $t_\nu \to N(0,1)$ and $\chi^2_k/k \to 1$ as degrees of freedom grow.
+:::
+
+---
+
+## Built-in Distribution Calculator
+
+:::: {.two-col-lean}
+::: {.col}
+```{webr}
+#| autorun: false
+
+# --- Normal ---
+# P(X <= q), X ~ N(mu, sigma^2)
+mu <- 0; sigma <- 1; q <- 1.96
+pnorm(q, mean = mu, sd = sigma)
+
+# --- Chi-square ---
+pchisq(9.488, df = 4)
+
+# --- t ---
+pt(2.262, df = 9)
+
+# --- F ---
+pf(4.75, df1 = 3, df2 = 20)
+```
+:::
+
+::: {.col}
+::: {.defbox}
+**Quick reference**
+
+| Dist | CDF | Quantile |
+|---|---|---|
+| Normal | `pnorm` | `qnorm` |
+| $\chi^2$ | `pchisq` | `qchisq` |
+| $t$ | `pt` | `qt` |
+| $F$ | `pf` | `qf` |
+
+All accept `lower.tail = FALSE` for upper-tail probabilities.
+:::
+:::
+::::
+
+---
+
+## 4.2 Sampling Distributions
+
+::: {.defbox .fragment}
+**Sampling Distribution**
+
+The **probability distribution** of a statistic (such as $\bar{X}$) computed from all possible random samples of a given size $n$ drawn from the same population.
+:::
+
+:::: {.two-col}
+::: {.examplebox .fragment}
+**Key idea.** $\bar{X}$ is not a fixed number — it is a **random variable**. Each new sample of size $n$ gives a different value of $\bar{X}$. The sampling distribution describes how those values vary.
+:::
+::: {.thinkbox .fragment}
+**Why it matters.** Understanding the variability of $\bar{X}$ from sample to sample is the foundation for confidence intervals and hypothesis tests.
+:::
+::::
+
+---
+
+## Sampling Distribution of $\bar{X}$
+
+::: {.defbox}
+**Distribution of the sample mean**
+
+If $X_1, \ldots, X_n \overset{\text{iid}}{\sim}$ population with mean $\mu$ and variance $\sigma^2$, then:
+
+$$E[\bar{X}] = \mu \qquad \text{Var}(\bar{X}) = \frac{\sigma^2}{n}$$
+
+The **standard error** of $\bar{X}$ is $\text{SE}(\bar{X}) = \dfrac{\sigma}{\sqrt{n}}$.
+:::
+
+::: {.warnbox .fragment}
+**Larger $n$ → smaller SE.** Collecting more data shrinks the variability of the sample mean. This is why bigger samples give more precise estimates.
+:::
+
+---
+
+## Sampling Distribution — Simulation
+
+```{webr}
+#| autorun: false
+
+# Simulate sampling distribution of X-bar
+# Population: Exponential(rate=1), mu=1, sigma^2=1
+
+n     <- 30      # sample size
+reps  <- 5000    # number of samples
+
+xbar_vals <- replicate(reps, mean(rexp(n, rate = 1)))
+
+hist(xbar_vals, breaks = 50,
+     col = "#00695c", border = "white",
+     main = paste("Sampling distribution: n =", n),
+     xlab = "Sample mean", freq = FALSE)
+
+# Overlay theoretical normal
+curve(dnorm(x, mean = 1, sd = 1/sqrt(n)),
+      add = TRUE, col = "#F8766D", lwd = 2)
+```
+
+::: {.small-text}
+Change `n` to 5 or 2 and re-run. Watch the distribution become less normal.
+:::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+A population has mean $\mu = 40$ and variance $\sigma^2 = 100$. A random sample of size $n = 25$ is drawn. What is the standard error of $\bar{X}$?
+::::
+
+- 10
+- 4
+- [2]{.correct data-explanation="$SE(\bar{X}) = \sigma/\sqrt{n} = 10/\sqrt{25} = 10/5 = 2$."}
+- 0.4
+
+---
+
+## 4.3 The Central Limit Theorem
+
+::: {.defbox}
+**Central Limit Theorem (CLT)**
+
+Let $X_1, X_2, \ldots, X_n$ be i.i.d. with $E[X_i] = \mu$ and $\text{Var}(X_i) = \sigma^2 < \infty$. Then as $n \to \infty$:
+
+$$\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \;\overset{d}{\longrightarrow}\; N(0,1)$$
+
+Equivalently, for large $n$: $\quad \bar{X}_n \;\dot{\sim}\; N\!\left(\mu,\, \frac{\sigma^2}{n}\right)$
+:::
+
+::: {.thinkbox .fragment}
+**Remarkable.** The CLT holds for **any** parent distribution with finite variance — uniform, exponential, Poisson, or anything else. The shape of $\bar{X}$ approaches normal as $n$ grows.
+:::
+
+---
+
+## CLT: What "Large $n$" Means in Practice
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Symmetric distributions</span>
+Even $n = 10$–$15$ is often enough. The normal approximation kicks in quickly.
+:::
+::: {.stat-card .fragment}
+<span class="label">Moderately skewed</span>
+$n = 30$ is a common rule of thumb. Check with a histogram.
+:::
+::: {.stat-card .fragment}
+<span class="label">Heavily skewed</span>
+May need $n = 50$–$100$ or more. The more extreme the skew, the larger $n$ must be.
+:::
+::::
+
+<br>
+
+::: {.examplebox .fragment}
+**Practical consequence.** For large $n$, we can use $z$-based confidence intervals and hypothesis tests for $\mu$ even when the parent distribution is unknown or skewed.
+:::
+
+---
+
+## CLT — Interactive Simulator
+
+```{webr}
+#| autorun: false
+
+# CLT Simulator: change dist and n
+dist <- "exponential"   # try: "uniform", "poisson", "exponential"
+n    <- 30
+reps <- 4000
+
+draw_sample <- function(n) {
+  switch(dist,
+    uniform     = runif(n, 0, 1),
+    exponential = rexp(n, rate = 1),
+    poisson     = rpois(n, lambda = 3),
+    rnorm(n)
+  )
+}
+
+xbars <- replicate(reps, mean(draw_sample(n)))
+
+# Theoretical parameters
+mu_map    <- c(uniform=0.5, exponential=1, poisson=3, normal=0)
+var_map   <- c(uniform=1/12, exponential=1, poisson=3, normal=1)
+mu_t  <- mu_map[dist]; se_t <- sqrt(var_map[dist]/n)
+
+hist(xbars, breaks=50, freq=FALSE, col="#00695c", border="white",
+     main=paste("CLT:", dist, "| n =", n), xlab="Sample mean")
+curve(dnorm(x, mu_t, se_t), add=TRUE, col="#F8766D", lwd=2)
+```
+
+---
+
+## CLT Example: Poisson Sums {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Customers arrive at a bank at rate $\lambda = 4$ per minute. $X_i \sim \text{Pois}(4)$.
+
+**(a)** What are $E[X_i]$ and $\text{Var}(X_i)$?
+
+**(b)** For a sample of $n = 36$ one-minute intervals, find $P(\bar{X} \leq 4.5)$ approximately.
+
+**(c)** Find $P(\bar{X} > 3.8)$ approximately.
+
+**(d)** What sample size $n$ would make $P(|\bar{X} - 4| < 0.25) \geq 0.95$?
+:::
+
+---
+
+## Poisson CLT — Check in R
+
+```{webr}
+#| autorun: false
+
+mu <- 4; sigma2 <- 4; n <- 36
+se <- sqrt(sigma2 / n)
+
+# (b) P(X-bar <= 4.5)
+pnorm(4.5, mean = mu, sd = se)
+
+# (c) P(X-bar > 3.8)
+pnorm(3.8, mean = mu, sd = se, lower.tail = FALSE)
+
+# (d) P(|X-bar - mu| < 0.25) >= 0.95
+# Need 2*pnorm(0.25/se_n)-1 >= 0.95
+# 0.25/se_n >= 1.96  =>  se_n <= 0.25/1.96
+# sigma/sqrt(n) <= 0.25/1.96
+n_needed <- ceiling((2 * 1.96 / 0.25)^2)
+cat("Minimum n:", n_needed, "\n")
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+The Central Limit Theorem says the sample mean $\bar{X}_n$ is **approximately normal** for large $n$. What conditions are required?
+::::
+
+- The population must be normal
+- The sample size must equal exactly 30
+- [The observations must be i.i.d. with finite mean and variance]{.correct data-explanation="The CLT requires independence, identical distribution, and finite variance. The population distribution can be anything — that's the power of the theorem."}
+- The population must be symmetric
+
+---
+
+## 4.4 Convergence in Probability
+
+::: {.defbox .fragment}
+**Convergence in Probability**
+
+A sequence $X_1, X_2, \ldots$ converges in probability to constant $c$ if for every $\varepsilon > 0$:
+
+$$\lim_{n\to\infty} P\!\left(|X_n - c| \leq \varepsilon\right) = 1$$
+
+Written $X_n \overset{p}{\longrightarrow} c$.
+:::
+
+::: {.examplebox .fragment}
+**Intuition.** As $n$ grows, the probability that $X_n$ is far from $c$ shrinks to zero. The sequence settles down near $c$.
+:::
+
+---
+
+## Chebyshev's Inequality
+
+::: {.defbox}
+**Chebyshev's Inequality**
+
+For any random variable $X$ with mean $\mu$ and variance $\sigma^2$, and any $k > 0$:
+
+$$P(|X - \mu| \geq k) \leq \frac{\sigma^2}{k^2}$$
+
+Equivalently: $P(|X - \mu| < k) \geq 1 - \dfrac{\sigma^2}{k^2}$
+:::
+
+::: {.thinkbox .fragment}
+**No distributional assumption.** Chebyshev's inequality holds for **any** distribution with finite variance. It is the key tool in proving the WLLN.
+:::
+
+---
+
+## Chebyshev Example {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+$X$ has mean $\mu = 10$ and standard deviation $\sigma = 3$.
+
+**(a)** Use Chebyshev to bound $P(|X - 10| \geq 9)$.
+
+**(b)** Use Chebyshev to bound $P(1 < X < 19)$ from below.
+
+**(c)** Now suppose $X$ is actually $N(10, 9)$. Compute the exact probability $P(1 < X < 19)$ and compare with the Chebyshev bound.
+:::
+
+---
+
+## Chebyshev — Check in R
+
+```{webr}
+#| autorun: false
+
+mu <- 10; sigma <- 3
+
+# (a) Chebyshev upper bound on P(|X-10| >= 9)
+# k = 9
+k <- 9
+cheb_upper <- sigma^2 / k^2
+cat("Chebyshev upper bound:", cheb_upper, "\n")
+
+# (b) Lower bound on P(1 < X < 19) = P(|X-10| < 9)
+cat("Chebyshev lower bound:", 1 - cheb_upper, "\n")
+
+# (c) Exact (assuming X ~ N(10, 9))
+exact <- pnorm(19, mean=10, sd=3) - pnorm(1, mean=10, sd=3)
+cat("Exact (normal):", exact, "\n")
+cat("Chebyshev is conservative — exact probability is higher.\n")
+```
+
+---
+
+## 4.4.2 Weak Law of Large Numbers
+
+::: {.defbox}
+**Weak Law of Large Numbers (WLLN)**
+
+Let $X_1, X_2, \ldots$ be i.i.d. with $E[X_i] = \mu$ and $\text{Var}(X_i) = \sigma^2 < \infty$. Then for any $\varepsilon > 0$:
+
+$$P\!\left(\left|\bar{X}_n - \mu\right| \geq \varepsilon\right) \longrightarrow 0 \quad \text{as } n \to \infty$$
+
+Written $\bar{X}_n \overset{p}{\longrightarrow} \mu$.
+:::
+
+::: {.warnbox .fragment}
+This does **not** say $\bar{X}_n = \mu$ for large $n$. It says the probability of being far from $\mu$ goes to zero. Individual realisations can still deviate.
+:::
+
+---
+
+## Proof Sketch: WLLN via Chebyshev
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.examplebox}
+**Key steps**
+
+1. $\text{Var}(\bar{X}_n) = \dfrac{\sigma^2}{n}$
+
+2. Apply Chebyshev with $k = \varepsilon$:
+
+$$P\!\left(|\bar{X}_n - \mu| \geq \varepsilon\right) \leq \frac{\sigma^2}{n\varepsilon^2}$$
+
+3. As $n \to \infty$, right side $\to 0$.
+
+4. Since probability $\geq 0$, conclude the limit is $0$. $\square$
+:::
+:::
+
+::: {.col}
+::: {.thinkbox}
+**What does the proof need?**
+
+- Finite variance $\sigma^2$
+- Independence (for $\text{Var}(\bar{X}_n) = \sigma^2/n$)
+- Identical distribution (for common $\mu$ and $\sigma^2$)
+
+The CLT is not required — Chebyshev alone is enough.
+:::
+:::
+::::
+
+---
+
+## WLLN — Simulation
+
+```{webr}
+#| autorun: false
+
+# Watch the running mean converge to the truth
+set.seed(42)
+n  <- 200
+p  <- 0.5    # true mean of Bernoulli(0.5)
+
+x     <- rbinom(n, 1, p)
+trial <- 1:n
+rmean <- cumsum(x) / trial
+
+plot(trial, rmean, type = "l", col = "#619CFF", lwd = 1.5,
+     ylim = c(0, 1), xlab = "n", ylab = "Running mean",
+     main = "WLLN: Bernoulli(0.5) running mean")
+abline(h = p, lty = 2, col = "black")
+```
+
+---
+
+## WLLN — Multiple Paths
+
+```{webr}
+#| autorun: false
+
+set.seed(258)
+n  <- 200; p <- 0.5
+cols <- rainbow(8)
+
+# First path
+x <- rbinom(n,1,p); trial <- 1:n
+plot(trial, cumsum(x)/trial, type="l", col=cols[1],
+     ylim=c(0,1), xlab="n", ylab="Running mean",
+     main="WLLN: 8 independent paths")
+
+# Remaining paths
+for(i in 2:8){
+  x <- rbinom(n,1,p)
+  lines(trial, cumsum(x)/trial, col=cols[i])
+}
+abline(h=p, lty=2, lwd=2, col="black")
+```
+
+---
+
+## Example: Poisson WLLN {.scrollable}
+
+::: {.taskbox}
+<span class="label">Example</span>
+Let $X_i \overset{\text{iid}}{\sim} \text{Poisson}(\lambda = 3)$ for $i = 1, 2, \ldots$
+
+**(a)** State $E[X_i]$ and $\text{Var}(X_i)$.
+
+**(b)** Apply Chebyshev's inequality to bound $P(|\bar{X}_n - 3| \geq \varepsilon)$.
+
+**(c)** Show that $\bar{X}_n \overset{p}{\longrightarrow} 3$.
+
+**(d)** Simulate the convergence in R for $n = 500$ trials.
+:::
+
+---
+
+## Poisson WLLN — Check in R
+
+```{webr}
+#| autorun: false
+
+# (b)-(c): Chebyshev bound as function of n
+lambda <- 3; eps <- 0.25; n_vals <- seq(10, 500, by=10)
+bounds <- lambda / (n_vals * eps^2)
+
+plot(n_vals, bounds, type="l", col="#F8766D", lwd=2,
+     xlab="n", ylab="Chebyshev bound on P(|X-bar - 3| >= 0.25)",
+     main="Chebyshev bound → 0 as n → ∞")
+abline(h=0, lty=2)
+
+# (d) Simulate
+set.seed(1); n <- 500
+x <- rpois(n, lambda)
+plot(1:n, cumsum(x)/(1:n), type="l", col="#00695c", lwd=1.5,
+     ylim=c(1,5), xlab="n", ylab="Running mean")
+abline(h=lambda, lty=2)
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+The Weak Law of Large Numbers guarantees that for large $n$, $\bar{X}_n$ is close to $\mu$ with high probability. Which mathematical tool is used in the standard proof?
+::::
+
+- The Central Limit Theorem
+- [Chebyshev's Inequality]{.correct data-explanation="Applying Chebyshev to $\bar{X}_n$ gives $P(|\bar{X}_n - \mu| \geq \varepsilon) \leq \sigma^2/(n\varepsilon^2) \to 0$. No normality assumption is needed."}
+- Jensen's Inequality
+- The Empirical Rule
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Example
+
+A fair die is rolled repeatedly. Let $\bar{X}_n$ be the average of the first $n$ rolls. By the WLLN, $\bar{X}_n$ converges in probability to which value?
+::::
+
+- 3
+- [3.5]{.correct data-explanation="$E[X] = (1+2+3+4+5+6)/6 = 3.5$. The WLLN says $\bar{X}_n \overset{p}{\to} E[X] = 3.5$."}
+- 4
+- 6
+
+---
+
+## Empirical Probability Connection
+
+::: {.defbox}
+**Empirical Probability from the WLLN**
+
+Define indicator $X_i = \mathbf{1}[\text{event } A \text{ occurs on trial } i]$.
+
+Then $E[X_i] = P(A)$, and by the WLLN:
+
+$$\bar{X}_n = \frac{\text{number of times } A \text{ occurs}}{n} \;\overset{p}{\longrightarrow}\; P(A)$$
+:::
+
+::: {.examplebox .fragment}
+**Coin flip.** Tossing a fair coin: $P(\text{heads}) = 0.5$. After many flips, the proportion of heads converges to $0.5$. This is precisely the WLLN at work.
+:::
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Key Distributions</span>
+$N(\mu,\sigma^2)$ for continuous data; $\chi^2_k$ for variance; $t_\nu$ for small-sample means; $F_{\nu_1,\nu_2}$ for variance ratios.
+:::
+::: {.card .fragment}
+<span class="label">CLT</span>
+For i.i.d. data with finite variance, $\bar{X}_n$ is approximately $N(\mu, \sigma^2/n)$ for large $n$, regardless of the parent distribution.
+:::
+::: {.card .fragment}
+<span class="label">LLN</span>
+$\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle near the population mean. Proof uses Chebyshev's inequality.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** The CLT and LLN together justify why normal-based inference (confidence intervals, $t$-tests) works in practice. Learn the distributions now — everything in Chapters 5+ builds on them.
+:::
+
+---
+
+## Bonus Example: Applying the CLT {.scrollable}
+
+::: {.taskbox}
+<span class="label">Bonus Example</span>
+Let $X \sim \text{Uniform}(0, 1)$, so $E[X] = 0.5$ and $\text{Var}(X) = 1/12$.
+
+**(a)** For $n = 48$ i.i.d. draws, find $P(\bar{X} \leq 0.52)$ approximately.
+
+**(b)** Find $P(0.48 \leq \bar{X} \leq 0.52)$ approximately.
+
+**(c)** Simulate the sampling distribution and overlay the CLT approximation. Do they agree?
+:::
+
+---
+
+## Bonus Example — Check in R
+
+```{webr}
+#| autorun: false
+
+n <- 48; mu <- 0.5; sigma2 <- 1/12; se <- sqrt(sigma2/n)
+
+# (a) P(X-bar <= 0.52)
+pnorm(0.52, mean=mu, sd=se)
+
+# (b) P(0.48 <= X-bar <= 0.52)
+pnorm(0.52, mu, se) - pnorm(0.48, mu, se)
+
+# (c) Simulation
+set.seed(42)
+xbars <- replicate(5000, mean(runif(n)))
+hist(xbars, breaks=50, freq=FALSE, col="#00695c", border="white",
+     main=paste("CLT: Uniform(0,1), n=", n), xlab="Sample mean")
+curve(dnorm(x, mu, se), add=TRUE, col="#F8766D", lwd=2)
+```
+
+---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 5 — Confidence Intervals**
+
+We use the CLT and the $t$-distribution to build **confidence intervals** for unknown population means and proportions. You will finally answer: *"How sure are we that $\bar{x}$ is close to $\mu$?"*
+:::
+
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Homepage</a>
+</div>

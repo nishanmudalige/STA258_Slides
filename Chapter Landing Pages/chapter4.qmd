@@ -1,0 +1,98 @@
+---
+title: "Chapter 4: Foundations of Inference"
+subtitle: "STA258 — University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter4-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter4-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 4 you'll be able to:
+
+- Describe the **Normal**, **Chi-Square**, **t**, and **F** distributions and identify when each is used.
+- Explain what a **sampling distribution** is and why it is important in statistical inference.
+- Find the mean and standard error of the sample mean $\bar{X}$.
+- Apply the **Central Limit Theorem (CLT)** to approximate the distribution of sample means.
+- Understand **convergence in probability** and interpret the notation $X_n \overset{p}{\to} c$.
+- State and apply the **Weak Law of Large Numbers (WLLN)** to explain why sample averages approach the population mean.
+
+## Key ideas
+
+::: {.summary-card}
+### Normal Distribution
+The **normal distribution** is symmetric and bell-shaped, written as $X \sim N(\mu, \sigma^2)$. The **standard normal distribution** is the special case $Z \sim N(0,1)$ and serves as the foundation for many inference procedures.
+:::
+
+::: {.summary-card}
+### Chi-Square, \(t\), and \(F\) Distributions
+The **chi-square distribution** $\chi^2_k$ arises from sums of squared standard normal variables. The **\(t\)-distribution** $t_\nu$ is used when the population standard deviation is unknown. The **\(F\)-distribution** $F_{\nu_1,\nu_2}$ is commonly used for comparing variances and in ANOVA.
+:::
+
+::: {.summary-card}
+### Distribution Tools in R
+Use `pnorm` and `qnorm` for normal probabilities and critical values, `pchisq` and `qchisq` for chi-square calculations, `pt` and `qt` for \(t\)-distributions, and `pf` and `qf` for \(F\)-distributions.
+:::
+
+
+::: {.summary-card}
+### Central Limit Theorem (CLT)
+For large sample sizes, the standardized sample mean is approximately normal:
+$$
+\frac{\sqrt{n}(\bar{X}_n-\mu)}{\sigma}
+\overset{d}{\longrightarrow}
+N(0,1).
+$$
+This result allows normal-based inference even when the original population is not normal.
+:::
+
+::: {.summary-card}
+### Convergence in Probability
+The notation
+$$
+X_n \overset{p}{\longrightarrow} c
+$$
+means that as $n$ grows, the probability that $X_n$ differs substantially from $c$ approaches zero.
+:::
+
+::: {.summary-card}
+### Weak Law of Large Numbers
+The sample mean converges in probability to the population mean:
+$$
+\bar{X}_n \overset{p}{\longrightarrow} \mu.
+$$
+As the sample size increases, sample averages become increasingly stable around the true mean. A proof can be obtained using Chebyshev's inequality.
+:::
+
+## How to use this chapter 
+- Open the **slides** for an interactive walkthrough 
+— every WebR block in the deck is editable and runs in your browser. 
+- Use the **PDF** button for an offline-friendly version. 
+- Try the in-slide exercises. 
+- Change values, re-run, and check the output. 

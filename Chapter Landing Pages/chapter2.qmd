@@ -1,0 +1,81 @@
+---
+title: "Chapter 2: An Introduction to R"
+subtitle: "STA258 — University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter2-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter2-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 2 you'll be able to:
+
+- Explain why we use **R** rather than point-and-click software, and tell **R** apart from **RStudio**.
+- Install R and RStudio and navigate the four main panes of the IDE.
+- Use R as a **calculator** — arithmetic, exponents, logs, and built-in math functions.
+- Create and work with the core R **data structures**: vectors, lists, matrices, arrays, factors, and data frames.
+- Call built-in **functions** like `mean()`, `sd()`, `hist()` and read their output.
+- Install and load **packages** with `install.packages()` and `library()`.
+
+## Key ideas
+
+::: {.summary-card}
+### R vs RStudio
+**R** is the engine that runs the calculations. **RStudio** is the dashboard you use to drive it. You install R first, then RStudio on top of it.
+:::
+
+::: {.summary-card}
+### Scripts beat point-and-click
+Writing analysis as code makes it **reproducible**, easy to share, and easy to re-run when the data changes. This is the single biggest reason statisticians use R.
+:::
+
+::: {.summary-card}
+### R as a calculator
+R handles `+ - * /`, exponentiation `^`, modulo `%%`, integer division `%/%`, and a full set of math functions (`sqrt`, `log`, `exp`, `abs`, `round`) and trig functions out of the box.
+:::
+
+::: {.summary-card}
+### Data structures
+- **Vectors** — same-type values in one dimension
+- **Lists** — mixed types, any structure
+- **Matrices / Arrays** — same type, 2+ dimensions
+- **Factors** — categorical variables with named levels
+- **Data frames** — table of variables (columns) and observations (rows)
+:::
+
+::: {.summary-card}
+### Functions and packages
+Most R commands look like `function_name(input)`. **Packages** extend R with new functions — install once with `install.packages()`, load each session with `library()`.
+:::
+
+## How to use this chapter
+
+- Open the **slides** for an interactive walkthrough — every code block in the deck is editable and runs in your browser.
+- Use the **PDF** button for an offline-friendly version.
+- Try the in-slide exercises (mean, histogram). Change values, re-run, and check the output.

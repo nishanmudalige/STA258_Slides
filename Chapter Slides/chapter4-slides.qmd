@@ -204,6 +204,14 @@ set.seed(258)
 .reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
 .reveal .quiz-question li { margin-bottom: 6px !important; }
 
+/* keep quiz visuals compact */
+.reveal section.quiz-question img {
+  max-height: 235px !important;
+  object-fit: contain !important;
+  margin: 2px auto 6px auto !important;
+  display: block !important;
+}
+
 .reveal .option-button {
   padding: 9px 16px !important;
   margin-bottom: 7px !important;
@@ -928,14 +936,43 @@ abline(v = c(160, 162, 178, 180), lty = 2, col = "#f9a825")
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Example
+## Visual Question
 
-For $Z \sim N(0,1)$, the Empirical Rule tells us $P(-2 < Z < 2) \approx 0.9545$. Using **symmetry**, what is $P(Z > 2)$?
+The Empirical Rule says the middle region from $-2$ to $2$ contains about 95.45% of the standard normal curve. Using symmetry, what is $P(Z > 2)$?
 ::::
+
+```{r}
+#| fig-width: 8.6
+#| fig-height: 2.05
+#| fig-align: center
+#| echo: false
+
+z <- seq(-4, 4, length.out = 1000)
+df_emp_q <- data.frame(z = z, density = dnorm(z))
+
+ggplot(df_emp_q, aes(z, density)) +
+  geom_area(data = subset(df_emp_q, z >= -2 & z <= 2),
+            fill = "#c8e6f3", alpha = 0.9) +
+  geom_area(data = subset(df_emp_q, z > 2),
+            fill = "#f9a825", alpha = 0.9) +
+  geom_area(data = subset(df_emp_q, z < -2),
+            fill = "#fff8e1", alpha = 0.9) +
+  geom_line(linewidth = 1.1, colour = "#00695c") +
+  geom_vline(xintercept = c(-2, 2), linetype = "dashed",
+             colour = "#004d40", linewidth = 1) +
+  annotate("text", x = 0, y = 0.22, label = "Middle area ≈ 0.9545",
+           colour = "#004d40", fontface = "bold", size = 3.5) +
+  annotate("text", x = 2.7, y = 0.06, label = "Right tail?",
+           colour = "#f9a825", fontface = "bold", size = 3.5) +
+  labs(title = "Standard normal symmetry",
+       x = "z", y = "Density") +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
 
 - 0.9545
 - 0.0455
-- [0.02275]{.correct data-explanation="The total area outside $(-2,2)$ is $1 - 0.9545 = 0.0455$. By symmetry, each tail has area $0.0455/2 = 0.02275$."}
+- [0.02275]{.correct data-explanation="The total area outside -2 to 2 is 1 - 0.9545 = 0.0455. By symmetry, each tail has area 0.0455 divided by 2, which is 0.02275."}
 - 0.0500
 
 ---
@@ -943,18 +980,50 @@ For $Z \sim N(0,1)$, the Empirical Rule tells us $P(-2 < Z < 2) \approx 0.9545$.
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Example
+## Visual Question
 
-$X \sim N(50, 100)$. What is the standardised value $z$ corresponding to $x = 65$?
+The plot shows a normal distribution with mean 50 and a marked value at x = 65. What is the standardised value z?
 ::::
 
-- $z = 0.65$
-- $z = 0.15$
-- [$z = 1.5$]{.correct data-explanation="$z = (65 - 50)/10 = 1.5$. Note: $\sigma = \sqrt{100} = 10$, not 100."}
-- $z = 2.5$
+```{r}
+#| echo: false
+#| fig-width: 7.2
+#| fig-height: 2.8
+#| fig-align: center
+
+mu <- 50
+sigma <- 10
+x0 <- 65
+
+x <- seq(20, 80, length.out = 1000)
+df_zquiz <- data.frame(x = x, y = dnorm(x, mean = mu, sd = sigma))
+
+ggplot(df_zquiz, aes(x, y)) +
+  geom_line(linewidth = 1.2, colour = "#00695c") +
+  geom_vline(xintercept = mu, linetype = "dashed", colour = "#004d40", linewidth = 1) +
+  geom_vline(xintercept = x0, linetype = "dashed", colour = "#f9a825", linewidth = 1) +
+  annotate("text", x = mu, y = 0.043, label = "Mean = 50", colour = "#004d40", fontface = "bold", size = 4.2) +
+  annotate("text", x = x0, y = 0.018, label = "x = 65", colour = "#f9a825", fontface = "bold", size = 4.2) +
+  scale_x_continuous(breaks = seq(20, 80, by = 10)) +
+  labs(
+    title = "Standardising a value from a normal distribution",
+    x = "x",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold")
+  )
+```
+
+- z = 0.65
+- z = 0.15
+- [z = 1.5]{.correct data-explanation="The variance is 100, so the standard deviation is 10. Standardising gives (65 - 50) / 10 = 1.5."}
+- z = 2.5
 
 ::: {.quiz-hint}
-Remember: $\sigma = \sqrt{\sigma^2}$
+Remember: the standard deviation is the square root of the variance.
 :::
 
 ---
@@ -1114,12 +1183,14 @@ abline(v = cutoff, lty = 2, col = "#f9a825", lwd = 2)
 :::: {.callout-note icon="false"}
 ## Example
 
-$Z_1, Z_2, Z_3, Z_4 \overset{\text{iid}}{\sim} N(0,1)$. What is the distribution of $W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2$?
+$Z_1, Z_2, Z_3, Z_4 \overset{\text{iid}}{\sim} N(0,1)$. What is the distribution of
+
+$$W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2 \; ?$$
 ::::
 
 - $W \sim N(0,4)$
 - $W \sim \chi^2_2$
-- [$W \sim \chi^2_4$]{.correct data-explanation="The sum of squares of $k$ independent standard normals is $\chi^2_k$. Here $k = 4$."}
+- [$W \sim \chi^2_4$]{.correct data-explanation="The sum of squares of k independent standard normal variables has a chi-square distribution with k degrees of freedom. Here k = 4."}
 - $W \sim t_4$
 
 ---
@@ -1602,13 +1673,44 @@ abline(v = c(-cutoff, cutoff), lty = 2, col = "#f9a825", lwd = 2)
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Example
+## Visual Question
 
-Why do we use the $t$-distribution instead of the normal when making inferences about a mean from a small sample?
+The blue curve has heavier tails than the red normal curve. Why do we use the $t$-distribution instead of the normal for small-sample inference about a mean?
 ::::
 
+```{r}
+#| fig-width: 8.6
+#| fig-height: 2.1
+#| fig-align: center
+#| echo: false
+
+x_tq <- seq(-4, 4, length.out = 1000)
+df_tq <- rbind(
+  data.frame(x = x_tq, density = dnorm(x_tq), dist = "Normal"),
+  data.frame(x = x_tq, density = dt(x_tq, df = 5), dist = "t with df = 5")
+)
+
+ggplot(df_tq, aes(x, density, colour = dist)) +
+  geom_line(linewidth = 1.25) +
+  geom_area(data = subset(df_tq, dist == "t with df = 5" & abs(x) > 2),
+            aes(x = x, y = density), inherit.aes = FALSE,
+            fill = "#c8e6f3", alpha = 0.55) +
+  scale_colour_manual(values = c("Normal" = "#f8766d",
+                                 "t with df = 5" = "#00695c"),
+                      guide = "none") +
+  annotate("text", x = -2.7, y = 0.045, label = "heavier tails",
+           colour = "#00695c", fontface = "bold", size = 3.5) +
+  annotate("text", x = 2.7, y = 0.045, label = "heavier tails",
+           colour = "#00695c", fontface = "bold", size = 3.5) +
+  labs(title = "Normal vs t distribution",
+       subtitle = "Heavier tails account for extra uncertainty",
+       x = "Value", y = "Density") +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+
 - The $t$ is easier to compute
-- [We must estimate $\sigma$ from the data, adding uncertainty — $t$ has heavier tails to account for this]{.correct data-explanation="Replacing unknown $\sigma$ with $s$ introduces additional variability. The $t$ distribution has heavier tails than the normal, producing wider and more honest confidence intervals."}
+- [We must estimate $\sigma$ from the data, adding uncertainty — $t$ has heavier tails to account for this]{.correct data-explanation="Replacing unknown sigma with the sample standard deviation adds extra uncertainty. The t distribution has heavier tails than the normal, producing wider and more honest confidence intervals."}
 - The normal distribution is only valid for large populations
 - Small samples always have skewed data
 
@@ -1686,7 +1788,7 @@ Which statement correctly describes the relationship between the $\chi^2$ and $F
 ::::
 
 - $F$ is the square of a $\chi^2$ random variable
-- [$F$ is the ratio of two independent $\chi^2$ variables, each divided by its degrees of freedom]{.correct data-explanation="Formally $F = (U/\nu_1)/(V/\nu_2)$ where $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ independently."}
+- [$F$ is the ratio of two independent $\chi^2$ variables, each divided by its degrees of freedom]{.correct data-explanation="An F random variable is formed by dividing one chi-square variable by its degrees of freedom, then dividing by another independent chi-square variable divided by its degrees of freedom."}
 - $F$ is the sum of two $\chi^2$ random variables
 - $F$ is always symmetric like the normal
 
@@ -1817,15 +1919,56 @@ Change `n` to 5 or 2 and re-run. Watch the distribution become less normal.
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Example
+## Visual Question
 
-A population has mean $\mu = 40$ and variance $\sigma^2 = 100$. A random sample of size $n = 25$ is drawn. What is the standard error of $\bar{X}$?
+A population has mean $40$ and variance $100$. A random sample of size $25$ is drawn. What is the standard error of $\bar{X}$?
 ::::
 
+```{r}
+#| echo: false
+#| fig-width: 7.2
+#| fig-height: 2.8
+#| fig-align: center
+
+mu <- 40
+sigma <- 10
+n <- 25
+se <- sigma / sqrt(n)
+
+x <- seq(25, 55, length.out = 1000)
+
+df_sequiz <- rbind(
+  data.frame(x = x, y = dnorm(x, mean = mu, sd = sigma), curve = "Population values"),
+  data.frame(x = x, y = dnorm(x, mean = mu, sd = se), curve = "Sample means")
+)
+
+ggplot(df_sequiz, aes(x = x, y = y, colour = curve)) +
+  geom_line(linewidth = 1.2) +
+  scale_colour_manual(values = c("Population values" = "#f9a825",
+                                 "Sample means" = "#00695c"),
+                      guide = "none") +
+  annotate("text", x = 34, y = 0.035,
+           label = "Population values",
+           colour = "#f9a825", fontface = "bold", size = 4.1) +
+  annotate("text", x = 43, y = 0.16,
+           label = "Sample means",
+           colour = "#00695c", fontface = "bold", size = 4.1) +
+  labs(
+    title = "Sampling distributions get narrower as n increases",
+    x = "Value",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold")
+  )
+```
+
 - 10
-- 4
-- [2]{.correct data-explanation="$SE(\bar{X}) = \sigma/\sqrt{n} = 10/\sqrt{25} = 10/5 = 2$."}
 - 0.4
+- [2]{.correct data-explanation="The population variance is 100, so the population standard deviation is 10. The standard error of the sample mean is 10 divided by the square root of 25, which equals 2."}
+- 4
 
 ---
 
@@ -2031,14 +2174,41 @@ cat("Minimum n:", n_needed, "\n")
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Example
+## Visual Question
 
-The Central Limit Theorem says the sample mean $\bar{X}_n$ is **approximately normal** for large $n$. What conditions are required?
+The sample means become more normal as $n$ grows, even though the original data are skewed. What conditions does the CLT require?
 ::::
+
+```{r}
+#| fig-width: 8.6
+#| fig-height: 2.1
+#| fig-align: center
+#| echo: false
+
+set.seed(258)
+
+clt_small <- replicate(2500, mean(rexp(5, rate = 1)))
+clt_large <- replicate(2500, mean(rexp(50, rate = 1)))
+
+df_clt_q <- rbind(
+  data.frame(xbar = clt_small, n = "n = 5"),
+  data.frame(xbar = clt_large, n = "n = 50")
+)
+
+ggplot(df_clt_q, aes(x = xbar)) +
+  geom_histogram(bins = 30, fill = "#00695c", colour = "white") +
+  facet_wrap(~ n, ncol = 2, scales = "free_y") +
+  labs(title = "CLT: repeated sample means from skewed data",
+       subtitle = "Larger n makes the sampling distribution more normal",
+       x = "Sample mean", y = "Frequency") +
+  theme(panel.grid.minor = element_blank(),
+        strip.text = element_text(face = "bold"),
+        plot.title = element_text(face = "bold"))
+```
 
 - The population must be normal
 - The sample size must equal exactly 30
-- [The observations must be i.i.d. with finite mean and variance]{.correct data-explanation="The CLT requires independence, identical distribution, and finite variance. The population distribution can be anything — that's the power of the theorem."}
+- [The observations must be i.i.d. with finite mean and variance]{.correct data-explanation="The CLT requires independent observations, identical distribution, and finite variance. The population distribution does not have to be normal."}
 - The population must be symmetric
 
 ---
@@ -2261,13 +2431,39 @@ abline(h=lambda, lty=2)
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Example
+## Visual Question
 
-The Weak Law of Large Numbers guarantees that for large $n$, $\bar{X}_n$ is close to $\mu$ with high probability. Which mathematical tool is used in the standard proof?
+The graph shows the Chebyshev bound used in the standard proof of the Weak Law of Large Numbers. Which mathematical tool is being used?
 ::::
 
+```{r}
+#| fig-width: 8.6
+#| fig-height: 2.05
+#| fig-align: center
+#| echo: false
+
+n_vals_q <- seq(10, 500, by = 5)
+eps_q <- 0.25
+sigma2_q <- 3
+bound_q <- sigma2_q / (n_vals_q * eps_q^2)
+
+df_cheb_q <- data.frame(n = n_vals_q, bound = bound_q)
+
+ggplot(df_cheb_q, aes(n, bound)) +
+  geom_line(linewidth = 1.15, colour = "#00695c") +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "#f9a825") +
+  annotate("text", x = 330, y = max(bound_q) * 0.25,
+           label = "Bound shrinks toward 0 as n grows",
+           colour = "#004d40", fontface = "bold", size = 3.6) +
+  labs(title = "WLLN proof idea",
+       subtitle = "Control the probability of being far from the mean",
+       x = "Sample size n", y = "Upper bound") +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+
 - The Central Limit Theorem
-- [Chebyshev's Inequality]{.correct data-explanation="Applying Chebyshev to $\bar{X}_n$ gives $P(|\bar{X}_n - \mu| \geq \varepsilon) \leq \sigma^2/(n\varepsilon^2) \to 0$. No normality assumption is needed."}
+- [Chebyshev's Inequality]{.correct data-explanation="Applying Chebyshev's Inequality to the sample mean gives an upper bound that shrinks to 0 as n grows. No normality assumption is needed."}
 - Jensen's Inequality
 - The Empirical Rule
 
@@ -2276,15 +2472,49 @@ The Weak Law of Large Numbers guarantees that for large $n$, $\bar{X}_n$ is clos
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Example
+## Visual Question
 
-A fair die is rolled repeatedly. Let $\bar{X}_n$ be the average of the first $n$ rolls. By the WLLN, $\bar{X}_n$ converges in probability to which value?
+A fair die is rolled repeatedly. The running average settles near the dashed line. By the WLLN, what value does X̄ₙ converge to in probability?
 ::::
 
+```{r}
+#| echo: false
+#| fig-width: 7.2
+#| fig-height: 2.9
+#| fig-align: center
+
+set.seed(258)
+
+n_rolls <- 120
+rolls <- sample(1:6, size = n_rolls, replace = TRUE)
+running_avg <- cumsum(rolls) / seq_along(rolls)
+
+df_diequiz <- data.frame(
+  roll = 1:n_rolls,
+  running_avg = running_avg
+)
+
+ggplot(df_diequiz, aes(x = roll, y = running_avg)) +
+  geom_line(linewidth = 1.05, colour = "#00695c") +
+  geom_hline(yintercept = 3.5, linetype = "dashed", colour = "#f9a825", linewidth = 1.1) +
+  scale_x_continuous(breaks = seq(0, 120, by = 20)) +
+  coord_cartesian(xlim = c(1, 120), ylim = c(1, 6)) +
+  labs(
+    title = "Law of Large Numbers for a fair die",
+    x = "Number of rolls",
+    y = "Running average"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold")
+  )
+```
+
 - 3
-- [3.5]{.correct data-explanation="$E[X] = (1+2+3+4+5+6)/6 = 3.5$. The WLLN says $\bar{X}_n \overset{p}{\to} E[X] = 3.5$."}
-- 4
 - 6
+- 4
+- [3.5]{.correct data-explanation="For a fair die, the expected value is (1 + 2 + 3 + 4 + 5 + 6) divided by 6, which is 3.5. The Weak Law says the running sample mean converges in probability to that value."}
 
 ---
 

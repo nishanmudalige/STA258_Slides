@@ -175,6 +175,12 @@ set.seed(258)
   border-radius: 4px;
   padding: 1px 4px;
 }
+/* ── Scrollable slides ────────────────────────────────── */
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 700px;
+}
 
 /* ── Compact ──────────────────────────────────────────── */
 .reveal section.compact h2  { font-size: 1.1em !important; }
@@ -343,6 +349,75 @@ Populations are usually infinite, very large, or expensive to enumerate. Samplin
 
 ---
 
+## In-Class Example: Parameter, Statistic, and Sampling Variability {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Suppose the true average commute time for all UTM students is unknown.
+
+A researcher takes **five different samples**, each with $n=25$ students, and computes a sample mean commute time for each sample.
+
+**(a)** What is the population parameter?
+
+**(b)** What statistic is computed from each sample?
+
+**(c)** Why are the five sample means not exactly the same?
+
+**(d)** What would happen to the sample means if each sample used $n=200$ students instead?
+:::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.8
+#| fig-height: 4
+#| fig-align: center
+#| echo: false
+
+set.seed(258)
+
+sample_id <- rep(paste("Sample", 1:5), each = 25)
+commute <- unlist(replicate(5, rgamma(25, shape = 5, scale = 8), simplify = FALSE))
+
+df_commute <- data.frame(sample_id = sample_id, commute = commute)
+means_commute <- aggregate(commute ~ sample_id, data = df_commute, FUN = mean)
+
+ggplot(df_commute, aes(x = sample_id, y = commute)) +
+  geom_jitter(width = 0.12, alpha = 0.55, colour = "#00695c", size = 1.8) +
+  geom_point(data = means_commute,
+             aes(x = sample_id, y = commute),
+             colour = "#f9a825", size = 4) +
+  labs(x = NULL, y = "Commute time (minutes)") +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+::::
+
+---
+
+## Sampling Variability - Check in R
+
+```{webr}
+#| autorun: false
+
+set.seed(258)
+
+sample_means <- replicate(5, {
+  commute <- rgamma(25, shape = 5, scale = 8)
+  mean(commute)
+})
+
+sample_means
+mean(sample_means)
+sd(sample_means)
+
+# Try changing 25 to 200 and compare the spread of the sample means.
+```
+
+---
+
 ## 4.1 The Normal Distribution
 
 :::: {.two-col-lean}
@@ -412,121 +487,229 @@ This lets us use a single table (or `pnorm()`) for any normal distribution.
 
 ---
 
-## The Empirical Rule
-
-::: {.defbox}
-**Empirical Rule** (68–95–99.7)
-
-For any $N(\mu, \sigma^2)$ distribution:
-
-| Interval | Probability |
-|---|---|
-| $(\mu - \sigma,\ \mu + \sigma)$ | $\approx 68.27\%$ |
-| $(\mu - 2\sigma,\ \mu + 2\sigma)$ | $\approx 95.45\%$ |
-| $(\mu - 3\sigma,\ \mu + 3\sigma)$ | $\approx 99.73\%$ |
-:::
-
-::: {.thinkbox .fragment}
-**Quick SD estimate.** For a roughly normal sample, $\hat{\sigma} \approx \dfrac{\text{Range}}{4}$. Useful as a sanity check.
-:::
-
----
-
 ## Empirical Rule — Interactive Explorer
 
-<div style="border:1px solid var(--sta-border); border-radius:10px; padding:12px 16px; background:#fff; font-size:0.72em;">
+<div id="emp-rule-box" style="border:1px solid #d8dee2; border-radius:10px; padding:12px 16px; background:white; font-size:0.72em;">
 
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;">
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:10px;">
+
 <div>
-<label style="font-weight:700; color:#004d40;">Mean (μ): <span id="mu-val">0</span></label><br>
-<input type="range" id="mu-slide" min="-5" max="5" step="0.5" value="0" oninput="updateDist()" style="width:100%; accent-color:#00695c;">
+<label style="font-weight:800; color:#004d40; font-size:1.05em;">
+Mean (μ): <span id="emp-mu-label">0</span>
+</label>
+<input
+  id="emp-mu-slider"
+  type="range"
+  min="-5"
+  max="5"
+  step="0.5"
+  value="0"
+  oninput="empRuleUpdate()"
+  style="width:100%; accent-color:#00695c; margin-top:8px;"
+>
 </div>
+
 <div>
-<label style="font-weight:700; color:#004d40;">Std Dev (σ): <span id="sd-val">1</span></label><br>
-<input type="range" id="sd-slide" min="0.5" max="3" step="0.25" value="1" oninput="updateDist()" style="width:100%; accent-color:#00695c;">
-</div>
+<label style="font-weight:800; color:#004d40; font-size:1.05em;">
+Standard deviation (σ): <span id="emp-sd-label">1</span>
+</label>
+<input
+  id="emp-sd-slider"
+  type="range"
+  min="0.5"
+  max="3"
+  step="0.25"
+  value="1"
+  oninput="empRuleUpdate()"
+  style="width:100%; accent-color:#00695c; margin-top:8px;"
+>
 </div>
 
-<canvas id="empCanvas" height="210" style="width:100%; border-radius:6px;"></canvas>
+</div>
 
-<div id="emp-readout" style="margin-top:6px; display:grid; grid-template-columns:repeat(3,1fr); gap:6px; text-align:center;"></div>
+<canvas id="emp-rule-canvas" width="1100" height="310" style="width:100%; height:260px; display:block;"></canvas>
+
+<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; text-align:center;">
+
+<div style="background:rgba(0,105,92,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+μ ± 1σ<br>68.27%
+</div>
+
+<div style="background:rgba(0,176,246,0.15); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+μ ± 2σ<br>95.45%
+</div>
+
+<div style="background:rgba(121,151,255,0.17); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+μ ± 3σ<br>99.73%
+</div>
+
+</div>
 
 </div>
 
 <script>
-(function(){
-function phi(x){ return 0.5*(1+erf((x)/Math.SQRT2)); }
-function erf(x){
-  var t=1/(1+0.3275911*Math.abs(x));
-  var y=1-((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t*0.254829592*Math.exp(-x*x);
-  return x>=0?y:-y;
-}
-function dnorm(x,mu,sd){ return Math.exp(-0.5*((x-mu)/sd)**2)/(sd*Math.sqrt(2*Math.PI)); }
+window.empRuleUpdate = function () {
+  var canvas = document.getElementById("emp-rule-canvas");
+  var muSlider = document.getElementById("emp-mu-slider");
+  var sdSlider = document.getElementById("emp-sd-slider");
+  var muLabel = document.getElementById("emp-mu-label");
+  var sdLabel = document.getElementById("emp-sd-label");
 
-function updateDist(){
-  var mu=+document.getElementById('mu-slide').value;
-  var sd=+document.getElementById('sd-slide').value;
-  document.getElementById('mu-val').textContent=mu;
-  document.getElementById('sd-val').textContent=sd;
-  var canvas=document.getElementById('empCanvas');
-  var ctx=canvas.getContext('2d');
-  canvas.width=canvas.offsetWidth*2; canvas.height=420;
-  ctx.scale(2,2);
-  var W=canvas.offsetWidth/2, H=210;
-  ctx.clearRect(0,0,W,H);
-  var xmin=mu-4*sd, xmax=mu+4*sd;
-  function toX(v){ return (v-xmin)/(xmax-xmin)*W; }
-  function toY(v){ return H-10-v*(H-30)/dnorm(mu,mu,sd)*0.92; }
-
-  var cols=['#00C0B8','#00B0F6','#7997FF'];
-  var sigmas=[1,2,3];
-  sigmas.slice().reverse().forEach(function(k,i){
-    ctx.beginPath();
-    var pts=[];
-    for(var xi=mu-k*sd;xi<=mu+k*sd;xi+=(2*k*sd)/300) pts.push([toX(xi),toY(dnorm(xi,mu,sd))]);
-    pts.push([toX(mu+k*sd),toY(0)]); pts.push([toX(mu-k*sd),toY(0)]);
-    ctx.moveTo(pts[0][0],pts[0][1]);
-    pts.slice(1).forEach(function(p){ ctx.lineTo(p[0],p[1]); });
-    ctx.closePath();
-    ctx.fillStyle=cols[2-i]+'99'; ctx.fill();
-  });
-
-  ctx.beginPath(); ctx.strokeStyle='#004d40'; ctx.lineWidth=2;
-  var first=true;
-  for(var xi=xmin;xi<=xmax;xi+=(xmax-xmin)/400){
-    var py=toY(dnorm(xi,mu,sd));
-    if(first){ctx.moveTo(toX(xi),py);first=false;}else ctx.lineTo(toX(xi),py);
+  if (!canvas || !muSlider || !sdSlider || !muLabel || !sdLabel) {
+    return;
   }
+
+  var mu = Number(muSlider.value);
+  var sd = Number(sdSlider.value);
+
+  muLabel.innerHTML = mu;
+  sdLabel.innerHTML = sd;
+
+  var ctx = canvas.getContext("2d");
+  var width = canvas.width;
+  var height = canvas.height;
+
+  ctx.clearRect(0, 0, width, height);
+
+  function dnorm(x, mean, sigma) {
+    return Math.exp(-0.5 * Math.pow((x - mean) / sigma, 2)) / (sigma * Math.sqrt(2 * Math.PI));
+  }
+
+  var marginLeft = 65;
+  var marginRight = 30;
+  var marginTop = 20;
+  var marginBottom = 55;
+
+  var plotWidth = width - marginLeft - marginRight;
+  var plotHeight = height - marginTop - marginBottom;
+
+  /* FIXED AXIS: this is the important change */
+  var xmin = -15;
+  var xmax = 15;
+  var ymax = 0.85;
+
+  function xScale(x) {
+    return marginLeft + ((x - xmin) / (xmax - xmin)) * plotWidth;
+  }
+
+  function yScale(y) {
+    return marginTop + (1 - y / ymax) * plotHeight;
+  }
+
+  function shade(a, b, color) {
+    var start = Math.max(a, xmin);
+    var end = Math.min(b, xmax);
+
+    if (end <= xmin || start >= xmax) {
+      return;
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(xScale(start), yScale(0));
+
+    for (var i = 0; i <= 300; i++) {
+      var x = start + (end - start) * i / 300;
+      var y = dnorm(x, mu, sd);
+      ctx.lineTo(xScale(x), yScale(y));
+    }
+
+    ctx.lineTo(xScale(end), yScale(0));
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  /* grid lines */
+  ctx.strokeStyle = "#e5e7eb";
+  ctx.lineWidth = 1;
+
+  for (var g = 0; g <= 4; g++) {
+    var gy = marginTop + (plotHeight * g) / 4;
+    ctx.beginPath();
+    ctx.moveTo(marginLeft, gy);
+    ctx.lineTo(width - marginRight, gy);
+    ctx.stroke();
+  }
+
+  /* shade empirical regions */
+  shade(mu - 3 * sd, mu + 3 * sd, "rgba(121,151,255,0.22)");
+  shade(mu - 2 * sd, mu + 2 * sd, "rgba(0,176,246,0.28)");
+  shade(mu - 1 * sd, mu + 1 * sd, "rgba(0,105,92,0.35)");
+
+  /* curve */
+  ctx.beginPath();
+  ctx.strokeStyle = "#004d40";
+  ctx.lineWidth = 3;
+
+  for (var j = 0; j <= 900; j++) {
+    var xVal = xmin + (xmax - xmin) * j / 900;
+    var yVal = dnorm(xVal, mu, sd);
+
+    if (j === 0) {
+      ctx.moveTo(xScale(xVal), yScale(yVal));
+    } else {
+      ctx.lineTo(xScale(xVal), yScale(yVal));
+    }
+  }
+
   ctx.stroke();
 
-  // axis
-  ctx.beginPath(); ctx.strokeStyle='#888'; ctx.lineWidth=1;
-  ctx.moveTo(0,toY(0)); ctx.lineTo(W,toY(0)); ctx.stroke();
+  /* x-axis */
+  ctx.beginPath();
+  ctx.strokeStyle = "#555";
+  ctx.lineWidth = 1.5;
+  ctx.moveTo(marginLeft, yScale(0));
+  ctx.lineTo(width - marginRight, yScale(0));
+  ctx.stroke();
 
-  // labels
-  ctx.fillStyle='#2f3437'; ctx.font='11px Arial'; ctx.textAlign='center';
-  [-3,-2,-1,0,1,2,3].forEach(function(k){
-    var xv=mu+k*sd;
-    if(xv>=xmin&&xv<=xmax){
-      ctx.fillText((k===0?'μ':k+'σ'),toX(xv),toY(0)+14);
+  /* mean line */
+  ctx.beginPath();
+  ctx.strokeStyle = "#f9a825";
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 6]);
+  ctx.moveTo(xScale(mu), marginTop);
+  ctx.lineTo(xScale(mu), yScale(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  /* fixed number axis labels */
+  ctx.fillStyle = "#2f3437";
+  ctx.font = "14px Arial";
+  ctx.textAlign = "center";
+
+  for (var tick = -10; tick <= 10; tick += 2) {
+    ctx.fillText(tick, xScale(tick), height - 18);
+  }
+
+  /* sigma labels above axis */
+  var labels = [
+    { x: mu - 3 * sd, text: "μ - 3σ" },
+    { x: mu - 2 * sd, text: "μ - 2σ" },
+    { x: mu - 1 * sd, text: "μ - σ" },
+    { x: mu,          text: "μ" },
+    { x: mu + 1 * sd, text: "μ + σ" },
+    { x: mu + 2 * sd, text: "μ + 2σ" },
+    { x: mu + 3 * sd, text: "μ + 3σ" }
+  ];
+
+  ctx.font = "12px Arial";
+
+  for (var k = 0; k < labels.length; k++) {
+    if (labels[k].x >= xmin && labels[k].x <= xmax) {
+      ctx.fillText(labels[k].text, xScale(labels[k].x), height - 35);
     }
+  }
+};
+
+setTimeout(window.empRuleUpdate, 200);
+setTimeout(window.empRuleUpdate, 700);
+
+if (window.Reveal) {
+  Reveal.on("slidechanged", function () {
+    setTimeout(window.empRuleUpdate, 150);
   });
-
-  // readout
-  var probs=[(phi(1)-phi(-1))*100,(phi(2)-phi(-2))*100,(phi(3)-phi(-3))*100];
-  var labels=['μ ± 1σ','μ ± 2σ','μ ± 3σ'];
-  var ro=document.getElementById('emp-readout');
-  ro.innerHTML=probs.map(function(p,i){
-    return '<div style="background:'+cols[i]+'33;border-radius:6px;padding:4px 0;font-weight:700;">'+labels[i]+'<br>'+p.toFixed(2)+'%</div>';
-  }).join('');
 }
-window.updateDist=updateDist;
-setTimeout(updateDist,100);
-window.addEventListener('resize',updateDist);
-})();
 </script>
-
----
 
 ## Normal Probabilities in R
 
@@ -566,11 +749,87 @@ Default: `mean = 0`, `sd = 1` (standard normal).
 
 ---
 
-## Example: Heights {.scrollable}
+## In-Class Example: Normal Probability with a Plot {.scrollable}
 
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Suppose final exam scores are approximately normal with mean $\mu=72$ and standard deviation $\sigma=8$.
+
+**(a)** Find the $z$-score for a score of $84$.
+
+**(b)** Find $P(X \le 84)$.
+
+**(c)** Find $P(X > 84)$.
+
+**(d)** On the plot, identify the shaded right-tail region and explain why it represents $P(X > 84)$.
+:::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.8
+#| fig-height: 4
+#| fig-align: center
+#| echo: false
+
+mu <- 72
+sigma <- 8
+cutoff <- 84
+
+x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
+df_norm <- data.frame(x = x, density = dnorm(x, mean = mu, sd = sigma))
+
+ggplot(df_norm, aes(x, density)) +
+  geom_area(data = subset(df_norm, x >= cutoff),
+            fill = "#fff8e1", alpha = 0.9) +
+  geom_line(linewidth = 1.1, colour = "#00695c") +
+  geom_vline(xintercept = mu, linetype = "dashed", colour = "#004d40", linewidth = 1) +
+  geom_vline(xintercept = cutoff, linetype = "dashed", colour = "#f9a825", linewidth = 1) +
+  annotate("text", x = mu, y = 0.048, label = "Mean = 72", colour = "#004d40", fontface = "bold") +
+  annotate("text", x = cutoff + 4, y = 0.025, label = "P(X > 84)", colour = "#f9a825", fontface = "bold") +
+  labs(x = "Exam score", y = "Density") +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+::::
+
+---
+
+## Normal Probability - Check in R
+
+```{webr}
+#| autorun: false
+
+mu <- 72
+sigma <- 8
+x <- 84
+
+z <- (x - mu) / sigma
+z
+
+pnorm(x, mean = mu, sd = sigma)       # P(X <= 84)
+1 - pnorm(x, mean = mu, sd = sigma)   # P(X > 84)
+
+pnorm(z)                              # same as P(X <= 84)
+1 - pnorm(z)                          # same as P(X > 84)
+```
+
+---
+
+
+## Example: Heights with Probability Plot {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Example</span>
-Adult heights in a population follow $X \sim N(170, 8^2)$ cm.
+Adult heights in a population follow
+
+$$X \sim N(170, 8^2)$$
+
+where height is measured in centimetres.
 
 **(a)** Find $P(X < 180)$.
 
@@ -580,15 +839,52 @@ Adult heights in a population follow $X \sim N(170, 8^2)$ cm.
 
 **(d)** Find the height $h$ such that only 5% of people are taller than $h$.
 :::
+:::
+
+::: {.col}
+```{r}
+#| echo: false
+#| fig-width: 5.8
+#| fig-height: 4
+#| fig-align: center
+
+mu <- 170
+sigma <- 8
+
+x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
+
+df_height <- data.frame(
+  x = x,
+  density = dnorm(x, mean = mu, sd = sigma)
+)
+
+ggplot(df_height, aes(x, density)) +
+  geom_area(data = subset(df_height, x >= 162 & x <= 178),
+            fill = "#c8e6f3", alpha = 0.85) +
+  geom_line(linewidth = 1.1, colour = "#00695c") +
+  geom_vline(xintercept = mu, linetype = "dashed",
+             colour = "#004d40", linewidth = 1) +
+  geom_vline(xintercept = c(160, 162, 178, 180),
+             linetype = "dashed", colour = "#f9a825", linewidth = 0.9) +
+  annotate("text", x = 170, y = 0.045,
+           label = "Mean = 170", colour = "#004d40", fontface = "bold") +
+  annotate("text", x = 170, y = 0.018,
+           label = "P(162 < X < 178)", colour = "#00695c", fontface = "bold") +
+  labs(x = "Height in cm", y = "Density") +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+::::
 
 ---
 
-## Heights — Check in R
+## Heights — Check in R with Plot
 
 ```{webr}
 #| autorun: false
 
-mu <- 170; sigma <- 8
+mu <- 170
+sigma <- 8
 
 # (a) P(X < 180)
 pnorm(180, mean = mu, sd = sigma)
@@ -599,8 +895,32 @@ pnorm(160, mean = mu, sd = sigma, lower.tail = FALSE)
 # (c) P(162 < X < 178)
 pnorm(178, mean = mu, sd = sigma) - pnorm(162, mean = mu, sd = sigma)
 
-# (d) 95th percentile (only 5% above)
+# (d) 95th percentile because only 5% are above
 qnorm(0.95, mean = mu, sd = sigma)
+
+# Plot the normal distribution and shade part (c)
+x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
+y <- dnorm(x, mean = mu, sd = sigma)
+
+plot(x, y,
+     type = "l",
+     lwd = 2,
+     col = "#00695c",
+     xlab = "Height in cm",
+     ylab = "Density",
+     main = "Normal model for adult heights")
+
+shade_x <- x[x >= 162 & x <= 178]
+shade_y <- dnorm(shade_x, mean = mu, sd = sigma)
+
+polygon(c(162, shade_x, 178),
+        c(0, shade_y, 0),
+        col = "#c8e6f3",
+        border = NA)
+
+lines(x, y, lwd = 2, col = "#00695c")
+abline(v = mu, lty = 2, col = "#004d40", lwd = 2)
+abline(v = c(160, 162, 178, 180), lty = 2, col = "#f9a825")
 ```
 
 ---
@@ -629,7 +949,7 @@ $X \sim N(50, 100)$. What is the standardised value $z$ corresponding to $x = 65
 ::::
 
 - $z = 0.65$
-- $z = 1.5$
+- $z = 0.15$
 - [$z = 1.5$]{.correct data-explanation="$z = (65 - 50)/10 = 1.5$. Note: $\sigma = \sqrt{100} = 10$, not 100."}
 - $z = 2.5$
 
@@ -744,24 +1064,50 @@ Let $X \sim \chi^2_{8}$.
 
 ---
 
-## Chi-Square Example — Check in R
+
+## Chi-Square Example — Check in R with Plot
 
 ```{webr}
 #| autorun: false
 
-# (a) P(X <= 15.507) with df=8
-pchisq(15.507, df = 8)
+# Let X ~ chi-square with df = 8
+df_value <- 8
+cutoff <- 15.507
+
+# (a) P(X <= 15.507)
+pchisq(cutoff, df = df_value)
 
 # (b) 95th percentile
-qchisq(0.95, df = 8)
+qchisq(0.95, df = df_value)
 
-# (c) sum of 3 squared standard normals ~ chi-sq(3)
-# (d) mean = k, var = 2k
-k <- 8
-cat("Mean:", k, "  Var:", 2*k, "\n")
+# (c) sum of 3 squared standard normals is chi-square with 3 df
+
+# (d) mean = k, variance = 2k
+cat("Mean:", df_value, "  Variance:", 2 * df_value, "\n")
+
+# Plot and shade P(X <= 15.507)
+x <- seq(0, 30, length.out = 1000)
+y <- dchisq(x, df = df_value)
+
+plot(x, y,
+     type = "l",
+     lwd = 2,
+     col = "#00695c",
+     xlab = "x",
+     ylab = "Density",
+     main = "Chi-square distribution with 8 df")
+
+shade_x <- x[x <= cutoff]
+shade_y <- dchisq(shade_x, df = df_value)
+
+polygon(c(0, shade_x, cutoff),
+        c(0, shade_y, 0),
+        col = "#c8e6f3",
+        border = NA)
+
+lines(x, y, lwd = 2, col = "#00695c")
+abline(v = cutoff, lty = 2, col = "#f9a825", lwd = 2)
 ```
-
----
 
 ##  {.quiz-question}
 
@@ -828,104 +1174,323 @@ ggplot(df_t, aes(x, y, colour=dist, linetype=dist)) +
 
 ## $t$-Distribution: Interactive Tail Comparison
 
-<div style="border:1px solid var(--sta-border); border-radius:10px; padding:12px 16px; background:#fff; font-size:0.72em;">
-<label style="font-weight:700; color:#004d40;">Degrees of Freedom (ν): <span id="df-val">5</span></label><br>
-<input type="range" id="df-slide" min="1" max="50" step="1" value="5"
-  oninput="updateT()" style="width:60%; accent-color:#00695c; margin-bottom:8px;"><br>
+<div id="t-tail-box" style="border:1px solid #d8dee2; border-radius:10px; padding:12px 16px; background:white; font-size:0.72em;">
 
-<canvas id="tCanvas" height="180" style="width:100%; border-radius:6px;"></canvas>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:10px;">
 
-<div id="t-readout" style="margin-top:6px; display:flex; gap:10px; justify-content:center;"></div>
+<div>
+<label style="font-weight:800; color:#004d40; font-size:1.05em;">
+Degrees of Freedom (ν): <span id="t-df-label">5</span>
+</label>
+<input
+  id="t-df-slider"
+  type="range"
+  min="2"
+  max="50"
+  step="1"
+  value="5"
+  oninput="tTailUpdate()"
+  style="width:100%; accent-color:#00695c; margin-top:8px;"
+>
+</div>
+
+<div>
+<label style="font-weight:800; color:#004d40; font-size:1.05em;">
+Tail cutoff (c): <span id="t-cutoff-label">2</span>
+</label>
+<input
+  id="t-cutoff-slider"
+  type="range"
+  min="0.5"
+  max="4"
+  step="0.1"
+  value="2"
+  oninput="tTailUpdate()"
+  style="width:100%; accent-color:#00695c; margin-top:8px;"
+>
+</div>
+
+</div>
+
+<canvas id="t-tail-canvas" width="1100" height="310" style="width:100%; height:260px; display:block;"></canvas>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; text-align:center;">
+
+<div id="t-tail-readout" style="background:rgba(97,156,255,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+P(|T| &gt; 2) = —
+</div>
+
+<div id="z-tail-readout" style="background:rgba(248,118,109,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+P(|Z| &gt; 2) = —
+</div>
+
+</div>
+
 </div>
 
 <script>
-(function(){
-// Approx t-pdf via log-gamma
-function lgamma(x){
-  var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,
-         0.1208650973866179e-2,-0.5395239384953e-5];
-  var y=x, tmp=x+5.5, ser=1.000000000190015;
-  tmp-=(x+0.5)*Math.log(tmp);
-  for(var j=0;j<6;j++) ser+=c[j]/++y;
-  return -tmp+Math.log(2.5066282746310005*ser/x);
-}
-function dtpdf(t,nu){
-  var lg1=lgamma((nu+1)/2), lg2=lgamma(nu/2);
-  return Math.exp(lg1-lg2)*Math.pow(1+t*t/nu,-(nu+1)/2)/(Math.sqrt(nu*Math.PI));
-}
-function dnorm(x){ return Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI); }
+window.tTailUpdate = function () {
+  var canvas = document.getElementById("t-tail-canvas");
+  var dfSlider = document.getElementById("t-df-slider");
+  var cutoffSlider = document.getElementById("t-cutoff-slider");
+  var dfLabel = document.getElementById("t-df-label");
+  var cutoffLabel = document.getElementById("t-cutoff-label");
+  var tReadout = document.getElementById("t-tail-readout");
+  var zReadout = document.getElementById("z-tail-readout");
 
-function updateT(){
-  var nu=+document.getElementById('df-slide').value;
-  document.getElementById('df-val').textContent=nu;
-  var canvas=document.getElementById('tCanvas');
-  var ctx=canvas.getContext('2d');
-  canvas.width=canvas.offsetWidth*2; canvas.height=360;
-  ctx.scale(2,2);
-  var W=canvas.offsetWidth/2, H=180;
-  ctx.clearRect(0,0,W,H);
-
-  var xmin=-4.5, xmax=4.5, n=400;
-  function toX(v){ return (v-xmin)/(xmax-xmin)*W; }
-  var ymax=0.42;
-  function toY(v){ return H-12-v/ymax*(H-28); }
-
-  // draw normal
-  ctx.beginPath(); ctx.strokeStyle='#F8766D'; ctx.lineWidth=2;
-  for(var i=0;i<=n;i++){
-    var xv=xmin+i*(xmax-xmin)/n, yv=dnorm(xv);
-    i===0?ctx.moveTo(toX(xv),toY(yv)):ctx.lineTo(toX(xv),toY(yv));
+  if (!canvas || !dfSlider || !cutoffSlider || !dfLabel || !cutoffLabel || !tReadout || !zReadout) {
+    return;
   }
-  ctx.stroke();
 
-  // shade t tails (|t|>2)
+  var nu = Number(dfSlider.value);
+  var cutoff = Number(cutoffSlider.value);
+
+  dfLabel.innerHTML = nu;
+  cutoffLabel.innerHTML = cutoff.toFixed(1);
+
+  var ctx = canvas.getContext("2d");
+  var width = canvas.width;
+  var height = canvas.height;
+
+  ctx.clearRect(0, 0, width, height);
+
+  function logGamma(z) {
+    var x = [
+      57.1562356658629235,
+      -59.5979603554754912,
+      14.1360979747417471,
+      -0.491913816097620199,
+      0.339946499848118887e-4,
+      0.465236289270485756e-4,
+      -0.983744753048795646e-4,
+      0.158088703224912494e-3,
+      -0.210264441724104883e-3,
+      0.217439618115212643e-3,
+      -0.164318106536763890e-3,
+      0.844182239838527433e-4,
+      -0.261908384015814087e-4,
+      0.368991826595316234e-5
+    ];
+
+    var y = z;
+    var tmp = z + 5.2421875;
+    tmp = (z + 0.5) * Math.log(tmp) - tmp;
+
+    var ser = 0.999999999999997092;
+
+    for (var j = 0; j < x.length; j++) {
+      ser += x[j] / ++y;
+    }
+
+    return tmp + Math.log(2.5066282746310005 * ser / z);
+  }
+
+  function tDensity(x, df) {
+    var a = logGamma((df + 1) / 2);
+    var b = logGamma(df / 2);
+    var c = Math.sqrt(df * Math.PI);
+    var d = Math.pow(1 + (x * x) / df, -(df + 1) / 2);
+
+    return Math.exp(a - b) * d / c;
+  }
+
+  function normalDensity(x) {
+    return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
+  }
+
+  function approxTwoTailT(df, c) {
+    var step = 0.002;
+    var area = 0;
+
+    for (var x = c; x <= 20; x += step) {
+      area += tDensity(x, df) * step;
+    }
+
+    return 2 * area;
+  }
+
+  function erf(x) {
+    var sign = x >= 0 ? 1 : -1;
+    x = Math.abs(x);
+
+    var a1 = 0.254829592;
+    var a2 = -0.284496736;
+    var a3 = 1.421413741;
+    var a4 = -1.453152027;
+    var a5 = 1.061405429;
+    var p = 0.3275911;
+
+    var t = 1 / (1 + p * x);
+    var y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+
+    return sign * y;
+  }
+
+  function normalCdf(x) {
+    return 0.5 * (1 + erf(x / Math.sqrt(2)));
+  }
+
+  function approxTwoTailZ(c) {
+    return 2 * (1 - normalCdf(c));
+  }
+
+  var marginLeft = 65;
+  var marginRight = 30;
+  var marginTop = 20;
+  var marginBottom = 55;
+
+  var plotWidth = width - marginLeft - marginRight;
+  var plotHeight = height - marginTop - marginBottom;
+
+  /* Fixed axis so the curve visibly changes */
+  var xmin = -6;
+  var xmax = 6;
+  var ymax = 0.45;
+
+  function xScale(x) {
+    return marginLeft + ((x - xmin) / (xmax - xmin)) * plotWidth;
+  }
+
+  function yScale(y) {
+    return marginTop + (1 - y / ymax) * plotHeight;
+  }
+
+  function shadeTail(left, right, densityFun, color) {
+    ctx.beginPath();
+    ctx.moveTo(xScale(left), yScale(0));
+
+    for (var i = 0; i <= 300; i++) {
+      var x = left + (right - left) * i / 300;
+      var y = densityFun(x);
+      ctx.lineTo(xScale(x), yScale(y));
+    }
+
+    ctx.lineTo(xScale(right), yScale(0));
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  /* Grid */
+  ctx.strokeStyle = "#e5e7eb";
+  ctx.lineWidth = 1;
+
+  for (var grid = 0; grid <= 4; grid++) {
+    var yGrid = marginTop + (plotHeight * grid) / 4;
+    ctx.beginPath();
+    ctx.moveTo(marginLeft, yGrid);
+    ctx.lineTo(width - marginRight, yGrid);
+    ctx.stroke();
+  }
+
+  /* Shade t tails */
+  shadeTail(xmin, -cutoff, function (x) { return tDensity(x, nu); }, "rgba(97,156,255,0.22)");
+  shadeTail(cutoff, xmax, function (x) { return tDensity(x, nu); }, "rgba(97,156,255,0.22)");
+
+  /* Normal curve */
   ctx.beginPath();
-  var shade=false;
-  for(var i=0;i<=n;i++){
-    var xv=xmin+i*(xmax-xmin)/n, yv=dtpdf(xv,nu);
-    if(Math.abs(xv)>=2){
-      if(!shade){ ctx.moveTo(toX(xv),toY(0)); shade=true; }
-      ctx.lineTo(toX(xv),toY(yv));
-    } else if(shade){ ctx.lineTo(toX(xv),toY(0)); shade=false; }
-  }
-  ctx.fillStyle='#619CFF55'; ctx.fill();
+  ctx.strokeStyle = "#f8766d";
+  ctx.lineWidth = 2.4;
 
-  // draw t
-  ctx.beginPath(); ctx.strokeStyle='#619CFF'; ctx.lineWidth=2;
-  for(var i=0;i<=n;i++){
-    var xv=xmin+i*(xmax-xmin)/n, yv=dtpdf(xv,nu);
-    i===0?ctx.moveTo(toX(xv),toY(yv)):ctx.lineTo(toX(xv),toY(yv));
+  for (var i = 0; i <= 900; i++) {
+    var xNorm = xmin + (xmax - xmin) * i / 900;
+    var yNorm = normalDensity(xNorm);
+
+    if (i === 0) {
+      ctx.moveTo(xScale(xNorm), yScale(yNorm));
+    } else {
+      ctx.lineTo(xScale(xNorm), yScale(yNorm));
+    }
   }
+
   ctx.stroke();
 
-  // axis
-  ctx.beginPath(); ctx.strokeStyle='#aaa'; ctx.lineWidth=1;
-  ctx.moveTo(0,toY(0)); ctx.lineTo(W,toY(0)); ctx.stroke();
-  ctx.fillStyle='#555'; ctx.font='11px Arial'; ctx.textAlign='center';
-  [-4,-3,-2,-1,0,1,2,3,4].forEach(function(v){
-    ctx.fillText(v,toX(v),toY(0)+12);
+  /* t curve */
+  ctx.beginPath();
+  ctx.strokeStyle = "#619cff";
+  ctx.lineWidth = 2.8;
+
+  for (var j = 0; j <= 900; j++) {
+    var xT = xmin + (xmax - xmin) * j / 900;
+    var yT = tDensity(xT, nu);
+
+    if (j === 0) {
+      ctx.moveTo(xScale(xT), yScale(yT));
+    } else {
+      ctx.lineTo(xScale(xT), yScale(yT));
+    }
+  }
+
+  ctx.stroke();
+
+  /* X-axis */
+  ctx.beginPath();
+  ctx.strokeStyle = "#555";
+  ctx.lineWidth = 1.5;
+  ctx.moveTo(marginLeft, yScale(0));
+  ctx.lineTo(width - marginRight, yScale(0));
+  ctx.stroke();
+
+  /* Cutoff lines */
+  ctx.beginPath();
+  ctx.strokeStyle = "#f9a825";
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 6]);
+  ctx.moveTo(xScale(-cutoff), marginTop);
+  ctx.lineTo(xScale(-cutoff), yScale(0));
+  ctx.moveTo(xScale(cutoff), marginTop);
+  ctx.lineTo(xScale(cutoff), yScale(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  /* Axis labels */
+  ctx.fillStyle = "#2f3437";
+  ctx.font = "14px Arial";
+  ctx.textAlign = "center";
+
+  for (var tick = -6; tick <= 6; tick += 1) {
+    ctx.fillText(tick, xScale(tick), height - 18);
+  }
+
+  /* Legend */
+  ctx.textAlign = "left";
+  ctx.font = "16px Arial";
+
+  ctx.strokeStyle = "#f8766d";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(marginLeft + 10, marginTop + 18);
+  ctx.lineTo(marginLeft + 45, marginTop + 18);
+  ctx.stroke();
+
+  ctx.fillStyle = "#2f3437";
+  ctx.fillText("N(0,1)", marginLeft + 52, marginTop + 23);
+
+  ctx.strokeStyle = "#619cff";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(marginLeft + 10, marginTop + 42);
+  ctx.lineTo(marginLeft + 45, marginTop + 42);
+  ctx.stroke();
+
+  ctx.fillStyle = "#2f3437";
+  ctx.fillText("t(" + nu + ")", marginLeft + 52, marginTop + 47);
+
+  var tTail = approxTwoTailT(nu, cutoff);
+  var zTail = approxTwoTailZ(cutoff);
+
+  tReadout.innerHTML = "P(|T| &gt; " + cutoff.toFixed(1) + ") = " + tTail.toFixed(4);
+  zReadout.innerHTML = "P(|Z| &gt; " + cutoff.toFixed(1) + ") = " + zTail.toFixed(4);
+};
+
+setTimeout(window.tTailUpdate, 200);
+setTimeout(window.tTailUpdate, 700);
+
+if (window.Reveal) {
+  Reveal.on("slidechanged", function () {
+    setTimeout(window.tTailUpdate, 150);
   });
-
-  // legend
-  ctx.textAlign='left';
-  ctx.fillStyle='#F8766D'; ctx.fillRect(10,8,18,4);
-  ctx.fillStyle='#2f3437'; ctx.fillText('N(0,1)',32,13);
-  ctx.fillStyle='#619CFF'; ctx.fillRect(10,18,18,4);
-  ctx.fillText('t('+nu+')',32,23);
-
-  // tail probability readout
-  // numeric approx of P(T > 2)
-  var step=0.001, tail=0;
-  for(var tv=2;tv<=10;tv+=step) tail+=dtpdf(tv,nu)*step;
-  tail=tail*2; // two tails
-  var ro=document.getElementById('t-readout');
-  ro.innerHTML='<div style="background:#619CFF22;border-radius:6px;padding:5px 10px;font-weight:700;">P(|T| > 2) = '+tail.toFixed(4)+'</div>'+
-    '<div style="background:#F8766D22;border-radius:6px;padding:5px 10px;font-weight:700;">P(|Z| > 2) = 0.0455</div>';
 }
-window.updateT=updateT;
-setTimeout(updateT,100);
-window.addEventListener('resize',updateT);
-})();
 </script>
 
 ---
@@ -977,9 +1542,10 @@ Notice `qt(0.975, df=10) = 2.228` vs `qnorm(0.975) = 1.960`. The $t$ critical va
 **(d)** Compare the 97.5th percentile of $t_{5}$, $t_{30}$, and $N(0,1)$. What do you notice?
 :::
 
+
 ---
 
-## $t$ Example — Check in R
+## $t$ Example — Check in R with Plot
 
 ```{webr}
 #| autorun: false
@@ -994,9 +1560,43 @@ qt(0.975, df = 20)
 2 * pt(2.571, df = 5, lower.tail = FALSE)
 
 # (d) 97.5th percentile comparison
-qt(0.975, df = c(5, 30)); qnorm(0.975)
-```
+qt(0.975, df = c(5, 30))
+qnorm(0.975)
 
+# Plot part (c): two tails for t with df = 5
+df_value <- 5
+cutoff <- 2.571
+
+x <- seq(-5, 5, length.out = 1000)
+y <- dt(x, df = df_value)
+
+plot(x, y,
+     type = "l",
+     lwd = 2,
+     col = "#00695c",
+     xlab = "t",
+     ylab = "Density",
+     main = "Two-tail probability for t distribution")
+
+left_x <- x[x <= -cutoff]
+left_y <- dt(left_x, df = df_value)
+
+right_x <- x[x >= cutoff]
+right_y <- dt(right_x, df = df_value)
+
+polygon(c(min(left_x), left_x, -cutoff),
+        c(0, left_y, 0),
+        col = "#c8e6f3",
+        border = NA)
+
+polygon(c(cutoff, right_x, max(right_x)),
+        c(0, right_y, 0),
+        col = "#c8e6f3",
+        border = NA)
+
+lines(x, y, lwd = 2, col = "#00695c")
+abline(v = c(-cutoff, cutoff), lty = 2, col = "#f9a825", lwd = 2)
+```
 ---
 
 ##  {.quiz-question}
@@ -1272,7 +1872,7 @@ May need $n = 50$–$100$ or more. The more extreme the skew, the larger $n$ mus
 
 ---
 
-## CLT — Interactive Simulator
+## CLT — Simulation Lab in R
 
 ```{webr}
 #| autorun: false
@@ -1301,6 +1901,88 @@ mu_t  <- mu_map[dist]; se_t <- sqrt(var_map[dist]/n)
 hist(xbars, breaks=50, freq=FALSE, col="#00695c", border="white",
      main=paste("CLT:", dist, "| n =", n), xlab="Sample mean")
 curve(dnorm(x, mu_t, se_t), add=TRUE, col="#F8766D", lwd=2)
+```
+
+---
+
+## In-Class Example: CLT in Action {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Assume individual wait times follow a right-skewed exponential distribution.
+
+We repeatedly take samples and compute the sample mean.
+
+**(a)** What is the shape of the original population?
+
+**(b)** What statistic are we calculating repeatedly?
+
+**(c)** What happens to the sampling distribution of $\bar{X}$ as $n$ increases?
+
+**(d)** Which theorem explains this pattern?
+:::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.8
+#| fig-height: 4
+#| fig-align: center
+#| echo: false
+
+set.seed(258)
+
+means_5 <- replicate(3000, mean(rexp(5, rate = 1)))
+means_40 <- replicate(3000, mean(rexp(40, rate = 1)))
+
+df_clt_inclass <- rbind(
+  data.frame(mean_value = means_5, sample_size = "n = 5"),
+  data.frame(mean_value = means_40, sample_size = "n = 40")
+)
+
+ggplot(df_clt_inclass, aes(x = mean_value, fill = sample_size)) +
+  geom_histogram(bins = 35, colour = "white") +
+  facet_wrap(~ sample_size, ncol = 1) +
+  scale_fill_manual(values = c("#fff8e1", "#c8e6f3"), guide = "none") +
+  labs(x = "Repeated sample means", y = "Frequency") +
+  theme(panel.grid.minor = element_blank(),
+        strip.text = element_text(face = "bold"))
+```
+:::
+::::
+
+---
+
+## CLT in Action - Try It Yourself in R
+
+```{webr}
+#| autorun: false
+
+set.seed(258)
+
+sample_size <- 5
+repetitions <- 3000
+
+sample_means <- replicate(repetitions, {
+  x <- rexp(sample_size, rate = 1)
+  mean(x)
+})
+
+hist(sample_means,
+     breaks = 35,
+     probability = TRUE,
+     col = "#00695c",
+     border = "white",
+     main = paste("Sampling distribution when n =", sample_size),
+     xlab = "Sample mean")
+
+curve(dnorm(x, mean = mean(sample_means), sd = sd(sample_means)),
+      add = TRUE,
+      lwd = 2)
+
+# Change sample_size to 40 and rerun.
 ```
 
 ---
@@ -1603,6 +2285,83 @@ A fair die is rolled repeatedly. Let $\bar{X}_n$ be the average of the first $n$
 - [3.5]{.correct data-explanation="$E[X] = (1+2+3+4+5+6)/6 = 3.5$. The WLLN says $\bar{X}_n \overset{p}{\to} E[X] = 3.5$."}
 - 4
 - 6
+
+---
+
+## In-Class Example: Law of Large Numbers {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+A fair coin is flipped many times. Let $X_i=1$ if the flip is heads and $X_i=0$ if the flip is tails.
+
+The true population mean is:
+
+$$\mu = P(\text{Heads}) = 0.5$$
+
+**(a)** What does the running sample mean represent?
+
+**(b)** Why does it jump around a lot at the start?
+
+**(c)** What happens as the number of flips increases?
+
+**(d)** Which result explains this behaviour?
+:::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.8
+#| fig-height: 4
+#| fig-align: center
+#| echo: false
+
+set.seed(258)
+
+flips <- rbinom(300, size = 1, prob = 0.5)
+running_mean <- cumsum(flips) / seq_along(flips)
+
+df_coin_inclass <- data.frame(
+  flip_number = seq_along(flips),
+  running_mean = running_mean
+)
+
+ggplot(df_coin_inclass, aes(x = flip_number, y = running_mean)) +
+  geom_line(linewidth = 1.05, colour = "#00695c") +
+  geom_hline(yintercept = 0.5, linetype = "dashed", colour = "#f9a825", linewidth = 1.1) +
+  annotate("text", x = 240, y = 0.54, label = "True mean = 0.5", colour = "#f9a825", fontface = "bold") +
+  labs(x = "Number of coin flips", y = "Running proportion of heads") +
+  ylim(0, 1) +
+  theme(panel.grid.minor = element_blank())
+```
+:::
+::::
+
+---
+
+## Law of Large Numbers - Check in R
+
+```{webr}
+#| autorun: false
+
+set.seed(258)
+
+flips <- rbinom(300, size = 1, prob = 0.5)
+running_mean <- cumsum(flips) / seq_along(flips)
+
+plot(running_mean,
+     type = "l",
+     lwd = 2,
+     col = "#00695c",
+     xlab = "Number of coin flips",
+     ylab = "Running proportion of heads",
+     main = "Law of Large Numbers")
+
+abline(h = 0.5, lty = 2, col = "#f9a825", lwd = 2)
+
+tail(running_mean)
+```
 
 ---
 

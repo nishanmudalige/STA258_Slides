@@ -362,6 +362,8 @@ Once we write data as $x_1, \ldots, x_n$, every formula in this chapter (mean, v
 
 ## Example: Commute Methods {.scrollable}
 
+:::: {.two-col-lean}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Example</span>
 A survey asked 40 STA258 students how they usually commute to campus.
@@ -378,6 +380,31 @@ A survey asked 40 STA258 students how they usually commute to campus.
 
 **(d)** What percentage use **public transport** (Bus and Train)?
 :::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.2
+#| fig-height: 3.4
+#| fig-align: center
+#| echo: false
+
+commute <- data.frame(
+  Method = factor(c("Bus", "Car", "Walk", "Train", "Other"),
+                  levels = c("Bus", "Car", "Walk", "Train", "Other")),
+  Frequency = c(14, 9, 5, 8, 4)
+)
+
+ggplot(commute, aes(x = Method, y = Frequency)) +
+  geom_col(fill = "#00695c", width = 0.72) +
+  geom_text(aes(label = Frequency), vjust = -0.35, size = 4) +
+  labs(title = "Commute methods", x = NULL, y = "Frequency") +
+  ylim(0, 16) +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+:::
+::::
 
 ---
 
@@ -542,6 +569,8 @@ names(counts)[which.max(counts)]  # the mode
 
 ## Example: Study Hours {.scrollable}
 
+:::: {.two-col-lean}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Example</span>
 Ten students reported the number of hours they studied for a midterm:
@@ -556,6 +585,32 @@ $$2, 4, 5, 5, 6, 7, 7, 7, 9, 12$$
 
 **(d)** Which measure of centre is most affected by the value $12$? Explain briefly.
 :::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.2
+#| fig-height: 3.4
+#| fig-align: center
+#| echo: false
+
+study <- data.frame(hours = c(2, 4, 5, 5, 6, 7, 7, 7, 9, 12))
+
+ggplot(study, aes(x = hours)) +
+  geom_histogram(binwidth = 1, boundary = 0.5,
+                 fill = "#00695c", colour = "white") +
+  geom_vline(xintercept = mean(study$hours),
+             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
+  geom_vline(xintercept = median(study$hours),
+             colour = "#004d40", linewidth = 1.2) +
+  labs(title = "Study hours",
+       subtitle = "Dashed line = mean; solid line = median",
+       x = "Hours studied", y = "Frequency") +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+:::
+::::
 
 ---
 
@@ -734,6 +789,8 @@ diff(range(x))    # also gives the range
 
 ## Example: Quiz Scores {.scrollable}
 
+:::: {.two-col-lean}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Example</span>
 A student recorded their quiz scores out of $10$:
@@ -748,6 +805,31 @@ $$6, 7, 7, 8, 9, 10$$
 
 **(d)** What does the standard deviation tell us in this context?
 :::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.2
+#| fig-height: 3.4
+#| fig-align: center
+#| echo: false
+
+quiz <- data.frame(score = c(6, 7, 7, 8, 9, 10))
+
+ggplot(quiz, aes(x = score)) +
+  geom_histogram(binwidth = 1, boundary = 5.5,
+                 fill = "#00695c", colour = "white") +
+  geom_vline(xintercept = mean(quiz$score),
+             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
+  labs(title = "Quiz scores out of 10",
+       subtitle = "Dashed line = sample mean",
+       x = "Score", y = "Frequency") +
+  scale_x_continuous(breaks = 6:10) +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+:::
+::::
 
 ---
 
@@ -833,6 +915,8 @@ IQR(x)            # Q3 - Q1
 
 ## Example: Final Exam Scores {.scrollable}
 
+:::: {.two-col-lean}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Example</span>
 The final exam scores for $12$ students are:
@@ -849,6 +933,30 @@ $$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
 
 **(e)** Using the $1.5 \times \text{IQR}$ rule, which scores would be flagged as unusually low or high?
 :::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.2
+#| fig-height: 3.4
+#| fig-align: center
+#| echo: false
+
+exam <- data.frame(score = c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96))
+
+ggplot(exam, aes(x = score, y = "")) +
+  geom_boxplot(fill = "#00695c", colour = "#004d40",
+               width = 0.35, outlier.colour = "#e34a6f") +
+  geom_jitter(height = 0.08, size = 2.2, alpha = 0.75, colour = "#f9a825") +
+  labs(title = "Final exam scores",
+       x = "Score", y = NULL) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor = element_blank(),
+        axis.text.y = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+:::
+::::
 
 ---
 
@@ -1253,6 +1361,8 @@ ggplot(df_box, aes(x = value, y = shape, fill = shape)) +
 
 ## Example: Online Quiz Times {.scrollable}
 
+:::: {.two-col-lean}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Example</span>
 A professor records the time, in minutes, that students spent completing an online quiz:
@@ -1267,6 +1377,28 @@ $$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
 
 **(d)** Which value seems most likely to be an outlier?
 :::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.2
+#| fig-height: 3.4
+#| fig-align: center
+#| echo: false
+
+times <- data.frame(minutes = c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42))
+
+ggplot(times, aes(x = minutes)) +
+  geom_histogram(binwidth = 5, boundary = 10,
+                 fill = "#00695c", colour = "white") +
+  geom_rug(colour = "#f9a825", linewidth = 1) +
+  labs(title = "Online quiz completion times",
+       x = "Minutes", y = "Frequency") +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+:::
+::::
 
 ---
 
@@ -1346,6 +1478,8 @@ Both groups have $\bar{x} = 15$, but Group B is much more spread out. Mean alone
 
 ## Example: Two Sections {.scrollable}
 
+:::: {.two-col-lean}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Example</span>
 Two sections of a course report the following midterm marks. **Section A:** $62, 65, 68, 70, 72, 75, 78$. **Section B:** $45, 65, 68, 70, 72, 75, 95$.
@@ -1358,6 +1492,32 @@ Two sections of a course report the following midterm marks. **Section A:** $62,
 
 **(d)** For Section B, would the mean or the median better represent a typical student? Explain.
 :::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.2
+#| fig-height: 3.4
+#| fig-align: center
+#| echo: false
+
+sections <- data.frame(
+  Section = rep(c("A", "B"), each = 7),
+  Mark = c(62, 65, 68, 70, 72, 75, 78,
+           45, 65, 68, 70, 72, 75, 95)
+)
+
+ggplot(sections, aes(x = Section, y = Mark, fill = Section)) +
+  geom_boxplot(width = 0.45, colour = "#004d40", outlier.colour = "#e34a6f") +
+  geom_jitter(width = 0.08, size = 2.2, alpha = 0.75) +
+  scale_fill_manual(values = c("#00695c", "#f9a825"), guide = "none") +
+  labs(title = "Midterm marks by section",
+       x = "Section", y = "Mark") +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+:::
+::::
 
 ---
 
@@ -1439,6 +1599,8 @@ Read **skewness** from a histogram (which way does the tail point?) or a boxplot
 
 ## Bonus Example: Textbooks Owned {.scrollable}
 
+:::: {.two-col-lean}
+::: {.col}
 ::: {.taskbox}
 <span class="label">Bonus Example</span>
 The number of textbooks owned by $15$ students:
@@ -1455,6 +1617,31 @@ $$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
 
 **(e)** Would a **boxplot** or **histogram** be more useful for detecting outliers?
 :::
+:::
+
+::: {.col}
+```{r}
+#| fig-width: 5.2
+#| fig-height: 3.4
+#| fig-align: center
+#| echo: false
+
+books <- data.frame(textbooks = c(0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10))
+
+ggplot(books, aes(x = textbooks)) +
+  geom_histogram(binwidth = 1, boundary = -0.5,
+                 fill = "#00695c", colour = "white") +
+  geom_vline(xintercept = median(books$textbooks),
+             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
+  labs(title = "Textbooks owned",
+       subtitle = "Dashed line = median",
+       x = "Number of textbooks", y = "Frequency") +
+  scale_x_continuous(breaks = 0:10) +
+  theme(panel.grid.minor = element_blank(),
+        plot.title = element_text(face = "bold"))
+```
+:::
+::::
 
 ---
 

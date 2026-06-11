@@ -144,7 +144,7 @@
     "href": "Chapter Slides/chapter4-slides.html#empirical-rule-interactive-explorer",
     "title": "STA258",
     "section": "Empirical Rule — Interactive Explorer",
-    "text": "Empirical Rule — Interactive Explorer\n\n\n\nMean (μ): 0 \n\n\nStd Dev (σ): 1"
+    "text": "Empirical Rule — Interactive Explorer\n\n\n\n Mean (μ): 0  \n\n\n Standard deviation (σ): 1  \n\n\n\n\n\n\nμ ± 1σ68.27%\n\n\nμ ± 2σ95.45%\n\n\nμ ± 3σ99.73%"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#normal-probabilities-in-r",
@@ -172,14 +172,14 @@
     "href": "Chapter Slides/chapter4-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nFor \\(Z \\sim N(0,1)\\), the Empirical Rule tells us \\(P(-2 &lt; Z &lt; 2) \\approx 0.9545\\). Using symmetry, what is \\(P(Z &gt; 2)\\)?\n\n\n\n\n0.9545\n0.0455\n0.02275\n0.0500"
+    "text": "Visual Question\n\n\nThe Empirical Rule says the middle region from \\(-2\\) to \\(2\\) contains about 95.45% of the standard normal curve. Using symmetry, what is \\(P(Z &gt; 2)\\)?\n\n\n\n\n\n0.9545\n0.0455\n0.02275\n0.0500"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#section-1",
     "href": "Chapter Slides/chapter4-slides.html#section-1",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\n\\(X \\sim N(50, 100)\\). What is the standardised value \\(z\\) corresponding to \\(x = 65\\)?\n\n\n\n\n\\(z = 0.65\\)\n\\(z = 1.5\\)\n\\(z = 1.5\\)\n\\(z = 2.5\\)\n\n\nRemember: \\(\\sigma = \\sqrt{\\sigma^2}\\)"
+    "text": "Visual Question\n\n\nThe plot shows a normal distribution with mean 50 and variance 100, with a marked value at x = 65. What is the standardised value z?\n\n\n\n\n\nz = 0.65\nz = 0.15\nz = 1.5\nz = 2.5\n\n\nRemember: the standard deviation is the square root of the variance."
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#the-chi-square-distribution",
@@ -221,7 +221,7 @@
     "href": "Chapter Slides/chapter4-slides.html#section-2",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\n\\(Z_1, Z_2, Z_3, Z_4 \\overset{\\text{iid}}{\\sim} N(0,1)\\). What is the distribution of \\(W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2\\)?\n\n\n\n\n\\(W \\sim N(0,4)\\)\n\\(W \\sim \\chi^2_2\\)\n\\(W \\sim \\chi^2_4\\)\n\\(W \\sim t_4\\)"
+    "text": "Example\n\n\n\\(Z_1, Z_2, Z_3, Z_4 \\overset{\\text{iid}}{\\sim} N(0,1)\\). What is the distribution of\n\\[W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2 \\; ?\\]\n\n\n\n\n\\(W \\sim N(0,4)\\)\n\\(W \\sim \\chi^2_2\\)\n\\(W \\sim \\chi^2_4\\)\n\\(W \\sim t_4\\)"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#the-students-t-distribution",
@@ -242,7 +242,7 @@
     "href": "Chapter Slides/chapter4-slides.html#t-distribution-interactive-tail-comparison",
     "title": "STA258",
     "section": "\\(t\\)-Distribution: Interactive Tail Comparison",
-    "text": "\\(t\\)-Distribution: Interactive Tail Comparison\n\nDegrees of Freedom (ν): 5"
+    "text": "\\(t\\)-Distribution: Interactive Tail Comparison\n\n\n\n Degrees of Freedom (ν): 5  \n\n\n Tail cutoff (c): 2  \n\n\n\n\n\n\nP(|T| &gt; 2) = —\n\n\nP(|Z| &gt; 2) = —"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#t-distribution-in-r",
@@ -270,7 +270,7 @@
     "href": "Chapter Slides/chapter4-slides.html#section-3",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nWhy do we use the \\(t\\)-distribution instead of the normal when making inferences about a mean from a small sample?\n\n\n\n\nThe \\(t\\) is easier to compute\nWe must estimate \\(\\sigma\\) from the data, adding uncertainty — \\(t\\) has heavier tails to account for this\nThe normal distribution is only valid for large populations\nSmall samples always have skewed data"
+    "text": "Visual Question\n\n\nThe blue curve has heavier tails than the red normal curve. Why do we use the \\(t\\)-distribution instead of the normal for small-sample inference about a mean?\n\n\n\n\n\nThe \\(t\\) is easier to compute\nWe must estimate \\(\\sigma\\) from the data, adding uncertainty — \\(t\\) has heavier tails to account for this\nThe normal distribution is only valid for large populations\nSmall samples always have skewed data"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#the-f-distribution",
@@ -340,7 +340,7 @@
     "href": "Chapter Slides/chapter4-slides.html#section-5",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nA population has mean \\(\\mu = 40\\) and variance \\(\\sigma^2 = 100\\). A random sample of size \\(n = 25\\) is drawn. What is the standard error of \\(\\bar{X}\\)?\n\n\n\n\n10\n4\n2\n0.4"
+    "text": "Visual Question\n\n\nA population has mean \\(40\\) and variance \\(100\\). A random sample of size \\(25\\) is drawn. What is the standard error of \\(\\bar{X}\\)?\n\n\n\n\n\n10\n0.4\n2\n4"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#the-central-limit-theorem",
@@ -382,7 +382,7 @@
     "href": "Chapter Slides/chapter4-slides.html#section-6",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nThe Central Limit Theorem says the sample mean \\(\\bar{X}_n\\) is approximately normal for large \\(n\\). What conditions are required?\n\n\n\n\nThe population must be normal\nThe sample size must equal exactly 30\nThe observations must be i.i.d. with finite mean and variance\nThe population must be symmetric"
+    "text": "Visual Question\n\n\nThe sample means become more normal as \\(n\\) grows, even though the original data are skewed. What conditions does the CLT require?\n\n\n\n\n\nThe population must be normal\nThe sample size must equal exactly 30\nThe observations must be i.i.d. with finite mean and variance\nThe population must be symmetric"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#convergence-in-probability",
@@ -459,14 +459,14 @@
     "href": "Chapter Slides/chapter4-slides.html#section-7",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nThe Weak Law of Large Numbers guarantees that for large \\(n\\), \\(\\bar{X}_n\\) is close to \\(\\mu\\) with high probability. Which mathematical tool is used in the standard proof?\n\n\n\n\nThe Central Limit Theorem\nChebyshev’s Inequality\nJensen’s Inequality\nThe Empirical Rule"
+    "text": "Visual Question\n\n\nThe graph shows the Chebyshev bound used in the standard proof of the Weak Law of Large Numbers. Which mathematical tool is being used?\n\n\n\n\n\nThe Central Limit Theorem\nChebyshev’s Inequality\nJensen’s Inequality\nThe Empirical Rule"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#section-8",
     "href": "Chapter Slides/chapter4-slides.html#section-8",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nA fair die is rolled repeatedly. Let \\(\\bar{X}_n\\) be the average of the first \\(n\\) rolls. By the WLLN, \\(\\bar{X}_n\\) converges in probability to which value?\n\n\n\n\n3\n3.5\n4\n6"
+    "text": "Visual Question\n\n\nA fair die is rolled repeatedly. The running average settles near the dashed line. By the WLLN, what value does X̄ₙ converge to in probability?\n\n\n\n\n\n3\n6\n4\n3.5"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#empirical-probability-connection",
@@ -1047,7 +1047,7 @@
     "href": "Chapter Slides/chapter3-slides.html#example-commute-methods",
     "title": "STA258",
     "section": "Example: Commute Methods",
-    "text": "Example: Commute Methods\n\nExample A survey asked 40 STA258 students how they usually commute to campus.\n\n\n\nMethod\nBus\nCar\nWalk\nTrain\nOther\n\n\n\n\nFrequency\n14\n9\n5\n8\n4\n\n\n\n(a) Is this variable qualitative or quantitative?\n(b) Create a relative frequency table.\n(c) Which method is most common?\n(d) What percentage use public transport (Bus and Train)?"
+    "text": "Example: Commute Methods\n\n\n\nExample A survey asked 40 STA258 students how they usually commute to campus.\n\n\n\nMethod\nBus\nCar\nWalk\nTrain\nOther\n\n\n\n\nFrequency\n14\n9\n5\n8\n4\n\n\n\n(a) Is this variable qualitative or quantitative?\n(b) Create a relative frequency table.\n(c) Which method is most common?\n(d) What percentage use public transport (Bus and Train)?"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#commute-methods---check-in-r",
@@ -1061,7 +1061,7 @@
     "href": "Chapter Slides/chapter3-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nA class collects the daily steps walked by ten students: \\(4, 6, 6, 7, 8, 8, 9, 10, 11, 12\\) (thousands of steps). In the notation \\(x_1, x_2, \\ldots, x_n\\), what is \\(n\\)?\n\n\n\n\n4\n8\n10\n12"
+    "text": "Visual Question\n\n\nThe plot shows daily steps for a sample of students. In the notation \\(x_1, x_2, \\ldots, x_n\\), what is \\(n\\)?\n\n\n\n\n\n4\n8\n10\n12"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#numerical-measures",
@@ -1103,7 +1103,7 @@
     "href": "Chapter Slides/chapter3-slides.html#example-study-hours",
     "title": "STA258",
     "section": "Example: Study Hours",
-    "text": "Example: Study Hours\n\nExample Ten students reported the number of hours they studied for a midterm:\n\\[2, 4, 5, 5, 6, 7, 7, 7, 9, 12\\]\n(a) Find the mean study time.\n(b) Find the median study time.\n(c) Find the mode.\n(d) Which measure of centre is most affected by the value \\(12\\)? Explain briefly."
+    "text": "Example: Study Hours\n\n\n\nExample Ten students reported the number of hours they studied for a midterm:\n\\[2, 4, 5, 5, 6, 7, 7, 7, 9, 12\\]\n(a) Find the mean study time.\n(b) Find the median study time.\n(c) Find the mode.\n(d) Which measure of centre is most affected by the value \\(12\\)? Explain briefly."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#study-hours---check-in-r",
@@ -1117,7 +1117,7 @@
     "href": "Chapter Slides/chapter3-slides.html#section-1",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nA class has the following test scores out of 100: \\(72, 75, 78, 80, 82, 85, 12\\). One student missed most of the term and scored 12. Which measure best describes a “typical” score?\n\n\n\n\nMean\nMedian\nMode\nRange"
+    "text": "Visual Question\n\n\nThe plot shows test scores for one class. Which measure best describes a “typical” score?\n\n\n\n\n\nMean\nMedian\nMode\nRange"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#variance",
@@ -1159,7 +1159,7 @@
     "href": "Chapter Slides/chapter3-slides.html#example-quiz-scores",
     "title": "STA258",
     "section": "Example: Quiz Scores",
-    "text": "Example: Quiz Scores\n\nExample A student recorded their quiz scores out of \\(10\\):\n\\[6, 7, 7, 8, 9, 10\\]\n(a) Find the range.\n(b) Find the sample variance \\(s^{2}\\).\n(c) Find the sample standard deviation \\(s\\).\n(d) What does the standard deviation tell us in this context?"
+    "text": "Example: Quiz Scores\n\n\n\nExample A student recorded their quiz scores out of \\(10\\):\n\\[6, 7, 7, 8, 9, 10\\]\n(a) Find the range.\n(b) Find the sample variance \\(s^{2}\\).\n(c) Find the sample standard deviation \\(s\\).\n(d) What does the standard deviation tell us in this context?"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#quiz-scores---check-in-r",
@@ -1194,7 +1194,7 @@
     "href": "Chapter Slides/chapter3-slides.html#example-final-exam-scores",
     "title": "STA258",
     "section": "Example: Final Exam Scores",
-    "text": "Example: Final Exam Scores\n\nExample The final exam scores for \\(12\\) students are:\n\\[52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96\\]\n(a) Find the median.\n(b) Find the first quartile, \\(Q_{1}\\).\n(c) Find the third quartile, \\(Q_{3}\\).\n(d) Find the interquartile range (IQR).\n(e) Using the \\(1.5 \\times \\text{IQR}\\) rule, which scores would be flagged as unusually low or high?"
+    "text": "Example: Final Exam Scores\n\n\n\nExample The final exam scores for \\(12\\) students are:\n\\[52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96\\]\n(a) Find the median.\n(b) Find the first quartile, \\(Q_{1}\\).\n(c) Find the third quartile, \\(Q_{3}\\).\n(d) Find the interquartile range (IQR).\n(e) Using the \\(1.5 \\times \\text{IQR}\\) rule, which scores would be flagged as unusually low or high?"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#final-exam-scores---check-in-r",
@@ -1208,7 +1208,7 @@
     "href": "Chapter Slides/chapter3-slides.html#section-2",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nFor a sample with \\(Q_1 = 5\\) and \\(Q_3 = 11\\), would an observation of \\(25\\) be flagged as a potential outlier by the \\(1.5 \\times \\text{IQR}\\) rule?\n\n\n\n\nYes - it sits above the upper cutoff\nNo - it sits inside the whiskers\nWe cannot tell without the median\nWe cannot tell without the sample size"
+    "text": "Visual Question\n\n\nThe plot shows \\(Q_1 = 5\\), \\(Q_3 = 11\\), the outlier fences, and a value of \\(25\\). Would \\(25\\) be flagged as a potential outlier?\n\n\n\n\n\nYes - it sits above the upper cutoff\nNo - it sits inside the whiskers\nWe cannot tell without the median\nWe cannot tell without the sample size"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#graphical-techniques",
@@ -1278,7 +1278,7 @@
     "href": "Chapter Slides/chapter3-slides.html#section-3",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nA right-skewed histogram shows the annual salaries at a tech company. A reporter writes: “The average salary is $95,000, so most employees earn around that amount.”\nWhich is the better summary of a typical employee’s salary?\n\n\n\n\nThe mean\nThe median\nThey give the same answer\nNeither - use the mode"
+    "text": "Visual Question\n\n\nThe histogram shows a right-skewed salary distribution. Which summary better describes a typical employee’s salary?\n\n\n\n\n\nThe mean\nThe median\nThey give the same answer\nNeither - use the mode"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#boxplots",
@@ -1313,7 +1313,7 @@
     "href": "Chapter Slides/chapter3-slides.html#example-online-quiz-times",
     "title": "STA258",
     "section": "Example: Online Quiz Times",
-    "text": "Example: Online Quiz Times\n\nExample A professor records the time, in minutes, that students spent completing an online quiz:\n\\[12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42\\]\n(a) Would a histogram or boxplot better show the shape of the distribution?\n(b) Would a boxplot or histogram be better for identifying possible outliers?\n(c) Describe the likely shape: symmetric, left-skewed, or right-skewed.\n(d) Which value seems most likely to be an outlier?"
+    "text": "Example: Online Quiz Times\n\n\n\nExample A professor records the time, in minutes, that students spent completing an online quiz:\n\\[12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42\\]\n(a) Would a histogram or boxplot better show the shape of the distribution?\n(b) Would a boxplot or histogram be better for identifying possible outliers?\n(c) Describe the likely shape: symmetric, left-skewed, or right-skewed.\n(d) Which value seems most likely to be an outlier?"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#online-quiz-times---check-in-r",
@@ -1327,14 +1327,14 @@
     "href": "Chapter Slides/chapter3-slides.html#section-4",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nBoxplots of 80 delivery times. Restaurant A has a short box, short whiskers, and no outliers. Restaurant B has a wider box, a long upper whisker, and two high outliers. One sells sushi (careful, consistent prep), the other pizza (occasional rush orders). Which is the sushi restaurant?\n\n\n\n\nRestaurant A\nRestaurant B\nBoth equally consistent\nCannot tell"
+    "text": "Visual Question\n\n\nThe boxplots compare delivery times for two restaurants. One restaurant has careful, consistent prep. Which one is most likely the sushi restaurant?\n\n\n\n\n\nRestaurant A\nRestaurant B\nBoth equally consistent\nCannot tell"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#section-5",
     "href": "Chapter Slides/chapter3-slides.html#section-5",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nIn a sample, the median sits noticeably closer to \\(Q_3\\) than to \\(Q_1\\), and the lower whisker is longer. What does this suggest?\n\n\n\n\nThe distribution is right-skewed\nThe distribution is left-skewed\nThe distribution is symmetric\nThere must be a high outlier"
+    "text": "Visual Question\n\n\nLook at the boxplot. What kind of skewness does this shape suggest?\n\n\n\n\n\nThe distribution is right-skewed\nThe distribution is left-skewed\nThe distribution is symmetric\nThere must be a high outlier"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#comparing-two-groups",
@@ -1348,7 +1348,7 @@
     "href": "Chapter Slides/chapter3-slides.html#example-two-sections",
     "title": "STA258",
     "section": "Example: Two Sections",
-    "text": "Example: Two Sections\n\nExample Two sections of a course report the following midterm marks. Section A: \\(62, 65, 68, 70, 72, 75, 78\\). Section B: \\(45, 65, 68, 70, 72, 75, 95\\).\n(a) Find the mean mark for each section.\n(b) Find the median mark for each section.\n(c) Which section has more spread? Explain.\n(d) For Section B, would the mean or the median better represent a typical student? Explain."
+    "text": "Example: Two Sections\n\n\n\nExample Two sections of a course report the following midterm marks. Section A: \\(62, 65, 68, 70, 72, 75, 78\\). Section B: \\(45, 65, 68, 70, 72, 75, 95\\).\n(a) Find the mean mark for each section.\n(b) Find the median mark for each section.\n(c) Which section has more spread? Explain.\n(d) For Section B, would the mean or the median better represent a typical student? Explain."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#two-sections---check-in-r",
@@ -1369,7 +1369,7 @@
     "href": "Chapter Slides/chapter3-slides.html#section-6",
     "title": "STA258",
     "section": "",
-    "text": "Example\n\n\nA teaching assistant wants to compare the distribution of test scores between two tutorial sections. Which graph is best suited for this comparison?\n\n\n\n\nA bar chart\nTwo separate histograms\nSide-by-side boxplots\nA scatterplot"
+    "text": "Visual Question\n\n\nThe raw scores below come from two tutorial sections. Which graph is best suited for comparing their distributions?\n\n\n\n\n\nA bar chart\nTwo separate histograms\nSide-by-side boxplots\nA scatterplot"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#chapter-summary",
@@ -1383,7 +1383,7 @@
     "href": "Chapter Slides/chapter3-slides.html#bonus-example-textbooks-owned",
     "title": "STA258",
     "section": "Bonus Example: Textbooks Owned",
-    "text": "Bonus Example: Textbooks Owned\n\nBonus Example The number of textbooks owned by \\(15\\) students:\n\\[0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10\\]\n(a) Is the variable discrete or continuous?\n(b) Find the mean, median, and mode.\n(c) Find the range and the IQR.\n(d) Would a histogram or boxplot better show the overall shape?\n(e) Would a boxplot or histogram be more useful for detecting outliers?"
+    "text": "Bonus Example: Textbooks Owned\n\n\n\nBonus Example The number of textbooks owned by \\(15\\) students:\n\\[0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10\\]\n(a) Is the variable discrete or continuous?\n(b) Find the mean, median, and mode.\n(c) Find the range and the IQR.\n(d) Would a histogram or boxplot better show the overall shape?\n(e) Would a boxplot or histogram be more useful for detecting outliers?"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#bonus-example-textbooks-owned---check-in-r",
@@ -1468,5 +1468,103 @@
     "title": "STA258",
     "section": "1.2 Types of Data",
     "text": "1.2 Types of Data\n\nQuantitative data Numerical measurements where arithmetic is meaningful.\n\n\nQualitative (categorical) data Values fall into categories; arithmetic doesn’t make sense.\n\n\n\nTrap: a number doesn’t automatically mean quantitative. Postal codes, jersey numbers, and student IDs look numeric but are categorical."
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#in-class-example-parameter-statistic-and-sampling-variability",
+    "href": "Chapter Slides/chapter4-slides.html#in-class-example-parameter-statistic-and-sampling-variability",
+    "title": "STA258",
+    "section": "In-Class Example: Parameter, Statistic, and Sampling Variability",
+    "text": "In-Class Example: Parameter, Statistic, and Sampling Variability\n\n\n\nIn-Class Example Suppose the true average commute time for all UTM students is unknown.\nA researcher takes five different samples, each with \\(n=25\\) students, and computes a sample mean commute time for each sample.\n(a) What is the population parameter?\n(b) What statistic is computed from each sample?\n(c) Why are the five sample means not exactly the same?\n(d) What would happen to the sample means if each sample used \\(n=200\\) students instead?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#sampling-variability---check-in-r",
+    "href": "Chapter Slides/chapter4-slides.html#sampling-variability---check-in-r",
+    "title": "STA258",
+    "section": "Sampling Variability - Check in R",
+    "text": "Sampling Variability - Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#in-class-example-normal-probability-with-a-plot",
+    "href": "Chapter Slides/chapter4-slides.html#in-class-example-normal-probability-with-a-plot",
+    "title": "STA258",
+    "section": "In-Class Example: Normal Probability with a Plot",
+    "text": "In-Class Example: Normal Probability with a Plot\n\n\n\nIn-Class Example Suppose final exam scores are approximately normal with mean \\(\\mu=72\\) and standard deviation \\(\\sigma=8\\).\n(a) Find the \\(z\\)-score for a score of \\(84\\).\n(b) Find \\(P(X \\le 84)\\).\n(c) Find \\(P(X &gt; 84)\\).\n(d) On the plot, identify the shaded right-tail region and explain why it represents \\(P(X &gt; 84)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#normal-probability---check-in-r",
+    "href": "Chapter Slides/chapter4-slides.html#normal-probability---check-in-r",
+    "title": "STA258",
+    "section": "Normal Probability - Check in R",
+    "text": "Normal Probability - Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#example-heights-with-probability-plot",
+    "href": "Chapter Slides/chapter4-slides.html#example-heights-with-probability-plot",
+    "title": "STA258",
+    "section": "Example: Heights with Probability Plot",
+    "text": "Example: Heights with Probability Plot\n\n\n\nExample Adult heights in a population follow\n\\[X \\sim N(170, 8^2)\\]\nwhere height is measured in centimetres.\n(a) Find \\(P(X &lt; 180)\\).\n(b) Find \\(P(X &gt; 160)\\).\n(c) Find \\(P(162 &lt; X &lt; 178)\\).\n(d) Find the height \\(h\\) such that only 5% of people are taller than \\(h\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#heights-check-in-r-with-plot",
+    "href": "Chapter Slides/chapter4-slides.html#heights-check-in-r-with-plot",
+    "title": "STA258",
+    "section": "Heights — Check in R with Plot",
+    "text": "Heights — Check in R with Plot"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#chi-square-example-check-in-r-with-plot",
+    "href": "Chapter Slides/chapter4-slides.html#chi-square-example-check-in-r-with-plot",
+    "title": "STA258",
+    "section": "Chi-Square Example — Check in R with Plot",
+    "text": "Chi-Square Example — Check in R with Plot"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#t-example-check-in-r-with-plot",
+    "href": "Chapter Slides/chapter4-slides.html#t-example-check-in-r-with-plot",
+    "title": "STA258",
+    "section": "\\(t\\) Example — Check in R with Plot",
+    "text": "\\(t\\) Example — Check in R with Plot"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#summary-table-for-distributions",
+    "href": "Chapter Slides/chapter4-slides.html#summary-table-for-distributions",
+    "title": "STA258",
+    "section": "Summary Table for Distributions",
+    "text": "Summary Table for Distributions\n\n\n\n\n\n\n\n\n\n\nDistribution\nParameters\nSupport\n\\(E[X]\\)\nKey use\n\n\n\n\n\\(N(\\mu,\\sigma^2)\\)\n\\(\\mu, \\sigma^2\\)\n\\(\\mathbb{R}\\)\n\\(\\mu\\)\nGeneral continuous\n\n\n\\(\\chi^2_k\\)\n\\(k\\) (df)\n\\((0,\\infty)\\)\n\\(k\\)\nVariance tests\n\n\n\\(t_\\nu\\)\n\\(\\nu\\) (df)\n\\(\\mathbb{R}\\)\n\\(0\\)\nSmall-sample mean\n\n\n\\(F_{\\nu_1,\\nu_2}\\)\n\\(\\nu_1, \\nu_2\\)\n\\((0,\\infty)\\)\n\\(\\dfrac{\\nu_2}{\\nu_2-2}\\)\nVariance ratios\n\n\n\n\nConnections. \\(Z^2 \\sim \\chi^2_1\\); \\(\\;\\) \\(t_\\nu^2 \\sim F_{1,\\nu}\\); \\(\\;\\) \\(t_\\nu \\to N(0,1)\\) and \\(\\chi^2_k/k \\to 1\\) as degrees of freedom grow."
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#clt-simulation-lab-in-r",
+    "href": "Chapter Slides/chapter4-slides.html#clt-simulation-lab-in-r",
+    "title": "STA258",
+    "section": "CLT — Simulation Lab in R",
+    "text": "CLT — Simulation Lab in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#in-class-example-clt-in-action",
+    "href": "Chapter Slides/chapter4-slides.html#in-class-example-clt-in-action",
+    "title": "STA258",
+    "section": "In-Class Example: CLT in Action",
+    "text": "In-Class Example: CLT in Action\n\n\n\nIn-Class Example Assume individual wait times follow a right-skewed exponential distribution.\nWe repeatedly take samples and compute the sample mean.\n(a) What is the shape of the original population?\n(b) What statistic are we calculating repeatedly?\n(c) What happens to the sampling distribution of \\(\\bar{X}\\) as \\(n\\) increases?\n(d) Which theorem explains this pattern?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#clt-in-action---try-it-yourself-in-r",
+    "href": "Chapter Slides/chapter4-slides.html#clt-in-action---try-it-yourself-in-r",
+    "title": "STA258",
+    "section": "CLT in Action - Try It Yourself in R",
+    "text": "CLT in Action - Try It Yourself in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#in-class-example-law-of-large-numbers",
+    "href": "Chapter Slides/chapter4-slides.html#in-class-example-law-of-large-numbers",
+    "title": "STA258",
+    "section": "In-Class Example: Law of Large Numbers",
+    "text": "In-Class Example: Law of Large Numbers\n\n\n\nIn-Class Example A fair coin is flipped many times. Let \\(X_i=1\\) if the flip is heads and \\(X_i=0\\) if the flip is tails.\nThe true population mean is:\n\\[\\mu = P(\\text{Heads}) = 0.5\\]\n(a) What does the running sample mean represent?\n(b) Why does it jump around a lot at the start?\n(c) What happens as the number of flips increases?\n(d) Which result explains this behaviour?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#law-of-large-numbers---check-in-r",
+    "href": "Chapter Slides/chapter4-slides.html#law-of-large-numbers---check-in-r",
+    "title": "STA258",
+    "section": "Law of Large Numbers - Check in R",
+    "text": "Law of Large Numbers - Check in R"
   }
 ]

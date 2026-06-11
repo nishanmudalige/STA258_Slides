@@ -3,6 +3,15 @@ Slides for STA258
 
 # Things to do
 
+## For June 18
+
+- Fix all images in CH3 and CH4 (consider converting to plotly)
+- convert javascript apps into plotly apps
+- in the help file repeat info about the .nojekyll at the end
+- work on chapter 5
+  - do 2 examples per CI (revisit later)
+  - for two sample when both sigmas are known just do 1 example
+
 ## For June 11
 
 - Work on Chapter 4 (priority)

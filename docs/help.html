@@ -260,14 +260,13 @@
       <li><a href="#how-to-use">How to Use This Help File</a></li>
       <li><a href="#folder-structure">Folder Structure</a></li>
       <li><a href="#files">Project Files and Where to Edit</a></li>
-      <li><a href="#slide-structure">Slide Deck Structure</a></li>
-      <li><a href="#chapter4-standard">Current Chapter 4 Slide Standard</a></li>
+      <li><a href="#slide-standard">Slide Deck Standard</a></li>
       <li><a href="#paths">File Paths and ../ Rules</a></li>
       <li><a href="#examples">In-Class Examples and Plots</a></li>
       <li><a href="#webr">WebR in Slides</a></li>
       <li><a href="#quizzes">Quiz Slides</a></li>
       <li><a href="#widgets">Interactive JavaScript Widgets</a></li>
-      <li><a href="#rendering">Rendering, docs, and Final Checks</a></li>
+      <li><a href="#rendering">Rendering and docs</a></li>
       <li><a href="#github">GitHub Workflow and Common Commands</a></li>
       <li><a href="#errors">Common Slide Errors and Known Issues</a></li>
     </ol>
@@ -314,7 +313,7 @@
 
   <p>This project is a Quarto slide website for <strong>STA258: Statistics with Applied Probability</strong> at the University of Toronto Mississauga.</p>
 
-  <p>The project is not a bookdown book. It is organized around <strong>chapter landing pages</strong> and <strong>chapter slide decks</strong>. The source files are written as <code>.qmd</code> files and rendered into <code>.html</code> files that students access through the course website.</p>
+  <p>The project is organized around <strong>chapter landing pages</strong> and <strong>chapter slide decks</strong>. The source files are written as <code>.qmd</code> files and rendered into <code>.html</code> files that students access through the course website.</p>
 
   <p>Key features of this slides project:</p>
 
@@ -325,7 +324,7 @@
     <li><strong>WebR code blocks</strong> so students can run R in the browser.</li>
     <li><strong>Quiz plugin slides</strong> with correct-answer explanations.</li>
     <li><strong>Static R plots</strong> placed beside examples.</li>
-    <li><strong>Interactive JavaScript widgets</strong>, especially in Chapter 4.</li>
+    <li><strong>Interactive JavaScript widgets</strong> written directly inside slide files.</li>
     <li><strong>PDF views</strong> created from slide links using <code>?print-pdf</code>.</li>
     <li><strong>GitHub Pages output</strong> served from the <code>docs/</code> folder.</li>
   </ul>
@@ -334,26 +333,26 @@
 
   <p>This document is intended for future maintainers, TAs, students, and professors who need to update the STA258 slides website or troubleshoot problems.</p>
 
-  <p>For most updates, use this workflow:</p>
+  <p>For most updates, use this short workflow:</p>
 
   <ol>
-    <li><strong>Edit the source <code>.qmd</code> file.</strong></li>
-    <li><strong>Render locally</strong> using Quarto.</li>
-    <li><strong>Open the rendered HTML file</strong> and check the result in the browser.</li>
-    <li><strong>Test WebR, quizzes, plots, links, and interactive widgets.</strong></li>
-    <li><strong>Commit both the source file and rendered output</strong> if the website uses <code>docs/</code> for GitHub Pages.</li>
-    <li><strong>Push to GitHub</strong> and check the live website.</li>
+    <li>Edit the relevant source <code>.qmd</code> file.</li>
+    <li>Render with Quarto.</li>
+    <li>Check the rendered HTML in a browser.</li>
+    <li>Commit and push the source changes and rendered output when needed.</li>
   </ol>
 
   <div class="note">
-    <p><strong>Main rule:</strong> Edit source files first, render second, check the output third, and push only after confirming the rendered website works.</p>
+    <p><strong>Main rule:</strong> The source files are the files to maintain. The rendered files in <code>docs/</code> are output files.</p>
   </div>
 
   <h2 id="folder-structure">4. Folder Structure</h2>
 
-  <p>The current repository is organized around separate folders for chapter landing pages and chapter slide decks.</p>
+  <p>The repository separates chapter landing pages from slide decks. Future chapters should follow the same naming pattern.</p>
 
-  <pre><code>STA258_Slides/
+  
+
+<pre><code>STA258_Slides/
   index.qmd
   _quarto.yml
   styles.css
@@ -366,20 +365,26 @@
     chapter2.qmd
     chapter3.qmd
     chapter4.qmd
+    chapter5.qmd
+    ...
 
   Chapter Slides/
     chapter1-slides.qmd
     chapter2-slides.qmd
     chapter3-slides.qmd
     chapter4-slides.qmd
+    chapter5-slides.qmd
+    ...
 
   Lectures/
   _extensions/
   images/
-  docs/</code></pre>
+  docs/
+
+  data/   optional; create only if a future chapter uses external datasets</code></pre>
 
   <div class="warning">
-    <p><strong>Important:</strong> The <code>docs/</code> folder contains rendered output. Do not manually edit files inside <code>docs/</code>; edit the source <code>.qmd</code> files and re-render.</p>
+    <p><strong>Important:</strong> Do not manually edit files inside <code>docs/</code>. Edit the source <code>.qmd</code> files and re-render.</p>
   </div>
 
   <div class="note">
@@ -402,11 +407,11 @@
       </tr>
       <tr>
         <td>Add or change a chapter overview page</td>
-        <td><code>Chapter Landing Pages/chapterX.qmd</code></td>
+        <td><code>Chapter Landing Pages/chapterN.qmd</code></td>
       </tr>
       <tr>
         <td>Add or change lecture slides, examples, plots, quizzes, WebR, or interactive widgets</td>
-        <td><code>Chapter Slides/chapterX-slides.qmd</code></td>
+        <td><code>Chapter Slides/chapterN-slides.qmd</code></td>
       </tr>
       <tr>
         <td>Change shared website page colours, cards, buttons, spacing, or layout</td>
@@ -415,10 +420,6 @@
       <tr>
         <td>Change project-wide Quarto settings</td>
         <td><code>_quarto.yml</code></td>
-      </tr>
-      <tr>
-        <td>Fix rendered website output</td>
-        <td>Edit the source <code>.qmd</code>, then re-render. Do not manually patch <code>docs/</code>.</td>
       </tr>
     </tbody>
   </table>
@@ -429,18 +430,18 @@
   </div>
 
   <div class="file-card">
-    <h3><code>Chapter Landing Pages/chapterX.qmd</code></h3>
-    <p>Chapter landing pages. These should provide chapter descriptions and links to the slide deck and PDF view.</p>
+    <h3><code>Chapter Landing Pages/chapterN.qmd</code></h3>
+    <p>Chapter landing pages. These provide chapter descriptions and links to the slide deck and PDF view.</p>
   </div>
 
   <div class="file-card">
-    <h3><code>Chapter Slides/chapterX-slides.qmd</code></h3>
-    <p>The actual slide decks. These contain lecture content, CSS, WebR chunks, R plots, quiz slides, in-class examples, and interactive JavaScript widgets.</p>
+    <h3><code>Chapter Slides/chapterN-slides.qmd</code></h3>
+    <p>The actual slide decks. These contain lecture content, slide CSS, WebR chunks, R plots, quiz slides, in-class examples, and interactive JavaScript widgets.</p>
   </div>
 
-  <h2 id="slide-structure">6. Slide Deck Structure</h2>
+  <h2 id="slide-standard">6. Slide Deck Standard</h2>
 
-  <p>Each chapter slide deck should follow the same teaching and visual structure so the course feels consistent.</p>
+  <p>All chapter slide decks should follow the same general structure so the course feels consistent from chapter to chapter.</p>
 
   <table>
     <thead>
@@ -451,8 +452,8 @@
     </thead>
     <tbody>
       <tr>
-        <td>Format</td>
-        <td>Use <code>live-revealjs</code> with slide numbers, chalkboard, MathJax, WebR, and consistent dimensions.</td>
+        <td>YAML</td>
+        <td>Use <code>live-revealjs</code>, WebR packages, MathJax, slide numbers, chalkboard, and the quiz plugin when quiz slides are used.</td>
       </tr>
       <tr>
         <td>Theme</td>
@@ -481,7 +482,39 @@
     </tbody>
   </table>
 
-  <p>A recommended slide deck flow is:</p>
+  <h3>Recommended YAML pattern</h3>
+
+  <pre><code>---
+pagetitle: "Chapter N: Chapter Title - Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter N"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+live:
+  show-solutions: true
+---</code></pre>
+
+  <h3>Recommended slide flow</h3>
 
   <pre><code>Title slide
 Chapter roadmap
@@ -505,75 +538,21 @@ Chapter summary
 Up next
 Back to Homepage button</code></pre>
 
-  <h2 id="chapter4-standard">7. Current Chapter 4 Slide Standard</h2>
+  <h3>Slide design classes to reuse</h3>
 
-  <p>The latest Chapter 4 slide deck is the current standard for future slide work. It uses <code>live-revealjs</code>, the quiz plugin, WebR, static R plots, scrollable slides, and custom JavaScript widgets.</p>
-
-  <h3>YAML structure</h3>
-
-  <pre><code>---
-pagetitle: "Chapter 4: Foundations of Inference - Slides"
-engine: knitr
-format:
-  live-revealjs:
-    theme: simple
-    transition: slide
-    slide-number: true
-    toc: false
-    chalkboard: true
-    footer: "STA258 | Chapter 4"
-    pdf-separate-fragments: false
-    html-math-method: mathjax
-    code-copy: true
-    code-fold: false
-    incremental: false
-    width: 1280
-    height: 720
-    margin: 0.055
-    center: false
-revealjs-plugins:
-  - quiz
-webr:
-  packages:
-    - ggplot2
-    - dplyr
-live:
-  show-solutions: true
----</code></pre>
-
-  <p>The important current detail is the quiz plugin:</p>
-
-  <pre><code>revealjs-plugins:
-  - quiz</code></pre>
-
-  <p>Because this plugin is used, quiz slides should follow the plugin-style quiz format instead of manual HTML button quizzes.</p>
-
-  <h3>Current Chapter 4 paths</h3>
-
-  <pre><code>{{&lt; include ../_extensions/r-wasm/live/_knitr.qmd &gt;}}
-
-![](../images/cat.png){width="245" fig-alt="Course mascot"}
-
-&lt;a href="../index.html" class="home-button"&gt;Back to Homepage&lt;/a&gt;</code></pre>
-
-  <div class="note">
-    <p><strong>Path note:</strong> These examples use <code>../</code>, which means “go up one folder.” This is correct for slide files inside <code>Chapter Slides/</code> because they need to access files from the project root.</p>
-  </div>
-
-  <h3>Current Chapter 4 features to preserve</h3>
+  <p>The existing slide decks use reusable CSS classes. Future chapters should reuse these where possible instead of creating unrelated new styles.</p>
 
   <ul>
-    <li>STA258 CSS theme inside the slide deck.</li>
-    <li><code>.defbox</code>, <code>.examplebox</code>, <code>.thinkbox</code>, <code>.taskbox</code>, <code>.warnbox</code>, and <code>.stat-card</code> styles.</li>
-    <li>Scrollable slides using <code>{.scrollable}</code>.</li>
-    <li>Quiz slides using <code>{.quiz-question}</code>.</li>
-    <li>Interactive Empirical Rule and t-distribution widgets using HTML, canvas, sliders, and JavaScript.</li>
-    <li>In-class example slides with a task box on the left and plot on the right.</li>
-    <li>WebR “Check in R” slides after examples.</li>
-    <li>Back-to-homepage button using <code>../index.html</code>.</li>
+    <li><code>.defbox</code> for definitions.</li>
+    <li><code>.examplebox</code> for worked examples.</li>
+    <li><code>.thinkbox</code> for interpretation or discussion prompts.</li>
+    <li><code>.taskbox</code> for in-class activities.</li>
+    <li><code>.warnbox</code> for warnings or common mistakes.</li>
+    <li><code>.stat-card</code> for compact summary cards.</li>
+    <li><code>{.scrollable}</code> for slides that need vertical scrolling.</li>
   </ul>
 
-  <h2 id="paths">8. File Paths and ../ Rules</h2>
+  <h2 id="paths">7. File Paths and ../ Rules</h2>
 
   <p>Many problems in this slide project come from file paths. Always check where the current file is located before writing links.</p>
 
@@ -587,11 +566,11 @@ live:
     <tbody>
       <tr>
         <td>Root-level file, such as <code>index.qmd</code></td>
-        <td><code>images/cat.png</code>, <code>Chapter Landing Pages/chapter4.html</code>, <code>Chapter Slides/chapter4-slides.html</code></td>
+        <td><code>images/cat.png</code>, <code>Chapter Landing Pages/chapterN.html</code>, <code>Chapter Slides/chapterN-slides.html</code></td>
       </tr>
       <tr>
         <td>Landing page inside <code>Chapter Landing Pages/</code></td>
-        <td><code>../index.html</code>, <code>../Chapter Slides/chapter4-slides.html</code>, <code>../images/cat.png</code></td>
+        <td><code>../index.html</code>, <code>../Chapter Slides/chapterN-slides.html</code>, <code>../images/cat.png</code></td>
       </tr>
       <tr>
         <td>Slide file inside <code>Chapter Slides/</code></td>
@@ -612,16 +591,7 @@ live:
     <p><strong>Rule:</strong> If an image, homepage button, WebR include, or slide link does not work, first check whether the path needs <code>../</code>.</p>
   </div>
 
-  <p>Examples of dataset paths in R:</p>
-
-  <pre><code>scores &lt;- read.csv("../data/scores.csv")
-penguins &lt;- read.csv("../data/penguins.csv")</code></pre>
-
-  <div class="note">
-    <p><strong>Case matters on GitHub Pages.</strong> <code>cat.png</code>, <code>Cat.png</code>, and <code>CAT.png</code> may be treated as different files. Match the file name exactly.</p>
-  </div>
-
-  <h2 id="examples">9. In-Class Examples and Plots</h2>
+  <h2 id="examples">8. In-Class Examples and Plots</h2>
 
   <p>In-class examples should usually appear as two slides:</p>
 
@@ -673,29 +643,9 @@ Question text goes here.
 # Student-check code goes here
 ```</code></pre>
 
-  <h3>Chapter 3 example topics</h3>
+  <p>This structure keeps the slides interactive without making the main teaching slide too crowded.</p>
 
-  <ul>
-    <li>Mean versus median.</li>
-    <li>Range versus IQR.</li>
-    <li>Histograms and skewness.</li>
-    <li>Boxplots and outliers.</li>
-    <li>Comparing two groups.</li>
-    <li>Same mean but different spread.</li>
-  </ul>
-
-  <h3>Chapter 4 example topics</h3>
-
-  <ul>
-    <li>Parameter versus statistic.</li>
-    <li>Sampling variability.</li>
-    <li>Normal probabilities and standardizing.</li>
-    <li>Chi-square, t, and F probability calculations.</li>
-    <li>Central Limit Theorem simulations.</li>
-    <li>Law of Large Numbers simulations.</li>
-  </ul>
-
-  <h2 id="webr">10. WebR in Slides</h2>
+  <h2 id="webr">9. WebR in Slides</h2>
 
   <p>WebR lets students run R code directly inside the browser.</p>
 
@@ -716,35 +666,17 @@ sd(x)
     - ggplot2
     - dplyr</code></pre>
 
-  <p>Then load the package in the relevant chunk if needed:</p>
+  <p>The slide deck should include the WebR helper file. For files inside <code>Chapter Slides/</code>, the path is:</p>
 
-  <pre><code>library(ggplot2)
-library(dplyr)</code></pre>
-
-  <p>If using live exercise solutions, make sure the exercise name and solution name match exactly:</p>
-
-  <pre><code>```{webr}
-#| exercise: sample-mean
-#| autorun: false
-
-x &lt;- c(2, 4, 6, 8)
-mean(x)
-```
-
-::: {.solution exercise="sample-mean"}
-```{webr}
-x &lt;- c(2, 4, 6, 8)
-mean(x)
-```
-:::</code></pre>
+  <pre><code>{{&lt; include ../_extensions/r-wasm/live/_knitr.qmd &gt;}}</code></pre>
 
   <div class="warning">
     <p><strong>Do not use <code>install.packages()</code> inside WebR chunks.</strong> Packages should be declared in the YAML instead.</p>
   </div>
 
-  <h2 id="quizzes">11. Quiz Slides</h2>
+  <h2 id="quizzes">10. Quiz Slides</h2>
 
-  <p>The current Chapter 4 uses the reveal.js quiz plugin.</p>
+  <p>The project uses the reveal.js quiz plugin for multiple-choice quiz slides.</p>
 
   <p>Make sure the YAML includes:</p>
 
@@ -761,7 +693,7 @@ mean(x)
 ## Example
 
 Question text goes here.
-::::
+:::
 
 - Wrong option
 - [Correct option]{.correct data-explanation="Explanation goes here."}
@@ -769,18 +701,20 @@ Question text goes here.
 - Wrong option</code></pre>
 
   <div class="note">
-    <p><strong>Rule:</strong> Keep quiz questions short. Each quiz should test one idea only. The explanation should explain why the correct answer is correct.</p>
+    <p><strong>Rule:</strong> Keep quiz questions short. Each quiz should test one idea only, and the explanation should tell students why the correct answer is correct.</p>
   </div>
 
-  <h2 id="widgets">12. Interactive JavaScript Widgets</h2>
+  <h2 id="widgets">11. Interactive JavaScript Widgets</h2>
 
-  <p>Chapter 4 includes interactive JavaScript widgets, such as the Empirical Rule explorer and the t-distribution tail comparison.</p>
+  <p>Some slides include interactive JavaScript widgets, such as distribution explorers or tail-probability visuals.</p>
+
+  <p>These are not separate apps. They are written directly inside the Quarto slide file using HTML, canvas elements, sliders, and JavaScript.</p>
 
   <p>These widgets usually have two parts:</p>
 
   <ol>
     <li>An HTML block containing sliders, labels, and a <code>&lt;canvas&gt;</code>.</li>
-    <li>A <code>&lt;script&gt;</code> block that updates the drawing.</li>
+    <li>A <code>&lt;script&gt;</code> block that updates the drawing when the sliders move.</li>
   </ol>
 
   <pre><code>&lt;div id="example-widget"&gt;
@@ -798,16 +732,9 @@ window.exampleUpdate = function () {
     <p><strong>Do not delete the <code>&lt;script&gt;</code> block.</strong> The sliders and canvas may still appear, but the widget will not update without the JavaScript.</p>
   </div>
 
-  <p>If a widget does not work, check:</p>
+  <p>If a widget does not work, check that the HTML <code>id</code> names match the JavaScript, the slider calls the correct function using <code>oninput</code>, and the same IDs are not duplicated elsewhere.</p>
 
-  <ul>
-    <li>The HTML <code>id</code> names match the JavaScript.</li>
-    <li>The slider calls the correct function using <code>oninput</code>.</li>
-    <li>The <code>&lt;script&gt;</code> block was not deleted.</li>
-    <li>The same IDs are not duplicated elsewhere on the page.</li>
-  </ul>
-
-  <h2 id="rendering">13. Rendering, docs, and Final Checks</h2>
+  <h2 id="rendering">12. Rendering and docs</h2>
 
   <p>After editing a source file, render it to create the updated HTML output.</p>
 
@@ -817,40 +744,17 @@ window.exampleUpdate = function () {
 
   <p>To render only one slide deck:</p>
 
-  <pre><code>quarto render "Chapter Slides/chapter4-slides.qmd"</code></pre>
+  <pre><code>quarto render "Chapter Slides/chapterN-slides.qmd"</code></pre>
 
   <p>The <code>docs/</code> folder contains the rendered website output that GitHub Pages serves.</p>
 
-  <p>The correct workflow is:</p>
-
-  <pre><code>Edit source .qmd
-Render with Quarto
-Quarto updates docs/
-Check the rendered HTML
-Commit source and docs output
-Push changes to GitHub</code></pre>
-
-  <p>Before pushing changes, check:</p>
-
-  <ul>
-    <li>The homepage opens correctly.</li>
-    <li>Chapter cards link to the correct pages.</li>
-    <li>Chapter landing pages link to the correct slide decks.</li>
-    <li>Slide decks open correctly.</li>
-    <li>PDF buttons open the correct print view.</li>
-    <li>Plots display correctly.</li>
-    <li>WebR chunks load and run.</li>
-    <li>Quiz answer checking works.</li>
-    <li>Interactive widgets respond to sliders.</li>
-    <li>Images load.</li>
-    <li>The back-to-homepage button works.</li>
-  </ul>
+  <p>Before publishing, check the homepage, chapter landing pages, slide decks, PDF links, images, WebR chunks, quizzes, and interactive widgets.</p>
 
   <div class="warning">
     <p><strong>Never manually edit files inside <code>docs/</code>.</strong> Any manual edits may be overwritten the next time Quarto renders the website.</p>
   </div>
 
-  <h2 id="github">14. GitHub Workflow and Common Commands</h2>
+  <h2 id="github">13. GitHub Workflow and Common Commands</h2>
 
   <p>Because this repository has folders with spaces in their names, use quotation marks around file paths in Git commands.</p>
 
@@ -862,53 +766,47 @@ git status
 git commit -m "Describe the change"
 git push</code></pre>
 
-  <p>Use <code>git status</code> before adding files to see what changed. Use it again after adding files to confirm only the intended files are staged.</p>
-
-  <p>Example for only updating Chapter 4 slides:</p>
+  <p>Example for updating one slide deck:</p>
 
   <pre><code>git status
-git add "Chapter Slides/chapter4-slides.qmd"
+git add "Chapter Slides/chapterN-slides.qmd"
 git status
-git commit -m "Update Chapter 4 slides"
+git commit -m "Update Chapter N slides"
 git push</code></pre>
 
-  <p>If rendering changes the output in <code>docs/</code>, also add the matching rendered files shown by <code>git status</code>. Only add the exact <code>docs/</code> files that changed.</p>
+  <p>If rendering changes files in <code>docs/</code>, also add only the matching rendered files shown by <code>git status</code>.</p>
 
-  <pre><code>git add "docs/Chapter Slides/chapter4-slides.html"</code></pre>
+  <pre><code>git add "docs/Chapter Slides/chapterN-slides.html"</code></pre>
 
   <h3>Other useful commands</h3>
 
   <pre><code>quarto preview
 quarto render
-quarto render "Chapter Slides/chapter4-slides.qmd"
+quarto render "Chapter Slides/chapterN-slides.qmd"
 quarto clean
 quarto clean --all</code></pre>
 
-  <div class="note">
-    <p><strong>Important:</strong> If you only changed one chapter, do not stage the entire repository unless you have checked that the other changed files are supposed to be included.</p>
-  </div>
-
-  <h2 id="errors">15. Common Slide Errors and Known Issues</h2>
+  <h2 id="errors">14. Common Slide Errors and Known Issues</h2>
 
   <h3>Broken links</h3>
 
-  <p>Check that links point to rendered <code>.html</code> files, not source <code>.qmd</code> files.</p>
+  <p>Links should point to rendered <code>.html</code> files, not source <code>.qmd</code> files.</p>
 
   <pre><code>Correct:
-&lt;a href="../Chapter Slides/chapter4-slides.html"&gt;Open Chapter 4 Slides&lt;/a&gt;
+&lt;a href="../Chapter Slides/chapterN-slides.html"&gt;Open Chapter N Slides&lt;/a&gt;
 
 Incorrect:
-&lt;a href="../Chapter Slides/chapter4-slides.qmd"&gt;Open Chapter 4 Slides&lt;/a&gt;</code></pre>
+&lt;a href="../Chapter Slides/chapterN-slides.qmd"&gt;Open Chapter N Slides&lt;/a&gt;</code></pre>
 
   <h3>PDF button not working</h3>
 
-  <p>Make sure the PDF button points to the rendered slide deck with <code>?print-pdf</code>.</p>
+  <p>PDF links should point to the rendered slide deck with <code>?print-pdf</code>.</p>
 
   <pre><code>Correct:
-../Chapter Slides/chapter4-slides.html?print-pdf
+../Chapter Slides/chapterN-slides.html?print-pdf
 
 Incorrect:
-../Chapter Landing Pages/chapter4.html?print-pdf</code></pre>
+../Chapter Landing Pages/chapterN.html?print-pdf</code></pre>
 
   <h3>Image not loading</h3>
 
@@ -919,39 +817,17 @@ Incorrect:
 
   <h3>WebR not working</h3>
 
-  <p>Check:</p>
-
-  <ul>
-    <li>The chunk uses <code>{webr}</code>.</li>
-    <li>The WebR helper include exists.</li>
-    <li>Required packages are listed in the YAML.</li>
-    <li>The code does not use <code>install.packages()</code>.</li>
-    <li>The file path to the WebR extension is correct.</li>
-  </ul>
+  <p>Check that the chunk uses <code>{webr}</code>, the WebR helper include exists, required packages are listed in YAML, and the code does not use <code>install.packages()</code>.</p>
 
   <pre><code>{{&lt; include ../_extensions/r-wasm/live/_knitr.qmd &gt;}}</code></pre>
 
   <h3>Quiz not working</h3>
 
-  <p>Check:</p>
-
-  <ul>
-    <li>The YAML includes <code>revealjs-plugins: - quiz</code>.</li>
-    <li>The slide has <code>{.quiz-question}</code>.</li>
-    <li>The correct answer uses <code>{.correct data-explanation="..."}</code>.</li>
-    <li>The options are written as a plain Markdown list.</li>
-  </ul>
+  <p>Check that the YAML includes <code>revealjs-plugins: - quiz</code>, the slide has <code>{.quiz-question}</code>, and the correct answer uses <code>{.correct data-explanation="..."}</code>.</p>
 
   <h3>Interactive widget not working</h3>
 
-  <p>Check:</p>
-
-  <ul>
-    <li>The HTML IDs match the JavaScript IDs.</li>
-    <li>The slider calls the correct update function using <code>oninput</code>.</li>
-    <li>The <code>&lt;script&gt;</code> block is still present.</li>
-    <li>The same widget IDs were not duplicated elsewhere.</li>
-  </ul>
+  <p>Check that the HTML IDs match the JavaScript IDs, the slider calls the correct update function, the <code>&lt;script&gt;</code> block is still present, and the same widget IDs were not duplicated elsewhere.</p>
 
   <h3>Rendering error</h3>
 
@@ -963,9 +839,7 @@ Incorrect:
 
   <h2>Final Note</h2>
 
-  <p>The main rule for maintaining this project is simple: edit the source <code>.qmd</code> files, render them, check the rendered website, and only then push to GitHub.</p>
-
-  <p>Keep the slide structure consistent so students experience the website as one polished course resource rather than separate disconnected files.</p>
+  <p>The main rule for maintaining this project is simple: keep the source <code>.qmd</code> files organized, render before publishing, and keep chapter structure consistent across the site.</p>
 
   <div class="footer">
     Last updated: June 2026 &nbsp;|&nbsp; STA258: Statistics with Applied Probability, University of Toronto Mississauga

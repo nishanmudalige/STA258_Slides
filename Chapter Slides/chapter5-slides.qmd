@@ -517,10 +517,9 @@ If the problem gives a population standard deviation, use $z$. If it gives a sam
 
 ---
 
-## Example 1: Known Sigma - Magazine Readers {.scrollable}
+## Example: Known Sigma - Magazine Readers {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Playbill magazine reports $\bar{x}=119{,}155$ dollars from $n=80$ households. Assume $\sigma=30{,}000$ dollars.
 
 Construct 90%, 95%, and 99% confidence intervals for the population mean household income of readers.
@@ -538,12 +537,11 @@ We are 95% confident that the mean household income of Playbill readers is betwe
 
 ---
 
-## Example 2: Known Sigma - Car Sales {.scrollable}
+## Example: Known Sigma - Car Sales {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 Annual car sales are normally distributed with known $\sigma=15$. For a random sample of 15 salespeople:
 
 $$79,43,58,66,101,63,79,33,58,71,60,101,74,55,88$$
@@ -614,12 +612,11 @@ For small $n$, check that the population is reasonably normal or that the sample
 
 ---
 
-## Example 1: Unknown Sigma - Ancient Air {.scrollable}
+## Example: Unknown Sigma - Ancient Air {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Nitrogen percentages from air bubbles trapped in ancient amber:
 
 $$63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0$$
@@ -646,12 +643,11 @@ t.test(nitrogen, conf.level = 0.90)
 
 ---
 
-## Example 2: Unknown Sigma - Camera Photos {.scrollable}
+## Example: Unknown Sigma - Camera Photos {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 A random sample of 10 digital camera owners has stored photo counts:
 
 $$25,6,22,26,31,18,13,20,14,2$$
@@ -703,10 +699,9 @@ The final interval should make sense for a proportion. Values below 0 or above 1
 
 ---
 
-## Example 1: One Proportion - Transit Use {.scrollable}
+## Example: One Proportion - Transit Use {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 A university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.
 
 Construct a 95% CI for the true proportion of students who use public transportation.
@@ -730,12 +725,11 @@ We are 95% confident that between 58.75% and 64.25% of students use public trans
 
 ---
 
-## Example 2: One Proportion - Work From Home {.scrollable}
+## Example: One Proportion - Work From Home {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 In a survey of 650 employees, 286 prefer working from home at least three days per week.
 
 Construct a 90% CI for the population proportion.
@@ -796,10 +790,9 @@ This interval is asymmetric. Normality matters here much more than it does for l
 
 ---
 
-## Example 1: One Variance - Bottle Filling {.scrollable}
+## Example: One Variance - Bottle Filling {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 A random sample of 25 bottles has sample variance $s^2=12.5$. Assume filling amounts are normally distributed.
 
 Construct a 95% CI for $\sigma^2$.
@@ -818,12 +811,11 @@ The 95% CI for the population variance is approximately $(7.62,24.19)$.
 
 ---
 
-## Example 2: One Variance - Reaction Times {.scrollable}
+## Example: One Variance - Reaction Times {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 A random sample of 16 drivers has sample variance $s^2=0.36$. Assume reaction times are normally distributed.
 
 Construct a 90% CI for $\sigma^2$.
@@ -872,7 +864,6 @@ This case is uncommon in practice because population standard deviations are rar
 ## Example: Two Means, Both Sigmas Known {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Two independent samples compare average weekly study time.
 
 Group 1: $n_1=40$, $\bar{x}_1=12.4$, known $\sigma_1=3.2$.  
@@ -918,10 +909,9 @@ $$
 
 ---
 
-## Example 1: Pooled t - Training Programs {.scrollable}
+## Example: Pooled t - Training Programs {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Two independent training programs are compared on test scores.
 
 Program A: $n_1=12$, $\bar{x}_1=84.2$, $s_1=5.1$.  
@@ -944,12 +934,11 @@ $$
 
 ---
 
-## Example 2: Pooled t - Battery Life {.scrollable}
+## Example: Pooled t - Battery Life {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 Battery A: $n_1=15$, $\bar{x}_1=31.4$, $s_1=2.6$.  
 Battery B: $n_2=14$, $\bar{x}_2=29.8$, $s_2=2.2$.
 
@@ -996,10 +985,9 @@ Software uses the Welch-Satterthwaite approximation. A conservative hand approxi
 
 ---
 
-## Example 1: Welch t - Sodium Content {.scrollable}
+## Example: Welch t - Sodium Content {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Adult frozen meals: $n_1=20$, $\bar{x}_1=720$, $s_1=150$.  
 Children's frozen meals: $n_2=18$, $\bar{x}_2=610$, $s_2=120$.
 
@@ -1022,12 +1010,11 @@ The interval is entirely positive, suggesting adult meals have a higher mean sod
 
 ---
 
-## Example 2: Welch t - Commute Times {.scrollable}
+## Example: Welch t - Commute Times {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 Campus A: $n_1=25$, $\bar{x}_1=42$, $s_1=12$.  
 Campus B: $n_2=22$, $\bar{x}_2=36$, $s_2=9$.
 
@@ -1093,10 +1080,9 @@ Check large counts in both groups: successes and failures should each be at leas
 
 ---
 
-## Example 1: Difference of Proportions - Transit {.scrollable}
+## Example: Difference of Proportions - Transit {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 At Campus 1, 180 of 300 students use transit. At Campus 2, 150 of 280 students use transit.
 
 Construct a 95% CI for $p_1-p_2$.
@@ -1120,12 +1106,11 @@ The interval includes 0, so the sample does not clearly indicate a difference in
 
 ---
 
-## Example 2: Difference of Proportions - App Preference {.scrollable}
+## Example: Difference of Proportions - App Preference {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 In group A, 96 of 160 students prefer App A. In group B, 72 of 150 students prefer App A.
 
 Construct a 90% CI for $p_1-p_2$.
@@ -1170,10 +1155,9 @@ This method is sensitive to non-normality. Always check whether normality is a r
 
 ---
 
-## Example 1: Ratio of Variances - Machines {.scrollable}
+## Example: Ratio of Variances - Machines {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Machine 1: $n_1=12$, $s_1^2=18$. Machine 2: $n_2=10$, $s_2^2=10$.
 
 Assuming normal populations, construct a 95% CI for $\sigma_1^2/\sigma_2^2$.
@@ -1197,12 +1181,11 @@ The 95% CI is approximately $(0.45,6.48)$. Since 1 is inside, equal variances ar
 
 ---
 
-## Example 2: Ratio of Variances - Labs {.scrollable}
+## Example: Ratio of Variances - Labs {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 Lab A: $n_1=15$, $s_1^2=4.8$. Lab B: $n_2=13$, $s_2^2=1.9$.
 
 Construct a 90% CI for $\sigma_1^2/\sigma_2^2$.
@@ -1258,12 +1241,11 @@ The pairing is information. Analyze the differences, not the two columns as inde
 
 ---
 
-## Example 1: Paired Data - Before and After {.scrollable}
+## Example: Paired Data - Before and After {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Eight students take a diagnostic test before and after a workshop. Differences are after minus before:
 
 $$4,6,3,5,7,2,4,6$$
@@ -1290,10 +1272,9 @@ The 95% CI is approximately $(3.30,5.95)$ points. We are 95% confident that the 
 
 ---
 
-## Example 2: Paired Data - Reaction Time {.scrollable}
+## Example: Paired Data - Reaction Time {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 Six participants complete a task before and after a training session. Let $d=$ after minus before, in seconds:
 
 $$-1.2,-0.8,-1.5,-0.4,-1.1,-0.9$$
@@ -1330,10 +1311,9 @@ Always round up.
 
 ---
 
-## Example 1: Sample Size for a Mean {.scrollable}
+## Example: Sample Size for a Mean {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 A lab measurement has known $\sigma=0.0068$ grams per liter. Management wants results accurate within $E=0.005$ with 95% confidence.
 
 How many repeated measurements are needed?
@@ -1349,10 +1329,9 @@ Round up: the lab needs $n=8$ measurements.
 
 ---
 
-## Example 2: Sample Size for a Mean {.scrollable}
+## Example: Sample Size for a Mean {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 A planning value is $\sigma=22.50$ and the desired margin is $E=2$.
 
 Find the sample size for 90%, 95%, and 99% confidence.
@@ -1388,10 +1367,9 @@ The value $p^*=0.5$ is conservative because it maximizes $p^*(1-p^*)$.
 
 ---
 
-## Example 1: Sample Size for a Proportion {.scrollable}
+## Example: Sample Size for a Proportion {.scrollable}
 
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 A mayoral survey needs to estimate a candidate's support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.
 :::
 
@@ -1405,10 +1383,9 @@ Round up: contact at least $n=1068$ voters.
 
 ---
 
-## Example 2: Sample Size for a Proportion {.scrollable}
+## Example: Sample Size for a Proportion {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Practice Example</span>
 In 2007, 15.6% of people in the USA were not covered by health care insurance. Use $p^*=0.156$ and $E=0.03$.
 
 Find the required sample size for 95% and 99% confidence.

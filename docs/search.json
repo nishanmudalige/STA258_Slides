@@ -207,7 +207,7 @@
     "href": "Chapter Slides/chapter4-slides.html#example-chi-square-probability",
     "title": "STA258",
     "section": "Example: Chi-Square Probability",
-    "text": "Example: Chi-Square Probability\n\nExample Let \\(X \\sim \\chi^2_{8}\\).\n(a) Find \\(P(X \\leq 15.507)\\).\n(b) Find the 95th percentile of \\(X\\).\n(c) If \\(Z_1, Z_2, Z_3 \\overset{\\text{iid}}{\\sim} N(0,1)\\), what is the distribution of \\(Z_1^2 + Z_2^2 + Z_3^2\\)?\n(d) What are \\(E[X]\\) and \\(\\text{Var}(X)\\)?"
+    "text": "Example: Chi-Square Probability\n\nLet \\(X \\sim \\chi^2_{8}\\).\n(a) Find \\(P(X \\leq 15.507)\\).\n(b) Find the 95th percentile of \\(X\\).\n(c) If \\(Z_1, Z_2, Z_3 \\overset{\\text{iid}}{\\sim} N(0,1)\\), what is the distribution of \\(Z_1^2 + Z_2^2 + Z_3^2\\)?\n(d) What are \\(E[X]\\) and \\(\\text{Var}(X)\\)?"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#chi-square-example-check-in-r",
@@ -256,7 +256,7 @@
     "href": "Chapter Slides/chapter4-slides.html#example-t-critical-values",
     "title": "STA258",
     "section": "Example: \\(t\\) Critical Values",
-    "text": "Example: \\(t\\) Critical Values\n\nExample (a) For \\(T \\sim t_{15}\\), find \\(P(T \\leq 2.131)\\).\n(b) For \\(T \\sim t_{20}\\), find the value \\(c\\) such that \\(P(-c \\leq T \\leq c) = 0.95\\).\n(c) For \\(T \\sim t_{5}\\), find \\(P(|T| &gt; 2.571)\\).\n(d) Compare the 97.5th percentile of \\(t_{5}\\), \\(t_{30}\\), and \\(N(0,1)\\). What do you notice?"
+    "text": "Example: \\(t\\) Critical Values\n\n(a) For \\(T \\sim t_{15}\\), find \\(P(T \\leq 2.131)\\).\n(b) For \\(T \\sim t_{20}\\), find the value \\(c\\) such that \\(P(-c \\leq T \\leq c) = 0.95\\).\n(c) For \\(T \\sim t_{5}\\), find \\(P(|T| &gt; 2.571)\\).\n(d) Compare the 97.5th percentile of \\(t_{5}\\), \\(t_{30}\\), and \\(N(0,1)\\). What do you notice?"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#t-example-check-in-r",
@@ -368,7 +368,7 @@
     "href": "Chapter Slides/chapter4-slides.html#clt-example-poisson-sums",
     "title": "STA258",
     "section": "CLT Example: Poisson Sums",
-    "text": "CLT Example: Poisson Sums\n\nExample Customers arrive at a bank at rate \\(\\lambda = 4\\) per minute. \\(X_i \\sim \\text{Pois}(4)\\).\n(a) What are \\(E[X_i]\\) and \\(\\text{Var}(X_i)\\)?\n(b) For a sample of \\(n = 36\\) one-minute intervals, find \\(P(\\bar{X} \\leq 4.5)\\) approximately.\n(c) Find \\(P(\\bar{X} &gt; 3.8)\\) approximately.\n(d) What sample size \\(n\\) would make \\(P(|\\bar{X} - 4| &lt; 0.25) \\geq 0.95\\)?"
+    "text": "CLT Example: Poisson Sums\n\nCustomers arrive at a bank at rate \\(\\lambda = 4\\) per minute. \\(X_i \\sim \\text{Pois}(4)\\).\n(a) What are \\(E[X_i]\\) and \\(\\text{Var}(X_i)\\)?\n(b) For a sample of \\(n = 36\\) one-minute intervals, find \\(P(\\bar{X} \\leq 4.5)\\) approximately.\n(c) Find \\(P(\\bar{X} &gt; 3.8)\\) approximately.\n(d) What sample size \\(n\\) would make \\(P(|\\bar{X} - 4| &lt; 0.25) \\geq 0.95\\)?"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#poisson-clt-check-in-r",
@@ -403,7 +403,7 @@
     "href": "Chapter Slides/chapter4-slides.html#chebyshev-example",
     "title": "STA258",
     "section": "Chebyshev Example",
-    "text": "Chebyshev Example\n\nExample \\(X\\) has mean \\(\\mu = 10\\) and standard deviation \\(\\sigma = 3\\).\n(a) Use Chebyshev to bound \\(P(|X - 10| \\geq 9)\\).\n(b) Use Chebyshev to bound \\(P(1 &lt; X &lt; 19)\\) from below.\n(c) Now suppose \\(X\\) is actually \\(N(10, 9)\\). Compute the exact probability \\(P(1 &lt; X &lt; 19)\\) and compare with the Chebyshev bound."
+    "text": "Chebyshev Example\n\n\\(X\\) has mean \\(\\mu = 10\\) and standard deviation \\(\\sigma = 3\\).\n(a) Use Chebyshev to bound \\(P(|X - 10| \\geq 9)\\).\n(b) Use Chebyshev to bound \\(P(1 &lt; X &lt; 19)\\) from below.\n(c) Now suppose \\(X\\) is actually \\(N(10, 9)\\). Compute the exact probability \\(P(1 &lt; X &lt; 19)\\) and compare with the Chebyshev bound."
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#chebyshev-check-in-r",
@@ -445,7 +445,7 @@
     "href": "Chapter Slides/chapter4-slides.html#example-poisson-wlln",
     "title": "STA258",
     "section": "Example: Poisson WLLN",
-    "text": "Example: Poisson WLLN\n\nExample Let \\(X_i \\overset{\\text{iid}}{\\sim} \\text{Poisson}(\\lambda = 3)\\) for \\(i = 1, 2, \\ldots\\)\n(a) State \\(E[X_i]\\) and \\(\\text{Var}(X_i)\\).\n(b) Apply Chebyshev’s inequality to bound \\(P(|\\bar{X}_n - 3| \\geq \\varepsilon)\\).\n(c) Show that \\(\\bar{X}_n \\overset{p}{\\longrightarrow} 3\\).\n(d) Simulate the convergence in R for \\(n = 500\\) trials."
+    "text": "Example: Poisson WLLN\n\nLet \\(X_i \\overset{\\text{iid}}{\\sim} \\text{Poisson}(\\lambda = 3)\\) for \\(i = 1, 2, \\ldots\\)\n(a) State \\(E[X_i]\\) and \\(\\text{Var}(X_i)\\).\n(b) Apply Chebyshev’s inequality to bound \\(P(|\\bar{X}_n - 3| \\geq \\varepsilon)\\).\n(c) Show that \\(\\bar{X}_n \\overset{p}{\\longrightarrow} 3\\).\n(d) Simulate the convergence in R for \\(n = 500\\) trials."
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#poisson-wlln-check-in-r",
@@ -1502,7 +1502,7 @@
     "href": "Chapter Slides/chapter4-slides.html#example-heights-with-probability-plot",
     "title": "STA258",
     "section": "Example: Heights with Probability Plot",
-    "text": "Example: Heights with Probability Plot\n\n\n\nExample Adult heights in a population follow\n\\[X \\sim N(170, 8^2)\\]\nwhere height is measured in centimetres.\n(a) Find \\(P(X &lt; 180)\\).\n(b) Find \\(P(X &gt; 160)\\).\n(c) Find \\(P(162 &lt; X &lt; 178)\\).\n(d) Find the height \\(h\\) such that only 5% of people are taller than \\(h\\)."
+    "text": "Example: Heights with Probability Plot\n\n\n\nAdult heights in a population follow\n\\[X \\sim N(170, 8^2)\\]\nwhere height is measured in centimetres.\n(a) Find \\(P(X &lt; 180)\\).\n(b) Find \\(P(X &gt; 160)\\).\n(c) Find \\(P(162 &lt; X &lt; 178)\\).\n(d) Find the height \\(h\\) such that only 5% of people are taller than \\(h\\)."
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#heights-check-in-r-with-plot",
@@ -1656,14 +1656,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-known-sigma---magazine-readers",
     "title": "STA258",
     "section": "Example 1: Known Sigma - Magazine Readers",
-    "text": "Example 1: Known Sigma - Magazine Readers\n\nIn-Class Example Playbill magazine reports \\(\\bar{x}=119{,}155\\) dollars from \\(n=80\\) households. Assume \\(\\sigma=30{,}000\\) dollars.\nConstruct 90%, 95%, and 99% confidence intervals for the population mean household income of readers.\n\n\n\n\n\n\n\n\n\n\nLevel\nCritical value\nMargin of error\nConfidence interval\n\n\n\n\n90%\n1.645\n\\(1.645(30000/\\sqrt{80})=5517.38\\)\n\\((113637.62, 124672.38)\\)\n\n\n95%\n1.960\n\\(1.960(30000/\\sqrt{80})=6573.04\\)\n\\((112581.96, 125728.04)\\)\n\n\n99%\n2.576\n\\(2.576(30000/\\sqrt{80})=8640.41\\)\n\\((110514.59, 127795.41)\\)\n\n\n\n\nWe are 95% confident that the mean household income of Playbill readers is between about 112,582 dollars and 125,728 dollars."
+    "text": "Example 1: Known Sigma - Magazine Readers\n\nPlaybill magazine reports \\(\\bar{x}=119{,}155\\) dollars from \\(n=80\\) households. Assume \\(\\sigma=30{,}000\\) dollars.\nConstruct 90%, 95%, and 99% confidence intervals for the population mean household income of readers.\n\n\n\n\n\n\n\n\n\n\nLevel\nCritical value\nMargin of error\nConfidence interval\n\n\n\n\n90%\n1.645\n\\(1.645(30000/\\sqrt{80})=5517.38\\)\n\\((113637.62, 124672.38)\\)\n\n\n95%\n1.960\n\\(1.960(30000/\\sqrt{80})=6573.04\\)\n\\((112581.96, 125728.04)\\)\n\n\n99%\n2.576\n\\(2.576(30000/\\sqrt{80})=8640.41\\)\n\\((110514.59, 127795.41)\\)\n\n\n\n\nWe are 95% confident that the mean household income of Playbill readers is between about 112,582 dollars and 125,728 dollars."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-known-sigma---car-sales",
     "href": "Chapter Slides/chapter5-slides.html#example-2-known-sigma---car-sales",
     "title": "STA258",
     "section": "Example 2: Known Sigma - Car Sales",
-    "text": "Example 2: Known Sigma - Car Sales\n\n\n\nPractice Example Annual car sales are normally distributed with known \\(\\sigma=15\\). For a random sample of 15 salespeople:\n\\[79,43,58,66,101,63,79,33,58,71,60,101,74,55,88\\]\nConstruct a 95% CI for \\(\\mu\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=68.6\\), so the interval is approximately \\((61.01, 76.19)\\). We are 95% confident that the population mean number of cars sold annually is between about 61 and 76."
+    "text": "Example 2: Known Sigma - Car Sales\n\n\n\nAnnual car sales are normally distributed with known \\(\\sigma=15\\). For a random sample of 15 salespeople:\n\\[79,43,58,66,101,63,79,33,58,71,60,101,74,55,88\\]\nConstruct a 95% CI for \\(\\mu\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=68.6\\), so the interval is approximately \\((61.01, 76.19)\\). We are 95% confident that the population mean number of cars sold annually is between about 61 and 76."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#quiz-known-sigma",
@@ -1684,14 +1684,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-unknown-sigma---ancient-air",
     "title": "STA258",
     "section": "Example 1: Unknown Sigma - Ancient Air",
-    "text": "Example 1: Unknown Sigma - Ancient Air\n\n\n\nIn-Class Example Nitrogen percentages from air bubbles trapped in ancient amber:\n\\[63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0\\]\nConstruct a 90% CI for the mean nitrogen percentage.\n\n\nUsing \\(n=9\\), \\(\\bar{x}=59.5889\\), \\(s=6.2553\\), and \\(t^*=1.8595\\):\n\\[59.5889\\pm1.8595\\frac{6.2553}{3}=(55.71,63.47).\\]"
+    "text": "Example 1: Unknown Sigma - Ancient Air\n\n\n\nNitrogen percentages from air bubbles trapped in ancient amber:\n\\[63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0\\]\nConstruct a 90% CI for the mean nitrogen percentage.\n\n\nUsing \\(n=9\\), \\(\\bar{x}=59.5889\\), \\(s=6.2553\\), and \\(t^*=1.8595\\):\n\\[59.5889\\pm1.8595\\frac{6.2553}{3}=(55.71,63.47).\\]"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-unknown-sigma---camera-photos",
     "href": "Chapter Slides/chapter5-slides.html#example-2-unknown-sigma---camera-photos",
     "title": "STA258",
     "section": "Example 2: Unknown Sigma - Camera Photos",
-    "text": "Example 2: Unknown Sigma - Camera Photos\n\n\n\nPractice Example A random sample of 10 digital camera owners has stored photo counts:\n\\[25,6,22,26,31,18,13,20,14,2\\]\nConstruct a 95% CI for the population mean number of stored photos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=17.7\\), \\(s=9.0805\\), \\(df=9\\), and \\(t^*=2.262\\). The 95% CI is approximately \\((11.20,24.20)\\) photos."
+    "text": "Example 2: Unknown Sigma - Camera Photos\n\n\n\nA random sample of 10 digital camera owners has stored photo counts:\n\\[25,6,22,26,31,18,13,20,14,2\\]\nConstruct a 95% CI for the population mean number of stored photos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=17.7\\), \\(s=9.0805\\), \\(df=9\\), and \\(t^*=2.262\\). The 95% CI is approximately \\((11.20,24.20)\\) photos."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#one-proportion",
@@ -1705,14 +1705,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-one-proportion---transit-use",
     "title": "STA258",
     "section": "Example 1: One Proportion - Transit Use",
-    "text": "Example 1: One Proportion - Transit Use\n\nIn-Class Example A university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who use public transportation.\n\n\\[\n\\hat p=\\frac{738}{1200}=0.6150\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\n\\]\n\\[\n0.6150\\pm1.96(0.01405)=(0.5875,0.6425)\n\\]\n\nWe are 95% confident that between 58.75% and 64.25% of students use public transportation."
+    "text": "Example 1: One Proportion - Transit Use\n\nA university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who use public transportation.\n\n\\[\n\\hat p=\\frac{738}{1200}=0.6150\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\n\\]\n\\[\n0.6150\\pm1.96(0.01405)=(0.5875,0.6425)\n\\]\n\nWe are 95% confident that between 58.75% and 64.25% of students use public transportation."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-one-proportion---work-from-home",
     "href": "Chapter Slides/chapter5-slides.html#example-2-one-proportion---work-from-home",
     "title": "STA258",
     "section": "Example 2: One Proportion - Work From Home",
-    "text": "Example 2: One Proportion - Work From Home\n\n\n\nPractice Example In a survey of 650 employees, 286 prefer working from home at least three days per week.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
+    "text": "Example 2: One Proportion - Work From Home\n\n\n\nIn a survey of 650 employees, 286 prefer working from home at least three days per week.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#quiz-proportion-conditions",
@@ -1733,14 +1733,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-one-variance---bottle-filling",
     "title": "STA258",
     "section": "Example 1: One Variance - Bottle Filling",
-    "text": "Example 1: One Variance - Bottle Filling\n\nIn-Class Example A random sample of 25 bottles has sample variance \\(s^2=12.5\\). Assume filling amounts are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+    "text": "Example 1: One Variance - Bottle Filling\n\nA random sample of 25 bottles has sample variance \\(s^2=12.5\\). Assume filling amounts are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-one-variance---reaction-times",
     "href": "Chapter Slides/chapter5-slides.html#example-2-one-variance---reaction-times",
     "title": "STA258",
     "section": "Example 2: One Variance - Reaction Times",
-    "text": "Example 2: One Variance - Reaction Times\n\n\n\nPractice Example A random sample of 16 drivers has sample variance \\(s^2=0.36\\). Assume reaction times are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+    "text": "Example 2: One Variance - Reaction Times\n\n\n\nA random sample of 16 drivers has sample variance \\(s^2=0.36\\). Assume reaction times are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#two-independent-means-both-sigmas-known",
@@ -1754,7 +1754,7 @@
     "href": "Chapter Slides/chapter5-slides.html#example-two-means-both-sigmas-known",
     "title": "STA258",
     "section": "Example: Two Means, Both Sigmas Known",
-    "text": "Example: Two Means, Both Sigmas Known\n\nIn-Class Example Two independent samples compare average weekly study time.\nGroup 1: \\(n_1=40\\), \\(\\bar{x}_1=12.4\\), known \\(\\sigma_1=3.2\\).\nGroup 2: \\(n_2=35\\), \\(\\bar{x}_2=10.9\\), known \\(\\sigma_2=2.8\\).\nConstruct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\n\\bar{x}_1-\\bar{x}_2=1.5\n\\]\n\\[\nSE=\\sqrt{\\frac{3.2^2}{40}+\\frac{2.8^2}{35}}=0.6928\n\\]\n\\[\n1.5\\pm1.96(0.6928)=(0.1421,2.8579)\n\\]\n\nWe are 95% confident that Group 1 studies between 0.14 and 2.86 more hours per week on average than Group 2."
+    "text": "Example: Two Means, Both Sigmas Known\n\nTwo independent samples compare average weekly study time.\nGroup 1: \\(n_1=40\\), \\(\\bar{x}_1=12.4\\), known \\(\\sigma_1=3.2\\).\nGroup 2: \\(n_2=35\\), \\(\\bar{x}_2=10.9\\), known \\(\\sigma_2=2.8\\).\nConstruct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\n\\bar{x}_1-\\bar{x}_2=1.5\n\\]\n\\[\nSE=\\sqrt{\\frac{3.2^2}{40}+\\frac{2.8^2}{35}}=0.6928\n\\]\n\\[\n1.5\\pm1.96(0.6928)=(0.1421,2.8579)\n\\]\n\nWe are 95% confident that Group 1 studies between 0.14 and 2.86 more hours per week on average than Group 2."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#two-means-unknown-but-equal-variances",
@@ -1768,14 +1768,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-pooled-t---training-programs",
     "title": "STA258",
     "section": "Example 1: Pooled t - Training Programs",
-    "text": "Example 1: Pooled t - Training Programs\n\nIn-Class Example Two independent training programs are compared on test scores.\nProgram A: \\(n_1=12\\), \\(\\bar{x}_1=84.2\\), \\(s_1=5.1\\).\nProgram B: \\(n_2=10\\), \\(\\bar{x}_2=79.4\\), \\(s_2=4.7\\).\nAssume equal population variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\ns_p^2=\\frac{11(5.1^2)+9(4.7^2)}{20}=24.254,\\quad s_p=4.925\n\\]\n\\[\nSE=4.925\\sqrt{\\frac{1}{12}+\\frac{1}{10}}=2.106,\\quad t^*_{20}=2.086\n\\]\n\\[\n4.8\\pm2.086(2.106)=(0.41,9.19)\n\\]"
+    "text": "Example 1: Pooled t - Training Programs\n\nTwo independent training programs are compared on test scores.\nProgram A: \\(n_1=12\\), \\(\\bar{x}_1=84.2\\), \\(s_1=5.1\\).\nProgram B: \\(n_2=10\\), \\(\\bar{x}_2=79.4\\), \\(s_2=4.7\\).\nAssume equal population variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\ns_p^2=\\frac{11(5.1^2)+9(4.7^2)}{20}=24.254,\\quad s_p=4.925\n\\]\n\\[\nSE=4.925\\sqrt{\\frac{1}{12}+\\frac{1}{10}}=2.106,\\quad t^*_{20}=2.086\n\\]\n\\[\n4.8\\pm2.086(2.106)=(0.41,9.19)\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-pooled-t---battery-life",
     "href": "Chapter Slides/chapter5-slides.html#example-2-pooled-t---battery-life",
     "title": "STA258",
     "section": "Example 2: Pooled t - Battery Life",
-    "text": "Example 2: Pooled t - Battery Life\n\n\n\nPractice Example Battery A: \\(n_1=15\\), \\(\\bar{x}_1=31.4\\), \\(s_1=2.6\\).\nBattery B: \\(n_2=14\\), \\(\\bar{x}_2=29.8\\), \\(s_2=2.2\\).\nAssume equal variances. Construct a 90% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.10,3.10)\\) hours."
+    "text": "Example 2: Pooled t - Battery Life\n\n\n\nBattery A: \\(n_1=15\\), \\(\\bar{x}_1=31.4\\), \\(s_1=2.6\\).\nBattery B: \\(n_2=14\\), \\(\\bar{x}_2=29.8\\), \\(s_2=2.2\\).\nAssume equal variances. Construct a 90% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.10,3.10)\\) hours."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#two-means-unknown-and-unequal-variances",
@@ -1789,14 +1789,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-welch-t---sodium-content",
     "title": "STA258",
     "section": "Example 1: Welch t - Sodium Content",
-    "text": "Example 1: Welch t - Sodium Content\n\nIn-Class Example Adult frozen meals: \\(n_1=20\\), \\(\\bar{x}_1=720\\), \\(s_1=150\\).\nChildren’s frozen meals: \\(n_2=18\\), \\(\\bar{x}_2=610\\), \\(s_2=120\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\nSE=\\sqrt{\\frac{150^2}{20}+\\frac{120^2}{18}}=\\sqrt{1925}=43.875\n\\]\nUsing Welch \\(df\\approx35.55\\), \\(t^*\\approx2.030\\):\n\\[\n110\\pm2.030(43.875)=(20.93,199.07)\n\\]\n\nThe interval is entirely positive, suggesting adult meals have a higher mean sodium content."
+    "text": "Example 1: Welch t - Sodium Content\n\nAdult frozen meals: \\(n_1=20\\), \\(\\bar{x}_1=720\\), \\(s_1=150\\).\nChildren’s frozen meals: \\(n_2=18\\), \\(\\bar{x}_2=610\\), \\(s_2=120\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\nSE=\\sqrt{\\frac{150^2}{20}+\\frac{120^2}{18}}=\\sqrt{1925}=43.875\n\\]\nUsing Welch \\(df\\approx35.55\\), \\(t^*\\approx2.030\\):\n\\[\n110\\pm2.030(43.875)=(20.93,199.07)\n\\]\n\nThe interval is entirely positive, suggesting adult meals have a higher mean sodium content."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-welch-t---commute-times",
     "href": "Chapter Slides/chapter5-slides.html#example-2-welch-t---commute-times",
     "title": "STA258",
     "section": "Example 2: Welch t - Commute Times",
-    "text": "Example 2: Welch t - Commute Times\n\n\n\nPractice Example Campus A: \\(n_1=25\\), \\(\\bar{x}_1=42\\), \\(s_1=12\\).\nCampus B: \\(n_2=22\\), \\(\\bar{x}_2=36\\), \\(s_2=9\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((-0.19,12.19)\\) minutes. Because 0 is inside, the data do not clearly show a mean difference."
+    "text": "Example 2: Welch t - Commute Times\n\n\n\nCampus A: \\(n_1=25\\), \\(\\bar{x}_1=42\\), \\(s_1=12\\).\nCampus B: \\(n_2=22\\), \\(\\bar{x}_2=36\\), \\(s_2=9\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((-0.19,12.19)\\) minutes. Because 0 is inside, the data do not clearly show a mean difference."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#quiz-two-means",
@@ -1817,14 +1817,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-difference-of-proportions---transit",
     "title": "STA258",
     "section": "Example 1: Difference of Proportions - Transit",
-    "text": "Example 1: Difference of Proportions - Transit\n\nIn-Class Example At Campus 1, 180 of 300 students use transit. At Campus 2, 150 of 280 students use transit.\nConstruct a 95% CI for \\(p_1-p_2\\).\n\n\\[\n\\hat p_1=0.6000,\\quad \\hat p_2=0.5357,\\quad \\hat p_1-\\hat p_2=0.0643\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6(0.4)}{300}+\\frac{0.5357(0.4643)}{280}}=0.0411\n\\]\n\\[\n0.0643\\pm1.96(0.0411)=(-0.0163,0.1449)\n\\]\n\nThe interval includes 0, so the sample does not clearly indicate a difference in transit-use proportions."
+    "text": "Example 1: Difference of Proportions - Transit\n\nAt Campus 1, 180 of 300 students use transit. At Campus 2, 150 of 280 students use transit.\nConstruct a 95% CI for \\(p_1-p_2\\).\n\n\\[\n\\hat p_1=0.6000,\\quad \\hat p_2=0.5357,\\quad \\hat p_1-\\hat p_2=0.0643\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6(0.4)}{300}+\\frac{0.5357(0.4643)}{280}}=0.0411\n\\]\n\\[\n0.0643\\pm1.96(0.0411)=(-0.0163,0.1449)\n\\]\n\nThe interval includes 0, so the sample does not clearly indicate a difference in transit-use proportions."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-difference-of-proportions---app-preference",
     "href": "Chapter Slides/chapter5-slides.html#example-2-difference-of-proportions---app-preference",
     "title": "STA258",
     "section": "Example 2: Difference of Proportions - App Preference",
-    "text": "Example 2: Difference of Proportions - App Preference\n\n\n\nPractice Example In group A, 96 of 160 students prefer App A. In group B, 72 of 150 students prefer App A.\nConstruct a 90% CI for \\(p_1-p_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.0267,0.2133)\\). Group A’s preference proportion appears higher."
+    "text": "Example 2: Difference of Proportions - App Preference\n\n\n\nIn group A, 96 of 160 students prefer App A. In group B, 72 of 150 students prefer App A.\nConstruct a 90% CI for \\(p_1-p_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.0267,0.2133)\\). Group A’s preference proportion appears higher."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#ratio-of-variances",
@@ -1838,14 +1838,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-ratio-of-variances---machines",
     "title": "STA258",
     "section": "Example 1: Ratio of Variances - Machines",
-    "text": "Example 1: Ratio of Variances - Machines\n\nIn-Class Example Machine 1: \\(n_1=12\\), \\(s_1^2=18\\). Machine 2: \\(n_2=10\\), \\(s_2^2=10\\).\nAssuming normal populations, construct a 95% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((0.45,6.48)\\). Since 1 is inside, equal variances are plausible."
+    "text": "Example 1: Ratio of Variances - Machines\n\nMachine 1: \\(n_1=12\\), \\(s_1^2=18\\). Machine 2: \\(n_2=10\\), \\(s_2^2=10\\).\nAssuming normal populations, construct a 95% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((0.45,6.48)\\). Since 1 is inside, equal variances are plausible."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-ratio-of-variances---labs",
     "href": "Chapter Slides/chapter5-slides.html#example-2-ratio-of-variances---labs",
     "title": "STA258",
     "section": "Example 2: Ratio of Variances - Labs",
-    "text": "Example 2: Ratio of Variances - Labs\n\n\n\nPractice Example Lab A: \\(n_1=15\\), \\(s_1^2=4.8\\). Lab B: \\(n_2=13\\), \\(s_2^2=1.9\\).\nConstruct a 90% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.93,6.71)\\). Since 1 is barely inside, the evidence for different variances is not decisive at this level."
+    "text": "Example 2: Ratio of Variances - Labs\n\n\n\nLab A: \\(n_1=15\\), \\(s_1^2=4.8\\). Lab B: \\(n_2=13\\), \\(s_2^2=1.9\\).\nConstruct a 90% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.93,6.71)\\). Since 1 is barely inside, the evidence for different variances is not decisive at this level."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#paired-data",
@@ -1859,14 +1859,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-paired-data---before-and-after",
     "title": "STA258",
     "section": "Example 1: Paired Data - Before and After",
-    "text": "Example 1: Paired Data - Before and After\n\n\n\nIn-Class Example Eight students take a diagnostic test before and after a workshop. Differences are after minus before:\n\\[4,6,3,5,7,2,4,6\\]\nConstruct a 95% CI for the mean improvement.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((3.30,5.95)\\) points. We are 95% confident that the mean improvement is positive."
+    "text": "Example 1: Paired Data - Before and After\n\n\n\nEight students take a diagnostic test before and after a workshop. Differences are after minus before:\n\\[4,6,3,5,7,2,4,6\\]\nConstruct a 95% CI for the mean improvement.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((3.30,5.95)\\) points. We are 95% confident that the mean improvement is positive."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-paired-data---reaction-time",
     "href": "Chapter Slides/chapter5-slides.html#example-2-paired-data---reaction-time",
     "title": "STA258",
     "section": "Example 2: Paired Data - Reaction Time",
-    "text": "Example 2: Paired Data - Reaction Time\n\nPractice Example Six participants complete a task before and after a training session. Let \\(d=\\) after minus before, in seconds:\n\\[-1.2,-0.8,-1.5,-0.4,-1.1,-0.9\\]\nConstruct a 90% CI for the mean change.\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((-1.28,-0.69)\\) seconds. Negative values mean the task was completed faster after training."
+    "text": "Example 2: Paired Data - Reaction Time\n\nSix participants complete a task before and after a training session. Let \\(d=\\) after minus before, in seconds:\n\\[-1.2,-0.8,-1.5,-0.4,-1.1,-0.9\\]\nConstruct a 90% CI for the mean change.\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((-1.28,-0.69)\\) seconds. Negative values mean the task was completed faster after training."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#sample-size-for-a-mean",
@@ -1880,14 +1880,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-sample-size-for-a-mean",
     "title": "STA258",
     "section": "Example 1: Sample Size for a Mean",
-    "text": "Example 1: Sample Size for a Mean\n\nIn-Class Example A lab measurement has known \\(\\sigma=0.0068\\) grams per liter. Management wants results accurate within \\(E=0.005\\) with 95% confidence.\nHow many repeated measurements are needed?\n\n\\[\nn=\\left(\\frac{1.96(0.0068)}{0.005}\\right)^2=7.10\n\\]\n\nRound up: the lab needs \\(n=8\\) measurements."
+    "text": "Example 1: Sample Size for a Mean\n\nA lab measurement has known \\(\\sigma=0.0068\\) grams per liter. Management wants results accurate within \\(E=0.005\\) with 95% confidence.\nHow many repeated measurements are needed?\n\n\\[\nn=\\left(\\frac{1.96(0.0068)}{0.005}\\right)^2=7.10\n\\]\n\nRound up: the lab needs \\(n=8\\) measurements."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-mean",
     "href": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-mean",
     "title": "STA258",
     "section": "Example 2: Sample Size for a Mean",
-    "text": "Example 2: Sample Size for a Mean\n\nPractice Example A planning value is \\(\\sigma=22.50\\) and the desired margin is \\(E=2\\).\nFind the sample size for 90%, 95%, and 99% confidence.\n\n\n\n\nLevel\nCritical value\nCalculation\nRequired \\(n\\)\n\n\n\n\n90%\n1.645\n\\((1.645(22.5)/2)^2=342.41\\)\n343\n\n\n95%\n1.960\n\\((1.960(22.5)/2)^2=486.20\\)\n487\n\n\n99%\n2.576\n\\((2.576(22.5)/2)^2=839.45\\)\n840\n\n\n\n\nHigher confidence requires a larger sample size when the desired margin of error stays fixed."
+    "text": "Example 2: Sample Size for a Mean\n\nA planning value is \\(\\sigma=22.50\\) and the desired margin is \\(E=2\\).\nFind the sample size for 90%, 95%, and 99% confidence.\n\n\n\n\nLevel\nCritical value\nCalculation\nRequired \\(n\\)\n\n\n\n\n90%\n1.645\n\\((1.645(22.5)/2)^2=342.41\\)\n343\n\n\n95%\n1.960\n\\((1.960(22.5)/2)^2=486.20\\)\n487\n\n\n99%\n2.576\n\\((2.576(22.5)/2)^2=839.45\\)\n840\n\n\n\n\nHigher confidence requires a larger sample size when the desired margin of error stays fixed."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#sample-size-for-a-proportion",
@@ -1901,14 +1901,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-sample-size-for-a-proportion",
     "title": "STA258",
     "section": "Example 1: Sample Size for a Proportion",
-    "text": "Example 1: Sample Size for a Proportion\n\nIn-Class Example A mayoral survey needs to estimate a candidate’s support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.\n\n\\[\nn=\\left(\\frac{1.96}{0.03}\\right)^2(0.5)(0.5)=1067.11\n\\]\n\nRound up: contact at least \\(n=1068\\) voters."
+    "text": "Example 1: Sample Size for a Proportion\n\nA mayoral survey needs to estimate a candidate’s support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.\n\n\\[\nn=\\left(\\frac{1.96}{0.03}\\right)^2(0.5)(0.5)=1067.11\n\\]\n\nRound up: contact at least \\(n=1068\\) voters."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-proportion",
     "href": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-proportion",
     "title": "STA258",
     "section": "Example 2: Sample Size for a Proportion",
-    "text": "Example 2: Sample Size for a Proportion\n\nPractice Example In 2007, 15.6% of people in the USA were not covered by health care insurance. Use \\(p^*=0.156\\) and \\(E=0.03\\).\nFind the required sample size for 95% and 99% confidence.\n\n\\[\nn_{95}=\\left(\\frac{1.96}{0.03}\\right)^2(0.156)(0.844)=562.54\\Rightarrow563\n\\]\n\\[\nn_{99}=\\left(\\frac{2.576}{0.03}\\right)^2(0.156)(0.844)=970.97\\Rightarrow971\n\\]\n\nThe 99% confidence level requires a larger survey because the critical value is larger."
+    "text": "Example 2: Sample Size for a Proportion\n\nIn 2007, 15.6% of people in the USA were not covered by health care insurance. Use \\(p^*=0.156\\) and \\(E=0.03\\).\nFind the required sample size for 95% and 99% confidence.\n\n\\[\nn_{95}=\\left(\\frac{1.96}{0.03}\\right)^2(0.156)(0.844)=562.54\\Rightarrow563\n\\]\n\\[\nn_{99}=\\left(\\frac{2.576}{0.03}\\right)^2(0.156)(0.844)=970.97\\Rightarrow971\n\\]\n\nThe 99% confidence level requires a larger survey because the critical value is larger."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#quiz-sample-size",
@@ -1937,5 +1937,201 @@
     "title": "STA258",
     "section": "Up Next",
     "text": "Up Next\n\nChapter 6 - Hypothesis Tests\nConfidence intervals estimate plausible parameter values. Hypothesis tests ask whether a specific claim about a parameter is compatible with the data.\n\n\nBack to Homepage"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#example-parameter-statistic-and-sampling-variability",
+    "href": "Chapter Slides/chapter4-slides.html#example-parameter-statistic-and-sampling-variability",
+    "title": "STA258",
+    "section": "Example: Parameter, Statistic, and Sampling Variability",
+    "text": "Example: Parameter, Statistic, and Sampling Variability\n\n\n\nSuppose the true average commute time for all UTM students is unknown.\nA researcher takes five different samples, each with \\(n=25\\) students, and computes a sample mean commute time for each sample.\n(a) What is the population parameter?\n(b) What statistic is computed from each sample?\n(c) Why are the five sample means not exactly the same?\n(d) What would happen to the sample means if each sample used \\(n=200\\) students instead?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#example-normal-probability-with-a-plot",
+    "href": "Chapter Slides/chapter4-slides.html#example-normal-probability-with-a-plot",
+    "title": "STA258",
+    "section": "Example: Normal Probability with a Plot",
+    "text": "Example: Normal Probability with a Plot\n\n\n\nSuppose final exam scores are approximately normal with mean \\(\\mu=72\\) and standard deviation \\(\\sigma=8\\).\n(a) Find the \\(z\\)-score for a score of \\(84\\).\n(b) Find \\(P(X \\le 84)\\).\n(c) Find \\(P(X &gt; 84)\\).\n(d) On the plot, identify the shaded right-tail region and explain why it represents \\(P(X &gt; 84)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#example-clt-in-action",
+    "href": "Chapter Slides/chapter4-slides.html#example-clt-in-action",
+    "title": "STA258",
+    "section": "Example: CLT in Action",
+    "text": "Example: CLT in Action\n\n\n\nAssume individual wait times follow a right-skewed exponential distribution.\nWe repeatedly take samples and compute the sample mean.\n(a) What is the shape of the original population?\n(b) What statistic are we calculating repeatedly?\n(c) What happens to the sampling distribution of \\(\\bar{X}\\) as \\(n\\) increases?\n(d) Which theorem explains this pattern?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#example-law-of-large-numbers",
+    "href": "Chapter Slides/chapter4-slides.html#example-law-of-large-numbers",
+    "title": "STA258",
+    "section": "Example: Law of Large Numbers",
+    "text": "Example: Law of Large Numbers\n\n\n\nA fair coin is flipped many times. Let \\(X_i=1\\) if the flip is heads and \\(X_i=0\\) if the flip is tails.\nThe true population mean is:\n\\[\\mu = P(\\text{Heads}) = 0.5\\]\n(a) What does the running sample mean represent?\n(b) Why does it jump around a lot at the start?\n(c) What happens as the number of flips increases?\n(d) Which result explains this behaviour?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#bonus-applying-the-clt",
+    "href": "Chapter Slides/chapter4-slides.html#bonus-applying-the-clt",
+    "title": "STA258",
+    "section": "Bonus: Applying the CLT",
+    "text": "Bonus: Applying the CLT\n\nLet \\(X \\sim \\text{Uniform}(0, 1)\\), so \\(E[X] = 0.5\\) and \\(\\text{Var}(X) = 1/12\\).\n(a) For \\(n = 48\\) i.i.d. draws, find \\(P(\\bar{X} \\leq 0.52)\\) approximately.\n(b) Find \\(P(0.48 \\leq \\bar{X} \\leq 0.52)\\) approximately.\n(c) Simulate the sampling distribution and overlay the CLT approximation. Do they agree?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter4-slides.html#bonus-check-in-r",
+    "href": "Chapter Slides/chapter4-slides.html#bonus-check-in-r",
+    "title": "STA258",
+    "section": "Bonus — Check in R",
+    "text": "Bonus — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma---magazine-readers",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma---magazine-readers",
+    "title": "STA258",
+    "section": "Example: Known Sigma - Magazine Readers",
+    "text": "Example: Known Sigma - Magazine Readers\n\nPlaybill magazine reports \\(\\bar{x}=119{,}155\\) dollars from \\(n=80\\) households. Assume \\(\\sigma=30{,}000\\) dollars.\nConstruct 90%, 95%, and 99% confidence intervals for the population mean household income of readers.\n\n\n\n\n\n\n\n\n\n\nLevel\nCritical value\nMargin of error\nConfidence interval\n\n\n\n\n90%\n1.645\n\\(1.645(30000/\\sqrt{80})=5517.38\\)\n\\((113637.62, 124672.38)\\)\n\n\n95%\n1.960\n\\(1.960(30000/\\sqrt{80})=6573.04\\)\n\\((112581.96, 125728.04)\\)\n\n\n99%\n2.576\n\\(2.576(30000/\\sqrt{80})=8640.41\\)\n\\((110514.59, 127795.41)\\)\n\n\n\n\nWe are 95% confident that the mean household income of Playbill readers is between about 112,582 dollars and 125,728 dollars."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma---car-sales",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma---car-sales",
+    "title": "STA258",
+    "section": "Example: Known Sigma - Car Sales",
+    "text": "Example: Known Sigma - Car Sales\n\n\n\nAnnual car sales are normally distributed with known \\(\\sigma=15\\). For a random sample of 15 salespeople:\n\\[79,43,58,66,101,63,79,33,58,71,60,101,74,55,88\\]\nConstruct a 95% CI for \\(\\mu\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=68.6\\), so the interval is approximately \\((61.01, 76.19)\\). We are 95% confident that the population mean number of cars sold annually is between about 61 and 76."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---ancient-air",
+    "href": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---ancient-air",
+    "title": "STA258",
+    "section": "Example: Unknown Sigma - Ancient Air",
+    "text": "Example: Unknown Sigma - Ancient Air\n\n\n\nNitrogen percentages from air bubbles trapped in ancient amber:\n\\[63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0\\]\nConstruct a 90% CI for the mean nitrogen percentage.\n\n\nUsing \\(n=9\\), \\(\\bar{x}=59.5889\\), \\(s=6.2553\\), and \\(t^*=1.8595\\):\n\\[59.5889\\pm1.8595\\frac{6.2553}{3}=(55.71,63.47).\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---camera-photos",
+    "href": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---camera-photos",
+    "title": "STA258",
+    "section": "Example: Unknown Sigma - Camera Photos",
+    "text": "Example: Unknown Sigma - Camera Photos\n\n\n\nA random sample of 10 digital camera owners has stored photo counts:\n\\[25,6,22,26,31,18,13,20,14,2\\]\nConstruct a 95% CI for the population mean number of stored photos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=17.7\\), \\(s=9.0805\\), \\(df=9\\), and \\(t^*=2.262\\). The 95% CI is approximately \\((11.20,24.20)\\) photos."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-proportion---transit-use",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-proportion---transit-use",
+    "title": "STA258",
+    "section": "Example: One Proportion - Transit Use",
+    "text": "Example: One Proportion - Transit Use\n\nA university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who use public transportation.\n\n\\[\n\\hat p=\\frac{738}{1200}=0.6150\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\n\\]\n\\[\n0.6150\\pm1.96(0.01405)=(0.5875,0.6425)\n\\]\n\nWe are 95% confident that between 58.75% and 64.25% of students use public transportation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-proportion---work-from-home",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-proportion---work-from-home",
+    "title": "STA258",
+    "section": "Example: One Proportion - Work From Home",
+    "text": "Example: One Proportion - Work From Home\n\n\n\nIn a survey of 650 employees, 286 prefer working from home at least three days per week.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---bottle-filling",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---bottle-filling",
+    "title": "STA258",
+    "section": "Example: One Variance - Bottle Filling",
+    "text": "Example: One Variance - Bottle Filling\n\nA random sample of 25 bottles has sample variance \\(s^2=12.5\\). Assume filling amounts are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---reaction-times",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---reaction-times",
+    "title": "STA258",
+    "section": "Example: One Variance - Reaction Times",
+    "text": "Example: One Variance - Reaction Times\n\n\n\nA random sample of 16 drivers has sample variance \\(s^2=0.36\\). Assume reaction times are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-pooled-t---training-programs",
+    "href": "Chapter Slides/chapter5-slides.html#example-pooled-t---training-programs",
+    "title": "STA258",
+    "section": "Example: Pooled t - Training Programs",
+    "text": "Example: Pooled t - Training Programs\n\nTwo independent training programs are compared on test scores.\nProgram A: \\(n_1=12\\), \\(\\bar{x}_1=84.2\\), \\(s_1=5.1\\).\nProgram B: \\(n_2=10\\), \\(\\bar{x}_2=79.4\\), \\(s_2=4.7\\).\nAssume equal population variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\ns_p^2=\\frac{11(5.1^2)+9(4.7^2)}{20}=24.254,\\quad s_p=4.925\n\\]\n\\[\nSE=4.925\\sqrt{\\frac{1}{12}+\\frac{1}{10}}=2.106,\\quad t^*_{20}=2.086\n\\]\n\\[\n4.8\\pm2.086(2.106)=(0.41,9.19)\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-pooled-t---battery-life",
+    "href": "Chapter Slides/chapter5-slides.html#example-pooled-t---battery-life",
+    "title": "STA258",
+    "section": "Example: Pooled t - Battery Life",
+    "text": "Example: Pooled t - Battery Life\n\n\n\nBattery A: \\(n_1=15\\), \\(\\bar{x}_1=31.4\\), \\(s_1=2.6\\).\nBattery B: \\(n_2=14\\), \\(\\bar{x}_2=29.8\\), \\(s_2=2.2\\).\nAssume equal variances. Construct a 90% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.10,3.10)\\) hours."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-welch-t---sodium-content",
+    "href": "Chapter Slides/chapter5-slides.html#example-welch-t---sodium-content",
+    "title": "STA258",
+    "section": "Example: Welch t - Sodium Content",
+    "text": "Example: Welch t - Sodium Content\n\nAdult frozen meals: \\(n_1=20\\), \\(\\bar{x}_1=720\\), \\(s_1=150\\).\nChildren’s frozen meals: \\(n_2=18\\), \\(\\bar{x}_2=610\\), \\(s_2=120\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\nSE=\\sqrt{\\frac{150^2}{20}+\\frac{120^2}{18}}=\\sqrt{1925}=43.875\n\\]\nUsing Welch \\(df\\approx35.55\\), \\(t^*\\approx2.030\\):\n\\[\n110\\pm2.030(43.875)=(20.93,199.07)\n\\]\n\nThe interval is entirely positive, suggesting adult meals have a higher mean sodium content."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-welch-t---commute-times",
+    "href": "Chapter Slides/chapter5-slides.html#example-welch-t---commute-times",
+    "title": "STA258",
+    "section": "Example: Welch t - Commute Times",
+    "text": "Example: Welch t - Commute Times\n\n\n\nCampus A: \\(n_1=25\\), \\(\\bar{x}_1=42\\), \\(s_1=12\\).\nCampus B: \\(n_2=22\\), \\(\\bar{x}_2=36\\), \\(s_2=9\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((-0.19,12.19)\\) minutes. Because 0 is inside, the data do not clearly show a mean difference."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-difference-of-proportions---transit",
+    "href": "Chapter Slides/chapter5-slides.html#example-difference-of-proportions---transit",
+    "title": "STA258",
+    "section": "Example: Difference of Proportions - Transit",
+    "text": "Example: Difference of Proportions - Transit\n\nAt Campus 1, 180 of 300 students use transit. At Campus 2, 150 of 280 students use transit.\nConstruct a 95% CI for \\(p_1-p_2\\).\n\n\\[\n\\hat p_1=0.6000,\\quad \\hat p_2=0.5357,\\quad \\hat p_1-\\hat p_2=0.0643\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6(0.4)}{300}+\\frac{0.5357(0.4643)}{280}}=0.0411\n\\]\n\\[\n0.0643\\pm1.96(0.0411)=(-0.0163,0.1449)\n\\]\n\nThe interval includes 0, so the sample does not clearly indicate a difference in transit-use proportions."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-difference-of-proportions---app-preference",
+    "href": "Chapter Slides/chapter5-slides.html#example-difference-of-proportions---app-preference",
+    "title": "STA258",
+    "section": "Example: Difference of Proportions - App Preference",
+    "text": "Example: Difference of Proportions - App Preference\n\n\n\nIn group A, 96 of 160 students prefer App A. In group B, 72 of 150 students prefer App A.\nConstruct a 90% CI for \\(p_1-p_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.0267,0.2133)\\). Group A’s preference proportion appears higher."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-ratio-of-variances---machines",
+    "href": "Chapter Slides/chapter5-slides.html#example-ratio-of-variances---machines",
+    "title": "STA258",
+    "section": "Example: Ratio of Variances - Machines",
+    "text": "Example: Ratio of Variances - Machines\n\nMachine 1: \\(n_1=12\\), \\(s_1^2=18\\). Machine 2: \\(n_2=10\\), \\(s_2^2=10\\).\nAssuming normal populations, construct a 95% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((0.45,6.48)\\). Since 1 is inside, equal variances are plausible."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-ratio-of-variances---labs",
+    "href": "Chapter Slides/chapter5-slides.html#example-ratio-of-variances---labs",
+    "title": "STA258",
+    "section": "Example: Ratio of Variances - Labs",
+    "text": "Example: Ratio of Variances - Labs\n\n\n\nLab A: \\(n_1=15\\), \\(s_1^2=4.8\\). Lab B: \\(n_2=13\\), \\(s_2^2=1.9\\).\nConstruct a 90% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.93,6.71)\\). Since 1 is barely inside, the evidence for different variances is not decisive at this level."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-paired-data---before-and-after",
+    "href": "Chapter Slides/chapter5-slides.html#example-paired-data---before-and-after",
+    "title": "STA258",
+    "section": "Example: Paired Data - Before and After",
+    "text": "Example: Paired Data - Before and After\n\n\n\nEight students take a diagnostic test before and after a workshop. Differences are after minus before:\n\\[4,6,3,5,7,2,4,6\\]\nConstruct a 95% CI for the mean improvement.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((3.30,5.95)\\) points. We are 95% confident that the mean improvement is positive."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-paired-data---reaction-time",
+    "href": "Chapter Slides/chapter5-slides.html#example-paired-data---reaction-time",
+    "title": "STA258",
+    "section": "Example: Paired Data - Reaction Time",
+    "text": "Example: Paired Data - Reaction Time\n\nSix participants complete a task before and after a training session. Let \\(d=\\) after minus before, in seconds:\n\\[-1.2,-0.8,-1.5,-0.4,-1.1,-0.9\\]\nConstruct a 90% CI for the mean change.\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((-1.28,-0.69)\\) seconds. Negative values mean the task was completed faster after training."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-mean",
+    "href": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-mean",
+    "title": "STA258",
+    "section": "Example: Sample Size for a Mean",
+    "text": "Example: Sample Size for a Mean\n\nA lab measurement has known \\(\\sigma=0.0068\\) grams per liter. Management wants results accurate within \\(E=0.005\\) with 95% confidence.\nHow many repeated measurements are needed?\n\n\\[\nn=\\left(\\frac{1.96(0.0068)}{0.005}\\right)^2=7.10\n\\]\n\nRound up: the lab needs \\(n=8\\) measurements."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-mean-1",
+    "href": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-mean-1",
+    "title": "STA258",
+    "section": "Example: Sample Size for a Mean",
+    "text": "Example: Sample Size for a Mean\n\nA planning value is \\(\\sigma=22.50\\) and the desired margin is \\(E=2\\).\nFind the sample size for 90%, 95%, and 99% confidence.\n\n\n\n\nLevel\nCritical value\nCalculation\nRequired \\(n\\)\n\n\n\n\n90%\n1.645\n\\((1.645(22.5)/2)^2=342.41\\)\n343\n\n\n95%\n1.960\n\\((1.960(22.5)/2)^2=486.20\\)\n487\n\n\n99%\n2.576\n\\((2.576(22.5)/2)^2=839.45\\)\n840\n\n\n\n\nHigher confidence requires a larger sample size when the desired margin of error stays fixed."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-proportion",
+    "href": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-proportion",
+    "title": "STA258",
+    "section": "Example: Sample Size for a Proportion",
+    "text": "Example: Sample Size for a Proportion\n\nA mayoral survey needs to estimate a candidate’s support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.\n\n\\[\nn=\\left(\\frac{1.96}{0.03}\\right)^2(0.5)(0.5)=1067.11\n\\]\n\nRound up: contact at least \\(n=1068\\) voters."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-proportion-1",
+    "href": "Chapter Slides/chapter5-slides.html#example-sample-size-for-a-proportion-1",
+    "title": "STA258",
+    "section": "Example: Sample Size for a Proportion",
+    "text": "Example: Sample Size for a Proportion\n\nIn 2007, 15.6% of people in the USA were not covered by health care insurance. Use \\(p^*=0.156\\) and \\(E=0.03\\).\nFind the required sample size for 95% and 99% confidence.\n\n\\[\nn_{95}=\\left(\\frac{1.96}{0.03}\\right)^2(0.156)(0.844)=562.54\\Rightarrow563\n\\]\n\\[\nn_{99}=\\left(\\frac{2.576}{0.03}\\right)^2(0.156)(0.844)=970.97\\Rightarrow971\n\\]\n\nThe 99% confidence level requires a larger survey because the critical value is larger."
   }
 ]

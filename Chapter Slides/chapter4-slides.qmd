@@ -357,12 +357,11 @@ Populations are usually infinite, very large, or expensive to enumerate. Samplin
 
 ---
 
-## In-Class Example: Parameter, Statistic, and Sampling Variability {.scrollable}
+## Example: Parameter, Statistic, and Sampling Variability {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Suppose the true average commute time for all UTM students is unknown.
 
 A researcher takes **five different samples**, each with $n=25$ students, and computes a sample mean commute time for each sample.
@@ -757,12 +756,11 @@ Default: `mean = 0`, `sd = 1` (standard normal).
 
 ---
 
-## In-Class Example: Normal Probability with a Plot {.scrollable}
+## Example: Normal Probability with a Plot {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Suppose final exam scores are approximately normal with mean $\mu=72$ and standard deviation $\sigma=8$.
 
 **(a)** Find the $z$-score for a score of $84$.
@@ -832,7 +830,6 @@ pnorm(z)                              # same as P(X <= 84)
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">Example</span>
 Adult heights in a population follow
 
 $$X \sim N(170, 8^2)$$
@@ -1119,7 +1116,6 @@ As $k \to \infty$, the chi-square distribution approaches a normal distribution 
 ## Example: Chi-Square Probability {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Example</span>
 Let $X \sim \chi^2_{8}$.
 
 **(a)** Find $P(X \leq 15.507)$.
@@ -1603,7 +1599,6 @@ Notice `qt(0.975, df=10) = 2.228` vs `qnorm(0.975) = 1.960`. The $t$ critical va
 ## Example: $t$ Critical Values {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Example</span>
 **(a)** For $T \sim t_{15}$, find $P(T \leq 2.131)$.
 
 **(b)** For $T \sim t_{20}$, find the value $c$ such that $P(-c \leq T \leq c) = 0.95$.
@@ -2048,12 +2043,11 @@ curve(dnorm(x, mu_t, se_t), add=TRUE, col="#F8766D", lwd=2)
 
 ---
 
-## In-Class Example: CLT in Action {.scrollable}
+## Example: CLT in Action {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 Assume individual wait times follow a right-skewed exponential distribution.
 
 We repeatedly take samples and compute the sample mean.
@@ -2133,7 +2127,6 @@ curve(dnorm(x, mean = mean(sample_means), sd = sd(sample_means)),
 ## CLT Example: Poisson Sums {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Example</span>
 Customers arrive at a bank at rate $\lambda = 4$ per minute. $X_i \sim \text{Pois}(4)$.
 
 **(a)** What are $E[X_i]$ and $\text{Var}(X_i)$?
@@ -2252,7 +2245,6 @@ Equivalently: $P(|X - \mu| < k) \geq 1 - \dfrac{\sigma^2}{k^2}$
 ## Chebyshev Example {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Example</span>
 $X$ has mean $\mu = 10$ and standard deviation $\sigma = 3$.
 
 **(a)** Use Chebyshev to bound $P(|X - 10| \geq 9)$.
@@ -2390,7 +2382,6 @@ abline(h=p, lty=2, lwd=2, col="black")
 ## Example: Poisson WLLN {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Example</span>
 Let $X_i \overset{\text{iid}}{\sim} \text{Poisson}(\lambda = 3)$ for $i = 1, 2, \ldots$
 
 **(a)** State $E[X_i]$ and $\text{Var}(X_i)$.
@@ -2518,12 +2509,11 @@ ggplot(df_diequiz, aes(x = roll, y = running_avg)) +
 
 ---
 
-## In-Class Example: Law of Large Numbers {.scrollable}
+## Example: Law of Large Numbers {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-<span class="label">In-Class Example</span>
 A fair coin is flipped many times. Let $X_i=1$ if the flip is heads and $X_i=0$ if the flip is tails.
 
 The true population mean is:
@@ -2638,10 +2628,9 @@ $\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle near the population mea
 
 ---
 
-## Bonus Example: Applying the CLT {.scrollable}
+## Bonus: Applying the CLT {.scrollable}
 
 ::: {.taskbox}
-<span class="label">Bonus Example</span>
 Let $X \sim \text{Uniform}(0, 1)$, so $E[X] = 0.5$ and $\text{Var}(X) = 1/12$.
 
 **(a)** For $n = 48$ i.i.d. draws, find $P(\bar{X} \leq 0.52)$ approximately.
@@ -2653,7 +2642,7 @@ Let $X \sim \text{Uniform}(0, 1)$, so $E[X] = 0.5$ and $\text{Var}(X) = 1/12$.
 
 ---
 
-## Bonus Example — Check in R
+## Bonus — Check in R
 
 ```{webr}
 #| autorun: false

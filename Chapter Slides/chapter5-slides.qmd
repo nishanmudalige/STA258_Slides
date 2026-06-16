@@ -1,0 +1,1499 @@
+---
+pagetitle: "Chapter 5: Confidence Intervals - Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 5"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+live:
+  show-solutions: true
+---
+
+```{r setup}
+#| include: false
+library(ggplot2)
+library(dplyr)
+theme_set(theme_minimal(base_size = 13))
+set.seed(258)
+```
+
+# Chapter 5: Confidence Intervals {.title-slide}
+
+<style>
+:root {
+  --sta-teal: #00695c;
+  --sta-teal-dark: #004d40;
+  --sta-teal-light: #e0f2f1;
+  --sta-blue: #c8e6f3;
+  --sta-blue-soft: #eef8fb;
+  --sta-grey: #f5f6f7;
+  --sta-yellow: #fff8e1;
+  --sta-orange: #f9a825;
+  --sta-text: #2f3437;
+  --sta-muted: #667174;
+  --sta-border: #d8dee2;
+  --sta-code: #f3f4f5;
+}
+.reveal { font-family: Arial, sans-serif; color: var(--sta-text); }
+.reveal .slides section { text-align: left; padding: 18px 30px; box-sizing: border-box; }
+.reveal h1, .reveal h2, .reveal h3 { color: var(--sta-text); line-height: 1.1; }
+.reveal h1 { font-size: 1.72em !important; }
+.reveal h2 {
+  font-size: 1.52em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3 { font-size: 1.05em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.76em; line-height: 1.32; }
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p { font-size: 0.78em; color: var(--sta-muted); }
+.two-col, .two-col-lean, .two-col-wide, .three-col, .four-grid, .exercise-grid {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+.two-col { grid-template-columns: 1fr 1fr; }
+.two-col-lean { grid-template-columns: 0.9fr 1.1fr; }
+.two-col-wide { grid-template-columns: 1.12fr 0.88fr; }
+.three-col { grid-template-columns: repeat(3, 1fr); }
+.four-grid { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 360px 1fr; gap: 24px; }
+.col { min-width: 0; }
+.defbox, .examplebox, .thinkbox, .card, .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 0.72em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox { background: #fff3e0; border-left: 7px solid #ef6c00; }
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label, .mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.big { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center { text-align: center; }
+.small-text { font-size: 0.62em; }
+.tight li { margin-bottom: 0.16em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.02em;
+}
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.62em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 6px 8px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.reveal pre { width: 100%; margin-top: 0.3em; margin-bottom: 0.3em; border-radius: 8px; }
+.reveal pre code { font-size: 0.72em; max-height: 320px; }
+.reveal code { background: var(--sta-code); border-radius: 4px; padding: 1px 4px; }
+.reveal .slides section.scrollable { overflow-y: auto !important; overflow-x: hidden !important; max-height: 700px; }
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p, .reveal section.compact li { font-size: 0.72em; }
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
+.reveal .quiz-question .callout-note { margin: 4px 0 12px 0 !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-body p, .reveal .quiz-question .callout-note p {
+  font-size: 0.76em !important;
+  line-height: 1.28;
+  margin: 4px 0;
+}
+.reveal .quiz-question .callout-title { font-size: 0.82em !important; padding: 5px 12px !important; }
+.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+.reveal section.quiz-question img {
+  max-height: 235px !important;
+  object-fit: contain !important;
+  margin: 2px auto 6px auto !important;
+  display: block !important;
+}
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons { margin: 10px 0 0 0 !important; font-size: 0.85em !important; text-align: right; }
+.reveal .check-button, .reveal .reset-button, .reveal .prev-button, .reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+.reveal .feedback, .reveal .explanation, .reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+.quiz-hint { font-size: 0.6em; color: var(--sta-muted); font-style: italic; margin: 0 0 6px 0; }
+.callout { font-size: 0.75em; }
+.ci-widget {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.72em;
+}
+.ci-widget label { display: block; font-weight: 700; color: var(--sta-teal-dark); margin-top: 7px; }
+.ci-widget input, .ci-widget select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  border-radius: 6px;
+}
+.ci-result {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--sta-teal-light);
+  font-weight: 700;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
+.reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+}
+.reveal a.home-button:hover { background: var(--sta-teal-dark) !important; color: white !important; }
+</style>
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability  
+University of Toronto Mississauga
+
+![](../images/cat.png){width="245" fig-alt="Course mascot"}
+
+---
+
+## Chapter Roadmap {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">1 - One Sample</span>
+Means, proportions, and variances. Decide between $Z$, $t$, and $\chi^2$.
+:::
+::: {.card .fragment}
+<span class="label">2 - Two Sample</span>
+Differences in means, differences in proportions, and ratios of variances.
+:::
+::: {.card .fragment}
+<span class="label">3 - Planning</span>
+Choose $n$ so a confidence interval reaches a target margin of error.
+:::
+::::
+
+<br>
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Core skill</span>
+Identify the parameter before choosing the formula.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core tool</span>
+Use `qnorm()`, `qt()`, `qchisq()`, and `qf()` for critical values.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core habit</span>
+Interpret the interval in context, with units.
+:::
+::::
+
+---
+
+## Point Estimates and Interval Estimates
+
+:::: {.two-col}
+::: {.defbox .fragment}
+**Point estimate**
+
+A single numerical value computed from sample data that serves as the best guess of an unknown population parameter.
+
+Examples: $\bar{x}$ estimates $\mu$, $s^2$ estimates $\sigma^2$, and $\hat p$ estimates $p$.
+:::
+
+::: {.defbox .fragment}
+**Confidence interval**
+
+A plausible range of values for a population parameter, built from sample data and a specified confidence level.
+:::
+::::
+
+::: {.thinkbox .fragment}
+**Big idea.** A statistic will usually not equal the parameter exactly. The interval tells us how far away the statistic could reasonably be.
+:::
+
+---
+
+## The CI Skeleton
+
+::: {.defbox}
+All confidence intervals in this chapter are variations of:
+
+$$
+\text{estimate} \pm
+\underbrace{(\text{critical value})(\text{standard error})}_{\text{margin of error}}
+$$
+:::
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Estimate</span>
+$\bar{x}$, $\hat p$, $\bar{x}_1-\bar{x}_2$, $\hat p_1-\hat p_2$, $s^2$, or $s_1^2/s_2^2$.
+:::
+::: {.stat-card .fragment}
+<span class="label">Critical value</span>
+From $Z$, $t$, $\chi^2$, or $F$, depending on the sampling distribution.
+:::
+::: {.stat-card .fragment}
+<span class="label">Standard error</span>
+The standard deviation of the estimator, or an estimate of it.
+:::
+::::
+
+---
+
+## Interpreting Confidence
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.defbox}
+For a $C\%$ confidence interval:
+
+In repeated sampling, about $C\%$ of intervals constructed using this method will capture the true parameter.
+:::
+
+::: {.warnbox .fragment}
+Do not say: "There is a 95% probability that this particular interval contains $\mu$."
+
+The parameter is fixed. The random object is the interval produced by the sample.
+:::
+:::
+
+::: {.col}
+```{r}
+#| echo: false
+#| fig-width: 5.4
+#| fig-height: 4
+#| fig-align: center
+set.seed(10)
+n <- 50
+num_sims <- 50
+true_mu <- 0
+z <- qnorm(0.975)
+ci_df <- data.frame(sim = 1:num_sims) |>
+  rowwise() |>
+  mutate(
+    sample = list(rnorm(n, true_mu, 1)),
+    mean = mean(unlist(sample)),
+    se = sd(unlist(sample)) / sqrt(n),
+    lower = mean - z * se,
+    upper = mean + z * se,
+    misses = lower > true_mu | upper < true_mu
+  ) |>
+  ungroup()
+
+ggplot(ci_df, aes(y = sim)) +
+  geom_segment(aes(x = lower, xend = upper, colour = misses), linewidth = 1.1) +
+  geom_vline(xintercept = true_mu, linetype = "dashed", colour = "#004d40") +
+  scale_colour_manual(values = c("FALSE" = "#00695c", "TRUE" = "#f9a825"), guide = "none") +
+  labs(x = "Interval endpoints", y = "Simulation") +
+  theme(panel.grid.minor = element_blank(), axis.text.y = element_blank())
+```
+:::
+::::
+
+---
+
+## CI Reference Guide
+
+| Target parameter | Situation | Reference distribution | Interval shape |
+|---|---|---:|---|
+| $\mu$ | one mean, $\sigma$ known | $Z$ | $\bar{x}\pm z^*\sigma/\sqrt n$ |
+| $\mu$ | one mean, $\sigma$ unknown | $t_{n-1}$ | $\bar{x}\pm t^*s/\sqrt n$ |
+| $p$ | one proportion | $Z$ | $\hat p\pm z^*\sqrt{\hat p(1-\hat p)/n}$ |
+| $\sigma^2$ | one variance, normal population | $\chi^2_{n-1}$ | asymmetric |
+| $\mu_1-\mu_2$ | two independent means | $Z$ or $t$ | difference $\pm$ margin |
+| $p_1-p_2$ | two independent proportions | $Z$ | difference $\pm$ margin |
+| $\sigma_1^2/\sigma_2^2$ | ratio of variances | $F$ | asymmetric |
+| $\mu_d$ | paired data | $t_{n-1}$ | $\bar d\pm t^*s_d/\sqrt n$ |
+
+---
+
+## Quick Critical Values
+
+:::: {.two-col}
+::: {.col}
+| Confidence level | $z^*$ |
+|:--:|:--:|
+| 90% | 1.645 |
+| 95% | 1.960 |
+| 99% | 2.576 |
+
+::: {.notebox}
+<span class="label">R check</span>
+`qnorm(0.95)`, `qnorm(0.975)`, and `qnorm(0.995)` give these values.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+qnorm(c(0.95, 0.975, 0.995))
+
+# For t, chi-square, and F values:
+qt(0.975, df = 9)
+qchisq(c(0.025, 0.975), df = 24)
+qf(c(0.025, 0.975), df1 = 9, df2 = 11)
+```
+:::
+::::
+
+---
+
+## Interactive One-Mean Calculator
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.ci-widget}
+<label for="ci-mode">Interval type</label>
+<select id="ci-mode" onchange="updateCiCalc()">
+  <option value="z">Known sigma: z interval</option>
+  <option value="t">Unknown sigma: t interval</option>
+</select>
+<label for="ci-xbar">Sample mean</label>
+<input id="ci-xbar" type="number" value="68.6" step="0.1" oninput="updateCiCalc()">
+<label for="ci-spread">Sigma or sample sd</label>
+<input id="ci-spread" type="number" value="15" step="0.1" oninput="updateCiCalc()">
+<label for="ci-n">Sample size</label>
+<input id="ci-n" type="number" value="15" step="1" min="2" oninput="updateCiCalc()">
+<label for="ci-conf">Confidence level</label>
+<select id="ci-conf" onchange="updateCiCalc()">
+  <option value="0.90">90%</option>
+  <option value="0.95" selected>95%</option>
+  <option value="0.99">99%</option>
+</select>
+<div id="ci-output" class="ci-result"></div>
+:::
+:::
+
+::: {.col}
+::: {.thinkbox}
+Try changing the confidence level. The estimate stays fixed, but the critical value and margin of error change.
+:::
+
+::: {.notebox}
+<span class="label">Calculator note</span>
+The $t$ option uses a small built-in table for common confidence levels and degrees of freedom. Use R for exact values.
+:::
+:::
+::::
+
+<script>
+function ciZ(conf) {
+  if (conf === 0.90) return 1.645;
+  if (conf === 0.95) return 1.96;
+  return 2.576;
+}
+function ciT(conf, df) {
+  var table = {
+    "0.90":[6.314,2.920,2.353,2.132,2.015,1.943,1.895,1.860,1.833,1.812,1.796,1.782,1.771,1.761,1.753,1.746,1.740,1.734,1.729,1.725,1.721,1.717,1.714,1.711,1.708,1.706,1.703,1.701,1.699,1.697],
+    "0.95":[12.706,4.303,3.182,2.776,2.571,2.447,2.365,2.306,2.262,2.228,2.201,2.179,2.160,2.145,2.131,2.120,2.110,2.101,2.093,2.086,2.080,2.074,2.069,2.064,2.060,2.056,2.052,2.048,2.045,2.042],
+    "0.99":[63.657,9.925,5.841,4.604,4.032,3.707,3.499,3.355,3.250,3.169,3.106,3.055,3.012,2.977,2.947,2.921,2.898,2.878,2.861,2.845,2.831,2.819,2.807,2.797,2.787,2.779,2.771,2.763,2.756,2.750]
+  };
+  if (df <= 30) return table[conf.toFixed(2)][df - 1];
+  return ciZ(conf);
+}
+window.updateCiCalc = function () {
+  var mode = document.getElementById("ci-mode").value;
+  var xbar = Number(document.getElementById("ci-xbar").value);
+  var spread = Number(document.getElementById("ci-spread").value);
+  var n = Number(document.getElementById("ci-n").value);
+  var conf = Number(document.getElementById("ci-conf").value);
+  var critical = mode === "z" ? ciZ(conf) : ciT(conf, Math.max(1, Math.round(n - 1)));
+  var se = spread / Math.sqrt(n);
+  var moe = critical * se;
+  document.getElementById("ci-output").innerHTML =
+    "Critical value: " + critical.toFixed(3) + "<br>" +
+    "SE: " + se.toFixed(4) + "<br>" +
+    "CI: (" + (xbar - moe).toFixed(4) + ", " + (xbar + moe).toFixed(4) + ")";
+};
+setTimeout(updateCiCalc, 500);
+</script>
+
+---
+
+## One Mean, Sigma Known
+
+::: {.defbox}
+When the population standard deviation $\sigma$ is known:
+
+$$
+\bar{x} \pm z_{\alpha/2}\frac{\sigma}{\sqrt n}
+$$
+
+Use this for a population mean $\mu$ with known $\sigma$.
+:::
+
+:::: {.two-col}
+::: {.notebox}
+<span class="label">Assumptions</span>
+- Random sample or randomized experiment.
+- Independent observations.
+- Population is normal, or $n$ is large enough for the CLT.
+:::
+
+::: {.thinkbox}
+<span class="label">Exam cue</span>
+If the problem gives a population standard deviation, use $z$. If it gives a sample standard deviation, use $t$.
+:::
+::::
+
+---
+
+## Example 1: Known Sigma - Magazine Readers {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Playbill magazine reports $\bar{x}=119{,}155$ dollars from $n=80$ households. Assume $\sigma=30{,}000$ dollars.
+
+Construct 90%, 95%, and 99% confidence intervals for the population mean household income of readers.
+:::
+
+| Level | Critical value | Margin of error | Confidence interval |
+|:--:|:--:|:--:|:--:|
+| 90% | 1.645 | $1.645(30000/\sqrt{80})=5517.38$ | $(113637.62, 124672.38)$ |
+| 95% | 1.960 | $1.960(30000/\sqrt{80})=6573.04$ | $(112581.96, 125728.04)$ |
+| 99% | 2.576 | $2.576(30000/\sqrt{80})=8640.41$ | $(110514.59, 127795.41)$ |
+
+::: {.examplebox}
+We are 95% confident that the mean household income of Playbill readers is between about 112,582 dollars and 125,728 dollars.
+:::
+
+---
+
+## Example 2: Known Sigma - Car Sales {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+Annual car sales are normally distributed with known $\sigma=15$. For a random sample of 15 salespeople:
+
+$$79,43,58,66,101,63,79,33,58,71,60,101,74,55,88$$
+
+Construct a 95% CI for $\mu$.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+cars <- c(79,43,58,66,101,63,79,33,58,71,60,101,74,55,88)
+xbar <- mean(cars)
+n <- length(cars)
+sigma <- 15
+zstar <- qnorm(0.975)
+ci <- xbar + c(-1, 1) * zstar * sigma / sqrt(n)
+
+xbar
+ci
+```
+:::
+::::
+
+::: {.examplebox}
+$\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% confident that the population mean number of cars sold annually is between about 61 and 76.
+:::
+
+---
+
+## Quiz: Known Sigma {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Quick Check
+
+A sample has $\bar{x}=42$, $n=36$, and known $\sigma=12$. For a 95% CI, what is the margin of error?
+::::
+
+- 1.96
+- [3.92]{.correct data-explanation="The standard error is 12/sqrt(36)=2. For 95% confidence, z*=1.96, so the margin of error is 1.96 times 2 = 3.92."}
+- 4.00
+- 7.84
+
+---
+
+## One Mean, Sigma Unknown
+
+::: {.defbox}
+When $\sigma$ is unknown, estimate it with $s$ and use the Student $t$ distribution:
+
+$$
+\bar{x} \pm t_{n-1,\alpha/2}\frac{s}{\sqrt n}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox}
+<span class="label">Why t?</span>
+Replacing $\sigma$ with $s$ adds uncertainty. The $t$ distribution has heavier tails, especially for small degrees of freedom.
+:::
+
+::: {.warnbox}
+<span class="label">Small samples</span>
+For small $n$, check that the population is reasonably normal or that the sample has no severe skew/outliers.
+:::
+::::
+
+---
+
+## Example 1: Unknown Sigma - Ancient Air {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Nitrogen percentages from air bubbles trapped in ancient amber:
+
+$$63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0$$
+
+Construct a 90% CI for the mean nitrogen percentage.
+:::
+
+::: {.examplebox}
+Using $n=9$, $\bar{x}=59.5889$, $s=6.2553$, and $t^*=1.8595$:
+
+$$59.5889\pm1.8595\frac{6.2553}{3}=(55.71,63.47).$$
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+nitrogen <- c(63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0)
+t.test(nitrogen, conf.level = 0.90)
+```
+:::
+::::
+
+---
+
+## Example 2: Unknown Sigma - Camera Photos {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+A random sample of 10 digital camera owners has stored photo counts:
+
+$$25,6,22,26,31,18,13,20,14,2$$
+
+Construct a 95% CI for the population mean number of stored photos.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+photos <- c(25,6,22,26,31,18,13,20,14,2)
+mean(photos)
+sd(photos)
+t.test(photos, conf.level = 0.95)
+```
+:::
+::::
+
+::: {.examplebox}
+$\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately $(11.20,24.20)$ photos.
+:::
+
+---
+
+## One Proportion
+
+::: {.defbox}
+For a population proportion $p$, with $\hat p=x/n$:
+
+$$
+\hat p \pm z_{\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox}
+<span class="label">Conditions</span>
+- Random sample.
+- Independent Bernoulli trials.
+- Large counts: $n\hat p \ge 10$ and $n(1-\hat p)\ge 10$.
+:::
+::: {.thinkbox}
+<span class="label">Boundary check</span>
+The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling.
+:::
+::::
+
+---
+
+## Example 1: One Proportion - Transit Use {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+A university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.
+
+Construct a 95% CI for the true proportion of students who use public transportation.
+:::
+
+$$
+\hat p=\frac{738}{1200}=0.6150
+$$
+
+$$
+SE=\sqrt{\frac{0.6150(0.3850)}{1200}}=0.01405
+$$
+
+$$
+0.6150\pm1.96(0.01405)=(0.5875,0.6425)
+$$
+
+::: {.examplebox}
+We are 95% confident that between 58.75% and 64.25% of students use public transportation.
+:::
+
+---
+
+## Example 2: One Proportion - Work From Home {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+In a survey of 650 employees, 286 prefer working from home at least three days per week.
+
+Construct a 90% CI for the population proportion.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- 286
+n <- 650
+phat <- x / n
+zstar <- qnorm(0.95)
+se <- sqrt(phat * (1 - phat) / n)
+phat + c(-1, 1) * zstar * se
+```
+:::
+::::
+
+::: {.examplebox}
+$\hat p=0.44$, so the 90% CI is approximately $(0.4079,0.4721)$.
+:::
+
+---
+
+## Quiz: Proportion Conditions {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Quick Check
+
+For a one-proportion confidence interval, which sample has enough successes and failures for the normal approximation?
+::::
+
+- $n=20$, $\hat p=0.90$
+- $n=50$, $\hat p=0.10$
+- [$n=100$, $\hat p=0.20$]{.correct data-explanation="This gives n phat = 20 and n(1-phat)=80, both at least 10."}
+- $n=15$, $\hat p=0.50$
+
+---
+
+## One Variance
+
+::: {.defbox}
+For a normally distributed population, a confidence interval for $\sigma^2$ is:
+
+$$
+\left(
+\frac{(n-1)s^2}{\chi^2_{\alpha/2,n-1}},
+\frac{(n-1)s^2}{\chi^2_{1-\alpha/2,n-1}}
+\right)
+$$
+:::
+
+::: {.warnbox}
+This interval is asymmetric. Normality matters here much more than it does for large-sample mean intervals.
+:::
+
+---
+
+## Example 1: One Variance - Bottle Filling {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+A random sample of 25 bottles has sample variance $s^2=12.5$. Assume filling amounts are normally distributed.
+
+Construct a 95% CI for $\sigma^2$.
+:::
+
+$$df=24,\quad \chi^2_{0.975,24}=39.364,\quad \chi^2_{0.025,24}=12.401$$
+
+$$
+\text{Lower}=\frac{24(12.5)}{39.364}=7.62,\qquad
+\text{Upper}=\frac{24(12.5)}{12.401}=24.19
+$$
+
+::: {.examplebox}
+The 95% CI for the population variance is approximately $(7.62,24.19)$.
+:::
+
+---
+
+## Example 2: One Variance - Reaction Times {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+A random sample of 16 drivers has sample variance $s^2=0.36$. Assume reaction times are normally distributed.
+
+Construct a 90% CI for $\sigma^2$.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+n <- 16
+s2 <- 0.36
+alpha <- 0.10
+df <- n - 1
+lower <- df * s2 / qchisq(1 - alpha / 2, df)
+upper <- df * s2 / qchisq(alpha / 2, df)
+c(lower, upper)
+```
+:::
+::::
+
+::: {.examplebox}
+The 90% CI is approximately $(0.2160,0.7437)$.
+:::
+
+---
+
+## Two Independent Means: Both Sigmas Known
+
+::: {.defbox}
+When both population standard deviations are known:
+
+$$
+(\bar{x}_1-\bar{x}_2)\pm z_{\alpha/2}
+\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}
+$$
+:::
+
+::: {.notebox}
+<span class="label">Reality check</span>
+This case is uncommon in practice because population standard deviations are rarely known. We will use one worked example, then focus on the more realistic $t$ intervals.
+:::
+
+---
+
+## Example: Two Means, Both Sigmas Known {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Two independent samples compare average weekly study time.
+
+Group 1: $n_1=40$, $\bar{x}_1=12.4$, known $\sigma_1=3.2$.  
+Group 2: $n_2=35$, $\bar{x}_2=10.9$, known $\sigma_2=2.8$.
+
+Construct a 95% CI for $\mu_1-\mu_2$.
+:::
+
+$$
+\bar{x}_1-\bar{x}_2=1.5
+$$
+
+$$
+SE=\sqrt{\frac{3.2^2}{40}+\frac{2.8^2}{35}}=0.6928
+$$
+
+$$
+1.5\pm1.96(0.6928)=(0.1421,2.8579)
+$$
+
+::: {.examplebox}
+We are 95% confident that Group 1 studies between 0.14 and 2.86 more hours per week on average than Group 2.
+:::
+
+---
+
+## Two Means: Unknown but Equal Variances
+
+::: {.defbox}
+If the two population variances are unknown but assumed equal:
+
+$$
+(\bar{x}_1-\bar{x}_2)\pm t_{n_1+n_2-2,\alpha/2}
+s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
+$$
+
+where
+
+$$
+s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}.
+$$
+:::
+
+---
+
+## Example 1: Pooled t - Training Programs {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Two independent training programs are compared on test scores.
+
+Program A: $n_1=12$, $\bar{x}_1=84.2$, $s_1=5.1$.  
+Program B: $n_2=10$, $\bar{x}_2=79.4$, $s_2=4.7$.
+
+Assume equal population variances. Construct a 95% CI for $\mu_1-\mu_2$.
+:::
+
+$$
+s_p^2=\frac{11(5.1^2)+9(4.7^2)}{20}=24.254,\quad s_p=4.925
+$$
+
+$$
+SE=4.925\sqrt{\frac{1}{12}+\frac{1}{10}}=2.106,\quad t^*_{20}=2.086
+$$
+
+$$
+4.8\pm2.086(2.106)=(0.41,9.19)
+$$
+
+---
+
+## Example 2: Pooled t - Battery Life {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+Battery A: $n_1=15$, $\bar{x}_1=31.4$, $s_1=2.6$.  
+Battery B: $n_2=14$, $\bar{x}_2=29.8$, $s_2=2.2$.
+
+Assume equal variances. Construct a 90% CI for $\mu_1-\mu_2$.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+n1 <- 15; x1 <- 31.4; s1 <- 2.6
+n2 <- 14; x2 <- 29.8; s2 <- 2.2
+sp2 <- ((n1-1)*s1^2 + (n2-1)*s2^2) / (n1+n2-2)
+sp <- sqrt(sp2)
+se <- sp * sqrt(1/n1 + 1/n2)
+tstar <- qt(0.95, df = n1+n2-2)
+(x1-x2) + c(-1, 1) * tstar * se
+```
+:::
+::::
+
+::: {.examplebox}
+The 90% CI is approximately $(0.10,3.10)$ hours.
+:::
+
+---
+
+## Two Means: Unknown and Unequal Variances
+
+::: {.defbox}
+For unequal unknown variances, use Welch's interval:
+
+$$
+(\bar{x}_1-\bar{x}_2)\pm t_{df,\alpha/2}
+\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}.
+$$
+:::
+
+::: {.notebox}
+<span class="label">Degrees of freedom</span>
+Software uses the Welch-Satterthwaite approximation. A conservative hand approximation is $df=\min(n_1-1,n_2-1)$.
+:::
+
+---
+
+## Example 1: Welch t - Sodium Content {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Adult frozen meals: $n_1=20$, $\bar{x}_1=720$, $s_1=150$.  
+Children's frozen meals: $n_2=18$, $\bar{x}_2=610$, $s_2=120$.
+
+Assume unequal variances. Construct a 95% CI for $\mu_1-\mu_2$.
+:::
+
+$$
+SE=\sqrt{\frac{150^2}{20}+\frac{120^2}{18}}=\sqrt{1925}=43.875
+$$
+
+Using Welch $df\approx35.55$, $t^*\approx2.030$:
+
+$$
+110\pm2.030(43.875)=(20.93,199.07)
+$$
+
+::: {.examplebox}
+The interval is entirely positive, suggesting adult meals have a higher mean sodium content.
+:::
+
+---
+
+## Example 2: Welch t - Commute Times {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+Campus A: $n_1=25$, $\bar{x}_1=42$, $s_1=12$.  
+Campus B: $n_2=22$, $\bar{x}_2=36$, $s_2=9$.
+
+Assume unequal variances. Construct a 95% CI for $\mu_1-\mu_2$.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+n1 <- 25; x1 <- 42; s1 <- 12
+n2 <- 22; x2 <- 36; s2 <- 9
+se <- sqrt(s1^2/n1 + s2^2/n2)
+df <- (s1^2/n1 + s2^2/n2)^2 /
+  ((s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1))
+tstar <- qt(0.975, df)
+(x1 - x2) + c(-1, 1) * tstar * se
+df
+```
+:::
+::::
+
+::: {.examplebox}
+The 95% CI is approximately $(-0.19,12.19)$ minutes. Because 0 is inside, the data do not clearly show a mean difference.
+:::
+
+---
+
+## Quiz: Two Means {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Quick Check
+
+Two independent samples have unknown and clearly unequal sample standard deviations. Which interval is usually the best default for $\mu_1-\mu_2$?
+::::
+
+- Known-sigma $z$ interval
+- Pooled two-sample $t$ interval
+- [Welch two-sample $t$ interval]{.correct data-explanation="Welch's interval does not require the equal-variance assumption and is the usual default when population variances are unknown."}
+- One-proportion $z$ interval
+
+---
+
+## Difference of Proportions
+
+::: {.defbox}
+For two independent population proportions:
+
+$$
+(\hat p_1-\hat p_2)\pm z_{\alpha/2}
+\sqrt{
+\frac{\hat p_1(1-\hat p_1)}{n_1}
++
+\frac{\hat p_2(1-\hat p_2)}{n_2}
+}
+$$
+:::
+
+::: {.notebox}
+Check large counts in both groups: successes and failures should each be at least 10.
+:::
+
+---
+
+## Example 1: Difference of Proportions - Transit {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+At Campus 1, 180 of 300 students use transit. At Campus 2, 150 of 280 students use transit.
+
+Construct a 95% CI for $p_1-p_2$.
+:::
+
+$$
+\hat p_1=0.6000,\quad \hat p_2=0.5357,\quad \hat p_1-\hat p_2=0.0643
+$$
+
+$$
+SE=\sqrt{\frac{0.6(0.4)}{300}+\frac{0.5357(0.4643)}{280}}=0.0411
+$$
+
+$$
+0.0643\pm1.96(0.0411)=(-0.0163,0.1449)
+$$
+
+::: {.examplebox}
+The interval includes 0, so the sample does not clearly indicate a difference in transit-use proportions.
+:::
+
+---
+
+## Example 2: Difference of Proportions - App Preference {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+In group A, 96 of 160 students prefer App A. In group B, 72 of 150 students prefer App A.
+
+Construct a 90% CI for $p_1-p_2$.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+x1 <- 96; n1 <- 160
+x2 <- 72; n2 <- 150
+p1 <- x1/n1; p2 <- x2/n2
+se <- sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
+(p1 - p2) + c(-1, 1) * qnorm(0.95) * se
+```
+:::
+::::
+
+::: {.examplebox}
+The 90% CI is approximately $(0.0267,0.2133)$. Group A's preference proportion appears higher.
+:::
+
+---
+
+## Ratio of Variances
+
+::: {.defbox}
+For two normal populations, a confidence interval for $\sigma_1^2/\sigma_2^2$ can be written as:
+
+$$
+\left(
+\frac{s_1^2/s_2^2}{F_{\alpha/2,n_1-1,n_2-1}},
+\frac{s_1^2/s_2^2}{F_{1-\alpha/2,n_1-1,n_2-1}}
+\right)
+$$
+:::
+
+::: {.warnbox}
+This method is sensitive to non-normality. Always check whether normality is a reasonable assumption before trusting an $F$ interval for variances.
+:::
+
+---
+
+## Example 1: Ratio of Variances - Machines {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Machine 1: $n_1=12$, $s_1^2=18$. Machine 2: $n_2=10$, $s_2^2=10$.
+
+Assuming normal populations, construct a 95% CI for $\sigma_1^2/\sigma_2^2$.
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 12; n2 <- 10
+s12 <- 18; s22 <- 10
+alpha <- 0.05
+ratio <- s12 / s22
+lower <- ratio / qf(1 - alpha/2, n1 - 1, n2 - 1)
+upper <- ratio / qf(alpha/2, n1 - 1, n2 - 1)
+c(lower, upper)
+```
+
+::: {.examplebox}
+The 95% CI is approximately $(0.45,6.48)$. Since 1 is inside, equal variances are plausible.
+:::
+
+---
+
+## Example 2: Ratio of Variances - Labs {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">Practice Example</span>
+Lab A: $n_1=15$, $s_1^2=4.8$. Lab B: $n_2=13$, $s_2^2=1.9$.
+
+Construct a 90% CI for $\sigma_1^2/\sigma_2^2$.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+n1 <- 15; n2 <- 13
+s12 <- 4.8; s22 <- 1.9
+alpha <- 0.10
+ratio <- s12 / s22
+c(
+  ratio / qf(1 - alpha/2, n1 - 1, n2 - 1),
+  ratio / qf(alpha/2, n1 - 1, n2 - 1)
+)
+```
+:::
+::::
+
+::: {.examplebox}
+The 90% CI is approximately $(0.93,6.71)$. Since 1 is barely inside, the evidence for different variances is not decisive at this level.
+:::
+
+---
+
+## Paired Data
+
+::: {.defbox}
+For paired observations, reduce each pair to one difference:
+
+$$d_i=M_{2i}-M_{1i}$$
+
+Then construct a one-sample $t$ interval for the mean difference:
+
+$$
+\bar d \pm t_{n-1,\alpha/2}\frac{s_d}{\sqrt n}.
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox}
+<span class="label">Use paired data when</span>
+The two measurements come from the same unit, matched units, or before-after observations.
+:::
+::: {.warnbox}
+<span class="label">Do not split the pair</span>
+The pairing is information. Analyze the differences, not the two columns as independent samples.
+:::
+::::
+
+---
+
+## Example 1: Paired Data - Before and After {.scrollable}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+Eight students take a diagnostic test before and after a workshop. Differences are after minus before:
+
+$$4,6,3,5,7,2,4,6$$
+
+Construct a 95% CI for the mean improvement.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+d <- c(4,6,3,5,7,2,4,6)
+mean(d)
+sd(d)
+t.test(d, conf.level = 0.95)
+```
+:::
+::::
+
+::: {.examplebox}
+The 95% CI is approximately $(3.30,5.95)$ points. We are 95% confident that the mean improvement is positive.
+:::
+
+---
+
+## Example 2: Paired Data - Reaction Time {.scrollable}
+
+::: {.taskbox}
+<span class="label">Practice Example</span>
+Six participants complete a task before and after a training session. Let $d=$ after minus before, in seconds:
+
+$$-1.2,-0.8,-1.5,-0.4,-1.1,-0.9$$
+
+Construct a 90% CI for the mean change.
+:::
+
+```{webr}
+#| autorun: false
+
+d <- c(-1.2,-0.8,-1.5,-0.4,-1.1,-0.9)
+t.test(d, conf.level = 0.90)
+```
+
+::: {.examplebox}
+The 90% CI is approximately $(-1.28,-0.69)$ seconds. Negative values mean the task was completed faster after training.
+:::
+
+---
+
+## Sample Size for a Mean
+
+::: {.defbox}
+If $\sigma$ is known and desired margin of error is $E$:
+
+$$
+E=z_{\alpha/2}\frac{\sigma}{\sqrt n}
+\qquad\Longrightarrow\qquad
+n=\left(\frac{z_{\alpha/2}\sigma}{E}\right)^2.
+$$
+
+Always round up.
+:::
+
+---
+
+## Example 1: Sample Size for a Mean {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+A lab measurement has known $\sigma=0.0068$ grams per liter. Management wants results accurate within $E=0.005$ with 95% confidence.
+
+How many repeated measurements are needed?
+:::
+
+$$
+n=\left(\frac{1.96(0.0068)}{0.005}\right)^2=7.10
+$$
+
+::: {.examplebox}
+Round up: the lab needs $n=8$ measurements.
+:::
+
+---
+
+## Example 2: Sample Size for a Mean {.scrollable}
+
+::: {.taskbox}
+<span class="label">Practice Example</span>
+A planning value is $\sigma=22.50$ and the desired margin is $E=2$.
+
+Find the sample size for 90%, 95%, and 99% confidence.
+:::
+
+| Level | Critical value | Calculation | Required $n$ |
+|:--:|:--:|:--:|:--:|
+| 90% | 1.645 | $(1.645(22.5)/2)^2=342.41$ | 343 |
+| 95% | 1.960 | $(1.960(22.5)/2)^2=486.20$ | 487 |
+| 99% | 2.576 | $(2.576(22.5)/2)^2=839.45$ | 840 |
+
+::: {.thinkbox}
+Higher confidence requires a larger sample size when the desired margin of error stays fixed.
+:::
+
+---
+
+## Sample Size for a Proportion
+
+::: {.defbox}
+For a desired margin of error $E$:
+
+$$
+n=\left(\frac{z^*}{E}\right)^2p^*(1-p^*)
+$$
+
+where $p^*$ is a planning value. If there is no prior information, use $p^*=0.5$.
+:::
+
+::: {.notebox}
+The value $p^*=0.5$ is conservative because it maximizes $p^*(1-p^*)$.
+:::
+
+---
+
+## Example 1: Sample Size for a Proportion {.scrollable}
+
+::: {.taskbox}
+<span class="label">In-Class Example</span>
+A mayoral survey needs to estimate a candidate's support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.
+:::
+
+$$
+n=\left(\frac{1.96}{0.03}\right)^2(0.5)(0.5)=1067.11
+$$
+
+::: {.examplebox}
+Round up: contact at least $n=1068$ voters.
+:::
+
+---
+
+## Example 2: Sample Size for a Proportion {.scrollable}
+
+::: {.taskbox}
+<span class="label">Practice Example</span>
+In 2007, 15.6% of people in the USA were not covered by health care insurance. Use $p^*=0.156$ and $E=0.03$.
+
+Find the required sample size for 95% and 99% confidence.
+:::
+
+$$
+n_{95}=\left(\frac{1.96}{0.03}\right)^2(0.156)(0.844)=562.54\Rightarrow563
+$$
+
+$$
+n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
+$$
+
+::: {.examplebox}
+The 99% confidence level requires a larger survey because the critical value is larger.
+:::
+
+---
+
+## Quiz: Sample Size {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Quick Check
+
+When calculating sample size from a margin of error, why do we round up?
+::::
+
+- Because formulas always underestimate the standard deviation
+- [Because sample size must be whole, and rounding down could make the margin of error too large]{.correct data-explanation="The target is a maximum margin of error. Rounding down can fail to meet the requirement, so we always round up."}
+- Because confidence intervals require even sample sizes
+- Because $z^*$ is only approximate
+
+---
+
+## Choosing the Right CI {.compact}
+
+| If the problem asks for... | Use... |
+|---|---|
+| one mean and gives $\sigma$ | one-sample $z$ interval |
+| one mean and gives $s$ or raw data | one-sample $t$ interval |
+| one proportion | one-proportion $z$ interval |
+| one variance | chi-square interval |
+| difference of means, known $\sigma_1,\sigma_2$ | two-sample $z$ interval |
+| difference of means, equal variances | pooled two-sample $t$ interval |
+| difference of means, unequal/unspecified variances | Welch two-sample $t$ interval |
+| difference of proportions | two-proportion $z$ interval |
+| ratio of variances | $F$ interval |
+| before-after or matched data | paired $t$ interval on differences |
+
+---
+
+## Final Checklist
+
+:::: {.two-col}
+::: {.card}
+<span class="label">Before calculating</span>
+- Identify the parameter.
+- Check one sample vs two sample vs paired.
+- Check whether the target is a mean, proportion, or variance.
+- Pick the reference distribution.
+:::
+
+::: {.card}
+<span class="label">After calculating</span>
+- Include units when relevant.
+- Interpret in context.
+- Check whether 0 or 1 has a special meaning.
+- For sample size, round up.
+:::
+::::
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Confidence intervals are not separate tricks. They are the same idea with different estimators, standard errors, and reference distributions.
+:::
+
+---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 6 - Hypothesis Tests**
+
+Confidence intervals estimate plausible parameter values. Hypothesis tests ask whether a specific claim about a parameter is compatible with the data.
+:::
+
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Homepage</a>
+</div>

@@ -1566,5 +1566,376 @@
     "title": "STA258",
     "section": "Law of Large Numbers - Check in R",
     "text": "Law of Large Numbers - Check in R"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter5.html",
+    "href": "Chapter Landing Pages/chapter5.html",
+    "title": "Chapter 5: Confidence Intervals",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter5.html#what-youll-learn",
+    "href": "Chapter Landing Pages/chapter5.html#what-youll-learn",
+    "title": "Chapter 5: Confidence Intervals",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 5 you’ll be able to:\n\nExplain the difference between a point estimate and a confidence interval.\nInterpret confidence intervals using correct repeated-sampling language.\nConstruct one-sample confidence intervals for a mean when \\(\\sigma\\) is known and when \\(\\sigma\\) is unknown.\nConstruct confidence intervals for a population proportion and a population variance.\nConstruct two-sample confidence intervals for differences in means, differences in proportions, and ratios of variances.\nRecognize when paired data should be reduced to one sample of differences.\nChoose a sample size that achieves a desired margin of error."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter5.html#key-ideas",
+    "href": "Chapter Landing Pages/chapter5.html#key-ideas",
+    "title": "Chapter 5: Confidence Intervals",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nConfidence Interval Skeleton\nMost confidence intervals follow the same pattern: \\[\n\\text{estimate} \\pm\n\\left(\\text{critical value}\\right)\n\\left(\\text{standard error}\\right).\n\\] The critical value comes from a reference distribution such as \\(Z\\), \\(t\\), \\(\\chi^2\\), or \\(F\\).\n\n\nInterpretation\nA 95% confidence interval does not mean there is a 95% probability that this particular interval contains the parameter. The parameter is fixed. Instead, the method captures the true parameter in about 95% of repeated samples.\n\n\nOne-Sample Intervals\nUse a \\(z\\)-interval when estimating a mean with known \\(\\sigma\\), a \\(t\\)-interval when \\(\\sigma\\) is unknown, a normal approximation for a proportion when success-failure counts are large, and a chi-square interval for a variance when the population is normal.\n\n\nTwo-Sample Intervals\nFor independent groups, the target parameter is usually a difference: \\(\\mu_1-\\mu_2\\) or \\(p_1-p_2\\). For paired data, first compute differences within each pair, then build a one-sample \\(t\\)-interval for \\(\\mu_d\\).\n\n\nPlanning Sample Size\nTo guarantee a margin of error \\(E\\), solve the margin-of-error formula for \\(n\\) and always round up. For proportions with no prior estimate, use the conservative planning value \\(p^*=0.5\\)."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter5.html#how-to-use-this-chapter",
+    "href": "Chapter Landing Pages/chapter5.html#how-to-use-this-chapter",
+    "title": "Chapter 5: Confidence Intervals",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough.\nUse the PDF button for an offline-friendly version.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to check calculations in your browser.\nRevisit the worked examples later as templates for homework and exam practice."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#chapter-roadmap",
+    "href": "Chapter Slides/chapter5-slides.html#chapter-roadmap",
+    "title": "STA258",
+    "section": "Chapter Roadmap",
+    "text": "Chapter Roadmap\n\n\n1 - One Sample Means, proportions, and variances. Decide between \\(Z\\), \\(t\\), and \\(\\chi^2\\).\n\n\n2 - Two Sample Differences in means, differences in proportions, and ratios of variances.\n\n\n3 - Planning Choose \\(n\\) so a confidence interval reaches a target margin of error.\n\n\n\n\n\nCore skill Identify the parameter before choosing the formula.\n\n\nCore tool Use qnorm(), qt(), qchisq(), and qf() for critical values.\n\n\nCore habit Interpret the interval in context, with units."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#point-estimates-and-interval-estimates",
+    "href": "Chapter Slides/chapter5-slides.html#point-estimates-and-interval-estimates",
+    "title": "STA258",
+    "section": "Point Estimates and Interval Estimates",
+    "text": "Point Estimates and Interval Estimates\n\n\nPoint estimate\nA single numerical value computed from sample data that serves as the best guess of an unknown population parameter.\nExamples: \\(\\bar{x}\\) estimates \\(\\mu\\), \\(s^2\\) estimates \\(\\sigma^2\\), and \\(\\hat p\\) estimates \\(p\\).\n\n\nConfidence interval\nA plausible range of values for a population parameter, built from sample data and a specified confidence level.\n\n\n\nBig idea. A statistic will usually not equal the parameter exactly. The interval tells us how far away the statistic could reasonably be."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#the-ci-skeleton",
+    "href": "Chapter Slides/chapter5-slides.html#the-ci-skeleton",
+    "title": "STA258",
+    "section": "The CI Skeleton",
+    "text": "The CI Skeleton\n\nAll confidence intervals in this chapter are variations of:\n\\[\n\\text{estimate} \\pm\n\\underbrace{(\\text{critical value})(\\text{standard error})}_{\\text{margin of error}}\n\\]\n\n\n\nEstimate \\(\\bar{x}\\), \\(\\hat p\\), \\(\\bar{x}_1-\\bar{x}_2\\), \\(\\hat p_1-\\hat p_2\\), \\(s^2\\), or \\(s_1^2/s_2^2\\).\n\n\nCritical value From \\(Z\\), \\(t\\), \\(\\chi^2\\), or \\(F\\), depending on the sampling distribution.\n\n\nStandard error The standard deviation of the estimator, or an estimate of it."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#interpreting-confidence",
+    "href": "Chapter Slides/chapter5-slides.html#interpreting-confidence",
+    "title": "STA258",
+    "section": "Interpreting Confidence",
+    "text": "Interpreting Confidence\n\n\n\nFor a \\(C\\%\\) confidence interval:\nIn repeated sampling, about \\(C\\%\\) of intervals constructed using this method will capture the true parameter.\n\n\nDo not say: “There is a 95% probability that this particular interval contains \\(\\mu\\).”\nThe parameter is fixed. The random object is the interval produced by the sample."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#ci-reference-guide",
+    "href": "Chapter Slides/chapter5-slides.html#ci-reference-guide",
+    "title": "STA258",
+    "section": "CI Reference Guide",
+    "text": "CI Reference Guide\n\n\n\n\n\n\n\n\n\nTarget parameter\nSituation\nReference distribution\nInterval shape\n\n\n\n\n\\(\\mu\\)\none mean, \\(\\sigma\\) known\n\\(Z\\)\n\\(\\bar{x}\\pm z^*\\sigma/\\sqrt n\\)\n\n\n\\(\\mu\\)\none mean, \\(\\sigma\\) unknown\n\\(t_{n-1}\\)\n\\(\\bar{x}\\pm t^*s/\\sqrt n\\)\n\n\n\\(p\\)\none proportion\n\\(Z\\)\n\\(\\hat p\\pm z^*\\sqrt{\\hat p(1-\\hat p)/n}\\)\n\n\n\\(\\sigma^2\\)\none variance, normal population\n\\(\\chi^2_{n-1}\\)\nasymmetric\n\n\n\\(\\mu_1-\\mu_2\\)\ntwo independent means\n\\(Z\\) or \\(t\\)\ndifference \\(\\pm\\) margin\n\n\n\\(p_1-p_2\\)\ntwo independent proportions\n\\(Z\\)\ndifference \\(\\pm\\) margin\n\n\n\\(\\sigma_1^2/\\sigma_2^2\\)\nratio of variances\n\\(F\\)\nasymmetric\n\n\n\\(\\mu_d\\)\npaired data\n\\(t_{n-1}\\)\n\\(\\bar d\\pm t^*s_d/\\sqrt n\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#quick-critical-values",
+    "href": "Chapter Slides/chapter5-slides.html#quick-critical-values",
+    "title": "STA258",
+    "section": "Quick Critical Values",
+    "text": "Quick Critical Values\n\n\n\n\n\nConfidence level\n\\(z^*\\)\n\n\n\n\n90%\n1.645\n\n\n95%\n1.960\n\n\n99%\n2.576\n\n\n\n\nR check qnorm(0.95), qnorm(0.975), and qnorm(0.995) give these values."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#interactive-one-mean-calculator",
+    "href": "Chapter Slides/chapter5-slides.html#interactive-one-mean-calculator",
+    "title": "STA258",
+    "section": "Interactive One-Mean Calculator",
+    "text": "Interactive One-Mean Calculator\n\n\n\nInterval type  Known sigma: z interval Unknown sigma: t interval  Sample mean  Sigma or sample sd  Sample size  Confidence level  90% 95% 99% \n\n\n\n\n\n\n\nTry changing the confidence level. The estimate stays fixed, but the critical value and margin of error change.\n\n\nCalculator note The \\(t\\) option uses a small built-in table for common confidence levels and degrees of freedom. Use R for exact values."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#one-mean-sigma-known",
+    "href": "Chapter Slides/chapter5-slides.html#one-mean-sigma-known",
+    "title": "STA258",
+    "section": "One Mean, Sigma Known",
+    "text": "One Mean, Sigma Known\n\nWhen the population standard deviation \\(\\sigma\\) is known:\n\\[\n\\bar{x} \\pm z_{\\alpha/2}\\frac{\\sigma}{\\sqrt n}\n\\]\nUse this for a population mean \\(\\mu\\) with known \\(\\sigma\\).\n\n\n\nAssumptions - Random sample or randomized experiment. - Independent observations. - Population is normal, or \\(n\\) is large enough for the CLT.\n\n\nExam cue If the problem gives a population standard deviation, use \\(z\\). If it gives a sample standard deviation, use \\(t\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-known-sigma---magazine-readers",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-known-sigma---magazine-readers",
+    "title": "STA258",
+    "section": "Example 1: Known Sigma - Magazine Readers",
+    "text": "Example 1: Known Sigma - Magazine Readers\n\nIn-Class Example Playbill magazine reports \\(\\bar{x}=119{,}155\\) dollars from \\(n=80\\) households. Assume \\(\\sigma=30{,}000\\) dollars.\nConstruct 90%, 95%, and 99% confidence intervals for the population mean household income of readers.\n\n\n\n\n\n\n\n\n\n\nLevel\nCritical value\nMargin of error\nConfidence interval\n\n\n\n\n90%\n1.645\n\\(1.645(30000/\\sqrt{80})=5517.38\\)\n\\((113637.62, 124672.38)\\)\n\n\n95%\n1.960\n\\(1.960(30000/\\sqrt{80})=6573.04\\)\n\\((112581.96, 125728.04)\\)\n\n\n99%\n2.576\n\\(2.576(30000/\\sqrt{80})=8640.41\\)\n\\((110514.59, 127795.41)\\)\n\n\n\n\nWe are 95% confident that the mean household income of Playbill readers is between about 112,582 dollars and 125,728 dollars."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-known-sigma---car-sales",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-known-sigma---car-sales",
+    "title": "STA258",
+    "section": "Example 2: Known Sigma - Car Sales",
+    "text": "Example 2: Known Sigma - Car Sales\n\n\n\nPractice Example Annual car sales are normally distributed with known \\(\\sigma=15\\). For a random sample of 15 salespeople:\n\\[79,43,58,66,101,63,79,33,58,71,60,101,74,55,88\\]\nConstruct a 95% CI for \\(\\mu\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=68.6\\), so the interval is approximately \\((61.01, 76.19)\\). We are 95% confident that the population mean number of cars sold annually is between about 61 and 76."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#quiz-known-sigma",
+    "href": "Chapter Slides/chapter5-slides.html#quiz-known-sigma",
+    "title": "STA258",
+    "section": "Quiz: Known Sigma",
+    "text": "Quiz: Known Sigma\n\n\n\nQuick Check\n\n\nA sample has \\(\\bar{x}=42\\), \\(n=36\\), and known \\(\\sigma=12\\). For a 95% CI, what is the margin of error?\n\n\n\n\n1.96\n3.92\n4.00\n7.84"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#one-mean-sigma-unknown",
+    "href": "Chapter Slides/chapter5-slides.html#one-mean-sigma-unknown",
+    "title": "STA258",
+    "section": "One Mean, Sigma Unknown",
+    "text": "One Mean, Sigma Unknown\n\nWhen \\(\\sigma\\) is unknown, estimate it with \\(s\\) and use the Student \\(t\\) distribution:\n\\[\n\\bar{x} \\pm t_{n-1,\\alpha/2}\\frac{s}{\\sqrt n}\n\\]\n\n\n\nWhy t? Replacing \\(\\sigma\\) with \\(s\\) adds uncertainty. The \\(t\\) distribution has heavier tails, especially for small degrees of freedom.\n\n\nSmall samples For small \\(n\\), check that the population is reasonably normal or that the sample has no severe skew/outliers."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-unknown-sigma---ancient-air",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-unknown-sigma---ancient-air",
+    "title": "STA258",
+    "section": "Example 1: Unknown Sigma - Ancient Air",
+    "text": "Example 1: Unknown Sigma - Ancient Air\n\n\n\nIn-Class Example Nitrogen percentages from air bubbles trapped in ancient amber:\n\\[63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0\\]\nConstruct a 90% CI for the mean nitrogen percentage.\n\n\nUsing \\(n=9\\), \\(\\bar{x}=59.5889\\), \\(s=6.2553\\), and \\(t^*=1.8595\\):\n\\[59.5889\\pm1.8595\\frac{6.2553}{3}=(55.71,63.47).\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-unknown-sigma---camera-photos",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-unknown-sigma---camera-photos",
+    "title": "STA258",
+    "section": "Example 2: Unknown Sigma - Camera Photos",
+    "text": "Example 2: Unknown Sigma - Camera Photos\n\n\n\nPractice Example A random sample of 10 digital camera owners has stored photo counts:\n\\[25,6,22,26,31,18,13,20,14,2\\]\nConstruct a 95% CI for the population mean number of stored photos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=17.7\\), \\(s=9.0805\\), \\(df=9\\), and \\(t^*=2.262\\). The 95% CI is approximately \\((11.20,24.20)\\) photos."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#one-proportion",
+    "href": "Chapter Slides/chapter5-slides.html#one-proportion",
+    "title": "STA258",
+    "section": "One Proportion",
+    "text": "One Proportion\n\nFor a population proportion \\(p\\), with \\(\\hat p=x/n\\):\n\\[\n\\hat p \\pm z_{\\alpha/2}\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n\\]\n\n\n\nConditions - Random sample. - Independent Bernoulli trials. - Large counts: \\(n\\hat p \\ge 10\\) and \\(n(1-\\hat p)\\ge 10\\).\n\n\nBoundary check The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-one-proportion---transit-use",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-one-proportion---transit-use",
+    "title": "STA258",
+    "section": "Example 1: One Proportion - Transit Use",
+    "text": "Example 1: One Proportion - Transit Use\n\nIn-Class Example A university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who use public transportation.\n\n\\[\n\\hat p=\\frac{738}{1200}=0.6150\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\n\\]\n\\[\n0.6150\\pm1.96(0.01405)=(0.5875,0.6425)\n\\]\n\nWe are 95% confident that between 58.75% and 64.25% of students use public transportation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-one-proportion---work-from-home",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-one-proportion---work-from-home",
+    "title": "STA258",
+    "section": "Example 2: One Proportion - Work From Home",
+    "text": "Example 2: One Proportion - Work From Home\n\n\n\nPractice Example In a survey of 650 employees, 286 prefer working from home at least three days per week.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#quiz-proportion-conditions",
+    "href": "Chapter Slides/chapter5-slides.html#quiz-proportion-conditions",
+    "title": "STA258",
+    "section": "Quiz: Proportion Conditions",
+    "text": "Quiz: Proportion Conditions\n\n\n\nQuick Check\n\n\nFor a one-proportion confidence interval, which sample has enough successes and failures for the normal approximation?\n\n\n\n\n\\(n=20\\), \\(\\hat p=0.90\\)\n\\(n=50\\), \\(\\hat p=0.10\\)\n\\(n=100\\), \\(\\hat p=0.20\\)\n\\(n=15\\), \\(\\hat p=0.50\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#one-variance",
+    "href": "Chapter Slides/chapter5-slides.html#one-variance",
+    "title": "STA258",
+    "section": "One Variance",
+    "text": "One Variance\n\nFor a normally distributed population, a confidence interval for \\(\\sigma^2\\) is:\n\\[\n\\left(\n\\frac{(n-1)s^2}{\\chi^2_{\\alpha/2,n-1}},\n\\frac{(n-1)s^2}{\\chi^2_{1-\\alpha/2,n-1}}\n\\right)\n\\]\n\n\nThis interval is asymmetric. Normality matters here much more than it does for large-sample mean intervals."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-one-variance---bottle-filling",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-one-variance---bottle-filling",
+    "title": "STA258",
+    "section": "Example 1: One Variance - Bottle Filling",
+    "text": "Example 1: One Variance - Bottle Filling\n\nIn-Class Example A random sample of 25 bottles has sample variance \\(s^2=12.5\\). Assume filling amounts are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-one-variance---reaction-times",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-one-variance---reaction-times",
+    "title": "STA258",
+    "section": "Example 2: One Variance - Reaction Times",
+    "text": "Example 2: One Variance - Reaction Times\n\n\n\nPractice Example A random sample of 16 drivers has sample variance \\(s^2=0.36\\). Assume reaction times are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#two-independent-means-both-sigmas-known",
+    "href": "Chapter Slides/chapter5-slides.html#two-independent-means-both-sigmas-known",
+    "title": "STA258",
+    "section": "Two Independent Means: Both Sigmas Known",
+    "text": "Two Independent Means: Both Sigmas Known\n\nWhen both population standard deviations are known:\n\\[\n(\\bar{x}_1-\\bar{x}_2)\\pm z_{\\alpha/2}\n\\sqrt{\\frac{\\sigma_1^2}{n_1}+\\frac{\\sigma_2^2}{n_2}}\n\\]\n\n\nReality check This case is uncommon in practice because population standard deviations are rarely known. We will use one worked example, then focus on the more realistic \\(t\\) intervals."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-two-means-both-sigmas-known",
+    "href": "Chapter Slides/chapter5-slides.html#example-two-means-both-sigmas-known",
+    "title": "STA258",
+    "section": "Example: Two Means, Both Sigmas Known",
+    "text": "Example: Two Means, Both Sigmas Known\n\nIn-Class Example Two independent samples compare average weekly study time.\nGroup 1: \\(n_1=40\\), \\(\\bar{x}_1=12.4\\), known \\(\\sigma_1=3.2\\).\nGroup 2: \\(n_2=35\\), \\(\\bar{x}_2=10.9\\), known \\(\\sigma_2=2.8\\).\nConstruct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\n\\bar{x}_1-\\bar{x}_2=1.5\n\\]\n\\[\nSE=\\sqrt{\\frac{3.2^2}{40}+\\frac{2.8^2}{35}}=0.6928\n\\]\n\\[\n1.5\\pm1.96(0.6928)=(0.1421,2.8579)\n\\]\n\nWe are 95% confident that Group 1 studies between 0.14 and 2.86 more hours per week on average than Group 2."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#two-means-unknown-but-equal-variances",
+    "href": "Chapter Slides/chapter5-slides.html#two-means-unknown-but-equal-variances",
+    "title": "STA258",
+    "section": "Two Means: Unknown but Equal Variances",
+    "text": "Two Means: Unknown but Equal Variances\n\nIf the two population variances are unknown but assumed equal:\n\\[\n(\\bar{x}_1-\\bar{x}_2)\\pm t_{n_1+n_2-2,\\alpha/2}\ns_p\\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}\n\\]\nwhere\n\\[\ns_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}.\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-pooled-t---training-programs",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-pooled-t---training-programs",
+    "title": "STA258",
+    "section": "Example 1: Pooled t - Training Programs",
+    "text": "Example 1: Pooled t - Training Programs\n\nIn-Class Example Two independent training programs are compared on test scores.\nProgram A: \\(n_1=12\\), \\(\\bar{x}_1=84.2\\), \\(s_1=5.1\\).\nProgram B: \\(n_2=10\\), \\(\\bar{x}_2=79.4\\), \\(s_2=4.7\\).\nAssume equal population variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\ns_p^2=\\frac{11(5.1^2)+9(4.7^2)}{20}=24.254,\\quad s_p=4.925\n\\]\n\\[\nSE=4.925\\sqrt{\\frac{1}{12}+\\frac{1}{10}}=2.106,\\quad t^*_{20}=2.086\n\\]\n\\[\n4.8\\pm2.086(2.106)=(0.41,9.19)\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-pooled-t---battery-life",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-pooled-t---battery-life",
+    "title": "STA258",
+    "section": "Example 2: Pooled t - Battery Life",
+    "text": "Example 2: Pooled t - Battery Life\n\n\n\nPractice Example Battery A: \\(n_1=15\\), \\(\\bar{x}_1=31.4\\), \\(s_1=2.6\\).\nBattery B: \\(n_2=14\\), \\(\\bar{x}_2=29.8\\), \\(s_2=2.2\\).\nAssume equal variances. Construct a 90% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.10,3.10)\\) hours."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#two-means-unknown-and-unequal-variances",
+    "href": "Chapter Slides/chapter5-slides.html#two-means-unknown-and-unequal-variances",
+    "title": "STA258",
+    "section": "Two Means: Unknown and Unequal Variances",
+    "text": "Two Means: Unknown and Unequal Variances\n\nFor unequal unknown variances, use Welch’s interval:\n\\[\n(\\bar{x}_1-\\bar{x}_2)\\pm t_{df,\\alpha/2}\n\\sqrt{\\frac{s_1^2}{n_1}+\\frac{s_2^2}{n_2}}.\n\\]\n\n\nDegrees of freedom Software uses the Welch-Satterthwaite approximation. A conservative hand approximation is \\(df=\\min(n_1-1,n_2-1)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-welch-t---sodium-content",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-welch-t---sodium-content",
+    "title": "STA258",
+    "section": "Example 1: Welch t - Sodium Content",
+    "text": "Example 1: Welch t - Sodium Content\n\nIn-Class Example Adult frozen meals: \\(n_1=20\\), \\(\\bar{x}_1=720\\), \\(s_1=150\\).\nChildren’s frozen meals: \\(n_2=18\\), \\(\\bar{x}_2=610\\), \\(s_2=120\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\nSE=\\sqrt{\\frac{150^2}{20}+\\frac{120^2}{18}}=\\sqrt{1925}=43.875\n\\]\nUsing Welch \\(df\\approx35.55\\), \\(t^*\\approx2.030\\):\n\\[\n110\\pm2.030(43.875)=(20.93,199.07)\n\\]\n\nThe interval is entirely positive, suggesting adult meals have a higher mean sodium content."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-welch-t---commute-times",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-welch-t---commute-times",
+    "title": "STA258",
+    "section": "Example 2: Welch t - Commute Times",
+    "text": "Example 2: Welch t - Commute Times\n\n\n\nPractice Example Campus A: \\(n_1=25\\), \\(\\bar{x}_1=42\\), \\(s_1=12\\).\nCampus B: \\(n_2=22\\), \\(\\bar{x}_2=36\\), \\(s_2=9\\).\nAssume unequal variances. Construct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((-0.19,12.19)\\) minutes. Because 0 is inside, the data do not clearly show a mean difference."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#quiz-two-means",
+    "href": "Chapter Slides/chapter5-slides.html#quiz-two-means",
+    "title": "STA258",
+    "section": "Quiz: Two Means",
+    "text": "Quiz: Two Means\n\n\n\nQuick Check\n\n\nTwo independent samples have unknown and clearly unequal sample standard deviations. Which interval is usually the best default for \\(\\mu_1-\\mu_2\\)?\n\n\n\n\nKnown-sigma \\(z\\) interval\nPooled two-sample \\(t\\) interval\nWelch two-sample \\(t\\) interval\nOne-proportion \\(z\\) interval"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#difference-of-proportions",
+    "href": "Chapter Slides/chapter5-slides.html#difference-of-proportions",
+    "title": "STA258",
+    "section": "Difference of Proportions",
+    "text": "Difference of Proportions\n\nFor two independent population proportions:\n\\[\n(\\hat p_1-\\hat p_2)\\pm z_{\\alpha/2}\n\\sqrt{\n\\frac{\\hat p_1(1-\\hat p_1)}{n_1}\n+\n\\frac{\\hat p_2(1-\\hat p_2)}{n_2}\n}\n\\]\n\n\nCheck large counts in both groups: successes and failures should each be at least 10."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-difference-of-proportions---transit",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-difference-of-proportions---transit",
+    "title": "STA258",
+    "section": "Example 1: Difference of Proportions - Transit",
+    "text": "Example 1: Difference of Proportions - Transit\n\nIn-Class Example At Campus 1, 180 of 300 students use transit. At Campus 2, 150 of 280 students use transit.\nConstruct a 95% CI for \\(p_1-p_2\\).\n\n\\[\n\\hat p_1=0.6000,\\quad \\hat p_2=0.5357,\\quad \\hat p_1-\\hat p_2=0.0643\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6(0.4)}{300}+\\frac{0.5357(0.4643)}{280}}=0.0411\n\\]\n\\[\n0.0643\\pm1.96(0.0411)=(-0.0163,0.1449)\n\\]\n\nThe interval includes 0, so the sample does not clearly indicate a difference in transit-use proportions."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-difference-of-proportions---app-preference",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-difference-of-proportions---app-preference",
+    "title": "STA258",
+    "section": "Example 2: Difference of Proportions - App Preference",
+    "text": "Example 2: Difference of Proportions - App Preference\n\n\n\nPractice Example In group A, 96 of 160 students prefer App A. In group B, 72 of 150 students prefer App A.\nConstruct a 90% CI for \\(p_1-p_2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.0267,0.2133)\\). Group A’s preference proportion appears higher."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#ratio-of-variances",
+    "href": "Chapter Slides/chapter5-slides.html#ratio-of-variances",
+    "title": "STA258",
+    "section": "Ratio of Variances",
+    "text": "Ratio of Variances\n\nFor two normal populations, a confidence interval for \\(\\sigma_1^2/\\sigma_2^2\\) can be written as:\n\\[\n\\left(\n\\frac{s_1^2/s_2^2}{F_{\\alpha/2,n_1-1,n_2-1}},\n\\frac{s_1^2/s_2^2}{F_{1-\\alpha/2,n_1-1,n_2-1}}\n\\right)\n\\]\n\n\nThis method is sensitive to non-normality. Always check whether normality is a reasonable assumption before trusting an \\(F\\) interval for variances."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-ratio-of-variances---machines",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-ratio-of-variances---machines",
+    "title": "STA258",
+    "section": "Example 1: Ratio of Variances - Machines",
+    "text": "Example 1: Ratio of Variances - Machines\n\nIn-Class Example Machine 1: \\(n_1=12\\), \\(s_1^2=18\\). Machine 2: \\(n_2=10\\), \\(s_2^2=10\\).\nAssuming normal populations, construct a 95% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((0.45,6.48)\\). Since 1 is inside, equal variances are plausible."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-ratio-of-variances---labs",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-ratio-of-variances---labs",
+    "title": "STA258",
+    "section": "Example 2: Ratio of Variances - Labs",
+    "text": "Example 2: Ratio of Variances - Labs\n\n\n\nPractice Example Lab A: \\(n_1=15\\), \\(s_1^2=4.8\\). Lab B: \\(n_2=13\\), \\(s_2^2=1.9\\).\nConstruct a 90% CI for \\(\\sigma_1^2/\\sigma_2^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.93,6.71)\\). Since 1 is barely inside, the evidence for different variances is not decisive at this level."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#paired-data",
+    "href": "Chapter Slides/chapter5-slides.html#paired-data",
+    "title": "STA258",
+    "section": "Paired Data",
+    "text": "Paired Data\n\nFor paired observations, reduce each pair to one difference:\n\\[d_i=M_{2i}-M_{1i}\\]\nThen construct a one-sample \\(t\\) interval for the mean difference:\n\\[\n\\bar d \\pm t_{n-1,\\alpha/2}\\frac{s_d}{\\sqrt n}.\n\\]\n\n\n\nUse paired data when The two measurements come from the same unit, matched units, or before-after observations.\n\n\nDo not split the pair The pairing is information. Analyze the differences, not the two columns as independent samples."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-paired-data---before-and-after",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-paired-data---before-and-after",
+    "title": "STA258",
+    "section": "Example 1: Paired Data - Before and After",
+    "text": "Example 1: Paired Data - Before and After\n\n\n\nIn-Class Example Eight students take a diagnostic test before and after a workshop. Differences are after minus before:\n\\[4,6,3,5,7,2,4,6\\]\nConstruct a 95% CI for the mean improvement.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 95% CI is approximately \\((3.30,5.95)\\) points. We are 95% confident that the mean improvement is positive."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-paired-data---reaction-time",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-paired-data---reaction-time",
+    "title": "STA258",
+    "section": "Example 2: Paired Data - Reaction Time",
+    "text": "Example 2: Paired Data - Reaction Time\n\nPractice Example Six participants complete a task before and after a training session. Let \\(d=\\) after minus before, in seconds:\n\\[-1.2,-0.8,-1.5,-0.4,-1.1,-0.9\\]\nConstruct a 90% CI for the mean change.\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((-1.28,-0.69)\\) seconds. Negative values mean the task was completed faster after training."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#sample-size-for-a-mean",
+    "href": "Chapter Slides/chapter5-slides.html#sample-size-for-a-mean",
+    "title": "STA258",
+    "section": "Sample Size for a Mean",
+    "text": "Sample Size for a Mean\n\nIf \\(\\sigma\\) is known and desired margin of error is \\(E\\):\n\\[\nE=z_{\\alpha/2}\\frac{\\sigma}{\\sqrt n}\n\\qquad\\Longrightarrow\\qquad\nn=\\left(\\frac{z_{\\alpha/2}\\sigma}{E}\\right)^2.\n\\]\nAlways round up."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-sample-size-for-a-mean",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-sample-size-for-a-mean",
+    "title": "STA258",
+    "section": "Example 1: Sample Size for a Mean",
+    "text": "Example 1: Sample Size for a Mean\n\nIn-Class Example A lab measurement has known \\(\\sigma=0.0068\\) grams per liter. Management wants results accurate within \\(E=0.005\\) with 95% confidence.\nHow many repeated measurements are needed?\n\n\\[\nn=\\left(\\frac{1.96(0.0068)}{0.005}\\right)^2=7.10\n\\]\n\nRound up: the lab needs \\(n=8\\) measurements."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-mean",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-mean",
+    "title": "STA258",
+    "section": "Example 2: Sample Size for a Mean",
+    "text": "Example 2: Sample Size for a Mean\n\nPractice Example A planning value is \\(\\sigma=22.50\\) and the desired margin is \\(E=2\\).\nFind the sample size for 90%, 95%, and 99% confidence.\n\n\n\n\nLevel\nCritical value\nCalculation\nRequired \\(n\\)\n\n\n\n\n90%\n1.645\n\\((1.645(22.5)/2)^2=342.41\\)\n343\n\n\n95%\n1.960\n\\((1.960(22.5)/2)^2=486.20\\)\n487\n\n\n99%\n2.576\n\\((2.576(22.5)/2)^2=839.45\\)\n840\n\n\n\n\nHigher confidence requires a larger sample size when the desired margin of error stays fixed."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#sample-size-for-a-proportion",
+    "href": "Chapter Slides/chapter5-slides.html#sample-size-for-a-proportion",
+    "title": "STA258",
+    "section": "Sample Size for a Proportion",
+    "text": "Sample Size for a Proportion\n\nFor a desired margin of error \\(E\\):\n\\[\nn=\\left(\\frac{z^*}{E}\\right)^2p^*(1-p^*)\n\\]\nwhere \\(p^*\\) is a planning value. If there is no prior information, use \\(p^*=0.5\\).\n\n\nThe value \\(p^*=0.5\\) is conservative because it maximizes \\(p^*(1-p^*)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-sample-size-for-a-proportion",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-sample-size-for-a-proportion",
+    "title": "STA258",
+    "section": "Example 1: Sample Size for a Proportion",
+    "text": "Example 1: Sample Size for a Proportion\n\nIn-Class Example A mayoral survey needs to estimate a candidate’s support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.\n\n\\[\nn=\\left(\\frac{1.96}{0.03}\\right)^2(0.5)(0.5)=1067.11\n\\]\n\nRound up: contact at least \\(n=1068\\) voters."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-proportion",
+    "href": "Chapter Slides/chapter5-slides.html#example-2-sample-size-for-a-proportion",
+    "title": "STA258",
+    "section": "Example 2: Sample Size for a Proportion",
+    "text": "Example 2: Sample Size for a Proportion\n\nPractice Example In 2007, 15.6% of people in the USA were not covered by health care insurance. Use \\(p^*=0.156\\) and \\(E=0.03\\).\nFind the required sample size for 95% and 99% confidence.\n\n\\[\nn_{95}=\\left(\\frac{1.96}{0.03}\\right)^2(0.156)(0.844)=562.54\\Rightarrow563\n\\]\n\\[\nn_{99}=\\left(\\frac{2.576}{0.03}\\right)^2(0.156)(0.844)=970.97\\Rightarrow971\n\\]\n\nThe 99% confidence level requires a larger survey because the critical value is larger."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#quiz-sample-size",
+    "href": "Chapter Slides/chapter5-slides.html#quiz-sample-size",
+    "title": "STA258",
+    "section": "Quiz: Sample Size",
+    "text": "Quiz: Sample Size\n\n\n\nQuick Check\n\n\nWhen calculating sample size from a margin of error, why do we round up?\n\n\n\n\nBecause formulas always underestimate the standard deviation\nBecause sample size must be whole, and rounding down could make the margin of error too large\nBecause confidence intervals require even sample sizes\nBecause \\(z^*\\) is only approximate"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#choosing-the-right-ci",
+    "href": "Chapter Slides/chapter5-slides.html#choosing-the-right-ci",
+    "title": "STA258",
+    "section": "Choosing the Right CI",
+    "text": "Choosing the Right CI\n\n\n\n\n\n\n\nIf the problem asks for…\nUse…\n\n\n\n\none mean and gives \\(\\sigma\\)\none-sample \\(z\\) interval\n\n\none mean and gives \\(s\\) or raw data\none-sample \\(t\\) interval\n\n\none proportion\none-proportion \\(z\\) interval\n\n\none variance\nchi-square interval\n\n\ndifference of means, known \\(\\sigma_1,\\sigma_2\\)\ntwo-sample \\(z\\) interval\n\n\ndifference of means, equal variances\npooled two-sample \\(t\\) interval\n\n\ndifference of means, unequal/unspecified variances\nWelch two-sample \\(t\\) interval\n\n\ndifference of proportions\ntwo-proportion \\(z\\) interval\n\n\nratio of variances\n\\(F\\) interval\n\n\nbefore-after or matched data\npaired \\(t\\) interval on differences"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#final-checklist",
+    "href": "Chapter Slides/chapter5-slides.html#final-checklist",
+    "title": "STA258",
+    "section": "Final Checklist",
+    "text": "Final Checklist\n\n\nBefore calculating - Identify the parameter. - Check one sample vs two sample vs paired. - Check whether the target is a mean, proportion, or variance. - Pick the reference distribution.\n\n\nAfter calculating - Include units when relevant. - Interpret in context. - Check whether 0 or 1 has a special meaning. - For sample size, round up.\n\n\n\nOne slide takeaway. Confidence intervals are not separate tricks. They are the same idea with different estimators, standard errors, and reference distributions."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#up-next",
+    "href": "Chapter Slides/chapter5-slides.html#up-next",
+    "title": "STA258",
+    "section": "Up Next",
+    "text": "Up Next\n\nChapter 6 - Hypothesis Tests\nConfidence intervals estimate plausible parameter values. Hypothesis tests ask whether a specific claim about a parameter is compatible with the data.\n\n\nBack to Homepage"
   }
 ]

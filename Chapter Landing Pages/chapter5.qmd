@@ -1,0 +1,86 @@
+---
+title: "Chapter 5: Confidence Intervals"
+subtitle: "STA258 - University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter5-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter5-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 5 you'll be able to:
+
+- Explain the difference between a **point estimate** and a **confidence interval**.
+- Interpret confidence intervals using correct repeated-sampling language.
+- Construct one-sample confidence intervals for a mean when $\sigma$ is known and when $\sigma$ is unknown.
+- Construct confidence intervals for a population proportion and a population variance.
+- Construct two-sample confidence intervals for differences in means, differences in proportions, and ratios of variances.
+- Recognize when paired data should be reduced to one sample of differences.
+- Choose a sample size that achieves a desired margin of error.
+
+## Key ideas
+
+::: {.summary-card}
+### Confidence Interval Skeleton
+Most confidence intervals follow the same pattern:
+$$
+\text{estimate} \pm
+\left(\text{critical value}\right)
+\left(\text{standard error}\right).
+$$
+The critical value comes from a reference distribution such as $Z$, $t$, $\chi^2$, or $F$.
+:::
+
+::: {.summary-card}
+### Interpretation
+A 95% confidence interval does not mean there is a 95% probability that this particular interval contains the parameter. The parameter is fixed. Instead, the method captures the true parameter in about 95% of repeated samples.
+:::
+
+::: {.summary-card}
+### One-Sample Intervals
+Use a $z$-interval when estimating a mean with known $\sigma$, a $t$-interval when $\sigma$ is unknown, a normal approximation for a proportion when success-failure counts are large, and a chi-square interval for a variance when the population is normal.
+:::
+
+::: {.summary-card}
+### Two-Sample Intervals
+For independent groups, the target parameter is usually a difference: $\mu_1-\mu_2$ or $p_1-p_2$. For paired data, first compute differences within each pair, then build a one-sample $t$-interval for $\mu_d$.
+:::
+
+::: {.summary-card}
+### Planning Sample Size
+To guarantee a margin of error $E$, solve the margin-of-error formula for $n$ and always round up. For proportions with no prior estimate, use the conservative planning value $p^*=0.5$.
+:::
+
+## How to use this chapter
+
+- Open the **slides** for an interactive walkthrough.
+- Use the **PDF** button for an offline-friendly version.
+- Try the embedded quiz questions before revealing the answer.
+- Run and edit the WebR examples to check calculations in your browser.
+- Revisit the worked examples later as templates for homework and exam practice.

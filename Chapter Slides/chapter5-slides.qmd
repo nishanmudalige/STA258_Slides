@@ -24,6 +24,7 @@ webr:
   packages:
     - ggplot2
     - dplyr
+    - plotly
 live:
   show-solutions: true
 ---
@@ -32,6 +33,7 @@ live:
 #| include: false
 library(ggplot2)
 library(dplyr)
+library(plotly)
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
 ```
@@ -198,6 +200,20 @@ set.seed(258)
   border: 1px solid var(--sta-border);
   border-radius: 6px;
 }
+.ci-sim-plot,
+.ci-sim-plot .cell,
+.ci-sim-plot .cell-output-display,
+.ci-sim-plot .html-widget,
+.ci-sim-plot .plotly,
+.ci-sim-plot .plot-container,
+.ci-sim-plot .svg-container {
+  width: 100% !important;
+  max-width: 430px !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+}
 .ci-result {
   margin-top: 10px;
   padding: 10px 12px;
@@ -336,11 +352,12 @@ The parameter is fixed. The random object is the interval produced by the sample
 :::
 
 ::: {.col}
+::: {.ci-sim-plot}
 ```{r}
 #| echo: false
-#| fig-width: 5.4
-#| fig-height: 4
-#| fig-align: center
+#| fig-width: 4.5
+#| fig-height: 3.2
+#| out-width: "430px"
 set.seed(10)
 n <- 50
 num_sims <- 50
@@ -358,13 +375,66 @@ ci_df <- data.frame(sim = 1:num_sims) |>
   ) |>
   ungroup()
 
-ggplot(ci_df, aes(y = sim)) +
-  geom_segment(aes(x = lower, xend = upper, colour = misses), linewidth = 1.1) +
-  geom_vline(xintercept = true_mu, linetype = "dashed", colour = "#004d40") +
-  scale_colour_manual(values = c("FALSE" = "#00695c", "TRUE" = "#f9a825"), guide = "none") +
-  labs(x = "Interval endpoints", y = "Simulation") +
-  theme(panel.grid.minor = element_blank(), axis.text.y = element_blank())
+ci_df <- ci_df |>
+  mutate(
+    colour = if_else(misses, "#f9a825", "#00695c"),
+    status = if_else(misses, "Misses true mean", "Covers true mean"),
+    hover = paste0(
+      "<b>Simulation ", sim, "</b>",
+      "<br>Interval: [", round(lower, 3), ", ", round(upper, 3), "]",
+      "<br>Status: ", status
+    )
+  )
+
+plot_ly(width = 430, height = 320) |>
+  add_segments(
+    data = ci_df,
+    x = ~lower,
+    xend = ~upper,
+    y = ~sim,
+    yend = ~sim,
+    color = ~status,
+    colors = c("Covers true mean" = "#00695c", "Misses true mean" = "#f9a825"),
+    line = list(width = 4),
+    text = ~hover,
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  layout(
+    autosize = FALSE,
+    width = 430,
+    height = 320,
+    margin = list(l = 48, r = 8, t = 10, b = 42),
+    xaxis = list(
+      title = "Interval endpoints",
+      zeroline = FALSE,
+      showgrid = TRUE,
+      gridcolor = "#e8e8e8"
+    ),
+    yaxis = list(
+      title = "Simulation",
+      showticklabels = FALSE,
+      zeroline = FALSE,
+      showgrid = TRUE,
+      gridcolor = "#e8e8e8"
+    ),
+    shapes = list(
+      list(
+        type = "line",
+        x0 = true_mu,
+        x1 = true_mu,
+        y0 = 0.5,
+        y1 = num_sims + 0.5,
+        line = list(color = "#004d40", width = 2, dash = "dash")
+      )
+    ),
+    showlegend = FALSE,
+    paper_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "white"
+  ) |>
+  config(displayModeBar = FALSE, responsive = FALSE)
 ```
+:::
 :::
 ::::
 

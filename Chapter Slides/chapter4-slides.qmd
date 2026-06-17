@@ -26,18 +26,168 @@ webr:
     - dplyr
 live:
   show-solutions: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup}
 #| include: false
+
 library(ggplot2)
 library(dplyr)
+library(plotly)
+
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
+
+plot_cols <- list(
+  main        = "#1f4e79",
+  main_dark   = "#16324f",
+  secondary   = "#2563eb",
+  accent      = "#d97706",
+  red         = "#b91c1c",
+  green       = "#047857",
+  purple      = "#6d28d9",
+  slate       = "#475569",
+  text        = "#111827",
+  muted       = "#4b5563",
+  grid        = "#e5e7eb",
+  border      = "#cbd5e1",
+  shade_blue  = "rgba(37, 99, 235, 0.16)",
+  shade_orange = "rgba(217, 119, 6, 0.22)",
+  shade_grey  = "rgba(100, 116, 139, 0.14)",
+  shade_green = "rgba(4, 120, 87, 0.14)"
+)
+
+make_region_poly <- function(x, y, xmin, xmax) {
+  idx <- x >= xmin & x <= xmax
+  data.frame(
+    x = c(xmin, x[idx], xmax),
+    y = c(0, y[idx], 0)
+  )
+}
+
+make_tail_poly_right <- function(x, y, cutoff) {
+  idx <- x >= cutoff
+  data.frame(
+    x = c(cutoff, x[idx], max(x[idx])),
+    y = c(0, y[idx], 0)
+  )
+}
+
+make_tail_poly_left <- function(x, y, cutoff) {
+  idx <- x <= cutoff
+  data.frame(
+    x = c(min(x[idx]), x[idx], cutoff),
+    y = c(0, y[idx], 0)
+  )
+}
+
+plotly_slide_layout <- function(
+    p,
+    title,
+    x_title,
+    y_title,
+    height = 380,
+    x_range = NULL,
+    y_range = NULL,
+    shapes = list(),
+    annotations = list(),
+    showlegend = FALSE,
+    legend_y = -0.18,
+    margin = list(l = 76, r = 28, t = 68, b = 70)
+) {
+  p |>
+    layout(
+      title = list(
+        text = paste0("<b>", title, "</b>"),
+        x = 0.015,
+        xanchor = "left",
+        font = list(
+          size = 20,
+          family = "Arial, sans-serif",
+          color = plot_cols$text
+        )
+      ),
+      font = list(
+        family = "Arial, sans-serif",
+        color = plot_cols$text
+      ),
+      xaxis = list(
+        title = list(
+          text = paste0("<b>", x_title, "</b>"),
+          standoff = 16,
+          font = list(size = 15, color = plot_cols$text)
+        ),
+        range = x_range,
+        tickfont = list(size = 13, color = plot_cols$muted),
+        showline = TRUE,
+        linewidth = 1.2,
+        linecolor = plot_cols$border,
+        zeroline = FALSE,
+        showgrid = FALSE,
+        ticks = "outside",
+        ticklen = 5,
+        tickcolor = plot_cols$border,
+        automargin = TRUE
+      ),
+      yaxis = list(
+        title = list(
+          text = paste0("<b>", y_title, "</b>"),
+          standoff = 18,
+          font = list(size = 15, color = plot_cols$text)
+        ),
+        range = y_range,
+        tickfont = list(size = 13, color = plot_cols$muted),
+        showline = TRUE,
+        linewidth = 1.2,
+        linecolor = plot_cols$border,
+        zeroline = FALSE,
+        gridcolor = plot_cols$grid,
+        gridwidth = 1,
+        ticks = "outside",
+        ticklen = 5,
+        tickcolor = plot_cols$border,
+        automargin = TRUE
+      ),
+      showlegend = showlegend,
+      legend = list(
+        orientation = "h",
+        x = 0,
+        y = legend_y,
+        bgcolor = "rgba(255,255,255,0)",
+        font = list(size = 13, color = plot_cols$text)
+      ),
+      shapes = shapes,
+      annotations = annotations,
+      margin = margin,
+      paper_bgcolor = "rgba(0,0,0,0)",
+      plot_bgcolor = "white",
+      hovermode = "closest",
+      hoverlabel = list(
+        bgcolor = "white",
+        bordercolor = plot_cols$main,
+        font = list(
+          size = 13,
+          color = plot_cols$text,
+          family = "Arial, sans-serif"
+        )
+      ),
+      height = height
+    ) |>
+    config(
+      displaylogo = FALSE,
+      displayModeBar = FALSE,
+      responsive = TRUE,
+      scrollZoom = FALSE
+    )
+}
 ```
 
 # Chapter 4: Foundations of Inference {.title-slide}
 
+```{=html}
 <style>
 :root {
   --sta-teal:        #00695c;
@@ -175,6 +325,7 @@ set.seed(258)
   border-radius: 4px;
   padding: 1px 4px;
 }
+
 /* ── Scrollable slides ────────────────────────────────── */
 .reveal .slides section.scrollable {
   overflow-y: auto !important;
@@ -204,7 +355,6 @@ set.seed(258)
 .reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
 .reveal .quiz-question li { margin-bottom: 6px !important; }
 
-/* keep quiz visuals compact */
 .reveal section.quiz-question img {
   max-height: 235px !important;
   object-fit: contain !important;
@@ -246,6 +396,21 @@ set.seed(258)
   margin: 0 0 6px 0;
 }
 
+/* ── Plotly polish ───────────────────────────────────── */
+.reveal .html-widget,
+.reveal .plotly {
+  margin: 0 auto !important;
+}
+
+.reveal .plot-container {
+  border-radius: 10px;
+}
+
+.reveal section.quiz-question .html-widget {
+  max-height: 315px !important;
+  margin: 0 auto 4px auto !important;
+}
+
 /* ── Solution callouts ────────────────────────────────── */
 .callout { font-size: 0.75em; }
 
@@ -284,96 +449,101 @@ set.seed(258)
 }
 .dist-widget label { font-weight: 600; color: var(--sta-teal-dark); }
 .dist-widget input[type=range] { width: 100%; accent-color: var(--sta-teal); }
-.plotly-widget {
-  width: 100%;
-  height: 305px;
-}
-.plotly-widget-centered {
-  max-width: 1180px;
-  margin: 0 auto;
-}
+.dist-widget canvas { width: 100% !important; }
 </style>
+```
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-<script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
-
-STA258: Statistics with Applied Probability
-University of Toronto Mississauga
+STA258: Statistics with Applied Probability University of Toronto
+Mississauga
 
 ![](../images/cat.png){width="245" fig-alt="Course mascot"}
 
----
+------------------------------------------------------------------------
 
 ## Chapter Roadmap {.compact}
 
-:::: {.three-col}
+:::::: three-col
 ::: {.card .fragment}
-<span class="label">1 - Key Distributions</span>
-Normal, Chi-square, Student's $t$, and $F$. Shape, parameters, and when each appears.
+[1 - Key Distributions]{.label} Normal, Chi-square, Student's $t$, and
+$F$. Shape, parameters, and when each appears.
 :::
+
 ::: {.card .fragment}
-<span class="label">2 - Sampling Distributions</span>
-Statistics have distributions too. The CLT explains why the sample mean is (approximately) normal for large $n$.
+[2 - Sampling Distributions]{.label} Statistics have distributions too.
+The CLT explains why the sample mean is (approximately) normal for large
+$n$.
 :::
+
 ::: {.card .fragment}
-<span class="label">3 - Law of Large Numbers</span>
-Sample averages converge to the true mean. The mathematical bridge from data to probability.
+[3 - Law of Large Numbers]{.label} Sample averages converge to the true
+mean. The mathematical bridge from data to probability.
 :::
-::::
+::::::
 
 <br>
 
-:::: {.three-col}
+:::::: three-col
 ::: {.stat-card .fragment}
-<span class="label">Core skill</span>
-Identify which distribution applies and read probability from it.
+[Core skill]{.label} Identify which distribution applies and read
+probability from it.
 :::
-::: {.stat-card .fragment}
-<span class="label">Core tool</span>
-R functions `pnorm()`, `qnorm()`, `pchisq()`, `pt()`, `pf()`.
-:::
-::: {.stat-card .fragment}
-<span class="label">Core habit</span>
-Check the degrees of freedom before looking up any critical value.
-:::
-::::
 
----
+::: {.stat-card .fragment}
+[Core tool]{.label} R functions `pnorm()`, `qnorm()`, `pchisq()`,
+`pt()`, `pf()`.
+:::
+
+::: {.stat-card .fragment}
+[Core habit]{.label} Check the degrees of freedom before looking up any
+critical value.
+:::
+::::::
+
+------------------------------------------------------------------------
 
 ## What is Statistical Inference?
 
 ::: {.defbox .fragment}
 **Statistical Inference**
 
-The aim is to produce **estimators** of population parameters based on a smaller sample, and to quantify the accuracy of those estimators via a probability statement.
+The aim is to produce **estimators** of population parameters based on a
+smaller sample, and to quantify the accuracy of those estimators via a
+probability statement.
 
-We collect data from a **sample** → compute **statistics** → make statements about the **population**.
+We collect data from a **sample** → compute **statistics** → make
+statements about the **population**.
 :::
 
-:::: {.two-col}
+::::: two-col
 ::: {.examplebox .fragment}
 **Classic inferential question**
 
-"How sure are we that the sample mean $\bar{x}$ is close to the true population mean $\mu$?"
+"How sure are we that the sample mean $\bar{x}$ is close to the true
+population mean $\mu$?"
 :::
+
 ::: {.thinkbox .fragment}
 **Why not measure everyone?**
 
-Populations are usually infinite, very large, or expensive to enumerate. Sampling + inference is the practical solution.
+Populations are usually infinite, very large, or expensive to enumerate.
+Sampling + inference is the practical solution.
 :::
-::::
+:::::
 
----
+------------------------------------------------------------------------
 
-## Example: Parameter, Statistic, and Sampling Variability {.scrollable}
+## Parameter, Statistic, and Sampling Variability {.scrollable}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Suppose the true average commute time for all UTM students is unknown.
+:::::: two-col-wide
+:::: col
+::: taskbox
+[In-Class Example]{.label} Suppose the true average commute time for all
+UTM students is unknown.
 
-A researcher takes **five different samples**, each with $n=25$ students, and computes a sample mean commute time for each sample.
+A researcher takes **five different samples**, each with $n=25$
+students, and computes a sample mean commute time for each sample.
 
 **(a)** What is the population parameter?
 
@@ -381,37 +551,138 @@ A researcher takes **five different samples**, each with $n=25$ students, and co
 
 **(c)** Why are the five sample means not exactly the same?
 
-**(d)** What would happen to the sample means if each sample used $n=200$ students instead?
+**(d)** What would happen to the sample means if each sample used
+$n=200$ students instead?
 :::
-:::
+::::
 
-::: {.col}
+::: col
 ```{r}
-#| fig-width: 5.8
-#| fig-height: 4
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 set.seed(258)
 
 sample_id <- rep(paste("Sample", 1:5), each = 25)
 commute <- unlist(replicate(5, rgamma(25, shape = 5, scale = 8), simplify = FALSE))
 
-df_commute <- data.frame(sample_id = sample_id, commute = commute)
-means_commute <- aggregate(commute ~ sample_id, data = df_commute, FUN = mean)
+df_commute <- data.frame(
+  sample_id = sample_id,
+  commute = commute
+)
 
-ggplot(df_commute, aes(x = sample_id, y = commute)) +
-  geom_jitter(width = 0.12, alpha = 0.55, colour = "#00695c", size = 1.8) +
-  geom_point(data = means_commute,
-             aes(x = sample_id, y = commute),
-             colour = "#f9a825", size = 4) +
-  labs(x = NULL, y = "Commute time (minutes)") +
-  theme(panel.grid.minor = element_blank())
+df_commute$sample_id <- factor(df_commute$sample_id, levels = paste("Sample", 1:5))
+df_commute$x_num <- as.numeric(df_commute$sample_id)
+df_commute$x_jitter <- df_commute$x_num + runif(nrow(df_commute), -0.11, 0.11)
+
+means_commute <- aggregate(commute ~ sample_id, data = df_commute, FUN = mean)
+means_commute$x_num <- as.numeric(means_commute$sample_id)
+means_commute$x_left <- means_commute$x_num - 0.30
+means_commute$x_right <- means_commute$x_num + 0.30
+
+df_commute$tooltip <- paste0(
+  "<b>", df_commute$sample_id, "</b>",
+  "<br>One student commute time: ", round(df_commute$commute, 1), " minutes"
+)
+
+means_commute$tooltip <- paste0(
+  "<b>", means_commute$sample_id, "</b>",
+  "<br><b>Statistic:</b> sample mean",
+  "<br>Sample mean commute time: ", round(means_commute$commute, 1), " minutes"
+)
+
+p <- plot_ly() |>
+  add_markers(
+    data = df_commute,
+    x = ~x_jitter,
+    y = ~commute,
+    text = ~tooltip,
+    hovertemplate = "%{text}<extra></extra>",
+    name = "students in sample",
+    marker = list(
+      color = "rgba(80, 95, 105, 0.38)",
+      size = 6
+    )
+  ) |>
+  add_segments(
+    data = means_commute,
+    x = ~x_left,
+    xend = ~x_right,
+    y = ~commute,
+    yend = ~commute,
+    text = ~tooltip,
+    hovertemplate = "%{text}<extra></extra>",
+    name = "sample mean",
+    line = list(
+      color = plot_cols$accent,
+      width = 6
+    )
+  )
+
+plotly_slide_layout(
+  p,
+  title = "",
+  x_title = "",
+  y_title = "Commute time (minutes)",
+  height = 390,
+  x_range = c(0.55, 5.45)
+) |>
+  layout(
+    annotations = list(
+      list(
+        x = 0.5,
+        y = 1.08,
+        xref = "paper",
+        yref = "paper",
+        text = "Dots are students. Thick lines are the sample means.",
+        showarrow = FALSE,
+        xanchor = "center",
+        font = list(size = 12, color = plot_cols$main_dark)
+      ),
+      list(
+        x = 0.5,
+        y = -0.18,
+        xref = "paper",
+        yref = "paper",
+        text = "",
+        showarrow = FALSE,
+        xanchor = "center",
+        font = list(size = 12, color = plot_cols$main_dark)
+      )
+    ),
+    xaxis = list(
+      tickvals = 1:5,
+      ticktext = paste("Sample", 1:5),
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 12)
+    ),
+    yaxis = list(
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 12)
+    ),
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = 1.02,
+      yanchor = "bottom",
+      font = list(size = 11)
+    ),
+    margin = list(l = 60, r = 25, t = 75, b = 75)
+  )
 ```
 :::
-::::
-
----
+::::::
+------------------------------------------------------------------------
 
 ## Sampling Variability - Check in R
 
@@ -432,13 +703,13 @@ sd(sample_means)
 # Try changing 25 to 200 and compare the spread of the sample means.
 ```
 
----
+------------------------------------------------------------------------
 
 ## 4.1 The Normal Distribution
 
-:::: {.two-col-lean}
-::: {.col}
-::: {.defbox}
+::::::: two-col-lean
+::::: col
+::: defbox
 **Normal Distribution** — $X \sim N(\mu, \sigma^2)$
 
 $$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
@@ -449,39 +720,67 @@ Parameters: mean $\mu$ and variance $\sigma^2 > 0$.
 :::
 
 ::: {.examplebox .fragment}
-Also called the **Gaussian distribution**, after Carl Friedrich Gauss (1809). It is symmetric and bell-shaped, completely characterized by $\mu$ and $\sigma$.
+Also called the **Gaussian distribution**, after Carl Friedrich Gauss
+(1809). It is symmetric and bell-shaped, completely characterized by
+$\mu$ and $\sigma$.
 :::
-:::
+:::::
 
-::: {.col}
+::: col
 ```{r}
 #| echo: false
-#| fig-width: 5.5
-#| fig-height: 3.6
-#| fig-align: center
-library(ggplot2)
-ggplot(data.frame(x = c(-6, 10)), aes(x)) +
-  stat_function(fun = dnorm, args = list(mean = -2, sd = 0.5),
-                aes(colour = "N(-2, 0.5²)"), size = 1.3, geom = "area",
-                fill = "#00BA38", alpha = 0.4, n = 500) +
-  stat_function(fun = dnorm, args = list(mean = 0, sd = 1),
-                aes(colour = "N(0, 1²)"), size = 1.3, geom = "area",
-                fill = "#F8766D", alpha = 0.4, n = 500) +
-  stat_function(fun = dnorm, args = list(mean = 3, sd = 1.5),
-                aes(colour = "N(3, 1.5²)"), size = 1.3, geom = "area",
-                fill = "#619CFF", alpha = 0.4, n = 500) +
-  scale_colour_manual("", values = c("N(-2, 0.5²)" = "#00BA38",
-                                     "N(0, 1²)"   = "#F8766D",
-                                     "N(3, 1.5²)" = "#619CFF")) +
-  labs(x = "x", y = "Density") +
-  theme_minimal(base_size = 12) +
-  theme(panel.grid = element_blank(), legend.position = "top",
-        legend.text = element_text(size = 9))
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+x_grid <- seq(-6, 10, length.out = 800)
+
+df1 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = -2, sd = 0.5))
+df2 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = 0, sd = 1))
+df3 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = 3, sd = 1.5))
+
+p <- plot_ly() |>
+  add_lines(
+    data = df1,
+    x = ~x,
+    y = ~y,
+    name = "N(-2, 0.5²)",
+    line = list(color = plot_cols$green, width = 3.4),
+    text = ~paste0("<b>N(-2, 0.5²)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df2,
+    x = ~x,
+    y = ~y,
+    name = "N(0, 1²)",
+    line = list(color = plot_cols$red, width = 3.4),
+    text = ~paste0("<b>N(0, 1²)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df3,
+    x = ~x,
+    y = ~y,
+    name = "N(3, 1.5²)",
+    line = list(color = plot_cols$secondary, width = 3.4),
+    text = ~paste0("<b>N(3, 1.5²)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  )
+
+plotly_slide_layout(
+  p,
+  title = "Normal distributions with different means and spreads",
+  x_title = "x",
+  y_title = "Density",
+  height = 360,
+  showlegend = TRUE
+)
 ```
 :::
-::::
+:::::::
 
----
+------------------------------------------------------------------------
 
 ## 4.1.1 The Standard Normal Distribution
 
@@ -498,22 +797,20 @@ A special case with $\mu = 0$ and $\sigma^2 = 1$. Denoted $Z$.
 
 $$Z = \frac{X - \mu}{\sigma} \sim N(0,1)$$
 
-This lets us use a single table (or `pnorm()`) for any normal distribution.
+This lets us use a single table (or `pnorm()`) for any normal
+distribution.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Empirical Rule — Interactive Explorer
 
-<div id="emp-rule-box" style="border:1px solid #d8dee2; border-radius:10px; padding:12px 16px; background:white; font-size:0.72em;">
-
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:10px;">
-
+:::::::::: {#emp-rule-box style="border:1px solid #d8dee2; border-radius:10px; padding:12px 16px; background:white; font-size:0.72em;"}
+::::: {style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:10px;"}
 <div>
-<label style="font-weight:800; color:#004d40; font-size:1.05em;">
-Mean (μ): <span id="emp-mu-label">0</span>
-</label>
-<input
+
+<label style="font-weight:800; color:#004d40; font-size:1.05em;"> Mean
+(μ): [0]{#emp-mu-label} </label> <input
   id="emp-mu-slider"
   type="range"
   min="-5"
@@ -523,13 +820,13 @@ Mean (μ): <span id="emp-mu-label">0</span>
   oninput="empRuleUpdate()"
   style="width:100%; accent-color:#00695c; margin-top:8px;"
 >
+
 </div>
 
 <div>
+
 <label style="font-weight:800; color:#004d40; font-size:1.05em;">
-Standard deviation (σ): <span id="emp-sd-label">1</span>
-</label>
-<input
+Standard deviation (σ): [1]{#emp-sd-label} </label> <input
   id="emp-sd-slider"
   type="range"
   min="0.5"
@@ -539,39 +836,39 @@ Standard deviation (σ): <span id="emp-sd-label">1</span>
   oninput="empRuleUpdate()"
   style="width:100%; accent-color:#00695c; margin-top:8px;"
 >
-</div>
 
 </div>
+:::::
 
-<div id="emp-rule-plot" class="plotly-widget"></div>
+<canvas id="emp-rule-canvas" width="1100" height="310" style="width:100%; height:260px; display:block;">
 
-<div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; text-align:center;">
+</canvas>
 
-<div style="background:rgba(0,105,92,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+:::::: {style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; text-align:center;"}
+::: {style="background:rgba(0,105,92,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;"}
 μ ± 1σ<br>68.27%
-</div>
+:::
 
-<div style="background:rgba(0,176,246,0.15); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+::: {style="background:rgba(0,176,246,0.15); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;"}
 μ ± 2σ<br>95.45%
-</div>
+:::
 
-<div style="background:rgba(121,151,255,0.17); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
+::: {style="background:rgba(121,151,255,0.17); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;"}
 μ ± 3σ<br>99.73%
-</div>
+:::
+::::::
+::::::::::
 
-</div>
-
-</div>
-
+```{=html}
 <script>
 window.empRuleUpdate = function () {
-  var plot = document.getElementById("emp-rule-plot");
+  var canvas = document.getElementById("emp-rule-canvas");
   var muSlider = document.getElementById("emp-mu-slider");
   var sdSlider = document.getElementById("emp-sd-slider");
   var muLabel = document.getElementById("emp-mu-label");
   var sdLabel = document.getElementById("emp-sd-label");
 
-  if (!plot || !muSlider || !sdSlider || !muLabel || !sdLabel || !window.Plotly) {
+  if (!canvas || !muSlider || !sdSlider || !muLabel || !sdLabel) {
     return;
   }
 
@@ -581,147 +878,149 @@ window.empRuleUpdate = function () {
   muLabel.innerHTML = mu;
   sdLabel.innerHTML = sd;
 
+  var ctx = canvas.getContext("2d");
+  var width = canvas.width;
+  var height = canvas.height;
+
+  ctx.clearRect(0, 0, width, height);
+
   function dnorm(x, mean, sigma) {
     return Math.exp(-0.5 * Math.pow((x - mean) / sigma, 2)) / (sigma * Math.sqrt(2 * Math.PI));
   }
 
+  var marginLeft = 65;
+  var marginRight = 30;
+  var marginTop = 20;
+  var marginBottom = 55;
+
+  var plotWidth = width - marginLeft - marginRight;
+  var plotHeight = height - marginTop - marginBottom;
+
   var xmin = -15;
   var xmax = 15;
-  var x = [];
-  var y = [];
+  var ymax = 0.85;
 
-  for (var i = 0; i <= 900; i++) {
-    var xVal = xmin + (xmax - xmin) * i / 900;
-    x.push(xVal);
-    y.push(dnorm(xVal, mu, sd));
+  function xScale(x) {
+    return marginLeft + ((x - xmin) / (xmax - xmin)) * plotWidth;
   }
 
-  function shadedTrace(a, b, color, name) {
+  function yScale(y) {
+    return marginTop + (1 - y / ymax) * plotHeight;
+  }
+
+  function shade(a, b, color) {
     var start = Math.max(a, xmin);
     var end = Math.min(b, xmax);
-    var sx = [];
-    var sy = [];
 
     if (end <= xmin || start >= xmax) {
-      return {
-        x: [],
-        y: [],
-        type: "scatter",
-        mode: "lines",
-        fill: "tozeroy",
-        fillcolor: color,
-        line: { color: "rgba(0,0,0,0)" },
-        hoverinfo: "skip",
-        showlegend: false,
-        name: name
-      };
+      return;
     }
 
-    for (var j = 0; j <= 250; j++) {
-      var sxVal = start + (end - start) * j / 250;
-      sx.push(sxVal);
-      sy.push(dnorm(sxVal, mu, sd));
+    ctx.beginPath();
+    ctx.moveTo(xScale(start), yScale(0));
+
+    for (var i = 0; i <= 300; i++) {
+      var x = start + (end - start) * i / 300;
+      var y = dnorm(x, mu, sd);
+      ctx.lineTo(xScale(x), yScale(y));
     }
 
-    return {
-      x: sx,
-      y: sy,
-      type: "scatter",
-      mode: "lines",
-      fill: "tozeroy",
-      fillcolor: color,
-      line: { color: "rgba(0,0,0,0)" },
-      hoverinfo: "skip",
-      showlegend: false,
-      name: name
-    };
+    ctx.lineTo(xScale(end), yScale(0));
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
   }
 
-  var data = [
-    shadedTrace(mu - 3 * sd, mu + 3 * sd, "rgba(121,151,255,0.22)", "μ ± 3σ"),
-    shadedTrace(mu - 2 * sd, mu + 2 * sd, "rgba(0,176,246,0.28)", "μ ± 2σ"),
-    shadedTrace(mu - 1 * sd, mu + 1 * sd, "rgba(0,105,92,0.35)", "μ ± σ"),
-    {
-      x: x,
-      y: y,
-      type: "scatter",
-      mode: "lines",
-      line: { color: "#004d40", width: 3 },
-      hovertemplate: "x=%{x:.2f}<br>density=%{y:.3f}<extra></extra>",
-      name: "Normal curve",
-      showlegend: false
+  ctx.strokeStyle = "#e5e7eb";
+  ctx.lineWidth = 1;
+
+  for (var g = 0; g <= 4; g++) {
+    var gy = marginTop + (plotHeight * g) / 4;
+    ctx.beginPath();
+    ctx.moveTo(marginLeft, gy);
+    ctx.lineTo(width - marginRight, gy);
+    ctx.stroke();
+  }
+
+  shade(mu - 3 * sd, mu + 3 * sd, "rgba(121,151,255,0.22)");
+  shade(mu - 2 * sd, mu + 2 * sd, "rgba(0,176,246,0.28)");
+  shade(mu - 1 * sd, mu + 1 * sd, "rgba(0,105,92,0.35)");
+
+  ctx.beginPath();
+  ctx.strokeStyle = "#004d40";
+  ctx.lineWidth = 3;
+
+  for (var j = 0; j <= 900; j++) {
+    var xVal = xmin + (xmax - xmin) * j / 900;
+    var yVal = dnorm(xVal, mu, sd);
+
+    if (j === 0) {
+      ctx.moveTo(xScale(xVal), yScale(yVal));
+    } else {
+      ctx.lineTo(xScale(xVal), yScale(yVal));
     }
+  }
+
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.strokeStyle = "#555";
+  ctx.lineWidth = 1.5;
+  ctx.moveTo(marginLeft, yScale(0));
+  ctx.lineTo(width - marginRight, yScale(0));
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.strokeStyle = "#f9a825";
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 6]);
+  ctx.moveTo(xScale(mu), marginTop);
+  ctx.lineTo(xScale(mu), yScale(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = "#2f3437";
+  ctx.font = "14px Arial";
+  ctx.textAlign = "center";
+
+  for (var tick = -10; tick <= 10; tick += 2) {
+    ctx.fillText(tick, xScale(tick), height - 18);
+  }
+
+  var labels = [
+    { x: mu - 3 * sd, text: "μ - 3σ" },
+    { x: mu - 2 * sd, text: "μ - 2σ" },
+    { x: mu - 1 * sd, text: "μ - σ" },
+    { x: mu,          text: "μ" },
+    { x: mu + 1 * sd, text: "μ + σ" },
+    { x: mu + 2 * sd, text: "μ + 2σ" },
+    { x: mu + 3 * sd, text: "μ + 3σ" }
   ];
 
-  var layout = {
-    autosize: true,
-    margin: { l: 42, r: 12, t: 8, b: 50 },
-    xaxis: {
-      range: [xmin, xmax],
-      tickmode: "linear",
-      tick0: -10,
-      dtick: 2,
-      zeroline: false,
-      showgrid: false,
-      title: ""
-    },
-    yaxis: {
-      range: [0, 0.85],
-      showticklabels: false,
-      showgrid: true,
-      gridcolor: "#e5e7eb",
-      zeroline: false,
-      title: ""
-    },
-    shapes: [
-      {
-        type: "line",
-        x0: mu,
-        x1: mu,
-        y0: 0,
-        y1: dnorm(mu, mu, sd),
-        line: { color: "#f9a825", width: 2, dash: "dash" }
-      }
-    ],
-    annotations: [],
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(0,0,0,0)",
-    hovermode: "closest"
-  };
+  ctx.font = "12px Arial";
 
-  Plotly.react(plot, data, layout, { displayModeBar: false, responsive: true }).then(function () {
-    Plotly.Plots.resize(plot);
-  });
+  for (var k = 0; k < labels.length; k++) {
+    if (labels[k].x >= xmin && labels[k].x <= xmax) {
+      ctx.fillText(labels[k].text, xScale(labels[k].x), height - 35);
+    }
+  }
 };
 
-window.empRuleScheduleUpdate = function () {
-  [60, 180, 420, 900].forEach(function (delay) {
-    setTimeout(window.empRuleUpdate, delay);
-  });
-
-  requestAnimationFrame(function () {
-    requestAnimationFrame(window.empRuleUpdate);
-  });
-};
-
-window.empRuleScheduleUpdate();
-
-window.addEventListener("load", window.empRuleScheduleUpdate);
-window.addEventListener("resize", window.empRuleScheduleUpdate);
-window.addEventListener("hashchange", window.empRuleScheduleUpdate);
+setTimeout(window.empRuleUpdate, 200);
+setTimeout(window.empRuleUpdate, 700);
 
 if (window.Reveal) {
-  Reveal.on("ready", window.empRuleScheduleUpdate);
   Reveal.on("slidechanged", function () {
-    window.empRuleScheduleUpdate();
+    setTimeout(window.empRuleUpdate, 150);
   });
 }
 </script>
+```
 
 ## Normal Probabilities in R
 
-:::: {.two-col-lean}
-::: {.col}
+::::::: two-col-lean
+::: col
 ```{webr}
 #| autorun: false
 
@@ -739,8 +1038,8 @@ qnorm(0.975)
 ```
 :::
 
-::: {.col}
-::: {.examplebox}
+::::: col
+::: examplebox
 **`pnorm(q, mean, sd)`** gives $P(X \le q)$.
 
 **`qnorm(p, mean, sd)`** inverts: gives $q$ such that $P(X \le q) = p$.
@@ -749,19 +1048,21 @@ Default: `mean = 0`, `sd = 1` (standard normal).
 :::
 
 ::: {.thinkbox .fragment}
-**Try it.** What is $P(X < 130)$ when $X \sim N(100, 15^2)$? Use `pnorm(130, mean = 100, sd = 15)`.
+**Try it.** What is $P(X < 130)$ when $X \sim N(100, 15^2)$? Use
+`pnorm(130, mean = 100, sd = 15)`.
 :::
-:::
-::::
+:::::
+:::::::
 
----
+------------------------------------------------------------------------
 
-## Example: Normal Probability with a Plot {.scrollable}
+## In-Class Example: Normal Probability with a Plot {.scrollable}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Suppose final exam scores are approximately normal with mean $\mu=72$ and standard deviation $\sigma=8$.
+:::::: two-col-wide
+:::: col
+::: taskbox
+[In-Class Example]{.label} Suppose final exam scores are approximately
+normal with mean $\mu=72$ and standard deviation $\sigma=8$.
 
 **(a)** Find the $z$-score for a score of $84$.
 
@@ -769,39 +1070,104 @@ Suppose final exam scores are approximately normal with mean $\mu=72$ and standa
 
 **(c)** Find $P(X > 84)$.
 
-**(d)** On the plot, identify the shaded right-tail region and explain why it represents $P(X > 84)$.
+**(d)** On the plot, identify the shaded right-tail region and explain
+why it represents $P(X > 84)$.
 :::
-:::
+::::
 
-::: {.col}
+::: col
 ```{r}
-#| fig-width: 5.8
-#| fig-height: 4
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 mu <- 72
 sigma <- 8
 cutoff <- 84
 
-x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
-df_norm <- data.frame(x = x, density = dnorm(x, mean = mu, sd = sigma))
+x <- seq(mu - 4 * sigma, mu + 4 * sigma, length.out = 1000)
+y <- dnorm(x, mean = mu, sd = sigma)
 
-ggplot(df_norm, aes(x, density)) +
-  geom_area(data = subset(df_norm, x >= cutoff),
-            fill = "#fff8e1", alpha = 0.9) +
-  geom_line(linewidth = 1.1, colour = "#00695c") +
-  geom_vline(xintercept = mu, linetype = "dashed", colour = "#004d40", linewidth = 1) +
-  geom_vline(xintercept = cutoff, linetype = "dashed", colour = "#f9a825", linewidth = 1) +
-  annotate("text", x = mu, y = 0.048, label = "Mean = 72", colour = "#004d40", fontface = "bold") +
-  annotate("text", x = cutoff + 4, y = 0.025, label = "P(X > 84)", colour = "#f9a825", fontface = "bold") +
-  labs(x = "Exam score", y = "Density") +
-  theme(panel.grid.minor = element_blank())
+df_norm <- data.frame(x = x, y = y)
+
+y_max <- max(y)
+
+p <- plot_ly() |>
+  add_lines(
+    data = df_norm,
+    x = ~x,
+    y = ~y,
+    line = list(color = plot_cols$main, width = 3.6),
+    text = ~paste0(
+      "<b>Exam score:</b> ", round(x, 1),
+      "<br><b>Density:</b> ", round(y, 4)
+    ),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  )
+
+shapes <- list(
+  list(
+    type = "line",
+    x0 = mu,
+    x1 = mu,
+    y0 = 0,
+    y1 = y_max * 1.02,
+    line = list(
+      color = plot_cols$main_dark,
+      width = 2.4,
+      dash = "dash"
+    )
+  )
+)
+
+annotations <- list(
+  list(
+    x = mu,
+    y = y_max * 1.08,
+    text = "<b>Mean = 72</b>",
+    showarrow = FALSE,
+    xanchor = "center",
+    yanchor = "bottom",
+    font = list(size = 13, color = plot_cols$main_dark)
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Normal model for final exam scores",
+  x_title = "Exam score",
+  y_title = "Density",
+  height = 380,
+  x_range = c(min(x), max(x)),
+  y_range = c(0, y_max * 1.18),
+  shapes = shapes,
+  annotations = annotations
+) |>
+  layout(
+    xaxis = list(
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickvals = c(40, 48, 56, 64, 72, 80, 88, 96, 104),
+      tickfont = list(size = 12)
+    ),
+    yaxis = list(
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 12)
+    ),
+    margin = list(l = 60, r = 25, t = 60, b = 55)
+  )
 ```
 :::
-::::
-
----
+::::::
+------------------------------------------------------------------------
 
 ## Normal Probability - Check in R
 
@@ -822,17 +1188,18 @@ pnorm(z)                              # same as P(X <= 84)
 1 - pnorm(z)                          # same as P(X > 84)
 ```
 
----
-
+------------------------------------------------------------------------
 
 ## Example: Heights with Probability Plot {.scrollable}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Adult heights in a population follow
+:::::: two-col-wide
+:::: col
+::: taskbox
+[Example]{.label} Adult heights in a population follow
 
-$$X \sim N(170, 8^2)$$
+$$
+X \sim N(170, 8^2)
+$$
 
 where height is measured in centimetres.
 
@@ -842,46 +1209,107 @@ where height is measured in centimetres.
 
 **(c)** Find $P(162 < X < 178)$.
 
-**(d)** Find the height $h$ such that only 5% of people are taller than $h$.
+**(d)** Find the height $h$ such that only 5% of people are taller
+than $h$.
 :::
-:::
+::::
 
-::: {.col}
+::: col
 ```{r}
 #| echo: false
-#| fig-width: 5.8
-#| fig-height: 4
-#| fig-align: center
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 mu <- 170
 sigma <- 8
 
-x <- seq(mu - 4*sigma, mu + 4*sigma, length.out = 1000)
+x <- seq(mu - 4 * sigma, mu + 4 * sigma, length.out = 1000)
+y <- dnorm(x, mean = mu, sd = sigma)
 
-df_height <- data.frame(
-  x = x,
-  density = dnorm(x, mean = mu, sd = sigma)
+df_height <- data.frame(x = x, y = y)
+
+y_max <- max(y)
+
+p <- plot_ly() |>
+  add_lines(
+    data = df_height,
+    x = ~x,
+    y = ~y,
+    line = list(
+      color = plot_cols$main,
+      width = 3.6
+    ),
+    text = ~paste0(
+      "<b>Height:</b> ", round(x, 1), " cm",
+      "<br><b>Density:</b> ", round(y, 4)
+    ),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  )
+
+shapes <- list(
+  list(
+    type = "line",
+    x0 = mu,
+    x1 = mu,
+    y0 = 0,
+    y1 = y_max * 1.02,
+    line = list(
+      color = plot_cols$main_dark,
+      width = 2.4,
+      dash = "dash"
+    )
+  )
 )
 
-ggplot(df_height, aes(x, density)) +
-  geom_area(data = subset(df_height, x >= 162 & x <= 178),
-            fill = "#c8e6f3", alpha = 0.85) +
-  geom_line(linewidth = 1.1, colour = "#00695c") +
-  geom_vline(xintercept = mu, linetype = "dashed",
-             colour = "#004d40", linewidth = 1) +
-  geom_vline(xintercept = c(160, 162, 178, 180),
-             linetype = "dashed", colour = "#f9a825", linewidth = 0.9) +
-  annotate("text", x = 170, y = 0.045,
-           label = "Mean = 170", colour = "#004d40", fontface = "bold") +
-  annotate("text", x = 170, y = 0.018,
-           label = "P(162 < X < 178)", colour = "#00695c", fontface = "bold") +
-  labs(x = "Height in cm", y = "Density") +
-  theme(panel.grid.minor = element_blank())
+annotations <- list(
+  list(
+    x = mu,
+    y = y_max * 1.08,
+    text = "<b>Mean = 170 cm</b>",
+    showarrow = FALSE,
+    xanchor = "center",
+    yanchor = "bottom",
+    font = list(size = 13, color = plot_cols$main_dark)
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Normal model for adult heights",
+  x_title = "Height in cm",
+  y_title = "Density",
+  height = 380,
+  x_range = c(138, 202),
+  y_range = c(0, y_max * 1.18),
+  shapes = shapes,
+  annotations = annotations
+) |>
+  layout(
+    xaxis = list(
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickvals = seq(140, 200, by = 10),
+      tickfont = list(size = 12)
+    ),
+    yaxis = list(
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 12)
+    ),
+    margin = list(l = 60, r = 25, t = 60, b = 55)
+  )
 ```
 :::
-::::
+::::::
 
----
+------------------------------------------------------------------------
 
 ## Heights — Check in R with Plot
 
@@ -928,106 +1356,265 @@ abline(v = mu, lty = 2, col = "#004d40", lwd = 2)
 abline(v = c(160, 162, 178, 180), lty = 2, col = "#f9a825")
 ```
 
----
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Visual Question
 
-The Empirical Rule says the middle region from $-2$ to $2$ contains about 95.45% of the standard normal curve. Using symmetry, what is $P(Z > 2)$?
-::::
+The Empirical Rule says the middle region from $-2$ to $2$ contains
+about 95.45% of the standard normal curve. Using symmetry, what is
+$P(Z > 2)$?
+:::
 
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.05
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 z <- seq(-4, 4, length.out = 1000)
-df_emp_q <- data.frame(z = z, density = dnorm(z))
+y <- dnorm(z)
 
-ggplot(df_emp_q, aes(z, density)) +
-  geom_area(data = subset(df_emp_q, z >= -2 & z <= 2),
-            fill = "#c8e6f3", alpha = 0.9) +
-  geom_area(data = subset(df_emp_q, z > 2),
-            fill = "#f9a825", alpha = 0.9) +
-  geom_area(data = subset(df_emp_q, z < -2),
-            fill = "#fff8e1", alpha = 0.9) +
-  geom_line(linewidth = 1.1, colour = "#00695c") +
-  geom_vline(xintercept = c(-2, 2), linetype = "dashed",
-             colour = "#004d40", linewidth = 1) +
-  annotate("text", x = 0, y = 0.22, label = "Middle area ≈ 0.9545",
-           colour = "#004d40", fontface = "bold", size = 3.5) +
-  annotate("text", x = 2.7, y = 0.06, label = "Right tail?",
-           colour = "#f9a825", fontface = "bold", size = 3.5) +
-  labs(title = "Standard normal symmetry",
-       x = "z", y = "Density") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+df_emp <- data.frame(z = z, y = y)
+
+mid_poly <- make_region_poly(z, y, -2, 2)
+right_poly <- make_tail_poly_right(z, y, 2)
+
+p <- plot_ly() |>
+  add_trace(
+    data = mid_poly,
+    x = ~x,
+    y = ~y,
+    type = "scatter",
+    mode = "lines",
+    fill = "toself",
+    fillcolor = plot_cols$shade_blue,
+    line = list(color = "rgba(37,99,235,0)"),
+    hoverinfo = "skip",
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = right_poly,
+    x = ~x,
+    y = ~y,
+    type = "scatter",
+    mode = "lines",
+    fill = "toself",
+    fillcolor = plot_cols$shade_orange,
+    line = list(color = "rgba(217,119,6,0)"),
+    hoverinfo = "skip",
+    showlegend = FALSE
+  ) |>
+  add_lines(
+    data = df_emp,
+    x = ~z,
+    y = ~y,
+    line = list(color = plot_cols$main, width = 3.4),
+    text = ~paste0("<b>z:</b> ", round(z, 2), "<br><b>Density:</b> ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  )
+
+annotations <- list(
+  list(
+    x = 0,
+    y = 0.22,
+    text = "<b>Middle area ≈ 0.9545</b>",
+    showarrow = FALSE,
+    font = list(size = 14.5, color = plot_cols$main_dark)
+  ),
+  list(
+    x = 2.75,
+    y = 0.06,
+    text = "<b>P(Z &gt; 2)?</b>",
+    showarrow = FALSE,
+    font = list(size = 14.5, color = "#92400e")
+  ),
+  list(
+    x = -2,
+    y = 0,
+    text = "<b>-2</b>",
+    showarrow = FALSE,
+    yshift = -20,
+    font = list(size = 12.5, color = plot_cols$muted)
+  ),
+  list(
+    x = 2,
+    y = 0,
+    text = "<b>2</b>",
+    showarrow = FALSE,
+    yshift = -20,
+    font = list(size = 12.5, color = plot_cols$muted)
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Standard normal symmetry",
+  x_title = "z",
+  y_title = "Density",
+  height = 255,
+  annotations = annotations,
+  margin = list(l = 64, r = 22, t = 52, b = 50)
+)
 ```
 
-- 0.9545
-- 0.0455
-- [0.02275]{.correct data-explanation="The total area outside -2 to 2 is 1 - 0.9545 = 0.0455. By symmetry, each tail has area 0.0455 divided by 2, which is 0.02275."}
-- 0.0500
+-   0.9545
+-   0.0455
+-   [0.02275]{.correct
+    data-explanation="The total area outside -2 to 2 is 1 - 0.9545 = 0.0455. By symmetry, each tail has area 0.0455 divided by 2, which is 0.02275."}
+-   0.0500
 
----
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Visual Question
 
-The plot shows a normal distribution with mean 50 and variance 100, with a marked value at x = 65. What is the standardised value z?
-::::
+The plot shows a normal distribution with mean 50 and variance 100, with
+a marked value at x = 65. What is the standardised value z?
+:::
 
 ```{r}
 #| echo: false
-#| fig-width: 7.2
-#| fig-height: 2.8
-#| fig-align: center
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 mu <- 50
-sigma <- 10
+variance <- 100
+sigma <- sqrt(variance)
 x0 <- 65
 
 x <- seq(20, 80, length.out = 1000)
-df_zquiz <- data.frame(x = x, y = dnorm(x, mean = mu, sd = sigma))
+y <- dnorm(x, mean = mu, sd = sigma)
 
-ggplot(df_zquiz, aes(x, y)) +
-  geom_line(linewidth = 1.2, colour = "#00695c") +
-  geom_vline(xintercept = mu, linetype = "dashed", colour = "#004d40", linewidth = 1) +
-  geom_vline(xintercept = x0, linetype = "dashed", colour = "#f9a825", linewidth = 1) +
-  annotate("text", x = mu, y = 0.043, label = "Mean = 50", colour = "#004d40", fontface = "bold", size = 4.2) +
-  annotate("text", x = x0, y = 0.018, label = "x = 65", colour = "#f9a825", fontface = "bold", size = 4.2) +
-  scale_x_continuous(breaks = seq(20, 80, by = 10)) +
-  labs(
-    title = "Standardising a value from a normal distribution",
-    x = "x",
-    y = "Density"
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    panel.grid.minor = element_blank(),
-    plot.title = element_text(face = "bold")
+df_zq <- data.frame(x = x, y = y)
+
+y_max <- max(y)
+y_x0 <- dnorm(x0, mean = mu, sd = sigma)
+
+p <- plot_ly() |>
+  add_lines(
+    data = df_zq,
+    x = ~x,
+    y = ~y,
+    line = list(color = plot_cols$main, width = 3.6),
+    text = ~paste0(
+      "<b>x:</b> ", round(x, 1),
+      "<br><b>Density:</b> ", round(y, 4)
+    ),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  )
+
+shapes <- list(
+  list(
+    type = "line",
+    x0 = mu,
+    x1 = mu,
+    y0 = 0,
+    y1 = y_max * 1.02,
+    line = list(
+      color = plot_cols$main_dark,
+      width = 2.3,
+      dash = "dash"
+    )
+  ),
+  list(
+    type = "line",
+    x0 = x0,
+    x1 = x0,
+    y0 = 0,
+    y1 = y_x0,
+    line = list(
+      color = plot_cols$accent,
+      width = 2.5
+    )
+  )
+)
+
+annotations <- list(
+  list(
+    x = mu,
+    y = y_max * 1.07,
+    text = "<b>Mean = 50</b>",
+    showarrow = FALSE,
+    xanchor = "center",
+    yanchor = "bottom",
+    font = list(size = 13, color = plot_cols$main_dark)
+  ),
+  list(
+    x = x0,
+    y = y_x0 + y_max * 0.06,
+    text = "<b>x = 65</b>",
+    showarrow = FALSE,
+    xanchor = "center",
+    yanchor = "bottom",
+    font = list(size = 13, color = plot_cols$accent)
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Standardising a value from a normal distribution",
+  x_title = "x",
+  y_title = "Density",
+  height = 300,
+  x_range = c(20, 80),
+  y_range = c(0, y_max * 1.16),
+  shapes = shapes,
+  annotations = annotations
+) |>
+  layout(
+    xaxis = list(
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickvals = seq(20, 80, by = 10),
+      tickfont = list(size = 12)
+    ),
+    yaxis = list(
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 12)
+    ),
+    margin = list(l = 64, r = 22, t = 52, b = 50)
+  ) |>
+  config(
+    displayModeBar = TRUE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = "reset",
+    modeBarButtonsToRemove = c(
+      "lasso2d",
+      "select2d"
+    )
   )
 ```
 
-- z = 0.65
-- z = 0.15
-- [z = 1.5]{.correct data-explanation="The variance is 100, so the standard deviation is 10. Standardising gives (65 - 50) / 10 = 1.5."}
-- z = 2.5
+-   z = 0.65
+-   z = 0.15
+-   [z = 1.5]{.correct
+    data-explanation="The variance is 100, so the standard deviation is 10. Standardising gives (65 - 50) / 10 = 1.5."}
+-   z = 2.5
 
-::: {.quiz-hint}
+::: quiz-hint
 Remember: the standard deviation is the square root of the variance.
 :::
 
----
+------------------------------------------------------------------------
 
 ## 4.1.2 The Chi-Square Distribution
 
-::: {.defbox}
+::: defbox
 **Chi-Square Random Variable** — $X \sim \chi^2_k$
 
 If $Z_1, Z_2, \ldots, Z_k \overset{\text{iid}}{\sim} N(0,1)$, then
@@ -1040,45 +1627,78 @@ $$f(x; k) = \frac{1}{2^{k/2}\,\Gamma(k/2)}\, x^{k/2 - 1}\, e^{-x/2}$$
 :::
 
 ::: {.examplebox .fragment}
-The distribution is **right-skewed** and supported on $(0, \infty)$. As $k$ increases, it becomes more symmetric.  $E[X] = k$, $\text{Var}(X) = 2k$.
+The distribution is **right-skewed** and supported on $(0, \infty)$. As
+$k$ increases, it becomes more symmetric. $E[X] = k$,
+$\text{Var}(X) = 2k$.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Chi-Square: Shape by Degrees of Freedom
 
 ```{r}
 #| echo: false
-#| fig-width: 9
-#| fig-height: 3.6
-#| fig-align: center
-library(ggplot2)
-x_vals <- seq(0.01, 25, length.out = 600)
-df_plot <- rbind(
-  data.frame(x = x_vals, y = dchisq(x_vals, df=2),  dist = "χ²(2)"),
-  data.frame(x = x_vals, y = dchisq(x_vals, df=5),  dist = "χ²(5)"),
-  data.frame(x = x_vals, y = dchisq(x_vals, df=10), dist = "χ²(10)")
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+x_vals <- seq(0.01, 25, length.out = 700)
+
+df2 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 2))
+df5 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 5))
+df10 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 10))
+
+p <- plot_ly() |>
+  add_lines(
+    data = df2,
+    x = ~x,
+    y = ~y,
+    name = "χ²(2)",
+    line = list(color = plot_cols$green, width = 3.4),
+    text = ~paste0("<b>χ²(2)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df5,
+    x = ~x,
+    y = ~y,
+    name = "χ²(5)",
+    line = list(color = plot_cols$red, width = 3.4),
+    text = ~paste0("<b>χ²(5)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df10,
+    x = ~x,
+    y = ~y,
+    name = "χ²(10)",
+    line = list(color = plot_cols$secondary, width = 3.4),
+    text = ~paste0("<b>χ²(10)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  )
+
+plotly_slide_layout(
+  p,
+  title = "Chi-square distributions by degrees of freedom",
+  x_title = "x",
+  y_title = "Density",
+  height = 360,
+  showlegend = TRUE
 )
-ggplot(df_plot, aes(x, y, colour=dist, fill=dist)) +
-  geom_area(alpha=0.4, position="identity") +
-  geom_line(size=1.2) +
-  scale_colour_manual(values=c("#00BA38","#F8766D","#619CFF")) +
-  scale_fill_manual(values=c("#00BA38","#F8766D","#619CFF")) +
-  labs(x="x", y="Density", colour=NULL, fill=NULL) +
-  theme_minimal(base_size=12) +
-  theme(panel.grid=element_blank(), legend.position="top")
 ```
 
 ::: {.thinkbox .fragment}
-**Key fact.** The chi-square distribution is always positive and right-skewed. It plays a central role in tests for variance and for categorical data (Chapter 7+).
+**Key fact.** The chi-square distribution is always positive and
+right-skewed. It plays a central role in tests for variance and for
+categorical data (Chapter 7+).
 :::
 
----
+------------------------------------------------------------------------
 
 ## Chi-Square in R
 
-:::: {.two-col-lean}
-::: {.col}
+:::::: two-col-lean
+::: col
 ```{webr}
 #| autorun: false
 
@@ -1098,37 +1718,38 @@ curve(dchisq(x, df = 5), from = 0, to = 20,
 ```
 :::
 
-::: {.col}
-::: {.defbox}
+:::: col
+::: defbox
 **Mean & Variance**
 
 For $X \sim \chi^2_k$:
 
 $$E[X] = k, \qquad \text{Var}(X) = 2k$$
 
-As $k \to \infty$, the chi-square distribution approaches a normal distribution (by the CLT).
-:::
+As $k \to \infty$, the chi-square distribution approaches a normal
+distribution (by the CLT).
 :::
 ::::
+::::::
 
----
+------------------------------------------------------------------------
 
 ## Example: Chi-Square Probability {.scrollable}
 
-::: {.taskbox}
-Let $X \sim \chi^2_{8}$.
+::: taskbox
+[Example]{.label} Let $X \sim \chi^2_{8}$.
 
 **(a)** Find $P(X \leq 15.507)$.
 
 **(b)** Find the 95th percentile of $X$.
 
-**(c)** If $Z_1, Z_2, Z_3 \overset{\text{iid}}{\sim} N(0,1)$, what is the distribution of $Z_1^2 + Z_2^2 + Z_3^2$?
+**(c)** If $Z_1, Z_2, Z_3 \overset{\text{iid}}{\sim} N(0,1)$, what is
+the distribution of $Z_1^2 + Z_2^2 + Z_3^2$?
 
 **(d)** What are $E[X]$ and $\text{Var}(X)$?
 :::
 
----
-
+------------------------------------------------------------------------
 
 ## Chi-Square Example — Check in R with Plot
 
@@ -1176,25 +1797,27 @@ abline(v = cutoff, lty = 2, col = "#f9a825", lwd = 2)
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Example
 
-$Z_1, Z_2, Z_3, Z_4 \overset{\text{iid}}{\sim} N(0,1)$. What is the distribution of
+$Z_1, Z_2, Z_3, Z_4 \overset{\text{iid}}{\sim} N(0,1)$. What is the
+distribution of
 
 $$W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2 \; ?$$
-::::
+:::
 
-- $W \sim N(0,4)$
-- $W \sim \chi^2_2$
-- [$W \sim \chi^2_4$]{.correct data-explanation="The sum of squares of k independent standard normal variables has a chi-square distribution with k degrees of freedom. Here k = 4."}
-- $W \sim t_4$
+-   $W \sim N(0,4)$
+-   $W \sim \chi^2_2$
+-   [$W \sim \chi^2_4$]{.correct
+    data-explanation="The sum of squares of k independent standard normal variables has a chi-square distribution with k degrees of freedom. Here k = 4."}
+-   $W \sim t_4$
 
----
+------------------------------------------------------------------------
 
 ## 4.1.3 The Student's $t$-Distribution
 
-::: {.defbox}
-**Student's $t$ Distribution** — $T \sim t_\nu$
+::: defbox
+**Student's** $t$ Distribution — $T \sim t_\nu$
 
 If $Z \sim N(0,1)$ and $U \sim \chi^2_\nu$ are **independent**, then
 
@@ -1206,50 +1829,81 @@ $$f_T(t;\nu) = \frac{\Gamma\!\left(\frac{\nu+1}{2}\right)}{\sqrt{\pi\nu}\,\Gamma
 :::
 
 ::: {.warnbox .fragment}
-The $t$-distribution has **heavier tails** than the normal. As $\nu \to \infty$, $t_\nu \to N(0,1)$.
+The $t$-distribution has **heavier tails** than the normal. As
+$\nu \to \infty$, $t_\nu \to N(0,1)$.
 :::
 
----
+------------------------------------------------------------------------
 
 ## $t$ vs Normal: Heavier Tails
 
 ```{r}
 #| echo: false
-#| fig-width: 9
-#| fig-height: 3.6
-#| fig-align: center
-x_vals <- seq(-4, 4, length.out = 400)
-df_t <- rbind(
-  data.frame(x=x_vals, y=dnorm(x_vals),       dist="Standard Normal"),
-  data.frame(x=x_vals, y=dt(x_vals, df=2),    dist="t(2)"),
-  data.frame(x=x_vals, y=dt(x_vals, df=9),    dist="t(9)")
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+x_vals <- seq(-4, 4, length.out = 700)
+
+df_n  <- data.frame(x = x_vals, y = dnorm(x_vals))
+df_t2 <- data.frame(x = x_vals, y = dt(x_vals, df = 2))
+df_t9 <- data.frame(x = x_vals, y = dt(x_vals, df = 9))
+
+p <- plot_ly() |>
+  add_lines(
+    data = df_n,
+    x = ~x,
+    y = ~y,
+    name = "Standard Normal",
+    line = list(color = plot_cols$red, width = 3.4),
+    text = ~paste0("<b>Standard Normal</b><br>Value: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df_t2,
+    x = ~x,
+    y = ~y,
+    name = "t(2)",
+    line = list(color = plot_cols$green, width = 3.4, dash = "dash"),
+    text = ~paste0("<b>t(2)</b><br>Value: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df_t9,
+    x = ~x,
+    y = ~y,
+    name = "t(9)",
+    line = list(color = plot_cols$secondary, width = 3.4, dash = "dash"),
+    text = ~paste0("<b>t(9)</b><br>Value: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  )
+
+plotly_slide_layout(
+  p,
+  title = "Student's t distribution has heavier tails than the normal",
+  x_title = "Value",
+  y_title = "Density",
+  height = 360,
+  showlegend = TRUE
 )
-ggplot(df_t, aes(x, y, colour=dist, linetype=dist)) +
-  geom_line(size=1.3) +
-  scale_colour_manual(values=c("#F8766D","#00BA38","#619CFF")) +
-  scale_linetype_manual(values=c("solid","dashed","dashed")) +
-  labs(x="t", y="Density", colour=NULL, linetype=NULL) +
-  theme_minimal(base_size=12) +
-  theme(panel.grid=element_blank(), legend.position="top")
 ```
 
 ::: {.thinkbox .fragment}
-**Why does this matter?** When estimating a mean from a small sample with unknown $\sigma$, we use $t$ critical values — they are larger than $z$ values, reflecting extra uncertainty.
+**Why does this matter?** When estimating a mean from a small sample
+with unknown $\sigma$, we use $t$ critical values — they are larger than
+$z$ values, reflecting extra uncertainty.
 :::
 
----
+------------------------------------------------------------------------
 
 ## $t$-Distribution: Interactive Tail Comparison
 
-<div id="t-tail-box" style="border:1px solid #d8dee2; border-radius:10px; padding:12px 16px; background:white; font-size:0.72em;">
-
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:10px;">
-
+::::::::: {#t-tail-box style="border:1px solid #d8dee2; border-radius:10px; padding:12px 16px; background:white; font-size:0.72em;"}
+::::: {style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:10px;"}
 <div>
+
 <label style="font-weight:800; color:#004d40; font-size:1.05em;">
-Degrees of Freedom (ν): <span id="t-df-label">5</span>
-</label>
-<input
+Degrees of Freedom (ν): [5]{#t-df-label} </label> <input
   id="t-df-slider"
   type="range"
   min="2"
@@ -1259,13 +1913,13 @@ Degrees of Freedom (ν): <span id="t-df-label">5</span>
   oninput="tTailUpdate()"
   style="width:100%; accent-color:#00695c; margin-top:8px;"
 >
+
 </div>
 
 <div>
-<label style="font-weight:800; color:#004d40; font-size:1.05em;">
-Tail cutoff (c): <span id="t-cutoff-label">2</span>
-</label>
-<input
+
+<label style="font-weight:800; color:#004d40; font-size:1.05em;"> Tail
+cutoff (c): [2]{#t-cutoff-label} </label> <input
   id="t-cutoff-slider"
   type="range"
   min="0.5"
@@ -1275,29 +1929,29 @@ Tail cutoff (c): <span id="t-cutoff-label">2</span>
   oninput="tTailUpdate()"
   style="width:100%; accent-color:#00695c; margin-top:8px;"
 >
-</div>
 
 </div>
+:::::
 
-<div id="t-tail-plot" class="plotly-widget plotly-widget-centered"></div>
+<canvas id="t-tail-canvas" width="1100" height="310" style="width:100%; height:260px; display:block;">
 
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; text-align:center;">
+</canvas>
 
-<div id="t-tail-readout" style="background:rgba(97,156,255,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
-P(|T| &gt; 2) = —
-</div>
+::::: {style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; text-align:center;"}
+::: {#t-tail-readout style="background:rgba(97,156,255,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;"}
+P(\|T\| \> 2) = —
+:::
 
-<div id="z-tail-readout" style="background:rgba(248,118,109,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
-P(|Z| &gt; 2) = —
-</div>
+::: {#z-tail-readout style="background:rgba(248,118,109,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;"}
+P(\|Z\| \> 2) = —
+:::
+:::::
+:::::::::
 
-</div>
-
-</div>
-
+```{=html}
 <script>
 window.tTailUpdate = function () {
-  var plot = document.getElementById("t-tail-plot");
+  var canvas = document.getElementById("t-tail-canvas");
   var dfSlider = document.getElementById("t-df-slider");
   var cutoffSlider = document.getElementById("t-cutoff-slider");
   var dfLabel = document.getElementById("t-df-label");
@@ -1305,7 +1959,7 @@ window.tTailUpdate = function () {
   var tReadout = document.getElementById("t-tail-readout");
   var zReadout = document.getElementById("z-tail-readout");
 
-  if (!plot || !dfSlider || !cutoffSlider || !dfLabel || !cutoffLabel || !tReadout || !zReadout || !window.Plotly) {
+  if (!canvas || !dfSlider || !cutoffSlider || !dfLabel || !cutoffLabel || !tReadout || !zReadout) {
     return;
   }
 
@@ -1314,6 +1968,12 @@ window.tTailUpdate = function () {
 
   dfLabel.innerHTML = nu;
   cutoffLabel.innerHTML = cutoff.toFixed(1);
+
+  var ctx = canvas.getContext("2d");
+  var width = canvas.width;
+  var height = canvas.height;
+
+  ctx.clearRect(0, 0, width, height);
 
   function logGamma(z) {
     var x = [
@@ -1395,156 +2055,163 @@ window.tTailUpdate = function () {
     return 2 * (1 - normalCdf(c));
   }
 
+  var marginLeft = 65;
+  var marginRight = 30;
+  var marginTop = 20;
+  var marginBottom = 55;
+
+  var plotWidth = width - marginLeft - marginRight;
+  var plotHeight = height - marginTop - marginBottom;
+
   var xmin = -6;
   var xmax = 6;
-  var x = [];
-  var yT = [];
-  var yZ = [];
+  var ymax = 0.45;
+
+  function xScale(x) {
+    return marginLeft + ((x - xmin) / (xmax - xmin)) * plotWidth;
+  }
+
+  function yScale(y) {
+    return marginTop + (1 - y / ymax) * plotHeight;
+  }
+
+  function shadeTail(left, right, densityFun, color) {
+    ctx.beginPath();
+    ctx.moveTo(xScale(left), yScale(0));
+
+    for (var i = 0; i <= 300; i++) {
+      var x = left + (right - left) * i / 300;
+      var y = densityFun(x);
+      ctx.lineTo(xScale(x), yScale(y));
+    }
+
+    ctx.lineTo(xScale(right), yScale(0));
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  ctx.strokeStyle = "#e5e7eb";
+  ctx.lineWidth = 1;
+
+  for (var grid = 0; grid <= 4; grid++) {
+    var yGrid = marginTop + (plotHeight * grid) / 4;
+    ctx.beginPath();
+    ctx.moveTo(marginLeft, yGrid);
+    ctx.lineTo(width - marginRight, yGrid);
+    ctx.stroke();
+  }
+
+  shadeTail(xmin, -cutoff, function (x) { return tDensity(x, nu); }, "rgba(97,156,255,0.22)");
+  shadeTail(cutoff, xmax, function (x) { return tDensity(x, nu); }, "rgba(97,156,255,0.22)");
+
+  ctx.beginPath();
+  ctx.strokeStyle = "#f8766d";
+  ctx.lineWidth = 2.4;
 
   for (var i = 0; i <= 900; i++) {
-    var xVal = xmin + (xmax - xmin) * i / 900;
-    x.push(xVal);
-    yT.push(tDensity(xVal, nu));
-    yZ.push(normalDensity(xVal));
+    var xNorm = xmin + (xmax - xmin) * i / 900;
+    var yNorm = normalDensity(xNorm);
+
+    if (i === 0) {
+      ctx.moveTo(xScale(xNorm), yScale(yNorm));
+    } else {
+      ctx.lineTo(xScale(xNorm), yScale(yNorm));
+    }
   }
 
-  function tailTrace(left, right) {
-    var sx = [];
-    var sy = [];
+  ctx.stroke();
 
-    for (var j = 0; j <= 250; j++) {
-      var sxVal = left + (right - left) * j / 250;
-      sx.push(sxVal);
-      sy.push(tDensity(sxVal, nu));
+  ctx.beginPath();
+  ctx.strokeStyle = "#619cff";
+  ctx.lineWidth = 2.8;
+
+  for (var j = 0; j <= 900; j++) {
+    var xT = xmin + (xmax - xmin) * j / 900;
+    var yT = tDensity(xT, nu);
+
+    if (j === 0) {
+      ctx.moveTo(xScale(xT), yScale(yT));
+    } else {
+      ctx.lineTo(xScale(xT), yScale(yT));
     }
-
-    return {
-      x: sx,
-      y: sy,
-      type: "scatter",
-      mode: "lines",
-      fill: "tozeroy",
-      fillcolor: "rgba(97,156,255,0.22)",
-      line: { color: "rgba(0,0,0,0)" },
-      hoverinfo: "skip",
-      showlegend: false,
-      name: "t tails"
-    };
   }
 
-  var data = [
-    tailTrace(xmin, -cutoff),
-    tailTrace(cutoff, xmax),
-    {
-      x: x,
-      y: yZ,
-      type: "scatter",
-      mode: "lines",
-      line: { color: "#f8766d", width: 2.4 },
-      hovertemplate: "z=%{x:.2f}<br>density=%{y:.3f}<extra>N(0,1)</extra>",
-      name: "N(0,1)"
-    },
-    {
-      x: x,
-      y: yT,
-      type: "scatter",
-      mode: "lines",
-      line: { color: "#619cff", width: 2.8 },
-      hovertemplate: "t=%{x:.2f}<br>density=%{y:.3f}<extra>t(" + nu + ")</extra>",
-      name: "t(" + nu + ")"
-    }
-  ];
+  ctx.stroke();
 
-  var layout = {
-    autosize: true,
-    margin: { l: 42, r: 12, t: 8, b: 42 },
-    xaxis: {
-      range: [xmin, xmax],
-      tickmode: "linear",
-      tick0: -6,
-      dtick: 1,
-      zeroline: false,
-      showgrid: false,
-      title: ""
-    },
-    yaxis: {
-      range: [0, 0.45],
-      showticklabels: false,
-      showgrid: true,
-      gridcolor: "#e5e7eb",
-      zeroline: false,
-      title: ""
-    },
-    shapes: [
-      {
-        type: "line",
-        x0: -cutoff,
-        x1: -cutoff,
-        y0: 0,
-        y1: tDensity(-cutoff, nu),
-        line: { color: "#f9a825", width: 2, dash: "dash" }
-      },
-      {
-        type: "line",
-        x0: cutoff,
-        x1: cutoff,
-        y0: 0,
-        y1: tDensity(cutoff, nu),
-        line: { color: "#f9a825", width: 2, dash: "dash" }
-      }
-    ],
-    legend: {
-      orientation: "h",
-      x: 0.02,
-      y: 0.98,
-      bgcolor: "rgba(255,255,255,0.7)"
-    },
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(0,0,0,0)",
-    hovermode: "closest"
-  };
+  ctx.beginPath();
+  ctx.strokeStyle = "#555";
+  ctx.lineWidth = 1.5;
+  ctx.moveTo(marginLeft, yScale(0));
+  ctx.lineTo(width - marginRight, yScale(0));
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.strokeStyle = "#f9a825";
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 6]);
+  ctx.moveTo(xScale(-cutoff), marginTop);
+  ctx.lineTo(xScale(-cutoff), yScale(0));
+  ctx.moveTo(xScale(cutoff), marginTop);
+  ctx.lineTo(xScale(cutoff), yScale(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = "#2f3437";
+  ctx.font = "14px Arial";
+  ctx.textAlign = "center";
+
+  for (var tick = -6; tick <= 6; tick += 1) {
+    ctx.fillText(tick, xScale(tick), height - 18);
+  }
+
+  ctx.textAlign = "left";
+  ctx.font = "16px Arial";
+
+  ctx.strokeStyle = "#f8766d";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(marginLeft + 10, marginTop + 18);
+  ctx.lineTo(marginLeft + 45, marginTop + 18);
+  ctx.stroke();
+
+  ctx.fillStyle = "#2f3437";
+  ctx.fillText("N(0,1)", marginLeft + 52, marginTop + 23);
+
+  ctx.strokeStyle = "#619cff";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(marginLeft + 10, marginTop + 42);
+  ctx.lineTo(marginLeft + 45, marginTop + 42);
+  ctx.stroke();
+
+  ctx.fillStyle = "#2f3437";
+  ctx.fillText("t(" + nu + ")", marginLeft + 52, marginTop + 47);
 
   var tTail = approxTwoTailT(nu, cutoff);
   var zTail = approxTwoTailZ(cutoff);
 
   tReadout.innerHTML = "P(|T| &gt; " + cutoff.toFixed(1) + ") = " + tTail.toFixed(4);
   zReadout.innerHTML = "P(|Z| &gt; " + cutoff.toFixed(1) + ") = " + zTail.toFixed(4);
-
-  Plotly.react(plot, data, layout, { displayModeBar: false, responsive: true }).then(function () {
-    Plotly.Plots.resize(plot);
-  });
 };
 
-window.tTailScheduleUpdate = function () {
-  [60, 180, 420, 900].forEach(function (delay) {
-    setTimeout(window.tTailUpdate, delay);
-  });
-
-  requestAnimationFrame(function () {
-    requestAnimationFrame(window.tTailUpdate);
-  });
-};
-
-window.tTailScheduleUpdate();
-
-window.addEventListener("load", window.tTailScheduleUpdate);
-window.addEventListener("resize", window.tTailScheduleUpdate);
-window.addEventListener("hashchange", window.tTailScheduleUpdate);
+setTimeout(window.tTailUpdate, 200);
+setTimeout(window.tTailUpdate, 700);
 
 if (window.Reveal) {
-  Reveal.on("ready", window.tTailScheduleUpdate);
   Reveal.on("slidechanged", function () {
-    window.tTailScheduleUpdate();
+    setTimeout(window.tTailUpdate, 150);
   });
 }
 </script>
+```
 
----
+------------------------------------------------------------------------
 
 ## $t$-Distribution in R
 
-:::: {.two-col-lean}
-::: {.col}
+:::::: two-col-lean
+::: col
 ```{webr}
 #| autorun: false
 
@@ -1562,33 +2229,36 @@ qt(0.975, df = c(5, 10, 30, 100, 1000))
 ```
 :::
 
-::: {.col}
-::: {.examplebox}
+:::: col
+::: examplebox
 **`pt(q, df)`** → $P(T \le q)$
 
 **`qt(p, df)`** → inverse CDF
 
-Notice `qt(0.975, df=10) = 2.228` vs `qnorm(0.975) = 1.960`. The $t$ critical value is larger — reflecting extra uncertainty in small samples.
-:::
+Notice `qt(0.975, df=10) = 2.228` vs `qnorm(0.975) = 1.960`. The $t$
+critical value is larger — reflecting extra uncertainty in small
+samples.
 :::
 ::::
+::::::
 
----
+------------------------------------------------------------------------
 
 ## Example: $t$ Critical Values {.scrollable}
 
-::: {.taskbox}
-**(a)** For $T \sim t_{15}$, find $P(T \leq 2.131)$.
+::: taskbox
+[Example]{.label} **(a)** For $T \sim t_{15}$, find $P(T \leq 2.131)$.
 
-**(b)** For $T \sim t_{20}$, find the value $c$ such that $P(-c \leq T \leq c) = 0.95$.
+**(b)** For $T \sim t_{20}$, find the value $c$ such that
+$P(-c \leq T \leq c) = 0.95$.
 
 **(c)** For $T \sim t_{5}$, find $P(|T| > 2.571)$.
 
-**(d)** Compare the 97.5th percentile of $t_{5}$, $t_{30}$, and $N(0,1)$. What do you notice?
+**(d)** Compare the 97.5th percentile of $t_{5}$, $t_{30}$, and
+$N(0,1)$. What do you notice?
 :::
 
-
----
+------------------------------------------------------------------------
 
 ## $t$ Example — Check in R with Plot
 
@@ -1642,97 +2312,202 @@ polygon(c(cutoff, right_x, max(right_x)),
 lines(x, y, lwd = 2, col = "#00695c")
 abline(v = c(-cutoff, cutoff), lty = 2, col = "#f9a825", lwd = 2)
 ```
----
+
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Visual Question
 
-The blue curve has heavier tails than the red normal curve. Why do we use the $t$-distribution instead of the normal for small-sample inference about a mean?
-::::
+The blue curve has heavier tails than the red normal curve. Why do we use
+the $t$-distribution instead of the normal for small-sample inference about
+a mean?
+:::
 
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.1
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
-x_tq <- seq(-4, 4, length.out = 1000)
-df_tq <- rbind(
-  data.frame(x = x_tq, density = dnorm(x_tq), dist = "Normal"),
-  data.frame(x = x_tq, density = dt(x_tq, df = 5), dist = "t with df = 5")
+x <- seq(-4, 4, length.out = 1000)
+df_t <- 3
+
+df_dist <- data.frame(
+  x = x,
+  normal = dnorm(x),
+  t_dist = dt(x, df = df_t)
 )
 
-ggplot(df_tq, aes(x, density, colour = dist)) +
-  geom_line(linewidth = 1.25) +
-  geom_area(data = subset(df_tq, dist == "t with df = 5" & abs(x) > 2),
-            aes(x = x, y = density), inherit.aes = FALSE,
-            fill = "#c8e6f3", alpha = 0.55) +
-  scale_colour_manual(values = c("Normal" = "#f8766d",
-                                 "t with df = 5" = "#00695c"),
-                      guide = "none") +
-  annotate("text", x = -2.7, y = 0.045, label = "heavier tails",
-           colour = "#00695c", fontface = "bold", size = 3.5) +
-  annotate("text", x = 2.7, y = 0.045, label = "heavier tails",
-           colour = "#00695c", fontface = "bold", size = 3.5) +
-  labs(title = "Normal vs t distribution",
-       subtitle = "Heavier tails account for extra uncertainty",
-       x = "Value", y = "Density") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+p <- plot_ly() |>
+  add_lines(
+    data = df_dist,
+    x = ~x,
+    y = ~normal,
+    name = "Normal distribution",
+    line = list(
+      color = "#b91c1c",
+      width = 3.0
+    ),
+    text = ~paste0(
+      "<b>Distribution:</b> Normal",
+      "<br><b>Value:</b> ", round(x, 2),
+      "<br><b>Density:</b> ", round(normal, 4)
+    ),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df_dist,
+    x = ~x,
+    y = ~t_dist,
+    name = paste0("t distribution (df = ", df_t, ")"),
+    line = list(
+      color = plot_cols$main,
+      width = 4.0
+    ),
+    text = ~paste0(
+      "<b>Distribution:</b> t (df = ", df_t, ")",
+      "<br><b>Value:</b> ", round(x, 2),
+      "<br><b>Density:</b> ", round(t_dist, 4)
+    ),
+    hovertemplate = "%{text}<extra></extra>"
+  )
+
+plotly_slide_layout(
+  p,
+  title = "Normal curve compared with a t curve",
+  x_title = "Standardized value",
+  y_title = "Density",
+  height = 300,
+  x_range = c(-4, 4),
+  y_range = c(0, 0.43)
+) |>
+  layout(
+    xaxis = list(
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickvals = seq(-4, 4, by = 1),
+      tickfont = list(size = 12)
+    ),
+    yaxis = list(
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 12)
+    ),
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = 1.12,
+      yanchor = "bottom",
+      font = list(size = 12)
+    ),
+    margin = list(l = 62, r = 25, t = 72, b = 55)
+  ) |>
+  config(
+    displayModeBar = TRUE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = "reset",
+    modeBarButtonsToRemove = c(
+      "lasso2d",
+      "select2d"
+    )
+  )
 ```
 
-- The $t$ is easier to compute
-- [We must estimate $\sigma$ from the data, adding uncertainty — $t$ has heavier tails to account for this]{.correct data-explanation="Replacing unknown sigma with the sample standard deviation adds extra uncertainty. The t distribution has heavier tails than the normal, producing wider and more honest confidence intervals."}
-- The normal distribution is only valid for large populations
-- Small samples always have skewed data
+-   The normal distribution is only valid for large populations
+-   [We must estimate $\sigma$ from the data, adding uncertainty — $t$ has heavier tails to account for this]{.correct
+    data-explanation="For small-sample inference about a mean, the population standard deviation is usually unknown. Estimating it from the sample adds extra uncertainty, so the t-distribution has heavier tails than the normal distribution."}
+-   The $t$ is easier to compute
+-   Small-sample data are always non-normal
 
----
+------------------------------------------------------------------------
 
 ## 4.1.4 The $F$-Distribution
 
-::: {.defbox}
-**$F$ Random Variable** — $F \sim F_{\nu_1, \nu_2}$
+::: defbox
+$F$ Random Variable — $F \sim F_{\nu_1, \nu_2}$
 
-If $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ are **independent**, then
+If $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ are
+**independent**, then
 
 $$F = \frac{U/\nu_1}{V/\nu_2} \sim F_{\nu_1, \nu_2}$$
 
-The $F$ distribution is supported on $(0, \infty)$ and characterised by two degrees of freedom: **numerator** $\nu_1$ and **denominator** $\nu_2$.
+The $F$ distribution is supported on $(0, \infty)$ and characterised by
+two degrees of freedom: **numerator** $\nu_1$ and **denominator**
+$\nu_2$.
 :::
 
 ::: {.examplebox .fragment}
-The $F$ distribution is used to **compare two variances** and is the backbone of **ANOVA** (Analysis of Variance). You will see it a lot in later chapters.
+The $F$ distribution is used to **compare two variances** and is the
+backbone of **ANOVA** (Analysis of Variance). You will see it a lot in
+later chapters.
 :::
 
----
+------------------------------------------------------------------------
 
 ## $F$-Distribution: Shape
 
 ```{r}
 #| echo: false
-#| fig-width: 9
-#| fig-height: 3.4
-#| fig-align: center
-x_f <- seq(0.01, 5, length.out=600)
-df_f <- rbind(
-  data.frame(x=x_f, y=df(x_f,2,5),   dist="F(2,5)"),
-  data.frame(x=x_f, y=df(x_f,5,10),  dist="F(5,10)"),
-  data.frame(x=x_f, y=df(x_f,10,30), dist="F(10,30)")
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+x_f <- seq(0.01, 5, length.out = 700)
+
+df_25   <- data.frame(x = x_f, y = df(x_f, 2, 5))
+df_510  <- data.frame(x = x_f, y = df(x_f, 5, 10))
+df_1030 <- data.frame(x = x_f, y = df(x_f, 10, 30))
+
+p <- plot_ly() |>
+  add_lines(
+    data = df_25,
+    x = ~x,
+    y = ~y,
+    name = "F(2,5)",
+    line = list(color = plot_cols$green, width = 3.4),
+    text = ~paste0("<b>F(2,5)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df_510,
+    x = ~x,
+    y = ~y,
+    name = "F(5,10)",
+    line = list(color = plot_cols$red, width = 3.4),
+    text = ~paste0("<b>F(5,10)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df_1030,
+    x = ~x,
+    y = ~y,
+    name = "F(10,30)",
+    line = list(color = plot_cols$secondary, width = 3.4),
+    text = ~paste0("<b>F(10,30)</b><br>x: ", round(x, 2), "<br>Density: ", round(y, 4)),
+    hovertemplate = "%{text}<extra></extra>"
+  )
+
+plotly_slide_layout(
+  p,
+  title = "F distributions with different degrees of freedom",
+  x_title = "x",
+  y_title = "Density",
+  height = 345,
+  y_range = c(0, 1.2),
+  showlegend = TRUE
 )
-ggplot(df_f, aes(x,y,colour=dist,fill=dist)) +
-  geom_area(alpha=0.4, position="identity") +
-  geom_line(size=1.2) +
-  coord_cartesian(ylim=c(0,1.2)) +
-  scale_colour_manual(values=c("#00BA38","#F8766D","#619CFF")) +
-  scale_fill_manual(values=c("#00BA38","#F8766D","#619CFF")) +
-  labs(x="x", y="Density", colour=NULL, fill=NULL) +
-  theme_minimal(base_size=12) +
-  theme(panel.grid=element_blank(), legend.position="top")
 ```
 
----
+------------------------------------------------------------------------
 
 ## $F$-Distribution in R
 
@@ -1751,42 +2526,47 @@ curve(df(x, df1=5, df2=10), from=0, to=6,
       main="F(5,10) Distribution", ylab="Density")
 ```
 
----
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Example
 
-Which statement correctly describes the relationship between the $\chi^2$ and $F$ distributions?
-::::
+Which statement correctly describes the relationship between the
+$\chi^2$ and $F$ distributions?
+:::
 
-- $F$ is the square of a $\chi^2$ random variable
-- [$F$ is the ratio of two independent $\chi^2$ variables, each divided by its degrees of freedom]{.correct data-explanation="An F random variable is formed by dividing one chi-square variable by its degrees of freedom, then dividing by another independent chi-square variable divided by its degrees of freedom."}
-- $F$ is the sum of two $\chi^2$ random variables
-- $F$ is always symmetric like the normal
+-   $F$ is the square of a $\chi^2$ random variable
+-   [$F$ is the ratio of two independent $\chi^2$ variables, each
+    divided by its degrees of freedom]{.correct
+    data-explanation="An F random variable is formed by dividing one chi-square variable by its degrees of freedom, then dividing by another independent chi-square variable divided by its degrees of freedom."}
+-   $F$ is the sum of two $\chi^2$ random variables
+-   $F$ is always symmetric like the normal
 
----
+------------------------------------------------------------------------
 
 ## Summary Table for Distributions
 
 | Distribution | Parameters | Support | $E[X]$ | Key use |
-|---|---|---|---|---|
+|---------------|---------------|---------------|---------------|---------------|
 | $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | General continuous |
 | $\chi^2_k$ | $k$ (df) | $(0,\infty)$ | $k$ | Variance tests |
 | $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ | Small-sample mean |
 | $F_{\nu_1,\nu_2}$ | $\nu_1, \nu_2$ | $(0,\infty)$ | $\dfrac{\nu_2}{\nu_2-2}$ | Variance ratios |
 
 ::: {.thinkbox .fragment}
-**Connections.** $Z^2 \sim \chi^2_1$; $\;$ $t_\nu^2 \sim F_{1,\nu}$; $\;$ $t_\nu \to N(0,1)$ and $\chi^2_k/k \to 1$ as degrees of freedom grow.
+**Connections.** $Z^2 \sim \chi^2_1$; $\;$ $t_\nu^2 \sim F_{1,\nu}$;
+$\;$ $t_\nu \to N(0,1)$ and $\chi^2_k/k \to 1$ as degrees of freedom
+grow.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Built-in Distribution Calculator
 
-:::: {.two-col-lean}
-::: {.col}
+:::::: two-col-lean
+::: col
 ```{webr}
 #| autorun: false
 
@@ -1806,60 +2586,71 @@ pf(4.75, df1 = 3, df2 = 20)
 ```
 :::
 
-::: {.col}
-::: {.defbox}
+:::: col
+::: defbox
 **Quick reference**
 
-| Dist | CDF | Quantile |
-|---|---|---|
-| Normal | `pnorm` | `qnorm` |
+| Dist     | CDF      | Quantile |
+|----------|----------|----------|
+| Normal   | `pnorm`  | `qnorm`  |
 | $\chi^2$ | `pchisq` | `qchisq` |
-| $t$ | `pt` | `qt` |
-| $F$ | `pf` | `qf` |
+| $t$      | `pt`     | `qt`     |
+| $F$      | `pf`     | `qf`     |
 
 All accept `lower.tail = FALSE` for upper-tail probabilities.
 :::
-:::
 ::::
+::::::
 
----
+------------------------------------------------------------------------
 
 ## 4.2 Sampling Distributions
 
 ::: {.defbox .fragment}
 **Sampling Distribution**
 
-The **probability distribution** of a statistic (such as $\bar{X}$) computed from all possible random samples of a given size $n$ drawn from the same population.
+The **probability distribution** of a statistic (such as $\bar{X}$)
+computed from all possible random samples of a given size $n$ drawn from
+the same population.
 :::
 
-:::: {.two-col}
+::::: two-col
 ::: {.examplebox .fragment}
-**Key idea.** $\bar{X}$ is not a fixed number — it is a **random variable**. Each new sample of size $n$ gives a different value of $\bar{X}$. The sampling distribution describes how those values vary.
+**Key idea.** $\bar{X}$ is not a fixed number — it is a **random
+variable**. Each new sample of size $n$ gives a different value of
+$\bar{X}$. The sampling distribution describes how those values vary.
 :::
-::: {.thinkbox .fragment}
-**Why it matters.** Understanding the variability of $\bar{X}$ from sample to sample is the foundation for confidence intervals and hypothesis tests.
-:::
-::::
 
----
+::: {.thinkbox .fragment}
+**Why it matters.** Understanding the variability of $\bar{X}$ from
+sample to sample is the foundation for confidence intervals and
+hypothesis tests.
+:::
+:::::
+
+------------------------------------------------------------------------
 
 ## Sampling Distribution of $\bar{X}$
 
-::: {.defbox}
+::: defbox
 **Distribution of the sample mean**
 
-If $X_1, \ldots, X_n \overset{\text{iid}}{\sim}$ population with mean $\mu$ and variance $\sigma^2$, then:
+If $X_1, \ldots, X_n \overset{\text{iid}}{\sim}$ population with mean
+$\mu$ and variance $\sigma^2$, then:
 
 $$E[\bar{X}] = \mu \qquad \text{Var}(\bar{X}) = \frac{\sigma^2}{n}$$
 
-The **standard error** of $\bar{X}$ is $\text{SE}(\bar{X}) = \dfrac{\sigma}{\sqrt{n}}$.
+The **standard error** of $\bar{X}$ is
+$\text{SE}(\bar{X}) = \dfrac{\sigma}{\sqrt{n}}$.
 :::
 
 ::: {.warnbox .fragment}
-**Larger $n$ → smaller SE.** Collecting more data shrinks the variability of the sample mean. This is why bigger samples give more precise estimates.
+**Larger** $n$ → smaller SE. Collecting more data shrinks the
+variability of the sample mean. This is why bigger samples give more
+precise estimates.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Sampling Distribution — Simulation
 
@@ -1884,110 +2675,80 @@ curve(dnorm(x, mean = 1, sd = 1/sqrt(n)),
       add = TRUE, col = "#F8766D", lwd = 2)
 ```
 
-::: {.small-text}
-Change `n` to 5 or 2 and re-run. Watch the distribution become less normal.
+::: small-text
+Change `n` to 5 or 2 and re-run. Watch the distribution become less
+normal.
 :::
 
----
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
-## Visual Question
+::: {.callout-note icon="false"}
+## Question
 
-A population has mean $40$ and variance $100$. A random sample of size $25$ is drawn. What is the standard error of $\bar{X}$?
-::::
+A population has mean 40 and variance 100. A random sample of size 25 is
+drawn. What is the standard error of $\bar{X}$?
+:::
 
-```{r}
-#| echo: false
-#| fig-width: 7.2
-#| fig-height: 2.8
-#| fig-align: center
+-   10
+-   4
+-   [2]{.correct
+    data-explanation="The variance is 100, so the standard deviation is sqrt(100) = 10. The standard error is 10 / sqrt(25) = 2."}
+-   0.4
 
-mu <- 40
-sigma <- 10
-n <- 25
-se <- sigma / sqrt(n)
-
-x <- seq(25, 55, length.out = 1000)
-
-df_sequiz <- rbind(
-  data.frame(x = x, y = dnorm(x, mean = mu, sd = sigma), curve = "Population values"),
-  data.frame(x = x, y = dnorm(x, mean = mu, sd = se), curve = "Sample means")
-)
-
-ggplot(df_sequiz, aes(x = x, y = y, colour = curve)) +
-  geom_line(linewidth = 1.2) +
-  scale_colour_manual(values = c("Population values" = "#f9a825",
-                                 "Sample means" = "#00695c"),
-                      guide = "none") +
-  annotate("text", x = 34, y = 0.035,
-           label = "Population values",
-           colour = "#f9a825", fontface = "bold", size = 4.1) +
-  annotate("text", x = 43, y = 0.16,
-           label = "Sample means",
-           colour = "#00695c", fontface = "bold", size = 4.1) +
-  labs(
-    title = "Sampling distributions get narrower as n increases",
-    x = "Value",
-    y = "Density"
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    panel.grid.minor = element_blank(),
-    plot.title = element_text(face = "bold")
-  )
-```
-
-- 10
-- 0.4
-- [2]{.correct data-explanation="The population variance is 100, so the population standard deviation is 10. The standard error of the sample mean is 10 divided by the square root of 25, which equals 2."}
-- 4
-
----
+------------------------------------------------------------------------
 
 ## 4.3 The Central Limit Theorem
 
-::: {.defbox}
+::: defbox
 **Central Limit Theorem (CLT)**
 
-Let $X_1, X_2, \ldots, X_n$ be i.i.d. with $E[X_i] = \mu$ and $\text{Var}(X_i) = \sigma^2 < \infty$. Then as $n \to \infty$:
+Let $X_1, X_2, \ldots, X_n$ be i.i.d. with $E[X_i] = \mu$ and
+$\text{Var}(X_i) = \sigma^2 < \infty$. Then as $n \to \infty$:
 
 $$\frac{\sqrt{n}(\bar{X}_n - \mu)}{\sigma} \;\overset{d}{\longrightarrow}\; N(0,1)$$
 
-Equivalently, for large $n$: $\quad \bar{X}_n \;\dot{\sim}\; N\!\left(\mu,\, \frac{\sigma^2}{n}\right)$
+Equivalently, for large $n$:
+$\quad \bar{X}_n \;\dot{\sim}\; N\!\left(\mu,\, \frac{\sigma^2}{n}\right)$
 :::
 
 ::: {.thinkbox .fragment}
-**Remarkable.** The CLT holds for **any** parent distribution with finite variance — uniform, exponential, Poisson, or anything else. The shape of $\bar{X}$ approaches normal as $n$ grows.
+**Remarkable.** The CLT holds for **any** parent distribution with
+finite variance — uniform, exponential, Poisson, or anything else. The
+shape of $\bar{X}$ approaches normal as $n$ grows.
 :::
 
----
+------------------------------------------------------------------------
 
 ## CLT: What "Large $n$" Means in Practice
 
-:::: {.three-col}
+:::::: three-col
 ::: {.stat-card .fragment}
-<span class="label">Symmetric distributions</span>
-Even $n = 10$–$15$ is often enough. The normal approximation kicks in quickly.
+[Symmetric distributions]{.label} Even $n = 10$–$15$ is often enough.
+The normal approximation kicks in quickly.
 :::
+
 ::: {.stat-card .fragment}
-<span class="label">Moderately skewed</span>
-$n = 30$ is a common rule of thumb. Check with a histogram.
+[Moderately skewed]{.label} $n = 30$ is a common rule of thumb. Check
+with a histogram.
 :::
+
 ::: {.stat-card .fragment}
-<span class="label">Heavily skewed</span>
-May need $n = 50$–$100$ or more. The more extreme the skew, the larger $n$ must be.
+[Heavily skewed]{.label} May need $n = 50$–$100$ or more. The more
+extreme the skew, the larger $n$ must be.
 :::
-::::
+::::::
 
 <br>
 
 ::: {.examplebox .fragment}
-**Practical consequence.** For large $n$, we can use $z$-based confidence intervals and hypothesis tests for $\mu$ even when the parent distribution is unknown or skewed.
+**Practical consequence.** For large $n$, we can use $z$-based
+confidence intervals and hypothesis tests for $\mu$ even when the parent
+distribution is unknown or skewed.
 :::
 
----
+------------------------------------------------------------------------
 
 ## CLT — Simulation Lab in R
 
@@ -2020,14 +2781,15 @@ hist(xbars, breaks=50, freq=FALSE, col="#00695c", border="white",
 curve(dnorm(x, mu_t, se_t), add=TRUE, col="#F8766D", lwd=2)
 ```
 
----
+------------------------------------------------------------------------
 
-## Example: CLT in Action {.scrollable}
+## In-Class Example: CLT in Action {.scrollable}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Assume individual wait times follow a right-skewed exponential distribution.
+:::::: two-col-wide
+:::: col
+::: taskbox
+[In-Class Example]{.label} Assume individual wait times follow a
+right-skewed exponential distribution.
 
 We repeatedly take samples and compute the sample mean.
 
@@ -2035,41 +2797,82 @@ We repeatedly take samples and compute the sample mean.
 
 **(b)** What statistic are we calculating repeatedly?
 
-**(c)** What happens to the sampling distribution of $\bar{X}$ as $n$ increases?
+**(c)** What happens to the sampling distribution of $\bar{X}$ as $n$
+increases?
 
 **(d)** Which theorem explains this pattern?
 :::
-:::
+::::
 
-::: {.col}
+::: col
 ```{r}
-#| fig-width: 5.8
-#| fig-height: 4
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 set.seed(258)
 
-means_5 <- replicate(3000, mean(rexp(5, rate = 1)))
+means_5  <- replicate(3000, mean(rexp(5, rate = 1)))
 means_40 <- replicate(3000, mean(rexp(40, rate = 1)))
 
-df_clt_inclass <- rbind(
-  data.frame(mean_value = means_5, sample_size = "n = 5"),
-  data.frame(mean_value = means_40, sample_size = "n = 40")
-)
+p1 <- plot_ly(
+  x = means_5,
+  type = "histogram",
+  nbinsx = 35,
+  marker = list(color = "rgba(100,116,139,0.42)", line = list(color = "white", width = 1)),
+  hovertemplate = "<b>n = 5</b><br>Sample mean: %{x:.3f}<br>Count: %{y}<extra></extra>",
+  showlegend = FALSE
+) |>
+  layout(
+    title = list(text = "<b>n = 5</b>", x = 0.5, font = list(size = 15, color = plot_cols$text)),
+    xaxis = list(title = "Repeated sample means", showgrid = FALSE, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
+    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
+    paper_bgcolor = "white",
+    plot_bgcolor = "white",
+    margin = list(l = 68, r = 18, t = 42, b = 55)
+  )
 
-ggplot(df_clt_inclass, aes(x = mean_value, fill = sample_size)) +
-  geom_histogram(bins = 35, colour = "white") +
-  facet_wrap(~ sample_size, ncol = 1) +
-  scale_fill_manual(values = c("#fff8e1", "#c8e6f3"), guide = "none") +
-  labs(x = "Repeated sample means", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        strip.text = element_text(face = "bold"))
+p2 <- plot_ly(
+  x = means_40,
+  type = "histogram",
+  nbinsx = 35,
+  marker = list(color = "rgba(37,99,235,0.36)", line = list(color = "white", width = 1)),
+  hovertemplate = "<b>n = 40</b><br>Sample mean: %{x:.3f}<br>Count: %{y}<extra></extra>",
+  showlegend = FALSE
+) |>
+  layout(
+    title = list(text = "<b>n = 40</b>", x = 0.5, font = list(size = 15, color = plot_cols$text)),
+    xaxis = list(title = "Repeated sample means", showgrid = FALSE, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
+    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
+    paper_bgcolor = "white",
+    plot_bgcolor = "white",
+    margin = list(l = 68, r = 18, t = 42, b = 55)
+  )
+
+subplot(p1, p2, nrows = 2, margin = 0.10, titleY = TRUE, titleX = TRUE) |>
+  layout(
+    title = list(
+      text = "<b>CLT in action: repeated sample means</b>",
+      x = 0.02,
+      xanchor = "left",
+      font = list(size = 20, color = plot_cols$text)
+    ),
+    paper_bgcolor = "rgba(0,0,0,0)",
+    margin = list(l = 20, r = 20, t = 62, b = 20),
+    height = 400
+  ) |>
+  config(
+    displaylogo = FALSE,
+    displayModeBar = FALSE,
+    responsive = TRUE,
+    scrollZoom = FALSE
+  )
 ```
 :::
-::::
+::::::
 
----
+------------------------------------------------------------------------
 
 ## CLT in Action - Try It Yourself in R
 
@@ -2101,23 +2904,26 @@ curve(dnorm(x, mean = mean(sample_means), sd = sd(sample_means)),
 # Change sample_size to 40 and rerun.
 ```
 
----
+------------------------------------------------------------------------
 
 ## CLT Example: Poisson Sums {.scrollable}
 
-::: {.taskbox}
-Customers arrive at a bank at rate $\lambda = 4$ per minute. $X_i \sim \text{Pois}(4)$.
+::: taskbox
+[Example]{.label} Customers arrive at a bank at rate $\lambda = 4$ per
+minute. $X_i \sim \text{Pois}(4)$.
 
 **(a)** What are $E[X_i]$ and $\text{Var}(X_i)$?
 
-**(b)** For a sample of $n = 36$ one-minute intervals, find $P(\bar{X} \leq 4.5)$ approximately.
+**(b)** For a sample of $n = 36$ one-minute intervals, find
+$P(\bar{X} \leq 4.5)$ approximately.
 
 **(c)** Find $P(\bar{X} > 3.8)$ approximately.
 
-**(d)** What sample size $n$ would make $P(|\bar{X} - 4| < 0.25) \geq 0.95$?
+**(d)** What sample size $n$ would make
+$P(|\bar{X} - 4| < 0.25) \geq 0.95$?
 :::
 
----
+------------------------------------------------------------------------
 
 ## Poisson CLT — Check in R
 
@@ -2141,56 +2947,181 @@ n_needed <- ceiling((2 * 1.96 / 0.25)^2)
 cat("Minimum n:", n_needed, "\n")
 ```
 
----
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Visual Question
 
-The sample means become more normal as $n$ grows, even though the original data are skewed. What conditions does the CLT require?
-::::
+The sample means become more normal as $n$ grows, even though the original
+data are skewed. What conditions does the CLT require?
+:::
 
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.1
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 set.seed(258)
 
-clt_small <- replicate(2500, mean(rexp(5, rate = 1)))
-clt_large <- replicate(2500, mean(rexp(50, rate = 1)))
+# Skewed original population
+population_values <- rexp(6000, rate = 1)
 
-df_clt_q <- rbind(
-  data.frame(xbar = clt_small, n = "n = 5"),
-  data.frame(xbar = clt_large, n = "n = 50")
+# Repeated sample means from the same skewed population
+n_sample <- 40
+sample_means <- replicate(
+  3000,
+  mean(sample(population_values, size = n_sample, replace = TRUE))
 )
 
-ggplot(df_clt_q, aes(x = xbar)) +
-  geom_histogram(bins = 30, fill = "#00695c", colour = "white") +
-  facet_wrap(~ n, ncol = 2, scales = "free_y") +
-  labs(title = "CLT: repeated sample means from skewed data",
-       subtitle = "Larger n makes the sampling distribution more normal",
-       x = "Sample mean", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        strip.text = element_text(face = "bold"),
-        plot.title = element_text(face = "bold"))
+df_population <- data.frame(value = population_values)
+df_means <- data.frame(value = sample_means)
+
+p_population <- plot_ly(
+  data = df_population,
+  x = ~value,
+  type = "histogram",
+  histnorm = "probability density",
+  nbinsx = 28,
+  marker = list(
+    color = "rgba(110, 126, 145, 0.55)",
+    line = list(color = "rgba(255,255,255,0.75)", width = 1)
+  ),
+  hovertemplate = paste0(
+    "<b>Original value:</b> %{x:.2f}",
+    "<br><b>Density:</b> %{y:.3f}",
+    "<extra></extra>"
+  ),
+  showlegend = FALSE
+) |>
+  layout(
+    title = list(
+      text = "<b>Original data</b><br><span style='font-size:12px'>Skewed individual observations</span>",
+      x = 0.5,
+      xanchor = "center",
+      font = list(size = 15, color = plot_cols$main_dark)
+    ),
+    xaxis = list(
+      title = "Individual value",
+      range = c(0, 5),
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 11),
+      titlefont = list(size = 12)
+    ),
+    yaxis = list(
+      title = "Density",
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 11),
+      titlefont = list(size = 12)
+    ),
+    margin = list(l = 58, r = 20, t = 58, b = 50)
+  )
+
+p_means <- plot_ly(
+  data = df_means,
+  x = ~value,
+  type = "histogram",
+  histnorm = "probability density",
+  nbinsx = 28,
+  marker = list(
+    color = "rgba(0, 105, 92, 0.55)",
+    line = list(color = "rgba(255,255,255,0.75)", width = 1)
+  ),
+  hovertemplate = paste0(
+    "<b>Sample mean:</b> %{x:.2f}",
+    "<br><b>Density:</b> %{y:.3f}",
+    "<extra></extra>"
+  ),
+  showlegend = FALSE
+) |>
+  layout(
+    title = list(
+      text = paste0(
+        "<b>Repeated sample means</b><br>",
+        "<span style='font-size:12px'>More bell-shaped when n = ", n_sample, "</span>"
+      ),
+      x = 0.5,
+      xanchor = "center",
+      font = list(size = 15, color = plot_cols$main_dark)
+    ),
+    xaxis = list(
+      title = "Sample mean",
+      range = c(0.45, 1.55),
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 11),
+      titlefont = list(size = 12)
+    ),
+    yaxis = list(
+      title = "Density",
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickfont = list(size = 11),
+      titlefont = list(size = 12)
+    ),
+    margin = list(l = 58, r = 20, t = 58, b = 50)
+  )
+
+subplot(
+  p_population,
+  p_means,
+  nrows = 1,
+  shareY = FALSE,
+  titleX = TRUE,
+  titleY = TRUE,
+  margin = 0.08
+) |>
+  layout(
+    title = list(
+      text = "<b>CLT: sample means become more bell-shaped than the original data</b>",
+      x = 0.02,
+      xanchor = "left",
+      font = list(size = 18, color = plot_cols$main_dark)
+    ),
+    height = 315,
+    margin = list(l = 65, r = 25, t = 78, b = 55)
+  ) |>
+  config(
+    displayModeBar = TRUE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = "reset",
+    modeBarButtonsToRemove = c(
+      "lasso2d",
+      "select2d"
+    )
+  )
 ```
 
-- The population must be normal
-- The sample size must equal exactly 30
-- [The observations must be i.i.d. with finite mean and variance]{.correct data-explanation="The CLT requires independent observations, identical distribution, and finite variance. The population distribution does not have to be normal."}
-- The population must be symmetric
+-   [The observations should be independent and identically distributed with finite mean and variance]{.correct
+    data-explanation="The CLT says that, under suitable conditions such as independent and identically distributed observations with finite mean and variance, the sampling distribution of the sample mean becomes approximately normal as the sample size grows."}
+-   The population must be normal
+-   The population must be symmetric
+-   The sample size must equal exactly 30
 
----
+------------------------------------------------------------------------
 
 ## 4.4 Convergence in Probability
 
 ::: {.defbox .fragment}
 **Convergence in Probability**
 
-A sequence $X_1, X_2, \ldots$ converges in probability to constant $c$ if for every $\varepsilon > 0$:
+A sequence $X_1, X_2, \ldots$ converges in probability to constant $c$
+if for every $\varepsilon > 0$:
 
 $$\lim_{n\to\infty} P\!\left(|X_n - c| \leq \varepsilon\right) = 1$$
 
@@ -2198,17 +3129,19 @@ Written $X_n \overset{p}{\longrightarrow} c$.
 :::
 
 ::: {.examplebox .fragment}
-**Intuition.** As $n$ grows, the probability that $X_n$ is far from $c$ shrinks to zero. The sequence settles down near $c$.
+**Intuition.** As $n$ grows, the probability that $X_n$ is far from $c$
+shrinks to zero. The sequence settles down near $c$.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Chebyshev's Inequality
 
-::: {.defbox}
+::: defbox
 **Chebyshev's Inequality**
 
-For any random variable $X$ with mean $\mu$ and variance $\sigma^2$, and any $k > 0$:
+For any random variable $X$ with mean $\mu$ and variance $\sigma^2$, and
+any $k > 0$:
 
 $$P(|X - \mu| \geq k) \leq \frac{\sigma^2}{k^2}$$
 
@@ -2216,24 +3149,28 @@ Equivalently: $P(|X - \mu| < k) \geq 1 - \dfrac{\sigma^2}{k^2}$
 :::
 
 ::: {.thinkbox .fragment}
-**No distributional assumption.** Chebyshev's inequality holds for **any** distribution with finite variance. It is the key tool in proving the WLLN.
+**No distributional assumption.** Chebyshev's inequality holds for
+**any** distribution with finite variance. It is the key tool in proving
+the WLLN.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Chebyshev Example {.scrollable}
 
-::: {.taskbox}
-$X$ has mean $\mu = 10$ and standard deviation $\sigma = 3$.
+::: taskbox
+[Example]{.label} $X$ has mean $\mu = 10$ and standard deviation
+$\sigma = 3$.
 
 **(a)** Use Chebyshev to bound $P(|X - 10| \geq 9)$.
 
 **(b)** Use Chebyshev to bound $P(1 < X < 19)$ from below.
 
-**(c)** Now suppose $X$ is actually $N(10, 9)$. Compute the exact probability $P(1 < X < 19)$ and compare with the Chebyshev bound.
+**(c)** Now suppose $X$ is actually $N(10, 9)$. Compute the exact
+probability $P(1 < X < 19)$ and compare with the Chebyshev bound.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Chebyshev — Check in R
 
@@ -2257,14 +3194,15 @@ cat("Exact (normal):", exact, "\n")
 cat("Chebyshev is conservative — exact probability is higher.\n")
 ```
 
----
+------------------------------------------------------------------------
 
 ## 4.4.2 Weak Law of Large Numbers
 
-::: {.defbox}
+::: defbox
 **Weak Law of Large Numbers (WLLN)**
 
-Let $X_1, X_2, \ldots$ be i.i.d. with $E[X_i] = \mu$ and $\text{Var}(X_i) = \sigma^2 < \infty$. Then for any $\varepsilon > 0$:
+Let $X_1, X_2, \ldots$ be i.i.d. with $E[X_i] = \mu$ and
+$\text{Var}(X_i) = \sigma^2 < \infty$. Then for any $\varepsilon > 0$:
 
 $$P\!\left(\left|\bar{X}_n - \mu\right| \geq \varepsilon\right) \longrightarrow 0 \quad \text{as } n \to \infty$$
 
@@ -2272,44 +3210,46 @@ Written $\bar{X}_n \overset{p}{\longrightarrow} \mu$.
 :::
 
 ::: {.warnbox .fragment}
-This does **not** say $\bar{X}_n = \mu$ for large $n$. It says the probability of being far from $\mu$ goes to zero. Individual realisations can still deviate.
+This does **not** say $\bar{X}_n = \mu$ for large $n$. It says the
+probability of being far from $\mu$ goes to zero. Individual
+realisations can still deviate.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Proof Sketch: WLLN via Chebyshev
 
-:::: {.two-col-lean}
-::: {.col}
-::: {.examplebox}
+::::::: two-col-lean
+:::: col
+::: examplebox
 **Key steps**
 
-1. $\text{Var}(\bar{X}_n) = \dfrac{\sigma^2}{n}$
+1.  $\text{Var}(\bar{X}_n) = \dfrac{\sigma^2}{n}$
 
-2. Apply Chebyshev with $k = \varepsilon$:
+2.  Apply Chebyshev with $k = \varepsilon$:
 
 $$P\!\left(|\bar{X}_n - \mu| \geq \varepsilon\right) \leq \frac{\sigma^2}{n\varepsilon^2}$$
 
-3. As $n \to \infty$, right side $\to 0$.
+3.  As $n \to \infty$, right side $\to 0$.
 
-4. Since probability $\geq 0$, conclude the limit is $0$. $\square$
-:::
-:::
-
-::: {.col}
-::: {.thinkbox}
-**What does the proof need?**
-
-- Finite variance $\sigma^2$
-- Independence (for $\text{Var}(\bar{X}_n) = \sigma^2/n$)
-- Identical distribution (for common $\mu$ and $\sigma^2$)
-
-The CLT is not required — Chebyshev alone is enough.
-:::
+4.  Since probability $\geq 0$, conclude the limit is $0$. $\square$
 :::
 ::::
 
----
+:::: col
+::: thinkbox
+**What does the proof need?**
+
+-   Finite variance $\sigma^2$
+-   Independence (for $\text{Var}(\bar{X}_n) = \sigma^2/n$)
+-   Identical distribution (for common $\mu$ and $\sigma^2$)
+
+The CLT is not required — Chebyshev alone is enough.
+:::
+::::
+:::::::
+
+------------------------------------------------------------------------
 
 ## WLLN — Simulation
 
@@ -2331,7 +3271,7 @@ plot(trial, rmean, type = "l", col = "#619CFF", lwd = 1.5,
 abline(h = p, lty = 2, col = "black")
 ```
 
----
+------------------------------------------------------------------------
 
 ## WLLN — Multiple Paths
 
@@ -2356,23 +3296,26 @@ for(i in 2:8){
 abline(h=p, lty=2, lwd=2, col="black")
 ```
 
----
+------------------------------------------------------------------------
 
 ## Example: Poisson WLLN {.scrollable}
 
-::: {.taskbox}
-Let $X_i \overset{\text{iid}}{\sim} \text{Poisson}(\lambda = 3)$ for $i = 1, 2, \ldots$
+::: taskbox
+[Example]{.label} Let
+$X_i \overset{\text{iid}}{\sim} \text{Poisson}(\lambda = 3)$ for
+$i = 1, 2, \ldots$
 
 **(a)** State $E[X_i]$ and $\text{Var}(X_i)$.
 
-**(b)** Apply Chebyshev's inequality to bound $P(|\bar{X}_n - 3| \geq \varepsilon)$.
+**(b)** Apply Chebyshev's inequality to bound
+$P(|\bar{X}_n - 3| \geq \varepsilon)$.
 
 **(c)** Show that $\bar{X}_n \overset{p}{\longrightarrow} 3$.
 
 **(d)** Simulate the convergence in R for $n = 500$ trials.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Poisson WLLN — Check in R
 
@@ -2396,62 +3339,84 @@ plot(1:n, cumsum(x)/(1:n), type="l", col="#00695c", lwd=1.5,
 abline(h=lambda, lty=2)
 ```
 
----
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Visual Question
 
-The graph shows the Chebyshev bound used in the standard proof of the Weak Law of Large Numbers. Which mathematical tool is being used?
-::::
+The graph shows the Chebyshev bound used in the standard proof of the
+Weak Law of Large Numbers. Which mathematical tool is being used?
+:::
 
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.05
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 n_vals_q <- seq(10, 500, by = 5)
 eps_q <- 0.25
 sigma2_q <- 3
 bound_q <- sigma2_q / (n_vals_q * eps_q^2)
 
-df_cheb_q <- data.frame(n = n_vals_q, bound = bound_q)
+df_cheb <- data.frame(n = n_vals_q, bound = bound_q)
 
-ggplot(df_cheb_q, aes(n, bound)) +
-  geom_line(linewidth = 1.15, colour = "#00695c") +
-  geom_hline(yintercept = 0, linetype = "dashed", colour = "#f9a825") +
-  annotate("text", x = 330, y = max(bound_q) * 0.25,
-           label = "Bound shrinks toward 0 as n grows",
-           colour = "#004d40", fontface = "bold", size = 3.6) +
-  labs(title = "WLLN proof idea",
-       subtitle = "Control the probability of being far from the mean",
-       x = "Sample size n", y = "Upper bound") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+p <- plot_ly() |>
+  add_lines(
+    data = df_cheb,
+    x = ~n,
+    y = ~bound,
+    line = list(color = plot_cols$main, width = 3.4),
+    text = ~paste0("<b>n:</b> ", n, "<br><b>Upper bound:</b> ", round(bound, 4)),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  )
+
+annotations <- list(
+  list(
+    x = 330,
+    y = max(bound_q) * 0.25,
+    text = "<b>Bound shrinks toward 0 as n grows</b>",
+    showarrow = FALSE,
+    font = list(size = 14.5, color = plot_cols$main_dark)
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "WLLN proof idea",
+  x_title = "Sample size n",
+  y_title = "Upper bound",
+  height = 255,
+  annotations = annotations,
+  margin = list(l = 64, r = 22, t = 52, b = 50)
+)
 ```
 
-- The Central Limit Theorem
-- [Chebyshev's Inequality]{.correct data-explanation="Applying Chebyshev's Inequality to the sample mean gives an upper bound that shrinks to 0 as n grows. No normality assumption is needed."}
-- Jensen's Inequality
-- The Empirical Rule
+-   The Central Limit Theorem
+-   [Chebyshev's Inequality]{.correct
+    data-explanation="Applying Chebyshev's Inequality to the sample mean gives an upper bound that shrinks to 0 as n grows. No normality assumption is needed."}
+-   Jensen's Inequality
+-   The Empirical Rule
 
----
+------------------------------------------------------------------------
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Visual Question
 
-A fair die is rolled repeatedly. The running average settles near the dashed line. By the WLLN, what value does X̄ₙ converge to in probability?
-::::
+A fair die is rolled repeatedly. The running average settles near the
+dashed line. By the WLLN, what value does X̄ₙ converge to in probability?
+:::
 
 ```{r}
 #| echo: false
-#| fig-width: 7.2
-#| fig-height: 2.9
-#| fig-align: center
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 set.seed(258)
 
@@ -2459,45 +3424,67 @@ n_rolls <- 120
 rolls <- sample(1:6, size = n_rolls, replace = TRUE)
 running_avg <- cumsum(rolls) / seq_along(rolls)
 
-df_diequiz <- data.frame(
+df_die <- data.frame(
   roll = 1:n_rolls,
   running_avg = running_avg
 )
 
-ggplot(df_diequiz, aes(x = roll, y = running_avg)) +
-  geom_line(linewidth = 1.05, colour = "#00695c") +
-  geom_hline(yintercept = 3.5, linetype = "dashed", colour = "#f9a825", linewidth = 1.1) +
-  scale_x_continuous(breaks = seq(0, 120, by = 20)) +
-  coord_cartesian(xlim = c(1, 120), ylim = c(1, 6)) +
-  labs(
-    title = "Law of Large Numbers for a fair die",
-    x = "Number of rolls",
-    y = "Running average"
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(
-    panel.grid.minor = element_blank(),
-    plot.title = element_text(face = "bold")
+p <- plot_ly() |>
+  add_lines(
+    data = df_die,
+    x = ~roll,
+    y = ~running_avg,
+    line = list(color = plot_cols$main, width = 3.4),
+    text = ~paste0("<b>Roll number:</b> ", roll, "<br><b>Running average:</b> ", round(running_avg, 3)),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
   )
+
+shapes <- list(
+  list(
+    type = "line",
+    x0 = 1,
+    x1 = 120,
+    y0 = 3.5,
+    y1 = 3.5,
+    line = list(color = plot_cols$accent, width = 2.4, dash = "dash")
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Law of Large Numbers for a fair die",
+  x_title = "Number of rolls",
+  y_title = "Running average",
+  height = 285,
+  x_range = c(1, 120),
+  y_range = c(1, 6),
+  shapes = shapes,
+  margin = list(l = 64, r = 22, t = 52, b = 50)
+)
 ```
 
-- 3
-- 6
-- 4
-- [3.5]{.correct data-explanation="For a fair die, the expected value is (1 + 2 + 3 + 4 + 5 + 6) divided by 6, which is 3.5. The Weak Law says the running sample mean converges in probability to that value."}
+-   3
+-   6
+-   4
+-   [3.5]{.correct
+    data-explanation="For a fair die, the expected value is (1 + 2 + 3 + 4 + 5 + 6) divided by 6, which is 3.5. The Weak Law says the running sample mean converges in probability to that value."}
 
----
+------------------------------------------------------------------------
 
-## Example: Law of Large Numbers {.scrollable}
+## In-Class Example: Law of Large Numbers {.scrollable}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-A fair coin is flipped many times. Let $X_i=1$ if the flip is heads and $X_i=0$ if the flip is tails.
+:::::: two-col-wide
+:::: col
+::: taskbox
+[In-Class Example]{.label} A fair coin is flipped many times. Let $X_i=1$
+if the flip is heads and $X_i=0$ if the flip is tails.
 
 The true population mean is:
 
-$$\mu = P(\text{Heads}) = 0.5$$
+$$
+\mu = P(\text{Heads}) = 0.5
+$$
 
 **(a)** What does the running sample mean represent?
 
@@ -2507,37 +3494,106 @@ $$\mu = P(\text{Heads}) = 0.5$$
 
 **(d)** Which result explains this behaviour?
 :::
-:::
+::::
 
-::: {.col}
+::: col
 ```{r}
-#| fig-width: 5.8
-#| fig-height: 4
-#| fig-align: center
 #| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
 
 set.seed(258)
 
-flips <- rbinom(300, size = 1, prob = 0.5)
-running_mean <- cumsum(flips) / seq_along(flips)
+n_flips <- 2000
+flips <- rbinom(n_flips, size = 1, prob = 0.5)
 
-df_coin_inclass <- data.frame(
-  flip_number = seq_along(flips),
-  running_mean = running_mean
+df_lln <- data.frame(
+  flip_number = 1:n_flips,
+  running_mean = cumsum(flips) / (1:n_flips),
+  true_mean = 0.5
 )
 
-ggplot(df_coin_inclass, aes(x = flip_number, y = running_mean)) +
-  geom_line(linewidth = 1.05, colour = "#00695c") +
-  geom_hline(yintercept = 0.5, linetype = "dashed", colour = "#f9a825", linewidth = 1.1) +
-  annotate("text", x = 240, y = 0.54, label = "True mean = 0.5", colour = "#f9a825", fontface = "bold") +
-  labs(x = "Number of coin flips", y = "Running proportion of heads") +
-  ylim(0, 1) +
-  theme(panel.grid.minor = element_blank())
+p <- plot_ly() |>
+  add_lines(
+    data = df_lln,
+    x = ~flip_number,
+    y = ~running_mean,
+    name = "Running proportion of heads",
+    line = list(
+      color = plot_cols$main,
+      width = 3.2
+    ),
+    text = ~paste0(
+      "<b>Flip number:</b> ", flip_number,
+      "<br><b>Running proportion of heads:</b> ", round(running_mean, 3)
+    ),
+    hovertemplate = "%{text}<extra></extra>"
+  ) |>
+  add_lines(
+    data = df_lln,
+    x = ~flip_number,
+    y = ~true_mean,
+    name = "True mean = 0.5",
+    line = list(
+      color = plot_cols$accent,
+      width = 2.6,
+      dash = "dash"
+    ),
+    hoverinfo = "skip"
+  )
+
+plotly_slide_layout(
+  p,
+  title = "",
+  x_title = "Number of coin flips",
+  y_title = "Running proportion of heads",
+  height = 430,
+  x_range = c(1, n_flips),
+  y_range = c(0, 1)
+) |>
+  layout(
+    xaxis = list(
+      showgrid = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickvals = c(1, 250, 500, 1000, 1500, 2000),
+      tickfont = list(size = 12)
+    ),
+    yaxis = list(
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.08)",
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      zeroline = FALSE,
+      tickvals = seq(0, 1, by = 0.25),
+      tickfont = list(size = 12)
+    ),
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = 1.08,
+      yanchor = "bottom",
+      font = list(size = 11)
+    ),
+    margin = list(l = 72, r = 20, t = 45, b = 62)
+  ) |>
+  config(
+    displayModeBar = TRUE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = "reset",
+    modeBarButtonsToRemove = c(
+      "lasso2d",
+      "select2d"
+    )
+  )
 ```
 :::
-::::
-
----
+::::::
+------------------------------------------------------------------------
 
 ## Law of Large Numbers - Check in R
 
@@ -2562,14 +3618,15 @@ abline(h = 0.5, lty = 2, col = "#f9a825", lwd = 2)
 tail(running_mean)
 ```
 
----
+------------------------------------------------------------------------
 
 ## Empirical Probability Connection
 
-::: {.defbox}
+::: defbox
 **Empirical Probability from the WLLN**
 
-Define indicator $X_i = \mathbf{1}[\text{event } A \text{ occurs on trial } i]$.
+Define indicator
+$X_i = \mathbf{1}[\text{event } A \text{ occurs on trial } i]$.
 
 Then $E[X_i] = P(A)$, and by the WLLN:
 
@@ -2577,51 +3634,63 @@ $$\bar{X}_n = \frac{\text{number of times } A \text{ occurs}}{n} \;\overset{p}{\
 :::
 
 ::: {.examplebox .fragment}
-**Coin flip.** Tossing a fair coin: $P(\text{heads}) = 0.5$. After many flips, the proportion of heads converges to $0.5$. This is precisely the WLLN at work.
+**Coin flip.** Tossing a fair coin: $P(\text{heads}) = 0.5$. After many
+flips, the proportion of heads converges to $0.5$. This is precisely the
+WLLN at work.
 :::
 
----
+------------------------------------------------------------------------
 
 ## Chapter Summary {.compact}
 
-:::: {.three-col}
+:::::: three-col
 ::: {.card .fragment}
-<span class="label">Key Distributions</span>
-$N(\mu,\sigma^2)$ for continuous data; $\chi^2_k$ for variance; $t_\nu$ for small-sample means; $F_{\nu_1,\nu_2}$ for variance ratios.
+[Key Distributions]{.label} $N(\mu,\sigma^2)$ for continuous data;
+$\chi^2_k$ for variance; $t_\nu$ for small-sample means;
+$F_{\nu_1,\nu_2}$ for variance ratios.
 :::
+
 ::: {.card .fragment}
-<span class="label">CLT</span>
-For i.i.d. data with finite variance, $\bar{X}_n$ is approximately $N(\mu, \sigma^2/n)$ for large $n$, regardless of the parent distribution.
+[CLT]{.label} For i.i.d. data with finite variance, $\bar{X}_n$ is
+approximately $N(\mu, \sigma^2/n)$ for large $n$, regardless of the
+parent distribution.
 :::
+
 ::: {.card .fragment}
-<span class="label">LLN</span>
-$\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle near the population mean. Proof uses Chebyshev's inequality.
+[LLN]{.label} $\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle
+near the population mean. Proof uses Chebyshev's inequality.
 :::
-::::
+::::::
 
 <br>
 
 ::: {.thinkbox .fragment}
-**One slide takeaway.** The CLT and LLN together justify why normal-based inference (confidence intervals, $t$-tests) works in practice. Learn the distributions now — everything in Chapters 5+ builds on them.
+**One slide takeaway.** The CLT and LLN together justify why
+normal-based inference (confidence intervals, $t$-tests) works in
+practice. Learn the distributions now — everything in Chapters 5+ builds
+on them.
 :::
 
----
+------------------------------------------------------------------------
 
-## Bonus: Applying the CLT {.scrollable}
+## Bonus Example: Applying the CLT {.scrollable}
 
-::: {.taskbox}
-Let $X \sim \text{Uniform}(0, 1)$, so $E[X] = 0.5$ and $\text{Var}(X) = 1/12$.
+::: taskbox
+[Bonus Example]{.label} Let $X \sim \text{Uniform}(0, 1)$, so
+$E[X] = 0.5$ and $\text{Var}(X) = 1/12$.
 
-**(a)** For $n = 48$ i.i.d. draws, find $P(\bar{X} \leq 0.52)$ approximately.
+**(a)** For $n = 48$ i.i.d. draws, find $P(\bar{X} \leq 0.52)$
+approximately.
 
 **(b)** Find $P(0.48 \leq \bar{X} \leq 0.52)$ approximately.
 
-**(c)** Simulate the sampling distribution and overlay the CLT approximation. Do they agree?
+**(c)** Simulate the sampling distribution and overlay the CLT
+approximation. Do they agree?
 :::
 
----
+------------------------------------------------------------------------
 
-## Bonus — Check in R
+## Bonus Example — Check in R
 
 ```{webr}
 #| autorun: false
@@ -2642,16 +3711,18 @@ hist(xbars, breaks=50, freq=FALSE, col="#00695c", border="white",
 curve(dnorm(x, mu, se), add=TRUE, col="#F8766D", lwd=2)
 ```
 
----
+------------------------------------------------------------------------
 
 ## Up Next
 
-::: {.examplebox}
+::: examplebox
 **Chapter 5 — Confidence Intervals**
 
-We use the CLT and the $t$-distribution to build **confidence intervals** for unknown population means and proportions. You will finally answer: *"How sure are we that $\bar{x}$ is close to $\mu$?"*
+We use the CLT and the $t$-distribution to build **confidence
+intervals** for unknown population means and proportions. You will
+finally answer: *"How sure are we that* $\bar{x}$ is close to $\mu$?"
 :::
 
-<div class="home-button-row">
+::: home-button-row
 <a href="../index.html" class="home-button">Back to Homepage</a>
-</div>
+:::

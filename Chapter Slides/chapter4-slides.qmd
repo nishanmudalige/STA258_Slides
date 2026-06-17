@@ -149,7 +149,8 @@ plotly_slide_layout <- function(
         ticks = "outside",
         ticklen = 5,
         tickcolor = plot_cols$border,
-        automargin = TRUE
+        automargin = TRUE,
+        rangemode = "tozero"
       ),
       showlegend = showlegend,
       legend = list(
@@ -240,9 +241,9 @@ plotly_slide_layout <- function(
   gap: 28px;
   align-items: start;
 }
-.two-col       { grid-template-columns: 1fr 1fr; }
-.two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
-.two-col-wide  { grid-template-columns: 1.1fr 0.9fr; }
+.two-col       { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.two-col-lean  { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
+.two-col-wide  { grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr); }
 .three-col     { grid-template-columns: repeat(3, 1fr); }
 .one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
@@ -479,10 +480,28 @@ plotly_slide_layout <- function(
 .reveal .html-widget,
 .reveal .plotly {
   margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.reveal .two-col-wide .col:last-child .html-widget,
+.reveal .two-col-wide .col:last-child .plotly {
+  width: min(100%, 460px) !important;
+  max-width: 460px !important;
 }
 
 .reveal .plot-container {
   border-radius: 10px;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.reveal .svg-container,
+.reveal .main-svg {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .reveal section.quiz-question .html-widget {
@@ -545,6 +564,35 @@ plotly_slide_layout <- function(
   margin: 0 auto;
 }
 </style>
+```
+
+```{=html}
+<script>
+function resizeChapter4Plotly() {
+  if (!window.Plotly) return;
+  document.querySelectorAll(".plotly.html-widget, .js-plotly-plot").forEach(function(el) {
+    var plot = el.classList.contains("js-plotly-plot") ? el : el.querySelector(".js-plotly-plot");
+    if (plot) {
+      window.Plotly.Plots.resize(plot);
+    }
+  });
+}
+
+function scheduleChapter4PlotlyResize() {
+  [0, 80, 250, 600].forEach(function(delay) {
+    window.setTimeout(resizeChapter4Plotly, delay);
+  });
+}
+
+window.addEventListener("load", scheduleChapter4PlotlyResize);
+window.addEventListener("resize", scheduleChapter4PlotlyResize);
+
+if (window.Reveal) {
+  Reveal.on("ready", scheduleChapter4PlotlyResize);
+  Reveal.on("slidechanged", scheduleChapter4PlotlyResize);
+  Reveal.on("fragmentshown", scheduleChapter4PlotlyResize);
+}
+</script>
 ```
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -720,10 +768,11 @@ plotly_slide_layout(
   title = "",
   x_title = "",
   y_title = "Commute time (minutes)",
-  height = 390,
-  x_range = c(0.55, 5.45)
+  height = 340,
+  x_range = c(0.45, 6.12)
 ) |>
   layout(
+    autosize = TRUE,
     annotations = list(
       list(
         x = 0.5,
@@ -753,7 +802,7 @@ plotly_slide_layout(
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      tickfont = list(size = 12)
+      tickfont = list(size = 10)
     ),
     yaxis = list(
       showgrid = TRUE,
@@ -761,7 +810,8 @@ plotly_slide_layout(
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      tickfont = list(size = 12)
+      rangemode = "tozero",
+      tickfont = list(size = 11)
     ),
     legend = list(
       orientation = "h",
@@ -771,8 +821,9 @@ plotly_slide_layout(
       yanchor = "bottom",
       font = list(size = 11)
     ),
-    margin = list(l = 60, r = 25, t = 75, b = 75)
-  )
+    margin = list(l = 54, r = 78, t = 54, b = 52)
+  ) |>
+  config(responsive = TRUE)
 ```
 :::
 ::::::
@@ -832,6 +883,7 @@ x_grid <- seq(-6, 10, length.out = 800)
 df1 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = -2, sd = 0.5))
 df2 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = 0, sd = 1))
 df3 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = 3, sd = 1.5))
+y_max <- max(df1$y, df2$y, df3$y)
 
 p <- plot_ly() |>
   add_lines(
@@ -868,6 +920,7 @@ plotly_slide_layout(
   x_title = "x",
   y_title = "Density",
   height = 360,
+  y_range = c(0, y_max * 1.05),
   showlegend = TRUE
 )
 ```
@@ -1231,7 +1284,7 @@ plotly_slide_layout(
   x_title = "Exam score",
   y_title = "Density",
   height = 380,
-  x_range = c(min(x), max(x)),
+  x_range = c(min(x) - 2, max(x) + 4),
   y_range = c(0, y_max * 1.18),
   shapes = shapes,
   annotations = annotations
@@ -1246,6 +1299,7 @@ plotly_slide_layout(
       tickfont = list(size = 12)
     ),
     yaxis = list(
+      range = c(0, y_max * 1.18),
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
@@ -1253,7 +1307,7 @@ plotly_slide_layout(
       zeroline = FALSE,
       tickfont = list(size = 12)
     ),
-    margin = list(l = 60, r = 25, t = 60, b = 55)
+    margin = list(l = 60, r = 60, t = 60, b = 55)
   )
 ```
 :::
@@ -1372,7 +1426,7 @@ plotly_slide_layout(
   x_title = "Height in cm",
   y_title = "Density",
   height = 380,
-  x_range = c(138, 202),
+  x_range = c(136, 206),
   y_range = c(0, y_max * 1.18),
   shapes = shapes,
   annotations = annotations
@@ -1387,6 +1441,7 @@ plotly_slide_layout(
       tickfont = list(size = 12)
     ),
     yaxis = list(
+      range = c(0, y_max * 1.18),
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
@@ -1394,7 +1449,7 @@ plotly_slide_layout(
       zeroline = FALSE,
       tickfont = list(size = 12)
     ),
-    margin = list(l = 60, r = 25, t = 60, b = 55)
+    margin = list(l = 60, r = 60, t = 60, b = 55)
   )
 ```
 :::
@@ -1432,6 +1487,8 @@ plot(x, y,
      col = "#00695c",
      xlab = "Height in cm",
      ylab = "Density",
+     ylim = c(0, max(y) * 1.08),
+     yaxs = "i",
      main = "Normal model for adult heights")
 
 shade_x <- x[x >= 162 & x <= 178]
@@ -1522,22 +1579,6 @@ annotations <- list(
     text = "<b>P(Z &gt; 2)?</b>",
     showarrow = FALSE,
     font = list(size = 14.5, color = "#92400e")
-  ),
-  list(
-    x = -2,
-    y = 0,
-    text = "<b>-2</b>",
-    showarrow = FALSE,
-    yshift = -20,
-    font = list(size = 12.5, color = plot_cols$muted)
-  ),
-  list(
-    x = 2,
-    y = 0,
-    text = "<b>2</b>",
-    showarrow = FALSE,
-    yshift = -20,
-    font = list(size = 12.5, color = plot_cols$muted)
   )
 )
 
@@ -1547,6 +1588,8 @@ plotly_slide_layout(
   x_title = "z",
   y_title = "Density",
   height = 195,
+  x_range = c(-2.3, 3.6),
+  y_range = c(0, max(y) * 1.08),
   annotations = annotations,
   margin = list(l = 54, r = 16, t = 28, b = 32)
 )
@@ -1670,6 +1713,7 @@ plotly_slide_layout(
       tickfont = list(size = 12)
     ),
     yaxis = list(
+      range = c(0, y_max * 1.16),
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
@@ -1682,6 +1726,7 @@ plotly_slide_layout(
   config(
     displayModeBar = TRUE,
     displaylogo = FALSE,
+    responsive = TRUE,
     scrollZoom = FALSE,
     doubleClick = "reset",
     modeBarButtonsToRemove = c(
@@ -1738,6 +1783,7 @@ x_vals <- seq(0.01, 25, length.out = 700)
 df2 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 2))
 df5 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 5))
 df10 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 10))
+y_max <- max(df2$y, df5$y, df10$y)
 
 p <- plot_ly() |>
   add_lines(
@@ -1774,6 +1820,7 @@ plotly_slide_layout(
   x_title = "x",
   y_title = "Density",
   height = 360,
+  y_range = c(0, y_max * 1.05),
   showlegend = TRUE
 )
 ```
@@ -1803,8 +1850,11 @@ pchisq(10, df = 5, lower.tail = FALSE)
 qchisq(0.95, df = 10)
 
 # Plot the distribution
+ymax <- max(dchisq(seq(0, 20, length.out = 1000), df = 5))
 curve(dchisq(x, df = 5), from = 0, to = 20,
       col = "#F8766D", lwd = 2,
+      ylim = c(0, ymax * 1.08),
+      yaxs = "i",
       main = "Chi-Square(5)", ylab = "Density")
 ```
 :::
@@ -1872,6 +1922,8 @@ plot(x, y,
      col = "#00695c",
      xlab = "x",
      ylab = "Density",
+     ylim = c(0, max(y) * 1.08),
+     yaxs = "i",
      main = "Chi-square distribution with 8 df")
 
 shade_x <- x[x <= cutoff]
@@ -1939,6 +1991,7 @@ x_vals <- seq(-4, 4, length.out = 700)
 df_n  <- data.frame(x = x_vals, y = dnorm(x_vals))
 df_t2 <- data.frame(x = x_vals, y = dt(x_vals, df = 2))
 df_t9 <- data.frame(x = x_vals, y = dt(x_vals, df = 9))
+y_max <- max(df_n$y, df_t2$y, df_t9$y)
 
 p <- plot_ly() |>
   add_lines(
@@ -1975,7 +2028,10 @@ plotly_slide_layout(
   x_title = "Value",
   y_title = "Density",
   height = 360,
-  showlegend = TRUE
+  x_range = c(-3.4, 3.4),
+  y_range = c(0, y_max * 1.05),
+  showlegend = TRUE,
+  margin = list(l = 64, r = 64, t = 48, b = 50)
 )
 ```
 
@@ -2207,6 +2263,9 @@ window.tTailUpdate = function () {
       tick0: -6,
       dtick: 1,
       zeroline: false,
+      showline: true,
+      linecolor: "#111111",
+      linewidth: 2,
       showgrid: false,
       title: ""
     },
@@ -2368,6 +2427,8 @@ plot(x, y,
      col = "#00695c",
      xlab = "t",
      ylab = "Density",
+     ylim = c(0, max(y) * 1.08),
+     yaxs = "i",
      main = "Two-tail probability for t distribution")
 
 left_x <- x[x <= -cutoff]
@@ -2470,6 +2531,7 @@ plotly_slide_layout(
       tickfont = list(size = 12)
     ),
     yaxis = list(
+      range = c(0, 0.43),
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
@@ -2490,6 +2552,7 @@ plotly_slide_layout(
   config(
     displayModeBar = TRUE,
     displaylogo = FALSE,
+    responsive = TRUE,
     scrollZoom = FALSE,
     doubleClick = "reset",
     modeBarButtonsToRemove = c(
@@ -2598,8 +2661,11 @@ pf(3, df1 = 5, df2 = 10)
 qf(0.95, df1 = 5, df2 = 10)
 
 # Plot
+ymax <- max(df(seq(0, 6, length.out = 1000), df1 = 5, df2 = 10))
 curve(df(x, df1=5, df2=10), from=0, to=6,
       col="#F8766D", lwd=2,
+      ylim = c(0, ymax * 1.08),
+      yaxs = "i",
       main="F(5,10) Distribution", ylab="Density")
 ```
 
@@ -2742,14 +2808,19 @@ reps  <- 5000    # number of samples
 
 xbar_vals <- replicate(reps, mean(rexp(n, rate = 1)))
 
-hist(xbar_vals, breaks = 50,
+h <- hist(xbar_vals, breaks = 50, plot = FALSE)
+x_curve <- seq(min(h$breaks), max(h$breaks), length.out = 500)
+y_curve <- dnorm(x_curve, mean = 1, sd = 1/sqrt(n))
+
+hist(xbar_vals, breaks = h$breaks,
      col = "#00695c", border = "white",
      main = paste("Sampling distribution: n =", n),
-     xlab = "Sample mean", freq = FALSE)
+     xlab = "Sample mean", freq = FALSE,
+     ylim = c(0, max(h$density, y_curve) * 1.08),
+     yaxs = "i")
 
 # Overlay theoretical normal
-curve(dnorm(x, mean = 1, sd = 1/sqrt(n)),
-      add = TRUE, col = "#F8766D", lwd = 2)
+lines(x_curve, y_curve, col = "#F8766D", lwd = 2)
 ```
 
 ::: small-text
@@ -2853,9 +2924,15 @@ mu_map    <- c(uniform=0.5, exponential=1, poisson=3, normal=0)
 var_map   <- c(uniform=1/12, exponential=1, poisson=3, normal=1)
 mu_t  <- mu_map[dist]; se_t <- sqrt(var_map[dist]/n)
 
-hist(xbars, breaks=50, freq=FALSE, col="#00695c", border="white",
-     main=paste("CLT:", dist, "| n =", n), xlab="Sample mean")
-curve(dnorm(x, mu_t, se_t), add=TRUE, col="#F8766D", lwd=2)
+h <- hist(xbars, breaks=50, plot=FALSE)
+x_curve <- seq(min(h$breaks), max(h$breaks), length.out=500)
+y_curve <- dnorm(x_curve, mu_t, se_t)
+
+hist(xbars, breaks=h$breaks, freq=FALSE, col="#00695c", border="white",
+     main=paste("CLT:", dist, "| n =", n), xlab="Sample mean",
+     ylim=c(0, max(h$density, y_curve) * 1.08),
+     yaxs="i")
+lines(x_curve, y_curve, col="#F8766D", lwd=2)
 ```
 
 ------------------------------------------------------------------------
@@ -2904,7 +2981,7 @@ p1 <- plot_ly(
   layout(
     title = list(text = "<b>n = 5</b>", x = 0.5, font = list(size = 15, color = plot_cols$text)),
     xaxis = list(title = "Repeated sample means", showgrid = FALSE, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
-    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
+    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, rangemode = "tozero", tickfont = list(size = 12)),
     paper_bgcolor = "white",
     plot_bgcolor = "white",
     margin = list(l = 68, r = 18, t = 42, b = 55)
@@ -2921,7 +2998,7 @@ p2 <- plot_ly(
   layout(
     title = list(text = "<b>n = 40</b>", x = 0.5, font = list(size = 15, color = plot_cols$text)),
     xaxis = list(title = "Repeated sample means", showgrid = FALSE, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
-    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
+    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, rangemode = "tozero", tickfont = list(size = 12)),
     paper_bgcolor = "white",
     plot_bgcolor = "white",
     margin = list(l = 68, r = 18, t = 42, b = 55)
@@ -2966,17 +3043,21 @@ sample_means <- replicate(repetitions, {
   mean(x)
 })
 
+h <- hist(sample_means, breaks = 35, plot = FALSE)
+x_curve <- seq(min(h$breaks), max(h$breaks), length.out = 500)
+y_curve <- dnorm(x_curve, mean = mean(sample_means), sd = sd(sample_means))
+
 hist(sample_means,
-     breaks = 35,
+     breaks = h$breaks,
      probability = TRUE,
      col = "#00695c",
      border = "white",
      main = paste("Sampling distribution when n =", sample_size),
-     xlab = "Sample mean")
+     xlab = "Sample mean",
+     ylim = c(0, max(h$density, y_curve) * 1.08),
+     yaxs = "i")
 
-curve(dnorm(x, mean = mean(sample_means), sd = sd(sample_means)),
-      add = TRUE,
-      lwd = 2)
+lines(x_curve, y_curve, lwd = 2)
 
 # Change sample_size to 40 and rerun.
 ```
@@ -3097,6 +3178,7 @@ p_population <- plot_ly(
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
+      rangemode = "tozero",
       tickfont = list(size = 11),
       titlefont = list(size = 10)
     ),
@@ -3147,6 +3229,7 @@ p_means <- plot_ly(
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
+      rangemode = "tozero",
       tickfont = list(size = 11),
       titlefont = list(size = 10)
     ),
@@ -3175,6 +3258,7 @@ subplot(
   config(
     displayModeBar = TRUE,
     displaylogo = FALSE,
+    responsive = TRUE,
     scrollZoom = FALSE,
     doubleClick = "reset",
     modeBarButtonsToRemove = c(
@@ -3660,6 +3744,7 @@ plotly_slide_layout(
   config(
     displayModeBar = TRUE,
     displaylogo = FALSE,
+    responsive = TRUE,
     scrollZoom = FALSE,
     doubleClick = "reset",
     modeBarButtonsToRemove = c(
@@ -3783,9 +3868,15 @@ pnorm(0.52, mu, se) - pnorm(0.48, mu, se)
 # (c) Simulation
 set.seed(42)
 xbars <- replicate(5000, mean(runif(n)))
-hist(xbars, breaks=50, freq=FALSE, col="#00695c", border="white",
-     main=paste("CLT: Uniform(0,1), n=", n), xlab="Sample mean")
-curve(dnorm(x, mu, se), add=TRUE, col="#F8766D", lwd=2)
+h <- hist(xbars, breaks=50, plot=FALSE)
+x_curve <- seq(min(h$breaks), max(h$breaks), length.out=500)
+y_curve <- dnorm(x_curve, mu, se)
+
+hist(xbars, breaks=h$breaks, freq=FALSE, col="#00695c", border="white",
+     main=paste("CLT: Uniform(0,1), n=", n), xlab="Sample mean",
+     ylim=c(0, max(h$density, y_curve) * 1.08),
+     yaxs="i")
+lines(x_curve, y_curve, col="#F8766D", lwd=2)
 ```
 
 ------------------------------------------------------------------------

@@ -89,14 +89,14 @@ plotly_slide_layout <- function(
     title,
     x_title,
     y_title,
-    height = 380,
+    height = 340,
     x_range = NULL,
     y_range = NULL,
     shapes = list(),
     annotations = list(),
     showlegend = FALSE,
     legend_y = -0.18,
-    margin = list(l = 76, r = 28, t = 68, b = 70)
+    margin = list(l = 64, r = 22, t = 48, b = 50)
 ) {
   p |>
     layout(
@@ -343,51 +343,130 @@ plotly_slide_layout <- function(
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  align-items: stretch !important;
-  height: 100%;
+  align-items: center !important;
+  min-height: 660px !important;
+  height: 660px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
 }
-.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
-.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
-.reveal .quiz-question .callout-note { margin: 4px 0 12px 0 !important; text-align: left; }
+.reveal .quiz-question > * { width: 100%; max-width: 1120px; }
+.reveal .quiz-question h2 { font-size: 0.96em !important; margin-bottom: 4px; text-align: left; }
+.reveal .quiz-question .callout-note { margin: 0 auto 8px auto !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-content { padding: 9px 14px 11px 14px !important; }
 .reveal .quiz-question .callout-note .callout-body p,
-.reveal .quiz-question .callout-note p { font-size: 0.78em !important; line-height: 1.3; margin: 4px 0; }
-.reveal .quiz-question .callout-title { font-size: 0.82em !important; padding: 5px 12px !important; }
-.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
-.reveal .quiz-question li { margin-bottom: 6px !important; }
+.reveal .quiz-question .callout-note p { font-size: 0.70em !important; line-height: 1.18; margin: 2px 0; }
+.reveal .quiz-question .callout-title { font-size: 0.74em !important; padding: 4px 11px !important; }
+.reveal .quiz-question ul { margin: 6px auto 0 auto !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 2px !important; }
 
 .reveal section.quiz-question img {
-  max-height: 235px !important;
+  max-height: 220px !important;
   object-fit: contain !important;
-  margin: 2px auto 6px auto !important;
+  margin: 1px auto 4px auto !important;
   display: block !important;
 }
 
-.reveal .option-button {
-  padding: 9px 16px !important;
-  margin-bottom: 7px !important;
+.reveal section.quiz-question:has(.cell) .callout-note {
+  margin-bottom: 12px !important;
+}
+
+.reveal section.quiz-question:has(.cell) .callout-note .callout-content {
+  padding: 10px 15px 12px 15px !important;
+}
+
+.reveal section.quiz-question:has(.cell) .callout-note .callout-body p,
+.reveal section.quiz-question:has(.cell) .callout-note p {
+  font-size: 0.72em !important;
+  line-height: 1.16 !important;
+}
+
+.reveal section.quiz-question:has(.cell) .html-widget,
+.reveal section.quiz-question:has(.cell) .plotly,
+.reveal section.quiz-question:has(.cell) .plot-container,
+.reveal section.quiz-question:has(.cell) .svg-container {
+  height: 195px !important;
+  max-height: 195px !important;
+  overflow: hidden !important;
+}
+
+.reveal section.quiz-question:has(.cell) .cell {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  overflow: visible !important;
+}
+
+.reveal section.quiz-question:has(.cell) .cell-output-display {
+  height: 195px !important;
+  max-height: 195px !important;
+  overflow: hidden !important;
+}
+
+.reveal section.quiz-question:not(:has(.cell)) .callout-note .callout-content {
+  padding: 14px 16px 16px 16px !important;
+}
+
+.reveal section.quiz-question:not(:has(.cell)) .callout-note .callout-body p,
+.reveal section.quiz-question:not(:has(.cell)) .callout-note p {
   font-size: 0.82em !important;
-  line-height: 1.25 !important;
-  border-radius: 8px !important;
+  line-height: 1.22 !important;
+}
+
+.reveal section.quiz-question:not(:has(.cell)) .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+
+.reveal section.quiz-question:not(:has(.cell)) .option-button {
+  padding: 7px 14px !important;
+  margin-bottom: 5px !important;
+  font-size: 0.74em !important;
+  line-height: 1.12 !important;
+}
+
+.reveal section.quiz-question:not(:has(.cell)) .action-buttons,
+.reveal section.quiz-question:not(:has(.cell)) .button-container {
+  margin-top: 10px !important;
+}
+
+.reveal .option-button {
+  padding: 5px 12px !important;
+  margin: 0 auto 4px auto !important;
+  font-size: 0.62em !important;
+  line-height: 1.08 !important;
+  border-radius: 6px !important;
   text-align: left !important;
+  max-width: 1120px !important;
 }
 .reveal .action-buttons {
-  margin: 10px 0 0 0 !important;
-  font-size: 0.85em !important;
-  text-align: right;
+  margin: 8px auto 0 auto !important;
+  font-size: 0.68em !important;
+  text-align: center !important;
+  width: 100% !important;
+  max-width: 1120px !important;
 }
 .reveal .check-button,
 .reveal .reset-button,
 .reveal .prev-button,
 .reveal .next-button {
-  padding: 7px 16px !important;
-  font-size: 0.78em !important;
+  padding: 5px 12px !important;
+  font-size: 0.62em !important;
   border-radius: 6px !important;
-  margin: 0 4px !important;
+  margin: 0 2px !important;
+}
+
+.reveal .quiz-question .button-container {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 1120px !important;
+  margin: 8px auto 0 auto !important;
 }
 
 .reveal .feedback,
 .reveal .explanation,
-.reveal .quiz-question .explanation { font-size: 0.7em !important; margin-top: 8px; }
+.reveal .quiz-question .explanation { font-size: 0.62em !important; margin-top: 4px; }
 
 .quiz-hint {
   font-size: 0.6em;
@@ -407,8 +486,16 @@ plotly_slide_layout <- function(
 }
 
 .reveal section.quiz-question .html-widget {
-  max-height: 315px !important;
-  margin: 0 auto 4px auto !important;
+  height: 220px !important;
+  max-height: 220px !important;
+  margin: 0 auto 1px auto !important;
+}
+
+.reveal section.quiz-question .plotly,
+.reveal section.quiz-question .plot-container,
+.reveal section.quiz-question .svg-container {
+  height: 220px !important;
+  max-height: 220px !important;
 }
 
 /* ── Solution callouts ────────────────────────────────── */
@@ -546,7 +633,7 @@ Sampling + inference is the practical solution.
 :::::: two-col-wide
 :::: col
 ::: taskbox
-[In-Class Example]{.label} Suppose the true average commute time for all
+[Example]{.label} Suppose the true average commute time for all
 UTM students is unknown.
 
 A researcher takes **five different samples**, each with $n=25$
@@ -1060,12 +1147,12 @@ Default: `mean = 0`, `sd = 1` (standard normal).
 
 ------------------------------------------------------------------------
 
-## In-Class Example: Normal Probability with a Plot {.scrollable}
+## Example: Normal Probability with a Plot {.scrollable}
 
 :::::: two-col-wide
 :::: col
 ::: taskbox
-[In-Class Example]{.label} Suppose final exam scores are approximately
+[Example]{.label} Suppose final exam scores are approximately
 normal with mean $\mu=72$ and standard deviation $\sigma=8$.
 
 **(a)** Find the $z$-score for a score of $84$.
@@ -1459,9 +1546,9 @@ plotly_slide_layout(
   title = "Standard normal symmetry",
   x_title = "z",
   y_title = "Density",
-  height = 255,
+  height = 195,
   annotations = annotations,
-  margin = list(l = 64, r = 22, t = 52, b = 50)
+  margin = list(l = 54, r = 16, t = 28, b = 32)
 )
 ```
 
@@ -1567,7 +1654,7 @@ plotly_slide_layout(
   title = "Standardising a value from a normal distribution",
   x_title = "x",
   y_title = "Density",
-  height = 300,
+  height = 195,
   x_range = c(20, 80),
   y_range = c(0, y_max * 1.16),
   shapes = shapes,
@@ -1590,7 +1677,7 @@ plotly_slide_layout(
       zeroline = FALSE,
       tickfont = list(size = 12)
     ),
-    margin = list(l = 64, r = 22, t = 52, b = 50)
+    margin = list(l = 54, r = 16, t = 28, b = 32)
   ) |>
   config(
     displayModeBar = TRUE,
@@ -2369,7 +2456,7 @@ plotly_slide_layout(
   title = "Normal curve compared with a t curve",
   x_title = "Standardized value",
   y_title = "Density",
-  height = 300,
+  height = 195,
   x_range = c(-4, 4),
   y_range = c(0, 0.43)
 ) |>
@@ -2398,7 +2485,7 @@ plotly_slide_layout(
       yanchor = "bottom",
       font = list(size = 12)
     ),
-    margin = list(l = 62, r = 25, t = 72, b = 55)
+    margin = list(l = 54, r = 16, t = 30, b = 32)
   ) |>
   config(
     displayModeBar = TRUE,
@@ -2773,12 +2860,12 @@ curve(dnorm(x, mu_t, se_t), add=TRUE, col="#F8766D", lwd=2)
 
 ------------------------------------------------------------------------
 
-## In-Class Example: CLT in Action {.scrollable}
+## Example: CLT in Action {.scrollable}
 
 :::::: two-col-wide
 :::: col
 ::: taskbox
-[In-Class Example]{.label} Assume individual wait times follow a
+[Example]{.label} Assume individual wait times follow a
 right-skewed exponential distribution.
 
 We repeatedly take samples and compute the sample mean.
@@ -2994,14 +3081,14 @@ p_population <- plot_ly(
       font = list(size = 15, color = plot_cols$main_dark)
     ),
     xaxis = list(
-      title = "Individual value",
+      title = "",
       range = c(0, 5),
       showgrid = FALSE,
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickfont = list(size = 11),
-      titlefont = list(size = 12)
+      titlefont = list(size = 10)
     ),
     yaxis = list(
       title = "Density",
@@ -3011,9 +3098,9 @@ p_population <- plot_ly(
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickfont = list(size = 11),
-      titlefont = list(size = 12)
+      titlefont = list(size = 10)
     ),
-    margin = list(l = 58, r = 20, t = 58, b = 50)
+    margin = list(l = 38, r = 8, t = 24, b = 18)
   )
 
 p_means <- plot_ly(
@@ -3044,26 +3131,26 @@ p_means <- plot_ly(
       font = list(size = 15, color = plot_cols$main_dark)
     ),
     xaxis = list(
-      title = "Sample mean",
+      title = "",
       range = c(0.45, 1.55),
       showgrid = FALSE,
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickfont = list(size = 11),
-      titlefont = list(size = 12)
+      titlefont = list(size = 10)
     ),
     yaxis = list(
-      title = "Density",
+      title = "",
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickfont = list(size = 11),
-      titlefont = list(size = 12)
+      titlefont = list(size = 10)
     ),
-    margin = list(l = 58, r = 20, t = 58, b = 50)
+    margin = list(l = 30, r = 18, t = 24, b = 18)
   )
 
 subplot(
@@ -3071,9 +3158,9 @@ subplot(
   p_means,
   nrows = 1,
   shareY = FALSE,
-  titleX = TRUE,
+  titleX = FALSE,
   titleY = TRUE,
-  margin = 0.08
+  margin = 0.04
 ) |>
   layout(
     title = list(
@@ -3082,8 +3169,8 @@ subplot(
       xanchor = "left",
       font = list(size = 18, color = plot_cols$main_dark)
     ),
-    height = 315,
-    margin = list(l = 65, r = 25, t = 78, b = 55)
+    height = 195,
+    margin = list(l = 42, r = 42, t = 26, b = 20)
   ) |>
   config(
     displayModeBar = TRUE,
@@ -3379,9 +3466,9 @@ plotly_slide_layout(
   title = "WLLN proof idea",
   x_title = "Sample size n",
   y_title = "Upper bound",
-  height = 255,
+  height = 195,
   annotations = annotations,
-  margin = list(l = 64, r = 22, t = 52, b = 50)
+  margin = list(l = 54, r = 16, t = 28, b = 32)
 )
 ```
 
@@ -3446,11 +3533,11 @@ plotly_slide_layout(
   title = "Law of Large Numbers for a fair die",
   x_title = "Number of rolls",
   y_title = "Running average",
-  height = 285,
+  height = 195,
   x_range = c(1, 120),
   y_range = c(1, 6),
   shapes = shapes,
-  margin = list(l = 64, r = 22, t = 52, b = 50)
+  margin = list(l = 54, r = 16, t = 28, b = 32)
 )
 ```
 
@@ -3462,12 +3549,12 @@ plotly_slide_layout(
 
 ------------------------------------------------------------------------
 
-## In-Class Example: Law of Large Numbers {.scrollable}
+## Example: Law of Large Numbers {.scrollable}
 
 :::::: two-col-wide
 :::: col
 ::: taskbox
-[In-Class Example]{.label} A fair coin is flipped many times. Let $X_i=1$
+[Example]{.label} A fair coin is flipped many times. Let $X_i=1$
 if the flip is heads and $X_i=0$ if the flip is tails.
 
 The true population mean is:

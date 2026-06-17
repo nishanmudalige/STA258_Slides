@@ -385,8 +385,16 @@
 }
 .dist-widget label { font-weight: 600; color: var(--sta-teal-dark); }
 .dist-widget input[type=range] { width: 100%; accent-color: var(--sta-teal); }
-.dist-widget canvas { width: 100% !important; }
+.plotly-widget {
+  width: 100%;
+  height: 305px;
+}
+.plotly-widget-centered {
+  max-width: 1180px;
+  margin: 0 auto;
+}
 </style>
+<script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 <p>STA258: Statistics with Applied Probability University of Toronto Mississauga</p>
 
 <img data-src="../images/cat.png" alt="Course mascot" width="245" class="r-stretch"></section>
@@ -524,8 +532,9 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p><label style="font-weight:800; color:#004d40; font-size:1.05em;"> Standard deviation (σ): <span id="emp-sd-label">1</span> </label> <input id="emp-sd-slider" type="range" min="0.5" max="3" step="0.25" value="1" oninput="empRuleUpdate()" style="width:100%; accent-color:#00695c; margin-top:8px;"></p>
 </div>
 </div>
-<canvas id="emp-rule-canvas" width="1100" height="310" style="width:100%; height:260px; display:block;">
-</canvas>
+<div id="emp-rule-plot" class="plotly-widget">
+
+</div>
 <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; text-align:center;">
 <div style="background:rgba(0,105,92,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
 <p>μ ± 1σ<br>68.27%</p>
@@ -540,13 +549,13 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </div>
 <script>
 window.empRuleUpdate = function () {
-  var canvas = document.getElementById("emp-rule-canvas");
+  var plot = document.getElementById("emp-rule-plot");
   var muSlider = document.getElementById("emp-mu-slider");
   var sdSlider = document.getElementById("emp-sd-slider");
   var muLabel = document.getElementById("emp-mu-label");
   var sdLabel = document.getElementById("emp-sd-label");
 
-  if (!canvas || !muSlider || !sdSlider || !muLabel || !sdLabel) {
+  if (!plot || !muSlider || !sdSlider || !muLabel || !sdLabel || !window.Plotly) {
     return;
   }
 
@@ -556,148 +565,139 @@ window.empRuleUpdate = function () {
   muLabel.innerHTML = mu;
   sdLabel.innerHTML = sd;
 
-  var ctx = canvas.getContext("2d");
-  var width = canvas.width;
-  var height = canvas.height;
-
-  ctx.clearRect(0, 0, width, height);
-
   function dnorm(x, mean, sigma) {
     return Math.exp(-0.5 * Math.pow((x - mean) / sigma, 2)) / (sigma * Math.sqrt(2 * Math.PI));
   }
 
-  var marginLeft = 65;
-  var marginRight = 30;
-  var marginTop = 20;
-  var marginBottom = 55;
-
-  var plotWidth = width - marginLeft - marginRight;
-  var plotHeight = height - marginTop - marginBottom;
-
-  /* FIXED AXIS: this is the important change */
   var xmin = -15;
   var xmax = 15;
-  var ymax = 0.85;
+  var x = [];
+  var y = [];
 
-  function xScale(x) {
-    return marginLeft + ((x - xmin) / (xmax - xmin)) * plotWidth;
+  for (var i = 0; i <= 900; i++) {
+    var xVal = xmin + (xmax - xmin) * i / 900;
+    x.push(xVal);
+    y.push(dnorm(xVal, mu, sd));
   }
 
-  function yScale(y) {
-    return marginTop + (1 - y / ymax) * plotHeight;
-  }
-
-  function shade(a, b, color) {
+  function shadedTrace(a, b, color, name) {
     var start = Math.max(a, xmin);
     var end = Math.min(b, xmax);
+    var sx = [];
+    var sy = [];
 
     if (end <= xmin || start >= xmax) {
-      return;
+      return {
+        x: [],
+        y: [],
+        type: "scatter",
+        mode: "lines",
+        fill: "tozeroy",
+        fillcolor: color,
+        line: { color: "rgba(0,0,0,0)" },
+        hoverinfo: "skip",
+        showlegend: false,
+        name: name
+      };
     }
 
-    ctx.beginPath();
-    ctx.moveTo(xScale(start), yScale(0));
-
-    for (var i = 0; i <= 300; i++) {
-      var x = start + (end - start) * i / 300;
-      var y = dnorm(x, mu, sd);
-      ctx.lineTo(xScale(x), yScale(y));
+    for (var j = 0; j <= 250; j++) {
+      var sxVal = start + (end - start) * j / 250;
+      sx.push(sxVal);
+      sy.push(dnorm(sxVal, mu, sd));
     }
 
-    ctx.lineTo(xScale(end), yScale(0));
-    ctx.closePath();
-    ctx.fillStyle = color;
-    ctx.fill();
+    return {
+      x: sx,
+      y: sy,
+      type: "scatter",
+      mode: "lines",
+      fill: "tozeroy",
+      fillcolor: color,
+      line: { color: "rgba(0,0,0,0)" },
+      hoverinfo: "skip",
+      showlegend: false,
+      name: name
+    };
   }
 
-  /* grid lines */
-  ctx.strokeStyle = "#e5e7eb";
-  ctx.lineWidth = 1;
-
-  for (var g = 0; g <= 4; g++) {
-    var gy = marginTop + (plotHeight * g) / 4;
-    ctx.beginPath();
-    ctx.moveTo(marginLeft, gy);
-    ctx.lineTo(width - marginRight, gy);
-    ctx.stroke();
-  }
-
-  /* shade empirical regions */
-  shade(mu - 3 * sd, mu + 3 * sd, "rgba(121,151,255,0.22)");
-  shade(mu - 2 * sd, mu + 2 * sd, "rgba(0,176,246,0.28)");
-  shade(mu - 1 * sd, mu + 1 * sd, "rgba(0,105,92,0.35)");
-
-  /* curve */
-  ctx.beginPath();
-  ctx.strokeStyle = "#004d40";
-  ctx.lineWidth = 3;
-
-  for (var j = 0; j <= 900; j++) {
-    var xVal = xmin + (xmax - xmin) * j / 900;
-    var yVal = dnorm(xVal, mu, sd);
-
-    if (j === 0) {
-      ctx.moveTo(xScale(xVal), yScale(yVal));
-    } else {
-      ctx.lineTo(xScale(xVal), yScale(yVal));
+  var data = [
+    shadedTrace(mu - 3 * sd, mu + 3 * sd, "rgba(121,151,255,0.22)", "μ ± 3σ"),
+    shadedTrace(mu - 2 * sd, mu + 2 * sd, "rgba(0,176,246,0.28)", "μ ± 2σ"),
+    shadedTrace(mu - 1 * sd, mu + 1 * sd, "rgba(0,105,92,0.35)", "μ ± σ"),
+    {
+      x: x,
+      y: y,
+      type: "scatter",
+      mode: "lines",
+      line: { color: "#004d40", width: 3 },
+      hovertemplate: "x=%{x:.2f}<br>density=%{y:.3f}<extra></extra>",
+      name: "Normal curve",
+      showlegend: false
     }
-  }
-
-  ctx.stroke();
-
-  /* x-axis */
-  ctx.beginPath();
-  ctx.strokeStyle = "#555";
-  ctx.lineWidth = 1.5;
-  ctx.moveTo(marginLeft, yScale(0));
-  ctx.lineTo(width - marginRight, yScale(0));
-  ctx.stroke();
-
-  /* mean line */
-  ctx.beginPath();
-  ctx.strokeStyle = "#f9a825";
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([6, 6]);
-  ctx.moveTo(xScale(mu), marginTop);
-  ctx.lineTo(xScale(mu), yScale(0));
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  /* fixed number axis labels */
-  ctx.fillStyle = "#2f3437";
-  ctx.font = "14px Arial";
-  ctx.textAlign = "center";
-
-  for (var tick = -10; tick <= 10; tick += 2) {
-    ctx.fillText(tick, xScale(tick), height - 18);
-  }
-
-  /* sigma labels above axis */
-  var labels = [
-    { x: mu - 3 * sd, text: "μ - 3σ" },
-    { x: mu - 2 * sd, text: "μ - 2σ" },
-    { x: mu - 1 * sd, text: "μ - σ" },
-    { x: mu,          text: "μ" },
-    { x: mu + 1 * sd, text: "μ + σ" },
-    { x: mu + 2 * sd, text: "μ + 2σ" },
-    { x: mu + 3 * sd, text: "μ + 3σ" }
   ];
 
-  ctx.font = "12px Arial";
+  var layout = {
+    autosize: true,
+    margin: { l: 42, r: 12, t: 8, b: 50 },
+    xaxis: {
+      range: [xmin, xmax],
+      tickmode: "linear",
+      tick0: -10,
+      dtick: 2,
+      zeroline: false,
+      showgrid: false,
+      title: ""
+    },
+    yaxis: {
+      range: [0, 0.85],
+      showticklabels: false,
+      showgrid: true,
+      gridcolor: "#e5e7eb",
+      zeroline: false,
+      title: ""
+    },
+    shapes: [
+      {
+        type: "line",
+        x0: mu,
+        x1: mu,
+        y0: 0,
+        y1: dnorm(mu, mu, sd),
+        line: { color: "#f9a825", width: 2, dash: "dash" }
+      }
+    ],
+    annotations: [],
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    hovermode: "closest"
+  };
 
-  for (var k = 0; k < labels.length; k++) {
-    if (labels[k].x >= xmin && labels[k].x <= xmax) {
-      ctx.fillText(labels[k].text, xScale(labels[k].x), height - 35);
-    }
-  }
+  Plotly.react(plot, data, layout, { displayModeBar: false, responsive: true }).then(function () {
+    Plotly.Plots.resize(plot);
+  });
 };
 
-setTimeout(window.empRuleUpdate, 200);
-setTimeout(window.empRuleUpdate, 700);
+window.empRuleScheduleUpdate = function () {
+  [60, 180, 420, 900].forEach(function (delay) {
+    setTimeout(window.empRuleUpdate, delay);
+  });
+
+  requestAnimationFrame(function () {
+    requestAnimationFrame(window.empRuleUpdate);
+  });
+};
+
+window.empRuleScheduleUpdate();
+
+window.addEventListener("load", window.empRuleScheduleUpdate);
+window.addEventListener("resize", window.empRuleScheduleUpdate);
+window.addEventListener("hashchange", window.empRuleScheduleUpdate);
 
 if (window.Reveal) {
+  Reveal.on("ready", window.empRuleScheduleUpdate);
   Reveal.on("slidechanged", function () {
-    setTimeout(window.empRuleUpdate, 150);
+    window.empRuleScheduleUpdate();
   });
 }
 </script>
@@ -969,8 +969,9 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p><label style="font-weight:800; color:#004d40; font-size:1.05em;"> Tail cutoff (c): <span id="t-cutoff-label">2</span> </label> <input id="t-cutoff-slider" type="range" min="0.5" max="4" step="0.1" value="2" oninput="tTailUpdate()" style="width:100%; accent-color:#00695c; margin-top:8px;"></p>
 </div>
 </div>
-<canvas id="t-tail-canvas" width="1100" height="310" style="width:100%; height:260px; display:block;">
-</canvas>
+<div id="t-tail-plot" class="plotly-widget plotly-widget-centered">
+
+</div>
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; text-align:center;">
 <div id="t-tail-readout" style="background:rgba(97,156,255,0.13); border-radius:7px; padding:8px 0; font-weight:800; font-size:1.25em;">
 <p>P(|T| &gt; 2) = —</p>
@@ -982,7 +983,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </div>
 <script>
 window.tTailUpdate = function () {
-  var canvas = document.getElementById("t-tail-canvas");
+  var plot = document.getElementById("t-tail-plot");
   var dfSlider = document.getElementById("t-df-slider");
   var cutoffSlider = document.getElementById("t-cutoff-slider");
   var dfLabel = document.getElementById("t-df-label");
@@ -990,7 +991,7 @@ window.tTailUpdate = function () {
   var tReadout = document.getElementById("t-tail-readout");
   var zReadout = document.getElementById("z-tail-readout");
 
-  if (!canvas || !dfSlider || !cutoffSlider || !dfLabel || !cutoffLabel || !tReadout || !zReadout) {
+  if (!plot || !dfSlider || !cutoffSlider || !dfLabel || !cutoffLabel || !tReadout || !zReadout || !window.Plotly) {
     return;
   }
 
@@ -999,12 +1000,6 @@ window.tTailUpdate = function () {
 
   dfLabel.innerHTML = nu;
   cutoffLabel.innerHTML = cutoff.toFixed(1);
-
-  var ctx = canvas.getContext("2d");
-  var width = canvas.width;
-  var height = canvas.height;
-
-  ctx.clearRect(0, 0, width, height);
 
   function logGamma(z) {
     var x = [
@@ -1086,161 +1081,146 @@ window.tTailUpdate = function () {
     return 2 * (1 - normalCdf(c));
   }
 
-  var marginLeft = 65;
-  var marginRight = 30;
-  var marginTop = 20;
-  var marginBottom = 55;
-
-  var plotWidth = width - marginLeft - marginRight;
-  var plotHeight = height - marginTop - marginBottom;
-
-  /* Fixed axis so the curve visibly changes */
   var xmin = -6;
   var xmax = 6;
-  var ymax = 0.45;
-
-  function xScale(x) {
-    return marginLeft + ((x - xmin) / (xmax - xmin)) * plotWidth;
-  }
-
-  function yScale(y) {
-    return marginTop + (1 - y / ymax) * plotHeight;
-  }
-
-  function shadeTail(left, right, densityFun, color) {
-    ctx.beginPath();
-    ctx.moveTo(xScale(left), yScale(0));
-
-    for (var i = 0; i <= 300; i++) {
-      var x = left + (right - left) * i / 300;
-      var y = densityFun(x);
-      ctx.lineTo(xScale(x), yScale(y));
-    }
-
-    ctx.lineTo(xScale(right), yScale(0));
-    ctx.closePath();
-    ctx.fillStyle = color;
-    ctx.fill();
-  }
-
-  /* Grid */
-  ctx.strokeStyle = "#e5e7eb";
-  ctx.lineWidth = 1;
-
-  for (var grid = 0; grid <= 4; grid++) {
-    var yGrid = marginTop + (plotHeight * grid) / 4;
-    ctx.beginPath();
-    ctx.moveTo(marginLeft, yGrid);
-    ctx.lineTo(width - marginRight, yGrid);
-    ctx.stroke();
-  }
-
-  /* Shade t tails */
-  shadeTail(xmin, -cutoff, function (x) { return tDensity(x, nu); }, "rgba(97,156,255,0.22)");
-  shadeTail(cutoff, xmax, function (x) { return tDensity(x, nu); }, "rgba(97,156,255,0.22)");
-
-  /* Normal curve */
-  ctx.beginPath();
-  ctx.strokeStyle = "#f8766d";
-  ctx.lineWidth = 2.4;
+  var x = [];
+  var yT = [];
+  var yZ = [];
 
   for (var i = 0; i <= 900; i++) {
-    var xNorm = xmin + (xmax - xmin) * i / 900;
-    var yNorm = normalDensity(xNorm);
+    var xVal = xmin + (xmax - xmin) * i / 900;
+    x.push(xVal);
+    yT.push(tDensity(xVal, nu));
+    yZ.push(normalDensity(xVal));
+  }
 
-    if (i === 0) {
-      ctx.moveTo(xScale(xNorm), yScale(yNorm));
-    } else {
-      ctx.lineTo(xScale(xNorm), yScale(yNorm));
+  function tailTrace(left, right) {
+    var sx = [];
+    var sy = [];
+
+    for (var j = 0; j <= 250; j++) {
+      var sxVal = left + (right - left) * j / 250;
+      sx.push(sxVal);
+      sy.push(tDensity(sxVal, nu));
     }
+
+    return {
+      x: sx,
+      y: sy,
+      type: "scatter",
+      mode: "lines",
+      fill: "tozeroy",
+      fillcolor: "rgba(97,156,255,0.22)",
+      line: { color: "rgba(0,0,0,0)" },
+      hoverinfo: "skip",
+      showlegend: false,
+      name: "t tails"
+    };
   }
 
-  ctx.stroke();
-
-  /* t curve */
-  ctx.beginPath();
-  ctx.strokeStyle = "#619cff";
-  ctx.lineWidth = 2.8;
-
-  for (var j = 0; j <= 900; j++) {
-    var xT = xmin + (xmax - xmin) * j / 900;
-    var yT = tDensity(xT, nu);
-
-    if (j === 0) {
-      ctx.moveTo(xScale(xT), yScale(yT));
-    } else {
-      ctx.lineTo(xScale(xT), yScale(yT));
+  var data = [
+    tailTrace(xmin, -cutoff),
+    tailTrace(cutoff, xmax),
+    {
+      x: x,
+      y: yZ,
+      type: "scatter",
+      mode: "lines",
+      line: { color: "#f8766d", width: 2.4 },
+      hovertemplate: "z=%{x:.2f}<br>density=%{y:.3f}<extra>N(0,1)</extra>",
+      name: "N(0,1)"
+    },
+    {
+      x: x,
+      y: yT,
+      type: "scatter",
+      mode: "lines",
+      line: { color: "#619cff", width: 2.8 },
+      hovertemplate: "t=%{x:.2f}<br>density=%{y:.3f}<extra>t(" + nu + ")</extra>",
+      name: "t(" + nu + ")"
     }
-  }
+  ];
 
-  ctx.stroke();
-
-  /* X-axis */
-  ctx.beginPath();
-  ctx.strokeStyle = "#555";
-  ctx.lineWidth = 1.5;
-  ctx.moveTo(marginLeft, yScale(0));
-  ctx.lineTo(width - marginRight, yScale(0));
-  ctx.stroke();
-
-  /* Cutoff lines */
-  ctx.beginPath();
-  ctx.strokeStyle = "#f9a825";
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([6, 6]);
-  ctx.moveTo(xScale(-cutoff), marginTop);
-  ctx.lineTo(xScale(-cutoff), yScale(0));
-  ctx.moveTo(xScale(cutoff), marginTop);
-  ctx.lineTo(xScale(cutoff), yScale(0));
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  /* Axis labels */
-  ctx.fillStyle = "#2f3437";
-  ctx.font = "14px Arial";
-  ctx.textAlign = "center";
-
-  for (var tick = -6; tick <= 6; tick += 1) {
-    ctx.fillText(tick, xScale(tick), height - 18);
-  }
-
-  /* Legend */
-  ctx.textAlign = "left";
-  ctx.font = "16px Arial";
-
-  ctx.strokeStyle = "#f8766d";
-  ctx.lineWidth = 4;
-  ctx.beginPath();
-  ctx.moveTo(marginLeft + 10, marginTop + 18);
-  ctx.lineTo(marginLeft + 45, marginTop + 18);
-  ctx.stroke();
-
-  ctx.fillStyle = "#2f3437";
-  ctx.fillText("N(0,1)", marginLeft + 52, marginTop + 23);
-
-  ctx.strokeStyle = "#619cff";
-  ctx.lineWidth = 4;
-  ctx.beginPath();
-  ctx.moveTo(marginLeft + 10, marginTop + 42);
-  ctx.lineTo(marginLeft + 45, marginTop + 42);
-  ctx.stroke();
-
-  ctx.fillStyle = "#2f3437";
-  ctx.fillText("t(" + nu + ")", marginLeft + 52, marginTop + 47);
+  var layout = {
+    autosize: true,
+    margin: { l: 42, r: 12, t: 8, b: 42 },
+    xaxis: {
+      range: [xmin, xmax],
+      tickmode: "linear",
+      tick0: -6,
+      dtick: 1,
+      zeroline: false,
+      showgrid: false,
+      title: ""
+    },
+    yaxis: {
+      range: [0, 0.45],
+      showticklabels: false,
+      showgrid: true,
+      gridcolor: "#e5e7eb",
+      zeroline: false,
+      title: ""
+    },
+    shapes: [
+      {
+        type: "line",
+        x0: -cutoff,
+        x1: -cutoff,
+        y0: 0,
+        y1: tDensity(-cutoff, nu),
+        line: { color: "#f9a825", width: 2, dash: "dash" }
+      },
+      {
+        type: "line",
+        x0: cutoff,
+        x1: cutoff,
+        y0: 0,
+        y1: tDensity(cutoff, nu),
+        line: { color: "#f9a825", width: 2, dash: "dash" }
+      }
+    ],
+    legend: {
+      orientation: "h",
+      x: 0.02,
+      y: 0.98,
+      bgcolor: "rgba(255,255,255,0.7)"
+    },
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    hovermode: "closest"
+  };
 
   var tTail = approxTwoTailT(nu, cutoff);
   var zTail = approxTwoTailZ(cutoff);
 
   tReadout.innerHTML = "P(|T| &gt; " + cutoff.toFixed(1) + ") = " + tTail.toFixed(4);
   zReadout.innerHTML = "P(|Z| &gt; " + cutoff.toFixed(1) + ") = " + zTail.toFixed(4);
+
+  Plotly.react(plot, data, layout, { displayModeBar: false, responsive: true }).then(function () {
+    Plotly.Plots.resize(plot);
+  });
 };
 
-setTimeout(window.tTailUpdate, 200);
-setTimeout(window.tTailUpdate, 700);
+window.tTailScheduleUpdate = function () {
+  [60, 180, 420, 900].forEach(function (delay) {
+    setTimeout(window.tTailUpdate, delay);
+  });
+
+  requestAnimationFrame(function () {
+    requestAnimationFrame(window.tTailUpdate);
+  });
+};
+
+window.tTailScheduleUpdate();
+
+window.addEventListener("load", window.tTailScheduleUpdate);
+window.addEventListener("resize", window.tTailScheduleUpdate);
+window.addEventListener("hashchange", window.tTailScheduleUpdate);
 
 if (window.Reveal) {
+  Reveal.on("ready", window.tTailScheduleUpdate);
   Reveal.on("slidechanged", function () {
-    setTimeout(window.tTailUpdate, 150);
+    window.tTailScheduleUpdate();
   });
 }
 </script>

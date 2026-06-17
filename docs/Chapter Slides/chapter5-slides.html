@@ -234,9 +234,14 @@
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 1.02em;
 }
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.62em; }
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1.25px solid #4d5659;
+  font-size: 0.62em;
+}
 .reveal th, .reveal td {
-  border: 1px solid var(--sta-border);
+  border: 1.25px solid #4d5659;
   padding: 6px 8px;
   vertical-align: top;
 }
@@ -292,6 +297,60 @@
 }
 .quiz-hint { font-size: 0.6em; color: var(--sta-muted); font-style: italic; margin: 0 0 6px 0; }
 .callout { font-size: 0.75em; }
+.reveal .assumption-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.reveal .assumption-stack .card,
+.reveal .assumption-stack .warnbox {
+  margin-bottom: 0;
+  padding: 12px 16px;
+  font-size: 0.6em;
+}
+.reveal .assumption-stack .label {
+  font-size: 1.08em;
+  margin-bottom: 7px;
+}
+.reveal .assumption-list {
+  list-style: none !important;
+  margin: 8px 0 0 0 !important;
+  padding-left: 0 !important;
+  display: grid;
+  gap: 7px;
+}
+.reveal .assumption-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92em !important;
+  line-height: 1.2;
+  margin-bottom: 0 !important;
+}
+.reveal .assumption-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sta-teal);
+}
+.reveal .assumption-stack p {
+  font-size: 0.92em !important;
+  line-height: 1.22;
+  margin: 4px 0 0 0;
+}
+.reveal .assumption-formula {
+  text-align: center;
+  font-size: 1.0em !important;
+  margin: 4px auto 0 auto;
+}
+.reveal .assumption-formula p {
+  font-size: 1em !important;
+}
 .ci-widget {
   background: white;
   border: 1px solid var(--sta-border);
@@ -429,7 +488,7 @@ University of Toronto Mississauga</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="htmlwidget-5d9c139e7da0706a9632" style="width:430px;height:320px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5d9c139e7da0706a9632">{"x":{"visdat":{"b86b6469cacd":["function () ","plotlyVisDat"],"b86b5d818c3b":["function () ","data"]},"cur_data":"b86b5d818c3b","attrs":{"b86b5d818c3b":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","color":{},"colors":["#00695c","#f9a825"],"line":{"width":4},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"width":430,"height":320,"margin":{"b":42,"l":48,"t":10,"r":8},"autosize":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Interval endpoints","zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Simulation","showticklabels":false,"zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"shapes":[{"type":"line","x0":0,"x1":0,"y0":0.5,"y1":50.5,"line":{"color":"#004d40","width":2,"dash":"dash"}}],"showlegend":false,"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"responsive":false},"data":[{"x":[-0.2024925333209617,0.33888763782593412,null,-0.24540374439500076,0.29348683179575813,null,-0.48055887855515195,0.052625468866527025,null,-0.24447907758807744,0.26695365230036061,null,-0.2391859024467537,0.33171870633295292,null,-0.19345659881020369,0.41631725263368402,null,-0.25198424793057744,0.36970109086533415,null,-0.47620642550940917,0.15670836372881117,null,-0.30976209503342417,0.29800418479461083,null,-0.16092346138772154,0.45082358463330152,null,-0.40265409352316073,0.13488772624751841,null,-0.23604111012631029,0.37388877358073686,null,-0.19051405518179348,0.32567376222906735,null,-0.27268938630448497,0.18248134245055339,null,-0.12344297082988875,0.38496570967229071,null,-0.21191883345856879,0.27295673501585099,null,-0.15602017610138941,0.33335757251660131,null,-0.59578093582526914,0.055876327520282709,null,-0.32933262959484849,0.29324650202421826,null,-0.29415741004577545,0.23760280839949244,null,-0.46229512795324545,0.24707112966983624,null,-0.10013243596269628,0.37207573971666752,null,-0.18373563088235773,0.31896486425464193,null,-0.33420841984291227,0.26692569507026864,null,-0.16263413581723862,0.55188864744642685,null,-0.1642802456131687,0.46897516992767807,null,-0.38893162256697589,0.17399129933255522,null,-0.20587314476495444,0.37137810287987794,null,-0.1483354535901544,0.49308468657664806,null,-0.50351300456967873,0.026940957137823102,null,-0.21893693543756501,0.25127454194214527,null,-0.14037508857259262,0.48409748219399562,null,-0.099510040799198729,0.47247169001926964,null,-0.37706243962090946,0.099169159482104002,null,-0.25531551746887127,0.32596001837299371,null,-0.37006255253672798,0.15649059276203031,null,-0.324054066765947,0.31088326029061103,null,-0.25274936722615021,0.32785659646625936,null,-0.48759476722420492,0.019680971194392521,null,-0.39452887706761419,0.18494312598613258,null,-0.41946838390273178,0.15389729327524207,null,-0.3410731762358743,0.23472545957159194,null,-0.51081275577879537,0.10433145653956005,null,-0.25458487659826579,0.32064102066019418],"y":[2,2,null,3,3,null,4,4,null,5,5,null,6,6,null,8,8,null,9,9,null,10,10,null,11,11,null,12,12,null,13,13,null,14,14,null,16,16,null,17,17,null,18,18,null,20,20,null,21,21,null,22,22,null,23,23,null,24,24,null,25,25,null,26,26,null,27,27,null,28,28,null,29,29,null,30,30,null,31,31,null,32,32,null,34,34,null,35,35,null,36,36,null,37,37,null,39,39,null,40,40,null,41,41,null,42,42,null,43,43,null,44,44,null,45,45,null,46,46,null,47,47,null,48,48,null,49,49,null,50,50],"type":"scatter","mode":"lines","line":{"color":"rgba(0,105,92,1)","width":4},"text":["<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean","<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean",null,"<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean","<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean","<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean",null,"<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean","<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean","<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean",null,"<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean","<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean",null,"<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean","<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean",null,"<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean","<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean",null,"<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean","<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean",null,"<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean","<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean",null,"<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean","<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean",null,"<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean","<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean",null,"<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean","<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean","<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean",null,"<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean","<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean",null,"<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean","<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean",null,"<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean","<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean",null,"<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean","<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean",null,"<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean","<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean","<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean",null,"<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean","<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean",null,"<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean","<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean",null,"<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean","<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean",null,"<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean","<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean","<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean",null,"<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean","<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean",null,"<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean","<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean",null,"<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean","<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean",null,"<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean","<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean",null,"<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean","<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean",null,"<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean","<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean",null,"<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean","<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean",null,"<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean","<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean",null,"<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean","<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean",null,"<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean","<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean","<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean",null,"<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean","<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean",null,"<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean","<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean",null,"<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean","<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean",null,"<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean","<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean",null,"<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean","<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean",null,"<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean","<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean",null,"<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean","<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean",null,"<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean","<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Covers true mean","marker":{"color":"rgba(0,105,92,1)","line":{"color":"rgba(0,105,92,1)"}},"textfont":{"color":"rgba(0,105,92,1)"},"error_y":{"color":"rgba(0,105,92,1)"},"error_x":{"color":"rgba(0,105,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[-0.58144693650481971,-0.10114394142224761,null,0.013858998172746828,0.55863537700380861,null,-0.57239029478536541,-0.070978929102660571,null,0.17439863741684911,0.62568934747993665,null,0.053792853401845392,0.5514503937240619,null,-0.59660409627207156,-0.036703934080923317],"y":[1,1,null,7,7,null,15,15,null,19,19,null,33,33,null,38,38],"type":"scatter","mode":"lines","line":{"color":"rgba(249,168,37,1)","width":4},"text":["<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean","<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean",null,"<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean","<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean",null,"<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean","<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean",null,"<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean","<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean",null,"<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean","<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean",null,"<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean","<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Misses true mean","marker":{"color":"rgba(249,168,37,1)","line":{"color":"rgba(249,168,37,1)"}},"textfont":{"color":"rgba(249,168,37,1)"},"error_y":{"color":"rgba(249,168,37,1)"},"error_x":{"color":"rgba(249,168,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5d9c139e7da0706a9632">{"x":{"visdat":{"109de57b4effd":["function () ","plotlyVisDat"],"109de27f7f807":["function () ","data"]},"cur_data":"109de27f7f807","attrs":{"109de27f7f807":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","color":{},"colors":["#00695c","#f9a825"],"line":{"width":4},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"width":430,"height":320,"margin":{"b":42,"l":48,"t":10,"r":8},"autosize":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Interval endpoints","zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Simulation","showticklabels":false,"zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"shapes":[{"type":"line","x0":0,"x1":0,"y0":0.5,"y1":50.5,"line":{"color":"#004d40","width":2,"dash":"dash"}}],"showlegend":false,"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"responsive":false},"data":[{"x":[-0.2024925333209617,0.33888763782593412,null,-0.24540374439500076,0.29348683179575813,null,-0.48055887855515195,0.052625468866527025,null,-0.24447907758807744,0.26695365230036061,null,-0.2391859024467537,0.33171870633295292,null,-0.19345659881020369,0.41631725263368402,null,-0.25198424793057744,0.36970109086533415,null,-0.47620642550940917,0.15670836372881117,null,-0.30976209503342417,0.29800418479461083,null,-0.16092346138772154,0.45082358463330152,null,-0.40265409352316073,0.13488772624751841,null,-0.23604111012631029,0.37388877358073686,null,-0.19051405518179348,0.32567376222906735,null,-0.27268938630448497,0.18248134245055339,null,-0.12344297082988875,0.38496570967229071,null,-0.21191883345856879,0.27295673501585099,null,-0.15602017610138941,0.33335757251660131,null,-0.59578093582526914,0.055876327520282709,null,-0.32933262959484849,0.29324650202421826,null,-0.29415741004577545,0.23760280839949244,null,-0.46229512795324545,0.24707112966983624,null,-0.10013243596269628,0.37207573971666752,null,-0.18373563088235773,0.31896486425464193,null,-0.33420841984291227,0.26692569507026864,null,-0.16263413581723862,0.55188864744642685,null,-0.1642802456131687,0.46897516992767807,null,-0.38893162256697589,0.17399129933255522,null,-0.20587314476495444,0.37137810287987794,null,-0.1483354535901544,0.49308468657664806,null,-0.50351300456967873,0.026940957137823102,null,-0.21893693543756501,0.25127454194214527,null,-0.14037508857259262,0.48409748219399562,null,-0.099510040799198729,0.47247169001926964,null,-0.37706243962090946,0.099169159482104002,null,-0.25531551746887127,0.32596001837299371,null,-0.37006255253672798,0.15649059276203031,null,-0.324054066765947,0.31088326029061103,null,-0.25274936722615021,0.32785659646625936,null,-0.48759476722420492,0.019680971194392521,null,-0.39452887706761419,0.18494312598613258,null,-0.41946838390273178,0.15389729327524207,null,-0.3410731762358743,0.23472545957159194,null,-0.51081275577879537,0.10433145653956005,null,-0.25458487659826579,0.32064102066019418],"y":[2,2,null,3,3,null,4,4,null,5,5,null,6,6,null,8,8,null,9,9,null,10,10,null,11,11,null,12,12,null,13,13,null,14,14,null,16,16,null,17,17,null,18,18,null,20,20,null,21,21,null,22,22,null,23,23,null,24,24,null,25,25,null,26,26,null,27,27,null,28,28,null,29,29,null,30,30,null,31,31,null,32,32,null,34,34,null,35,35,null,36,36,null,37,37,null,39,39,null,40,40,null,41,41,null,42,42,null,43,43,null,44,44,null,45,45,null,46,46,null,47,47,null,48,48,null,49,49,null,50,50],"type":"scatter","mode":"lines","line":{"color":"rgba(0,105,92,1)","width":4},"text":["<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean","<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean",null,"<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean","<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean","<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean",null,"<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean","<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean","<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean",null,"<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean","<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean",null,"<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean","<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean",null,"<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean","<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean",null,"<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean","<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean",null,"<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean","<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean",null,"<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean","<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean",null,"<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean","<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean",null,"<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean","<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean","<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean",null,"<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean","<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean",null,"<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean","<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean",null,"<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean","<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean",null,"<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean","<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean",null,"<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean","<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean","<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean",null,"<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean","<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean",null,"<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean","<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean",null,"<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean","<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean",null,"<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean","<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean","<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean",null,"<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean","<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean",null,"<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean","<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean",null,"<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean","<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean",null,"<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean","<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean",null,"<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean","<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean",null,"<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean","<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean",null,"<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean","<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean",null,"<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean","<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean",null,"<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean","<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean",null,"<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean","<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean","<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean",null,"<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean","<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean",null,"<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean","<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean",null,"<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean","<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean",null,"<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean","<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean",null,"<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean","<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean",null,"<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean","<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean",null,"<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean","<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean",null,"<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean","<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Covers true mean","marker":{"color":"rgba(0,105,92,1)","line":{"color":"rgba(0,105,92,1)"}},"textfont":{"color":"rgba(0,105,92,1)"},"error_y":{"color":"rgba(0,105,92,1)"},"error_x":{"color":"rgba(0,105,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[-0.58144693650481971,-0.10114394142224761,null,0.013858998172746828,0.55863537700380861,null,-0.57239029478536541,-0.070978929102660571,null,0.17439863741684911,0.62568934747993665,null,0.053792853401845392,0.5514503937240619,null,-0.59660409627207156,-0.036703934080923317],"y":[1,1,null,7,7,null,15,15,null,19,19,null,33,33,null,38,38],"type":"scatter","mode":"lines","line":{"color":"rgba(249,168,37,1)","width":4},"text":["<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean","<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean",null,"<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean","<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean",null,"<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean","<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean",null,"<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean","<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean",null,"<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean","<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean",null,"<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean","<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Misses true mean","marker":{"color":"rgba(249,168,37,1)","line":{"color":"rgba(249,168,37,1)"}},"textfont":{"color":"rgba(249,168,37,1)"},"error_y":{"color":"rgba(249,168,37,1)"},"error_x":{"color":"rgba(249,168,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -611,10 +670,21 @@ setTimeout(updateCiCalc, 500);
 <p>Use this for a population mean <span class="math inline">\(\mu\)</span> with known <span class="math inline">\(\sigma\)</span>.</p>
 </div>
 <div class="two-col">
-<div class="notebox">
-<p><span class="label">Assumptions</span> - Random sample or randomized experiment. - Independent observations. - Population is normal, or <span class="math inline">\(n\)</span> is large enough for the CLT.</p>
+<div class="notebox fragment">
+<p><span class="label">Assumptions</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+Random sample or randomized experiment.
+</li>
+<li class="fragment">
+Independent observations.
+</li>
+<li class="fragment">
+Population is normal, or <span class="math inline">\(n\)</span> is large enough for the CLT.
+</li>
+</ul>
 </div>
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p><span class="label">Exam cue</span> If the problem gives a population standard deviation, use <span class="math inline">\(z\)</span>. If it gives a sample standard deviation, use <span class="math inline">\(t\)</span>.</p>
 </div>
 </div>
@@ -692,12 +762,12 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p><span class="math inline">\(\bar{x}=68.6\)</span>, so the interval is approximately <span class="math inline">\((61.01, 76.19)\)</span>. We are 95% confident that the population mean number of cars sold annually is between about 61 and 76.</p>
 </div>
 </section>
-<section id="quiz-known-sigma" class="slide level2 quiz-question">
-<h2>Quiz: Known Sigma</h2>
+<section id="section" class="slide level2 quiz-question">
+<h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Quick Check</strong></p>
+<p><strong>Question</strong></p>
 </div>
 <div class="callout-content">
 <p>A sample has <span class="math inline">\(\bar{x}=42\)</span>, <span class="math inline">\(n=36\)</span>, and known <span class="math inline">\(\sigma=12\)</span>. For a 95% CI, what is the margin of error?</p>
@@ -792,10 +862,21 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 \]</span></p>
 </div>
 <div class="two-col">
-<div class="notebox">
-<p><span class="label">Conditions</span> - Random sample. - Independent Bernoulli trials. - Large counts: <span class="math inline">\(n\hat p \ge 10\)</span> and <span class="math inline">\(n(1-\hat p)\ge 10\)</span>.</p>
+<div class="notebox fragment">
+<p><span class="label">Conditions</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+Random sample.
+</li>
+<li class="fragment">
+Independent Bernoulli trials.
+</li>
+<li class="fragment">
+Large counts: <span class="math inline">\(n\hat p \ge 10\)</span> and <span class="math inline">\(n(1-\hat p)\ge 10\)</span>.
+</li>
+</ul>
 </div>
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p><span class="label">Boundary check</span> The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling.</p>
 </div>
 </div>
@@ -845,12 +926,12 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p><span class="math inline">\(\hat p=0.44\)</span>, so the 90% CI is approximately <span class="math inline">\((0.4079,0.4721)\)</span>.</p>
 </div>
 </section>
-<section id="quiz-proportion-conditions" class="slide level2 quiz-question">
-<h2>Quiz: Proportion Conditions</h2>
+<section id="section-1" class="slide level2 quiz-question">
+<h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Quick Check</strong></p>
+<p><strong>Question</strong></p>
 </div>
 <div class="callout-content">
 <p>For a one-proportion confidence interval, which sample has enough successes and failures for the normal approximation?</p>
@@ -1040,26 +1121,26 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="two-means-unknown-and-unequal-variances" class="slide level2">
 <h2>Two Means: Unknown and Unequal Variances</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>For unequal unknown variances, use Welch’s interval:</p>
 <p><span class="math display">\[
 (\bar{x}_1-\bar{x}_2)\pm t_{df,\alpha/2}
 \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}.
 \]</span></p>
 </div>
-<div class="notebox">
+<div class="notebox fragment">
 <p><span class="label">Degrees of freedom</span> Software uses the Welch-Satterthwaite approximation. A conservative hand approximation is <span class="math inline">\(df=\min(n_1-1,n_2-1)\)</span>.</p>
 </div>
 </section>
 <section id="welch-degrees-of-freedom" class="slide level2">
 <h2>Welch Degrees of Freedom</h2>
-<div class="notebox">
+<div class="notebox fragment">
 <p><span class="label">For hand work</span> When the Welch formula is not the main point of the question, use the conservative degrees of freedom:</p>
 <p><span class="math display">\[
 df=\min(n_1-1,n_2-1).
 \]</span></p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p>Software usually uses the Welch-Satterthwaite approximation:</p>
 <p><span class="math display">\[
 df=
@@ -1072,7 +1153,7 @@ df=
 }.
 \]</span></p>
 </div>
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p>Welch is the better default when the population variances are unknown and equal variances are not clearly justified.</p>
 </div>
 </section>
@@ -1123,21 +1204,40 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="assumptions-for-two-sample-mean-intervals" class="slide level2">
 <h2>Assumptions for Two-Sample Mean Intervals</h2>
-<div class="two-col">
-<div class="card">
-<p><span class="label">For all two-sample mean CIs</span> - The two samples are independent. - Each sample is random, or the data come from a randomized design. - Each population is approximately normal, or both samples are large enough for the CLT.</p>
+<div class="assumption-stack">
+<div class="card fragment">
+<p><span class="label">For all two-sample mean CIs</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+The two samples are independent.
+</li>
+<li class="fragment">
+Each sample is random, or the data come from a randomized design.
+</li>
+<li class="fragment">
+Each population is approximately normal, or both samples are large enough for the CLT.
+</li>
+</ul>
 </div>
-<div class="card">
-<p><span class="label">Extra assumption for pooled t</span> - Use the pooled interval only when equal population variances are reasonable. - If the equal-variance assumption is doubtful, use Welch’s interval.</p>
+<div class="card fragment">
+<p><span class="label">Extra assumption for pooled t</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+Use the pooled interval only when equal population variances are reasonable.
+</li>
+<li class="fragment">
+If the equal-variance assumption is doubtful, use Welch’s interval.
+</li>
+</ul>
 </div>
 </div>
 </section>
-<section id="quiz-two-means" class="slide level2 quiz-question">
-<h2>Quiz: Two Means</h2>
+<section id="section-2" class="slide level2 quiz-question">
+<h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Quick Check</strong></p>
+<p><strong>Question</strong></p>
 </div>
 <div class="callout-content">
 <p>Two independent samples have unknown and clearly unequal sample standard deviations. Which interval is usually the best default for <span class="math inline">\(\mu_1-\mu_2\)</span>?</p>
@@ -1153,7 +1253,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="difference-of-proportions" class="slide level2">
 <h2>Difference of Proportions</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>For two independent population proportions:</p>
 <p><span class="math display">\[
 (\hat p_1-\hat p_2)\pm z_{\alpha/2}
@@ -1164,7 +1264,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 }
 \]</span></p>
 </div>
-<div class="notebox">
+<div class="notebox fragment">
 <p>Check large counts in both groups: successes and failures should each be at least 10.</p>
 </div>
 </section>
@@ -1215,23 +1315,39 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="assumptions-for-difference-of-proportions" class="slide level2">
 <h2>Assumptions for Difference of Proportions</h2>
-<div class="two-col">
-<div class="card">
-<p><span class="label">Sampling structure</span> - The two groups are independent. - Each sample is random, or the data come from a randomized design. - If sampling without replacement, each sample should be less than 10% of its population.</p>
+<div class="assumption-stack">
+<div class="card fragment">
+<p><span class="label">Sampling structure</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+The two groups are independent.
+</li>
+<li class="fragment">
+Each sample is random, or the data come from a randomized design.
+</li>
+<li class="fragment">
+If sampling without replacement, each sample should be less than 10% of its population.
+</li>
+</ul>
 </div>
-<div class="card">
-<p><span class="label">Large-count condition</span> For each group, check:</p>
+<div class="card fragment">
+<p><span class="label">Large-count condition</span></p>
+<p class="fragment">
+For each group, check successes and failures:
+</p>
+<div class="assumption-formula fragment">
 <p><span class="math display">\[
-x_i\ge 10
+x_i \ge 10
 \qquad\text{and}\qquad
-n_i-x_i\ge 10.
+n_i - x_i \ge 10.
 \]</span></p>
+</div>
 </div>
 </div>
 </section>
 <section id="ratio-of-variances" class="slide level2">
 <h2>Ratio of Variances</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>For two normal populations, a confidence interval for <span class="math inline">\(\sigma_1^2/\sigma_2^2\)</span> can be written as:</p>
 <p><span class="math display">\[
 \left(
@@ -1240,7 +1356,7 @@ n_i-x_i\ge 10.
 \right)
 \]</span></p>
 </div>
-<div class="warnbox">
+<div class="warnbox fragment">
 <p>This method is sensitive to non-normality. Always check whether normality is a reasonable assumption before trusting an <span class="math inline">\(F\)</span> interval for variances.</p>
 </div>
 </section>
@@ -1292,18 +1408,34 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="assumptions-for-ratio-of-variances" class="slide level2">
 <h2>Assumptions for Ratio of Variances</h2>
-<div class="two-col">
-<div class="card">
-<p><span class="label">Required structure</span> - The two samples are independent. - Each sample comes from a random process or randomized design.</p>
+<div class="assumption-stack">
+<div class="card fragment">
+<p><span class="label">Required structure</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+The two samples are independent.
+</li>
+<li class="fragment">
+Each sample comes from a random process or randomized design.
+</li>
+</ul>
 </div>
-<div class="warnbox">
-<p><span class="label">Normality matters here</span> The <span class="math inline">\(F\)</span> interval for a variance ratio is sensitive to non-normality. This condition is more important here than it is for many mean-based intervals.</p>
+<div class="warnbox fragment">
+<p><span class="label">Normality matters here</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+The <span class="math inline">\(F\)</span> interval for a variance ratio is sensitive to non-normality.
+</li>
+<li class="fragment">
+This condition is more important here than it is for many mean-based intervals.
+</li>
+</ul>
 </div>
 </div>
 </section>
 <section id="paired-data" class="slide level2">
 <h2>Paired Data</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>For paired observations, reduce each pair to one difference:</p>
 <p><span class="math display">\[d_i=M_{2i}-M_{1i}\]</span></p>
 <p>Then construct a one-sample <span class="math inline">\(t\)</span> interval for the mean difference:</p>
@@ -1312,10 +1444,10 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 \]</span></p>
 </div>
 <div class="two-col">
-<div class="notebox">
+<div class="notebox fragment">
 <p><span class="label">Use paired data when</span> The two measurements come from the same unit, matched units, or before-after observations.</p>
 </div>
-<div class="warnbox">
+<div class="warnbox fragment">
 <p><span class="label">Do not split the pair</span> The pairing is information. Analyze the differences, not the two columns as independent samples.</p>
 </div>
 </div>
@@ -1370,18 +1502,34 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="assumptions-for-paired-data" class="slide level2">
 <h2>Assumptions for Paired Data</h2>
-<div class="two-col">
-<div class="card">
-<p><span class="label">Paired structure</span> - Each pair comes from the same unit, matched units, or a before-after measurement. - The pairs themselves are independent of one another.</p>
+<div class="assumption-stack">
+<div class="card fragment">
+<p><span class="label">Paired structure</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+Each pair comes from the same unit, matched units, or a before-after measurement.
+</li>
+<li class="fragment">
+The pairs themselves are independent of one another.
+</li>
+</ul>
 </div>
-<div class="card">
-<p><span class="label">Model condition</span> - Analyze the differences <span class="math inline">\(d_i\)</span>, not the two original columns separately. - For small samples, the distribution of the differences should be approximately normal.</p>
+<div class="card fragment">
+<p><span class="label">Model condition</span></p>
+<ul class="assumption-list">
+<li class="fragment">
+Analyze the differences <span class="math inline">\(d_i\)</span>, not the two original columns separately.
+</li>
+<li class="fragment">
+For small samples, the distribution of the differences should be approximately normal.
+</li>
+</ul>
 </div>
 </div>
 </section>
 <section id="sample-size-for-a-mean" class="slide level2">
 <h2>Sample Size for a Mean</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>If <span class="math inline">\(\sigma\)</span> is known and desired margin of error is <span class="math inline">\(E\)</span>:</p>
 <p><span class="math display">\[
 E=z_{\alpha/2}\frac{\sigma}{\sqrt n}
@@ -1446,14 +1594,14 @@ n=\left(\frac{1.96(0.0068)}{0.005}\right)^2=7.10
 </section>
 <section id="sample-size-for-a-mean-sigma-unknown" class="slide level2">
 <h2>Sample Size for a Mean: Sigma Unknown</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>When <span class="math inline">\(\sigma\)</span> is unknown, use a planning estimate <span class="math inline">\(s\)</span> from a pilot study or previous data.</p>
 <p>The practical target is:</p>
 <p><span class="math display">\[
 n=\left(\frac{t_{\alpha/2,n-1}s}{E}\right)^2.
 \]</span></p>
 </div>
-<div class="notebox">
+<div class="notebox fragment">
 <p><span class="label">Why this is iterative</span> The <span class="math inline">\(t\)</span> critical value depends on <span class="math inline">\(df=n-1\)</span>, but <span class="math inline">\(n\)</span> is what we are trying to find. A common approach is:</p>
 <ol type="1">
 <li>Start with the <span class="math inline">\(z\)</span> approximation.</li>
@@ -1505,14 +1653,14 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="sample-size-for-a-proportion" class="slide level2">
 <h2>Sample Size for a Proportion</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>For a desired margin of error <span class="math inline">\(E\)</span>:</p>
 <p><span class="math display">\[
 n=\left(\frac{z^*}{E}\right)^2p^*(1-p^*)
 \]</span></p>
 <p>where <span class="math inline">\(p^*\)</span> is a planning value. If there is no prior information, use <span class="math inline">\(p^*=0.5\)</span>.</p>
 </div>
-<div class="notebox">
+<div class="notebox fragment">
 <p>The value <span class="math inline">\(p^*=0.5\)</span> is conservative because it maximizes <span class="math inline">\(p^*(1-p^*)\)</span>.</p>
 </div>
 </section>
@@ -1544,12 +1692,12 @@ n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
 <p>The 99% confidence level requires a larger survey because the critical value is larger.</p>
 </div>
 </section>
-<section id="quiz-sample-size" class="slide level2 quiz-question">
-<h2>Quiz: Sample Size</h2>
+<section id="section-3" class="slide level2 quiz-question">
+<h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Quick Check</strong></p>
+<p><strong>Question</strong></p>
 </div>
 <div class="callout-content">
 <p>When calculating sample size from a margin of error, why do we round up?</p>
@@ -1623,10 +1771,10 @@ n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
 <section id="final-checklist" class="slide level2">
 <h2>Final Checklist</h2>
 <div class="two-col">
-<div class="card">
+<div class="card fragment">
 <p><span class="label">Before calculating</span> - Identify the parameter. - Check one sample vs two sample vs paired. - Check whether the target is a mean, proportion, or variance. - Pick the reference distribution.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">After calculating</span> - Include units when relevant. - Interpret in context. - Check whether 0 or 1 has a special meaning. - For sample size, round up.</p>
 </div>
 </div>

@@ -127,9 +127,14 @@ set.seed(258)
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 1.02em;
 }
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.62em; }
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1.25px solid #4d5659;
+  font-size: 0.62em;
+}
 .reveal th, .reveal td {
-  border: 1px solid var(--sta-border);
+  border: 1.25px solid #4d5659;
   padding: 6px 8px;
   vertical-align: top;
 }
@@ -185,6 +190,60 @@ set.seed(258)
 }
 .quiz-hint { font-size: 0.6em; color: var(--sta-muted); font-style: italic; margin: 0 0 6px 0; }
 .callout { font-size: 0.75em; }
+.reveal .assumption-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.reveal .assumption-stack .card,
+.reveal .assumption-stack .warnbox {
+  margin-bottom: 0;
+  padding: 12px 16px;
+  font-size: 0.6em;
+}
+.reveal .assumption-stack .label {
+  font-size: 1.08em;
+  margin-bottom: 7px;
+}
+.reveal .assumption-list {
+  list-style: none !important;
+  margin: 8px 0 0 0 !important;
+  padding-left: 0 !important;
+  display: grid;
+  gap: 7px;
+}
+.reveal .assumption-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92em !important;
+  line-height: 1.2;
+  margin-bottom: 0 !important;
+}
+.reveal .assumption-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sta-teal);
+}
+.reveal .assumption-stack p {
+  font-size: 0.92em !important;
+  line-height: 1.22;
+  margin: 4px 0 0 0;
+}
+.reveal .assumption-formula {
+  text-align: center;
+  font-size: 1.0em !important;
+  margin: 4px auto 0 auto;
+}
+.reveal .assumption-formula p {
+  font-size: 1em !important;
+}
 .ci-widget {
   background: white;
   border: 1px solid var(--sta-border);
@@ -572,14 +631,17 @@ Use this for a population mean $\mu$ with known $\sigma$.
 :::
 
 :::: {.two-col}
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Assumptions</span>
-- Random sample or randomized experiment.
-- Independent observations.
-- Population is normal, or $n$ is large enough for the CLT.
+
+<ul class="assumption-list">
+  <li class="fragment">Random sample or randomized experiment.</li>
+  <li class="fragment">Independent observations.</li>
+  <li class="fragment">Population is normal, or $n$ is large enough for the CLT.</li>
+</ul>
 :::
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 <span class="label">Exam cue</span>
 If the problem gives a population standard deviation, use $z$. If it gives a sample standard deviation, use $t$.
 :::
@@ -643,10 +705,10 @@ $\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% co
 
 ---
 
-## Quiz: Known Sigma {.quiz-question}
+##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Quick Check
+## Question
 
 A sample has $\bar{x}=42$, $n=36$, and known $\sigma=12$. For a 95% CI, what is the margin of error?
 ::::
@@ -755,13 +817,16 @@ $$
 :::
 
 :::: {.two-col}
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Conditions</span>
-- Random sample.
-- Independent Bernoulli trials.
-- Large counts: $n\hat p \ge 10$ and $n(1-\hat p)\ge 10$.
+
+<ul class="assumption-list">
+  <li class="fragment">Random sample.</li>
+  <li class="fragment">Independent Bernoulli trials.</li>
+  <li class="fragment">Large counts: $n\hat p \ge 10$ and $n(1-\hat p)\ge 10$.</li>
+</ul>
 :::
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 <span class="label">Boundary check</span>
 The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling.
 :::
@@ -826,10 +891,10 @@ $\hat p=0.44$, so the 90% CI is approximately $(0.4079,0.4721)$.
 
 ---
 
-## Quiz: Proportion Conditions {.quiz-question}
+##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Quick Check
+## Question
 
 For a one-proportion confidence interval, which sample has enough successes and failures for the normal approximation?
 ::::
@@ -1071,7 +1136,7 @@ The 90% CI is approximately $(1.06,10.14)$ points. Method A appears to have a hi
 
 ## Two Means: Unknown and Unequal Variances
 
-::: {.defbox}
+::: {.defbox .fragment}
 For unequal unknown variances, use Welch's interval:
 
 $$
@@ -1080,7 +1145,7 @@ $$
 $$
 :::
 
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Degrees of freedom</span>
 Software uses the Welch-Satterthwaite approximation. A conservative hand approximation is $df=\min(n_1-1,n_2-1)$.
 :::
@@ -1089,7 +1154,7 @@ Software uses the Welch-Satterthwaite approximation. A conservative hand approxi
 
 ## Welch Degrees of Freedom
 
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">For hand work</span>
 When the Welch formula is not the main point of the question, use the conservative degrees of freedom:
 
@@ -1098,7 +1163,7 @@ df=\min(n_1-1,n_2-1).
 $$
 :::
 
-::: {.defbox}
+::: {.defbox .fragment}
 Software usually uses the Welch-Satterthwaite approximation:
 
 $$
@@ -1113,7 +1178,7 @@ df=
 $$
 :::
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 Welch is the better default when the population variances are unknown and equal variances are not clearly justified.
 :::
 
@@ -1180,27 +1245,33 @@ The 90% CI is approximately $(3.47,24.53)$. Group 1 appears to have a higher mea
 
 ## Assumptions for Two-Sample Mean Intervals
 
-:::: {.two-col}
-::: {.card}
+:::: {.assumption-stack}
+::: {.card .fragment}
 <span class="label">For all two-sample mean CIs</span>
-- The two samples are independent.
-- Each sample is random, or the data come from a randomized design.
-- Each population is approximately normal, or both samples are large enough for the CLT.
+
+<ul class="assumption-list">
+  <li class="fragment">The two samples are independent.</li>
+  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
+  <li class="fragment">Each population is approximately normal, or both samples are large enough for the CLT.</li>
+</ul>
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">Extra assumption for pooled t</span>
-- Use the pooled interval only when equal population variances are reasonable.
-- If the equal-variance assumption is doubtful, use Welch's interval.
+
+<ul class="assumption-list">
+  <li class="fragment">Use the pooled interval only when equal population variances are reasonable.</li>
+  <li class="fragment">If the equal-variance assumption is doubtful, use Welch's interval.</li>
+</ul>
 :::
 ::::
 
 ---
 
-## Quiz: Two Means {.quiz-question}
+##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Quick Check
+## Question
 
 Two independent samples have unknown and clearly unequal sample standard deviations. Which interval is usually the best default for $\mu_1-\mu_2$?
 ::::
@@ -1214,7 +1285,7 @@ Two independent samples have unknown and clearly unequal sample standard deviati
 
 ## Difference of Proportions
 
-::: {.defbox}
+::: {.defbox .fragment}
 For two independent population proportions:
 
 $$
@@ -1227,7 +1298,7 @@ $$
 $$
 :::
 
-::: {.notebox}
+::: {.notebox .fragment}
 Check large counts in both groups: successes and failures should each be at least 10.
 :::
 
@@ -1291,23 +1362,29 @@ The 90% CI is approximately $(-0.010,0.095)$. Because 0 is inside, the data do n
 
 ## Assumptions for Difference of Proportions
 
-:::: {.two-col}
-::: {.card}
+:::: {.assumption-stack}
+::: {.card .fragment}
 <span class="label">Sampling structure</span>
-- The two groups are independent.
-- Each sample is random, or the data come from a randomized design.
-- If sampling without replacement, each sample should be less than 10% of its population.
+
+<ul class="assumption-list">
+  <li class="fragment">The two groups are independent.</li>
+  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
+  <li class="fragment">If sampling without replacement, each sample should be less than 10% of its population.</li>
+</ul>
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">Large-count condition</span>
-For each group, check:
 
+<p class="fragment">For each group, check successes and failures:</p>
+
+::: {.assumption-formula .fragment}
 $$
-x_i\ge 10
+x_i \ge 10
 \qquad\text{and}\qquad
-n_i-x_i\ge 10.
+n_i - x_i \ge 10.
 $$
+:::
 :::
 ::::
 
@@ -1315,7 +1392,7 @@ $$
 
 ## Ratio of Variances
 
-::: {.defbox}
+::: {.defbox .fragment}
 For two normal populations, a confidence interval for $\sigma_1^2/\sigma_2^2$ can be written as:
 
 $$
@@ -1326,7 +1403,7 @@ $$
 $$
 :::
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 This method is sensitive to non-normality. Always check whether normality is a reasonable assumption before trusting an $F$ interval for variances.
 :::
 
@@ -1393,16 +1470,23 @@ The 90% CI is approximately $(0.96,4.51)$. Since 1 is inside, the evidence for d
 
 ## Assumptions for Ratio of Variances
 
-:::: {.two-col}
-::: {.card}
+:::: {.assumption-stack}
+::: {.card .fragment}
 <span class="label">Required structure</span>
-- The two samples are independent.
-- Each sample comes from a random process or randomized design.
+
+<ul class="assumption-list">
+  <li class="fragment">The two samples are independent.</li>
+  <li class="fragment">Each sample comes from a random process or randomized design.</li>
+</ul>
 :::
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 <span class="label">Normality matters here</span>
-The $F$ interval for a variance ratio is sensitive to non-normality. This condition is more important here than it is for many mean-based intervals.
+
+<ul class="assumption-list">
+  <li class="fragment">The $F$ interval for a variance ratio is sensitive to non-normality.</li>
+  <li class="fragment">This condition is more important here than it is for many mean-based intervals.</li>
+</ul>
 :::
 ::::
 
@@ -1410,7 +1494,7 @@ The $F$ interval for a variance ratio is sensitive to non-normality. This condit
 
 ## Paired Data
 
-::: {.defbox}
+::: {.defbox .fragment}
 For paired observations, reduce each pair to one difference:
 
 $$d_i=M_{2i}-M_{1i}$$
@@ -1423,11 +1507,11 @@ $$
 :::
 
 :::: {.two-col}
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Use paired data when</span>
 The two measurements come from the same unit, matched units, or before-after observations.
 :::
-::: {.warnbox}
+::: {.warnbox .fragment}
 <span class="label">Do not split the pair</span>
 The pairing is information. Analyze the differences, not the two columns as independent samples.
 :::
@@ -1491,17 +1575,23 @@ The 90% CI is approximately $(5.43,7.57)$. Positive values mean the treatment lo
 
 ## Assumptions for Paired Data
 
-:::: {.two-col}
-::: {.card}
+:::: {.assumption-stack}
+::: {.card .fragment}
 <span class="label">Paired structure</span>
-- Each pair comes from the same unit, matched units, or a before-after measurement.
-- The pairs themselves are independent of one another.
+
+<ul class="assumption-list">
+  <li class="fragment">Each pair comes from the same unit, matched units, or a before-after measurement.</li>
+  <li class="fragment">The pairs themselves are independent of one another.</li>
+</ul>
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">Model condition</span>
-- Analyze the differences $d_i$, not the two original columns separately.
-- For small samples, the distribution of the differences should be approximately normal.
+
+<ul class="assumption-list">
+  <li class="fragment">Analyze the differences $d_i$, not the two original columns separately.</li>
+  <li class="fragment">For small samples, the distribution of the differences should be approximately normal.</li>
+</ul>
 :::
 ::::
 
@@ -1509,7 +1599,7 @@ The 90% CI is approximately $(5.43,7.57)$. Positive values mean the treatment lo
 
 ## Sample Size for a Mean
 
-::: {.defbox}
+::: {.defbox .fragment}
 If $\sigma$ is known and desired margin of error is $E$:
 
 $$
@@ -1563,7 +1653,7 @@ Higher confidence requires a larger sample size when the desired margin of error
 
 ## Sample Size for a Mean: Sigma Unknown
 
-::: {.defbox}
+::: {.defbox .fragment}
 When $\sigma$ is unknown, use a planning estimate $s$ from a pilot study or previous data.
 
 The practical target is:
@@ -1573,7 +1663,7 @@ n=\left(\frac{t_{\alpha/2,n-1}s}{E}\right)^2.
 $$
 :::
 
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Why this is iterative</span>
 The $t$ critical value depends on $df=n-1$, but $n$ is what we are trying to find. A common approach is:
 
@@ -1680,7 +1770,7 @@ The sample size stabilizes at $n=57$.
 
 ## Sample Size for a Proportion
 
-::: {.defbox}
+::: {.defbox .fragment}
 For a desired margin of error $E$:
 
 $$
@@ -1690,7 +1780,7 @@ $$
 where $p^*$ is a planning value. If there is no prior information, use $p^*=0.5$.
 :::
 
-::: {.notebox}
+::: {.notebox .fragment}
 The value $p^*=0.5$ is conservative because it maximizes $p^*(1-p^*)$.
 :::
 
@@ -1734,10 +1824,10 @@ The 99% confidence level requires a larger survey because the critical value is 
 
 ---
 
-## Quiz: Sample Size {.quiz-question}
+##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Quick Check
+## Question
 
 When calculating sample size from a margin of error, why do we round up?
 ::::
@@ -1769,7 +1859,7 @@ When calculating sample size from a margin of error, why do we round up?
 ## Final Checklist
 
 :::: {.two-col}
-::: {.card}
+::: {.card .fragment}
 <span class="label">Before calculating</span>
 - Identify the parameter.
 - Check one sample vs two sample vs paired.
@@ -1777,7 +1867,7 @@ When calculating sample size from a margin of error, why do we round up?
 - Pick the reference distribution.
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">After calculating</span>
 - Include units when relevant.
 - Interpret in context.

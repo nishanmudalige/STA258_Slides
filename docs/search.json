@@ -1649,7 +1649,7 @@
     "href": "Chapter Slides/chapter5-slides.html#one-mean-sigma-known",
     "title": "STA258",
     "section": "One Mean, Sigma Known",
-    "text": "One Mean, Sigma Known\n\nWhen the population standard deviation \\(\\sigma\\) is known:\n\\[\n\\bar{x} \\pm z_{\\alpha/2}\\frac{\\sigma}{\\sqrt n}\n\\]\nUse this for a population mean \\(\\mu\\) with known \\(\\sigma\\).\n\n\n\nAssumptions - Random sample or randomized experiment. - Independent observations. - Population is normal, or \\(n\\) is large enough for the CLT.\n\n\nExam cue If the problem gives a population standard deviation, use \\(z\\). If it gives a sample standard deviation, use \\(t\\)."
+    "text": "One Mean, Sigma Known\n\nWhen the population standard deviation \\(\\sigma\\) is known:\n\\[\n\\bar{x} \\pm z_{\\alpha/2}\\frac{\\sigma}{\\sqrt n}\n\\]\nUse this for a population mean \\(\\mu\\) with known \\(\\sigma\\).\n\n\n\nAssumptions\n\n\nRandom sample or randomized experiment.\n\n\nIndependent observations.\n\n\nPopulation is normal, or \\(n\\) is large enough for the CLT.\n\n\n\n\nExam cue If the problem gives a population standard deviation, use \\(z\\). If it gives a sample standard deviation, use \\(t\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-1-known-sigma---magazine-readers",
@@ -1698,7 +1698,7 @@
     "href": "Chapter Slides/chapter5-slides.html#one-proportion",
     "title": "STA258",
     "section": "One Proportion",
-    "text": "One Proportion\n\nFor a population proportion \\(p\\), with \\(\\hat p=x/n\\):\n\\[\n\\hat p \\pm z_{\\alpha/2}\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n\\]\n\n\n\nConditions - Random sample. - Independent Bernoulli trials. - Large counts: \\(n\\hat p \\ge 10\\) and \\(n(1-\\hat p)\\ge 10\\).\n\n\nBoundary check The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling."
+    "text": "One Proportion\n\nFor a population proportion \\(p\\), with \\(\\hat p=x/n\\):\n\\[\n\\hat p \\pm z_{\\alpha/2}\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n\\]\n\n\n\nConditions\n\n\nRandom sample.\n\n\nIndependent Bernoulli trials.\n\n\nLarge counts: \\(n\\hat p \\ge 10\\) and \\(n(1-\\hat p)\\ge 10\\).\n\n\n\n\nBoundary check The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-1-one-proportion---transit-use",
@@ -2258,7 +2258,7 @@
     "href": "Chapter Slides/chapter5-slides.html#assumptions-for-two-sample-mean-intervals",
     "title": "STA258",
     "section": "Assumptions for Two-Sample Mean Intervals",
-    "text": "Assumptions for Two-Sample Mean Intervals\n\n\nFor all two-sample mean CIs - The two samples are independent. - Each sample is random, or the data come from a randomized design. - Each population is approximately normal, or both samples are large enough for the CLT.\n\n\nExtra assumption for pooled t - Use the pooled interval only when equal population variances are reasonable. - If the equal-variance assumption is doubtful, use Welch’s interval."
+    "text": "Assumptions for Two-Sample Mean Intervals\n\n\nFor all two-sample mean CIs\n\n\nThe two samples are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nEach population is approximately normal, or both samples are large enough for the CLT.\n\n\n\n\nExtra assumption for pooled t\n\n\nUse the pooled interval only when equal population variances are reasonable.\n\n\nIf the equal-variance assumption is doubtful, use Welch’s interval."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#assumptions-for-two-sample-mean-intervals-1",
@@ -2272,7 +2272,7 @@
     "href": "Chapter Slides/chapter5-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nTwo independent samples are used to compare average commute times. The population standard deviations are unknown, and the sample standard deviations are noticeably different. Which interval is the most appropriate?\n\n\n\n\nKnown-\\(\\sigma\\) two-sample \\(z\\) interval\nPooled two-sample \\(t\\) interval\nWelch two-sample \\(t\\) interval\nPaired \\(t\\) interval"
+    "text": "Question\n\n\nA sample has \\(\\bar{x}=42\\), \\(n=36\\), and known \\(\\sigma=12\\). For a 95% CI, what is the margin of error?\n\n\n\n\n1.96\n3.92\n4.00\n7.84"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#confidence-interval-for-a-difference-of-proportions",
@@ -2314,14 +2314,14 @@
     "href": "Chapter Slides/chapter5-slides.html#assumptions-for-difference-of-proportions",
     "title": "STA258",
     "section": "Assumptions for Difference of Proportions",
-    "text": "Assumptions for Difference of Proportions\n\n\nSampling structure - The two groups are independent. - Each sample is random, or the data come from a randomized design. - If sampling without replacement, each sample should be less than 10% of its population.\n\n\nLarge-count condition For each group, check:\n\\[\nx_i\\ge 10\n\\qquad\\text{and}\\qquad\nn_i-x_i\\ge 10.\n\\]"
+    "text": "Assumptions for Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\nFor each group, check successes and failures:\n\n\n\\[\nx_i \\ge 10\n\\qquad\\text{and}\\qquad\nn_i - x_i \\ge 10.\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#section-1",
     "href": "Chapter Slides/chapter5-slides.html#section-1",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nA two-sample confidence interval for \\(p_1-p_2\\) is constructed. Which condition checks whether the normal approximation is reasonable?\n\n\n\n\nThe two sample means must be equal\nThe two population variances must be equal\nEach group should have enough successes and failures\nThe sample sizes must be exactly the same"
+    "text": "Question\n\n\nFor a one-proportion confidence interval, which sample has enough successes and failures for the normal approximation?\n\n\n\n\n\\(n=20\\), \\(\\hat p=0.90\\)\n\\(n=50\\), \\(\\hat p=0.10\\)\n\\(n=100\\), \\(\\hat p=0.20\\)\n\\(n=15\\), \\(\\hat p=0.50\\)"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#confidence-interval-for-a-ratio-of-variances",
@@ -2370,14 +2370,14 @@
     "href": "Chapter Slides/chapter5-slides.html#assumptions-for-ratio-of-variances",
     "title": "STA258",
     "section": "Assumptions for Ratio of Variances",
-    "text": "Assumptions for Ratio of Variances\n\n\nRequired structure - The two samples are independent. - Each sample comes from a random process or randomized design.\n\n\nNormality matters here The \\(F\\) interval for a variance ratio is sensitive to non-normality. This condition is more important here than it is for many mean-based intervals."
+    "text": "Assumptions for Ratio of Variances\n\n\nRequired structure\n\n\nThe two samples are independent.\n\n\nEach sample comes from a random process or randomized design.\n\n\n\n\nNormality matters here\n\n\nThe \\(F\\) interval for a variance ratio is sensitive to non-normality.\n\n\nThis condition is more important here than it is for many mean-based intervals."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#section-2",
     "href": "Chapter Slides/chapter5-slides.html#section-2",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nA confidence interval for \\(\\sigma_1^2/\\sigma_2^2\\) contains the value 1. What does that mean?\n\n\n\n\nThe two sample means must be equal\nEqual population variances are plausible\nThe two sample sizes must be equal\nThe first variance must be larger than the second variance"
+    "text": "Question\n\n\nTwo independent samples have unknown and clearly unequal sample standard deviations. Which interval is usually the best default for \\(\\mu_1-\\mu_2\\)?\n\n\n\n\nKnown-sigma \\(z\\) interval\nPooled two-sample \\(t\\) interval\nWelch two-sample \\(t\\) interval\nOne-proportion \\(z\\) interval"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#confidence-intervals-on-paired-data",
@@ -2433,14 +2433,14 @@
     "href": "Chapter Slides/chapter5-slides.html#assumptions-for-paired-data",
     "title": "STA258",
     "section": "Assumptions for Paired Data",
-    "text": "Assumptions for Paired Data\n\n\nPaired structure - Each pair comes from the same unit, matched units, or a before-after measurement. - The pairs themselves are independent of one another.\n\n\nModel condition - Analyze the differences \\(d_i\\), not the two original columns separately. - For small samples, the distribution of the differences should be approximately normal."
+    "text": "Assumptions for Paired Data\n\n\nPaired structure\n\n\nEach pair comes from the same unit, matched units, or a before-after measurement.\n\n\nThe pairs themselves are independent of one another.\n\n\n\n\nModel condition\n\n\nAnalyze the differences \\(d_i\\), not the two original columns separately.\n\n\nFor small samples, the distribution of the differences should be approximately normal."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#section-3",
     "href": "Chapter Slides/chapter5-slides.html#section-3",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nA group of students takes a test before and after a review session. Which quantity should be used to build the confidence interval?\n\n\n\n\nThe mean of the before scores only\nThe mean of the after scores only\nThe mean of the paired differences\nThe ratio of the two sample variances"
+    "text": "Question\n\n\nWhen calculating sample size from a margin of error, why do we round up?\n\n\n\n\nBecause formulas always underestimate the standard deviation\nBecause sample size must be whole, and rounding down could make the margin of error too large\nBecause confidence intervals require even sample sizes\nBecause \\(z^*\\) is only approximate"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#sample-size-selection-using-confidence-intervals",

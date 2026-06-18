@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.8.25">
 
   <title>STA258 – Chapter 5: Confidence Intervals - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,9 +18,6 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -33,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -138,6 +135,7 @@
   <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
   <link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
   <script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+  <link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -488,7 +486,7 @@ University of Toronto Mississauga</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="htmlwidget-5d9c139e7da0706a9632" style="width:430px;height:320px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5d9c139e7da0706a9632">{"x":{"visdat":{"136483609f460":["function () ","plotlyVisDat"],"13648478ae657":["function () ","data"]},"cur_data":"13648478ae657","attrs":{"13648478ae657":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","color":{},"colors":["#00695c","#f9a825"],"line":{"width":4},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"width":430,"height":320,"margin":{"b":42,"l":48,"t":10,"r":8},"autosize":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Interval endpoints","zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Simulation","showticklabels":false,"zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"shapes":[{"type":"line","x0":0,"x1":0,"y0":0.5,"y1":50.5,"line":{"color":"#004d40","width":2,"dash":"dash"}}],"showlegend":false,"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"responsive":false},"data":[{"x":[-0.2024925333209617,0.33888763782593412,null,-0.24540374439500076,0.29348683179575813,null,-0.48055887855515195,0.052625468866527025,null,-0.24447907758807744,0.26695365230036061,null,-0.2391859024467537,0.33171870633295292,null,-0.19345659881020369,0.41631725263368402,null,-0.25198424793057744,0.36970109086533415,null,-0.47620642550940917,0.15670836372881117,null,-0.30976209503342417,0.29800418479461083,null,-0.16092346138772154,0.45082358463330152,null,-0.40265409352316073,0.13488772624751841,null,-0.23604111012631029,0.37388877358073686,null,-0.19051405518179348,0.32567376222906735,null,-0.27268938630448497,0.18248134245055339,null,-0.12344297082988875,0.38496570967229071,null,-0.21191883345856879,0.27295673501585099,null,-0.15602017610138941,0.33335757251660131,null,-0.59578093582526914,0.055876327520282709,null,-0.32933262959484849,0.29324650202421826,null,-0.29415741004577545,0.23760280839949244,null,-0.46229512795324545,0.24707112966983624,null,-0.10013243596269628,0.37207573971666752,null,-0.18373563088235773,0.31896486425464193,null,-0.33420841984291227,0.26692569507026864,null,-0.16263413581723862,0.55188864744642685,null,-0.1642802456131687,0.46897516992767807,null,-0.38893162256697589,0.17399129933255522,null,-0.20587314476495444,0.37137810287987794,null,-0.1483354535901544,0.49308468657664806,null,-0.50351300456967873,0.026940957137823102,null,-0.21893693543756501,0.25127454194214527,null,-0.14037508857259262,0.48409748219399562,null,-0.099510040799198729,0.47247169001926964,null,-0.37706243962090946,0.099169159482104002,null,-0.25531551746887127,0.32596001837299371,null,-0.37006255253672798,0.15649059276203031,null,-0.324054066765947,0.31088326029061103,null,-0.25274936722615021,0.32785659646625936,null,-0.48759476722420492,0.019680971194392521,null,-0.39452887706761419,0.18494312598613258,null,-0.41946838390273178,0.15389729327524207,null,-0.3410731762358743,0.23472545957159194,null,-0.51081275577879537,0.10433145653956005,null,-0.25458487659826579,0.32064102066019418],"y":[2,2,null,3,3,null,4,4,null,5,5,null,6,6,null,8,8,null,9,9,null,10,10,null,11,11,null,12,12,null,13,13,null,14,14,null,16,16,null,17,17,null,18,18,null,20,20,null,21,21,null,22,22,null,23,23,null,24,24,null,25,25,null,26,26,null,27,27,null,28,28,null,29,29,null,30,30,null,31,31,null,32,32,null,34,34,null,35,35,null,36,36,null,37,37,null,39,39,null,40,40,null,41,41,null,42,42,null,43,43,null,44,44,null,45,45,null,46,46,null,47,47,null,48,48,null,49,49,null,50,50],"type":"scatter","mode":"lines","line":{"color":"rgba(0,105,92,1)","width":4},"text":["<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean","<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean",null,"<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean","<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean","<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean",null,"<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean","<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean","<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean",null,"<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean","<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean",null,"<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean","<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean",null,"<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean","<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean",null,"<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean","<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean",null,"<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean","<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean",null,"<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean","<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean",null,"<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean","<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean",null,"<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean","<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean","<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean",null,"<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean","<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean",null,"<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean","<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean",null,"<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean","<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean",null,"<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean","<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean",null,"<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean","<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean","<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean",null,"<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean","<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean",null,"<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean","<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean",null,"<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean","<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean",null,"<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean","<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean","<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean",null,"<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean","<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean",null,"<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean","<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean",null,"<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean","<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean",null,"<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean","<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean",null,"<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean","<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean",null,"<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean","<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean",null,"<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean","<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean",null,"<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean","<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean",null,"<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean","<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean",null,"<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean","<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean","<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean",null,"<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean","<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean",null,"<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean","<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean",null,"<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean","<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean",null,"<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean","<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean",null,"<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean","<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean",null,"<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean","<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean",null,"<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean","<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean",null,"<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean","<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Covers true mean","marker":{"color":"rgba(0,105,92,1)","line":{"color":"rgba(0,105,92,1)"}},"textfont":{"color":"rgba(0,105,92,1)"},"error_y":{"color":"rgba(0,105,92,1)"},"error_x":{"color":"rgba(0,105,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[-0.58144693650481971,-0.10114394142224761,null,0.013858998172746828,0.55863537700380861,null,-0.57239029478536541,-0.070978929102660571,null,0.17439863741684911,0.62568934747993665,null,0.053792853401845392,0.5514503937240619,null,-0.59660409627207156,-0.036703934080923317],"y":[1,1,null,7,7,null,15,15,null,19,19,null,33,33,null,38,38],"type":"scatter","mode":"lines","line":{"color":"rgba(249,168,37,1)","width":4},"text":["<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean","<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean",null,"<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean","<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean",null,"<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean","<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean",null,"<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean","<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean",null,"<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean","<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean",null,"<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean","<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Misses true mean","marker":{"color":"rgba(249,168,37,1)","line":{"color":"rgba(249,168,37,1)"}},"textfont":{"color":"rgba(249,168,37,1)"},"error_y":{"color":"rgba(249,168,37,1)"},"error_x":{"color":"rgba(249,168,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5d9c139e7da0706a9632">{"x":{"visdat":{"514d213df48c":["function () ","plotlyVisDat"],"514d6a822460":["function () ","data"]},"cur_data":"514d6a822460","attrs":{"514d6a822460":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","color":{},"colors":["#00695c","#f9a825"],"line":{"width":4},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"width":430,"height":320,"margin":{"b":42,"l":48,"t":10,"r":8},"autosize":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Interval endpoints","zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Simulation","showticklabels":false,"zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8"},"shapes":[{"type":"line","x0":0,"x1":0,"y0":0.5,"y1":50.5,"line":{"color":"#004d40","width":2,"dash":"dash"}}],"showlegend":false,"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"responsive":false},"data":[{"x":[-0.2024925333209617,0.33888763782593412,null,-0.24540374439500076,0.29348683179575813,null,-0.48055887855515195,0.052625468866527025,null,-0.24447907758807744,0.26695365230036061,null,-0.2391859024467537,0.33171870633295292,null,-0.19345659881020369,0.41631725263368402,null,-0.25198424793057744,0.36970109086533415,null,-0.47620642550940917,0.15670836372881117,null,-0.30976209503342417,0.29800418479461083,null,-0.16092346138772154,0.45082358463330152,null,-0.40265409352316073,0.13488772624751841,null,-0.23604111012631029,0.37388877358073686,null,-0.19051405518179348,0.32567376222906735,null,-0.27268938630448497,0.18248134245055339,null,-0.12344297082988875,0.38496570967229071,null,-0.21191883345856879,0.27295673501585099,null,-0.15602017610138941,0.33335757251660131,null,-0.59578093582526914,0.055876327520282709,null,-0.32933262959484849,0.29324650202421826,null,-0.29415741004577545,0.23760280839949244,null,-0.46229512795324545,0.24707112966983624,null,-0.10013243596269628,0.37207573971666752,null,-0.18373563088235773,0.31896486425464193,null,-0.33420841984291227,0.26692569507026864,null,-0.16263413581723862,0.55188864744642685,null,-0.1642802456131687,0.46897516992767807,null,-0.38893162256697589,0.17399129933255522,null,-0.20587314476495444,0.37137810287987794,null,-0.1483354535901544,0.49308468657664806,null,-0.50351300456967873,0.026940957137823102,null,-0.21893693543756501,0.25127454194214527,null,-0.14037508857259262,0.48409748219399562,null,-0.099510040799198729,0.47247169001926964,null,-0.37706243962090946,0.099169159482104002,null,-0.25531551746887127,0.32596001837299371,null,-0.37006255253672798,0.15649059276203031,null,-0.324054066765947,0.31088326029061103,null,-0.25274936722615021,0.32785659646625936,null,-0.48759476722420492,0.019680971194392521,null,-0.39452887706761419,0.18494312598613258,null,-0.41946838390273178,0.15389729327524207,null,-0.3410731762358743,0.23472545957159194,null,-0.51081275577879537,0.10433145653956005,null,-0.25458487659826579,0.32064102066019418],"y":[2,2,null,3,3,null,4,4,null,5,5,null,6,6,null,8,8,null,9,9,null,10,10,null,11,11,null,12,12,null,13,13,null,14,14,null,16,16,null,17,17,null,18,18,null,20,20,null,21,21,null,22,22,null,23,23,null,24,24,null,25,25,null,26,26,null,27,27,null,28,28,null,29,29,null,30,30,null,31,31,null,32,32,null,34,34,null,35,35,null,36,36,null,37,37,null,39,39,null,40,40,null,41,41,null,42,42,null,43,43,null,44,44,null,45,45,null,46,46,null,47,47,null,48,48,null,49,49,null,50,50],"type":"scatter","mode":"lines","line":{"color":"rgba(0,105,92,1)","width":4},"text":["<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean","<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean",null,"<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean","<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean","<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean",null,"<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean","<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean","<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean",null,"<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean","<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean",null,"<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean","<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean",null,"<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean","<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean",null,"<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean","<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean",null,"<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean","<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean",null,"<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean","<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean",null,"<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean","<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean",null,"<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean","<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean","<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean",null,"<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean","<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean",null,"<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean","<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean",null,"<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean","<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean",null,"<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean","<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean",null,"<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean","<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean","<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean",null,"<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean","<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean",null,"<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean","<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean",null,"<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean","<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean",null,"<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean","<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean","<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean",null,"<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean","<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean",null,"<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean","<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean",null,"<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean","<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean",null,"<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean","<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean",null,"<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean","<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean",null,"<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean","<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean",null,"<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean","<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean",null,"<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean","<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean",null,"<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean","<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean",null,"<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean","<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean","<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean",null,"<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean","<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean",null,"<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean","<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean",null,"<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean","<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean",null,"<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean","<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean",null,"<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean","<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean",null,"<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean","<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean",null,"<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean","<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean",null,"<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean","<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Covers true mean","marker":{"color":"rgba(0,105,92,1)","line":{"color":"rgba(0,105,92,1)"}},"textfont":{"color":"rgba(0,105,92,1)"},"error_y":{"color":"rgba(0,105,92,1)"},"error_x":{"color":"rgba(0,105,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[-0.58144693650481971,-0.10114394142224761,null,0.013858998172746828,0.55863537700380861,null,-0.57239029478536541,-0.070978929102660571,null,0.17439863741684911,0.62568934747993665,null,0.053792853401845392,0.5514503937240619,null,-0.59660409627207156,-0.036703934080923317],"y":[1,1,null,7,7,null,15,15,null,19,19,null,33,33,null,38,38],"type":"scatter","mode":"lines","line":{"color":"rgba(249,168,37,1)","width":4},"text":["<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean","<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean",null,"<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean","<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean",null,"<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean","<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean",null,"<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean","<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean",null,"<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean","<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean",null,"<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean","<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Misses true mean","marker":{"color":"rgba(249,168,37,1)","line":{"color":"rgba(249,168,37,1)"}},"textfont":{"color":"rgba(249,168,37,1)"},"error_y":{"color":"rgba(249,168,37,1)"},"error_x":{"color":"rgba(249,168,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -1001,21 +999,350 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The 90% CI is approximately <span class="math inline">\((0.2160,0.7437)\)</span>.</p>
 </div>
 </section>
-<section id="two-means-known-sigma_1sigma_2" class="slide level2">
-<h2>5.4.1.1 Two Means: Known <span class="math inline">\(\sigma_1,\sigma_2\)</span></h2>
-<div class="defbox">
-<p>When both population standard deviations are known:</p>
-<p><span class="math display">\[
-(\bar{x}_1-\bar{x}_2)\pm z_{\alpha/2}
-\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}
-\]</span></p>
+<section id="two-sample-confidence-intervals" class="slide level2">
+<h2>5.4 Two-Sample Confidence Intervals</h2>
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1  { font-size: 1.72em !important; }
+.reveal h2  {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3  { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+/* ── Grid layouts ─────────────────────────────────────── */
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: 1fr 1fr; }
+.two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide  { grid-template-columns: 1.08fr 0.92fr; }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.one-col       { grid-template-columns: 1fr; }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
+.col           { min-width: 0; }
+
+/* ── Boxes ────────────────────────────────────────────── */
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* ── Utility ──────────────────────────────────────────── */
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+/* ── Tables ───────────────────────────────────────────── */
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+/* ── Code ─────────────────────────────────────────────── */
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+/* ── Scrollable slides ────────────────────────────────── */
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 700px;
+}
+
+/* ── Compact ──────────────────────────────────────────── */
+.reveal section.compact h2  { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li  { font-size: 0.74em; }
+
+/* ── Quiz polish ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
+.reveal .quiz-question .callout-note { margin: 4px 0 12px 0 !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p { font-size: 0.78em !important; line-height: 1.3; margin: 4px 0; }
+.reveal .quiz-question .callout-title { font-size: 0.82em !important; padding: 5px 12px !important; }
+.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation { font-size: 0.7em !important; margin-top: 8px; }
+
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+
+/* ── Plotly polish ───────────────────────────────────── */
+.reveal .html-widget,
+.reveal .plotly,
+.reveal .js-plotly-plot {
+  margin: 0 auto !important;
+  max-width: 100% !important;
+}
+
+.reveal .plot-container {
+  border-radius: 10px;
+}
+
+.reveal section.quiz-question .html-widget {
+  max-height: 315px !important;
+  margin: 0 auto 4px auto !important;
+}
+
+/* ── Solution callouts ────────────────────────────────── */
+.callout { font-size: 0.75em; }
+</style>
+<script>
+function resizePlotlyOnSlides() {
+  if (!window.Plotly) return;
+
+  document.querySelectorAll(".js-plotly-plot").forEach(function(plot) {
+    Plotly.Plots.resize(plot);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(resizePlotlyOnSlides, 250);
+  setTimeout(resizePlotlyOnSlides, 750);
+  setTimeout(resizePlotlyOnSlides, 1500);
+
+  if (window.Reveal) {
+    Reveal.on("ready", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+
+    Reveal.on("slidechanged", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+
+    Reveal.on("fragmentshown", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+
+    Reveal.on("fragmenthidden", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+  }
+
+  window.addEventListener("resize", resizePlotlyOnSlides);
+});
+</script>
+<div class="cell" data-autorun="true">
+<div>
+<div id="webr-7" class="exercise-cell">
+
 </div>
-<div class="notebox">
-<p><span class="label">Reality check</span> This case is uncommon in practice because population standard deviations are rarely known. We will use two short worked examples, then focus on the more realistic <span class="math inline">\(t\)</span> intervals.</p>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImVjaG8iOmZhbHNlLCJlZGl0IjpmYWxzZSwiZXZhbCI6dHJ1ZSwib3V0cHV0IjpmYWxzZX0sImNvZGUiOiJcbndlbGNoX2RmIDwtIGZ1bmN0aW9uKHMxLCBuMSwgczIsIG4yKSB7XG4gIG51bWVyYXRvciA8LSAoczFeMiAvIG4xICsgczJeMiAvIG4yKV4yXG4gIGRlbm9taW5hdG9yIDwtICgoczFeMiAvIG4xKV4yIC8gKG4xIC0gMSkpICtcbiAgICAoKHMyXjIgLyBuMileMiAvIChuMiAtIDEpKVxuICBudW1lcmF0b3IgLyBkZW5vbWluYXRvclxufVxuXG5zYW1wbGVfc2l6ZV90X2l0ZXIgPC0gZnVuY3Rpb24ocywgRSwgY29uZiA9IDAuOTUsIG1heF9pdGVyID0gMjApIHtcbiAgYWxwaGEgPC0gMSAtIGNvbmZcbiAgbl9jdXJyZW50IDwtIGNlaWxpbmcoKHFub3JtKDEgLSBhbHBoYSAvIDIpICogcyAvIEUpXjIpXG5cbiAgZm9yIChpIGluIHNlcV9sZW4obWF4X2l0ZXIpKSB7XG4gICAgdF9zdGFyIDwtIHF0KDEgLSBhbHBoYSAvIDIsIGRmID0gbl9jdXJyZW50IC0gMSlcbiAgICBuX25leHQgPC0gY2VpbGluZygodF9zdGFyICogcyAvIEUpXjIpXG5cbiAgICBpZiAobl9uZXh0ID09IG5fY3VycmVudCkge1xuICAgICAgYnJlYWtcbiAgICB9XG5cbiAgICBuX2N1cnJlbnQgPC0gbl9uZXh0XG4gIH1cblxuICBuX2N1cnJlbnRcbn0ifQ==
+</script>
+</div>
+</div>
+<div class="defbox fragment">
+<p>A <strong>two-sample confidence interval</strong> estimates a population quantity that compares two groups.</p>
+<p>The groups must be clearly labelled, because the order matters:</p>
+<p><span class="math display">\[
+\text{Group 1} - \text{Group 2}
+\]</span></p>
+<p>Changing the order changes the sign of the interval.</p>
+</div>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Difference of means</span></p>
+<p><span class="math display">\[
+\mu_1-\mu_2
+\]</span></p>
+<p>Used for comparing two population averages.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Difference of proportions</span></p>
+<p><span class="math display">\[
+p_1-p_2
+\]</span></p>
+<p>Used for comparing two population percentages.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Ratio of variances</span></p>
+<p><span class="math display">\[
+\frac{\sigma_1^2}{\sigma_2^2}
+\]</span></p>
+<p>Used for comparing two population variances.</p>
+</div>
 </div>
 </section>
-<section id="example-known-sigmas---course-marks" class="slide level2 scrollable">
-<h2>Example: Known Sigmas - Course Marks</h2>
+<section id="confidence-interval-for-a-difference-of-means" class="slide level2">
+<h2>5.4.1 Confidence Interval for a Difference of Means</h2>
+<div class="defbox fragment">
+<p>For two independent populations, we often want to estimate:</p>
+<p><span class="math display">\[
+\mu_1-\mu_2
+\]</span></p>
+<p>A natural statistic is:</p>
+<p><span class="math display">\[
+\bar{x}_1-\bar{x}_2
+\]</span></p>
+</div>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Case 1</span> <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span> known</p>
+<p>Use a <strong><span class="math inline">\(z\)</span> interval</strong>.</p>
+<p>Rare in practice.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Case 2</span> <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span> unknown, but assumed equal</p>
+<p>Use a <strong>pooled two-sample <span class="math inline">\(t\)</span> interval</strong>.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Case 3</span> <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span> unknown and not assumed equal</p>
+<p>Use <strong>Welch’s two-sample <span class="math inline">\(t\)</span> interval</strong>.</p>
+</div>
+</div>
+</section>
+<section id="difference-of-means-known-sigma_1-and-sigma_2" class="slide level2">
+<h2>Difference of Means: Known <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span></h2>
+<div class="defbox">
+<p>When the population standard deviations are known, a level <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\mu_1-\mu_2\)</span> is:</p>
+<p><span class="math display">\[
+(\bar{x}_1-\bar{x}_2)
+\pm
+z_{1-\alpha/2}
+\sqrt{
+\frac{\sigma_1^2}{n_1}
++
+\frac{\sigma_2^2}{n_2}
+}
+\]</span></p>
+</div>
+<div class="warnbox fragment">
+<p>This case is mathematically useful but rare in real applications, because population standard deviations are usually unknown.</p>
+</div>
+</section>
+<section id="example-1-known-sigma_1-and-sigma_2" class="slide level2 scrollable">
+<h2>Example 1: Known <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span></h2>
 <div class="taskbox">
 <p>Suppose final marks in the same course are compared between two campuses.</p>
 <p>UTSG: <span class="math inline">\(n_1=64\)</span>, <span class="math inline">\(\bar{x}_1=76\)</span>, known <span class="math inline">\(\sigma_1=10\)</span>.<br>
@@ -1035,44 +1362,30 @@ SE=\sqrt{\frac{10^2}{64}+\frac{12^2}{81}}=1.827
 <p>We are 95% confident that the UTSG population mean is between 0.42 and 7.58 marks higher than the UTM population mean.</p>
 </div>
 </section>
-<section id="example-known-sigmas---study-time" class="slide level2 scrollable">
-<h2>Example: Known Sigmas - Study Time</h2>
-<div class="taskbox">
-<p>Two independent samples compare average weekly study time.</p>
-<p>Group 1: <span class="math inline">\(n_1=40\)</span>, <span class="math inline">\(\bar{x}_1=12.4\)</span>, known <span class="math inline">\(\sigma_1=3.2\)</span>.<br>
-Group 2: <span class="math inline">\(n_2=35\)</span>, <span class="math inline">\(\bar{x}_2=10.9\)</span>, known <span class="math inline">\(\sigma_2=2.8\)</span>.</p>
-<p>Construct a 95% CI for <span class="math inline">\(\mu_1-\mu_2\)</span>.</p>
-</div>
-<div class="cell" data-autorun="false">
-<div>
-<div id="webr-7" class="exercise-cell">
-
-</div>
-<script type="webr-7-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxubjEgPC0gNDA7IHgxIDwtIDEyLjQ7IHNpZ21hMSA8LSAzLjJcbm4yIDwtIDM1OyB4MiA8LSAxMC45OyBzaWdtYTIgPC0gMi44XG5cbmVzdGltYXRlIDwtIHgxIC0geDJcbnNlIDwtIHNxcnQoc2lnbWExXjIvbjEgKyBzaWdtYTJeMi9uMilcbmVzdGltYXRlICsgYygtMSwgMSkgKiBxbm9ybSgwLjk3NSkgKiBzZSJ9
-</script>
-</div>
-</div>
-<div class="examplebox">
-<p>The 95% CI is approximately <span class="math inline">\((0.14,2.86)\)</span> hours. Group 1 appears to study more hours per week on average.</p>
-</div>
-</section>
-<section id="two-means-equal-variances" class="slide level2">
-<h2>5.4.1.3 Two Means: Equal Variances</h2>
+<section id="difference-of-means-equal-unknown-variances" class="slide level2">
+<h2>Difference of Means: Equal Unknown Variances</h2>
 <div class="defbox">
-<p>If the two population variances are unknown but assumed equal:</p>
+<p>If <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span> are unknown but assumed equal, we pool the two sample variances.</p>
+<p>The pooled variance is:</p>
 <p><span class="math display">\[
-(\bar{x}_1-\bar{x}_2)\pm t_{n_1+n_2-2,\alpha/2}
-s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
+s_p^2 =
+\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}
 \]</span></p>
-<p>where</p>
+<p>The level <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\mu_1-\mu_2\)</span> is:</p>
 <p><span class="math display">\[
-s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}.
+(\bar{x}_1-\bar{x}_2)
+\pm
+t_{1-\alpha/2,\;n_1+n_2-2}
+s_p
+\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}
 \]</span></p>
 </div>
+<div class="thinkbox fragment">
+<p>Use this only when the equal-variance assumption is reasonable. Otherwise, use Welch’s interval.</p>
+</div>
 </section>
-<section id="example-pooled-t---battery-brands" class="slide level2 scrollable">
-<h2>Example: Pooled t - Battery Brands</h2>
+<section id="example-1-pooled-two-sample-t-interval" class="slide level2 scrollable">
+<h2>Example 1: Pooled Two-Sample <span class="math inline">\(t\)</span> Interval</h2>
 <div class="taskbox">
 <p>A researcher compares battery life for two brands of the same device.</p>
 <p>Brand A: <span class="math inline">\(n_1=12\)</span>, <span class="math inline">\(\bar{x}_1=52.4\)</span>, <span class="math inline">\(s_1=6.1\)</span>.<br>
@@ -1092,8 +1405,8 @@ SE=5.787\sqrt{\frac{1}{12}+\frac{1}{10}}=2.476,\quad t^*_{20}=2.086
 <p>Because the interval contains 0, the data do not clearly show a nonzero mean battery-life difference.</p>
 </div>
 </section>
-<section id="example-pooled-t---tutorial-methods" class="slide level2 scrollable">
-<h2>Example: Pooled t - Tutorial Methods</h2>
+<section id="example-2-pooled-two-sample-t-interval" class="slide level2 scrollable">
+<h2>Example 2: Pooled Two-Sample <span class="math inline">\(t\)</span> Interval</h2>
 <div class="two-col-wide">
 <div class="col">
 <div class="taskbox">
@@ -1119,46 +1432,59 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The 90% CI is approximately <span class="math inline">\((1.06,10.14)\)</span> points. Method A appears to have a higher mean quiz score.</p>
 </div>
 </section>
-<section id="two-means-unequal-variances" class="slide level2">
-<h2>5.4.1.4 Two Means: Unequal Variances</h2>
-<div class="defbox fragment">
-<p>For unequal unknown variances, use Welch’s interval:</p>
+<section id="difference-of-means-unequal-unknown-variances" class="slide level2">
+<h2>Difference of Means: Unequal Unknown Variances</h2>
+<div class="defbox">
+<p>If the population variances are <strong>unknown</strong> and are <strong>not assumed equal</strong>, use <strong>Welch’s two-sample <span class="math inline">\(t\)</span> interval</strong>:</p>
 <p><span class="math display">\[
-(\bar{x}_1-\bar{x}_2)\pm t_{df,\alpha/2}
-\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}.
+(\bar{x}_1 - \bar{x}_2)
+\pm
+t_{1-\alpha/2,\,df}
+\sqrt{
+\frac{s_1^2}{n_1}
++
+\frac{s_2^2}{n_2}
+}
 \]</span></p>
+<p>This estimates:</p>
+<p><span class="math display">\[
+\mu_1 - \mu_2
+\]</span></p>
+<p>when the two samples are <strong>independent</strong> and the equal-variance assumption is not reasonable.</p>
 </div>
-<div class="notebox fragment">
-<p><span class="label">Degrees of freedom</span> Software uses the Welch-Satterthwaite approximation. A conservative hand approximation is <span class="math inline">\(df=\min(n_1-1,n_2-1)\)</span>.</p>
+<div class="thinkbox">
+<p><strong>Course note.</strong> Welch’s method is the more flexible default when the two sample variances look meaningfully different.</p>
 </div>
 </section>
 <section id="welch-degrees-of-freedom" class="slide level2">
 <h2>Welch Degrees of Freedom</h2>
-<div class="notebox fragment">
-<p><span class="label">For hand work</span> When the Welch formula is not the main point of the question, use the conservative degrees of freedom:</p>
+<div class="notebox">
+<p><span class="label">Degrees of freedom note</span></p>
+<p>In this course, we are <strong>not testing your ability to be a calculator</strong> in an exam setting.</p>
+<p>For hand calculations, you may use the <strong>conservative degrees of freedom</strong>:</p>
 <p><span class="math display">\[
-df=\min(n_1-1,n_2-1).
+df = \min(n_1 - 1,\; n_2 - 1)
 \]</span></p>
 </div>
-<div class="defbox fragment">
-<p>Software usually uses the Welch-Satterthwaite approximation:</p>
+<div class="defbox">
+<p>A more accurate approximation, commonly used by software, is the <strong>Welch–Satterthwaite degrees of freedom</strong>:</p>
 <p><span class="math display">\[
-df=
+df =
 \frac{
 \left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2
 }{
-\frac{(s_1^2/n_1)^2}{n_1-1}
+\frac{\left(s_1^2/n_1\right)^2}{n_1-1}
 +
-\frac{(s_2^2/n_2)^2}{n_2-1}
-}.
+\frac{\left(s_2^2/n_2\right)^2}{n_2-1}
+}
 \]</span></p>
 </div>
-<div class="thinkbox fragment">
-<p>Welch is the better default when the population variances are unknown and equal variances are not clearly justified.</p>
+<div class="thinkbox">
+<p>For exams in this course, use the conservative version unless told otherwise.</p>
 </div>
 </section>
-<section id="example-welch-t---commute-times" class="slide level2 scrollable">
-<h2>Example: Welch t - Commute Times</h2>
+<section id="example-1-welch-two-sample-t-interval" class="slide level2 scrollable">
+<h2>Example 1: Welch Two-Sample <span class="math inline">\(t\)</span> Interval</h2>
 <div class="taskbox">
 <p>Group 1: <span class="math inline">\(n_1=25\)</span>, <span class="math inline">\(\bar{x}_1=42\)</span>, <span class="math inline">\(s_1=14\)</span>.<br>
 Group 2: <span class="math inline">\(n_2=30\)</span>, <span class="math inline">\(\bar{x}_2=35\)</span>, <span class="math inline">\(s_2=9\)</span>.</p>
@@ -1175,8 +1501,8 @@ SE=\sqrt{\frac{14^2}{25}+\frac{9^2}{30}}=3.245
 <p>The interval is entirely positive, suggesting Group 1 has a higher mean commute time.</p>
 </div>
 </section>
-<section id="example-welch-t---food-spending" class="slide level2 scrollable">
-<h2>Example: Welch t - Food Spending</h2>
+<section id="example-2-welch-two-sample-t-interval" class="slide level2 scrollable">
+<h2>Example 2: Welch Two-Sample <span class="math inline">\(t\)</span> Interval</h2>
 <div class="two-col-wide">
 <div class="col">
 <div class="taskbox">
@@ -1202,33 +1528,24 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The 90% CI is approximately <span class="math inline">\((3.47,24.53)\)</span>. Group 1 appears to have a higher mean weekly food spending.</p>
 </div>
 </section>
-<section id="two-means-assumptions" class="slide level2">
-<h2>5.4.1.5 Two Means: Assumptions</h2>
-<div class="assumption-stack">
-<div class="card fragment">
-<p><span class="label">For all two-sample mean CIs</span></p>
-<ul class="assumption-list">
-<li class="fragment">
-The two samples are independent.
-</li>
-<li class="fragment">
-Each sample is random, or the data come from a randomized design.
-</li>
-<li class="fragment">
-Each population is approximately normal, or both samples are large enough for the CLT.
-</li>
-</ul>
+<section id="assumptions-for-two-sample-mean-intervals" class="slide level2">
+<h2>Assumptions for Two-Sample Mean Intervals</h2>
+<div class="assumption-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 1.5rem; align-items: start;">
+<div class="defbox" style="margin: 0;">
+<p><strong>Independent samples</strong></p>
+<p>The two samples must be independent. One person’s measurement in group 1 should not determine a person’s measurement in group 2.</p>
 </div>
-<div class="card fragment">
-<p><span class="label">Extra assumption for pooled t</span></p>
-<ul class="assumption-list">
-<li class="fragment">
-Use the pooled interval only when equal population variances are reasonable.
-</li>
-<li class="fragment">
-If the equal-variance assumption is doubtful, use Welch’s interval.
-</li>
-</ul>
+<div class="defbox" style="margin: 0;">
+<p><strong>Normality or large samples</strong></p>
+<p>If sample sizes are small, each population should be approximately normal. For larger samples, the CLT makes the interval more reliable.</p>
+</div>
+<div class="defbox" style="margin: 0;">
+<p><strong>Randomization</strong></p>
+<p>Each group should come from a random sample or a randomized experiment.</p>
+</div>
+<div class="defbox" style="margin: 0;">
+<p><strong>Equal variances only for pooled intervals</strong></p>
+<p>The pooled method requires the extra assumption that <span class="math inline">\(\sigma_1^2=\sigma_2^2\)</span>.</p>
 </div>
 </div>
 </section>
@@ -1240,36 +1557,44 @@ If the equal-variance assumption is doubtful, use Welch’s interval.
 <p><strong>Question</strong></p>
 </div>
 <div class="callout-content">
-<p>Two independent samples have unknown and clearly unequal sample standard deviations. Which interval is usually the best default for <span class="math inline">\(\mu_1-\mu_2\)</span>?</p>
+<p>Two independent samples are used to compare average commute times. The population standard deviations are unknown, and the sample standard deviations are noticeably different. Which interval is the most appropriate?</p>
 </div>
 </div>
 </div>
 <ul>
-<li>Known-sigma <span class="math inline">\(z\)</span> interval</li>
+<li>Known-<span class="math inline">\(\sigma\)</span> two-sample <span class="math inline">\(z\)</span> interval</li>
 <li>Pooled two-sample <span class="math inline">\(t\)</span> interval</li>
-<li><span class="correct" data-explanation="Welch's interval does not require the equal-variance assumption and is the usual default when population variances are unknown.">Welch two-sample <span class="math inline">\(t\)</span> interval</span></li>
-<li>One-proportion <span class="math inline">\(z\)</span> interval</li>
+<li><span class="correct" data-explanation="Welch's two-sample t interval is appropriate when the two samples are independent, the population standard deviations are unknown, and equal variances are not assumed.">Welch two-sample <span class="math inline">\(t\)</span> interval</span></li>
+<li>Paired <span class="math inline">\(t\)</span> interval</li>
 </ul>
 </section>
-<section id="difference-of-proportions" class="slide level2">
-<h2>5.4.2 Difference of Proportions</h2>
-<div class="defbox fragment">
-<p>For two independent population proportions:</p>
+<section id="confidence-interval-for-a-difference-of-proportions" class="slide level2">
+<h2>5.4.2 Confidence Interval for a Difference of Proportions</h2>
+<div class="defbox">
+<p>For two independent samples, let:</p>
 <p><span class="math display">\[
-(\hat p_1-\hat p_2)\pm z_{\alpha/2}
+\hat{p}_1=\frac{x_1}{n_1},
+\qquad
+\hat{p}_2=\frac{x_2}{n_2}
+\]</span></p>
+<p>A level <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(p_1-p_2\)</span> is:</p>
+<p><span class="math display">\[
+(\hat{p}_1-\hat{p}_2)
+\pm
+z_{1-\alpha/2}
 \sqrt{
-\frac{\hat p_1(1-\hat p_1)}{n_1}
+\frac{\hat{p}_1(1-\hat{p}_1)}{n_1}
 +
-\frac{\hat p_2(1-\hat p_2)}{n_2}
+\frac{\hat{p}_2(1-\hat{p}_2)}{n_2}
 }
 \]</span></p>
 </div>
-<div class="notebox fragment">
-<p>Check large counts in both groups: successes and failures should each be at least 10.</p>
+<div class="thinkbox fragment">
+<p>The interval estimates the difference between two population proportions, not the difference between two sample counts.</p>
 </div>
 </section>
-<section id="example-difference-of-proportions---left-handed-students" class="slide level2 scrollable">
-<h2>Example: Difference of Proportions - Left-Handed Students</h2>
+<section id="example-1-difference-of-proportions---left-handed-students" class="slide level2 scrollable">
+<h2>Example 1: Difference of Proportions - Left-Handed Students</h2>
 <div class="taskbox">
 <p>Campus 1 has 18 left-handed students out of 120. Campus 2 has 10 left-handed students out of 100.</p>
 <p>Construct a 95% CI for <span class="math inline">\(p_1-p_2\)</span>.</p>
@@ -1287,8 +1612,8 @@ SE=\sqrt{\frac{0.15(0.85)}{120}+\frac{0.10(0.90)}{100}}=0.0443
 <p>The interval includes 0, so a zero difference in population proportions is plausible.</p>
 </div>
 </section>
-<section id="example-difference-of-proportions---policy-support" class="slide level2 scrollable">
-<h2>Example: Difference of Proportions - Policy Support</h2>
+<section id="example-2-difference-of-proportions---policy-support" class="slide level2 scrollable">
+<h2>Example 2: Difference of Proportions - Policy Support</h2>
 <div class="two-col-wide">
 <div class="col">
 <div class="taskbox">
@@ -1313,55 +1638,91 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The 90% CI is approximately <span class="math inline">\((-0.010,0.095)\)</span>. Because 0 is inside, the data do not clearly establish a higher support rate for City 1.</p>
 </div>
 </section>
-<section id="difference-of-proportions-assumptions" class="slide level2">
-<h2>5.4.2.1 Difference of Proportions: Assumptions</h2>
-<div class="assumption-stack">
-<div class="card fragment">
-<p><span class="label">Sampling structure</span></p>
-<ul class="assumption-list">
-<li class="fragment">
-The two groups are independent.
-</li>
-<li class="fragment">
-Each sample is random, or the data come from a randomized design.
-</li>
-<li class="fragment">
-If sampling without replacement, each sample should be less than 10% of its population.
-</li>
-</ul>
+<section id="assumptions-for-difference-of-proportions" class="slide level2">
+<h2>Assumptions for Difference of Proportions</h2>
+<div class="two-col">
+<div class="col">
+<div class="defbox">
+<p><strong>Randomization</strong></p>
+<p>Each sample should be random, or the data should come from a randomized experiment.</p>
 </div>
-<div class="card fragment">
-<p><span class="label">Large-count condition</span></p>
-<p class="fragment">
-For each group, check successes and failures:
-</p>
-<div class="assumption-formula fragment">
+<div class="defbox">
+<p><strong>Independent groups</strong></p>
+<p>The two groups being compared must be independent from each other.</p>
+</div>
+</div>
+<div class="col">
+<div class="defbox">
+<p><strong>10% condition</strong></p>
+<p>If sampling without replacement, each sample should be less than 10% of its population.</p>
+</div>
+<div class="defbox">
+<p><strong>Success-failure condition</strong></p>
+<p>Each group should have enough successes and failures:</p>
 <p><span class="math display">\[
-x_i \ge 10
-\qquad\text{and}\qquad
-n_i - x_i \ge 10.
+x_i \ge 10,
+\qquad
+n_i-x_i \ge 10
 \]</span></p>
 </div>
 </div>
 </div>
 </section>
-<section id="ratio-of-variances" class="slide level2">
-<h2>5.4.3 Ratio of Variances</h2>
-<div class="defbox fragment">
-<p>For two normal populations, a confidence interval for <span class="math inline">\(\sigma_1^2/\sigma_2^2\)</span> can be written as:</p>
+<section id="section-3" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>A two-sample confidence interval for <span class="math inline">\(p_1-p_2\)</span> is constructed. Which condition checks whether the normal approximation is reasonable?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The two sample means must be equal</li>
+<li>The two population variances must be equal</li>
+<li><span class="correct" data-explanation="For a confidence interval on a difference of proportions, each group should have enough successes and failures for the normal approximation to be reasonable.">Each group should have enough successes and failures</span></li>
+<li>The sample sizes must be exactly the same</li>
+</ul>
+</section>
+<section id="confidence-interval-for-a-ratio-of-variances" class="slide level2">
+<h2>5.4.3 Confidence Interval for a Ratio of Variances</h2>
+<div class="defbox">
+<p>To compare two population variances, the parameter is:</p>
+<p><span class="math display">\[
+\frac{\sigma_1^2}{\sigma_2^2}
+\]</span></p>
+<p>If both populations are normal and the samples are independent, then:</p>
+<p><span class="math display">\[
+\frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2}
+\sim
+F_{n_1-1,\;n_2-1}
+\]</span></p>
+</div>
+<div class="thinkbox fragment">
+<p>A ratio near 1 suggests similar variances. A ratio far above or below 1 suggests one population is more variable.</p>
+</div>
+</section>
+<section id="ratio-of-variances-formula" class="slide level2">
+<h2>Ratio of Variances: Formula</h2>
+<div class="defbox">
+<p>A level <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\sigma_1^2/\sigma_2^2\)</span> is:</p>
 <p><span class="math display">\[
 \left(
-\frac{s_1^2/s_2^2}{F_{\alpha/2,n_1-1,n_2-1}},
-\frac{s_1^2/s_2^2}{F_{1-\alpha/2,n_1-1,n_2-1}}
+\frac{s_1^2/s_2^2}{F_{1-\alpha/2,\;n_1-1,\;n_2-1}},
+\;
+\frac{s_1^2/s_2^2}{F_{\alpha/2,\;n_1-1,\;n_2-1}}
 \right)
 \]</span></p>
 </div>
 <div class="warnbox fragment">
-<p>This method is sensitive to non-normality. Always check whether normality is a reasonable assumption before trusting an <span class="math inline">\(F\)</span> interval for variances.</p>
+<p>This interval is sensitive to the normality assumption. For variance ratios, normality matters more than it does for large-sample mean intervals.</p>
 </div>
 </section>
-<section id="example-ratio-of-variances---machines" class="slide level2 scrollable">
-<h2>Example: Ratio of Variances - Machines</h2>
+<section id="example-1-ratio-of-variances---machines" class="slide level2 scrollable">
+<h2>Example 1: Ratio of Variances - Machines</h2>
 <div class="taskbox">
 <p>Machine 1: <span class="math inline">\(n_1=16\)</span>, <span class="math inline">\(s_1=12\)</span>. Machine 2: <span class="math inline">\(n_2=14\)</span>, <span class="math inline">\(s_2=8\)</span>.</p>
 <p>Assuming normal populations, construct a 95% CI for <span class="math inline">\(\sigma_1^2/\sigma_2^2\)</span>.</p>
@@ -1380,8 +1741,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The 95% CI is approximately <span class="math inline">\((0.74,6.58)\)</span>. Since 1 is inside, equal variances are plausible.</p>
 </div>
 </section>
-<section id="example-ratio-of-variances---labs" class="slide level2 scrollable">
-<h2>Example: Ratio of Variances - Labs</h2>
+<section id="example-2-ratio-of-variances---labs" class="slide level2 scrollable">
+<h2>Example 2: Ratio of Variances - Labs</h2>
 <div class="two-col-wide">
 <div class="col">
 <div class="taskbox">
@@ -1406,54 +1767,106 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The 90% CI is approximately <span class="math inline">\((0.96,4.51)\)</span>. Since 1 is inside, the evidence for different variances is not decisive.</p>
 </div>
 </section>
-<section id="ratio-of-variances-assumptions" class="slide level2">
-<h2>5.4.3.1 Ratio of Variances: Assumptions</h2>
-<div class="assumption-stack">
-<div class="card fragment">
-<p><span class="label">Required structure</span></p>
-<ul class="assumption-list">
-<li class="fragment">
-The two samples are independent.
-</li>
-<li class="fragment">
-Each sample comes from a random process or randomized design.
-</li>
-</ul>
+<section id="assumptions-for-ratio-of-variances" class="slide level2">
+<h2>Assumptions for Ratio of Variances</h2>
+<div class="two-col">
+<div class="col">
+<div class="defbox">
+<p><strong>Independent samples</strong></p>
+<p>The two samples must be independent from each other.</p>
 </div>
-<div class="warnbox fragment">
-<p><span class="label">Normality matters here</span></p>
-<ul class="assumption-list">
-<li class="fragment">
-The <span class="math inline">\(F\)</span> interval for a variance ratio is sensitive to non-normality.
-</li>
-<li class="fragment">
-This condition is more important here than it is for many mean-based intervals.
-</li>
-</ul>
+<div class="defbox">
+<p><strong>Random sampling</strong></p>
+<p>Each sample should be obtained through a random process.</p>
+</div>
+</div>
+<div class="col">
+<div class="defbox">
+<p><strong>Normal populations</strong></p>
+<p>The two populations should be approximately normal. This is especially important for inference about variances.</p>
+</div>
+<div class="defbox">
+<p><strong>Same measurement scale</strong></p>
+<p>The two variables should be measured on the same or comparable scale.</p>
+</div>
 </div>
 </div>
 </section>
-<section id="paired-data" class="slide level2">
-<h2>5.5 Paired Data</h2>
-<div class="defbox fragment">
-<p>For paired observations, reduce each pair to one difference:</p>
-<p><span class="math display">\[d_i=M_{2i}-M_{1i}\]</span></p>
-<p>Then construct a one-sample <span class="math inline">\(t\)</span> interval for the mean difference:</p>
+<section id="section-4" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>A confidence interval for <span class="math inline">\(\sigma_1^2/\sigma_2^2\)</span> contains the value 1. What does that mean?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The two sample means must be equal</li>
+<li><span class="correct" data-explanation="The value 1 represents equal variances because sigma_1 squared divided by sigma_2 squared equals 1 when the two population variances are equal.">Equal population variances are plausible</span></li>
+<li>The two sample sizes must be equal</li>
+<li>The first variance must be larger than the second variance</li>
+</ul>
+</section>
+<section id="confidence-intervals-on-paired-data" class="slide level2">
+<h2>5.5 Confidence Intervals on Paired Data</h2>
+<div class="defbox">
+<p>Paired data occur when observations are naturally matched.</p>
+<p>Instead of comparing two independent sample means, we compute differences:</p>
 <p><span class="math display">\[
-\bar d \pm t_{n-1,\alpha/2}\frac{s_d}{\sqrt n}.
+d_i = x_{2i} - x_{1i}
 \]</span></p>
+<p>Then we build a one-sample <span class="math inline">\(t\)</span> interval for the population mean difference <span class="math inline">\(\mu_d\)</span>.</p>
 </div>
 <div class="two-col">
-<div class="notebox fragment">
-<p><span class="label">Use paired data when</span> The two measurements come from the same unit, matched units, or before-after observations.</p>
+<div class="examplebox fragment">
+<p><strong>Common paired settings</strong></p>
+<ul>
+<li>Before and after measurements on the same person</li>
+<li>Matched twins</li>
+<li>Same student under two testing conditions</li>
+<li>Same object measured by two devices</li>
+</ul>
 </div>
 <div class="warnbox fragment">
-<p><span class="label">Do not split the pair</span> The pairing is information. Analyze the differences, not the two columns as independent samples.</p>
+<p>Do not treat paired data as two independent samples. The pairing is the main information.</p>
 </div>
 </div>
 </section>
-<section id="example-paired-data---tutoring-scores" class="slide level2 scrollable">
-<h2>Example: Paired Data - Tutoring Scores</h2>
+<section id="paired-data-formula" class="slide level2">
+<h2>Paired Data: Formula</h2>
+<div class="defbox">
+<p>Let <span class="math inline">\(d_1,d_2,\ldots,d_n\)</span> be the paired differences.</p>
+<p>The level <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\mu_d\)</span> is:</p>
+<p><span class="math display">\[
+\bar{d}
+\pm
+t_{1-\alpha/2,\;n-1}
+\frac{s_d}{\sqrt{n}}
+\]</span></p>
+<p>where <span class="math inline">\(\bar{d}\)</span> is the sample mean of the differences and <span class="math inline">\(s_d\)</span> is the sample standard deviation of the differences.</p>
+</div>
+<div class="thinkbox fragment">
+<p>The normality condition applies to the <strong>differences</strong>, not necessarily to the original two measurements separately.</p>
+</div>
+</section>
+<section id="visual-paired-data-means-differences" class="slide level2">
+<h2>Visual: Paired Data Means Differences</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-57adf3987a0f56a54431" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-57adf3987a0f56a54431">{"x":{"visdat":{"514d4d359a97":["function () ","plotlyVisDat"],"514d7a38571a":["function () ","data"],"514d8deaaa6":["function () ","data"]},"cur_data":"514d8deaaa6","attrs":{"514d7a38571a":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":1,"y":{},"xend":2,"yend":{},"type":"scatter","mode":"lines","line":{"color":"rgba(80,95,105,0.45)","width":2.2000000000000002},"hoverinfo":"skip","showlegend":false,"inherit":true},"514d8deaaa6":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"color":"#00695c","size":8,"line":{"color":"white","width":1.2}},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"height":390,"margin":{"b":60,"l":70,"t":70,"r":25},"title":{"text":"Paired observations compare within each student","font":{"size":16},"x":0.02},"xaxis":{"domain":[0,1],"automargin":true,"title":"","range":[0.75,2.25],"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","tickvals":[1,2],"ticktext":["Before","After"],"showgrid":false,"tickfont":{"size":13}},"yaxis":{"domain":[0,1],"automargin":true,"title":"Score","range":[64,86],"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","showgrid":true,"tickfont":{"size":12}},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":true,"displaylogo":false,"scrollZoom":false,"doubleClick":"reset","modeBarButtonsToRemove":["lasso2d","select2d"]},"data":[{"x":[1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2],"y":[68,73,null,72,74,null,75,80,null,70,72,null,66,70,null,80,84,null,74,78,null,69,73,null,77,80,null,71,76],"type":"scatter","mode":"lines","line":{"color":"rgba(80,95,105,0.45)","width":2.2000000000000002},"hoverinfo":["skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip"],"showlegend":false,"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2],"y":[68,73,72,74,75,80,70,72,66,70,80,84,74,78,69,73,77,80,71,76],"type":"scatter","mode":"markers","marker":{"color":"#00695c","size":8,"line":{"color":"white","width":1.2}},"text":["<b>Student 1<\/b><br>Before score: 68","<b>Student 1<\/b><br>After score: 73","<b>Student 2<\/b><br>Before score: 72","<b>Student 2<\/b><br>After score: 74","<b>Student 3<\/b><br>Before score: 75","<b>Student 3<\/b><br>After score: 80","<b>Student 4<\/b><br>Before score: 70","<b>Student 4<\/b><br>After score: 72","<b>Student 5<\/b><br>Before score: 66","<b>Student 5<\/b><br>After score: 70","<b>Student 6<\/b><br>Before score: 80","<b>Student 6<\/b><br>After score: 84","<b>Student 7<\/b><br>Before score: 74","<b>Student 7<\/b><br>After score: 78","<b>Student 8<\/b><br>Before score: 69","<b>Student 8<\/b><br>After score: 73","<b>Student 9<\/b><br>Before score: 77","<b>Student 9<\/b><br>After score: 80","<b>Student 10<\/b><br>Before score: 71","<b>Student 10<\/b><br>After score: 76"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="thinkbox">
+<p>Each line represents one student. The paired analysis uses the within student change, not two unrelated groups.</p>
+</div>
+</section>
+<section id="example-1-paired-data---tutoring-scores" class="slide level2 scrollable">
+<h2>Example 1: Paired Data - Tutoring Scores</h2>
 <div class="two-col-wide">
 <div class="col">
 <div class="taskbox">
@@ -1479,8 +1892,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The 95% CI is approximately <span class="math inline">\((2.99,4.61)\)</span> points. We are 95% confident that the mean improvement is positive.</p>
 </div>
 </section>
-<section id="example-paired-data---blood-pressure" class="slide level2 scrollable">
-<h2>Example: Paired Data - Blood Pressure</h2>
+<section id="example-2-paired-data---blood-pressure" class="slide level2 scrollable">
+<h2>Example 2: Paired Data - Blood Pressure</h2>
 <div class="taskbox">
 <p>Twelve patients have blood pressure measured before and after treatment. Let <span class="math inline">\(d=\)</span> before minus after:</p>
 <p><span class="math display">\[6,8,3,10,7,5,9,4,6,8,7,5\]</span></p>
@@ -1501,46 +1914,104 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </div>
 </section>
 <section id="assumptions-for-paired-data" class="slide level2">
-<h2>5.5.1 Assumptions for Paired Data</h2>
-<div class="assumption-stack">
-<div class="card fragment">
-<p><span class="label">Paired structure</span></p>
-<ul class="assumption-list">
-<li class="fragment">
-Each pair comes from the same unit, matched units, or a before-after measurement.
-</li>
-<li class="fragment">
-The pairs themselves are independent of one another.
-</li>
+<h2>Assumptions for Paired Data</h2>
+<div class="two-col">
+<div class="col">
+<div class="defbox">
+<p><strong>Paired observations</strong></p>
+<p>Each pair must come from the same unit or from meaningfully matched units.</p>
+</div>
+<div class="defbox">
+<p><strong>Independent pairs</strong></p>
+<p>The pairs themselves should be independent of each other.</p>
+</div>
+</div>
+<div class="col">
+<div class="defbox">
+<p><strong>Normal differences</strong></p>
+<p>The distribution of differences should be approximately normal, especially for small samples.</p>
+</div>
+<div class="defbox">
+<p><strong>Random sampling</strong></p>
+<p>The sample of pairs should come from a random process or a randomized design.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-5" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>A group of students takes a test before and after a review session. Which quantity should be used to build the confidence interval?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The mean of the before scores only</li>
+<li>The mean of the after scores only</li>
+<li><span class="correct" data-explanation="Because the same students are measured twice, the data are paired. We compute one difference for each student and build a one-sample t interval for the mean difference.">The mean of the paired differences</span></li>
+<li>The ratio of the two sample variances</li>
+</ul>
+</section>
+<section id="sample-size-selection-using-confidence-intervals" class="slide level2">
+<h2>5.6 Sample Size Selection Using Confidence Intervals</h2>
+<div class="defbox">
+<p>Sample size selection works backwards.</p>
+<p>Instead of asking:</p>
+<blockquote>
+<p>What margin of error do we get from this sample size?</p>
+</blockquote>
+<p>we ask:</p>
+<blockquote>
+<p>What sample size do we need to achieve this margin of error?</p>
+</blockquote>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p><strong>For a mean</strong></p>
+<p>The required sample size depends on:</p>
+<ul>
+<li>confidence level</li>
+<li>desired margin of error</li>
+<li>population standard deviation, or an estimate of it</li>
 </ul>
 </div>
-<div class="card fragment">
-<p><span class="label">Model condition</span></p>
-<ul class="assumption-list">
-<li class="fragment">
-Analyze the differences <span class="math inline">\(d_i\)</span>, not the two original columns separately.
-</li>
-<li class="fragment">
-For small samples, the distribution of the differences should be approximately normal.
-</li>
+<div class="examplebox fragment">
+<p><strong>For a proportion</strong></p>
+<p>The required sample size depends on:</p>
+<ul>
+<li>confidence level</li>
+<li>desired margin of error</li>
+<li>planning value <span class="math inline">\(p^*\)</span></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="sample-size-for-a-mean" class="slide level2">
-<h2>5.6.1 Sample Size for a Mean</h2>
-<div class="defbox fragment">
-<p>If <span class="math inline">\(\sigma\)</span> is known and desired margin of error is <span class="math inline">\(E\)</span>:</p>
+<section id="sample-size-for-a-mean-when-sigma-is-known" class="slide level2">
+<h2>5.6.1 Sample Size for a Mean When <span class="math inline">\(\sigma\)</span> is Known</h2>
+<div class="defbox">
+<p>For a confidence interval on a population mean with known <span class="math inline">\(\sigma\)</span>:</p>
 <p><span class="math display">\[
-E=z_{\alpha/2}\frac{\sigma}{\sqrt n}
-\qquad\Longrightarrow\qquad
-n=\left(\frac{z_{\alpha/2}\sigma}{E}\right)^2.
+E = z_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}
 \]</span></p>
-<p>Always round up.</p>
+<p>Solving for <span class="math inline">\(n\)</span> gives:</p>
+<p><span class="math display">\[
+n =
+\left(
+\frac{z_{1-\alpha/2}\sigma}{E}
+\right)^2
+\]</span></p>
+</div>
+<div class="warnbox fragment">
+<p>Always round up to the next whole number. Rounding down would make the margin of error too large.</p>
 </div>
 </section>
-<section id="example-sample-size-for-a-mean" class="slide level2 scrollable">
-<h2>Example: Sample Size for a Mean</h2>
+<section id="example-1-sample-size-for-a-mean" class="slide level2 scrollable">
+<h2>Example 1: Sample Size for a Mean</h2>
 <div class="taskbox">
 <p>A lab measurement has known <span class="math inline">\(\sigma=0.0068\)</span> grams per liter. Management wants results accurate within <span class="math inline">\(E=0.005\)</span> with 95% confidence.</p>
 <p>How many repeated measurements are needed?</p>
@@ -1552,8 +2023,8 @@ n=\left(\frac{1.96(0.0068)}{0.005}\right)^2=7.10
 <p>Round up: the lab needs <span class="math inline">\(n=8\)</span> measurements.</p>
 </div>
 </section>
-<section id="example-sample-size-for-a-mean-1" class="slide level2 scrollable">
-<h2>Example: Sample Size for a Mean</h2>
+<section id="example-2-sample-size-for-a-mean" class="slide level2 scrollable">
+<h2>Example 2: Sample Size for a Mean</h2>
 <div class="taskbox">
 <p>A planning value is <span class="math inline">\(\sigma=22.50\)</span> and the desired margin is <span class="math inline">\(E=2\)</span>.</p>
 <p>Find the sample size for 90%, 95%, and 99% confidence.</p>
@@ -1592,27 +2063,32 @@ n=\left(\frac{1.96(0.0068)}{0.005}\right)^2=7.10
 <p>Higher confidence requires a larger sample size when the desired margin of error stays fixed.</p>
 </div>
 </section>
-<section id="sample-size-for-a-mean-sigma-unknown" class="slide level2">
-<h2>5.6.1 Sample Size for a Mean: Sigma Unknown</h2>
-<div class="defbox fragment">
-<p>When <span class="math inline">\(\sigma\)</span> is unknown, use a planning estimate <span class="math inline">\(s\)</span> from a pilot study or previous data.</p>
-<p>The practical target is:</p>
+<section id="sample-size-for-a-mean-when-sigma-is-unknown" class="slide level2">
+<h2>Sample Size for a Mean When <span class="math inline">\(\sigma\)</span> is Unknown</h2>
+<div class="defbox">
+<p>When <span class="math inline">\(\sigma\)</span> is unknown, we use a preliminary estimate <span class="math inline">\(s\)</span> from a pilot study or previous data.</p>
+<p>A practical formula is:</p>
 <p><span class="math display">\[
-n=\left(\frac{t_{\alpha/2,n-1}s}{E}\right)^2.
+n =
+\left(
+\frac{t_{1-\alpha/2,\;n-1}s}{E}
+\right)^2
 \]</span></p>
+<p>but the <span class="math inline">\(t\)</span> critical value depends on <span class="math inline">\(n\)</span>, the quantity we are trying to find.</p>
 </div>
-<div class="notebox fragment">
-<p><span class="label">Why this is iterative</span> The <span class="math inline">\(t\)</span> critical value depends on <span class="math inline">\(df=n-1\)</span>, but <span class="math inline">\(n\)</span> is what we are trying to find. A common approach is:</p>
+<div class="thinkbox fragment">
+<p>This is why an iterative approach is used:</p>
 <ol type="1">
 <li>Start with the <span class="math inline">\(z\)</span> approximation.</li>
-<li>Use that <span class="math inline">\(n\)</span> to find a <span class="math inline">\(t\)</span> critical value.</li>
+<li>Use that <span class="math inline">\(n\)</span> to get a <span class="math inline">\(t\)</span> critical value.</li>
 <li>Recalculate <span class="math inline">\(n\)</span>.</li>
-<li>Repeat until <span class="math inline">\(n\)</span> stops changing.</li>
+<li>Repeat until <span class="math inline">\(n\)</span> stabilizes.</li>
+<li>Round up.</li>
 </ol>
 </div>
 </section>
-<section id="example-sample-size-sigma-unknown" class="slide level2 scrollable">
-<h2>Example: Sample Size, Sigma Unknown</h2>
+<section id="example-1-sample-size-sigma-unknown" class="slide level2 scrollable">
+<h2>Example 1: Sample Size, Sigma Unknown</h2>
 <div class="taskbox">
 <p>A pilot study estimates the standard deviation of response time as <span class="math inline">\(s=12\)</span> seconds. A researcher wants a 95% CI with margin of error at most <span class="math inline">\(E=5\)</span> seconds.</p>
 <p>Find the required sample size using the iterative <span class="math inline">\(t\)</span> approach.</p>
@@ -1631,8 +2107,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <p>The sample size stabilizes at <span class="math inline">\(n=25\)</span>, so the researcher needs at least 25 observations.</p>
 </div>
 </section>
-<section id="example-sample-size-sigma-unknown-1" class="slide level2 scrollable">
-<h2>Example: Sample Size, Sigma Unknown</h2>
+<section id="example-2-sample-size-sigma-unknown" class="slide level2 scrollable">
+<h2>Example 2: Sample Size, Sigma Unknown</h2>
 <div class="taskbox">
 <p>A pilot study estimates the standard deviation of monthly textbook spending as <span class="math inline">\(s=18\)</span>. A 90% CI is desired with margin of error at most <span class="math inline">\(E=4\)</span>.</p>
 <p>Find the required sample size using the iterative <span class="math inline">\(t\)</span> approach.</p>
@@ -1653,19 +2129,30 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="sample-size-for-a-proportion" class="slide level2">
 <h2>5.6.2 Sample Size for a Proportion</h2>
-<div class="defbox fragment">
-<p>For a desired margin of error <span class="math inline">\(E\)</span>:</p>
+<div class="defbox">
+<p>For a confidence interval on a population proportion, the margin of error is approximately:</p>
 <p><span class="math display">\[
-n=\left(\frac{z^*}{E}\right)^2p^*(1-p^*)
+E =
+z_{1-\alpha/2}
+\sqrt{
+\frac{p^*(1-p^*)}{n}
+}
 \]</span></p>
-<p>where <span class="math inline">\(p^*\)</span> is a planning value. If there is no prior information, use <span class="math inline">\(p^*=0.5\)</span>.</p>
+<p>Solving for <span class="math inline">\(n\)</span> gives:</p>
+<p><span class="math display">\[
+n =
+\left(
+\frac{z_{1-\alpha/2}}{E}
+\right)^2
+p^*(1-p^*)
+\]</span></p>
 </div>
-<div class="notebox fragment">
-<p>The value <span class="math inline">\(p^*=0.5\)</span> is conservative because it maximizes <span class="math inline">\(p^*(1-p^*)\)</span>.</p>
+<div class="thinkbox fragment">
+<p>The value <span class="math inline">\(p^*\)</span> is a planning value. If no prior information is available, use <span class="math inline">\(p^*=0.5\)</span> because it gives the most conservative sample size.</p>
 </div>
 </section>
-<section id="example-sample-size-for-a-proportion" class="slide level2 scrollable">
-<h2>Example: Sample Size for a Proportion</h2>
+<section id="example-1-sample-size-for-a-proportion" class="slide level2 scrollable">
+<h2>Example 1: Sample Size for a Proportion</h2>
 <div class="taskbox">
 <p>A mayoral survey needs to estimate a candidate’s support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.</p>
 </div>
@@ -1676,8 +2163,8 @@ n=\left(\frac{1.96}{0.03}\right)^2(0.5)(0.5)=1067.11
 <p>Round up: contact at least <span class="math inline">\(n=1068\)</span> voters.</p>
 </div>
 </section>
-<section id="example-sample-size-for-a-proportion-1" class="slide level2 scrollable">
-<h2>Example: Sample Size for a Proportion</h2>
+<section id="example-2-sample-size-for-a-proportion" class="slide level2 scrollable">
+<h2>Example 2: Sample Size for a Proportion</h2>
 <div class="taskbox">
 <p>In 2007, 15.6% of people in the USA were not covered by health care insurance. Use <span class="math inline">\(p^*=0.156\)</span> and <span class="math inline">\(E=0.03\)</span>.</p>
 <p>Find the required sample size for 95% and 99% confidence.</p>
@@ -1692,7 +2179,7 @@ n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
 <p>The 99% confidence level requires a larger survey because the critical value is larger.</p>
 </div>
 </section>
-<section id="section-3" class="slide level2 quiz-question">
+<section id="section-6" class="slide level2 quiz-question">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -1700,73 +2187,16 @@ n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
 <p><strong>Question</strong></p>
 </div>
 <div class="callout-content">
-<p>When calculating sample size from a margin of error, why do we round up?</p>
+<p>When planning a confidence interval for a population proportion, no prior estimate of <span class="math inline">\(p\)</span> is available. What value should we use for <span class="math inline">\(p^*\)</span>?</p>
 </div>
 </div>
 </div>
 <ul>
-<li>Because formulas always underestimate the standard deviation</li>
-<li><span class="correct" data-explanation="The target is a maximum margin of error. Rounding down can fail to meet the requirement, so we always round up.">Because sample size must be whole, and rounding down could make the margin of error too large</span></li>
-<li>Because confidence intervals require even sample sizes</li>
-<li>Because <span class="math inline">\(z^*\)</span> is only approximate</li>
+<li><span class="math inline">\(p^*=0\)</span></li>
+<li><span class="math inline">\(p^*=0.25\)</span></li>
+<li><span class="correct" data-explanation="When no prior estimate is available, p*=0.5 is used because p*(1-p*) is maximized at 0.5. This gives the most conservative required sample size."><span class="math inline">\(p^*=0.5\)</span></span></li>
+<li><span class="math inline">\(p^*=1\)</span></li>
 </ul>
-</section>
-<section id="choosing-the-right-ci" class="slide level2 compact">
-<h2>Choosing the Right CI</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>If the problem asks for…</th>
-<th>Use…</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>one mean and gives <span class="math inline">\(\sigma\)</span></td>
-<td>one-sample <span class="math inline">\(z\)</span> interval</td>
-</tr>
-<tr class="even">
-<td>one mean and gives <span class="math inline">\(s\)</span> or raw data</td>
-<td>one-sample <span class="math inline">\(t\)</span> interval</td>
-</tr>
-<tr class="odd">
-<td>one proportion</td>
-<td>one-proportion <span class="math inline">\(z\)</span> interval</td>
-</tr>
-<tr class="even">
-<td>one variance</td>
-<td>chi-square interval</td>
-</tr>
-<tr class="odd">
-<td>difference of means, known <span class="math inline">\(\sigma_1,\sigma_2\)</span></td>
-<td>two-sample <span class="math inline">\(z\)</span> interval</td>
-</tr>
-<tr class="even">
-<td>difference of means, equal variances</td>
-<td>pooled two-sample <span class="math inline">\(t\)</span> interval</td>
-</tr>
-<tr class="odd">
-<td>difference of means, unequal/unspecified variances</td>
-<td>Welch two-sample <span class="math inline">\(t\)</span> interval</td>
-</tr>
-<tr class="even">
-<td>difference of proportions</td>
-<td>two-proportion <span class="math inline">\(z\)</span> interval</td>
-</tr>
-<tr class="odd">
-<td>ratio of variances</td>
-<td><span class="math inline">\(F\)</span> interval</td>
-</tr>
-<tr class="even">
-<td>before-after or matched data</td>
-<td>paired <span class="math inline">\(t\)</span> interval on differences</td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="final-checklist" class="slide level2">
 <h2>Final Checklist</h2>
@@ -1797,7 +2227,7 @@ n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
 eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImdncGxvdDIiLCJkcGx5ciIsInBsb3RseSJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
 </script>
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzExID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici03LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTY7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE2ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTYtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTYsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTU7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE1ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTUtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTUsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xNCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzE0ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xNC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xNCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTM7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEzID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTMtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMyA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTMsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTI7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEyID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTItY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTIsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzExID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6Il93ZWJyX3ZhbHVlXzcgPSB7XG4gIGNvbnN0IHsgaGlnaGxpZ2h0UiwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNy1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXZhbHVhdGlvbiBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHtcbiAgICBpZDogXCJ3ZWJyLTctY29udGVudHNcIixcbiAgICBlY2hvOiB0cnVlLFxuICAgIG91dHB1dDogdHJ1ZVxuICB9LCBibG9jay5hdHRyKTtcblxuICAvLyBFdmFsdWF0ZSB0aGUgcHJvdmlkZWQgUiBjb2RlXG4gIGNvbnN0IHJlc3VsdCA9IHdlYlJPanMucHJvY2Vzcyh7Y29kZTogYmxvY2suY29kZSwgb3B0aW9uc30sIHt9KTtcblxuICAvLyBFYXJseSB5aWVsZCB3aGlsZSB3ZSB3YWl0IGZvciB0aGUgZmlyc3QgZXZhbHVhdGlvbiBhbmQgcmVuZGVyXG4gIGlmIChvcHRpb25zLm91dHB1dCAmJiAhKFwiN1wiIGluIHdlYlJPanMucmVuZGVyZWRPanMpKSB7XG4gICAgY29uc3QgY29udGFpbmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcbiAgICBjb25zdCBzcGlubmVyID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKTtcblxuICAgIGlmIChvcHRpb25zLmVjaG8pIHtcbiAgICAgIC8vIFNob3cgb3V0cHV0IGFzIGhpZ2hsaWdodGVkIHNvdXJjZVxuICAgICAgY29uc3QgcHJlRWxlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoXCJwcmVcIik7XG4gICAgICBjb250YWluZXIuY2xhc3NOYW1lID0gXCJzb3VyY2VDb2RlXCI7XG4gICAgICBwcmVFbGVtLmNsYXNzTmFtZSA9IFwic291cmNlQ29kZSByXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKGhpZ2hsaWdodFIoYmxvY2suY29kZSkpO1xuICAgICAgc3Bpbm5lci5jbGFzc05hbWUgPSBcInNwaW5uZXItZ3JvdyBzcGlubmVyLWdyb3ctc20gbS0yIHBvc2l0aW9uLWFic29sdXRlIHRvcC0wIGVuZC0wXCI7XG4gICAgICBwcmVFbGVtLmFwcGVuZENoaWxkKHNwaW5uZXIpO1xuICAgICAgY29udGFpbmVyLmFwcGVuZENoaWxkKHByZUVsZW0pO1xuICAgIH0gZWxzZSB7XG4gICAgICBzcGlubmVyLmNsYXNzTmFtZSA9IFwic3Bpbm5lci1ib3JkZXIgc3Bpbm5lci1ib3JkZXItc21cIjtcbiAgICAgIGNvbnRhaW5lci5hcHBlbmRDaGlsZChzcGlubmVyKTtcbiAgICB9XG5cbiAgICB5aWVsZCBjb250YWluZXI7XG4gIH1cblxuICB3ZWJST2pzLnJlbmRlcmVkT2pzW1wiN1wiXSA9IHRydWU7XG4gIHlpZWxkIGF3YWl0IHJlc3VsdDtcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
 </script>
 <div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
 <div id="exercise-loading-status" class="d-flex gap-2">

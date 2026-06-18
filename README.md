@@ -3,6 +3,12 @@ Slides for STA258
 
 # Things to do
 
+## For June 25 
+
+- Update all examples in CH5 to make it more interesting (or classical)
+- Continue working on Chapter 6 and 9 (make sure exmaples are interesting)
+- Add cache refresh, quarto preview to help.html
+
 ## For June 18
 
 - Fix all images in CH3 and CH4 (consider converting to plotly)

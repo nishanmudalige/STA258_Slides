@@ -1,0 +1,79 @@
+---
+title: "Chapter 6: Hypothesis Tests"
+subtitle: "STA258 - University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter6-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter6-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 6 you'll be able to:
+
+- State null and alternative hypotheses for one-sided and two-sided tests.
+- Compute and interpret p-values using $Z$, $t$, $\chi^2$, and $F$ reference distributions.
+- Run one-sample tests for a population mean, proportion, and variance.
+- Run two-sample tests for differences in means, differences in proportions, and ratios of variances.
+- Recognize when paired data should be tested through differences.
+- Write conclusions in context without overclaiming what a p-value means.
+
+## Key ideas
+
+::: {.summary-card}
+### Hypothesis Test Logic
+A hypothesis test asks whether the observed sample statistic would be unusual if the null hypothesis were true. Small p-values give evidence against the null hypothesis.
+:::
+
+::: {.summary-card}
+### P-Value Interpretation
+The p-value is calculated assuming $H_0$ is true. It is not the probability that $H_0$ is true, and failing to reject $H_0$ does not prove $H_0$.
+:::
+
+::: {.summary-card}
+### One-Sample Tests
+Use a one-sample $z$ test when $\sigma$ is known, a one-sample $t$ test when $\sigma$ is unknown, a one-proportion $z$ test for a population proportion, and a chi-square test for a population variance.
+:::
+
+::: {.summary-card}
+### Two-Sample Tests
+For independent groups, test differences such as $\mu_1-\mu_2$ or $p_1-p_2$. For paired data, first compute differences within each pair and then run a one-sample $t$ test on $\mu_d$.
+:::
+
+::: {.summary-card}
+### Choosing the Right Reference Distribution
+The reference distribution comes from the parameter and what is known: $Z$ for known standard deviations or large-count proportion tests, $t$ for unknown standard deviations, $\chi^2$ for one variance, and $F$ for a ratio of variances.
+:::
+
+## How to use this chapter
+
+- Open the **slides** for an interactive walkthrough.
+- Use the **PDF** button for an offline-friendly version.
+- Try the embedded quiz questions before revealing the answer.
+- Run and edit the WebR examples to check textbook calculations in your browser.
+- Use the final decision tables as a study guide for choosing the correct hypothesis test.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chapter 4: Foundations of Inference – STA258</title>
+<title>Chapter 6: Hypothesis Tests – STA258</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -172,8 +172,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chapter 4: Foundations of Inference</h1>
-<p class="subtitle lead">STA258 — University of Toronto Mississauga</p>
+<h1 class="title">Chapter 6: Hypothesis Tests</h1>
+<p class="subtitle lead">STA258 - University of Toronto Mississauga</p>
 </div>
 
 
@@ -214,62 +214,51 @@ window.Quarto = {
 }
 </style>
 <div class="lecture-actions">
-<p><a href="../Chapter Slides/chapter4-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a> <a href="../Chapter Slides/chapter4-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a></p>
+<p><a href="../Chapter Slides/chapter6-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a> <a href="../Chapter Slides/chapter6-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a></p>
 </div>
 <section id="what-youll-learn" class="level2">
 <h2 class="anchored" data-anchor-id="what-youll-learn">What you’ll learn</h2>
-<p>By the end of Chapter 4 you’ll be able to:</p>
+<p>By the end of Chapter 6 you’ll be able to:</p>
 <ul>
-<li>Describe the <strong>Normal</strong>, <strong>Chi-Square</strong>, <strong>t</strong>, and <strong>F</strong> distributions and identify when each is used.</li>
-<li>Explain what a <strong>sampling distribution</strong> is and why it is important in statistical inference.</li>
-<li>Find the mean and standard error of the sample mean <span class="math inline">\(\bar{X}\)</span>.</li>
-<li>Apply the <strong>Central Limit Theorem (CLT)</strong> to approximate the distribution of sample means.</li>
-<li>Understand <strong>convergence in probability</strong> and interpret the notation <span class="math inline">\(X_n \overset{p}{\to} c\)</span>.</li>
-<li>State and apply the <strong>Weak Law of Large Numbers (WLLN)</strong> to explain why sample averages approach the population mean.</li>
+<li>State null and alternative hypotheses for one-sided and two-sided tests.</li>
+<li>Compute and interpret p-values using <span class="math inline">\(Z\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span>, and <span class="math inline">\(F\)</span> reference distributions.</li>
+<li>Run one-sample tests for a population mean, proportion, and variance.</li>
+<li>Run two-sample tests for differences in means, differences in proportions, and ratios of variances.</li>
+<li>Recognize when paired data should be tested through differences.</li>
+<li>Write conclusions in context without overclaiming what a p-value means.</li>
 </ul>
 </section>
 <section id="key-ideas" class="level2">
 <h2 class="anchored" data-anchor-id="key-ideas">Key ideas</h2>
-<section id="normal-distribution" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="normal-distribution">Normal Distribution</h3>
-<p>The <strong>normal distribution</strong> is symmetric and bell-shaped, written as <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>. The <strong>standard normal distribution</strong> is the special case <span class="math inline">\(Z \sim N(0,1)\)</span> and serves as the foundation for many inference procedures.</p>
+<section id="hypothesis-test-logic" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="hypothesis-test-logic">Hypothesis Test Logic</h3>
+<p>A hypothesis test asks whether the observed sample statistic would be unusual if the null hypothesis were true. Small p-values give evidence against the null hypothesis.</p>
 </section>
-<section id="chi-square-t-and-f-distributions" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="chi-square-t-and-f-distributions">Chi-Square, (t), and (F) Distributions</h3>
-<p>The <strong>chi-square distribution</strong> <span class="math inline">\(\chi^2_k\)</span> arises from sums of squared standard normal variables. The <strong>(t)-distribution</strong> <span class="math inline">\(t_\nu\)</span> is used when the population standard deviation is unknown. The <strong>(F)-distribution</strong> <span class="math inline">\(F_{\nu_1,\nu_2}\)</span> is commonly used for comparing variances and in ANOVA.</p>
+<section id="p-value-interpretation" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="p-value-interpretation">P-Value Interpretation</h3>
+<p>The p-value is calculated assuming <span class="math inline">\(H_0\)</span> is true. It is not the probability that <span class="math inline">\(H_0\)</span> is true, and failing to reject <span class="math inline">\(H_0\)</span> does not prove <span class="math inline">\(H_0\)</span>.</p>
 </section>
-<section id="distribution-tools-in-r" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="distribution-tools-in-r">Distribution Tools in R</h3>
-<p>Use <code>pnorm</code> and <code>qnorm</code> for normal probabilities and critical values, <code>pchisq</code> and <code>qchisq</code> for chi-square calculations, <code>pt</code> and <code>qt</code> for (t)-distributions, and <code>pf</code> and <code>qf</code> for (F)-distributions.</p>
+<section id="one-sample-tests" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="one-sample-tests">One-Sample Tests</h3>
+<p>Use a one-sample <span class="math inline">\(z\)</span> test when <span class="math inline">\(\sigma\)</span> is known, a one-sample <span class="math inline">\(t\)</span> test when <span class="math inline">\(\sigma\)</span> is unknown, a one-proportion <span class="math inline">\(z\)</span> test for a population proportion, and a chi-square test for a population variance.</p>
 </section>
-<section id="central-limit-theorem-clt" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="central-limit-theorem-clt">Central Limit Theorem (CLT)</h3>
-<p>For large sample sizes, the standardized sample mean is approximately normal: <span class="math display">\[
-\frac{\sqrt{n}(\bar{X}_n-\mu)}{\sigma}
-\overset{d}{\longrightarrow}
-N(0,1).
-\]</span> This result allows normal-based inference even when the original population is not normal.</p>
+<section id="two-sample-tests" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="two-sample-tests">Two-Sample Tests</h3>
+<p>For independent groups, test differences such as <span class="math inline">\(\mu_1-\mu_2\)</span> or <span class="math inline">\(p_1-p_2\)</span>. For paired data, first compute differences within each pair and then run a one-sample <span class="math inline">\(t\)</span> test on <span class="math inline">\(\mu_d\)</span>.</p>
 </section>
-<section id="convergence-in-probability" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="convergence-in-probability">Convergence in Probability</h3>
-<p>The notation <span class="math display">\[
-X_n \overset{p}{\longrightarrow} c
-\]</span> means that as <span class="math inline">\(n\)</span> grows, the probability that <span class="math inline">\(X_n\)</span> differs substantially from <span class="math inline">\(c\)</span> approaches zero.</p>
-</section>
-<section id="weak-law-of-large-numbers" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="weak-law-of-large-numbers">Weak Law of Large Numbers</h3>
-<p>The sample mean converges in probability to the population mean: <span class="math display">\[
-\bar{X}_n \overset{p}{\longrightarrow} \mu.
-\]</span> As the sample size increases, sample averages become increasingly stable around the true mean. A proof can be obtained using Chebyshev’s inequality.</p>
+<section id="choosing-the-right-reference-distribution" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="choosing-the-right-reference-distribution">Choosing the Right Reference Distribution</h3>
+<p>The reference distribution comes from the parameter and what is known: <span class="math inline">\(Z\)</span> for known standard deviations or large-count proportion tests, <span class="math inline">\(t\)</span> for unknown standard deviations, <span class="math inline">\(\chi^2\)</span> for one variance, and <span class="math inline">\(F\)</span> for a ratio of variances.</p>
 </section>
 </section>
 <section id="how-to-use-this-chapter" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-use-this-chapter">How to use this chapter</h2>
 <ul>
-<li>Open the <strong>slides</strong> for an interactive walkthrough — every WebR block in the deck is editable and runs in your browser.</li>
+<li>Open the <strong>slides</strong> for an interactive walkthrough.</li>
 <li>Use the <strong>PDF</strong> button for an offline-friendly version.</li>
-<li>Try the in-slide exercises.</li>
-<li>Change values, re-run, and check the output.</li>
+<li>Try the embedded quiz questions before revealing the answer.</li>
+<li>Run and edit the WebR examples to check textbook calculations in your browser.</li>
+<li>Use the final decision tables as a study guide for choosing the correct hypothesis test.</li>
 </ul>
 
 

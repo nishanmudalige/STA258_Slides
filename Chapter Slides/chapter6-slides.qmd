@@ -1,0 +1,1284 @@
+---
+pagetitle: "Chapter 6: Hypothesis Tests - Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 6"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - dplyr
+    - plotly
+live:
+  show-solutions: true
+---
+
+```{r setup}
+#| include: false
+library(dplyr)
+library(plotly)
+set.seed(258)
+
+normal_pdf <- function(x) dnorm(x)
+t_pdf <- function(x, df) dt(x, df)
+
+tail_plot <- function(stat = 1.8, dist = "z", df = 12, alternative = "greater",
+                      title = "Reference distribution") {
+  x <- seq(-4, 4, length.out = 500)
+  y <- if (dist == "z") normal_pdf(x) else t_pdf(x, df)
+  stat_abs <- abs(stat)
+  shade <- switch(
+    alternative,
+    greater = x >= stat,
+    less = x <= stat,
+    two = abs(x) >= stat_abs
+  )
+  p <- plot_ly(width = 620, height = 230) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
+              name = if (dist == "z") "N(0,1)" else paste0("t(", df, ")")) |>
+    add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.32)",
+              line = list(color = "rgba(249,168,37,0.9)", width = 1),
+              name = "p-value area") |>
+    layout(
+      title = list(text = title, x = 0.02, font = list(size = 15)),
+      xaxis = list(title = "", zeroline = TRUE,
+                   zerolinecolor = "#222", zerolinewidth = 1,
+                   range = c(-4, 4), fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
+      margin = list(l = 42, r = 12, t = 36, b = 28),
+      showlegend = FALSE
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+  p
+}
+```
+
+# Chapter 6: Hypothesis Tests {.title-slide}
+
+<style>
+:root {
+  --sta-teal: #00695c;
+  --sta-teal-dark: #004d40;
+  --sta-teal-light: #e0f2f1;
+  --sta-blue: #c8e6f3;
+  --sta-blue-soft: #eef8fb;
+  --sta-grey: #f5f6f7;
+  --sta-yellow: #fff8e1;
+  --sta-orange: #f9a825;
+  --sta-text: #2f3437;
+  --sta-muted: #667174;
+  --sta-border: #d8dee2;
+  --sta-code: #f3f4f5;
+}
+.reveal { font-family: Arial, sans-serif; color: var(--sta-text); }
+.reveal .slides section { text-align: left; padding: 18px 30px; box-sizing: border-box; }
+.reveal h1, .reveal h2, .reveal h3 { color: var(--sta-text); line-height: 1.08; }
+.reveal h1 { font-size: 1.72em !important; }
+.reveal h2 {
+  font-size: 1.48em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3 { font-size: 1.02em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.74em; line-height: 1.3; }
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p { font-size: 0.78em; color: var(--sta-muted); }
+.two-col, .two-col-wide, .three-col, .four-grid, .procedure-grid, .decision-grid, .slide-stack {
+  display: grid;
+  gap: 24px;
+  align-items: start;
+}
+.two-col { grid-template-columns: 1fr 1fr; }
+.two-col-wide { grid-template-columns: 1.12fr 0.88fr; }
+.three-col { grid-template-columns: repeat(3, 1fr); }
+.four-grid { grid-template-columns: repeat(2, 1fr); }
+.procedure-grid { grid-template-columns: 0.78fr 1.22fr; }
+.decision-grid { grid-template-columns: 0.9fr 1.1fr; align-items: center; }
+.slide-stack { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.decision-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.decision-cards .defbox { margin-bottom: 0; }
+.col { min-width: 0; }
+.defbox, .examplebox, .thinkbox, .card, .warnbox, .notebox, .mini-card, .stat-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 0.72em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox { background: #fff3e0; border-left: 7px solid #ef6c00; }
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.big { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center { text-align: center; }
+.small-text { font-size: 0.62em; }
+.tight li { margin-bottom: 0.16em; }
+.step-list {
+  display: grid;
+  gap: 12px;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+.step-list li {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 6px solid var(--sta-teal);
+  border-radius: 8px;
+  padding: 8px 11px;
+  font-size: 0.52em !important;
+  line-height: 1.18;
+  margin: 0 0 12px 0 !important;
+}
+.step-list li:last-child { margin-bottom: 0 !important; }
+.step-list li + li { margin-top: 0 !important; }
+.step-list.compact-steps {
+  gap: 11px;
+}
+.step-list.compact-steps li {
+  font-size: 0.54em !important;
+  padding: 8px 12px;
+  margin-bottom: 12px !important;
+}
+.evidence-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+.table-note { margin-top: 26px !important; }
+.table-gap { margin-bottom: 26px !important; }
+.spaced-note { margin-top: 22px !important; }
+.conclusion-stack {
+  display: grid;
+  gap: 12px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+.conclusion-stack .card, .conclusion-stack .thinkbox { margin-bottom: 0; }
+.formula {
+  display: block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  text-align: center;
+  font-size: 1.02em;
+}
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1.25px solid #4d5659;
+  font-size: 0.6em;
+}
+.reveal th, .reveal td {
+  border: 1.25px solid #4d5659;
+  padding: 6px 8px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.reveal pre { width: 100%; margin-top: 0.3em; margin-bottom: 0.3em; border-radius: 8px; }
+.reveal pre code { font-size: 0.7em; max-height: 300px; }
+.reveal code { background: var(--sta-code); border-radius: 4px; padding: 1px 4px; }
+.reveal .modebar { display: none !important; }
+.reveal .slides section.scrollable { overflow-y: auto !important; overflow-x: hidden !important; max-height: 700px; }
+.reveal section.compact h2 { font-size: 1.08em !important; }
+.reveal section.compact p, .reveal section.compact li { font-size: 0.7em; }
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
+.reveal .quiz-question .callout-note { margin: 4px 0 12px 0 !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-body p, .reveal .quiz-question .callout-note p {
+  font-size: 0.76em !important;
+  line-height: 1.28;
+  margin: 4px 0;
+}
+.reveal .quiz-question .callout-title { font-size: 0.82em !important; padding: 5px 12px !important; }
+.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons { margin: 10px 0 0 0 !important; font-size: 0.85em !important; text-align: right; }
+.reveal .check-button, .reveal .reset-button, .reveal .prev-button, .reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+.reveal .feedback, .reveal .explanation, .reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+.assumption-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+.assumption-stack .card, .assumption-stack .warnbox {
+  margin-bottom: 0;
+  padding: 12px 16px;
+  font-size: 0.62em;
+}
+.assumption-list {
+  list-style: none !important;
+  margin: 8px 0 0 0 !important;
+  padding-left: 0 !important;
+  display: grid;
+  gap: 7px;
+}
+.assumption-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92em !important;
+  line-height: 1.2;
+  margin-bottom: 0 !important;
+}
+.assumption-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sta-teal);
+}
+.plot-wrap,
+.plot-wrap .cell,
+.plot-wrap .cell-output-display,
+.plot-wrap .html-widget,
+.plot-wrap .plotly,
+.plot-wrap .plot-container,
+.plot-wrap .svg-container {
+  width: 100% !important;
+  max-width: 820px !important;
+  height: 255px !important;
+  max-height: 255px !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+}
+.mini-plot,
+.mini-plot .cell,
+.mini-plot .cell-output-display,
+.mini-plot .html-widget,
+.mini-plot .plotly,
+.mini-plot .plot-container,
+.mini-plot .svg-container {
+  width: 100% !important;
+  max-width: 620px !important;
+  height: 230px !important;
+  max-height: 230px !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
+.reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+}
+</style>
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability  
+University of Toronto Mississauga
+
+![](../images/cat.png){width="245" fig-alt="Course mascot"}
+
+---
+
+## Chapter Roadmap {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Logic</span>
+Null and alternative hypotheses, test statistics, p-values, and decisions.
+:::
+
+::: {.card .fragment}
+<span class="label">One sample</span>
+Tests for one mean, one proportion, and one variance.
+:::
+
+::: {.card .fragment}
+<span class="label">Two sample</span>
+Tests for differences, ratios, and paired data.
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Big theme</span>
+A hypothesis test asks whether the observed statistic would be surprising if the null hypothesis were true.
+:::
+
+::: {.notebox .fragment}
+<span class="label">Output skill</span>
+State the conclusion in context: reject or fail to reject, then translate that decision back to the population parameter.
+:::
+::::
+
+---
+
+## What a Hypothesis Test Does
+
+::: {.defbox .fragment}
+<span class="label">Textbook idea</span>
+A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.
+:::
+
+:::: {.two-col}
+::: {.stat-card .fragment}
+<span class="label">Null hypothesis, $H_0$</span>
+The status quo, no-effect, or no-difference claim.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Alternative hypothesis, $H_a$</span>
+The direction of evidence we are trying to detect.
+:::
+::::
+
+::: {.thinkbox .fragment}
+The test is performed **assuming $H_0$ is true**. The p-value measures how unusual the data are under that assumption.
+:::
+
+---
+
+## The Five-Step Procedure
+
+::: {.slide-stack}
+<ol class="step-list">
+  <li class="fragment"><strong>1. Choose $\alpha$.</strong> Set the significance level before making the decision.</li>
+  <li class="fragment"><strong>2. State hypotheses.</strong> Use the correct population parameter.</li>
+  <li class="fragment"><strong>3. Compute statistic.</strong> Standardize the estimate with the correct standard error.</li>
+  <li class="fragment"><strong>4. Find the p-value.</strong> Use the tail area that matches $H_a$.</li>
+  <li class="fragment"><strong>5. Conclude.</strong> Compare to $\alpha$ and write the conclusion in context.</li>
+</ol>
+
+::: {.mini-plot .fragment}
+```{r}
+tail_plot(stat = 1.55, alternative = "greater",
+          title = "P-value area")
+```
+:::
+
+::: {.thinkbox .fragment}
+Step 4 and Step 5 are separate: first calculate evidence, then make the decision.
+:::
+:::
+
+---
+
+## Choosing the Alternative
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Left-tailed</span>
+$$H_a:\theta < \theta_0$$
+Use when the research question asks whether the parameter decreased or is smaller.
+:::
+
+::: {.card .fragment}
+<span class="label">Right-tailed</span>
+$$H_a:\theta > \theta_0$$
+Use when the research question asks whether the parameter increased or is larger.
+:::
+
+::: {.card .fragment}
+<span class="label">Two-sided</span>
+$$H_a:\theta \ne \theta_0$$
+Use when the research question asks whether the parameter changed in either direction.
+:::
+::::
+
+---
+
+## P-Value Areas
+
+::: {.slide-stack}
+<ol class="step-list compact-steps">
+  <li class="fragment"><strong>Left-tailed:</strong> $P(T \le t^*)$ or $P(Z \le z^*)$.</li>
+  <li class="fragment"><strong>Right-tailed:</strong> $P(T \ge t^*)$ or $P(Z \ge z^*)$.</li>
+  <li class="fragment"><strong>Two-sided:</strong> double the matching one-tail area.</li>
+</ol>
+
+::: {.mini-plot .fragment}
+```{r}
+tail_plot(stat = 1.8, alternative = "greater",
+          title = "Right-tailed p-value")
+```
+:::
+
+::: {.thinkbox .fragment}
+For a two-sided test, the p-value includes evidence at least as extreme in **both** tails.
+:::
+:::
+
+---
+
+## Decision Rule
+
+::: {.slide-stack}
+::: {.decision-cards}
+::: {.defbox}
+<span class="label">If p-value $\le \alpha$</span>
+Reject $H_0$ in favor of $H_a$.
+:::
+
+::: {.defbox}
+<span class="label">If p-value $> \alpha$</span>
+Fail to reject $H_0$.
+:::
+:::
+
+::: {.warnbox}
+<span class="label">Careful language</span>
+Failing to reject $H_0$ does **not** prove $H_0$. It only means the sample does not provide enough evidence against it at the chosen significance level.
+:::
+
+::: {.mini-plot .fragment}
+```{r}
+tail_plot(stat = 2.05, alternative = "greater",
+          title = "Small p-value: evidence against H0")
+```
+:::
+:::
+
+---
+
+## Reading Strength of Evidence
+
+::: {.evidence-layout}
+::: {.table-gap}
+| p-value range | Textbook language |
+|---|---|
+| $\le 0.001$ | Very strong evidence against $H_0$ |
+| $0.001$ to $0.01$ | Strong evidence |
+| $0.01$ to $0.05$ | Evidence |
+| $0.05$ to $0.075$ | Some evidence |
+| $0.075$ to $0.10$ | Slight evidence |
+| $>0.10$ | Little or no evidence against $H_0$ |
+:::
+
+::: {.thinkbox .fragment .table-note}
+Statistical significance does not measure practical importance. Pair the p-value with an estimate or confidence interval.
+:::
+:::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A test gives p-value $0.032$ and uses $\alpha=0.05$. What should we do?
+::::
+
+- Fail to reject $H_0$
+- [Reject $H_0$]{.correct data-explanation="Because 0.032 is less than 0.05, the result is statistically significant at the 5% level."}
+- Prove $H_0$ is false
+- Increase $\alpha$ until the test works
+
+---
+
+## One Mean, Known $\sigma$
+
+::: {.defbox}
+When the population standard deviation is known, use a standard normal reference distribution:
+
+$$
+z^*=\frac{\bar{x}-\mu_0}{\sigma/\sqrt n}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Reference distribution</span>
+$Z\sim N(0,1)$.
+:::
+
+::: {.notebox .fragment}
+<span class="label">Use when</span>
+Testing a population mean with known $\sigma$ and an appropriate random/normal-or-large-sample setup.
+:::
+::::
+
+---
+
+## Example: Coffee Fill Volume
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+A cafe chain checks whether its large coffee cups are being underfilled.
+
+From past calibration records, $\sigma=1.1$ oz. A random sample of $n=40$ cups has
+
+$$\bar{x}=6.7,\quad \mu_0=7.2.$$
+
+Test whether the mean fill volume has **decreased** at $\alpha=0.05$.
+:::
+
+::: {.defbox .fragment}
+$$
+H_0:\mu=7.2
+\qquad
+H_a:\mu<7.2
+$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+tail_plot(stat = -2.8748, alternative = "less",
+          title = "Coffee example: left-tailed z test")
+```
+:::
+:::
+::::
+
+---
+
+## Coffee Example: Calculation
+
+::: {.examplebox}
+$$
+z^*=\frac{6.7-7.2}{1.1/\sqrt{40}}=-2.8748
+$$
+
+$$
+\text{p-value}=P(Z\le -2.8748)=0.00202
+$$
+:::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.00202 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is sufficient evidence that the mean large-coffee fill volume is below 7.2 oz.
+:::
+::::
+
+---
+
+## Check in R: Coffee z Test
+
+```{webr}
+n <- 40
+xbar <- 6.7
+mu0 <- 7.2
+sigma <- 1.1
+
+z_star <- (xbar - mu0) / (sigma / sqrt(n))
+p_value <- pnorm(z_star)
+
+z_star
+p_value
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+In the coffee example, the alternative is $H_a:\mu<7.2$. Which p-value formula matches the test?
+::::
+
+- $P(Z\ge z^*)$
+- [$P(Z\le z^*)$]{.correct data-explanation="A less-than alternative is left-tailed, so the p-value is the area to the left of the observed z statistic."}
+- $2P(Z\ge z^*)$
+- $P(Z=z^*)$
+
+---
+
+## One Mean, Unknown $\sigma$
+
+::: {.defbox}
+When $\sigma$ is unknown, replace it with $s$ and use the Student $t$ distribution:
+
+$$
+t^*=\frac{\bar{x}-\mu_0}{s/\sqrt n}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Reference distribution</span>
+$t$ with $n-1$ degrees of freedom.
+:::
+
+::: {.warnbox .fragment}
+<span class="label">Assumptions</span>
+Random/independent observations; population normal or sample large enough for the $t$ approximation.
+:::
+::::
+
+---
+
+## Example: Clinic Wait Times
+
+::: {.examplebox}
+A clinic advertises an average wait time of 16.5 minutes. A patient group records 12 waits:
+
+`16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8`
+
+Test whether the mean wait time is **greater** than advertised.
+:::
+
+:::: {.two-col}
+::: {.defbox .fragment}
+$$H_0:\mu=16.5,\qquad H_a:\mu>16.5$$
+:::
+
+::: {.thinkbox .fragment}
+Use a one-sample $t$ test because $\sigma$ is not known.
+:::
+::::
+
+---
+
+## Check in R: Wait-Time t Test
+
+```{webr}
+waits <- c(16.2, 18.4, 15.7, 19.1, 17.3, 16.9,
+           20.4, 18.2, 15.9, 17.6, 16.7, 19.8)
+
+t.test(waits, alternative = "greater", mu = 16.5)
+```
+
+::: {.thinkbox .fragment}
+The output gives $t=2.682$, $df=11$, and p-value $0.0107$. At $\alpha=0.05$, reject $H_0$.
+:::
+
+---
+
+## One Proportion Test
+
+::: {.defbox}
+For a test about one population proportion $p$:
+
+$$
+z^*=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Use the null value</span>
+The standard error uses $p_0$, not $\hat p$.
+:::
+
+::: {.warnbox .fragment}
+<span class="label">Large-count check</span>
+Under $H_0$, both $np_0$ and $n(1-p_0)$ should be at least 10.
+:::
+::::
+
+---
+
+## Example: Recycling Participation
+
+::: {.examplebox}
+A campus office believes that $10\%$ of students join a voluntary recycling program. A new survey finds $x=68$ participants out of $n=520$ students.
+
+Is this evidence that the participation rate has increased?
+:::
+
+:::: {.two-col}
+::: {.defbox .fragment}
+$$
+H_0:p=0.10,\qquad H_a:p>0.10
+$$
+:::
+
+::: {.defbox .fragment}
+$$
+\hat p=\frac{68}{520}=0.1308
+$$
+:::
+::::
+
+---
+
+## Check in R: One Proportion
+
+```{webr}
+x <- 68
+n <- 520
+p0 <- 0.10
+
+phat <- x / n
+z_star <- (phat - p0) / sqrt(p0 * (1 - p0) / n)
+p_value <- 1 - pnorm(z_star)
+
+phat
+z_star
+p_value
+
+prop.test(x, n, p = p0, alternative = "greater", correct = FALSE)
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+For the recycling test, why is the alternative $H_a:p>0.10$?
+::::
+
+- The sample proportion is always greater than the null value
+- [The research question asks whether participation has increased]{.correct data-explanation="An increase means the population proportion is larger than the old value 0.10, so the test is right-tailed."}
+- The sample size is greater than 30
+- Proportion tests are always right-tailed
+
+---
+
+## One Variance Test
+
+::: {.defbox}
+For one normal population, test a variance using the chi-square statistic:
+
+$$
+\chi^{2*}=\frac{(n-1)s^2}{\sigma_0^2}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Reference distribution</span>
+$\chi^2$ with $n-1$ degrees of freedom.
+:::
+
+::: {.warnbox .fragment}
+<span class="label">Important condition</span>
+The population should be approximately normal. Variance tests are sensitive to non-normality.
+:::
+::::
+
+---
+
+## Example: Sauce Jar Consistency
+
+::: {.examplebox}
+A food lab claims its sauce jar fill weights have standard deviation at most $2.8$ g. A quality audit samples $n=28$ jars and finds $s=3.4$ g.
+
+Does this undermine the claim? Use $\alpha=0.05$ and assume normality.
+:::
+
+:::: {.two-col}
+::: {.defbox .fragment}
+$$H_0:\sigma^2=2.8^2,\qquad H_a:\sigma^2>2.8^2$$
+:::
+
+::: {.thinkbox .fragment}
+Large sample variation gives evidence against the "at most 2.8 g" claim.
+:::
+::::
+
+---
+
+## Check in R: Jar Variance Test
+
+```{webr}
+n <- 28
+s <- 3.4
+sigma0 <- 2.8
+
+chi_star <- (n - 1) * s^2 / sigma0^2
+p_value <- 1 - pchisq(chi_star, df = n - 1)
+
+chi_star
+p_value
+```
+
+---
+
+## Two-Sample Test Targets
+
+| Target parameter | Typical question | Reference distribution |
+|---|---|---|
+| $\mu_1-\mu_2$ | Are two population means different? | $Z$ or $t$ |
+| $p_1-p_2$ | Are two population proportions different? | $Z$ |
+| $\sigma_1^2/\sigma_2^2$ | Are two population variances different? | $F$ |
+| $\mu_d$ | Is the mean paired difference nonzero? | $t$ |
+
+::: {.thinkbox .fragment .spaced-note}
+Start by deciding whether the samples are independent or paired. That choice changes the whole test.
+:::
+
+---
+
+## Two Means: Known $\sigma_1,\sigma_2$
+
+::: {.defbox}
+When both population standard deviations are known:
+
+$$
+z^*=
+\frac{(\bar{x}_1-\bar{x}_2)-D_0}
+{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+Usually $D_0=0$ when testing whether the population means are equal.
+:::
+
+::: {.notebox .fragment}
+Use $Z$ because the population standard deviations are known.
+:::
+::::
+
+---
+
+## Two Means: Unknown Variances
+
+::: {.defbox}
+For unequal or unspecified population variances, use Welch's two-sample $t$ test:
+
+$$
+t^*=
+\frac{(\bar{x}_1-\bar{x}_2)-D_0}
+{\sqrt{s_1^2/n_1+s_2^2/n_2}}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Default</span>
+Welch is a good default when equal variances are not clearly justified.
+:::
+
+::: {.notebox .fragment}
+<span class="label">Degrees of freedom</span>
+Software uses the Welch-Satterthwaite approximation.
+:::
+::::
+
+---
+
+## Example: Workshop Quiz Scores
+
+::: {.examplebox}
+Two independent tutorial sections try different workshop formats before the same quiz.
+
+Active workshop: `88 91 85 94 89 90 87 92 86 93 89 90`  
+Review workshop: `84 86 82 88 85 83 81 87 84 86`
+
+Does the active workshop produce a higher mean quiz score?
+:::
+
+::: {.defbox .fragment}
+Let $\mu_1$ be the active workshop mean and $\mu_2$ the review workshop mean. Test $H_0:\mu_1-\mu_2=0$ against $H_a:\mu_1-\mu_2>0$.
+:::
+
+---
+
+## Check in R: Two-Sample t Test
+
+```{webr}
+active <- c(88, 91, 85, 94, 89, 90, 87, 92, 86, 93, 89, 90)
+review <- c(84, 86, 82, 88, 85, 83, 81, 87, 84, 86)
+
+t.test(active, review, alternative = "greater", var.equal = FALSE)
+```
+
+---
+
+## Difference of Proportions
+
+::: {.defbox}
+When testing $H_0:p_1-p_2=0$, pool the sample proportions under the null:
+
+$$
+\hat p=\frac{x_1+x_2}{n_1+n_2}
+$$
+
+$$
+z^*=\frac{\hat p_1-\hat p_2}
+{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}
+$$
+:::
+
+---
+
+## Example: Reminder Texts
+
+::: {.examplebox}
+A student services office compares sign-up rates with and without reminder texts.
+
+Reminder text: $142$ sign-ups out of $360$  
+No reminder: $118$ sign-ups out of $370$
+
+Test whether reminder texts increase the sign-up rate.
+:::
+
+::: {.defbox .fragment}
+$$
+H_0:p_1-p_2=0,\qquad H_a:p_1-p_2>0
+$$
+:::
+
+---
+
+## Check in R: Two Proportions
+
+```{webr}
+successes <- c(142, 118)
+totals <- c(360, 370)
+
+prop.test(successes, totals, alternative = "greater", correct = FALSE)
+```
+
+::: {.thinkbox .fragment}
+The output gives p-value about $0.0166$, so there is evidence that reminder texts increase the sign-up rate.
+:::
+
+---
+
+## Ratio of Variances
+
+::: {.defbox}
+For two normal populations, test a ratio of variances with
+
+$$
+F^*=\frac{s_1^2}{s_2^2}
+$$
+
+using an $F$ reference distribution with $n_1-1$ and $n_2-1$ degrees of freedom.
+:::
+
+:::: {.two-col}
+::: {.warnbox .fragment}
+<span class="label">Normality matters</span>
+The $F$ test for variances is sensitive to non-normality.
+:::
+
+::: {.notebox .fragment}
+<span class="label">Two-sided idea</span>
+Extreme ratios in either direction count as evidence against equal variances.
+:::
+::::
+
+---
+
+## Paired Data
+
+::: {.defbox}
+For matched pairs or before-after data, first reduce the data to differences:
+
+$$
+d_i = \text{new}_i-\text{current}_i
+$$
+
+Then run a one-sample $t$ test on $\mu_d$.
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Not independent groups</span>
+The two measurements inside a pair are linked.
+:::
+
+::: {.notebox .fragment}
+<span class="label">Reference distribution</span>
+$t$ with $n-1$ degrees of freedom for the differences.
+:::
+::::
+
+---
+
+## Example: Paired Study Plan Test
+
+::: {.examplebox}
+Each of 12 students completes a practice set before and after using a new study plan.
+
+Before: `34 29 41 38 36 33 40 31 37 35 39 32`  
+After: `36 31 43 39 38 35 39 34 40 37 41 33`
+
+Can we conclude the study plan improves scores?
+:::
+
+::: {.defbox .fragment}
+Use paired differences $d_i=\text{after}_i-\text{before}_i$ and test $H_0:\mu_d=0$ against $H_a:\mu_d>0$.
+:::
+
+---
+
+## Check in R: Paired Study Plan Test
+
+```{webr}
+before <- c(34, 29, 41, 38, 36, 33, 40, 31, 37, 35, 39, 32)
+after <- c(36, 31, 43, 39, 38, 35, 39, 34, 40, 37, 41, 33)
+
+t.test(after, before, paired = TRUE, alternative = "greater")
+```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+In the study plan example, why is a paired $t$ test appropriate?
+::::
+
+- The two samples have the same mean
+- The sample size is less than 30
+- [Each student has both before and after scores, so observations are matched within student]{.correct data-explanation="The student creates a natural pair: before-plan score and after-plan score on the same person."}
+- Proportion tests cannot use score data
+
+---
+
+## Assumptions: Two Independent Means
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Sampling structure</span>
+<ul class="assumption-list">
+  <li class="fragment">The two samples are independent.</li>
+  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
+  <li class="fragment">If sampling without replacement, each sample is less than 10% of its population.</li>
+</ul>
+:::
+
+::: {.card .fragment}
+<span class="label">Model condition</span>
+<ul class="assumption-list">
+  <li class="fragment">Each population is approximately normal, or both sample sizes are large enough for the CLT.</li>
+  <li class="fragment">For a pooled test, equal population variances should be reasonable.</li>
+</ul>
+:::
+::::
+
+---
+
+## Assumptions: Difference of Proportions
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Sampling structure</span>
+<ul class="assumption-list">
+  <li class="fragment">The two groups are independent.</li>
+  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
+  <li class="fragment">If sampling without replacement, each sample should be less than 10% of its population.</li>
+</ul>
+:::
+
+::: {.card .fragment}
+<span class="label">Large-count condition</span>
+<p class="fragment">For each group, check successes and failures:</p>
+
+::: {.fragment}
+$$
+x_i\ge 10
+\qquad\text{and}\qquad
+n_i-x_i\ge 10
+$$
+:::
+:::
+::::
+
+---
+
+## Assumptions: Ratio of Variances
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Required structure</span>
+<ul class="assumption-list">
+  <li class="fragment">The two samples are independent.</li>
+  <li class="fragment">Each sample comes from a random process or randomized design.</li>
+</ul>
+:::
+
+::: {.warnbox .fragment}
+<span class="label">Normality matters here</span>
+<ul class="assumption-list">
+  <li class="fragment">The $F$ test for a variance ratio is sensitive to non-normality.</li>
+  <li class="fragment">This condition is more important here than it is for many mean-based tests.</li>
+</ul>
+:::
+::::
+
+---
+
+## Assumptions: Paired Data
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Paired structure</span>
+<ul class="assumption-list">
+  <li class="fragment">Each pair comes from the same unit, matched units, or a before-after measurement.</li>
+  <li class="fragment">The pairs themselves are independent of one another.</li>
+</ul>
+:::
+
+::: {.card .fragment}
+<span class="label">Model condition</span>
+<ul class="assumption-list">
+  <li class="fragment">Analyze the differences $d_i$, not the two original columns separately.</li>
+  <li class="fragment">For small samples, the distribution of differences should be approximately normal.</li>
+</ul>
+:::
+::::
+
+---
+
+## Choosing the Right Test
+
+| If the problem asks for... | Use... |
+|---|---|
+| one mean and gives $\sigma$ | one-sample $z$ test |
+| one mean and gives $s$ or raw data | one-sample $t$ test |
+| one proportion | one-proportion $z$ test |
+| one variance | chi-square test |
+| difference of means, known $\sigma_1,\sigma_2$ | two-sample $z$ test |
+| difference of means, equal variances | pooled two-sample $t$ test |
+| difference of means, unequal/unspecified variances | Welch two-sample $t$ test |
+| difference of proportions | two-proportion $z$ test |
+| ratio of variances | $F$ test |
+| before-after or matched data | paired $t$ test on differences |
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A problem gives raw before-and-after blood pressure measurements on the same 12 patients. Which test should you use?
+::::
+
+- Two independent sample $t$ test
+- One-proportion $z$ test
+- [Paired $t$ test on the differences]{.correct data-explanation="Before-and-after measurements on the same patient are paired. First compute each patient's difference, then use a one-sample t test on those differences."}
+- $F$ test for variances
+
+---
+
+## Test Statistic Cheat Sheet
+
+| Situation | Test statistic |
+|---|---|
+| One mean, $\sigma$ known | $\displaystyle z^*=\frac{\bar{x}-\mu_0}{\sigma/\sqrt n}$ |
+| One mean, $\sigma$ unknown | $\displaystyle t^*=\frac{\bar{x}-\mu_0}{s/\sqrt n}$ |
+| One proportion | $\displaystyle z^*=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}$ |
+| One variance | $\displaystyle \chi^{2*}=\frac{(n-1)s^2}{\sigma_0^2}$ |
+| Difference of proportions | $\displaystyle z^*=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}$ |
+
+---
+
+## What to Write in a Conclusion
+
+:::: {.conclusion-stack}
+::: {.card .fragment}
+<span class="label">Decision</span>
+Reject or fail to reject $H_0$.
+:::
+
+::: {.card .fragment}
+<span class="label">Evidence strength</span>
+Use the p-value to describe how strong the evidence is.
+:::
+
+::: {.card .fragment}
+<span class="label">Context</span>
+Name the population parameter and the direction of the claim.
+:::
+::::
+
+::: {.thinkbox .fragment .spaced-note}
+Good conclusion: "There is sufficient evidence at the 5% level that the mean fill volume for large coffees is below 7.2 oz."
+:::
+
+---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 7 - Statistical Power**
+
+Now that we can run hypothesis tests, we study how often tests detect real effects, how Type I and Type II errors happen, and how sample size changes power.
+:::
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** A good test write-up identifies the parameter, states $H_0$ and $H_a$, computes the statistic and p-value, and ends with a contextual conclusion.
+:::
+
+::: {.home-button-row}
+<a href="../index.html" class="home-button">Back to Homepage</a>
+:::

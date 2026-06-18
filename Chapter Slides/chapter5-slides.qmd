@@ -559,7 +559,28 @@ plot_ly(width = 430, height = 320) |>
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "white"
   ) |>
-  config(displayModeBar = FALSE, responsive = FALSE)
+  config(displayModeBar = FALSE, responsive = FALSE)|>
+  config(
+    displayModeBar = TRUE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = "reset",
+    modeBarButtonsToRemove = c(
+      "lasso2d",
+      "select2d"
+    )
+  ) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
+
 ```
 :::
 :::
@@ -2197,7 +2218,28 @@ plotly_slide_layout(
       zeroline = FALSE,
       tickfont = list(size = 12)
     )
+  )|>
+  config(
+    displayModeBar = TRUE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = "reset",
+    modeBarButtonsToRemove = c(
+      "lasso2d",
+      "select2d"
+    )
+  ) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
   )
+
 ```
 
 ::: {.thinkbox}

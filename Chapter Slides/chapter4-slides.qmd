@@ -366,6 +366,19 @@ plotly_slide_layout <- function(
   font-weight: bold;
 }
 
+.summary-table-slide table {
+  border: 2px solid #000 !important;
+}
+
+.summary-table-slide th,
+.summary-table-slide td {
+  border-color: #000 !important;
+}
+
+.summary-table-slide .thinkbox {
+  margin-top: 28px;
+}
+
 /* ── Code ─────────────────────────────────────────────── */
 .reveal pre {
   width: 100%;
@@ -3321,6 +3334,7 @@ $\chi^2$ and $F$ distributions?
 
 ## Summary Table for Distributions
 
+::: {.summary-table-slide}
 | Distribution | Parameters | Support | $E[X]$ | Key use |
 |---------------|---------------|---------------|---------------|---------------|
 | $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | General continuous |
@@ -3332,6 +3346,7 @@ $\chi^2$ and $F$ distributions?
 **Connections.** $Z^2 \sim \chi^2_1$; $\;$ $t_\nu^2 \sim F_{1,\nu}$;
 $\;$ $t_\nu \to N(0,1)$ and $\chi^2_k/k \to 1$ as degrees of freedom
 grow.
+:::
 :::
 
 ------------------------------------------------------------------------

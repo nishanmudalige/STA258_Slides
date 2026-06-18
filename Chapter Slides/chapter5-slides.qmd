@@ -162,6 +162,65 @@ plotly_slide_layout <- function(
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
+.sample-size-selection .defbox {
+  padding: 10px 16px;
+  font-size: 0.66em;
+  line-height: 1.16;
+  margin-bottom: 4px;
+}
+.sample-size-selection .defbox p {
+  margin: 0.18em 0;
+}
+.sample-size-selection .defbox blockquote {
+  margin: 0.28em 0 0.42em 0.28em;
+  padding: 0.18em 0 0.18em 0.72em;
+}
+.pooled-example-compact .taskbox {
+  padding: 12px 16px;
+  font-size: 0.68em;
+  line-height: 1.18;
+  margin-bottom: 10px;
+}
+.pooled-example-compact .math.display {
+  margin: 0.28em 0;
+  font-size: 0.78em;
+}
+.pooled-example-compact .examplebox {
+  margin-top: 10px;
+  padding: 12px 16px;
+  font-size: 0.66em;
+}
+.known-sigma-example .math.display {
+  font-size: 0.84em;
+  margin: 0.36em 0;
+}
+.paired-visual-fit .cell,
+.paired-visual-fit .cell-output-display,
+.paired-visual-fit .html-widget,
+.paired-visual-fit .plotly,
+.paired-visual-fit .plot-container,
+.paired-visual-fit .svg-container {
+  width: 100% !important;
+  max-width: 1080px !important;
+  height: 330px !important;
+  max-height: 330px !important;
+  overflow: hidden !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.paired-visual-fit .thinkbox {
+  margin-top: 14px;
+}
+.sample-size-mean-example .taskbox {
+  margin-bottom: 14px;
+}
+.sample-size-mean-example table {
+  margin-top: 12px;
+  margin-bottom: 18px;
+}
+.sample-size-mean-example .thinkbox {
+  margin-top: 18px;
+}
 .examplebox, .notebox, .mini-card {
   background: var(--sta-grey);
   border: 1px solid var(--sta-border);
@@ -1471,7 +1530,7 @@ population standard deviations are usually unknown.
 
 ------------------------------------------------------------------------
 
-## Example 1: Known $\sigma_1$ and $\sigma_2$ {.scrollable}
+## Example 1: Known $\sigma_1$ and $\sigma_2$ {.scrollable .known-sigma-example}
 
 ::: {.taskbox}
 Suppose final marks in the same course are compared between two campuses.
@@ -1531,7 +1590,7 @@ Otherwise, use Welch's interval.
 
 ------------------------------------------------------------------------
 
-## Example 1: Pooled Two-Sample $t$ Interval {.scrollable}
+## Example 1: Pooled Two-Sample $t$ Interval {.scrollable .pooled-example-compact}
 
 ::: {.taskbox}
 A researcher compares battery life for two brands of the same device.
@@ -1595,7 +1654,7 @@ The 90% CI is approximately $(1.06,10.14)$ points. Method A appears to have a hi
 
 ## Difference of Means: Unequal Unknown Variances
 
-::: {.defbox}
+::: {.defbox .fragment}
 If the population variances are **unknown** and are **not assumed equal**, use **Welch’s two-sample $t$ interval**:
 
 $$
@@ -1618,7 +1677,7 @@ $$
 when the two samples are **independent** and the equal-variance assumption is not reasonable.
 :::
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 **Course note.** Welch’s method is the more flexible default when the two sample variances look meaningfully different.
 :::
 
@@ -1626,7 +1685,7 @@ when the two samples are **independent** and the equal-variance assumption is no
 
 ## Welch Degrees of Freedom
 
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Degrees of freedom note</span>
 
 In this course, we are **not testing your ability to be a calculator** in an exam setting.
@@ -1638,7 +1697,7 @@ df = \min(n_1 - 1,\; n_2 - 1)
 $$
 :::
 
-::: {.defbox}
+::: {.defbox .fragment}
 A more accurate approximation, commonly used by software, is the **Welch–Satterthwaite degrees of freedom**:
 
 $$
@@ -1653,7 +1712,7 @@ df =
 $$
 :::
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 For exams in this course, use the conservative version unless told otherwise.
 :::
 
@@ -1722,27 +1781,27 @@ The 90% CI is approximately $(3.47,24.53)$. Group 1 appears to have a higher mea
 
 :::: {.assumption-grid style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 1.5rem; align-items: start;"}
 
-::: {.defbox style="margin: 0;"}
+::: {.defbox .fragment style="margin: 0;"}
 **Independent samples**
 
 The two samples must be independent. One person's measurement in group 1
 should not determine a person's measurement in group 2.
 :::
 
-::: {.defbox style="margin: 0;"}
+::: {.defbox .fragment style="margin: 0;"}
 **Normality or large samples**
 
 If sample sizes are small, each population should be approximately
 normal. For larger samples, the CLT makes the interval more reliable.
 :::
 
-::: {.defbox style="margin: 0;"}
+::: {.defbox .fragment style="margin: 0;"}
 **Randomization**
 
 Each group should come from a random sample or a randomized experiment.
 :::
 
-::: {.defbox style="margin: 0;"}
+::: {.defbox .fragment style="margin: 0;"}
 **Equal variances only for pooled intervals**
 
 The pooled method requires the extra assumption that
@@ -1863,14 +1922,14 @@ The 90% CI is approximately $(-0.010,0.095)$. Because 0 is inside, the data do n
 
 :::::: two-col
 ::: col
-::: defbox
+::: {.defbox .fragment}
 **Randomization**
 
 Each sample should be random, or the data should come from a randomized
 experiment.
 :::
 
-::: defbox
+::: {.defbox .fragment}
 **Independent groups**
 
 The two groups being compared must be independent from each other.
@@ -1878,14 +1937,14 @@ The two groups being compared must be independent from each other.
 :::
 
 ::: col
-::: defbox
+::: {.defbox .fragment}
 **10% condition**
 
 If sampling without replacement, each sample should be less than 10% of
 its population.
 :::
 
-::: defbox
+::: {.defbox .fragment}
 **Success-failure condition**
 
 Each group should have enough successes and failures:
@@ -2030,13 +2089,13 @@ The 90% CI is approximately $(0.96,4.51)$. Since 1 is inside, the evidence for d
 
 :::::: two-col
 ::: col
-::: defbox
+::: {.defbox .fragment}
 **Independent samples**
 
 The two samples must be independent from each other.
 :::
 
-::: defbox
+::: {.defbox .fragment}
 **Random sampling**
 
 Each sample should be obtained through a random process.
@@ -2044,14 +2103,14 @@ Each sample should be obtained through a random process.
 :::
 
 ::: col
-::: defbox
+::: {.defbox .fragment}
 **Normal populations**
 
 The two populations should be approximately normal. This is especially
 important for inference about variances.
 :::
 
-::: defbox
+::: {.defbox .fragment}
 **Same measurement scale**
 
 The two variables should be measured on the same or comparable scale.
@@ -2136,7 +2195,7 @@ to the original two measurements separately.
 
 ------------------------------------------------------------------------
 
-## Visual: Paired Data Means Differences
+## Visual: Paired Data Means Differences {.paired-visual-fit}
 
 ```{r}
 #| echo: false
@@ -2166,7 +2225,7 @@ p <- plot_ly() |>
   add_segments(
     data = paired_segments,
     x = 1,
-    xend = 2,
+    xend = 1.34,
     y = ~before,
     yend = ~after,
     line = list(color = "rgba(80,95,105,0.45)", width = 2.2),
@@ -2175,7 +2234,7 @@ p <- plot_ly() |>
   ) |>
   add_markers(
     data = paired_long,
-    x = ~time_num,
+    x = ~ifelse(time == "Before", 1, 1.34),
     y = ~score,
     marker = list(
       color = plot_cols$main,
@@ -2195,49 +2254,41 @@ plotly_slide_layout(
   title = "Paired observations compare within each student",
   x_title = "",
   y_title = "Score",
-  height = 390,
-  x_range = c(0.75, 2.25),
+  height = 320,
+  x_range = c(0.9, 1.44),
   y_range = c(64, 86),
-  margin = list(l = 70, r = 25, t = 70, b = 60)
+  margin = list(l = 58, r = 18, t = 44, b = 40)
 ) |>
   layout(
     xaxis = list(
-      tickvals = c(1, 2),
+      range = c(0.9, 1.44),
+      tickvals = c(1, 1.34),
       ticktext = c("Before", "After"),
       showgrid = FALSE,
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      tickfont = list(size = 13)
+      tickfont = list(size = 13),
+      fixedrange = TRUE
     ),
     yaxis = list(
+      range = c(64, 86),
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      tickfont = list(size = 12)
-    )
-  )|>
-  config(
-    displayModeBar = TRUE,
-    displaylogo = FALSE,
-    scrollZoom = FALSE,
-    doubleClick = "reset",
-    modeBarButtonsToRemove = c(
-      "lasso2d",
-      "select2d"
-    )
-  ) |>
-  layout(
-    dragmode = FALSE,
-    xaxis = list(fixedrange = TRUE),
-    yaxis = list(fixedrange = TRUE)
+      tickfont = list(size = 12),
+      fixedrange = TRUE
+    ),
+    dragmode = FALSE
   ) |>
   config(
     displayModeBar = FALSE,
+    displaylogo = FALSE,
     scrollZoom = FALSE,
-    doubleClick = FALSE
+    doubleClick = FALSE,
+    responsive = TRUE
   )
 
 ```
@@ -2307,14 +2358,14 @@ The 90% CI is approximately $(5.43,7.57)$. Positive values mean the treatment lo
 
 :::::: two-col
 ::: col
-::: defbox
+::: {.defbox .fragment}
 **Paired observations**
 
 Each pair must come from the same unit or from meaningfully matched
 units.
 :::
 
-::: defbox
+::: {.defbox .fragment}
 **Independent pairs**
 
 The pairs themselves should be independent of each other.
@@ -2322,14 +2373,14 @@ The pairs themselves should be independent of each other.
 :::
 
 ::: col
-::: defbox
+::: {.defbox .fragment}
 **Normal differences**
 
 The distribution of differences should be approximately normal,
 especially for small samples.
 :::
 
-::: defbox
+::: {.defbox .fragment}
 **Random sampling**
 
 The sample of pairs should come from a random process or a randomized
@@ -2357,7 +2408,7 @@ quantity should be used to build the confidence interval?
 
 ------------------------------------------------------------------------
 
-## 5.6 Sample Size Selection Using Confidence Intervals
+## 5.6 Sample Size Selection Using Confidence Intervals {.sample-size-selection}
 
 ::: defbox
 Sample size selection works backwards.
@@ -2439,7 +2490,7 @@ Round up: the lab needs $n=8$ measurements.
 
 ---
 
-## Example 2: Sample Size for a Mean {.scrollable}
+## Example 2: Sample Size for a Mean {.scrollable .sample-size-mean-example}
 
 ::: {.taskbox}
 A planning value is $\sigma=22.50$ and the desired margin is $E=2$.
@@ -2676,6 +2727,7 @@ estimate of $p$ is available. What value should we use for $p^*$?
 :::: {.two-col}
 ::: {.card .fragment}
 <span class="label">Before calculating</span>
+
 - Identify the parameter.
 - Check one sample vs two sample vs paired.
 - Check whether the target is a mean, proportion, or variance.
@@ -2684,6 +2736,7 @@ estimate of $p$ is available. What value should we use for $p^*$?
 
 ::: {.card .fragment}
 <span class="label">After calculating</span>
+
 - Include units when relevant.
 - Interpret in context.
 - Check whether 0 or 1 has a special meaning.

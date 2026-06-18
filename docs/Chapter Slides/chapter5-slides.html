@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+  <meta name="generator" content="quarto-1.9.37">
 
   <title>STA258 – Chapter 5: Confidence Intervals - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -30,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -135,7 +138,7 @@
   <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
   <link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
   <script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
-  <link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+  <link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -198,6 +201,65 @@
 .defbox, .card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
+}
+.sample-size-selection .defbox {
+  padding: 10px 16px;
+  font-size: 0.66em;
+  line-height: 1.16;
+  margin-bottom: 4px;
+}
+.sample-size-selection .defbox p {
+  margin: 0.18em 0;
+}
+.sample-size-selection .defbox blockquote {
+  margin: 0.28em 0 0.42em 0.28em;
+  padding: 0.18em 0 0.18em 0.72em;
+}
+.pooled-example-compact .taskbox {
+  padding: 12px 16px;
+  font-size: 0.68em;
+  line-height: 1.18;
+  margin-bottom: 10px;
+}
+.pooled-example-compact .math.display {
+  margin: 0.28em 0;
+  font-size: 0.78em;
+}
+.pooled-example-compact .examplebox {
+  margin-top: 10px;
+  padding: 12px 16px;
+  font-size: 0.66em;
+}
+.known-sigma-example .math.display {
+  font-size: 0.84em;
+  margin: 0.36em 0;
+}
+.paired-visual-fit .cell,
+.paired-visual-fit .cell-output-display,
+.paired-visual-fit .html-widget,
+.paired-visual-fit .plotly,
+.paired-visual-fit .plot-container,
+.paired-visual-fit .svg-container {
+  width: 100% !important;
+  max-width: 1080px !important;
+  height: 330px !important;
+  max-height: 330px !important;
+  overflow: hidden !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.paired-visual-fit .thinkbox {
+  margin-top: 14px;
+}
+.sample-size-mean-example .taskbox {
+  margin-bottom: 14px;
+}
+.sample-size-mean-example table {
+  margin-top: 12px;
+  margin-bottom: 18px;
+}
+.sample-size-mean-example .thinkbox {
+  margin-top: 18px;
 }
 .examplebox, .notebox, .mini-card {
   background: var(--sta-grey);
@@ -486,7 +548,7 @@ University of Toronto Mississauga</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="htmlwidget-5d9c139e7da0706a9632" style="width:430px;height:320px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5d9c139e7da0706a9632">{"x":{"visdat":{"567a7a710e9e":["function () ","plotlyVisDat"],"567a1476e5df":["function () ","data"]},"cur_data":"567a1476e5df","attrs":{"567a1476e5df":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","color":{},"colors":["#00695c","#f9a825"],"line":{"width":4},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"width":430,"height":320,"margin":{"b":42,"l":48,"t":10,"r":8},"autosize":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Interval endpoints","zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":"Simulation","showticklabels":false,"zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8","fixedrange":true},"shapes":[{"type":"line","x0":0,"x1":0,"y0":0.5,"y1":50.5,"line":{"color":"#004d40","width":2,"dash":"dash"}}],"showlegend":false,"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","dragmode":false,"hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"responsive":false,"displaylogo":false,"scrollZoom":false,"doubleClick":false,"modeBarButtonsToRemove":["lasso2d","select2d"]},"data":[{"x":[-0.2024925333209617,0.33888763782593412,null,-0.24540374439500076,0.29348683179575813,null,-0.48055887855515195,0.052625468866527025,null,-0.24447907758807744,0.26695365230036061,null,-0.2391859024467537,0.33171870633295292,null,-0.19345659881020369,0.41631725263368402,null,-0.25198424793057744,0.36970109086533415,null,-0.47620642550940917,0.15670836372881117,null,-0.30976209503342417,0.29800418479461083,null,-0.16092346138772154,0.45082358463330152,null,-0.40265409352316073,0.13488772624751841,null,-0.23604111012631029,0.37388877358073686,null,-0.19051405518179348,0.32567376222906735,null,-0.27268938630448497,0.18248134245055339,null,-0.12344297082988875,0.38496570967229071,null,-0.21191883345856879,0.27295673501585099,null,-0.15602017610138941,0.33335757251660131,null,-0.59578093582526914,0.055876327520282709,null,-0.32933262959484849,0.29324650202421826,null,-0.29415741004577545,0.23760280839949244,null,-0.46229512795324545,0.24707112966983624,null,-0.10013243596269628,0.37207573971666752,null,-0.18373563088235773,0.31896486425464193,null,-0.33420841984291227,0.26692569507026864,null,-0.16263413581723862,0.55188864744642685,null,-0.1642802456131687,0.46897516992767807,null,-0.38893162256697589,0.17399129933255522,null,-0.20587314476495444,0.37137810287987794,null,-0.1483354535901544,0.49308468657664806,null,-0.50351300456967873,0.026940957137823102,null,-0.21893693543756501,0.25127454194214527,null,-0.14037508857259262,0.48409748219399562,null,-0.099510040799198729,0.47247169001926964,null,-0.37706243962090946,0.099169159482104002,null,-0.25531551746887127,0.32596001837299371,null,-0.37006255253672798,0.15649059276203031,null,-0.324054066765947,0.31088326029061103,null,-0.25274936722615021,0.32785659646625936,null,-0.48759476722420492,0.019680971194392521,null,-0.39452887706761419,0.18494312598613258,null,-0.41946838390273178,0.15389729327524207,null,-0.3410731762358743,0.23472545957159194,null,-0.51081275577879537,0.10433145653956005,null,-0.25458487659826579,0.32064102066019418],"y":[2,2,null,3,3,null,4,4,null,5,5,null,6,6,null,8,8,null,9,9,null,10,10,null,11,11,null,12,12,null,13,13,null,14,14,null,16,16,null,17,17,null,18,18,null,20,20,null,21,21,null,22,22,null,23,23,null,24,24,null,25,25,null,26,26,null,27,27,null,28,28,null,29,29,null,30,30,null,31,31,null,32,32,null,34,34,null,35,35,null,36,36,null,37,37,null,39,39,null,40,40,null,41,41,null,42,42,null,43,43,null,44,44,null,45,45,null,46,46,null,47,47,null,48,48,null,49,49,null,50,50],"type":"scatter","mode":"lines","line":{"color":"rgba(0,105,92,1)","width":4},"text":["<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean","<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean",null,"<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean","<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean","<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean",null,"<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean","<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean","<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean",null,"<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean","<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean",null,"<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean","<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean",null,"<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean","<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean",null,"<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean","<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean",null,"<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean","<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean",null,"<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean","<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean",null,"<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean","<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean",null,"<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean","<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean","<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean",null,"<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean","<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean",null,"<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean","<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean",null,"<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean","<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean",null,"<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean","<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean",null,"<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean","<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean","<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean",null,"<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean","<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean",null,"<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean","<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean",null,"<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean","<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean",null,"<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean","<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean","<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean",null,"<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean","<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean",null,"<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean","<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean",null,"<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean","<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean",null,"<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean","<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean",null,"<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean","<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean",null,"<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean","<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean",null,"<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean","<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean",null,"<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean","<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean",null,"<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean","<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean",null,"<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean","<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean","<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean",null,"<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean","<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean",null,"<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean","<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean",null,"<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean","<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean",null,"<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean","<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean",null,"<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean","<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean",null,"<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean","<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean",null,"<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean","<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean",null,"<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean","<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Covers true mean","marker":{"color":"rgba(0,105,92,1)","line":{"color":"rgba(0,105,92,1)"}},"textfont":{"color":"rgba(0,105,92,1)"},"error_y":{"color":"rgba(0,105,92,1)"},"error_x":{"color":"rgba(0,105,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[-0.58144693650481971,-0.10114394142224761,null,0.013858998172746828,0.55863537700380861,null,-0.57239029478536541,-0.070978929102660571,null,0.17439863741684911,0.62568934747993665,null,0.053792853401845392,0.5514503937240619,null,-0.59660409627207156,-0.036703934080923317],"y":[1,1,null,7,7,null,15,15,null,19,19,null,33,33,null,38,38],"type":"scatter","mode":"lines","line":{"color":"rgba(249,168,37,1)","width":4},"text":["<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean","<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean",null,"<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean","<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean",null,"<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean","<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean",null,"<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean","<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean",null,"<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean","<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean",null,"<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean","<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Misses true mean","marker":{"color":"rgba(249,168,37,1)","line":{"color":"rgba(249,168,37,1)"}},"textfont":{"color":"rgba(249,168,37,1)"},"error_y":{"color":"rgba(249,168,37,1)"},"error_x":{"color":"rgba(249,168,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5d9c139e7da0706a9632">{"x":{"visdat":{"1735e11824e4c":["function () ","plotlyVisDat"],"1735e1e2688f":["function () ","data"]},"cur_data":"1735e1e2688f","attrs":{"1735e1e2688f":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","color":{},"colors":["#00695c","#f9a825"],"line":{"width":4},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"width":430,"height":320,"margin":{"b":42,"l":48,"t":10,"r":8},"autosize":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Interval endpoints","zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":"Simulation","showticklabels":false,"zeroline":false,"showgrid":true,"gridcolor":"#e8e8e8","fixedrange":true},"shapes":[{"type":"line","x0":0,"x1":0,"y0":0.5,"y1":50.5,"line":{"color":"#004d40","width":2,"dash":"dash"}}],"showlegend":false,"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","dragmode":false,"hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"responsive":false,"displaylogo":false,"scrollZoom":false,"doubleClick":false,"modeBarButtonsToRemove":["lasso2d","select2d"]},"data":[{"x":[-0.2024925333209617,0.33888763782593412,null,-0.24540374439500076,0.29348683179575813,null,-0.48055887855515195,0.052625468866527025,null,-0.24447907758807744,0.26695365230036061,null,-0.2391859024467537,0.33171870633295292,null,-0.19345659881020369,0.41631725263368402,null,-0.25198424793057744,0.36970109086533415,null,-0.47620642550940917,0.15670836372881117,null,-0.30976209503342417,0.29800418479461083,null,-0.16092346138772154,0.45082358463330152,null,-0.40265409352316073,0.13488772624751841,null,-0.23604111012631029,0.37388877358073686,null,-0.19051405518179348,0.32567376222906735,null,-0.27268938630448497,0.18248134245055339,null,-0.12344297082988875,0.38496570967229071,null,-0.21191883345856879,0.27295673501585099,null,-0.15602017610138941,0.33335757251660131,null,-0.59578093582526914,0.055876327520282709,null,-0.32933262959484849,0.29324650202421826,null,-0.29415741004577545,0.23760280839949244,null,-0.46229512795324545,0.24707112966983624,null,-0.10013243596269628,0.37207573971666752,null,-0.18373563088235773,0.31896486425464193,null,-0.33420841984291227,0.26692569507026864,null,-0.16263413581723862,0.55188864744642685,null,-0.1642802456131687,0.46897516992767807,null,-0.38893162256697589,0.17399129933255522,null,-0.20587314476495444,0.37137810287987794,null,-0.1483354535901544,0.49308468657664806,null,-0.50351300456967873,0.026940957137823102,null,-0.21893693543756501,0.25127454194214527,null,-0.14037508857259262,0.48409748219399562,null,-0.099510040799198729,0.47247169001926964,null,-0.37706243962090946,0.099169159482104002,null,-0.25531551746887127,0.32596001837299371,null,-0.37006255253672798,0.15649059276203031,null,-0.324054066765947,0.31088326029061103,null,-0.25274936722615021,0.32785659646625936,null,-0.48759476722420492,0.019680971194392521,null,-0.39452887706761419,0.18494312598613258,null,-0.41946838390273178,0.15389729327524207,null,-0.3410731762358743,0.23472545957159194,null,-0.51081275577879537,0.10433145653956005,null,-0.25458487659826579,0.32064102066019418],"y":[2,2,null,3,3,null,4,4,null,5,5,null,6,6,null,8,8,null,9,9,null,10,10,null,11,11,null,12,12,null,13,13,null,14,14,null,16,16,null,17,17,null,18,18,null,20,20,null,21,21,null,22,22,null,23,23,null,24,24,null,25,25,null,26,26,null,27,27,null,28,28,null,29,29,null,30,30,null,31,31,null,32,32,null,34,34,null,35,35,null,36,36,null,37,37,null,39,39,null,40,40,null,41,41,null,42,42,null,43,43,null,44,44,null,45,45,null,46,46,null,47,47,null,48,48,null,49,49,null,50,50],"type":"scatter","mode":"lines","line":{"color":"rgba(0,105,92,1)","width":4},"text":["<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean","<b>Simulation 2<\/b><br>Interval: [-0.202, 0.339]<br>Status: Covers true mean",null,"<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean","<b>Simulation 3<\/b><br>Interval: [-0.245, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean","<b>Simulation 4<\/b><br>Interval: [-0.481, 0.053]<br>Status: Covers true mean",null,"<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean","<b>Simulation 5<\/b><br>Interval: [-0.244, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean","<b>Simulation 6<\/b><br>Interval: [-0.239, 0.332]<br>Status: Covers true mean",null,"<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean","<b>Simulation 8<\/b><br>Interval: [-0.193, 0.416]<br>Status: Covers true mean",null,"<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean","<b>Simulation 9<\/b><br>Interval: [-0.252, 0.37]<br>Status: Covers true mean",null,"<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean","<b>Simulation 10<\/b><br>Interval: [-0.476, 0.157]<br>Status: Covers true mean",null,"<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean","<b>Simulation 11<\/b><br>Interval: [-0.31, 0.298]<br>Status: Covers true mean",null,"<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean","<b>Simulation 12<\/b><br>Interval: [-0.161, 0.451]<br>Status: Covers true mean",null,"<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean","<b>Simulation 13<\/b><br>Interval: [-0.403, 0.135]<br>Status: Covers true mean",null,"<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean","<b>Simulation 14<\/b><br>Interval: [-0.236, 0.374]<br>Status: Covers true mean",null,"<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean","<b>Simulation 16<\/b><br>Interval: [-0.191, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean","<b>Simulation 17<\/b><br>Interval: [-0.273, 0.182]<br>Status: Covers true mean",null,"<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean","<b>Simulation 18<\/b><br>Interval: [-0.123, 0.385]<br>Status: Covers true mean",null,"<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean","<b>Simulation 20<\/b><br>Interval: [-0.212, 0.273]<br>Status: Covers true mean",null,"<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean","<b>Simulation 21<\/b><br>Interval: [-0.156, 0.333]<br>Status: Covers true mean",null,"<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean","<b>Simulation 22<\/b><br>Interval: [-0.596, 0.056]<br>Status: Covers true mean",null,"<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean","<b>Simulation 23<\/b><br>Interval: [-0.329, 0.293]<br>Status: Covers true mean",null,"<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean","<b>Simulation 24<\/b><br>Interval: [-0.294, 0.238]<br>Status: Covers true mean",null,"<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean","<b>Simulation 25<\/b><br>Interval: [-0.462, 0.247]<br>Status: Covers true mean",null,"<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean","<b>Simulation 26<\/b><br>Interval: [-0.1, 0.372]<br>Status: Covers true mean",null,"<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean","<b>Simulation 27<\/b><br>Interval: [-0.184, 0.319]<br>Status: Covers true mean",null,"<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean","<b>Simulation 28<\/b><br>Interval: [-0.334, 0.267]<br>Status: Covers true mean",null,"<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean","<b>Simulation 29<\/b><br>Interval: [-0.163, 0.552]<br>Status: Covers true mean",null,"<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean","<b>Simulation 30<\/b><br>Interval: [-0.164, 0.469]<br>Status: Covers true mean",null,"<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean","<b>Simulation 31<\/b><br>Interval: [-0.389, 0.174]<br>Status: Covers true mean",null,"<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean","<b>Simulation 32<\/b><br>Interval: [-0.206, 0.371]<br>Status: Covers true mean",null,"<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean","<b>Simulation 34<\/b><br>Interval: [-0.148, 0.493]<br>Status: Covers true mean",null,"<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean","<b>Simulation 35<\/b><br>Interval: [-0.504, 0.027]<br>Status: Covers true mean",null,"<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean","<b>Simulation 36<\/b><br>Interval: [-0.219, 0.251]<br>Status: Covers true mean",null,"<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean","<b>Simulation 37<\/b><br>Interval: [-0.14, 0.484]<br>Status: Covers true mean",null,"<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean","<b>Simulation 39<\/b><br>Interval: [-0.1, 0.472]<br>Status: Covers true mean",null,"<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean","<b>Simulation 40<\/b><br>Interval: [-0.377, 0.099]<br>Status: Covers true mean",null,"<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean","<b>Simulation 41<\/b><br>Interval: [-0.255, 0.326]<br>Status: Covers true mean",null,"<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean","<b>Simulation 42<\/b><br>Interval: [-0.37, 0.156]<br>Status: Covers true mean",null,"<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean","<b>Simulation 43<\/b><br>Interval: [-0.324, 0.311]<br>Status: Covers true mean",null,"<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean","<b>Simulation 44<\/b><br>Interval: [-0.253, 0.328]<br>Status: Covers true mean",null,"<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean","<b>Simulation 45<\/b><br>Interval: [-0.488, 0.02]<br>Status: Covers true mean",null,"<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean","<b>Simulation 46<\/b><br>Interval: [-0.395, 0.185]<br>Status: Covers true mean",null,"<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean","<b>Simulation 47<\/b><br>Interval: [-0.419, 0.154]<br>Status: Covers true mean",null,"<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean","<b>Simulation 48<\/b><br>Interval: [-0.341, 0.235]<br>Status: Covers true mean",null,"<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean","<b>Simulation 49<\/b><br>Interval: [-0.511, 0.104]<br>Status: Covers true mean",null,"<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean","<b>Simulation 50<\/b><br>Interval: [-0.255, 0.321]<br>Status: Covers true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Covers true mean","marker":{"color":"rgba(0,105,92,1)","line":{"color":"rgba(0,105,92,1)"}},"textfont":{"color":"rgba(0,105,92,1)"},"error_y":{"color":"rgba(0,105,92,1)"},"error_x":{"color":"rgba(0,105,92,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[-0.58144693650481971,-0.10114394142224761,null,0.013858998172746828,0.55863537700380861,null,-0.57239029478536541,-0.070978929102660571,null,0.17439863741684911,0.62568934747993665,null,0.053792853401845392,0.5514503937240619,null,-0.59660409627207156,-0.036703934080923317],"y":[1,1,null,7,7,null,15,15,null,19,19,null,33,33,null,38,38],"type":"scatter","mode":"lines","line":{"color":"rgba(249,168,37,1)","width":4},"text":["<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean","<b>Simulation 1<\/b><br>Interval: [-0.581, -0.101]<br>Status: Misses true mean",null,"<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean","<b>Simulation 7<\/b><br>Interval: [0.014, 0.559]<br>Status: Misses true mean",null,"<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean","<b>Simulation 15<\/b><br>Interval: [-0.572, -0.071]<br>Status: Misses true mean",null,"<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean","<b>Simulation 19<\/b><br>Interval: [0.174, 0.626]<br>Status: Misses true mean",null,"<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean","<b>Simulation 33<\/b><br>Interval: [0.054, 0.551]<br>Status: Misses true mean",null,"<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean","<b>Simulation 38<\/b><br>Interval: [-0.597, -0.037]<br>Status: Misses true mean"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"name":"Misses true mean","marker":{"color":"rgba(249,168,37,1)","line":{"color":"rgba(249,168,37,1)"}},"textfont":{"color":"rgba(249,168,37,1)"},"error_y":{"color":"rgba(249,168,37,1)"},"error_x":{"color":"rgba(249,168,37,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -1341,7 +1403,7 @@ z_{1-\alpha/2}
 <p>This case is mathematically useful but rare in real applications, because population standard deviations are usually unknown.</p>
 </div>
 </section>
-<section id="example-1-known-sigma_1-and-sigma_2" class="slide level2 scrollable">
+<section id="example-1-known-sigma_1-and-sigma_2" class="slide level2 scrollable known-sigma-example">
 <h2>Example 1: Known <span class="math inline">\(\sigma_1\)</span> and <span class="math inline">\(\sigma_2\)</span></h2>
 <div class="taskbox">
 <p>Suppose final marks in the same course are compared between two campuses.</p>
@@ -1384,7 +1446,7 @@ s_p
 <p>Use this only when the equal-variance assumption is reasonable. Otherwise, use Welch’s interval.</p>
 </div>
 </section>
-<section id="example-1-pooled-two-sample-t-interval" class="slide level2 scrollable">
+<section id="example-1-pooled-two-sample-t-interval" class="slide level2 scrollable pooled-example-compact">
 <h2>Example 1: Pooled Two-Sample <span class="math inline">\(t\)</span> Interval</h2>
 <div class="taskbox">
 <p>A researcher compares battery life for two brands of the same device.</p>
@@ -1434,7 +1496,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </section>
 <section id="difference-of-means-unequal-unknown-variances" class="slide level2">
 <h2>Difference of Means: Unequal Unknown Variances</h2>
-<div class="defbox">
+<div class="defbox fragment">
 <p>If the population variances are <strong>unknown</strong> and are <strong>not assumed equal</strong>, use <strong>Welch’s two-sample <span class="math inline">\(t\)</span> interval</strong>:</p>
 <p><span class="math display">\[
 (\bar{x}_1 - \bar{x}_2)
@@ -1452,13 +1514,13 @@ t_{1-\alpha/2,\,df}
 \]</span></p>
 <p>when the two samples are <strong>independent</strong> and the equal-variance assumption is not reasonable.</p>
 </div>
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p><strong>Course note.</strong> Welch’s method is the more flexible default when the two sample variances look meaningfully different.</p>
 </div>
 </section>
 <section id="welch-degrees-of-freedom" class="slide level2">
 <h2>Welch Degrees of Freedom</h2>
-<div class="notebox">
+<div class="notebox fragment">
 <p><span class="label">Degrees of freedom note</span></p>
 <p>In this course, we are <strong>not testing your ability to be a calculator</strong> in an exam setting.</p>
 <p>For hand calculations, you may use the <strong>conservative degrees of freedom</strong>:</p>
@@ -1466,7 +1528,7 @@ t_{1-\alpha/2,\,df}
 df = \min(n_1 - 1,\; n_2 - 1)
 \]</span></p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p>A more accurate approximation, commonly used by software, is the <strong>Welch–Satterthwaite degrees of freedom</strong>:</p>
 <p><span class="math display">\[
 df =
@@ -1479,7 +1541,7 @@ df =
 }
 \]</span></p>
 </div>
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p>For exams in this course, use the conservative version unless told otherwise.</p>
 </div>
 </section>
@@ -1531,19 +1593,19 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <section id="assumptions-for-two-sample-mean-intervals" class="slide level2">
 <h2>Assumptions for Two-Sample Mean Intervals</h2>
 <div class="assumption-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 1.5rem; align-items: start;">
-<div class="defbox" style="margin: 0;">
+<div class="defbox fragment" style="margin: 0;">
 <p><strong>Independent samples</strong></p>
 <p>The two samples must be independent. One person’s measurement in group 1 should not determine a person’s measurement in group 2.</p>
 </div>
-<div class="defbox" style="margin: 0;">
+<div class="defbox fragment" style="margin: 0;">
 <p><strong>Normality or large samples</strong></p>
 <p>If sample sizes are small, each population should be approximately normal. For larger samples, the CLT makes the interval more reliable.</p>
 </div>
-<div class="defbox" style="margin: 0;">
+<div class="defbox fragment" style="margin: 0;">
 <p><strong>Randomization</strong></p>
 <p>Each group should come from a random sample or a randomized experiment.</p>
 </div>
-<div class="defbox" style="margin: 0;">
+<div class="defbox fragment" style="margin: 0;">
 <p><strong>Equal variances only for pooled intervals</strong></p>
 <p>The pooled method requires the extra assumption that <span class="math inline">\(\sigma_1^2=\sigma_2^2\)</span>.</p>
 </div>
@@ -1642,21 +1704,21 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <h2>Assumptions for Difference of Proportions</h2>
 <div class="two-col">
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Randomization</strong></p>
 <p>Each sample should be random, or the data should come from a randomized experiment.</p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Independent groups</strong></p>
 <p>The two groups being compared must be independent from each other.</p>
 </div>
 </div>
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>10% condition</strong></p>
 <p>If sampling without replacement, each sample should be less than 10% of its population.</p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Success-failure condition</strong></p>
 <p>Each group should have enough successes and failures:</p>
 <p><span class="math display">\[
@@ -1771,21 +1833,21 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <h2>Assumptions for Ratio of Variances</h2>
 <div class="two-col">
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Independent samples</strong></p>
 <p>The two samples must be independent from each other.</p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Random sampling</strong></p>
 <p>Each sample should be obtained through a random process.</p>
 </div>
 </div>
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Normal populations</strong></p>
 <p>The two populations should be approximately normal. This is especially important for inference about variances.</p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Same measurement scale</strong></p>
 <p>The two variables should be measured on the same or comparable scale.</p>
 </div>
@@ -1853,12 +1915,12 @@ t_{1-\alpha/2,\;n-1}
 <p>The normality condition applies to the <strong>differences</strong>, not necessarily to the original two measurements separately.</p>
 </div>
 </section>
-<section id="visual-paired-data-means-differences" class="slide level2">
+<section id="visual-paired-data-means-differences" class="slide level2 paired-visual-fit">
 <h2>Visual: Paired Data Means Differences</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-57adf3987a0f56a54431" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-57adf3987a0f56a54431">{"x":{"visdat":{"567a29494137":["function () ","plotlyVisDat"],"567a858970e":["function () ","data"],"567a70251c69":["function () ","data"]},"cur_data":"567a70251c69","attrs":{"567a858970e":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":1,"y":{},"xend":2,"yend":{},"type":"scatter","mode":"lines","line":{"color":"rgba(80,95,105,0.45)","width":2.2000000000000002},"hoverinfo":"skip","showlegend":false,"inherit":true},"567a70251c69":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"color":"#00695c","size":8,"line":{"color":"white","width":1.2}},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"height":390,"margin":{"b":60,"l":70,"t":70,"r":25},"title":{"text":"Paired observations compare within each student","font":{"size":16},"x":0.02},"xaxis":{"domain":[0,1],"automargin":true,"title":"","range":[0.75,2.25],"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","tickvals":[1,2],"ticktext":["Before","After"],"showgrid":false,"tickfont":{"size":13},"fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":"Score","range":[64,86],"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","showgrid":true,"tickfont":{"size":12},"fixedrange":true},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","dragmode":false,"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"displaylogo":false,"scrollZoom":false,"doubleClick":false,"modeBarButtonsToRemove":["lasso2d","select2d"]},"data":[{"x":[1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2,null,1,2],"y":[68,73,null,72,74,null,75,80,null,70,72,null,66,70,null,80,84,null,74,78,null,69,73,null,77,80,null,71,76],"type":"scatter","mode":"lines","line":{"color":"rgba(80,95,105,0.45)","width":2.2000000000000002},"hoverinfo":["skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip"],"showlegend":false,"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2],"y":[68,73,72,74,75,80,70,72,66,70,80,84,74,78,69,73,77,80,71,76],"type":"scatter","mode":"markers","marker":{"color":"#00695c","size":8,"line":{"color":"white","width":1.2}},"text":["<b>Student 1<\/b><br>Before score: 68","<b>Student 1<\/b><br>After score: 73","<b>Student 2<\/b><br>Before score: 72","<b>Student 2<\/b><br>After score: 74","<b>Student 3<\/b><br>Before score: 75","<b>Student 3<\/b><br>After score: 80","<b>Student 4<\/b><br>Before score: 70","<b>Student 4<\/b><br>After score: 72","<b>Student 5<\/b><br>Before score: 66","<b>Student 5<\/b><br>After score: 70","<b>Student 6<\/b><br>Before score: 80","<b>Student 6<\/b><br>After score: 84","<b>Student 7<\/b><br>Before score: 74","<b>Student 7<\/b><br>After score: 78","<b>Student 8<\/b><br>Before score: 69","<b>Student 8<\/b><br>After score: 73","<b>Student 9<\/b><br>Before score: 77","<b>Student 9<\/b><br>After score: 80","<b>Student 10<\/b><br>Before score: 71","<b>Student 10<\/b><br>After score: 76"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-57adf3987a0f56a54431">{"x":{"visdat":{"1735e4e175489":["function () ","plotlyVisDat"],"1735e5daf166c":["function () ","data"],"1735e11e93c81":["function () ","data"]},"cur_data":"1735e11e93c81","attrs":{"1735e5daf166c":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":1,"y":{},"xend":1.3400000000000001,"yend":{},"type":"scatter","mode":"lines","line":{"color":"rgba(80,95,105,0.45)","width":2.2000000000000002},"hoverinfo":"skip","showlegend":false,"inherit":true},"1735e11e93c81":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"color":"#00695c","size":8,"line":{"color":"white","width":1.2}},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"height":320,"margin":{"b":40,"l":58,"t":44,"r":18},"title":{"text":"Paired observations compare within each student","font":{"size":16},"x":0.02},"xaxis":{"domain":[0,1],"automargin":true,"title":"","range":[0.90000000000000002,1.4399999999999999],"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","tickvals":[1,1.3400000000000001],"ticktext":["Before","After"],"showgrid":false,"tickfont":{"size":13},"fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":"Score","range":[64,86],"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","showgrid":true,"tickfont":{"size":12},"fixedrange":true},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","dragmode":false,"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"displaylogo":false,"scrollZoom":false,"doubleClick":false,"modeBarButtonsToRemove":["lasso2d","select2d"],"responsive":true},"data":[{"x":[1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001,null,1,1.3400000000000001],"y":[68,73,null,72,74,null,75,80,null,70,72,null,66,70,null,80,84,null,74,78,null,69,73,null,77,80,null,71,76],"type":"scatter","mode":"lines","line":{"color":"rgba(80,95,105,0.45)","width":2.2000000000000002},"hoverinfo":["skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip"],"showlegend":false,"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001,1,1.3400000000000001],"y":[68,73,72,74,75,80,70,72,66,70,80,84,74,78,69,73,77,80,71,76],"type":"scatter","mode":"markers","marker":{"color":"#00695c","size":8,"line":{"color":"white","width":1.2}},"text":["<b>Student 1<\/b><br>Before score: 68","<b>Student 1<\/b><br>After score: 73","<b>Student 2<\/b><br>Before score: 72","<b>Student 2<\/b><br>After score: 74","<b>Student 3<\/b><br>Before score: 75","<b>Student 3<\/b><br>After score: 80","<b>Student 4<\/b><br>Before score: 70","<b>Student 4<\/b><br>After score: 72","<b>Student 5<\/b><br>Before score: 66","<b>Student 5<\/b><br>After score: 70","<b>Student 6<\/b><br>Before score: 80","<b>Student 6<\/b><br>After score: 84","<b>Student 7<\/b><br>Before score: 74","<b>Student 7<\/b><br>After score: 78","<b>Student 8<\/b><br>Before score: 69","<b>Student 8<\/b><br>After score: 73","<b>Student 9<\/b><br>Before score: 77","<b>Student 9<\/b><br>After score: 80","<b>Student 10<\/b><br>Before score: 71","<b>Student 10<\/b><br>After score: 76"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="thinkbox">
@@ -1917,21 +1979,21 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <h2>Assumptions for Paired Data</h2>
 <div class="two-col">
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Paired observations</strong></p>
 <p>Each pair must come from the same unit or from meaningfully matched units.</p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Independent pairs</strong></p>
 <p>The pairs themselves should be independent of each other.</p>
 </div>
 </div>
 <div class="col">
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Normal differences</strong></p>
 <p>The distribution of differences should be approximately normal, especially for small samples.</p>
 </div>
-<div class="defbox">
+<div class="defbox fragment">
 <p><strong>Random sampling</strong></p>
 <p>The sample of pairs should come from a random process or a randomized design.</p>
 </div>
@@ -1957,7 +2019,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <li>The ratio of the two sample variances</li>
 </ul>
 </section>
-<section id="sample-size-selection-using-confidence-intervals" class="slide level2">
+<section id="sample-size-selection-using-confidence-intervals" class="slide level2 sample-size-selection">
 <h2>5.6 Sample Size Selection Using Confidence Intervals</h2>
 <div class="defbox">
 <p>Sample size selection works backwards.</p>
@@ -2023,7 +2085,7 @@ n=\left(\frac{1.96(0.0068)}{0.005}\right)^2=7.10
 <p>Round up: the lab needs <span class="math inline">\(n=8\)</span> measurements.</p>
 </div>
 </section>
-<section id="example-2-sample-size-for-a-mean" class="slide level2 scrollable">
+<section id="example-2-sample-size-for-a-mean" class="slide level2 scrollable sample-size-mean-example">
 <h2>Example 2: Sample Size for a Mean</h2>
 <div class="taskbox">
 <p>A planning value is <span class="math inline">\(\sigma=22.50\)</span> and the desired margin is <span class="math inline">\(E=2\)</span>.</p>
@@ -2202,10 +2264,22 @@ n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
 <h2>Final Checklist</h2>
 <div class="two-col">
 <div class="card fragment">
-<p><span class="label">Before calculating</span> - Identify the parameter. - Check one sample vs two sample vs paired. - Check whether the target is a mean, proportion, or variance. - Pick the reference distribution.</p>
+<p><span class="label">Before calculating</span></p>
+<ul>
+<li>Identify the parameter.</li>
+<li>Check one sample vs two sample vs paired.</li>
+<li>Check whether the target is a mean, proportion, or variance.</li>
+<li>Pick the reference distribution.</li>
+</ul>
 </div>
 <div class="card fragment">
-<p><span class="label">After calculating</span> - Include units when relevant. - Interpret in context. - Check whether 0 or 1 has a special meaning. - For sample size, round up.</p>
+<p><span class="label">After calculating</span></p>
+<ul>
+<li>Include units when relevant.</li>
+<li>Interpret in context.</li>
+<li>Check whether 0 or 1 has a special meaning.</li>
+<li>For sample size, round up.</li>
+</ul>
 </div>
 </div>
 <div class="thinkbox fragment">

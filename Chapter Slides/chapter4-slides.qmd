@@ -209,30 +209,53 @@ plotly_slide_layout <- function(
 .reveal {
   font-family: Arial, sans-serif;
   color: var(--sta-text);
+  font-size: 40px !important;
 }
+
 .reveal .slides section {
   text-align: left;
   padding: 18px 30px;
   box-sizing: border-box;
 }
+
 .reveal h1, .reveal h2, .reveal h3 {
   color: var(--sta-text);
   line-height: 1.1;
 }
+
 .reveal h1  { font-size: 1.72em !important; }
+
 .reveal h2  {
   font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
-.reveal h3  { font-size: 1.1em !important; margin-bottom: 0.2em; }
-.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+.reveal h3  {
+  font-size: 1.1em !important;
+  margin-bottom: 0.2em;
+}
+
+.reveal p, .reveal li {
+  font-size: 0.78em;
+  line-height: 1.35;
+}
 
 /* ── Title slide ──────────────────────────────────────── */
-.title-slide { text-align: center !important; }
-.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
-.title-slide p  { font-size: 0.78em; color: var(--sta-muted); }
+.title-slide {
+  text-align: center !important;
+}
+
+.title-slide h1 {
+  font-size: 1.72em !important;
+  margin-top: 0.4em;
+}
+
+.title-slide p {
+  font-size: 0.78em;
+  color: var(--sta-muted);
+}
 
 /* ── Grid layouts ─────────────────────────────────────── */
 .two-col, .two-col-lean, .two-col-wide,
@@ -241,9 +264,10 @@ plotly_slide_layout <- function(
   gap: 28px;
   align-items: start;
 }
+
 .two-col       { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 .two-col-lean  { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
-.two-col-wide  { grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr); }
+.two-col-wide  { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); }
 .three-col     { grid-template-columns: repeat(3, 1fr); }
 .one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
@@ -260,27 +284,33 @@ plotly_slide_layout <- function(
   box-sizing: border-box;
   margin-bottom: 8px;
 }
+
 .defbox, .card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
+
 .examplebox, .notebox, .mini-card {
   background: var(--sta-grey);
   border: 1px solid var(--sta-border);
 }
+
 .thinkbox, .taskbox {
   background: var(--sta-yellow);
   border-left: 7px solid var(--sta-orange);
 }
+
 .warnbox {
   background: #fff3e0;
   border-left: 7px solid #ef6c00;
 }
+
 .stat-card {
   background: white;
   border: 1px solid var(--sta-border);
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
+
 .card .label, .taskbox .label, .notebox .label,
 .mini-card .label, .stat-card .label {
   display: block;
@@ -290,10 +320,24 @@ plotly_slide_layout <- function(
 }
 
 /* ── Utility ──────────────────────────────────────────── */
-.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
-.center     { text-align: center; }
-.small-text { font-size: 0.64em; }
-.tight li   { margin-bottom: 0.18em; }
+.big {
+  font-size: 1.08em;
+  font-weight: bold;
+  color: var(--sta-teal);
+}
+
+.center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.64em;
+}
+
+.tight li {
+  margin-bottom: 0.18em;
+}
+
 .formula {
   display: inline-block;
   background: white;
@@ -305,13 +349,22 @@ plotly_slide_layout <- function(
 }
 
 /* ── Tables ───────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.66em;
+}
+
 .reveal th, .reveal td {
   border: 1px solid var(--sta-border);
   padding: 7px 10px;
   vertical-align: top;
 }
-.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+.reveal th {
+  background: var(--sta-teal-light);
+  font-weight: bold;
+}
 
 /* ── Code ─────────────────────────────────────────────── */
 .reveal pre {
@@ -320,7 +373,12 @@ plotly_slide_layout <- function(
   margin-bottom: 0.3em;
   border-radius: 8px;
 }
-.reveal pre code { font-size: 0.75em; max-height: 340px; }
+
+.reveal pre code {
+  font-size: 0.75em;
+  max-height: 340px;
+}
+
 .reveal code {
   background: var(--sta-code);
   border-radius: 4px;
@@ -335,139 +393,107 @@ plotly_slide_layout <- function(
 }
 
 /* ── Compact ──────────────────────────────────────────── */
-.reveal section.compact h2  { font-size: 1.1em !important; }
-.reveal section.compact p,
-.reveal section.compact li  { font-size: 0.74em; }
+.reveal section.compact h2 {
+  font-size: 1.1em !important;
+}
 
-/* ── Quiz polish ──────────────────────────────────────── */
+.reveal section.compact p,
+.reveal section.compact li {
+  font-size: 0.74em;
+}
+
+/* ── Quiz polish: matches Chapter 5 scaling ───────────── */
 .reveal section.quiz-question {
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  align-items: center !important;
-  min-height: 660px !important;
-  height: 660px !important;
-  padding-top: 4px !important;
-  padding-bottom: 4px !important;
+  align-items: stretch !important;
+  height: 100%;
   overflow: hidden !important;
   box-sizing: border-box !important;
 }
-.reveal .quiz-question > * { width: 100%; max-width: 1120px; }
-.reveal .quiz-question h2 { font-size: 0.96em !important; margin-bottom: 4px; text-align: left; }
-.reveal .quiz-question .callout-note { margin: 0 auto 8px auto !important; text-align: left; }
-.reveal .quiz-question .callout-note .callout-content { padding: 9px 14px 11px 14px !important; }
+
+.reveal .quiz-question > * {
+  width: 100%;
+  max-width: 1080px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.reveal .quiz-question .callout-note {
+  margin: 4px auto 12px auto !important;
+  text-align: left;
+}
+
 .reveal .quiz-question .callout-note .callout-body p,
-.reveal .quiz-question .callout-note p { font-size: 0.70em !important; line-height: 1.18; margin: 2px 0; }
-.reveal .quiz-question .callout-title { font-size: 0.74em !important; padding: 4px 11px !important; }
-.reveal .quiz-question ul { margin: 6px auto 0 auto !important; padding-left: 0 !important; list-style: none !important; }
-.reveal .quiz-question li { margin-bottom: 2px !important; }
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+
+.reveal .quiz-question ul {
+  margin: 4px auto !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+.reveal .quiz-question li {
+  margin-bottom: 6px !important;
+}
 
 .reveal section.quiz-question img {
-  max-height: 220px !important;
+  max-height: 235px !important;
   object-fit: contain !important;
-  margin: 1px auto 4px auto !important;
+  margin: 2px auto 6px auto !important;
   display: block !important;
 }
 
-.reveal section.quiz-question:has(.cell) .callout-note {
-  margin-bottom: 12px !important;
-}
-
-.reveal section.quiz-question:has(.cell) .callout-note .callout-content {
-  padding: 10px 15px 12px 15px !important;
-}
-
-.reveal section.quiz-question:has(.cell) .callout-note .callout-body p,
-.reveal section.quiz-question:has(.cell) .callout-note p {
-  font-size: 0.72em !important;
-  line-height: 1.16 !important;
-}
-
-.reveal section.quiz-question:has(.cell) .html-widget,
-.reveal section.quiz-question:has(.cell) .plotly,
-.reveal section.quiz-question:has(.cell) .plot-container,
-.reveal section.quiz-question:has(.cell) .svg-container {
-  height: 195px !important;
-  max-height: 195px !important;
-  overflow: hidden !important;
-}
-
-.reveal section.quiz-question:has(.cell) .cell {
-  margin-top: 8px !important;
-  margin-bottom: 8px !important;
-  overflow: visible !important;
-}
-
-.reveal section.quiz-question:has(.cell) .cell-output-display {
-  height: 195px !important;
-  max-height: 195px !important;
-  overflow: hidden !important;
-}
-
-.reveal section.quiz-question:not(:has(.cell)) .callout-note .callout-content {
-  padding: 14px 16px 16px 16px !important;
-}
-
-.reveal section.quiz-question:not(:has(.cell)) .callout-note .callout-body p,
-.reveal section.quiz-question:not(:has(.cell)) .callout-note p {
-  font-size: 0.82em !important;
-  line-height: 1.22 !important;
-}
-
-.reveal section.quiz-question:not(:has(.cell)) .callout-title {
-  font-size: 0.82em !important;
-  padding: 5px 12px !important;
-}
-
-.reveal section.quiz-question:not(:has(.cell)) .option-button {
-  padding: 7px 14px !important;
-  margin-bottom: 5px !important;
-  font-size: 0.74em !important;
-  line-height: 1.12 !important;
-}
-
-.reveal section.quiz-question:not(:has(.cell)) .action-buttons,
-.reveal section.quiz-question:not(:has(.cell)) .button-container {
-  margin-top: 10px !important;
-}
-
 .reveal .option-button {
-  padding: 5px 12px !important;
-  margin: 0 auto 4px auto !important;
-  font-size: 0.62em !important;
-  line-height: 1.08 !important;
-  border-radius: 6px !important;
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
   text-align: left !important;
-  max-width: 1120px !important;
 }
-.reveal .action-buttons {
-  margin: 8px auto 0 auto !important;
-  font-size: 0.68em !important;
+
+.reveal .action-buttons,
+.reveal .quiz-question .button-container {
+  margin: 10px auto 0 auto !important;
+  font-size: 0.85em !important;
   text-align: center !important;
   width: 100% !important;
-  max-width: 1120px !important;
+  max-width: 1080px !important;
 }
+
 .reveal .check-button,
 .reveal .reset-button,
 .reveal .prev-button,
 .reveal .next-button {
-  padding: 5px 12px !important;
-  font-size: 0.62em !important;
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
   border-radius: 6px !important;
-  margin: 0 2px !important;
-}
-
-.reveal .quiz-question .button-container {
-  display: flex !important;
-  justify-content: center !important;
-  width: 100% !important;
-  max-width: 1120px !important;
-  margin: 8px auto 0 auto !important;
+  margin: 0 4px !important;
 }
 
 .reveal .feedback,
 .reveal .explanation,
-.reveal .quiz-question .explanation { font-size: 0.62em !important; margin-top: 4px; }
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
 
 .quiz-hint {
   font-size: 0.6em;
@@ -476,13 +502,24 @@ plotly_slide_layout <- function(
   margin: 0 0 6px 0;
 }
 
+/* ── Quiz plots ───────────────────────────────────────── */
+.reveal section.quiz-question .html-widget {
+  max-height: 315px !important;
+  margin: 0 auto 4px auto !important;
+}
+
+.reveal section.quiz-question .plotly,
+.reveal section.quiz-question .plot-container,
+.reveal section.quiz-question .svg-container {
+  max-height: 315px !important;
+}
+
 /* ── Plotly polish ───────────────────────────────────── */
 .reveal .html-widget,
-.reveal .plotly {
+.reveal .plotly,
+.reveal .js-plotly-plot {
   margin: 0 auto !important;
-  width: 100% !important;
   max-width: 100% !important;
-  box-sizing: border-box !important;
 }
 
 .reveal .two-col-wide .col:last-child .html-widget,
@@ -493,32 +530,19 @@ plotly_slide_layout <- function(
 
 .reveal .plot-container {
   border-radius: 10px;
-  width: 100% !important;
   max-width: 100% !important;
   overflow: visible !important;
 }
 
 .reveal .svg-container,
 .reveal .main-svg {
-  width: 100% !important;
   max-width: 100% !important;
 }
 
-.reveal section.quiz-question .html-widget {
-  height: 220px !important;
-  max-height: 220px !important;
-  margin: 0 auto 1px auto !important;
-}
-
-.reveal section.quiz-question .plotly,
-.reveal section.quiz-question .plot-container,
-.reveal section.quiz-question .svg-container {
-  height: 220px !important;
-  max-height: 220px !important;
-}
-
 /* ── Solution callouts ────────────────────────────────── */
-.callout { font-size: 0.75em; }
+.callout {
+  font-size: 0.75em;
+}
 
 /* ── Home button ──────────────────────────────────────── */
 .reveal a.home-button,
@@ -538,12 +562,17 @@ plotly_slide_layout <- function(
   opacity: 1 !important;
   visibility: visible !important;
 }
+
 .reveal a.home-button:hover {
   background: var(--sta-teal-dark) !important;
   background-color: var(--sta-teal-dark) !important;
   color: white !important;
 }
-.home-button-row { text-align: center; margin-top: 32px; }
+
+.home-button-row {
+  text-align: center;
+  margin-top: 32px;
+}
 
 /* ── Interactive distribution widget ─────────────────── */
 .dist-widget {
@@ -553,12 +582,22 @@ plotly_slide_layout <- function(
   padding: 10px 14px;
   font-size: 0.72em;
 }
-.dist-widget label { font-weight: 600; color: var(--sta-teal-dark); }
-.dist-widget input[type=range] { width: 100%; accent-color: var(--sta-teal); }
+
+.dist-widget label {
+  font-weight: 600;
+  color: var(--sta-teal-dark);
+}
+
+.dist-widget input[type=range] {
+  width: 100%;
+  accent-color: var(--sta-teal);
+}
+
 .plotly-widget {
   width: 100%;
   height: 305px;
 }
+
 .plotly-widget-centered {
   max-width: 1180px;
   margin: 0 auto;

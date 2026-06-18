@@ -6,7 +6,7 @@ Slides for STA258
 ## For June 25 
 
 - Update all examples in CH5 to make it more interesting (or classical)
-- Continue working on Chapter 6 and 9 (make sure exmaples are interesting)
+- Continue working on Chapter 6 and 9 (make sure examples are interesting)
 - Add cache refresh, quarto preview to help.html
 
 ## For June 18

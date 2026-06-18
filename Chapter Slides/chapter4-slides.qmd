@@ -768,11 +768,10 @@ plotly_slide_layout(
   title = "",
   x_title = "",
   y_title = "Commute time (minutes)",
-  height = 340,
-  x_range = c(0.45, 6.12)
+  height = 390,
+  x_range = c(0.55, 5.45)
 ) |>
   layout(
-    autosize = TRUE,
     annotations = list(
       list(
         x = 0.5,
@@ -802,7 +801,7 @@ plotly_slide_layout(
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      tickfont = list(size = 10)
+      tickfont = list(size = 12)
     ),
     yaxis = list(
       showgrid = TRUE,
@@ -810,8 +809,7 @@ plotly_slide_layout(
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      rangemode = "tozero",
-      tickfont = list(size = 11)
+      tickfont = list(size = 12)
     ),
     legend = list(
       orientation = "h",
@@ -821,9 +819,18 @@ plotly_slide_layout(
       yanchor = "bottom",
       font = list(size = 11)
     ),
-    margin = list(l = 54, r = 78, t = 54, b = 52)
+    margin = list(l = 60, r = 25, t = 75, b = 75)
+  )|>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
   ) |>
-  config(responsive = TRUE)
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
 ```
 :::
 ::::::
@@ -883,7 +890,6 @@ x_grid <- seq(-6, 10, length.out = 800)
 df1 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = -2, sd = 0.5))
 df2 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = 0, sd = 1))
 df3 <- data.frame(x = x_grid, y = dnorm(x_grid, mean = 3, sd = 1.5))
-y_max <- max(df1$y, df2$y, df3$y)
 
 p <- plot_ly() |>
   add_lines(
@@ -920,9 +926,18 @@ plotly_slide_layout(
   x_title = "x",
   y_title = "Density",
   height = 360,
-  y_range = c(0, y_max * 1.05),
   showlegend = TRUE
-)
+)|>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
 ```
 :::
 :::::::
@@ -1233,48 +1248,85 @@ cutoff <- 84
 x <- seq(mu - 4 * sigma, mu + 4 * sigma, length.out = 1000)
 y <- dnorm(x, mean = mu, sd = sigma)
 
-df_norm <- data.frame(x = x, y = y)
+df_norm  <- data.frame(x = x, y = y)
+df_left  <- subset(df_norm, x <= cutoff)
+df_right <- subset(df_norm, x >= cutoff)
 
+y_cut <- dnorm(cutoff, mu, sigma)
 y_max <- max(y)
+
+cut_col   <- "#4A5568"
+left_col  <- "rgba(59, 130, 246, 0.18)"
+right_col <- "rgba(100, 116, 139, 0.20)"
 
 p <- plot_ly() |>
   add_lines(
     data = df_norm,
     x = ~x,
     y = ~y,
-    line = list(color = plot_cols$main, width = 3.6),
+    line = list(color = plot_cols$main, width = 3.4),
     text = ~paste0(
       "<b>Exam score:</b> ", round(x, 1),
       "<br><b>Density:</b> ", round(y, 4)
     ),
     hovertemplate = "%{text}<extra></extra>",
     showlegend = FALSE
+  ) |>
+  add_ribbons(
+    data = df_left,
+    x = ~x,
+    ymin = 0,
+    ymax = ~y,
+    fillcolor = left_col,
+    line = list(color = "rgba(0,0,0,0)"),
+    hovertemplate = paste0(
+      "<b>Region:</b> P(X ≤ 84)",
+      "<br><b>Meaning:</b> scores at or below 84",
+      "<br><b>Area:</b> ", round(pnorm(cutoff, mu, sigma), 4),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_ribbons(
+    data = df_right,
+    x = ~x,
+    ymin = 0,
+    ymax = ~y,
+    fillcolor = right_col,
+    line = list(color = "rgba(0,0,0,0)"),
+    hovertemplate = paste0(
+      "<b>Region:</b> P(X > 84)",
+      "<br><b>Meaning:</b> scores above 84",
+      "<br><b>Area:</b> ", round(1 - pnorm(cutoff, mu, sigma), 4),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = cutoff,
+    xend = cutoff,
+    y = 0,
+    yend = y_cut,
+    line = list(color = cut_col, width = 2.5),
+    hovertemplate = paste0(
+      "<b>Cutoff:</b> 84",
+      "<br><b>z-score:</b> ", round((cutoff - mu) / sigma, 2),
+      "<extra></extra>"
+    ),
+    showlegend = FALSE
   )
-
-shapes <- list(
-  list(
-    type = "line",
-    x0 = mu,
-    x1 = mu,
-    y0 = 0,
-    y1 = y_max * 1.02,
-    line = list(
-      color = plot_cols$main_dark,
-      width = 2.4,
-      dash = "dash"
-    )
-  )
-)
 
 annotations <- list(
   list(
-    x = mu,
-    y = y_max * 1.08,
-    text = "<b>Mean = 72</b>",
+    x = cutoff + 1.8,
+    y = y_cut * 1.22,
+    text = "<b>x = 84</b>",
     showarrow = FALSE,
-    xanchor = "center",
+    xanchor = "left",
     yanchor = "bottom",
-    font = list(size = 13, color = plot_cols$main_dark)
+    font = list(size = 11, color = cut_col)
   )
 )
 
@@ -1283,31 +1335,107 @@ plotly_slide_layout(
   title = "Normal model for final exam scores",
   x_title = "Exam score",
   y_title = "Density",
-  height = 380,
-  x_range = c(min(x) - 2, max(x) + 4),
-  y_range = c(0, y_max * 1.18),
-  shapes = shapes,
+  height = 360,
+  x_range = c(min(x), max(x)),
+  y_range = c(0, y_max * 1.15),
   annotations = annotations
 ) |>
   layout(
+    title = list(
+      text = "Normal model for final exam scores",
+      x = 0.5,
+      xanchor = "center",
+      y = 0.96,
+      yanchor = "top",
+      font = list(size = 19)
+    ),
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        x = 0.03,
+        y = 0.94,
+        xanchor = "left",
+        yanchor = "top",
+        showactive = TRUE,
+        bgcolor = "white",
+        bordercolor = "rgba(0,0,0,0.15)",
+        borderwidth = 1,
+        font = list(size = 11, color = "#2D3748"),
+        buttons = list(
+          list(
+            label = "No shading",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, FALSE, FALSE, TRUE)),
+              list(title = list(
+                text = "Normal model for final exam scores",
+                x = 0.5,
+                xanchor = "center",
+                y = 0.96,
+                yanchor = "top",
+                font = list(size = 19)
+              ))
+            )
+          ),
+          list(
+            label = "Show P(X ≤ 84)",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, TRUE, FALSE, TRUE)),
+              list(title = list(
+                text = "Left-tail region: P(X ≤ 84)",
+                x = 0.5,
+                xanchor = "center",
+                y = 0.96,
+                yanchor = "top",
+                font = list(size = 19)
+              ))
+            )
+          ),
+          list(
+            label = "Show P(X > 84)",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, FALSE, TRUE, TRUE)),
+              list(title = list(
+                text = "Right-tail region: P(X > 84)",
+                x = 0.5,
+                xanchor = "center",
+                y = 0.96,
+                yanchor = "top",
+                font = list(size = 19)
+              ))
+            )
+          )
+        )
+      )
+    ),
     xaxis = list(
+      fixedrange = TRUE,
       showgrid = FALSE,
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickvals = c(40, 48, 56, 64, 72, 80, 88, 96, 104),
-      tickfont = list(size = 12)
+      tickfont = list(size = 11)
     ),
     yaxis = list(
-      range = c(0, y_max * 1.18),
+      fixedrange = TRUE,
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      tickfont = list(size = 12)
+      tickfont = list(size = 11)
     ),
-    margin = list(l = 60, r = 60, t = 60, b = 55)
+    dragmode = FALSE,
+    margin = list(l = 58, r = 20, t = 48, b = 52)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
   )
 ```
 :::
@@ -1369,46 +1497,40 @@ than $h$.
 mu <- 170
 sigma <- 8
 
+left_cut  <- 180
+right_cut <- 160
+mid_low   <- 162
+mid_high  <- 178
+h_cut     <- qnorm(0.95, mean = mu, sd = sigma)
+
 x <- seq(mu - 4 * sigma, mu + 4 * sigma, length.out = 1000)
 y <- dnorm(x, mean = mu, sd = sigma)
 
-df_height <- data.frame(x = x, y = y)
+df_height   <- data.frame(x = x, y = y)
+df_left     <- subset(df_height, x <= left_cut)
+df_right    <- subset(df_height, x >= right_cut)
+df_middle   <- subset(df_height, x >= mid_low & x <= mid_high)
+df_top5     <- subset(df_height, x >= h_cut)
 
-y_max <- max(y)
+y_max     <- max(y)
+y_left    <- dnorm(left_cut, mean = mu, sd = sigma)
+y_right   <- dnorm(right_cut, mean = mu, sd = sigma)
+y_mid_low <- dnorm(mid_low, mean = mu, sd = sigma)
+y_mid_hi  <- dnorm(mid_high, mean = mu, sd = sigma)
+y_h       <- dnorm(h_cut, mean = mu, sd = sigma)
 
-p <- plot_ly() |>
-  add_lines(
-    data = df_height,
-    x = ~x,
-    y = ~y,
-    line = list(
-      color = plot_cols$main,
-      width = 3.6
-    ),
-    text = ~paste0(
-      "<b>Height:</b> ", round(x, 1), " cm",
-      "<br><b>Density:</b> ", round(y, 4)
-    ),
-    hovertemplate = "%{text}<extra></extra>",
-    showlegend = FALSE
-  )
+mean_col  <- plot_cols$main_dark
+curve_col <- plot_cols$main
+cut_col   <- "#4A5568"
 
-shapes <- list(
-  list(
-    type = "line",
-    x0 = mu,
-    x1 = mu,
-    y0 = 0,
-    y1 = y_max * 1.02,
-    line = list(
-      color = plot_cols$main_dark,
-      width = 2.4,
-      dash = "dash"
-    )
-  )
-)
+shade_col <- "rgba(59, 130, 246, 0.18)"
 
-annotations <- list(
+left_col   <- shade_col
+right_col  <- shade_col
+middle_col <- shade_col
+top_col    <- shade_col
+
+ann_none <- list(
   list(
     x = mu,
     y = y_max * 1.08,
@@ -1416,40 +1538,388 @@ annotations <- list(
     showarrow = FALSE,
     xanchor = "center",
     yanchor = "bottom",
-    font = list(size = 13, color = plot_cols$main_dark)
+    font = list(size = 12, color = mean_col)
   )
 )
+
+ann_left <- c(
+  ann_none,
+  list(
+    list(
+      x = left_cut + 1.2,
+      y = y_left * 1.16,
+      text = "<b>x = 180</b>",
+      showarrow = FALSE,
+      xanchor = "left",
+      yanchor = "bottom",
+      font = list(size = 11, color = cut_col)
+    )
+  )
+)
+
+ann_right <- c(
+  ann_none,
+  list(
+    list(
+      x = right_cut - 1.4,
+      y = y_max * 0.62,
+      text = "<b>x = 160</b>",
+      showarrow = FALSE,
+      xanchor = "right",
+      yanchor = "middle",
+      font = list(size = 11, color = cut_col)
+    )
+  )
+)
+
+ann_middle <- c(
+  ann_none,
+  list(
+    list(
+      x = mid_low - 0.8,
+      y = y_mid_low * 1.14,
+      text = "<b>x = 162</b>",
+      showarrow = FALSE,
+      xanchor = "right",
+      yanchor = "bottom",
+      font = list(size = 11, color = cut_col)
+    ),
+    list(
+      x = mid_high + 0.8,
+      y = y_mid_hi * 1.14,
+      text = "<b>x = 178</b>",
+      showarrow = FALSE,
+      xanchor = "left",
+      yanchor = "bottom",
+      font = list(size = 11, color = cut_col)
+    )
+  )
+)
+
+ann_top5 <- c(
+  ann_none,
+  list(
+    list(
+      x = h_cut + 1.2,
+      y = y_h * 1.16,
+      text = paste0("<b>h ≈ ", round(h_cut, 1), " cm</b>"),
+      showarrow = FALSE,
+      xanchor = "left",
+      yanchor = "bottom",
+      font = list(size = 11, color = cut_col)
+    )
+  )
+)
+
+p <- plot_ly() |>
+  add_lines(
+    data = df_height,
+    x = ~x,
+    y = ~y,
+    line = list(color = curve_col, width = 3.4),
+    text = ~paste0(
+      "<b>Height:</b> ", round(x, 1), " cm",
+      "<br><b>Density:</b> ", round(y, 4)
+    ),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_ribbons(
+    data = df_left,
+    x = ~x,
+    ymin = 0,
+    ymax = ~y,
+    fillcolor = left_col,
+    line = list(color = "rgba(0,0,0,0)"),
+    hovertemplate = paste0(
+      "<b>Region:</b> P(X < 180)",
+      "<br><b>Meaning:</b> heights below 180 cm",
+      "<br><b>Area:</b> ", round(pnorm(left_cut, mean = mu, sd = sigma), 4),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_ribbons(
+    data = df_right,
+    x = ~x,
+    ymin = 0,
+    ymax = ~y,
+    fillcolor = right_col,
+    line = list(color = "rgba(0,0,0,0)"),
+    hovertemplate = paste0(
+      "<b>Region:</b> P(X > 160)",
+      "<br><b>Meaning:</b> heights above 160 cm",
+      "<br><b>Area:</b> ", round(pnorm(right_cut, mean = mu, sd = sigma, lower.tail = FALSE), 4),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_ribbons(
+    data = df_middle,
+    x = ~x,
+    ymin = 0,
+    ymax = ~y,
+    fillcolor = middle_col,
+    line = list(color = "rgba(0,0,0,0)"),
+    hovertemplate = paste0(
+      "<b>Region:</b> P(162 < X < 178)",
+      "<br><b>Meaning:</b> heights between 162 cm and 178 cm",
+      "<br><b>Area:</b> ", round(pnorm(mid_high, mean = mu, sd = sigma) - pnorm(mid_low, mean = mu, sd = sigma), 4),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_ribbons(
+    data = df_top5,
+    x = ~x,
+    ymin = 0,
+    ymax = ~y,
+    fillcolor = top_col,
+    line = list(color = "rgba(0,0,0,0)"),
+    hovertemplate = paste0(
+      "<b>Region:</b> Top 5%",
+      "<br><b>Meaning:</b> heights above h",
+      "<br><b>Cutoff h:</b> ", round(h_cut, 2), " cm",
+      "<br><b>Area:</b> 0.0500",
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = mu,
+    xend = mu,
+    y = 0,
+    yend = y_max,
+    line = list(color = mean_col, width = 2.2, dash = "dash"),
+    hovertemplate = "<b>Mean:</b> 170 cm<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = left_cut,
+    xend = left_cut,
+    y = 0,
+    yend = y_left,
+    line = list(color = cut_col, width = 2.3),
+    hovertemplate = paste0(
+      "<b>Cutoff:</b> 180 cm",
+      "<br><b>z-score:</b> ", round((left_cut - mu) / sigma, 2),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = right_cut,
+    xend = right_cut,
+    y = 0,
+    yend = y_right,
+    line = list(color = cut_col, width = 2.3),
+    hovertemplate = paste0(
+      "<b>Cutoff:</b> 160 cm",
+      "<br><b>z-score:</b> ", round((right_cut - mu) / sigma, 2),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = mid_low,
+    xend = mid_low,
+    y = 0,
+    yend = y_mid_low,
+    line = list(color = cut_col, width = 2.1),
+    hovertemplate = paste0(
+      "<b>Lower bound:</b> 162 cm",
+      "<br><b>z-score:</b> ", round((mid_low - mu) / sigma, 2),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = mid_high,
+    xend = mid_high,
+    y = 0,
+    yend = y_mid_hi,
+    line = list(color = cut_col, width = 2.1),
+    hovertemplate = paste0(
+      "<b>Upper bound:</b> 178 cm",
+      "<br><b>z-score:</b> ", round((mid_high - mu) / sigma, 2),
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = h_cut,
+    xend = h_cut,
+    y = 0,
+    yend = y_h,
+    line = list(color = cut_col, width = 2.3),
+    hovertemplate = paste0(
+      "<b>Threshold h:</b> ", round(h_cut, 2), " cm",
+      "<br><b>Upper-tail area:</b> 0.0500",
+      "<extra></extra>"
+    ),
+    visible = FALSE,
+    showlegend = FALSE
+  )
 
 plotly_slide_layout(
   p,
   title = "Normal model for adult heights",
   x_title = "Height in cm",
   y_title = "Density",
-  height = 380,
-  x_range = c(136, 206),
-  y_range = c(0, y_max * 1.18),
-  shapes = shapes,
-  annotations = annotations
+  height = 360,
+  x_range = c(138, 202),
+  y_range = c(0, y_max * 1.16),
+  annotations = ann_none
 ) |>
   layout(
+    title = list(
+      text = "Normal model for adult heights",
+      x = 0.5,
+      xanchor = "center",
+      y = 0.96,
+      yanchor = "top",
+      font = list(size = 19)
+    ),
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        x = 0.03,
+        y = 0.94,
+        xanchor = "left",
+        yanchor = "top",
+        showactive = TRUE,
+        bgcolor = "white",
+        bordercolor = "rgba(0,0,0,0.15)",
+        borderwidth = 1,
+        font = list(size = 11, color = "#2D3748"),
+        buttons = list(
+          list(
+            label = "No shading",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE)),
+              list(
+                title = list(
+                  text = "Normal model for adult heights",
+                  x = 0.5,
+                  xanchor = "center",
+                  y = 0.96,
+                  yanchor = "top",
+                  font = list(size = 19)
+                ),
+                annotations = ann_none
+              )
+            )
+          ),
+          list(
+            label = "Show P(X < 180)",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)),
+              list(
+                title = list(
+                  text = "Left-tail region: P(X < 180)",
+                  x = 0.5,
+                  xanchor = "center",
+                  y = 0.96,
+                  yanchor = "top",
+                  font = list(size = 19)
+                ),
+                annotations = ann_left
+              )
+            )
+          ),
+          list(
+            label = "Show P(X > 160)",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE)),
+              list(
+                title = list(
+                  text = "Right-tail region: P(X > 160)",
+                  x = 0.5,
+                  xanchor = "center",
+                  y = 0.96,
+                  yanchor = "top",
+                  font = list(size = 19)
+                ),
+                annotations = ann_right
+              )
+            )
+          ),
+          list(
+            label = "Show P(162 < X < 178)",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE)),
+              list(
+                title = list(
+                  text = "Middle region: P(162 < X < 178)",
+                  x = 0.5,
+                  xanchor = "center",
+                  y = 0.96,
+                  yanchor = "top",
+                  font = list(size = 19)
+                ),
+                annotations = ann_middle
+              )
+            )
+          ),
+          list(
+            label = "Show top 5% cutoff",
+            method = "update",
+            args = list(
+              list(visible = c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE)),
+              list(
+                title = list(
+                  text = "Upper-tail cutoff: top 5%",
+                  x = 0.5,
+                  xanchor = "center",
+                  y = 0.96,
+                  yanchor = "top",
+                  font = list(size = 19)
+                ),
+                annotations = ann_top5
+              )
+            )
+          )
+        )
+      )
+    ),
     xaxis = list(
+      fixedrange = TRUE,
       showgrid = FALSE,
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickvals = seq(140, 200, by = 10),
-      tickfont = list(size = 12)
+      tickfont = list(size = 11)
     ),
     yaxis = list(
-      range = c(0, y_max * 1.18),
+      fixedrange = TRUE,
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      tickfont = list(size = 12)
+      tickfont = list(size = 11)
     ),
-    margin = list(l = 60, r = 60, t = 60, b = 55)
+    dragmode = FALSE,
+    margin = list(l = 58, r = 20, t = 48, b = 52)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
   )
 ```
 :::
@@ -1508,6 +1978,20 @@ abline(v = c(160, 162, 178, 180), lty = 2, col = "#f9a825")
 
 ##  {.quiz-question}
 
+<style>
+.quiz-question ul {
+  margin-top: 0.45rem;
+}
+
+.quiz-question li {
+  font-size: 0.78em;
+  line-height: 1.1;
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  margin-bottom: 0.25em;
+}
+</style>
+
 ::: {.callout-note icon="false"}
 ## Visual Question
 
@@ -1522,13 +2006,22 @@ $P(Z > 2)$?
 #| message: false
 #| out-width: "100%"
 
-z <- seq(-4, 4, length.out = 1000)
+z <- seq(-4, 4, length.out = 1400)
 y <- dnorm(z)
 
 df_emp <- data.frame(z = z, y = y)
 
 mid_poly <- make_region_poly(z, y, -2, 2)
 right_poly <- make_tail_poly_right(z, y, 2)
+
+mid_fill <- "rgba(59, 130, 246, 0.22)"
+tail_fill <- "rgba(245, 158, 11, 0.34)"
+curve_col <- "#1f4e79"
+axis_col <- "#CBD5E1"
+grid_col <- "rgba(148, 163, 184, 0.20)"
+text_col <- "#1E293B"
+muted_col <- "#64748B"
+tail_col <- "#B45309"
 
 p <- plot_ly() |>
   add_trace(
@@ -1538,8 +2031,8 @@ p <- plot_ly() |>
     type = "scatter",
     mode = "lines",
     fill = "toself",
-    fillcolor = plot_cols$shade_blue,
-    line = list(color = "rgba(37,99,235,0)"),
+    fillcolor = mid_fill,
+    line = list(color = "rgba(59,130,246,0)"),
     hoverinfo = "skip",
     showlegend = FALSE
   ) |>
@@ -1550,8 +2043,8 @@ p <- plot_ly() |>
     type = "scatter",
     mode = "lines",
     fill = "toself",
-    fillcolor = plot_cols$shade_orange,
-    line = list(color = "rgba(217,119,6,0)"),
+    fillcolor = tail_fill,
+    line = list(color = "rgba(245,158,11,0)"),
     hoverinfo = "skip",
     showlegend = FALSE
   ) |>
@@ -1559,40 +2052,103 @@ p <- plot_ly() |>
     data = df_emp,
     x = ~z,
     y = ~y,
-    line = list(color = plot_cols$main, width = 3.4),
+    line = list(color = curve_col, width = 4),
     text = ~paste0("<b>z:</b> ", round(z, 2), "<br><b>Density:</b> ", round(y, 4)),
     hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = -2,
+    xend = -2,
+    y = 0,
+    yend = dnorm(-2),
+    line = list(color = muted_col, width = 2, dash = "dot"),
+    hoverinfo = "skip",
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = 2,
+    xend = 2,
+    y = 0,
+    yend = dnorm(2),
+    line = list(color = tail_col, width = 2.5),
+    hoverinfo = "skip",
     showlegend = FALSE
   )
 
 annotations <- list(
   list(
     x = 0,
-    y = 0.22,
+    y = 0.245,
     text = "<b>Middle area ≈ 0.9545</b>",
     showarrow = FALSE,
-    font = list(size = 14.5, color = plot_cols$main_dark)
+    font = list(size = 14, color = text_col),
+    bgcolor = "rgba(255,255,255,0.74)",
+    bordercolor = "rgba(148,163,184,0.24)",
+    borderpad = 5
   ),
   list(
-    x = 2.75,
-    y = 0.06,
+    x = 2.72,
+    y = 0.052,
     text = "<b>P(Z &gt; 2)?</b>",
-    showarrow = FALSE,
-    font = list(size = 14.5, color = "#92400e")
+    showarrow = TRUE,
+    arrowhead = 2,
+    arrowsize = 0.75,
+    arrowwidth = 1.4,
+    arrowcolor = tail_col,
+    ax = 34,
+    ay = -18,
+    font = list(size = 14, color = tail_col),
+    bgcolor = "rgba(255,255,255,0.80)",
+    bordercolor = "rgba(180,83,9,0.22)",
+    borderpad = 4
   )
 )
 
 plotly_slide_layout(
   p,
-  title = "Standard normal symmetry",
+  title = "",
   x_title = "z",
   y_title = "Density",
-  height = 195,
-  x_range = c(-2.3, 3.6),
-  y_range = c(0, max(y) * 1.08),
+  height = 285,
   annotations = annotations,
-  margin = list(l = 54, r = 16, t = 28, b = 32)
-)
+  margin = list(l = 64, r = 28, t = 12, b = 50)
+) |>
+  layout(
+    xaxis = list(
+      range = c(-4, 4),
+      fixedrange = TRUE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = axis_col,
+      linewidth = 1.2,
+      tickvals = seq(-4, 4, by = 1),
+      tickfont = list(size = 12, color = muted_col),
+      title = list(font = list(size = 14, color = text_col))
+    ),
+    yaxis = list(
+      range = c(-0.00, 0.43),
+      fixedrange = TRUE,
+      showgrid = TRUE,
+      gridcolor = grid_col,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = axis_col,
+      linewidth = 1.2,
+      tickvals = c(0, 0.2, 0.4),
+      tickfont = list(size = 12, color = muted_col),
+      title = list(font = list(size = 14, color = text_col))
+    ),
+    plot_bgcolor = "white",
+    paper_bgcolor = "white",
+    dragmode = FALSE
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
 ```
 
 -   0.9545
@@ -1623,7 +2179,7 @@ variance <- 100
 sigma <- sqrt(variance)
 x0 <- 65
 
-x <- seq(20, 80, length.out = 1000)
+x <- seq(20, 80, length.out = 1400)
 y <- dnorm(x, mean = mu, sd = sigma)
 
 df_zq <- data.frame(x = x, y = y)
@@ -1631,118 +2187,128 @@ df_zq <- data.frame(x = x, y = y)
 y_max <- max(y)
 y_x0 <- dnorm(x0, mean = mu, sd = sigma)
 
+curve_col <- "#1F4E79"
+mean_col <- "#64748B"
+mark_col <- "#B45309"
+axis_col <- "#CBD5E1"
+grid_col <- "rgba(148, 163, 184, 0.18)"
+fill_col <- "rgba(31, 78, 121, 0.08)"
+
 p <- plot_ly() |>
+  add_ribbons(
+    data = df_zq,
+    x = ~x,
+    ymin = 0,
+    ymax = ~y,
+    fillcolor = fill_col,
+    line = list(color = "rgba(31,78,121,0)"),
+    hoverinfo = "skip",
+    showlegend = FALSE
+  ) |>
   add_lines(
     data = df_zq,
     x = ~x,
     y = ~y,
-    line = list(color = plot_cols$main, width = 3.6),
+    line = list(color = curve_col, width = 3.8),
     text = ~paste0(
       "<b>x:</b> ", round(x, 1),
       "<br><b>Density:</b> ", round(y, 4)
     ),
     hovertemplate = "%{text}<extra></extra>",
     showlegend = FALSE
+  ) |>
+  add_segments(
+    x = mu,
+    xend = mu,
+    y = 0,
+    yend = y_max,
+    line = list(color = mean_col, width = 2, dash = "dot"),
+    hoverinfo = "skip",
+    showlegend = FALSE
+  ) |>
+  add_segments(
+    x = x0,
+    xend = x0,
+    y = 0,
+    yend = y_x0,
+    line = list(color = mark_col, width = 2.6),
+    hoverinfo = "skip",
+    showlegend = FALSE
   )
-
-shapes <- list(
-  list(
-    type = "line",
-    x0 = mu,
-    x1 = mu,
-    y0 = 0,
-    y1 = y_max * 1.02,
-    line = list(
-      color = plot_cols$main_dark,
-      width = 2.3,
-      dash = "dash"
-    )
-  ),
-  list(
-    type = "line",
-    x0 = x0,
-    x1 = x0,
-    y0 = 0,
-    y1 = y_x0,
-    line = list(
-      color = plot_cols$accent,
-      width = 2.5
-    )
-  )
-)
 
 annotations <- list(
   list(
     x = mu,
-    y = y_max * 1.07,
+    y = y_max * 1.05,
     text = "<b>Mean = 50</b>",
     showarrow = FALSE,
     xanchor = "center",
     yanchor = "bottom",
-    font = list(size = 13, color = plot_cols$main_dark)
+    font = list(size = 12, color = mean_col)
   ),
   list(
     x = x0,
-    y = y_x0 + y_max * 0.06,
+    y = y_x0 + y_max * 0.055,
     text = "<b>x = 65</b>",
     showarrow = FALSE,
     xanchor = "center",
     yanchor = "bottom",
-    font = list(size = 13, color = plot_cols$accent)
+    font = list(size = 12, color = mark_col)
   )
 )
 
 plotly_slide_layout(
   p,
-  title = "Standardising a value from a normal distribution",
+  title = "",
   x_title = "x",
   y_title = "Density",
-  height = 195,
+  height = 275,
   x_range = c(20, 80),
-  y_range = c(0, y_max * 1.16),
-  shapes = shapes,
-  annotations = annotations
+  y_range = c(0, y_max * 1.15),
+  annotations = annotations,
+  margin = list(l = 64, r = 28, t = 14, b = 48)
 ) |>
   layout(
     xaxis = list(
+      range = c(20, 80),
+      fixedrange = TRUE,
       showgrid = FALSE,
-      showline = TRUE,
-      linecolor = plot_cols$border,
       zeroline = FALSE,
+      showline = TRUE,
+      linecolor = axis_col,
+      linewidth = 1.2,
       tickvals = seq(20, 80, by = 10),
-      tickfont = list(size = 12)
+      tickfont = list(size = 11, color = mean_col)
     ),
     yaxis = list(
-      range = c(0, y_max * 1.16),
+      range = c(0, y_max * 1.15),
+      fixedrange = TRUE,
       showgrid = TRUE,
-      gridcolor = "rgba(0,0,0,0.08)",
-      showline = TRUE,
-      linecolor = plot_cols$border,
+      gridcolor = grid_col,
       zeroline = FALSE,
-      tickfont = list(size = 12)
+      showline = TRUE,
+      linecolor = axis_col,
+      linewidth = 1.2,
+      tickvals = c(0, 0.02, 0.04),
+      tickfont = list(size = 11, color = mean_col)
     ),
-    margin = list(l = 54, r = 16, t = 28, b = 32)
+    plot_bgcolor = "white",
+    paper_bgcolor = "white",
+    dragmode = FALSE
   ) |>
   config(
-    displayModeBar = TRUE,
-    displaylogo = FALSE,
-    responsive = TRUE,
+    displayModeBar = FALSE,
     scrollZoom = FALSE,
-    doubleClick = "reset",
-    modeBarButtonsToRemove = c(
-      "lasso2d",
-      "select2d"
-    )
+    doubleClick = FALSE
   )
 ```
 
--   z = 0.65
--   z = 0.15
--   [z = 1.5]{.correct
-    data-explanation="The variance is 100, so the standard deviation is 10. Standardising gives (65 - 50) / 10 = 1.5."}
--   z = 2.5
+- z = 0.65
+- z = 0.15
+- [z = 1.5]{.correct data-explanation="The variance is 100, so the standard deviation is 10. Standardising gives (65 - 50) / 10 = 1.5."}
+- z = 2.5
 
-::: quiz-hint
+::: {.quiz-hint}
 Remember: the standard deviation is the square root of the variance.
 :::
 
@@ -1778,12 +2344,11 @@ $\text{Var}(X) = 2k$.
 #| message: false
 #| out-width: "100%"
 
-x_vals <- seq(0.01, 25, length.out = 700)
+x_vals <- seq(0.01, 15, length.out = 700)
 
 df2 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 2))
 df5 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 5))
 df10 <- data.frame(x = x_vals, y = dchisq(x_vals, df = 10))
-y_max <- max(df2$y, df5$y, df10$y)
 
 p <- plot_ly() |>
   add_lines(
@@ -1820,9 +2385,18 @@ plotly_slide_layout(
   x_title = "x",
   y_title = "Density",
   height = 360,
-  y_range = c(0, y_max * 1.05),
   showlegend = TRUE
-)
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
 ```
 
 ::: {.thinkbox .fragment}
@@ -1991,7 +2565,6 @@ x_vals <- seq(-4, 4, length.out = 700)
 df_n  <- data.frame(x = x_vals, y = dnorm(x_vals))
 df_t2 <- data.frame(x = x_vals, y = dt(x_vals, df = 2))
 df_t9 <- data.frame(x = x_vals, y = dt(x_vals, df = 9))
-y_max <- max(df_n$y, df_t2$y, df_t9$y)
 
 p <- plot_ly() |>
   add_lines(
@@ -2028,11 +2601,18 @@ plotly_slide_layout(
   x_title = "Value",
   y_title = "Density",
   height = 360,
-  x_range = c(-3.4, 3.4),
-  y_range = c(0, y_max * 1.05),
-  showlegend = TRUE,
-  margin = list(l = 64, r = 64, t = 48, b = 50)
-)
+  showlegend = TRUE
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
 ```
 
 ::: {.thinkbox .fragment}
@@ -2517,7 +3097,7 @@ plotly_slide_layout(
   title = "Normal curve compared with a t curve",
   x_title = "Standardized value",
   y_title = "Density",
-  height = 195,
+  height = 300,
   x_range = c(-4, 4),
   y_range = c(0, 0.43)
 ) |>
@@ -2531,7 +3111,6 @@ plotly_slide_layout(
       tickfont = list(size = 12)
     ),
     yaxis = list(
-      range = c(0, 0.43),
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
@@ -2547,19 +3126,29 @@ plotly_slide_layout(
       yanchor = "bottom",
       font = list(size = 12)
     ),
-    margin = list(l = 54, r = 16, t = 30, b = 32)
+    margin = list(l = 62, r = 25, t = 72, b = 55)
   ) |>
   config(
     displayModeBar = TRUE,
     displaylogo = FALSE,
-    responsive = TRUE,
     scrollZoom = FALSE,
     doubleClick = "reset",
     modeBarButtonsToRemove = c(
       "lasso2d",
       "select2d"
     )
+  ) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
   )
+
 ```
 
 -   The normal distribution is only valid for large populations
@@ -2601,7 +3190,7 @@ later chapters.
 #| message: false
 #| out-width: "100%"
 
-x_f <- seq(0.01, 5, length.out = 700)
+x_f <- seq(0.01, 3, length.out = 700)
 
 df_25   <- data.frame(x = x_f, y = df(x_f, 2, 5))
 df_510  <- data.frame(x = x_f, y = df(x_f, 5, 10))
@@ -2644,9 +3233,18 @@ plotly_slide_layout(
   height = 345,
   y_range = c(0, 1.2),
   showlegend = TRUE
-)
+)|>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
 ```
-
 ------------------------------------------------------------------------
 
 ## $F$-Distribution in R
@@ -2968,59 +3566,154 @@ increases?
 set.seed(258)
 
 means_5  <- replicate(3000, mean(rexp(5, rate = 1)))
-means_40 <- replicate(3000, mean(rexp(40, rate = 1)))
+means_30 <- replicate(3000, mean(rexp(30, rate = 1)))
+
+x_range <- c(0, 3.2)
+bin_width <- 0.08
 
 p1 <- plot_ly(
   x = means_5,
   type = "histogram",
-  nbinsx = 35,
-  marker = list(color = "rgba(100,116,139,0.42)", line = list(color = "white", width = 1)),
-  hovertemplate = "<b>n = 5</b><br>Sample mean: %{x:.3f}<br>Count: %{y}<extra></extra>",
+  xbins = list(
+    start = x_range[1],
+    end = x_range[2],
+    size = bin_width
+  ),
+  marker = list(
+    color = "rgba(100,116,139,0.55)",
+    line = list(color = "white", width = 0.7)
+  ),
+  hovertemplate = paste0(
+    "<b>n = 5</b>",
+    "<br>Sample mean: %{x:.2f}",
+    "<br>Frequency: %{y}<extra></extra>"
+  ),
   showlegend = FALSE
-) |>
-  layout(
-    title = list(text = "<b>n = 5</b>", x = 0.5, font = list(size = 15, color = plot_cols$text)),
-    xaxis = list(title = "Repeated sample means", showgrid = FALSE, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
-    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, rangemode = "tozero", tickfont = list(size = 12)),
-    paper_bgcolor = "white",
-    plot_bgcolor = "white",
-    margin = list(l = 68, r = 18, t = 42, b = 55)
-  )
+)
 
 p2 <- plot_ly(
-  x = means_40,
+  x = means_30,
   type = "histogram",
-  nbinsx = 35,
-  marker = list(color = "rgba(37,99,235,0.36)", line = list(color = "white", width = 1)),
-  hovertemplate = "<b>n = 40</b><br>Sample mean: %{x:.3f}<br>Count: %{y}<extra></extra>",
+  xbins = list(
+    start = x_range[1],
+    end = x_range[2],
+    size = bin_width
+  ),
+  marker = list(
+    color = "rgba(37,99,235,0.48)",
+    line = list(color = "white", width = 0.7)
+  ),
+  hovertemplate = paste0(
+    "<b>n = 30</b>",
+    "<br>Sample mean: %{x:.2f}",
+    "<br>Frequency: %{y}<extra></extra>"
+  ),
   showlegend = FALSE
+)
+
+subplot(
+  p1,
+  p2,
+  nrows = 2,
+  margin = 0.12,
+  shareX = FALSE
 ) |>
   layout(
-    title = list(text = "<b>n = 40</b>", x = 0.5, font = list(size = 15, color = plot_cols$text)),
-    xaxis = list(title = "Repeated sample means", showgrid = FALSE, showline = TRUE, linecolor = plot_cols$border, tickfont = list(size = 12)),
-    yaxis = list(title = "Frequency", gridcolor = plot_cols$grid, showline = TRUE, linecolor = plot_cols$border, rangemode = "tozero", tickfont = list(size = 12)),
-    paper_bgcolor = "white",
-    plot_bgcolor = "white",
-    margin = list(l = 68, r = 18, t = 42, b = 55)
-  )
-
-subplot(p1, p2, nrows = 2, margin = 0.10, titleY = TRUE, titleX = TRUE) |>
-  layout(
-    title = list(
-      text = "<b>CLT in action: repeated sample means</b>",
-      x = 0.02,
-      xanchor = "left",
-      font = list(size = 20, color = plot_cols$text)
+    xaxis = list(
+      title = list(
+        text = "Sample mean",
+        font = list(size = 12)
+      ),
+      range = x_range,
+      fixedrange = TRUE,
+      showgrid = FALSE,
+      showticklabels = TRUE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      tickfont = list(size = 11)
     ),
+    xaxis2 = list(
+      title = list(
+        text = "Sample mean",
+        font = list(size = 12)
+      ),
+      range = x_range,
+      fixedrange = TRUE,
+      showgrid = FALSE,
+      showticklabels = TRUE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
+      tickfont = list(size = 11)
+    ),
+    yaxis = list(
+      title = "",
+      fixedrange = TRUE,
+      showgrid = TRUE,
+      gridcolor = plot_cols$grid,
+      zeroline = FALSE,
+      showline = FALSE,
+      tickfont = list(size = 10)
+    ),
+    yaxis2 = list(
+      title = "",
+      fixedrange = TRUE,
+      showgrid = TRUE,
+      gridcolor = plot_cols$grid,
+      zeroline = FALSE,
+      showline = FALSE,
+      tickfont = list(size = 10)
+    ),
+    annotations = list(
+      list(
+        x = 0,
+        y = 1,
+        xref = "paper",
+        yref = "paper",
+        text = "<b>n = 5</b> · more spread out and slightly skewed",
+        showarrow = FALSE,
+        xanchor = "left",
+        yanchor = "bottom",
+        font = list(size = 13, color = plot_cols$text)
+      ),
+      list(
+        x = 0,
+        y = 0.43,
+        xref = "paper",
+        yref = "paper",
+        text = "<b>n = 30</b> · narrower and more bell-shaped",
+        showarrow = FALSE,
+        xanchor = "left",
+        yanchor = "bottom",
+        font = list(size = 13, color = plot_cols$text)
+      ),
+      list(
+        x = 0.5,
+        y = -0.17,
+        xref = "paper",
+        yref = "paper",
+        text = paste0(
+          "Larger <i>n</i> makes the sampling distribution of ",
+          "x&#772; narrower and more bell-shaped."
+        ),
+        showarrow = FALSE,
+        xanchor = "center",
+        font = list(size = 12, color = "#64748B")
+      )
+    ),
+    dragmode = FALSE,
     paper_bgcolor = "rgba(0,0,0,0)",
-    margin = list(l = 20, r = 20, t = 62, b = 20),
-    height = 400
+    plot_bgcolor = "white",
+    margin = list(l = 42, r = 5, t = 28, b = 65),
+    height = 500
   ) |>
   config(
     displaylogo = FALSE,
     displayModeBar = FALSE,
     responsive = TRUE,
-    scrollZoom = FALSE
+    scrollZoom = FALSE,
+    doubleClick = FALSE
   )
 ```
 :::
@@ -3162,14 +3855,14 @@ p_population <- plot_ly(
       font = list(size = 15, color = plot_cols$main_dark)
     ),
     xaxis = list(
-      title = "",
+      title = "Individual value",
       range = c(0, 5),
       showgrid = FALSE,
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickfont = list(size = 11),
-      titlefont = list(size = 10)
+      titlefont = list(size = 12)
     ),
     yaxis = list(
       title = "Density",
@@ -3178,11 +3871,10 @@ p_population <- plot_ly(
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      rangemode = "tozero",
       tickfont = list(size = 11),
-      titlefont = list(size = 10)
+      titlefont = list(size = 12)
     ),
-    margin = list(l = 38, r = 8, t = 24, b = 18)
+    margin = list(l = 58, r = 20, t = 58, b = 50)
   )
 
 p_means <- plot_ly(
@@ -3213,27 +3905,26 @@ p_means <- plot_ly(
       font = list(size = 15, color = plot_cols$main_dark)
     ),
     xaxis = list(
-      title = "",
+      title = "Sample mean",
       range = c(0.45, 1.55),
       showgrid = FALSE,
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
       tickfont = list(size = 11),
-      titlefont = list(size = 10)
+      titlefont = list(size = 12)
     ),
     yaxis = list(
-      title = "",
+      title = "Density",
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
       linecolor = plot_cols$border,
       zeroline = FALSE,
-      rangemode = "tozero",
       tickfont = list(size = 11),
-      titlefont = list(size = 10)
+      titlefont = list(size = 12)
     ),
-    margin = list(l = 30, r = 18, t = 24, b = 18)
+    margin = list(l = 58, r = 20, t = 58, b = 50)
   )
 
 subplot(
@@ -3241,9 +3932,9 @@ subplot(
   p_means,
   nrows = 1,
   shareY = FALSE,
-  titleX = FALSE,
+  titleX = TRUE,
   titleY = TRUE,
-  margin = 0.04
+  margin = 0.08
 ) |>
   layout(
     title = list(
@@ -3252,19 +3943,28 @@ subplot(
       xanchor = "left",
       font = list(size = 18, color = plot_cols$main_dark)
     ),
-    height = 195,
-    margin = list(l = 42, r = 42, t = 26, b = 20)
+    height = 315,
+    margin = list(l = 65, r = 25, t = 78, b = 55)
   ) |>
   config(
     displayModeBar = TRUE,
     displaylogo = FALSE,
-    responsive = TRUE,
     scrollZoom = FALSE,
     doubleClick = "reset",
     modeBarButtonsToRemove = c(
       "lasso2d",
       "select2d"
     )
+  )|>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
   )
 ```
 
@@ -3507,68 +4207,6 @@ abline(h=lambda, lty=2)
 ::: {.callout-note icon="false"}
 ## Visual Question
 
-The graph shows the Chebyshev bound used in the standard proof of the
-Weak Law of Large Numbers. Which mathematical tool is being used?
-:::
-
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-#| out-width: "100%"
-
-n_vals_q <- seq(10, 500, by = 5)
-eps_q <- 0.25
-sigma2_q <- 3
-bound_q <- sigma2_q / (n_vals_q * eps_q^2)
-
-df_cheb <- data.frame(n = n_vals_q, bound = bound_q)
-
-p <- plot_ly() |>
-  add_lines(
-    data = df_cheb,
-    x = ~n,
-    y = ~bound,
-    line = list(color = plot_cols$main, width = 3.4),
-    text = ~paste0("<b>n:</b> ", n, "<br><b>Upper bound:</b> ", round(bound, 4)),
-    hovertemplate = "%{text}<extra></extra>",
-    showlegend = FALSE
-  )
-
-annotations <- list(
-  list(
-    x = 330,
-    y = max(bound_q) * 0.25,
-    text = "<b>Bound shrinks toward 0 as n grows</b>",
-    showarrow = FALSE,
-    font = list(size = 14.5, color = plot_cols$main_dark)
-  )
-)
-
-plotly_slide_layout(
-  p,
-  title = "WLLN proof idea",
-  x_title = "Sample size n",
-  y_title = "Upper bound",
-  height = 195,
-  annotations = annotations,
-  margin = list(l = 54, r = 16, t = 28, b = 32)
-)
-```
-
--   The Central Limit Theorem
--   [Chebyshev's Inequality]{.correct
-    data-explanation="Applying Chebyshev's Inequality to the sample mean gives an upper bound that shrinks to 0 as n grows. No normality assumption is needed."}
--   Jensen's Inequality
--   The Empirical Rule
-
-------------------------------------------------------------------------
-
-##  {.quiz-question}
-
-::: {.callout-note icon="false"}
-## Visual Question
-
 A fair die is rolled repeatedly. The running average settles near the
 dashed line. By the WLLN, what value does X̄ₙ converge to in probability?
 :::
@@ -3617,12 +4255,22 @@ plotly_slide_layout(
   title = "Law of Large Numbers for a fair die",
   x_title = "Number of rolls",
   y_title = "Running average",
-  height = 195,
+  height = 285,
   x_range = c(1, 120),
   y_range = c(1, 6),
   shapes = shapes,
-  margin = list(l = 54, r = 16, t = 28, b = 32)
-)
+  margin = list(l = 64, r = 22, t = 52, b = 50)
+)|>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
+  )
 ```
 
 -   3
@@ -3744,13 +4392,22 @@ plotly_slide_layout(
   config(
     displayModeBar = TRUE,
     displaylogo = FALSE,
-    responsive = TRUE,
     scrollZoom = FALSE,
     doubleClick = "reset",
     modeBarButtonsToRemove = c(
       "lasso2d",
       "select2d"
     )
+  )|>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE
   )
 ```
 :::

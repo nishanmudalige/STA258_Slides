@@ -2244,14 +2244,14 @@
     "href": "Chapter Slides/chapter5-slides.html#two-sample-confidence-intervals",
     "title": "STA258",
     "section": "5.4 Two-Sample Confidence Intervals",
-    "text": "5.4 Two-Sample Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\nA two-sample confidence interval estimates a population quantity that compares two groups.\nThe groups must be clearly labelled, because the order matters:\n\\[\n\\text{Group 1} - \\text{Group 2}\n\\]\nChanging the order changes the sign of the interval.\n\n\n\nDifference of means\n\\[\n\\mu_1-\\mu_2\n\\]\nUsed for comparing two population averages.\n\n\nDifference of proportions\n\\[\np_1-p_2\n\\]\nUsed for comparing two population percentages.\n\n\nRatio of variances\n\\[\n\\frac{\\sigma_1^2}{\\sigma_2^2}\n\\]\nUsed for comparing two population variances."
+    "text": "5.4 Two-Sample Confidence Intervals\n\n\n\n\n\n\n\n\n\n\n\nA two-sample confidence interval estimates a population quantity that compares two groups.\nThe groups must be clearly labelled, because the order matters.\nFor mean and proportion differences, the comparison is written as:\n\\[\n\\text{Group 1} - \\text{Group 2}\n\\]\nFor variance ratios, the comparison is written as:\n\\[\n\\frac{\\text{Group 1}}{\\text{Group 2}}\n\\]\nChanging the order changes the interpretation.\n\n\n\nDifference of means\n\\[\n\\mu_1-\\mu_2\n\\]\nCompares two population averages.\n\n\nDifference of proportions\n\\[\np_1-p_2\n\\]\nCompares two population percentages.\n\n\nRatio of variances\n\\[\n\\frac{\\sigma_1^2}{\\sigma_2^2}\n\\]\nCompares two population variances."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#confidence-interval-for-a-difference-of-means",
     "href": "Chapter Slides/chapter5-slides.html#confidence-interval-for-a-difference-of-means",
     "title": "STA258",
     "section": "5.4.1 Confidence Interval for a Difference of Means",
-    "text": "5.4.1 Confidence Interval for a Difference of Means\n\nFor two independent populations, we often want to estimate:\n\\[\n\\mu_1-\\mu_2\n\\]\nA natural statistic is:\n\\[\n\\bar{x}_1-\\bar{x}_2\n\\]\n\n\n\nCase 1 \\(\\sigma_1\\) and \\(\\sigma_2\\) known\nUse a \\(z\\) interval.\nRare in practice.\n\n\nCase 2 \\(\\sigma_1\\) and \\(\\sigma_2\\) unknown, but assumed equal\nUse a pooled two-sample \\(t\\) interval.\n\n\nCase 3 \\(\\sigma_1\\) and \\(\\sigma_2\\) unknown and not assumed equal\nUse Welch’s two-sample \\(t\\) interval."
+    "text": "5.4.1 Confidence Interval for a Difference of Means\n\nFor two independent populations, we often want to estimate:\n\\[\n\\mu_1-\\mu_2\n\\]\nA natural statistic is:\n\\[\n\\bar{x}_1-\\bar{x}_2\n\\]\n\n\n\nCase 1 \\(\\sigma_1\\) and \\(\\sigma_2\\) known\nUse a \\(z\\) interval.\nRare in practice.\n\n\nCase 2 \\(\\sigma_1\\) and \\(\\sigma_2\\) unknown, but assumed equal\nUse a pooled two-sample \\(t\\) interval.\n\n\nCase 3 \\(\\sigma_1\\) and \\(\\sigma_2\\) unknown and assumed unequal\nUse Welch’s two-sample \\(t\\) interval."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#difference-of-means-known-sigma_1-and-sigma_2",
@@ -2265,7 +2265,7 @@
     "href": "Chapter Slides/chapter5-slides.html#example-1-known-sigma_1-and-sigma_2",
     "title": "STA258",
     "section": "Example 1: Known \\(\\sigma_1\\) and \\(\\sigma_2\\)",
-    "text": "Example 1: Known \\(\\sigma_1\\) and \\(\\sigma_2\\)\n\nSuppose final marks in the same course are compared between two campuses.\nUTSG: \\(n_1=64\\), \\(\\bar{x}_1=76\\), known \\(\\sigma_1=10\\).\nUTM: \\(n_2=81\\), \\(\\bar{x}_2=72\\), known \\(\\sigma_2=12\\).\nConstruct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\\[\n\\bar{x}_1-\\bar{x}_2=4\n\\]\n\\[\nSE=\\sqrt{\\frac{10^2}{64}+\\frac{12^2}{81}}=1.827\n\\]\n\\[\n4\\pm1.96(1.827)=(0.42,7.58)\n\\]\n\nWe are 95% confident that the UTSG population mean is between 0.42 and 7.58 marks higher than the UTM population mean."
+    "text": "Example 1: Known \\(\\sigma_1\\) and \\(\\sigma_2\\)\n\n\n\nA course coordinator wants to compare average final exam marks for the same large first-year course offered on two campuses.\nBecause this course has been offered many times before, the population standard deviations are treated as known.\n\n\nCampus data\nGroup 1: UTSG students\n\\(n_1=64\\), \\(\\bar{x}_1=76\\), known \\(\\sigma_1=10\\)\nGroup 2: UTM students\n\\(n_2=81\\), \\(\\bar{x}_2=72\\), known \\(\\sigma_2=12\\)\n\n\n\n\nWhat are we estimating?\nConstruct a 95% confidence interval for:\n\\[\n\\mu_1-\\mu_2\n\\]\nThis is the difference in population mean final exam marks.\n\n\nInterpret the order first\nThe order is UTSG minus UTM.\nSo a positive interval would mean the UTSG population mean is higher than the UTM population mean."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#difference-of-means-equal-unknown-variances",
@@ -2293,7 +2293,7 @@
     "href": "Chapter Slides/chapter5-slides.html#difference-of-means-unequal-unknown-variances",
     "title": "STA258",
     "section": "Difference of Means: Unequal Unknown Variances",
-    "text": "Difference of Means: Unequal Unknown Variances\n\nIf the population variances are unknown and are not assumed equal, use Welch’s two-sample \\(t\\) interval:\n\\[\n(\\bar{x}_1 - \\bar{x}_2)\n\\pm\nt_{1-\\alpha/2,\\,df}\n\\sqrt{\n\\frac{s_1^2}{n_1}\n+\n\\frac{s_2^2}{n_2}\n}\n\\]\nThis estimates:\n\\[\n\\mu_1 - \\mu_2\n\\]\nwhen the two samples are independent and the equal-variance assumption is not reasonable.\n\n\nCourse note. Welch’s method is the more flexible default when the two sample variances look meaningfully different."
+    "text": "Difference of Means: Unequal Unknown Variances\n\nIf the population variances are unknown and are assumed unequal, use Welch’s two-sample \\(t\\) interval:\n\\[\n(\\bar{x}_1 - \\bar{x}_2)\n\\pm\nt_{1-\\alpha/2,\\,df}\n\\sqrt{\n\\frac{s_1^2}{n_1}\n+\n\\frac{s_2^2}{n_2}\n}\n\\]\nThis estimates:\n\\[\n\\mu_1 - \\mu_2\n\\]\nwhen the two samples are independent and the equal-variance assumption is not reasonable.\n\n\nCourse note. Welch’s method is the more flexible default when the two sample variances look meaningfully different."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-1-welch-two-sample-t-interval",
@@ -2504,5 +2504,110 @@
     "title": "STA258",
     "section": "",
     "text": "Question\n\n\nWhen planning a confidence interval for a population proportion, no prior estimate of \\(p\\) is available. What value should we use for \\(p^*\\)?\n\n\n\n\n\\(p^*=0\\)\n\\(p^*=0.25\\)\n\\(p^*=0.5\\)\n\\(p^*=1\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-1-calculation",
+    "href": "Chapter Slides/chapter5-slides.html#example-1-calculation",
+    "title": "STA258",
+    "section": "Example 1: Calculation",
+    "text": "Example 1: Calculation\n\n\n\nStep 1: Point estimate\n\\[\n\\bar{x}_1-\\bar{x}_2=76-72=4\n\\]\n\n\nStep 2: Standard error\n\\[\nSE=\n\\sqrt{\n\\frac{10^2}{64}\n+\n\\frac{12^2}{81}\n}\n=1.827\n\\]\n\n\n\n\nStep 3: Critical value\nFor a 95% confidence interval:\n\\[\nz^*=1.96\n\\]\n\n\nStep 4: Confidence interval\n\\[\n4\\pm1.96(1.827)\n=\n(0.42,\\;7.58)\n\\]\n\n\n\n\nWe are 95% confident that the UTSG population mean final exam mark is between 0.42 and 7.58 marks higher than the UTM population mean final exam mark."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma_1-and-sigma_2",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma_1-and-sigma_2",
+    "title": "STA258",
+    "section": "Example: Known \\(\\sigma_1\\) and \\(\\sigma_2\\)",
+    "text": "Example: Known \\(\\sigma_1\\) and \\(\\sigma_2\\)\n\n\n\nA course coordinator wants to compare average final exam marks for the same large first-year course offered on two campuses.\nBecause the course has been offered many times before, the population standard deviations are treated as known.\n\nGroup 1: UTSG students\n\\(n_1=64\\), \\(\\bar{x}_1=76\\), known \\(\\sigma_1=10\\)\nGroup 2: UTM students\n\\(n_2=81\\), \\(\\bar{x}_2=72\\), known \\(\\sigma_2=12\\)\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is UTSG minus UTM, so positive values mean the UTSG population mean final exam mark is higher.\n\n\n\n\nCalculation\n\\[\n\\begin{aligned}\n\\bar{x}_1-\\bar{x}_2\n&=76-72 \\\\\n&=4\n\\end{aligned}\n\\]\n\\[\n\\begin{aligned}\nSE\n&=\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n} \\\\[0.25em]\n&=\n\\sqrt{\n\\frac{10^2}{64}\n+\n\\frac{12^2}{81}\n} \\\\[0.25em]\n&=1.827\n\\end{aligned}\n\\]\n\\[\nz^*=1.96\n\\]\n\\[\n\\begin{aligned}\n(\\bar{x}_1-\\bar{x}_2)\\pm z^*SE\n&=\n4\\pm1.96(1.827) \\\\\n&=\n(0.42,\\;7.58)\n\\end{aligned}\n\\]\n\n\nWe are 95% confident that the UTSG population mean final exam mark is between 0.42 and 7.58 marks higher than the UTM population mean final exam mark."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma_1-and-sigma_2-calculation",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma_1-and-sigma_2-calculation",
+    "title": "STA258",
+    "section": "Example: Known \\(\\sigma_1\\) and \\(\\sigma_2\\) Calculation",
+    "text": "Example: Known \\(\\sigma_1\\) and \\(\\sigma_2\\) Calculation\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=76-72=4\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n}\n=\n\\sqrt{\n\\frac{10^2}{64}\n+\n\\frac{12^2}{81}\n}\n=1.827\n\\]\n\\[\nz^*=1.96\n\\]\n\\[\n(\\bar{x}_1-\\bar{x}_2)\\pm z^*SE\n=\n4\\pm1.96(1.827)\n=\n(0.42,\\;7.58)\n\\]\n\n\nWe are 95% confident that the UTSG population mean final exam mark is between 0.42 and 7.58 marks higher than the UTM population mean final exam mark."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma_1-and-sigma_2-1",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma_1-and-sigma_2-1",
+    "title": "STA258",
+    "section": "Example: Known \\(\\sigma_1\\) and \\(\\sigma_2\\)",
+    "text": "Example: Known \\(\\sigma_1\\) and \\(\\sigma_2\\)\n\n\n\nA course coordinator wants to compare average final exam marks for the same large first-year course offered on two campuses.\nBecause the course has been offered many times before, the population standard deviations are treated as known.\n\nGroup 1: UTSG students\n\\(n_1=64\\), \\(\\bar{x}_1=76\\), known \\(\\sigma_1=10\\)\nGroup 2: UTM students\n\\(n_2=81\\), \\(\\bar{x}_2=72\\), known \\(\\sigma_2=12\\)\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is UTSG minus UTM, so positive values mean the UTSG population mean final exam mark is higher.\n\n\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=76-72=4\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n}\n=\n\\sqrt{\n\\frac{10^2}{64}\n+\n\\frac{12^2}{81}\n}\n=1.827\n\\]\n\\[\nz^*=1.96\n\\]\n\\[\n(\\bar{x}_1-\\bar{x}_2)\\pm z^*SE\n=\n4\\pm1.96(1.827)\n=\n(0.42,\\;7.58)\n\\]\n\n\nWe are 95% confident that the UTSG population mean final exam mark is between 0.42 and 7.58 marks higher than the UTM population mean final exam mark."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-wireless-earbud-battery-life-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-wireless-earbud-battery-life-comparison",
+    "title": "STA258",
+    "section": "Example: Wireless Earbud Battery-Life Comparison",
+    "text": "Example: Wireless Earbud Battery-Life Comparison\n\n\n\nA tech reviewer wants to compare average battery life for two wireless earbud brands that students might use while commuting, studying at the library, or going to the gym.\nEach pair is tested under the same conditions: same volume level, same audio playlist, and same room temperature.\nAssume the two population variances are reasonable to treat as equal.\n\nGroup 1: Brand A earbuds\n\\(n_1=12\\), \\(\\bar{x}_1=52.4\\) hours, \\(s_1=6.1\\)\nGroup 2: Brand B earbuds\n\\(n_2=10\\), \\(\\bar{x}_2=47.8\\) hours, \\(s_2=5.4\\)\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is Brand A minus Brand B, so positive values mean Brand A has the higher population mean battery life.\n\n\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=52.4-47.8=4.6\n\\]\n\\[\n\\begin{aligned}\ns_p^2\n&=\n\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2} \\\\[0.25em]\n&=\n\\frac{11(6.1^2)+9(5.4^2)}{20} \\\\[0.25em]\n&=33.493,\n\\qquad\ns_p=5.787\n\\end{aligned}\n\\]\n\\[\nSE=\ns_p\\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}\n=\n5.787\\sqrt{\\frac{1}{12}+\\frac{1}{10}}\n=2.476\n\\]\n\\[\nt^*_{20}=2.086\n\\]\n\\[\n\\begin{aligned}\n(\\bar{x}_1-\\bar{x}_2)\\pm t^*SE\n&=\n4.6\\pm2.086(2.476) \\\\\n&=\n(-0.57,\\;9.77)\n\\end{aligned}\n\\]\n\n\nWe are 95% confident that Brand A’s population mean battery life is between 0.57 hours lower and 9.77 hours higher than Brand B’s population mean battery life."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-earbud-battery-life-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-earbud-battery-life-comparison",
+    "title": "STA258",
+    "section": "Example: Earbud Battery-Life Comparison",
+    "text": "Example: Earbud Battery-Life Comparison\n\n\nA tech reviewer wants to compare average battery life for two wireless earbud brands that students might use while commuting, studying, or working out.\nEach pair is tested under the same conditions: same volume, same audio, and same room temperature.\nAssume the two population variances are reasonable to treat as equal.\n\nGroup 1: Brand A earbuds\n\\(n_1=12\\), \\(\\bar{x}_1=52.4\\) hours, \\(s_1=6.1\\)\nGroup 2: Brand B earbuds\n\\(n_2=10\\), \\(\\bar{x}_2=47.8\\) hours, \\(s_2=5.4\\)\n\n\nCalculation\n\\[\n{\\large \\bar{x}_1-\\bar{x}_2=52.4-47.8=4.6}\n\\]\n\\[\n{\\large\ns_p^2=\n\\frac{(11)(6.1^2)+(9)(5.4^2)}{20}\n=33.588,\n\\qquad\ns_p=5.795\n}\n\\]\n\\[\n{\\large\nSE=\n5.795\\sqrt{\\frac{1}{12}+\\frac{1}{10}}\n=2.481\n}\n\\]\n\\[\n{\\large\ndf=20,\n\\qquad\nt^*=2.086\n}\n\\]\n\\[\n{\\large\n4.6\\pm2.086(2.481)=(-0.58,\\;9.78)\n}\n\\]\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is Brand A minus Brand B, so positive values mean Brand A has the higher population mean battery life.\n\n\nWe are 95% confident that Brand A’s population mean battery life is between 0.58 hours lower and 9.78 hours higher than Brand B’s population mean battery life."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-exam-marks-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-exam-marks-comparison",
+    "title": "STA258",
+    "section": "Example: Exam marks comparison",
+    "text": "Example: Exam marks comparison\n\n\n\nA course coordinator wants to compare average final exam marks for the same large first-year course offered on two campuses.\nBecause the course has been offered many times before, the population standard deviations are treated as known.\n\nGroup 1: UTSG students\n\\(n_1=64\\), \\(\\bar{x}_1=76\\), known \\(\\sigma_1=10\\)\nGroup 2: UTM students\n\\(n_2=81\\), \\(\\bar{x}_2=72\\), known \\(\\sigma_2=12\\)\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is UTSG minus UTM, so positive values mean the UTSG population mean final exam mark is higher.\n\n\n\n\nCalculation\n\\[\n\\begin{aligned}\n\\bar{x}_1-\\bar{x}_2\n&=76-72 \\\\\n&=4\n\\end{aligned}\n\\]\n\\[\n\\begin{aligned}\nSE\n&=\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n} \\\\[0.25em]\n&=\n\\sqrt{\n\\frac{10^2}{64}\n+\n\\frac{12^2}{81}\n} \\\\[0.25em]\n&=1.827\n\\end{aligned}\n\\]\n\\[\nz^*=1.96\n\\]\n\\[\n\\begin{aligned}\n(\\bar{x}_1-\\bar{x}_2)\\pm z^*SE\n&=\n4\\pm1.96(1.827) \\\\\n&=\n(0.42,\\;7.58)\n\\end{aligned}\n\\]\n\n\nWe are 95% confident that the UTSG population mean final exam mark is between 0.42 and 7.58 marks higher than the UTM population mean final exam mark."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-ai-practice-tool-vs-review-sheet",
+    "href": "Chapter Slides/chapter5-slides.html#example-ai-practice-tool-vs-review-sheet",
+    "title": "STA258",
+    "section": "Example: AI Practice Tool vs Review Sheet",
+    "text": "Example: AI Practice Tool vs Review Sheet\n\n\n\nAn instructor wants to compare two midterm review formats.\nOne group of students uses an online practice tool that gives instant feedback after each question. Another group uses a traditional PDF review sheet with solutions posted afterward.\nAssume the two population variances are reasonable to treat as equal.\n\nGroup 1: Online practice tool\n\\(n_1=15\\), \\(\\bar{x}_1=84.2\\), \\(s_1=7.5\\)\nGroup 2: PDF review sheet\n\\(n_2=14\\), \\(\\bar{x}_2=78.6\\), \\(s_2=6.8\\)\n\n\nTarget parameter\nConstruct a 90% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is online practice tool minus PDF review sheet, so positive values mean the online tool has the higher population mean midterm score.\n\n\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=84.2-78.6=5.6\n\\]\n\\[\n\\begin{aligned}\ns_p^2\n&=\n\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2} \\\\[0.25em]\n&=\n\\frac{14(7.5^2)+13(6.8^2)}{27} \\\\[0.25em]\n&=51.430,\n\\qquad\ns_p=7.171\n\\end{aligned}\n\\]\n\\[\nSE=\ns_p\\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}\n=\n7.171\\sqrt{\\frac{1}{15}+\\frac{1}{14}}\n=2.665\n\\]\n\\[\nt^*_{27}=1.703\n\\]\n\\[\n\\begin{aligned}\n(\\bar{x}_1-\\bar{x}_2)\\pm t^*SE\n&=\n5.6\\pm1.703(2.665) \\\\\n&=\n(1.06,\\;10.14)\n\\end{aligned}\n\\]\n\n\nWe are 90% confident that the online practice tool’s population mean midterm score is between 1.06 and 10.14 points higher than the PDF review sheet’s population mean score."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-practice-app-vs-review-sheet",
+    "href": "Chapter Slides/chapter5-slides.html#example-practice-app-vs-review-sheet",
+    "title": "STA258",
+    "section": "Example: Practice App vs Review Sheet",
+    "text": "Example: Practice App vs Review Sheet\n\n\n\nAn instructor wants to compare two ways students prepare for a midterm.\nOne group uses an online practice app with instant feedback after each question. Another group uses a traditional PDF review sheet with solutions posted afterward.\nAssume the two population variances are reasonable to treat as equal.\n\nGroup 1: Online practice app\n\\(n_1=15\\), \\(\\bar{x}_1=84.2\\), \\(s_1=7.5\\)\nGroup 2: PDF review sheet\n\\(n_2=14\\), \\(\\bar{x}_2=78.6\\), \\(s_2=6.8\\)\n\n\nTarget parameter\nConstruct a 90% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is practice app minus review sheet, so positive values mean the practice app has the higher population mean midterm score.\n\n\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=84.2-78.6=5.6\n\\]\n\\[\ns_p^2\n=\n\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\n\\]\n\\[\n=\n\\frac{14(7.5^2)+13(6.8^2)}{27}\n=\n51.430,\n\\qquad\ns_p=7.171\n\\]\n\\[\nSE=\n7.171\\sqrt{\\frac{1}{15}+\\frac{1}{14}}\n=\n2.665\n\\]\n\\[\nt^*_{27}=1.703\n\\]\n\\[\n5.6\\pm1.703(2.665)\n=\n(1.06,\\;10.14)\n\\]\n\n\nWe are 90% confident that the online practice app’s population mean midterm score is between 1.06 and 10.14 points higher than the PDF review sheet’s population mean score."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-campus-commute-time-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-campus-commute-time-comparison",
+    "title": "STA258",
+    "section": "Example: Campus Commute-Time Comparison",
+    "text": "Example: Campus Commute-Time Comparison\n\n\n\nA student services office wants to compare average commute times for two groups of students coming to campus.\nOne group mainly uses public transit. The other group mainly drives or gets dropped off near campus.\nThe sample standard deviations are noticeably different, so equal population variances are not assumed.\n\nGroup 1: Public transit commuters\n\\(n_1=25\\), \\(\\bar{x}_1=42\\) minutes, \\(s_1=14\\)\nGroup 2: Car/drop-off commuters\n\\(n_2=30\\), \\(\\bar{x}_2=35\\) minutes, \\(s_2=9\\)\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is public transit minus car/drop-off, so positive values mean public transit commuters have the higher population mean commute time.\n\n\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=42-35=7\n\\]\n\\[\nSE\n=\n\\sqrt{\n\\frac{s_1^2}{n_1}\n+\n\\frac{s_2^2}{n_2}\n}\n=\n\\sqrt{\n\\frac{14^2}{25}\n+\n\\frac{9^2}{30}\n}\n=\n3.245\n\\]\n\\[\ndf\\approx38.6,\n\\qquad\nt^*\\approx2.023\n\\]\n\\[\n(\\bar{x}_1-\\bar{x}_2)\\pm t^*SE\n=\n7\\pm2.023(3.245)\n=\n(0.43,\\;13.57)\n\\]\n\n\nWe are 95% confident that public transit commuters have a population mean commute time between 0.43 and 13.57 minutes longer than car/drop-off commuters."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-food-delivery-vs-meal-prep-spending",
+    "href": "Chapter Slides/chapter5-slides.html#example-food-delivery-vs-meal-prep-spending",
+    "title": "STA258",
+    "section": "Example: Food Delivery vs Meal Prep Spending",
+    "text": "Example: Food Delivery vs Meal Prep Spending\n\n\nA budgeting app wants to compare average weekly food spending for two types of young adults.\nOne group often orders from food delivery apps. The other group usually meal preps or cooks at home.\nThe sample standard deviations are noticeably different, so equal population variances are not assumed.\n\nGroup 1: Food delivery users\n\\(n_1=18\\), \\(\\bar{x}_1=96\\) dollars, \\(s_1=22\\)\nGroup 2: Meal prep users\n\\(n_2=22\\), \\(\\bar{x}_2=82\\) dollars, \\(s_2=16\\)\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=96-82=14\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{s_1^2}{n_1}\n+\n\\frac{s_2^2}{n_2}\n}\n=\n\\sqrt{\n\\frac{22^2}{18}\n+\n\\frac{16^2}{22}\n}\n=\n6.207\n\\]\n\\[\ndf\\approx 30.3,\n\\qquad\nt^*\\approx1.697\n\\]\n\\[\n\\begin{aligned}\n(\\bar{x}_1-\\bar{x}_2)\\pm t^*SE\n&=\n14\\pm1.697(6.207) \\\\\n&=\n(3.47,\\;24.53)\n\\end{aligned}\n\\]\n\n\nTarget parameter\nConstruct a 90% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is food delivery users minus meal prep users, so positive values mean food delivery users have the higher population mean weekly food spending.\n\n\nWe are 90% confident that food delivery users spend between 3.47 dollars and 24.53 dollars more per week on food, on average, than meal prep users."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-short-video-screen-time-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-short-video-screen-time-comparison",
+    "title": "STA258",
+    "section": "Example: Short-Video Screen-Time Comparison",
+    "text": "Example: Short-Video Screen-Time Comparison\n\n\nA digital wellness app wants to compare average daily screen time for two types of video-app users.\nOne group mainly watches short-form videos. The other group mainly watches longer videos or streams.\nBecause the app has years of historical usage data, the population standard deviations are treated as known.\n\nGroup 1: Short-form video users\n\\(n_1=64\\), \\(\\bar{x}_1=76\\) minutes, known \\(\\sigma_1=10\\)\nGroup 2: Long-form video users\n\\(n_2=81\\), \\(\\bar{x}_2=72\\) minutes, known \\(\\sigma_2=12\\)\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2=76-72=4\n\\]\n\\[\n\\begin{aligned}\nSE\n&=\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n} \\\\[0.25em]\n&=\n\\sqrt{\n\\frac{10^2}{64}\n+\n\\frac{12^2}{81}\n}\n=\n1.827\n\\end{aligned}\n\\]\n\\[\nz^*=1.96\n\\]\n\\[\n\\begin{aligned}\n(\\bar{x}_1-\\bar{x}_2)\\pm z^*SE\n&=\n4\\pm1.96(1.827) \\\\\n&=\n(0.42,\\;7.58)\n\\end{aligned}\n\\]\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is short-form users minus long-form users, so positive values mean short-form users have the higher population mean daily screen time.\n\n\nWe are 95% confident that short-form video users average between 0.42 and 7.58 minutes more per day of screen time than long-form video users."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-video-game-playtime-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-video-game-playtime-comparison",
+    "title": "STA258",
+    "section": "Example: Video-Game Playtime Comparison",
+    "text": "Example: Video-Game Playtime Comparison\n\n\nA gaming platform wants to compare average daily playtime for two types of players.\nOne group mainly plays competitive multiplayer games. The other group mainly plays casual or single-player games.\nBecause the platform has years of historical usage data, the population standard deviations are treated as known.\n\nGroup 1: Competitive players\n\\(n_1=64\\), \\(\\bar{x}_1=76\\) minutes, known \\(\\sigma_1=10\\)\nGroup 2: Casual/single-player users\n\\(n_2=81\\), \\(\\bar{x}_2=72\\) minutes, known \\(\\sigma_2=12\\)\n\n\nCalculation\n\n\\[\n\\bar{x}_1-\\bar{x}_2=76-72=4\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{10^2}{64}\n+\n\\frac{12^2}{81}\n}\n=\n1.827\n\\]\n\\[\nz^*=1.96\n\\]\n\\[\n4\\pm1.96(1.827)=(0.42,\\;7.58)\n\\]\n\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is competitive players minus casual/single-player users, so positive values mean competitive players have the higher population mean daily playtime.\n\n\nWe are 95% confident that competitive players average between 0.42 and 7.58 minutes more per day of playtime than casual/single-player users."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-fitness-app-calorie-burn-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-fitness-app-calorie-burn-comparison",
+    "title": "STA258",
+    "section": "Example: Fitness App Calorie-Burn Comparison",
+    "text": "Example: Fitness App Calorie-Burn Comparison\n\n\nA fitness reviewer wants to compare average calories burned during two types of 30-minute home workouts.\nOne group follows a high-intensity workout app. The other group follows a lower-intensity guided stretching and strength routine.\nAssume the two population variances are reasonable to treat as equal.\n\nGroup 1: High-intensity app workout\n\\(n_1=15\\), \\(\\bar{x}_1=84.2\\) calories, \\(s_1=7.5\\)\nGroup 2: Guided strength/stretch routine\n\\(n_2=14\\), \\(\\bar{x}_2=78.6\\) calories, \\(s_2=6.8\\)\n\n\nCalculation\n\\[\n{\\large \\bar{x}_1-\\bar{x}_2=84.2-78.6=5.6}\n\\]\n\\[\n{\\large\ns_p^2=\n\\frac{(14)(7.5^2)+(13)(6.8^2)}{27}\n=51.430,\n\\qquad\ns_p=7.171\n}\n\\]\n\\[\n{\\large\nSE=\n7.171\\sqrt{\\frac{1}{15}+\\frac{1}{14}}\n=2.665\n}\n\\]\n\\[\n{\\large\ndf=27,\n\\qquad\nt^*=1.703\n}\n\\]\n\\[\n{\\large\n5.6\\pm1.703(2.665)=(1.06,\\;10.14)\n}\n\\]\n\n\nTarget parameter\nConstruct a 90% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is high-intensity app workout minus guided routine, so positive values mean the high-intensity app workout has the higher population mean calories burned.\n\n\nWe are 90% confident that the high-intensity app workout burns between 1.06 and 10.14 more calories, on average, than the guided strength/stretch routine."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-food-delivery-wait-time-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-food-delivery-wait-time-comparison",
+    "title": "STA258",
+    "section": "Example: Food-Delivery Wait-Time Comparison",
+    "text": "Example: Food-Delivery Wait-Time Comparison\n\n\nA food-delivery app wants to compare average wait times for two types of orders placed during the dinner rush.\nOne group uses standard delivery. The other group uses scheduled pickup.\nThe sample standard deviations are noticeably different, so equal population variances are not assumed.\n\nGroup 1: Standard delivery orders\n\\(n_1=25\\), \\(\\bar{x}_1=42\\) minutes, \\(s_1=14\\)\nGroup 2: Scheduled pickup orders\n\\(n_2=30\\), \\(\\bar{x}_2=35\\) minutes, \\(s_2=9\\)\n\n\nCalculation\n\\[\n{\\Large \\bar{x}_1-\\bar{x}_2=42-35=7}\n\\]\n\\[\n{\\Large\nSE=\n\\sqrt{\n\\frac{14^2}{25}\n+\n\\frac{9^2}{30}\n}\n=\n3.247\n}\n\\]\n\\[\n{\\Large\ndf=\\min(25-1,\\;30-1)=24\n}\n\\]\n\\[\n{\\Large\nt^*_{24}=2.064\n}\n\\]\n\\[\n{\\Large\n7\\pm2.064(3.247)=(0.30,\\;13.70)\n}\n\\]\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(\\mu_1-\\mu_2\\).\nThe order is standard delivery minus scheduled pickup, so positive values mean standard delivery orders have the higher population mean wait time.\n\n\nWe are 95% confident that standard delivery orders take between 0.30 and 13.70 minutes longer, on average, than scheduled pickup orders."
   }
 ]

@@ -1422,13 +1422,21 @@ sample_size_t_iter <- function(s, E, conf = 0.95, max_iter = 20) {
 A **two-sample confidence interval** estimates a population quantity that
 compares two groups.
 
-The groups must be clearly labelled, because the order matters:
+The groups must be clearly labelled, because the order matters.
+
+For mean and proportion differences, the comparison is written as:
 
 $$
 \text{Group 1} - \text{Group 2}
 $$
 
-Changing the order changes the sign of the interval.
+For variance ratios, the comparison is written as:
+
+$$
+\frac{\text{Group 1}}{\text{Group 2}}
+$$
+
+Changing the order changes the interpretation.
 :::
 
 :::::: three-col
@@ -1439,7 +1447,7 @@ $$
 \mu_1-\mu_2
 $$
 
-Used for comparing two population averages.
+Compares two population averages.
 :::
 
 ::: {.stat-card .fragment}
@@ -1449,7 +1457,7 @@ $$
 p_1-p_2
 $$
 
-Used for comparing two population percentages.
+Compares two population percentages.
 :::
 
 ::: {.stat-card .fragment}
@@ -1459,7 +1467,7 @@ $$
 \frac{\sigma_1^2}{\sigma_2^2}
 $$
 
-Used for comparing two population variances.
+Compares two population variances.
 :::
 ::::::
 
@@ -1497,7 +1505,7 @@ Use a **pooled two-sample $t$ interval**.
 :::
 
 ::: {.stat-card .fragment}
-[Case 3]{.label} $\sigma_1$ and $\sigma_2$ unknown and not assumed equal
+[Case 3]{.label} $\sigma_1$ and $\sigma_2$ unknown and assumed unequal
 
 Use **Welch's two-sample $t$ interval**.
 :::
@@ -1530,32 +1538,76 @@ population standard deviations are usually unknown.
 
 ------------------------------------------------------------------------
 
-## Example 1: Known $\sigma_1$ and $\sigma_2$ {.scrollable .known-sigma-example}
+## Example: Video-Game Playtime Comparison
 
-::: {.taskbox}
-Suppose final marks in the same course are compared between two campuses.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-UTSG: $n_1=64$, $\bar{x}_1=76$, known $\sigma_1=10$.  
-UTM: $n_2=81$, $\bar{x}_2=72$, known $\sigma_2=12$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
+A gaming platform wants to compare average daily playtime for two types
+of players.
 
-Construct a 95% CI for $\mu_1-\mu_2$.
+One group mainly plays competitive multiplayer games. The other group
+mainly plays casual or single-player games.
+
+Because the platform has years of historical usage data, the population
+standard deviations are treated as known.
+
+<br>
+
+**Group 1: Competitive players**  
+$n_1=64$, $\bar{x}_1=76$ minutes, known $\sigma_1=10$
+
+**Group 2: Casual/single-player users**  
+$n_2=81$, $\bar{x}_2=72$ minutes, known $\sigma_2=12$
 :::
 
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.95em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+<div style="font-size: 1.18em; line-height: 1.14;">
+
 $$
-\bar{x}_1-\bar{x}_2=4
+\bar{x}_1-\bar{x}_2=76-72=4
 $$
 
 $$
-SE=\sqrt{\frac{10^2}{64}+\frac{12^2}{81}}=1.827
+SE=
+\sqrt{
+\frac{10^2}{64}
++
+\frac{12^2}{81}
+}
+=
+1.827
 $$
 
 $$
-4\pm1.96(1.827)=(0.42,7.58)
+z^*=1.96
 $$
 
-::: {.examplebox}
-We are 95% confident that the UTSG population mean is between 0.42 and 7.58 marks higher than the UTM population mean.
+$$
+4\pm1.96(1.827)=(0.42,\;7.58)
+$$
+
+</div>
 :::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
+
+Construct a 95% confidence interval for $\mu_1-\mu_2$.
+
+The order is **competitive players minus casual/single-player users**, so
+positive values mean competitive players have the higher population mean
+daily playtime.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that competitive players average between **0.42 and
+7.58 minutes more per day** of playtime than casual/single-player users.
+:::
+
+::::
 
 ------------------------------------------------------------------------
 
@@ -1590,72 +1642,172 @@ Otherwise, use Welch's interval.
 
 ------------------------------------------------------------------------
 
-## Example 1: Pooled Two-Sample $t$ Interval {.scrollable .pooled-example-compact}
+## Example: Earbud Battery-Life Comparison
 
-::: {.taskbox}
-A researcher compares battery life for two brands of the same device.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Brand A: $n_1=12$, $\bar{x}_1=52.4$, $s_1=6.1$.  
-Brand B: $n_2=10$, $\bar{x}_2=47.8$, $s_2=5.4$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
+A tech reviewer wants to compare average battery life for two wireless
+earbud brands that students might use while commuting, studying, or
+working out.
 
-Assume equal population variances. Construct a 95% CI for $\mu_1-\mu_2$.
+Each pair is tested under the same conditions: same volume, same audio,
+and same room temperature.
+
+Assume the two population variances are reasonable to treat as equal.
+
+<br>
+
+**Group 1: Brand A earbuds**  
+$n_1=12$, $\bar{x}_1=52.4$ hours, $s_1=6.1$
+
+**Group 2: Brand B earbuds**  
+$n_2=10$, $\bar{x}_2=47.8$ hours, $s_2=5.4$
 :::
 
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
 $$
-s_p^2=\frac{11(6.1^2)+9(5.4^2)}{20}=33.493,\quad s_p=5.787
+{\large \bar{x}_1-\bar{x}_2=52.4-47.8=4.6}
 $$
 
 $$
-SE=5.787\sqrt{\frac{1}{12}+\frac{1}{10}}=2.476,\quad t^*_{20}=2.086
+{\large
+s_p^2=
+\frac{(11)(6.1^2)+(9)(5.4^2)}{20}
+=33.588,
+\qquad
+s_p=5.795
+}
 $$
 
 $$
-4.6\pm2.086(2.476)=(-0.57,9.77)
+{\large
+SE=
+5.795\sqrt{\frac{1}{12}+\frac{1}{10}}
+=2.481
+}
 $$
 
-::: {.examplebox}
-Because the interval contains 0, the data do not clearly show a nonzero mean battery-life difference.
+$$
+{\large
+df=20,
+\qquad
+t^*=2.086
+}
+$$
+
+$$
+{\large
+4.6\pm2.086(2.481)=(-0.58,\;9.78)
+}
+$$
 :::
 
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
+
+Construct a 95% confidence interval for $\mu_1-\mu_2$.
+
+The order is **Brand A minus Brand B**, so positive values mean Brand A
+has the higher population mean battery life.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that Brand A's population mean battery life is
+between **0.58 hours lower and 9.78 hours higher** than Brand B's
+population mean battery life.
+:::
+
+::::
 ------------------------------------------------------------------------
 
-## Example 2: Pooled Two-Sample $t$ Interval {.scrollable}
+## Example: Fitness App Calorie-Burn Comparison
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Method A: $n_1=15$, $\bar{x}_1=84.2$, $s_1=7.5$.  
-Method B: $n_2=14$, $\bar{x}_2=78.6$, $s_2=6.8$.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Assume equal variances. Construct a 90% CI for $\mu_1-\mu_2$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
+A fitness reviewer wants to compare average calories burned during two
+types of 30-minute home workouts.
+
+One group follows a high-intensity workout app. The other group follows
+a lower-intensity guided stretching and strength routine.
+
+Assume the two population variances are reasonable to treat as equal.
+
+<br>
+
+**Group 1: High-intensity app workout**  
+$n_1=15$, $\bar{x}_1=84.2$ calories, $s_1=7.5$
+
+**Group 2: Guided strength/stretch routine**  
+$n_2=14$, $\bar{x}_2=78.6$ calories, $s_2=6.8$
 :::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+{\large \bar{x}_1-\bar{x}_2=84.2-78.6=5.6}
+$$
+
+$$
+{\large
+s_p^2=
+\frac{(14)(7.5^2)+(13)(6.8^2)}{27}
+=51.430,
+\qquad
+s_p=7.171
+}
+$$
+
+$$
+{\large
+SE=
+7.171\sqrt{\frac{1}{15}+\frac{1}{14}}
+=2.665
+}
+$$
+
+$$
+{\large
+df=27,
+\qquad
+t^*=1.703
+}
+$$
+
+$$
+{\large
+5.6\pm1.703(2.665)=(1.06,\;10.14)
+}
+$$
 :::
 
-::: {.col}
-```{webr}
-#| autorun: false
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
 
-n1 <- 15; x1 <- 84.2; s1 <- 7.5
-n2 <- 14; x2 <- 78.6; s2 <- 6.8
-sp2 <- ((n1-1)*s1^2 + (n2-1)*s2^2) / (n1+n2-2)
-sp <- sqrt(sp2)
-se <- sp * sqrt(1/n1 + 1/n2)
-tstar <- qt(0.95, df = n1+n2-2)
-(x1-x2) + c(-1, 1) * tstar * se
-```
+Construct a 90% confidence interval for $\mu_1-\mu_2$.
+
+The order is **high-intensity app workout minus guided routine**, so
+positive values mean the high-intensity app workout has the higher
+population mean calories burned.
 :::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 90% confident that the high-intensity app workout burns between
+**1.06 and 10.14 more calories**, on average, than the guided
+strength/stretch routine.
+:::
+
 ::::
-
-::: {.examplebox}
-The 90% CI is approximately $(1.06,10.14)$ points. Method A appears to have a higher mean quiz score.
-:::
-
 ------------------------------------------------------------------------
 
 ## Difference of Means: Unequal Unknown Variances
 
 ::: {.defbox .fragment}
-If the population variances are **unknown** and are **not assumed equal**, use **Welch’s two-sample $t$ interval**:
+If the population variances are **unknown** and are **assumed unequal**, use **Welch’s two-sample $t$ interval**:
 
 $$
 (\bar{x}_1 - \bar{x}_2)
@@ -1718,62 +1870,166 @@ For exams in this course, use the conservative version unless told otherwise.
 
 ------------------------------------------------------------------------
 
-## Example 1: Welch Two-Sample $t$ Interval {.scrollable}
+## Example: Food-Delivery Wait-Time Comparison
 
-::: {.taskbox}
-Group 1: $n_1=25$, $\bar{x}_1=42$, $s_1=14$.  
-Group 2: $n_2=30$, $\bar{x}_2=35$, $s_2=9$.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Assume unequal variances. Construct a 95% CI for $\mu_1-\mu_2$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
+A food-delivery app wants to compare average wait times for two types of
+orders placed during the dinner rush.
+
+One group uses standard delivery. The other group uses scheduled pickup.
+
+The sample standard deviations are noticeably different, so equal
+population variances are not assumed.
+
+<br>
+
+**Group 1: Standard delivery orders**  
+$n_1=25$, $\bar{x}_1=42$ minutes, $s_1=14$
+
+**Group 2: Scheduled pickup orders**  
+$n_2=30$, $\bar{x}_2=35$ minutes, $s_2=9$
 :::
 
-$$
-SE=\sqrt{\frac{14^2}{25}+\frac{9^2}{30}}=3.245
-$$
-
-Using Welch $df\approx38.6$, $t^*\approx2.023$:
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
 
 $$
-7\pm2.023(3.245)=(0.43,13.57)
+{\Large \bar{x}_1-\bar{x}_2=42-35=7}
 $$
 
-::: {.examplebox}
-The interval is entirely positive, suggesting Group 1 has a higher mean commute time.
+$$
+{\Large
+SE=
+\sqrt{
+\frac{14^2}{25}
++
+\frac{9^2}{30}
+}
+=
+3.247
+}
+$$
+
+$$
+{\Large
+df=\min(25-1,\;30-1)=24
+}
+$$
+
+$$
+{\Large
+t^*_{24}=2.064
+}
+$$
+
+$$
+{\Large
+7\pm2.064(3.247)=(0.30,\;13.70)
+}
+$$
 :::
 
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
+
+Construct a 95% confidence interval for $\mu_1-\mu_2$.
+
+The order is **standard delivery minus scheduled pickup**, so positive
+values mean standard delivery orders have the higher population mean wait
+time.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that standard delivery orders take between **0.30
+and 13.70 minutes longer**, on average, than scheduled pickup orders.
+:::
+
+::::
 ------------------------------------------------------------------------
 
-## Example 2: Welch Two-Sample $t$ Interval {.scrollable}
+## Example: Food Delivery vs Meal Prep Spending
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Group 1: $n_1=18$, $\bar{x}_1=96$, $s_1=22$.  
-Group 2: $n_2=22$, $\bar{x}_2=82$, $s_2=16$.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Assume unequal variances. Construct a 90% CI for $\mu_1-\mu_2$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
+A budgeting app wants to compare average weekly food spending for two
+types of young adults.
+
+One group often orders from food delivery apps. The other group usually
+meal preps or cooks at home.
+
+The sample standard deviations are noticeably different, so equal
+population variances are not assumed.
+
+<br>
+
+**Group 1: Food delivery users**  
+$n_1=18$, $\bar{x}_1=96$ dollars, $s_1=22$
+
+**Group 2: Meal prep users**  
+$n_2=22$, $\bar{x}_2=82$ dollars, $s_2=16$
 :::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+\bar{x}_1-\bar{x}_2=96-82=14
+$$
+
+$$
+SE=
+\sqrt{
+\frac{s_1^2}{n_1}
++
+\frac{s_2^2}{n_2}
+}
+=
+\sqrt{
+\frac{22^2}{18}
++
+\frac{16^2}{22}
+}
+=
+6.207
+$$
+
+$$
+df\approx 30.3,
+\qquad
+t^*\approx1.697
+$$
+
+$$
+\begin{aligned}
+(\bar{x}_1-\bar{x}_2)\pm t^*SE
+&=
+14\pm1.697(6.207) \\
+&=
+(3.47,\;24.53)
+\end{aligned}
+$$
 :::
 
-::: {.col}
-```{webr}
-#| autorun: false
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
 
-n1 <- 18; x1 <- 96; s1 <- 22
-n2 <- 22; x2 <- 82; s2 <- 16
-se <- sqrt(s1^2/n1 + s2^2/n2)
-df <- (s1^2/n1 + s2^2/n2)^2 /
-  ((s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1))
-tstar <- qt(0.95, df)
-(x1 - x2) + c(-1, 1) * tstar * se
-df
-```
+Construct a 90% confidence interval for $\mu_1-\mu_2$.
+
+The order is **food delivery users minus meal prep users**, so positive
+values mean food delivery users have the higher population mean weekly
+food spending.
 :::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 90% confident that food delivery users spend between **3.47 dollars
+and 24.53 dollars more per week** on food, on average, than meal prep
+users.
+:::
+
 ::::
-
-::: {.examplebox}
-The 90% CI is approximately $(3.47,24.53)$. Group 1 appears to have a higher mean weekly food spending.
-:::
 
 ------------------------------------------------------------------------
 

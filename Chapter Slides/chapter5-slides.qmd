@@ -563,7 +563,7 @@ ci_df <- data.frame(sim = 1:num_sims) |>
 
 ci_df <- ci_df |>
   mutate(
-    colour = if_else(misses, "#f9a825", "#00695c"),
+    colour = if_else(misses, "#c62828", "#00695c"),
     status = if_else(misses, "Misses true mean", "Covers true mean"),
     hover = paste0(
       "<b>Simulation ", sim, "</b>",
@@ -580,7 +580,7 @@ plot_ly(width = 430, height = 320) |>
     y = ~sim,
     yend = ~sim,
     color = ~status,
-    colors = c("Covers true mean" = "#00695c", "Misses true mean" = "#f9a825"),
+    colors = c("Covers true mean" = "#00695c", "Misses true mean" = "#c62828"),
     line = list(width = 4),
     text = ~hover,
     hovertemplate = "%{text}<extra></extra>",

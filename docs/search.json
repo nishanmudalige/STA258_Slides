@@ -2923,7 +2923,7 @@
     "href": "Chapter Slides/chapter9-slides.html#section-1",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nA dataset has \\(r=-0.91\\). What does this suggest?\n\n\n\n\nA strong positive linear relationship\nA strong negative linear relationship\nNo linear relationship\nThe slope must be exactly \\(-0.91\\)"
+    "text": "Question\n\n\nIn simple linear regression, what does \\(R^2\\) measure?\n\n\n\n\nThe slope of the fitted line\nThe standard error of the residuals\nThe proportion of variation in the response explained by the fitted linear model\nThe number of observations used in the model"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#inference-for-simple-linear-regression",
@@ -3028,7 +3028,7 @@
     "href": "Chapter Slides/chapter9-slides.html#section-2",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nIn simple linear regression, what does \\(R^2\\) measure?\n\n\n\n\nThe slope of the fitted line\nThe standard error of the residuals\nThe proportion of variation in the response explained by the fitted linear model\nThe number of observations used in the model"
+    "text": "Question\n\n\nFor testing whether a simple linear regression slope is zero, what is the usual reference distribution?\n\n\n\n\nStandard normal distribution\nChi-square distribution with \\(n-1\\) degrees of freedom\nt distribution with \\(n-2\\) degrees of freedom\nF distribution with \\(n\\) degrees of freedom only"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-full-regression-workflow",
@@ -3742,6 +3742,13 @@
     "href": "Chapter Slides/chapter9-slides.html#visual-positive-negative-and-weak-correlation",
     "title": "STA258",
     "section": "Visual: Positive, Negative, and Weak Correlation",
-    "text": "Visual: Positive, Negative, and Weak Correlation"
+    "text": "Visual: Positive, Negative, and Weak Correlation\n\n\n\n\n\n\n\n\n\n\n\n\n## {.quiz-question}\n\n\n::: {.callout-note icon=“false”} ## Question\n\n\nA dataset has \\(r=-0.91\\). What does this suggest? :::\n\n\n- A strong positive linear relationship - A strong negative linear relationship - No linear relationship - The slope must be exactly \\(-0.91\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-argentina-vs-france-world-cup",
+    "href": "Chapter Slides/chapter9-slides.html#example-argentina-vs-france-world-cup",
+    "title": "STA258",
+    "section": "Example: Argentina vs France World Cup",
+    "text": "Example: Argentina vs France World Cup\n\n\nA football media account studies fictional replay interest after viewers watch Argentina vs France World Cup Final highlight packages.\n\n\n\nHighlight minutes \\((x)\\)\nReplay interest \\((y)\\)\n\n\n\n\n3\n52\n\n\n4\n57\n\n\n5\n61\n\n\n6\n63\n\n\n7\n70\n\n\n8\n73\n\n\n9\n78\n\n\n10\n82\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=6.500,\n\\qquad\n\\bar{y}=67.000\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=179.000\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{179.000}{42.000}\n=\n4.262\n\\]\n\\[\n\\hat{\\beta}_0=\n67.000-4.262(6.500)\n=\n39.298\n\\]\n\\[\n\\hat{y}=39.298+4.262x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{replay interest score}\n\\]\nusing:\n\\[\nx=\\text{highlight minutes watched}\n\\]\n\n\nFor each additional minute of highlights watched, the predicted replay interest score increases by about 4.26 points."
   }
 ]

@@ -1,0 +1,100 @@
+---
+title: "Chapter 9: Simple Linear Regression"
+subtitle: "STA258 - University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter9-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter9-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 9 you'll be able to:
+
+- Describe the simple linear regression model and identify the response, predictor, intercept, slope, and error term.
+- Interpret fitted values and residuals in context.
+- Explain how least squares chooses the regression line by minimizing the sum of squared errors.
+- Compute and interpret the estimated regression equation.
+- Use covariance, correlation, and $R^2$ to describe the strength of a linear relationship.
+- Decompose variation using $SST$, $SSR$, and $SSE$.
+- Test whether the regression slope is significantly different from zero.
+- Construct and interpret confidence intervals for the slope.
+- Use residual plots to check whether a straight-line model is reasonable.
+- Use `lm()` in R to fit, summarize, diagnose, and make predictions from a regression model.
+
+## Key ideas
+
+::: {.summary-card}
+### Simple Linear Regression Model
+Simple linear regression models the relationship between one quantitative response variable $Y$ and one quantitative predictor $x$ using a straight line. The model is written as  
+$$
+Y_i = \beta_0 + \beta_1x_i + \varepsilon_i.
+$$
+:::
+
+::: {.summary-card}
+### Least Squares
+The least-squares method chooses the line that makes the residuals as small as possible overall. It does this by minimizing  
+$$
+SSE = \sum_{i=1}^{n}(y_i-\hat{y}_i)^2.
+$$
+:::
+
+::: {.summary-card}
+### Interpreting the Slope
+The slope is usually the most important part of the regression equation. It tells us the predicted change in the response variable for a one-unit increase in the predictor.
+:::
+
+::: {.summary-card}
+### Correlation and $R^2$
+Correlation describes the strength and direction of a linear relationship. The coefficient of determination, $R^2$, tells us the proportion of variation in the response explained by the fitted linear model.
+:::
+
+::: {.summary-card}
+### Inference for the Slope
+Regression inference allows us to test whether the predictor has a statistically meaningful linear relationship with the response. A common test is  
+$$
+H_0:\beta_1=0
+\qquad \text{versus} \qquad
+H_A:\beta_1\ne 0.
+$$
+:::
+
+::: {.summary-card}
+### Prediction and Diagnostics
+A fitted regression line can be used for prediction, but only after checking whether the model is reasonable. Residual plots help us detect curvature, changing spread, outliers, and other model issues.
+:::
+
+## How to use this chapter
+
+- Open the **slides** for an interactive walkthrough of simple linear regression.
+- Use the **PDF** button for an offline-friendly version.
+- Work through the electricity cost example to see the full regression workflow.
+- Try the embedded quiz questions before revealing the answer.
+- Run and edit the WebR examples to check calculations using `lm()`.
+- Use the final summary as a study guide for interpreting slope, residuals, $R^2$, confidence intervals, hypothesis tests, and predictions.

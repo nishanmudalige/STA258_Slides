@@ -2521,66 +2521,88 @@ to the original two measurements separately.
 #| message: false
 #| out-width: "100%"
 
-student <- paste("Student", 1:10)
-before <- c(68, 72, 75, 70, 66, 80, 74, 69, 77, 71)
-after <- c(73, 74, 80, 72, 70, 84, 78, 73, 80, 76)
+person <- paste("Person", 1:10)
 
-paired_long <- data.frame(
-  student = rep(student, each = 2),
-  time = rep(c("Before", "After"), times = 10),
-  score = as.vector(rbind(before, after))
+before <- c(310, 328, 346, 364, 382, 400, 418, 436, 454, 472)
+after  <- c(368, 391, 414, 432, 459, 482, 506, 529, 553, 576)
+
+person_cols <- c(
+  "#004d40", "#0d47a1", "#4a148c", "#bf360c", "#311b92",
+  "#00695c", "#ad1457", "#33691e", "#ff8f00", "#5d4037"
 )
 
-paired_long$time_num <- ifelse(paired_long$time == "Before", 1, 2)
-
 paired_segments <- data.frame(
-  student = student,
+  person = factor(person, levels = person),
   before = before,
-  after = after
+  after = after,
+  difference = after - before,
+  x_before = 1,
+  x_after = 2,
+  label_x = 2.08
+)
+
+paired_long <- data.frame(
+  person = factor(rep(person, each = 2), levels = person),
+  time = rep(c("Before routine", "After routine"), times = 10),
+  time_num = rep(c(1, 2), times = 10),
+  sleep_minutes = as.vector(rbind(before, after)),
+  difference = rep(after - before, each = 2)
 )
 
 p <- plot_ly() |>
   add_segments(
     data = paired_segments,
-    x = 1,
-    xend = 1.34,
+    x = ~x_before,
+    xend = ~x_after,
     y = ~before,
     yend = ~after,
-    line = list(color = "rgba(80,95,105,0.45)", width = 2.2),
+    line = list(color = "rgba(95,105,110,0.34)", width = 3),
     hoverinfo = "skip",
     showlegend = FALSE
   ) |>
   add_markers(
     data = paired_long,
-    x = ~ifelse(time == "Before", 1, 1.34),
-    y = ~score,
+    x = ~time_num,
+    y = ~sleep_minutes,
+    color = ~person,
+    colors = person_cols,
     marker = list(
-      color = plot_cols$main,
-      size = 8,
-      line = list(color = "white", width = 1.2)
+      size = 11,
+      line = list(color = "white", width = 1.4)
     ),
     text = ~paste0(
-      "<b>", student, "</b>",
-      "<br>", time, " score: ", score
+      "<b>", person, "</b>",
+      "<br>", time, ": ", sleep_minutes, " minutes",
+      "<br>Paired difference: +", difference, " minutes"
     ),
     hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_text(
+    data = paired_segments,
+    x = ~label_x,
+    y = ~after,
+    text = ~paste0("+", difference),
+    textfont = list(size = 10, color = "#667174"),
+    textposition = "middle right",
+    hoverinfo = "skip",
     showlegend = FALSE
   )
 
 plotly_slide_layout(
   p,
-  title = "Paired observations compare within each student",
+  title = "Grey lines connect each pair; coloured dots identify the same person",
   x_title = "",
-  y_title = "Score",
-  height = 320,
-  x_range = c(0.9, 1.44),
-  y_range = c(64, 86),
-  margin = list(l = 58, r = 18, t = 44, b = 40)
+  y_title = "Sleep minutes",
+  height = 330,
+  x_range = c(0.82, 2.24),
+  y_range = c(300, 585),
+  margin = list(l = 68, r = 42, t = 46, b = 42)
 ) |>
   layout(
     xaxis = list(
-      range = c(0.9, 1.44),
-      tickvals = c(1, 1.34),
+      range = c(0.82, 2.24),
+      tickvals = c(1, 2),
       ticktext = c("Before", "After"),
       showgrid = FALSE,
       showline = TRUE,
@@ -2590,7 +2612,8 @@ plotly_slide_layout(
       fixedrange = TRUE
     ),
     yaxis = list(
-      range = c(64, 86),
+      range = c(300, 585),
+      dtick = 50,
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
       showline = TRUE,
@@ -2608,14 +2631,11 @@ plotly_slide_layout(
     doubleClick = FALSE,
     responsive = TRUE
   )
-
 ```
 
-::: {.thinkbox}
-Each line represents one student. The paired analysis uses the within
-student change, not two unrelated groups.
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
+Each grey line connects the same person from **before** to **after**. The coloured dots identify the paired observations, and the labels show the within-person increase.
 :::
-
 ------------------------------------------------------------------------
 
 ## Example: Vitamin C and Sick Days

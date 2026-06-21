@@ -1538,73 +1538,78 @@ population standard deviations are usually unknown.
 
 ------------------------------------------------------------------------
 
-## Example: Video-Game Playtime Comparison
+## Example: USA-Canada Hockey Shot-Speed Comparison
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
-A gaming platform wants to compare average daily playtime for two types
-of players.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A sports analytics group compares slapshot speeds from a USA-Canada
+hockey rivalry skills event.
 
-One group mainly plays competitive multiplayer games. The other group
-mainly plays casual or single-player games.
-
-Because the platform has years of historical usage data, the population
-standard deviations are treated as known.
+Long-term player-tracking data gives the population standard deviations.
 
 <br>
 
-**Group 1: Competitive players**  
-$n_1=64$, $\bar{x}_1=76$ minutes, known $\sigma_1=10$
+**Group 1: Team Canada players**  
+$n_1=64,\quad \bar{x}_1=94.8,\quad \sigma_1=8$
 
-**Group 2: Casual/single-player users**  
-$n_2=81$, $\bar{x}_2=72$ minutes, known $\sigma_2=12$
+**Group 2: Team USA players**  
+$n_2=81,\quad \bar{x}_2=91.6,\quad \sigma_2=7$
+
+Construct a 95% CI for $\mu_1-\mu_2$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.95em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
-<div style="font-size: 1.18em; line-height: 1.14;">
-
 $$
-\bar{x}_1-\bar{x}_2=76-72=4
+\bar{x}_1-\bar{x}_2
+=
+94.8-91.6
+=
+3.2
 $$
 
 $$
 SE=
 \sqrt{
-\frac{10^2}{64}
+\frac{8^2}{64}
 +
-\frac{12^2}{81}
+\frac{7^2}{81}
 }
 =
-1.827
+\sqrt{1.0000+0.6049}
+=
+1.2669
 $$
 
 $$
-z^*=1.96
+3.2\pm1.96(1.2669)
+=
+3.2\pm2.48
 $$
 
 $$
-4\pm1.96(1.827)=(0.42,\;7.58)
+(0.72,\;5.68)
 $$
-
-</div>
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-Construct a 95% confidence interval for $\mu_1-\mu_2$.
+We are estimating $\mu_1-\mu_2$, where:
 
-The order is **competitive players minus casual/single-player users**, so
-positive values mean competitive players have the higher population mean
-daily playtime.
+$\mu_1=$ mean slapshot speed for Team Canada players
+
+$\mu_2=$ mean slapshot speed for Team USA players
+
+The order is **Canada minus USA**.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that competitive players average between **0.42 and
-7.58 minutes more per day** of playtime than casual/single-player users.
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that Team Canada's population mean slapshot speed is
+between **0.72 and 5.68 mph higher** than Team USA's population mean
+slapshot speed.
 :::
 
 ::::
@@ -1803,6 +1808,7 @@ strength/stretch routine.
 :::
 
 ::::
+
 ------------------------------------------------------------------------
 
 ## Difference of Means: Unequal Unknown Variances
@@ -1871,83 +1877,91 @@ For exams in this course, use the conservative version unless told otherwise.
 
 ------------------------------------------------------------------------
 
-## Example: Food-Delivery Wait-Time Comparison
+## Example: UFC Highlight Watch-Time Comparison
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
-A food-delivery app wants to compare average wait times for two types of
-orders placed during the dinner rush.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A UFC media team compares how long viewers spend watching two fighter
+highlight playlists.
 
-One group uses standard delivery. The other group uses scheduled pickup.
-
-The sample standard deviations are noticeably different, so equal
-population variances are not assumed.
+The Khabib playlist has shorter, more focused grappling highlights, while
+the Jon Jones playlist has longer mixed striking, wrestling, and title-fight
+clips.
 
 <br>
 
-**Group 1: Standard delivery orders**  
-$n_1=25$, $\bar{x}_1=42$ minutes, $s_1=14$
+**Group 1: Khabib highlight viewers**  
+$n_1=24,\quad \bar{x}_1=9.8,\quad s_1=3.1$ minutes
 
-**Group 2: Scheduled pickup orders**  
-$n_2=30$, $\bar{x}_2=35$ minutes, $s_2=9$
+**Group 2: Jon Jones highlight viewers**  
+$n_2=20,\quad \bar{x}_2=12.6,\quad s_2=5.8$ minutes
+
+Construct a 95% CI for $\mu_1-\mu_2$ using Welch's method.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
-{\Large \bar{x}_1-\bar{x}_2=42-35=7}
+\bar{x}_1-\bar{x}_2
+=
+9.8-12.6
+=
+-2.8
 $$
 
 $$
-{\Large
 SE=
 \sqrt{
-\frac{14^2}{25}
+\frac{3.1^2}{24}
 +
-\frac{9^2}{30}
+\frac{5.8^2}{20}
 }
 =
-3.247
-}
+\sqrt{0.4004+1.6820}
+=
+1.4431
+$$
+
+Using conservative degrees of freedom:
+
+$$
+df=\min(24-1,\;20-1)=19
 $$
 
 $$
-{\Large
-df=\min(25-1,\;30-1)=24
-}
+-2.8\pm2.093(1.4431)
+=
+-2.8\pm3.02
 $$
 
 $$
-{\Large
-t^*_{24}=2.064
-}
-$$
-
-$$
-{\Large
-7\pm2.064(3.247)=(0.30,\;13.70)
-}
+(-5.82,\;0.22)
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-Construct a 95% confidence interval for $\mu_1-\mu_2$.
+We are estimating $\mu_1-\mu_2$, where:
 
-The order is **standard delivery minus scheduled pickup**, so positive
-values mean standard delivery orders have the higher population mean wait
-time.
+$\mu_1=$ mean watch time for Khabib highlight viewers
+
+$\mu_2=$ mean watch time for Jon Jones highlight viewers
+
+The order is **Khabib minus Jon Jones**.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that standard delivery orders take between **0.30
-and 13.70 minutes longer**, on average, than scheduled pickup orders.
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that the Khabib playlist's population mean watch time
+is between **5.82 minutes lower and 0.22 minutes higher** than the Jon Jones
+playlist's population mean watch time. Since the interval crosses 0, the
+data do not show a clear difference in mean watch time.
 :::
 
 ::::
+
 ------------------------------------------------------------------------
 
 ## Example: Food Delivery vs Meal Prep Spending
@@ -2053,6 +2067,7 @@ users.
 
 If both $n_1\ge 30$ and $n_2\ge 30$, the normality assumption is not required by the Central Limit Theorem.
 :::
+
 ------------------------------------------------------------------------
 
 ##  {.quiz-question}
@@ -2199,6 +2214,7 @@ higher** than the homepage banner's population proportion.
 
 Before interpreting the interval, clearly state the order of the groups. The difference $p_1-p_2$ has the opposite interpretation from $p_2-p_1$.
 :::
+
 ------------------------------------------------------------------------
 
 ##  {.quiz-question}
@@ -2267,72 +2283,75 @@ intervals.
 
 ------------------------------------------------------------------------
 
-## Example: Offline Downloads
+## Example: PS5 Restock Checkout-Time Variability
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A streaming app wants to compare two reminder designs for users who may
-want to download shows before travelling or going somewhere with poor
-Wi-Fi.
-
-One group receives a personalized offline-download reminder. The other
-group sees a generic homepage prompt.
+A retailer wants to compare how inconsistent checkout times are during a
+PS5 console restock versus a normal PlayStation accessory purchase.
 
 <br>
 
-**Group 1: Personalized reminder users**  
-$x_1=210$ of $n_1=500$ downloaded at least one show offline
+**Group 1: Regular accessory checkout**  
+$n_1=18,\quad s_1=6$ minutes
 
-**Group 2: Generic prompt users**  
-$x_2=170$ of $n_2=450$ downloaded at least one show offline
+**Group 2: PS5 restock checkout**  
+$n_2=16,\quad s_2=14$ minutes
+
+Construct a 95% confidence interval for:
+
+$$
+\frac{\sigma_2^2}{\sigma_1^2}
+$$
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
-\hat p_1=\frac{210}{500}=0.4200,
+\frac{s_2^2}{s_1^2}
+=
+\frac{14^2}{6^2}
+=
+5.444
+$$
+
+$$
+df_{\text{num}}=n_2-1=15,
 \qquad
-\hat p_2=\frac{170}{450}=0.3778
+df_{\text{den}}=n_1-1=17
 $$
 
 $$
-\hat p_1-\hat p_2=0.4200-0.3778=0.0422
+F_{0.975,15,17}=2.723,
+\qquad
+F_{0.025,15,17}=0.356
 $$
 
 $$
-SE=
-\sqrt{
-\frac{0.4200(0.5800)}{500}
-+
-\frac{0.3778(0.6222)}{450}
-}
+\left(
+\frac{5.444}{2.723},
+\frac{5.444}{0.356}
+\right)
 =
-0.0318
-$$
-
-$$
-0.0422\pm1.645(0.0318)
-=
-(-0.0100,\;0.0945)
+(2.00,\;15.31)
 $$
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-Construct a 90% confidence interval for $p_1-p_2$.
+The order is **PS5 restock variability divided by regular accessory
+checkout variability**.
 
-The order is **personalized reminder minus generic prompt**, so positive
-values mean the personalized reminder has the higher population
-proportion of users who download shows offline.
+Values above 1 mean the PS5 restock checkout times are more variable.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the personalized reminder's population
-proportion is between **1.00 percentage point lower and 9.45 percentage
-points higher** than the generic prompt's population proportion.
+We are 95% confident that the PS5 restock checkout-time variance is
+between **2.00 and 15.31 times** the regular accessory checkout-time
+variance. This suggests the PS5 restock process is much less consistent.
 :::
 
 ::::
@@ -2412,6 +2431,7 @@ plausible.
 :::
 
 ::::
+
 ------------------------------------------------------------------------
 
 ## Assumptions for Ratio of Variances
@@ -2472,7 +2492,7 @@ difference $\mu_d$.
 
 ::::: two-col
 ::: {.examplebox .fragment}
-**Common paired settings**
+**Few Examples**
 
 - Before and after measurements on the same person
 - Matched twins
@@ -2866,7 +2886,6 @@ The required sample size depends on:
 
 - confidence level
 - desired margin of error
-- planning value $p^*$
 :::
 :::::
 
@@ -2912,7 +2931,7 @@ would actually enter the giveaway.
 A previous fan survey suggests a planning value of:
 
 $$
-p^*=0.156
+p_0=0.156
 $$
 
 The team wants the margin of error to be at most:
@@ -2932,13 +2951,13 @@ n=
 \left(
 \frac{z^*}{E}
 \right)^2
-p^*(1-p^*)
+p_0(1-p_0)
 $$
 
 $$
-p^*=0.156,
+p_0=0.156,
 \qquad
-1-p^*=0.844,
+1-p_0=0.844,
 \qquad
 E=0.03
 $$
@@ -3077,82 +3096,84 @@ This is why an iterative approach is used:
 
 ------------------------------------------------------------------------
 
-## Example: App Load-Time Estimate
+## Example: Jordan vs LeBron GOAT Rating
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A mobile app team wants to estimate the average loading time for a new
-feature.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
+A sports media page wants to estimate the mean rating fans give to a
+Jordan vs LeBron GOAT debate video.
 
-A small pilot study gives an estimated standard deviation of:
+Each fan rates the video on a **0 to 100 scale**.
 
-$$
-s=12\text{ seconds}
-$$
-
-The team wants a 95% confidence interval with margin of error at most:
+Since $\sigma$ is unknown, the page uses a pilot study:
 
 $$
-E=5\text{ seconds}
+s=14.5
 $$
 
-Since $\sigma$ is unknown, use the iterative $t$ approach.
+They want the margin of error to be at most:
+
+$$
+E=4
+$$
+
+Find the required sample size for **95% confidence**.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
+n=
+\left(
+\frac{t^*s}{E}
+\right)^2
+$$
+
+Start with the $z$ approximation:
+
+$$
 n_0=
-\left\lceil
-\left(\frac{1.96(12)}{5}\right)^2
-\right\rceil
+\left(
+\frac{1.96(14.5)}{4}
+\right)^2
 =
-23
+50.48
+\Rightarrow
+51
 $$
 
-$$
-n=23:
-\quad
-t^*_{22}=2.074
-$$
+Then update using $t$ critical values:
 
 $$
-\left\lceil
-\left(\frac{2.074(12)}{5}\right)^2
-\right\rceil
-=
-25
+\begin{array}{c|c|c|c}
+\text{Use } n & df & t^* & \text{New } n \\ \hline
+51 & 50 & 2.009 & 53.04 \Rightarrow 54 \\
+54 & 53 & 2.006 & 52.88 \Rightarrow 53 \\
+53 & 52 & 2.007 & 52.94 \Rightarrow 53
+\end{array}
 $$
 
-$$
-n=25:
-\quad
-t^*_{24}=2.064
-$$
+So the sample size stabilizes at:
 
 $$
-\left\lceil
-\left(\frac{2.064(12)}{5}\right)^2
-\right\rceil
-=
-25
+n=53
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a 95% confidence interval for the
-population mean loading time.
+We are planning a confidence interval for the population mean fan rating.
 
-Because $\sigma$ is unknown, the pilot estimate $s=12$ is used.
+Because $\sigma$ is unknown, the pilot-study standard deviation $s=14.5$
+is used as the preliminary estimate.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The iteration stabilizes at **25**, so the app team should test at least
-**25 loading times** to keep the margin of error at most 5 seconds.
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+The sports media page should sample at least **53 fans** to estimate the
+mean GOAT-debate video rating within **4 points** at 95% confidence.
 :::
 
 ::::
@@ -3252,7 +3273,7 @@ $$
 E =
 z_{1-\alpha/2}
 \sqrt{
-\frac{p^*(1-p^*)}{n}
+\frac{p_0(1-p_0)}{n}
 }
 $$
 
@@ -3263,13 +3284,13 @@ n =
 \left(
 \frac{z_{1-\alpha/2}}{E}
 \right)^2
-p^*(1-p^*)
+p_0(1-p_0)
 $$
 :::
 
 ::: {.thinkbox .fragment}
-The value $p^*$ is a planning value. If no prior information is
-available, use $p^*=0.5$ because it gives the most conservative sample
+The value $p_0$ is a planning value. If no prior information is
+available, use $p_0=0.5$ because it gives the most conservative sample
 size.
 :::
 
@@ -3294,7 +3315,7 @@ There is no reliable prior estimate for the true proportion, so use the
 conservative planning value:
 
 $$
-p^*=0.5
+p_0=0.5
 $$
 :::
 
@@ -3306,7 +3327,7 @@ n=
 \left(
 \frac{z^*}{E}
 \right)^2
-p^*(1-p^*)
+p_0(1-p_0)
 $$
 
 $$
@@ -3314,7 +3335,7 @@ z^*=1.96,
 \qquad
 E=0.03,
 \qquad
-p^*=0.5
+p_0=0.5
 $$
 
 $$
@@ -3367,7 +3388,7 @@ on the waitlist who plan to buy merch when it goes live.
 A previous fan survey suggests a planning value of:
 
 $$
-p^*=0.156
+p_0=0.156
 $$
 
 The company wants the margin of error to be at most:
@@ -3387,13 +3408,13 @@ n=
 \left(
 \frac{z^*}{E}
 \right)^2
-p^*(1-p^*)
+p_0(1-p_0)
 $$
 
 $$
-p^*=0.156,
+p_0=0.156,
 \qquad
-1-p^*=0.844,
+1-p_0=0.844,
 \qquad
 E=0.03
 $$
@@ -3449,14 +3470,14 @@ fixed.
 ## Question
 
 When planning a confidence interval for a population proportion, no prior
-estimate of $p$ is available. What value should we use for $p^*$?
+estimate of $p$ is available. What value should we use for $p_0$?
 :::
 
--   $p^*=0$
--   $p^*=0.25$
--   [$p^*=0.5$]{.correct
+-   $p_0=0$
+-   $p_0=0.25$
+-   [$p_0=0.5$]{.correct
     data-explanation="When no prior estimate is available, p*=0.5 is used because p*(1-p*) is maximized at 0.5. This gives the most conservative required sample size."}
--   $p^*=1$
+-   $p_0=1$
 
 ---
 

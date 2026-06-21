@@ -2769,21 +2769,21 @@
     "href": "Chapter Slides/chapter9-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\n1 - Regression Model Connect a quantitative response \\(Y\\) to one quantitative predictor \\(x\\) using a straight-line model.\n\n\n2 - Least Squares Estimate the intercept and slope by choosing the line that makes residuals as small as possible.\n\n\n3 - Inference Use assumptions, standard errors, confidence intervals, and tests to decide whether the linear relationship is statistically meaningful.\n\n\n\n\n\nCore skill Interpret slope, intercept, residuals, and fitted values in context.\n\n\nCore tool Use lm() in R to fit and summarize a simple linear regression model.\n\n\nCore habit Always check whether a straight-line model is reasonable before interpreting the equation."
+    "text": "Chapter Roadmap\n\n\n1 - Linear Model\nDefine the response, predictor, error term, and simple linear regression model.\n\n\n2 - Least Squares\nUse residuals and \\(SSE\\) to define the best-fitting line.\n\n\n3 - Coefficients\nCalculate \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) using \\(S_{xx}\\) and \\(S_{xy}\\).\n\n\n\n\n\n4 - Relationship\nUse covariance, correlation, and \\(R^2\\) to summarize linear association.\n\n\n5 - Inference\nEstimate \\(s^2\\), compute \\(SE(\\hat{\\beta}_1)\\), and test the slope.\n\n\n6 - Diagnostics\nUse residual logic to judge whether regression assumptions are reasonable."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#introduction-to-the-linear-model",
     "href": "Chapter Slides/chapter9-slides.html#introduction-to-the-linear-model",
     "title": "STA258",
     "section": "9.1 Introduction to the Linear Model",
-    "text": "9.1 Introduction to the Linear Model\n\nGeneral Linear Model\nA linear model has the form\n\\[\ny_i = \\beta_0 + \\beta_1z_{i1} + \\beta_2z_{i2} + \\cdots +\n\\beta_pz_{ip} + \\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\nHere \\(y_i\\) is the response variable, the \\(z\\)’s are predictors, and \\(\\varepsilon_i\\) is random error.\n\n\n\nPrediction goal\nUse the predictors to estimate or predict the response.\nExample: use advertising spending to predict sales revenue.\n\n\nInference goal\nDecide whether a predictor is meaningfully related to the response.\nExample: test whether advertising spending has a nonzero relationship with sales revenue."
+    "text": "9.1 Introduction to the Linear Model\n\nA linear model has the form:\n\\[\ny_i =\n\\beta_0+\\beta_1z_{i1}+\\beta_2z_{i2}+\\cdots+\\beta_pz_{ip}\n+\\varepsilon_i,\n\\qquad\n\\varepsilon_i\\sim N(0,\\sigma^2).\n\\]\nHere:\n\n\\(y_i\\) is the response variable.\n\\(z_{i1},\\ldots,z_{ip}\\) are the predictors.\n\\(\\varepsilon_i\\) is random error.\n\n\n\nThe textbook model assumes predictors are fixed, errors are independent, and the errors have constant variance \\(\\sigma^2\\)."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#simple-linear-regression",
     "href": "Chapter Slides/chapter9-slides.html#simple-linear-regression",
     "title": "STA258",
     "section": "Simple Linear Regression",
-    "text": "Simple Linear Regression\n\nSimple Linear Regression\nA simple linear regression model has exactly one predictor:\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\n\n\\(\\beta_0\\) is the intercept.\n\\(\\beta_1\\) is the slope.\n\\(\\varepsilon_i\\) is the random error term.\n\n\n\nThe fitted regression line is written as\n\\[\n\\hat{y}_i = \\hat{\\beta}_0 + \\hat{\\beta}_1x_i.\n\\]\nThe hats remind us that these are estimated values from sample data."
+    "text": "Simple Linear Regression\n\nA simple linear regression model has exactly one predictor:\n\\[\ny_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\n\\qquad\n\\varepsilon_i\\sim N(0,\\sigma^2).\n\\]\nThe fitted regression line is:\n\\[\n\\hat{y}_i=\\hat{\\beta}_0+\\hat{\\beta}_1x_i.\n\\]\n\n\n\nResponse\n\\[y\\]\nThe outcome we want to explain or predict.\n\n\nPredictor\n\\[x\\]\nThe variable used to explain or predict the response.\n\n\nError\n\\[\\varepsilon_i\\]\nThe part of \\(y_i\\) not explained by the line."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#regression-as-a-picture",
@@ -2797,7 +2797,7 @@
     "href": "Chapter Slides/chapter9-slides.html#least-squares-method",
     "title": "STA258",
     "section": "9.1.1 Least Squares Method",
-    "text": "9.1.1 Least Squares Method\n\nResidual\nA residual is the difference between the observed value and the fitted value:\n\\[\ne_i = y_i - \\hat{y}_i.\n\\]\nIt measures the vertical distance from a data point to the regression line.\n\n\n\nIf \\(e_i &gt; 0\\), the point is above the fitted line.\nThe model underpredicted the observed response.\n\n\nIf \\(e_i &lt; 0\\), the point is below the fitted line.\nThe model overpredicted the observed response."
+    "text": "9.1.1 Least Squares Method\n\nA residual is the difference between an observed data point and a fitted value from the regression model:\n\\[\ne_i=y_i-\\hat{y}_i.\n\\]\nIt is the vertical distance from the observed value to the fitted line.\n\n\n\nIf \\(e_i&gt;0\\), the point is above the fitted line.\nThe model underpredicted the response.\n\n\nIf \\(e_i&lt;0\\), the point is below the fitted line.\nThe model overpredicted the response."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#residuals-on-a-regression-plot",
@@ -2811,28 +2811,28 @@
     "href": "Chapter Slides/chapter9-slides.html#sum-of-squared-errors",
     "title": "STA258",
     "section": "Sum of Squared Errors",
-    "text": "Sum of Squared Errors\n\nSum of Squared Errors\nFor a fitted regression line, the residual sum of squares is\n\\[\nSSE = \\sum_{i=1}^{n}e_i^2\n= \\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\nThe least-squares method chooses the line that makes \\(SSE\\) as small as possible.\n\n\nWhy square the residuals?\n\nSquaring prevents positive and negative residuals from cancelling.\nLarge mistakes are penalized more heavily.\nThe resulting optimization problem has a clean mathematical solution."
+    "text": "Sum of Squared Errors\n\nFor a fitted regression line, the sum of squared errors is:\n\\[\nSSE=\\sum_{i=1}^{n}e_i^2\n=\n\\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\nFor simple linear regression:\n\\[\nSSE=\n\\sum_{i=1}^{n}(y_i-\\beta_0-\\beta_1x_i)^2.\n\\]\n\n\nLeast squares chooses the line that makes \\(SSE\\) as small as possible."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#least-squares-optimization",
     "href": "Chapter Slides/chapter9-slides.html#least-squares-optimization",
     "title": "STA258",
     "section": "Least Squares Optimization",
-    "text": "Least Squares Optimization\n\nFor simple linear regression, least squares solves\n\\[\n\\min_{\\beta_0,\\beta_1}\n\\sum_{i=1}^{n}(y_i-\\beta_0-\\beta_1x_i)^2.\n\\]\n\n\n\nThe output is the fitted line:\n\\[\n\\hat{y}_i = \\hat{\\beta}_0 + \\hat{\\beta}_1x_i.\n\\]\nThis is the line with the smallest possible SSE among all straight lines.\n\n\nLeast squares finds the best line among straight lines.\nIt does not guarantee that a straight line is actually the right model. Always inspect the scatterplot and residuals."
+    "text": "Least Squares Optimization\n\nThe least-squares problem for simple linear regression is:\n\\[\n\\min_{\\beta_0,\\beta_1}\n\\sum_{i=1}^{n}(y_i-\\beta_0-\\beta_1x_i)^2.\n\\]\nThe result is the fitted line:\n\\[\n\\hat{y}_i=\\hat{\\beta}_0+\\hat{\\beta}_1x_i.\n\\]\n\n\n\nThe least-squares line is the best straight line according to squared residuals.\n\n\nLeast squares does not prove that a straight line is the right model.\nIt only finds the best line among straight lines."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#estimating-parameters-for-the-simple-linear-model",
     "href": "Chapter Slides/chapter9-slides.html#estimating-parameters-for-the-simple-linear-model",
     "title": "STA258",
     "section": "9.1.2 Estimating Parameters for the Simple Linear Model",
-    "text": "9.1.2 Estimating Parameters for the Simple Linear Model\n\nFor the model\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i,\n\\]\nthe least-squares estimates are\n\\[\n\\hat{\\beta}_1 =\n\\frac{\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})}\n{\\sum_{i=1}^{n}(x_i-\\bar{x})^2}\n=\n\\frac{S_{xy}}{S_{xx}},\n\\]\nand\n\\[\n\\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1\\bar{x}.\n\\]\n\n\nThe fitted regression line always passes through the point \\((\\bar{x}, \\bar{y})\\)."
+    "text": "9.1.2 Estimating Parameters for the Simple Linear Model\n\nFor observed pairs \\((x_1,y_1),\\ldots,(x_n,y_n)\\), the least-squares estimates are:\n\\[\n\\hat{\\beta}_1=\n\\frac{\n\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})\n}{\n\\sum_{i=1}^{n}(x_i-\\bar{x})^2\n}\n=\n\\frac{S_{xy}}{S_{xx}},\n\\]\nand\n\\[\n\\hat{\\beta}_0=\\bar{y}-\\hat{\\beta}_1\\bar{x}.\n\\]\n\n\nThe fitted line always passes through the point \\((\\bar{x},\\bar{y})\\)."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#interpreting-the-coefficients",
     "href": "Chapter Slides/chapter9-slides.html#interpreting-the-coefficients",
     "title": "STA258",
     "section": "Interpreting the Coefficients",
-    "text": "Interpreting the Coefficients\n\n\nIntercept\n\\[\n\\hat{\\beta}_0\n\\]\nThe predicted value of \\(Y\\) when \\(x = 0\\).\nInterpret only if \\(x = 0\\) makes sense in context.\n\n\nSlope\n\\[\n\\hat{\\beta}_1\n\\]\nThe predicted change in \\(Y\\) for a one-unit increase in \\(x\\).\nThis is usually the most important coefficient.\n\n\n\nIf \\(\\hat{\\beta}_1 = 2.25\\), then each additional tool is associated with an estimated increase of about 2.25 units in electricity cost."
+    "text": "Interpreting the Coefficients\n\n\nIntercept\n\\[\n\\hat{\\beta}_0\n\\]\nThe predicted value of \\(y\\) when \\(x=0\\).\nOnly interpret it if \\(x=0\\) makes sense in context.\n\n\nSlope\n\\[\n\\hat{\\beta}_1\n\\]\nThe predicted change in \\(y\\) for a one-unit increase in \\(x\\).\nThis is usually the main coefficient.\n\n\n\nA slope is not just a number. It must be interpreted using the units of the predictor and response."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-9.1-electricity-cost-data",
@@ -2860,21 +2860,21 @@
     "href": "Chapter Slides/chapter9-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nA fitted regression line is\n\\[\n\\hat{y} = 9.59 + 2.25x.\n\\]\nWhat is the correct interpretation of the slope?\n\n\n\n\nWhen \\(x = 0\\), the predicted value of \\(y\\) is 2.25\nFor every one-unit increase in \\(x\\), the predicted value of \\(y\\) increases by about 2.25\nThe correlation between \\(x\\) and \\(y\\) is 2.25\nThe residuals increase by 2.25 each time"
+    "text": "Question\n\n\nA fitted regression line is\n\\[\n\\hat{y}=31.738+4.798x.\n\\]\nWhat is the best interpretation of the slope?\n\n\n\n\nWhen \\(x=0\\), the predicted value of \\(y\\) is 4.798\nFor each one-unit increase in \\(x\\), the predicted value of \\(y\\) increases by about 4.798\nThe correlation between \\(x\\) and \\(y\\) is 4.798\nThe residuals always equal 4.798"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#measures-of-linear-relationship",
     "href": "Chapter Slides/chapter9-slides.html#measures-of-linear-relationship",
     "title": "STA258",
     "section": "9.1.3 Measures of Linear Relationship",
-    "text": "9.1.3 Measures of Linear Relationship\n\nSample Covariance\nThe sample covariance between \\(x\\) and \\(y\\) is\n\\[\ns_{xy}\n=\n\\frac{1}{n-1}\n\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y}).\n\\]\nIt measures whether two variables tend to move together.\n\n\n\nPositive covariance: large \\(x\\) values tend to occur with large \\(y\\) values.\n\n\nNegative covariance: large \\(x\\) values tend to occur with small \\(y\\) values."
+    "text": "9.1.3 Measures of Linear Relationship\n\nThe sample covariance between \\(x\\) and \\(y\\) is:\n\\[\ns_{xy}\n=\n\\frac{1}{n-1}\n\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y}).\n\\]\nIt measures whether two variables tend to move together.\n\n\n\nPositive covariance: large \\(x\\) values tend to occur with large \\(y\\) values.\n\n\nNegative covariance: large \\(x\\) values tend to occur with small \\(y\\) values."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#correlation",
     "href": "Chapter Slides/chapter9-slides.html#correlation",
     "title": "STA258",
     "section": "Correlation",
-    "text": "Correlation\n\nCorrelation Coefficient\nThe sample correlation coefficient is\n\\[\nr_{xy} = \\frac{s_{xy}}{s_xs_y}.\n\\]\nCorrelation is a standardized measure of the strength and direction of a linear relationship.\n\n\n\n\\(r \\approx 1\\) Strong positive linear relationship.\n\n\n\\(r \\approx -1\\) Strong negative linear relationship.\n\n\n\\(r \\approx 0\\) Little or no straight-line relationship.\n\n\n\nCorrelation measures linear association. A curved relationship can have correlation near zero."
+    "text": "Correlation\n\nThe sample correlation coefficient is:\n\\[\nr_{xy}=\\frac{s_{xy}}{s_xs_y}.\n\\]\nCorrelation is a standardized measure of the strength and direction of a linear relationship.\n\n\n\n\\(r\\approx 1\\)\nStrong positive linear relationship.\n\n\n\\(r\\approx -1\\)\nStrong negative linear relationship.\n\n\n\\(r\\approx 0\\)\nLittle or no straight-line relationship.\n\n\n\nCorrelation does not imply causation. Correlation only describes the linear relationship between two variables."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#correlation-three-visual-cases",
@@ -2894,8 +2894,8 @@
     "objectID": "Chapter Slides/chapter9-slides.html#sse-ssr-and-sst",
     "href": "Chapter Slides/chapter9-slides.html#sse-ssr-and-sst",
     "title": "STA258",
-    "section": "9.1.4 SSE, SSR and SST",
-    "text": "9.1.4 SSE, SSR and SST\n\nRegression separates the total variation in \\(Y\\) into two parts:\n\\[\nSST = SSR + SSE.\n\\]\n\nSST: total variation in observed \\(y_i\\) around \\(\\bar{y}\\)\nSSR: variation explained by the regression line\nSSE: unexplained variation left in the residuals\n\n\n\n\nSST\n\\[\n\\sum (y_i-\\bar{y})^2\n\\]\nTotal variation.\n\n\nSSR\n\\[\n\\sum (\\hat{y}_i-\\bar{y})^2\n\\]\nExplained variation.\n\n\nSSE\n\\[\n\\sum (y_i-\\hat{y}_i)^2\n\\]\nUnexplained variation."
+    "section": "9.1.4 SSE, SSR, and SST",
+    "text": "9.1.4 SSE, SSR, and SST\n\nRegression separates the total variation in \\(y\\) into explained and unexplained pieces:\n\\[\nSST=SSR+SSE.\n\\]\n\nSST: total variation in observed \\(y_i\\) around \\(\\bar{y}\\)\nSSR: variation explained by the regression line\nSSE: unexplained variation left in the residuals\n\n\n\n\nSST\n\\[\n\\sum(y_i-\\bar{y})^2\n\\]\nTotal variation.\n\n\nSSR\n\\[\n\\sum(\\hat{y}_i-\\bar{y})^2\n\\]\nExplained variation.\n\n\nSSE\n\\[\n\\sum(y_i-\\hat{y}_i)^2\n\\]\nUnexplained variation."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-decomposition-of-variation",
@@ -2909,7 +2909,7 @@
     "href": "Chapter Slides/chapter9-slides.html#coefficient-of-determination",
     "title": "STA258",
     "section": "Coefficient of Determination",
-    "text": "Coefficient of Determination\n\nCoefficient of Determination\nThe proportion of total variation in \\(Y\\) explained by the linear model is\n\\[\nR^2 = \\frac{SSR}{SST} = 1 - \\frac{SSE}{SST}.\n\\]\n\n\n\nIf \\(R^2 = 0.72\\), then about 72% of the variation in the response is explained by the predictor through the fitted linear model.\n\n\nA large \\(R^2\\) does not prove causation.\nIt only describes how well the fitted line explains variation in the observed data."
+    "text": "Coefficient of Determination\n\nThe coefficient of determination is:\n\\[\nR^2=\\frac{SSR}{SST}\n=\n1-\\frac{SSE}{SST}.\n\\]\nIt is the fraction of variation in \\(y\\) explained by the fitted linear model.\n\n\n\nWhat it answers\nHow much of the response variation is explained by the straight-line model?\n\n\nConnection to correlation\nFor simple linear regression with an intercept:\n\\[\nR^2=r^2.\n\\]\n\n\nCareful\nA large \\(R^2\\) does not prove causation.\n\n\n\nInterpretation template: “About (R^2%) of the variation in the response is explained by the predictor through the fitted linear model.”"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#sse-ssr-sst-and-r²-check-in-r",
@@ -2923,28 +2923,28 @@
     "href": "Chapter Slides/chapter9-slides.html#section-1",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nIn a simple linear regression, \\(SSE\\) measures:\n\n\n\n\nThe total variation in \\(Y\\) around \\(\\bar{y}\\)\nThe variation explained by the fitted regression line\nThe squared residual variation left unexplained by the model\nThe slope of the regression line"
+    "text": "Question\n\n\nA dataset has \\(r=-0.91\\). What does this suggest?\n\n\n\n\nA strong positive linear relationship\nA strong negative linear relationship\nNo linear relationship\nThe slope must be exactly \\(-0.91\\)"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#inference-for-simple-linear-regression",
     "href": "Chapter Slides/chapter9-slides.html#inference-for-simple-linear-regression",
     "title": "STA258",
     "section": "9.2 Inference for Simple Linear Regression",
-    "text": "9.2 Inference for Simple Linear Regression\n\nFor inference, we use the model\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\nThe goal is not only to fit a line, but to decide whether the slope and intercept are statistically meaningful.\n\n\nIn practice, we are usually most interested in the slope \\(\\beta_1\\).\nA slope of zero means there is no linear change in the expected response as \\(x\\) increases."
+    "text": "9.2 Inference for Simple Linear Regression\n\nFor inference, we return to the model:\n\\[\ny_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\n\\qquad\n\\varepsilon_i\\sim N(0,\\sigma^2).\n\\]\nThe slope \\(\\beta_1\\) is usually the main parameter of interest.\n\n\n\nMain question\nDoes the mean response change linearly as (x) increases?\n\n\nNo relationship claim\n\\[\nH_0:\\beta_1=0\n\\]\nThe line has no linear slope.\n\n\nEvidence\nUse a confidence interval, a (t)-test, or an ANOVA (F)-test.\n\n\n\nIf \\(\\beta_1=0\\), then the mean response does not change linearly as \\(x\\) increases. This is why slope inference is central in simple linear regression."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#regression-assumptions",
     "href": "Chapter Slides/chapter9-slides.html#regression-assumptions",
     "title": "STA258",
     "section": "Regression Assumptions",
-    "text": "Regression Assumptions\n\n\nLinearity The mean of \\(Y\\) changes linearly with \\(x\\).\n\n\nIndependence The observations/errors are independent.\n\n\nConstant variance The error variance is the same at every value of \\(x\\).\n\n\n\n\n\nNormal errors The errors are approximately normally distributed.\n\n\nMean zero errors At each \\(x\\), the error term has mean zero.\n\n\nCheck residuals Residual plots help diagnose assumption problems."
+    "text": "Regression Assumptions\n\n\nLinearity\nThe mean of \\(Y\\) changes linearly with \\(x\\).\n\n\nIndependence\nThe observations and errors are independent.\n\n\nConstant variance\nThe error variance is roughly the same across \\(x\\).\n\n\n\n\n\nNormal errors\nThe errors are approximately normal.\n\n\nMean zero errors\nThe error term has mean zero at each \\(x\\).\n\n\nCheck residuals\nResidual plots help diagnose assumption problems."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#estimating-variance-in-linear-regression",
     "href": "Chapter Slides/chapter9-slides.html#estimating-variance-in-linear-regression",
     "title": "STA258",
     "section": "9.2.1 Estimating Variance in Linear Regression",
-    "text": "9.2.1 Estimating Variance in Linear Regression\n\nBecause \\(\\sigma^2\\) is unknown, we estimate it using the residuals:\n\\[\ns^2 = \\frac{\\sum_{i=1}^{n}e_i^2}{n-2}\n= \\frac{SSE}{n-2}.\n\\]\nThe denominator is \\(n-2\\) because we estimate two parameters: \\(\\beta_0\\) and \\(\\beta_1\\).\n\n\nThe residual standard error is\n\\[\ns = \\sqrt{\\frac{SSE}{n-2}}.\n\\]\nIt measures the typical vertical size of the residuals."
+    "text": "9.2.1 Estimating Variance in Linear Regression\n\nBecause \\(\\sigma^2\\) is unknown, we estimate it using the residuals:\n\\[\ns^2=\n\\frac{\\sum_{i=1}^{n}e_i^2}{n-2}\n=\n\\frac{SSE}{n-2}.\n\\]\nThe denominator is \\(n-2\\) because simple linear regression estimates two parameters:\n\\[\n\\beta_0\n\\quad \\text{and} \\quad\n\\beta_1.\n\\]\n\n\nThe residual standard error is:\n\\[\ns=\\sqrt{\\frac{SSE}{n-2}}.\n\\]\nIt measures the typical vertical size of the residuals."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#why-divide-by-n-2",
@@ -2965,14 +2965,14 @@
     "href": "Chapter Slides/chapter9-slides.html#standard-error-of-the-slope",
     "title": "STA258",
     "section": "Standard Error of the Slope",
-    "text": "Standard Error of the Slope\n\nThe standard error of the estimated slope is\n\\[\nSE(\\hat{\\beta}_1)\n=\n\\frac{s}{\\sqrt{S_{xx}}},\n\\qquad\nS_{xx} = \\sum_{i=1}^{n}(x_i-\\bar{x})^2.\n\\]\nThis measures how much \\(\\hat{\\beta}_1\\) would vary from sample to sample.\n\n\nMore spread in the \\(x\\) values means larger \\(S_{xx}\\), which gives a smaller standard error for the slope."
+    "text": "Standard Error of the Slope\n\nThe standard error of the least-squares slope is:\n\\[\nSE(\\hat{\\beta}_1)\n=\n\\frac{s}{\\sqrt{\\sum_{i=1}^{n}(x_i-\\bar{x})^2}}\n=\n\\frac{s}{\\sqrt{S_{xx}}}.\n\\]\nThis estimates the standard deviation of the sampling distribution of \\(\\hat{\\beta}_1\\).\n\n\nLarger spread in the \\(x\\) values gives a larger \\(S_{xx}\\), which makes the slope estimate more stable."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#testing-whether-the-slope-is-zero",
     "href": "Chapter Slides/chapter9-slides.html#testing-whether-the-slope-is-zero",
     "title": "STA258",
     "section": "Testing Whether the Slope is Zero",
-    "text": "Testing Whether the Slope is Zero\n\nA common hypothesis test is\n\\[\nH_0:\\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1 \\ne 0.\n\\]\nThe test statistic is\n\\[\nt =\n\\frac{\\hat{\\beta}_1 - 0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nIf the p-value is small, there is evidence that the predictor is linearly associated with the response."
+    "text": "Testing Whether the Slope is Zero\n\nThe standard test for a linear relationship is:\n\\[\nH_0:\\beta_1=0\n\\qquad\n\\text{versus}\n\\qquad\nH_A:\\beta_1\\ne 0.\n\\]\nThe test statistic is:\n\\[\nt=\n\\frac{\\hat{\\beta}_1-0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nA small p-value gives evidence that the predictor is linearly associated with the response."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#slope-test-check-in-r",
@@ -2986,7 +2986,7 @@
     "href": "Chapter Slides/chapter9-slides.html#confidence-interval-for-the-slope",
     "title": "STA258",
     "section": "Confidence Interval for the Slope",
-    "text": "Confidence Interval for the Slope\n\nA \\(100(1-\\alpha)\\%\\) confidence interval for the slope is\n\\[\n\\hat{\\beta}_1\n\\pm\nt_{\\alpha/2,n-2}^{\\star} SE(\\hat{\\beta}_1).\n\\]\n\n\n\nIf the interval does not contain 0, then the slope is statistically significant at the corresponding two-sided level.\n\n\nInterpretation: we are estimating the average change in the response for a one-unit increase in the predictor."
+    "text": "Confidence Interval for the Slope\n\nA \\(100(1-\\alpha)\\%\\) confidence interval for the slope is:\n\\[\n\\hat{\\beta}_1\n\\pm\nt_{1-\\alpha/2,\\;n-2}\nSE(\\hat{\\beta}_1).\n\\]\n\n\n\nIf the interval does not contain 0, the slope is statistically significant at the corresponding two-sided level.\n\n\nInterpret the interval as plausible values for the average change in the response when \\(x\\) increases by one unit."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#confidence-interval-check-in-r",
@@ -3000,7 +3000,7 @@
     "href": "Chapter Slides/chapter9-slides.html#residual-diagnostics",
     "title": "STA258",
     "section": "Residual Diagnostics",
-    "text": "Residual Diagnostics\n\n\n\nDiagnostic idea After fitting a regression line, check the residuals.\nA good residual plot should look like random scatter around zero.\nWatch for:\n\ncurved patterns,\nchanging spread,\nstrong outliers,\nclusters or time trends."
+    "text": "Residual Diagnostics\n\n\n\nDiagnostic idea\nAfter fitting a regression line, check the residuals.\nA good residual plot should look like random scatter around zero.\nWatch for:\n\ncurved patterns,\nchanging spread,\nstrong outliers,\nclusters or time trends."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#residual-plot-check-in-r",
@@ -3014,7 +3014,7 @@
     "href": "Chapter Slides/chapter9-slides.html#prediction-with-a-regression-line",
     "title": "STA258",
     "section": "Prediction with a Regression Line",
-    "text": "Prediction with a Regression Line\n\nOnce we have a fitted regression equation,\n\\[\n\\hat{y} = \\hat{\\beta}_0 + \\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\nFor the electricity data,\n\\[\n\\hat{y} = 9.588 + 2.246x.\n\\]\nIf \\(x = 10\\) tools are made, then\n\\[\n\\hat{y} = 9.588 + 2.246(10) = 32.046.\n\\]"
+    "text": "Prediction with a Regression Line\n\nAfter fitting a regression equation,\n\\[\n\\hat{y}=\\hat{\\beta}_0+\\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\n\nConfidence interval\nEstimates the mean response at a given value of \\(x\\).\n\n\nPrediction interval\nPredicts one new individual response at a given value of \\(x\\).\nIt is wider because individual outcomes vary around the mean."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#prediction-check-in-r",
@@ -3028,7 +3028,7 @@
     "href": "Chapter Slides/chapter9-slides.html#section-2",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nWhy is a prediction interval usually wider than a confidence interval for the mean response?\n\n\n\n\nIt uses a different fitted line\nIt accounts for both uncertainty in the mean response and random variation in a new observation\nIt always uses a normal distribution instead of a t distribution\nIt ignores the residual standard error"
+    "text": "Question\n\n\nIn simple linear regression, what does \\(R^2\\) measure?\n\n\n\n\nThe slope of the fitted line\nThe standard error of the residuals\nThe proportion of variation in the response explained by the fitted linear model\nThe number of observations used in the model"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-full-regression-workflow",
@@ -3056,7 +3056,7 @@
     "href": "Chapter Slides/chapter9-slides.html#up-next",
     "title": "STA258",
     "section": "Up Next",
-    "text": "Up Next\n\nChapter 10 — Multiple Linear Regression\nWe extend the model from one predictor to several predictors. The core ideas stay the same: fitted values, residuals, least squares, and inference — but interpretation becomes more careful because variables are held fixed.\n\n\nBack to Homepage"
+    "text": "Up Next\n\nChapter 10 — Multiple Linear Regression\nWe extend the model from one predictor to several predictors. The core ideas stay the same, but interpretation becomes more careful because variables are held fixed.\n\n\nBack to Homepage"
   },
   {
     "objectID": "Chapter Landing Pages/chapter9.html",
@@ -3183,5 +3183,565 @@
     "title": "STA258",
     "section": "Example: MrBeast 500M Giveaway Entry-Time Estimate",
     "text": "Example: MrBeast 500M Giveaway Entry-Time Estimate\n\n\nA media analytics team is planning a large MrBeast 500M giveaway page.\nBefore launch, they want to estimate the mean time it takes a subscriber to complete the giveaway entry form.\nFrom previous giveaway launches, the population standard deviation is treated as known:\n\\[\n\\sigma = 24 \\text{ seconds}\n\\]\nThe team wants the estimate to be within:\n\\[\nE = 5 \\text{ seconds}\n\\]\nFind the required sample size for 95% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{z^*\\sigma}{E}\n\\right)^2\n\\]\n\\[\nz^*=1.96,\n\\qquad\n\\sigma=24,\n\\qquad\nE=5\n\\]\n\\[\nn=\n\\left(\n\\frac{1.96(24)}{5}\n\\right)^2\n\\]\n\\[\nn=\n88.51\n\\]\n\\[\nn=89\n\\]\n\n\nPlanning goal\nFind the sample size needed for a confidence interval for the population mean giveaway entry time.\nThe margin of error should be no more than 5 seconds.\n\n\nThe team should sample at least 89 subscribers to estimate the mean giveaway entry time within 5 seconds at 95% confidence."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#regression-starts-with-a-scatterplot",
+    "href": "Chapter Slides/chapter9-slides.html#regression-starts-with-a-scatterplot",
+    "title": "STA258",
+    "section": "Regression Starts with a Scatterplot",
+    "text": "Regression Starts with a Scatterplot\n\n\n\nExample context\nA gaming media team studies a fictional GTA VI trailer campaign.\nFor each group of users, it records:\n\n\\(x=\\) number of trailer clips watched\n\\(y=\\) preorder interest score out of 100\n\nWe want to model how interest changes as trailer engagement increases.\n\n\nBefore formulas, ask:\nDoes a straight-line model look reasonable?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-residuals-are-vertical-distances",
+    "href": "Chapter Slides/chapter9-slides.html#visual-residuals-are-vertical-distances",
+    "title": "STA258",
+    "section": "Visual: Residuals Are Vertical Distances",
+    "text": "Visual: Residuals Are Vertical Distances"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#estimating-the-simple-linear-regression-model",
+    "href": "Chapter Slides/chapter9-slides.html#estimating-the-simple-linear-regression-model",
+    "title": "STA258",
+    "section": "9.1.2 Estimating the Simple Linear Regression Model",
+    "text": "9.1.2 Estimating the Simple Linear Regression Model\n\nFor the model\n\\[\nY_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\n\\]\nthe least-squares estimates are\n\\[\n\\hat{\\beta}_1=\n\\frac{\n\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})\n}{\n\\sum_{i=1}^{n}(x_i-\\bar{x})^2\n}\n=\n\\frac{S_{xy}}{S_{xx}},\n\\]\nand\n\\[\n\\hat{\\beta}_0=\\bar{y}-\\hat{\\beta}_1\\bar{x}.\n\\]\n\n\nThe fitted regression line always passes through \\((\\bar{x},\\bar{y})\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-campus-coffee-pickup-wait-time",
+    "href": "Chapter Slides/chapter9-slides.html#example-campus-coffee-pickup-wait-time",
+    "title": "STA258",
+    "section": "Example: Campus Coffee Pickup Wait Time",
+    "text": "Example: Campus Coffee Pickup Wait Time\n\n\nA campus coffee shop wants to estimate how pickup wait time changes when the mobile-order queue gets longer.\nFor 12 busy periods, the shop records:\n\n\n\nOrders ahead\nWait time\n\n\n\n\n3\n5.0\n\n\n5\n6.7\n\n\n6\n6.1\n\n\n8\n8.6\n\n\n10\n9.2\n\n\n12\n10.9\n\n\n14\n13.7\n\n\n15\n12.4\n\n\n18\n16.8\n\n\n20\n16.3\n\n\n22\n19.8\n\n\n24\n20.1\n\n\n\n\n\nCalculation\n\\[\n\\bar{x}=13.083,\n\\qquad\n\\bar{y}=12.133\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=528.917\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=395.967\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{S_{xy}}{S_{xx}}\n=\n\\frac{395.967}{528.917}\n=\n0.749\n\\]\n\\[\n\\hat{\\beta}_0=\n\\bar{y}-\\hat{\\beta}_1\\bar{x}\n=\n12.133-0.749(13.083)\n=\n2.339\n\\]\n\\[\n\\hat{y}=2.339+0.749x\n\\]\n\n\nTarget model\nWe model:\n\\[\nY=\\text{pickup wait time in minutes}\n\\]\nusing:\n\\[\nx=\\text{mobile orders already ahead}\n\\]\n\n\nFor each additional mobile order already ahead, the predicted pickup wait time increases by about 0.749 minutes, or about 45 seconds."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-least-squares-equation",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-least-squares-equation",
+    "title": "STA258",
+    "section": "Check in R: Least-Squares Equation",
+    "text": "Check in R: Least-Squares Equation\n\n\n\nCampus coffee example\nWe check the fitted line:\n\\[\n\\hat{y}=2.339+0.749x\n\\]\nwhere \\(x\\) is the number of mobile orders already ahead.\n\n\nThe manual calculation uses:\n\\[\n\\hat{\\beta}_1=\\frac{S_{xy}}{S_{xx}},\n\\qquad\n\\hat{\\beta}_0=\\bar{y}-\\hat{\\beta}_1\\bar{x}.\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#fitted-values-and-residuals",
+    "href": "Chapter Slides/chapter9-slides.html#fitted-values-and-residuals",
+    "title": "STA258",
+    "section": "Fitted Values and Residuals",
+    "text": "Fitted Values and Residuals\n\nFor each observation:\n\\[\n\\hat{y}_i=\\hat{\\beta}_0+\\hat{\\beta}_1x_i,\n\\qquad\ne_i=y_i-\\hat{y}_i.\n\\]\nThe fitted value is the model prediction. The residual is the model’s prediction error.\n\n\n\nSmall residuals mean the line is close to the observed data point.\n\n\nResiduals are not mistakes in arithmetic. They are the leftover variation after the model uses \\(x\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-fitted-values-and-residuals",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-fitted-values-and-residuals",
+    "title": "STA258",
+    "section": "Check in R: Fitted Values and Residuals",
+    "text": "Check in R: Fitted Values and Residuals\n\n\n\n\nWhat R is checking\nFor each row, R computes:\n\\[\n\\hat{y}_i\n=\n2.339+0.749x_i\n\\]\nand then:\n\\[\ne_i=y_i-\\hat{y}_i.\n\\]\n\n\nFor a least-squares regression with an intercept, residuals sum to approximately zero, up to rounding."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-correlation-shows-direction-and-strength",
+    "href": "Chapter Slides/chapter9-slides.html#visual-correlation-shows-direction-and-strength",
+    "title": "STA258",
+    "section": "Visual: Correlation Shows Direction and Strength",
+    "text": "Visual: Correlation Shows Direction and Strength"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-covariance-and-correlation",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-covariance-and-correlation",
+    "title": "STA258",
+    "section": "Check in R: Covariance and Correlation",
+    "text": "Check in R: Covariance and Correlation\n\n\n\nCaitlin Clark highlight example\nThe R check computes:\n\\[\ns_{xy},\n\\qquad\nr,\n\\qquad\nr^2.\n\\]\nFor simple linear regression with an intercept, \\(r^2\\) equals \\(R^2\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-unexplained-variation",
+    "href": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-unexplained-variation",
+    "title": "STA258",
+    "section": "Visual: Total, Explained, and Unexplained Variation",
+    "text": "Visual: Total, Explained, and Unexplained Variation"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-sse-ssr-sst-and-r²",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-sse-ssr-sst-and-r²",
+    "title": "STA258",
+    "section": "Check in R: SSE, SSR, SST, and R²",
+    "text": "Check in R: SSE, SSR, SST, and R²\n\n\n\nF1 Monaco simulator example\nThis checks the same quantities from the worked example:\n\\[\nSSE,\\quad SSR,\\quad SST,\\quad R^2.\n\\]\nThe important identity is:\n\\[\nSST=SSR+SSE.\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-short-form-video-length-and-completion-rate",
+    "href": "Chapter Slides/chapter9-slides.html#example-short-form-video-length-and-completion-rate",
+    "title": "STA258",
+    "section": "Example: Short-Form Video Length and Completion Rate",
+    "text": "Example: Short-Form Video Length and Completion Rate\n\n\nA creator team studies short-form videos posted to a class project account.\nFor each video, they record:\n\n\\(x=\\) video length in seconds\n\\(Y=\\) completion rate percentage\n\nThey fit a regression model to estimate how completion rate changes as video length increases.\nThe fitted model is:\n\\[\n\\hat{y}=98.456-1.222x.\n\\]\n\n\nSlope inference\nFrom the fitted model:\n\\[\n\\hat{\\beta}_1=-1.222,\n\\qquad\nSE(\\hat{\\beta}_1)=0.041\n\\]\nThere are \\(n=12\\) videos, so:\n\\[\ndf=n-2=10\n\\]\nThe test statistic is:\n\\[\nt=\n\\frac{-1.222}{0.041}\n=\n-29.507\n\\]\nThe p-value is very small:\n\\[\np&lt;0.001\n\\]\nA 95% CI for the slope is:\n\\[\n(-1.315,\\;-1.130)\n\\]\n\n\nTarget parameter\nWe are estimating \\(\\beta_1\\), the population slope.\nHere, \\(\\beta_1\\) is the average change in completion rate percentage points for each additional second of video length.\n\n\nThe data provide strong evidence of a negative linear relationship. Each additional second of video length is associated with about 1.22 percentage points lower completion rate, on average."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-short-form-video-regression",
+    "href": "Chapter Slides/chapter9-slides.html#visual-short-form-video-regression",
+    "title": "STA258",
+    "section": "Visual: Short-Form Video Regression",
+    "text": "Visual: Short-Form Video Regression"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-ci",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-ci",
+    "title": "STA258",
+    "section": "Check in R: Slope Test and CI",
+    "text": "Check in R: Slope Test and CI\n\n\n\nEA FC practice example\n\n\n\n\n\n\n\n\n\n\n\n\nChampions League seat example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#confidence-interval-vs-prediction-interval",
+    "href": "Chapter Slides/chapter9-slides.html#confidence-interval-vs-prediction-interval",
+    "title": "STA258",
+    "section": "Confidence Interval vs Prediction Interval",
+    "text": "Confidence Interval vs Prediction Interval\n\n\nConfidence interval\nEstimates the mean response at a given \\(x\\).\nExample: average wait time when there are 16 orders ahead.\n\n\nPrediction interval\nPredicts one new individual observation at a given \\(x\\).\nIt is wider because individual outcomes vary around the mean.\n\n\n\nSame fitted line. Different uncertainty question."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-mean-response-band-vs-new-observation-band",
+    "href": "Chapter Slides/chapter9-slides.html#visual-mean-response-band-vs-new-observation-band",
+    "title": "STA258",
+    "section": "Visual: Mean Response Band vs New Observation Band",
+    "text": "Visual: Mean Response Band vs New Observation Band"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-prediction",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-prediction",
+    "title": "STA258",
+    "section": "Check in R: Prediction",
+    "text": "Check in R: Prediction\n\n\n\nInterpolation and extrapolation\nThe model predicts monthly rent from unit size.\nThe calculation is still based on:\n\\[\n\\hat{y}=1090.476+220.238x.\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#assumptions-for-simple-linear-regression",
+    "href": "Chapter Slides/chapter9-slides.html#assumptions-for-simple-linear-regression",
+    "title": "STA258",
+    "section": "Assumptions for Simple Linear Regression",
+    "text": "Assumptions for Simple Linear Regression\n\nAssumptions\n\n\nLinearity: The relationship between the mean response and the predictor should be approximately linear.\n\n\nIndependence: Observations should be independent of each other.\n\n\nConstant variance: The residual spread should be roughly similar across fitted values.\n\n\nNormality of errors: The residuals should be approximately normal, especially for small samples and inference.\n\n\nMean zero errors: At each value of \\(x\\), the average error should be 0.\n\n\n\n\nPractical reminder\nThe formulas can be correct while the model is still inappropriate. Always combine the numerical output with residual diagnostics and context."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#full-regression-workflow",
+    "href": "Chapter Slides/chapter9-slides.html#full-regression-workflow",
+    "title": "STA258",
+    "section": "Full Regression Workflow",
+    "text": "Full Regression Workflow\n\nWorkflow example\nUsing the GTA VI trailer engagement data:\n(a) Make a scatterplot and decide whether a line looks reasonable.\n(b) Fit the simple linear regression model.\n(c) State the estimated regression equation.\n(d) Interpret the slope.\n(e) Test whether the slope is different from zero.\n(f) Predict interest score when 8 trailer clips are watched.\n(g) Check the residual plot for obvious problems."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-full-regression-workflow",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-full-regression-workflow",
+    "title": "STA258",
+    "section": "Check in R: Full Regression Workflow",
+    "text": "Check in R: Full Regression Workflow"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#final-checklist",
+    "href": "Chapter Slides/chapter9-slides.html#final-checklist",
+    "title": "STA258",
+    "section": "Final Checklist",
+    "text": "Final Checklist\n\n\nBefore fitting\n\nIdentify the response \\(y\\).\nIdentify the predictor \\(x\\).\nMake a scatterplot.\nAsk whether a line is reasonable.\n\n\n\nAfter fitting\n\nInterpret the slope in context.\nCheck residual logic.\nReport uncertainty when doing inference.\nAvoid claiming causation from association alone.\n\n\n\n\nOne slide takeaway. Simple linear regression is a full workflow: visualize, estimate, interpret, summarize variation, perform inference, and check assumptions."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#estimating-the-regression-equation",
+    "href": "Chapter Slides/chapter9-slides.html#estimating-the-regression-equation",
+    "title": "STA258",
+    "section": "9.1.2 Estimating the Regression Equation",
+    "text": "9.1.2 Estimating the Regression Equation\n\nFor the model\n\\[\nY_i=\\beta_0+\\beta_1x_i+\\varepsilon_i,\n\\]\nthe least-squares estimates are:\n\\[\n\\hat{\\beta}_1=\n\\frac{\n\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})\n}{\n\\sum_{i=1}^{n}(x_i-\\bar{x})^2\n}\n=\n\\frac{S_{xy}}{S_{xx}},\n\\]\nand\n\\[\n\\hat{\\beta}_0=\\bar{y}-\\hat{\\beta}_1\\bar{x}.\n\\]\n\n\nThe fitted regression line always passes through \\((\\bar{x},\\bar{y})\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-gta-vi-trailer-engagement",
+    "href": "Chapter Slides/chapter9-slides.html#example-gta-vi-trailer-engagement",
+    "title": "STA258",
+    "section": "Example: GTA VI Trailer Engagement",
+    "text": "Example: GTA VI Trailer Engagement\n\n\nA gaming media team studies a fictional GTA VI preorder campaign.\nThe team records trailer clips watched and preorder interest score for 12 user groups.\n\n\n\nClips watched\nInterest score\n\n\n\n\n1\n43\n\n\n2\n47\n\n\n2\n40\n\n\n3\n56\n\n\n4\n51\n\n\n5\n64\n\n\n6\n59\n\n\n7\n72\n\n\n8\n76\n\n\n9\n73\n\n\n10\n89\n\n\n11\n84\n\n\n\n\n\nCalculation\n\\[\n\\bar{x}=5.667,\n\\qquad\n\\bar{y}=62.833\n\\]\n\\[\nS_{xx}=124.667,\n\\qquad\nS_{xy}=573.333\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{573.333}{124.667}\n=\n4.599\n\\]\n\\[\n\\hat{\\beta}_0=\n62.833-4.599(5.667)\n=\n36.773\n\\]\n\\[\n\\hat{y}=36.773+4.599x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{preorder interest score}\n\\]\nusing:\n\\[\nx=\\text{trailer clips watched}\n\\]\n\n\nFor each additional trailer clip watched, the predicted preorder interest score increases by about 4.60 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ufc-highlight-watch-time",
+    "href": "Chapter Slides/chapter9-slides.html#example-ufc-highlight-watch-time",
+    "title": "STA258",
+    "section": "Example: UFC Highlight Watch Time",
+    "text": "Example: UFC Highlight Watch Time\n\n\nA UFC media page studies whether fighter-highlight watch time predicts fight-night interest.\nFor each group of viewers, the page records:\n\n\\(x=\\) minutes of fighter highlights watched\n\\(y=\\) fight-night interest score out of 100\n\nFit the simple linear regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=9.083,\n\\qquad\n\\bar{y}=63.417\n\\]\n\\[\nS_{xx}=210.917,\n\\qquad\nS_{xy}=751.583\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{751.583}{210.917}\n=\n3.563\n\\]\n\\[\n\\hat{\\beta}_0=\n63.417-3.563(9.083)\n=\n31.049\n\\]\n\\[\n\\hat{y}=31.049+3.563x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{fight-night interest score}\n\\]\nusing:\n\\[\nx=\\text{minutes of fighter highlights watched}\n\\]\n\n\nFor each additional minute of UFC highlight watch time, the predicted fight-night interest score increases by about 3.56 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-least-squares-equations",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-least-squares-equations",
+    "title": "STA258",
+    "section": "Check in R: Least-Squares Equations",
+    "text": "Check in R: Least-Squares Equations\n\n\n\nRonaldo vs Messi example\n\n\n\n\n\n\n\n\n\n\n\n\nArgentina vs France example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-least-squares-lines",
+    "href": "Chapter Slides/chapter9-slides.html#visual-least-squares-lines",
+    "title": "STA258",
+    "section": "Visual: Least-Squares Lines",
+    "text": "Visual: Least-Squares Lines"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#fitted-values-residuals-and-variation",
+    "href": "Chapter Slides/chapter9-slides.html#fitted-values-residuals-and-variation",
+    "title": "STA258",
+    "section": "9.1.3 Fitted Values, Residuals, and Variation",
+    "text": "9.1.3 Fitted Values, Residuals, and Variation\n\nFor each observation:\n\\[\n\\hat{y}_i=\\hat{\\beta}_0+\\hat{\\beta}_1x_i,\n\\qquad\ne_i=y_i-\\hat{y}_i.\n\\]\nThe fitted value is the model prediction. The residual is the prediction error.\n\n\n\nSmall residuals mean the line is close to the observed data point.\n\n\nResiduals are the leftover variation after the model uses \\(x\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-residuals-on-the-gta-vi-line",
+    "href": "Chapter Slides/chapter9-slides.html#visual-residuals-on-the-gta-vi-line",
+    "title": "STA258",
+    "section": "Visual: Residuals on the GTA VI Line",
+    "text": "Visual: Residuals on the GTA VI Line"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-mrbeast-challenge-prize-value-and-views",
+    "href": "Chapter Slides/chapter9-slides.html#example-mrbeast-challenge-prize-value-and-views",
+    "title": "STA258",
+    "section": "Example: MrBeast Challenge Prize Value and Views",
+    "text": "Example: MrBeast Challenge Prize Value and Views\n\n\nA creator analytics team studies fictional challenge videos inspired by large-scale YouTube challenge formats.\nFor each video, it records:\n\n\\(x=\\) prize value in thousands of dollars\n\\(Y=\\) first-day views in millions\n\nThe fitted equation is:\n\\[\n\\hat{y}=2.709+0.0296x.\n\\]\n\n\nCalculation\nThe variation decomposition is:\n\\[\nSSE=11.233\n\\]\n\\[\nSSR=600.436\n\\]\n\\[\nSST=611.669\n\\]\nCheck:\n\\[\nSSR+SSE\n=\n600.436+11.233\n=\n611.669\n=\nSST\n\\]\n\\[\nR^2=\n\\frac{600.436}{611.669}\n=\n0.982\n\\]\n\n\nTarget relationship\nWe model first-day views using prize value.\nThe slope is positive: higher prize values are associated with higher predicted first-day views.\n\n\nAbout 98.2% of the variation in first-day views is explained by prize value through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-sabrina-carpenter-merch-waitlist",
+    "href": "Chapter Slides/chapter9-slides.html#example-sabrina-carpenter-merch-waitlist",
+    "title": "STA258",
+    "section": "Example: Sabrina Carpenter Merch Waitlist",
+    "text": "Example: Sabrina Carpenter Merch Waitlist\n\n\nA merch team studies fictional limited-drop data connected to a Sabrina Carpenter concert weekend.\nFor each merch drop, it records:\n\n\\(x=\\) waitlist size in thousands\n\\(Y=\\) time until sellout in minutes\n\nThe fitted equation is:\n\\[\n\\hat{y}=69.806-1.232x.\n\\]\n\n\nCalculation\nThe variation decomposition is:\n\\[\nSSE=125.428\n\\]\n\\[\nSSR=2443.238\n\\]\n\\[\nSST=2568.667\n\\]\nCheck:\n\\[\nSSR+SSE\n=\n2443.238+125.428\n=\n2568.666\n\\approx\nSST\n\\]\n\\[\nR^2=\n\\frac{2443.238}{2568.667}\n=\n0.951\n\\]\n\n\nTarget relationship\nWe model sellout time using waitlist size.\nThe slope is negative: larger waitlists are associated with faster sellouts.\n\n\nAbout 95.1% of the variation in sellout time is explained by waitlist size through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-residuals-sse-and-r²",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-residuals-sse-and-r²",
+    "title": "STA258",
+    "section": "Check in R: Residuals, SSE, and R²",
+    "text": "Check in R: Residuals, SSE, and R²\n\n\n\n\nMrBeast challenge example\n\n\n\n\n\n\n\n\n\n\n\n\nSabrina merch example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-explained-and-unexplained-variation",
+    "href": "Chapter Slides/chapter9-slides.html#visual-explained-and-unexplained-variation",
+    "title": "STA258",
+    "section": "Visual: Explained and Unexplained Variation",
+    "text": "Visual: Explained and Unexplained Variation"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-short-form-video-length",
+    "href": "Chapter Slides/chapter9-slides.html#example-short-form-video-length",
+    "title": "STA258",
+    "section": "Example: Short-Form Video Length",
+    "text": "Example: Short-Form Video Length\n\n\nA creator team studies short-form videos posted to a class project account.\nFor each video, it records:\n\n\\(x=\\) video length in seconds\n\\(y=\\) completion rate percentage\n\nThe question is whether longer videos tend to have lower completion rates.\n\n\nCalculation\nThe sample correlation is:\n\\[\nr=-0.994\n\\]\nThe fitted line is:\n\\[\n\\hat{y}=99.982-1.325x\n\\]\nThe coefficient of determination is:\n\\[\nR^2=0.988\n\\]\nSince \\(r\\) is close to \\(-1\\), the relationship is strongly negative and approximately linear.\n\n\nTarget relationship\nWe compare video length and completion rate.\nThe negative sign means completion rate tends to decrease as video length increases.\n\n\nAbout 98.8% of the variation in completion rate is explained by video length through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-trailer-clips-and-interest",
+    "href": "Chapter Slides/chapter9-slides.html#example-trailer-clips-and-interest",
+    "title": "STA258",
+    "section": "Example: Trailer Clips and Interest",
+    "text": "Example: Trailer Clips and Interest\n\n\nReturn to the GTA VI trailer example.\nThe media team wants to summarize the strength and direction of the linear relationship before using the regression equation.\nThe variables are:\n\n\\(x=\\) trailer clips watched\n\\(Y=\\) preorder interest score\n\n\n\nCalculation\nThe sample correlation is:\n\\[\nr=0.960\n\\]\nThe fitted line is:\n\\[\n\\hat{y}=36.773+4.599x\n\\]\nThe coefficient of determination is:\n\\[\nR^2=0.921\n\\]\nSince \\(r\\) is close to \\(1\\), the relationship is strongly positive and approximately linear.\n\n\nTarget relationship\nWe compare trailer engagement and preorder interest.\nThe positive sign means interest tends to increase as clip engagement increases.\n\n\nAbout 92.1% of the variation in preorder interest score is explained by trailer clips watched through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-correlation-and-r²",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-correlation-and-r²",
+    "title": "STA258",
+    "section": "Check in R: Correlation and R²",
+    "text": "Check in R: Correlation and R²\n\n\n\n\nShort-form video example\n\n\n\n\n\n\n\n\n\n\n\n\nGTA VI trailer example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-short-form-video-completion-rate",
+    "href": "Chapter Slides/chapter9-slides.html#example-short-form-video-completion-rate",
+    "title": "STA258",
+    "section": "Example: Short-Form Video Completion Rate",
+    "text": "Example: Short-Form Video Completion Rate\n\n\nA creator team studies whether longer short-form videos have lower completion rates.\nFor 12 videos, they fit:\n\\[\n\\hat{y}=98.132-1.206x\n\\]\nwhere:\n\n\\(x=\\) video length in seconds\n\\(Y=\\) completion rate percentage\n\nTest whether the slope differs from 0.\n\n\nSlope inference\n\\[\n\\hat{\\beta}_1=-1.206,\n\\qquad\nSE(\\hat{\\beta}_1)=0.067\n\\]\n\\[\ndf=n-2=10\n\\]\n\\[\nt=\n\\frac{-1.206}{0.067}\n=\n-17.933\n\\]\n\\[\np&lt;0.001\n\\]\nA 95% CI for the slope is:\n\\[\n(-1.356,\\;-1.057)\n\\]\n\n\nTarget parameter\nWe are estimating \\(\\beta_1\\), the average change in completion rate for each additional second of video length.\n\n\nThe data provide strong evidence of a negative linear relationship. Each additional second of video length is associated with about 1.21 percentage points lower completion rate, on average."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-sabrina-carpenter-merch-sellout-time",
+    "href": "Chapter Slides/chapter9-slides.html#example-sabrina-carpenter-merch-sellout-time",
+    "title": "STA258",
+    "section": "Example: Sabrina Carpenter Merch Sellout Time",
+    "text": "Example: Sabrina Carpenter Merch Sellout Time\n\n\nA merch team studies whether a larger waitlist predicts a faster sellout.\nFor 12 fictional merch drops, they fit:\n\\[\n\\hat{y}=69.806-1.232x\n\\]\nwhere:\n\n\\(x=\\) waitlist size in thousands\n\\(Y=\\) sellout time in minutes\n\nTest whether the slope differs from 0.\n\n\nSlope inference\n\\[\n\\hat{\\beta}_1=-1.232,\n\\qquad\nSE(\\hat{\\beta}_1)=0.088\n\\]\n\\[\ndf=n-2=10\n\\]\n\\[\nt=\n\\frac{-1.232}{0.088}\n=\n-13.957\n\\]\n\\[\np&lt;0.001\n\\]\nA 95% CI for the slope is:\n\\[\n(-1.429,\\;-1.036)\n\\]\n\n\nTarget parameter\nWe are estimating \\(\\beta_1\\), the average change in sellout time for each additional thousand people on the waitlist.\n\n\nThe data provide strong evidence of a negative linear relationship. Each additional thousand people on the waitlist is associated with about 1.23 fewer minutes until sellout, on average."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#section-3",
+    "href": "Chapter Slides/chapter9-slides.html#section-3",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nFor testing whether a simple linear regression slope is zero, what is the usual reference distribution?\n\n\n\n\nStandard normal distribution\nChi-square distribution with \\(n-1\\) degrees of freedom\nt distribution with \\(n-2\\) degrees of freedom\nF distribution with \\(n\\) degrees of freedom only"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-predicting-mrbeast-challenge-views",
+    "href": "Chapter Slides/chapter9-slides.html#example-predicting-mrbeast-challenge-views",
+    "title": "STA258",
+    "section": "Example: Predicting MrBeast Challenge Views",
+    "text": "Example: Predicting MrBeast Challenge Views\n\n\nUsing the fictional MrBeast-style challenge data, the fitted equation is:\n\\[\n\\hat{y}=2.709+0.0296x\n\\]\nwhere:\n\n\\(x=\\) prize value in thousands of dollars\n\\(Y=\\) first-day views in millions\n\nPredict first-day views for a challenge with a prize value of:\n\\[\nx=350\n\\]\n\n\nCalculation\n\\[\n\\hat{y}\n=\n2.709+0.0296(350)\n=\n13.068\n\\]\nThe predicted first-day view count is:\n\\[\n13.07\\text{ million views}\n\\]\nA 95% confidence interval for the mean response is:\n\\[\n(12.37,\\;13.77)\n\\]\nA 95% prediction interval for one new video is:\n\\[\n(10.61,\\;15.53)\n\\]\n\n\nPrediction target\nThe confidence interval estimates the average first-day views for all similar $350k prize videos.\nThe prediction interval predicts one new individual video.\n\n\nThe prediction interval is wider because one individual video can be above or below the average trend."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-predicting-gta-vi-preorder-interest",
+    "href": "Chapter Slides/chapter9-slides.html#example-predicting-gta-vi-preorder-interest",
+    "title": "STA258",
+    "section": "Example: Predicting GTA VI Preorder Interest",
+    "text": "Example: Predicting GTA VI Preorder Interest\n\n\nUsing the GTA VI trailer example, the fitted equation is:\n\\[\n\\hat{y}=36.773+4.599x\n\\]\nwhere:\n\n\\(x=\\) trailer clips watched\n\\(Y=\\) preorder interest score\n\nPredict interest score for a user group that watches:\n\\[\nx=8\n\\]\ntrailer clips.\n\n\nCalculation\n\\[\n\\hat{y}\n=\n36.773+4.599(8)\n=\n73.564\n\\]\nThe predicted interest score is:\n\\[\n73.56\n\\]\nA 95% confidence interval for the mean response is:\n\\[\n(69.80,\\;77.33)\n\\]\nA 95% prediction interval for one new user group is:\n\\[\n(62.35,\\;84.78)\n\\]\n\n\nPrediction target\nThe confidence interval estimates the average interest score among groups that watch 8 clips.\nThe prediction interval predicts one new individual group.\n\n\nThe prediction interval is wider because a new group has its own random variation around the fitted trend."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-prediction-intervals",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-prediction-intervals",
+    "title": "STA258",
+    "section": "Check in R: Prediction Intervals",
+    "text": "Check in R: Prediction Intervals\n\n\n\n\nMrBeast challenge example\n\n\n\n\n\n\n\n\n\n\n\n\nGTA VI trailer example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-confidence-band-vs-prediction-band",
+    "href": "Chapter Slides/chapter9-slides.html#visual-confidence-band-vs-prediction-band",
+    "title": "STA258",
+    "section": "Visual: Confidence Band vs Prediction Band",
+    "text": "Visual: Confidence Band vs Prediction Band"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#section-4",
+    "href": "Chapter Slides/chapter9-slides.html#section-4",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nWhich residual plot pattern would be most concerning for simple linear regression?\n\n\n\n\nRandom scatter around zero\nResiduals with no clear pattern\nA clear curve or funnel shape in the residuals\nResiduals that include both positive and negative values"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-residuals-on-a-regression-line",
+    "href": "Chapter Slides/chapter9-slides.html#visual-residuals-on-a-regression-line",
+    "title": "STA258",
+    "section": "Visual: Residuals on a Regression Line",
+    "text": "Visual: Residuals on a Regression Line"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-f1-simulator-practice",
+    "href": "Chapter Slides/chapter9-slides.html#example-f1-simulator-practice",
+    "title": "STA258",
+    "section": "Example: F1 Simulator Practice",
+    "text": "Example: F1 Simulator Practice\n\n\nA racing analytics page studies a fictional F1 simulator practice challenge.\nFor each player, it records:\n\n\\(x=\\) practice laps completed\n\\(y=\\) lap-time improvement in seconds\n\nThe question is whether more practice laps are associated with larger lap-time gains.\n\n\nCalculation\nThe sample correlation is:\n\\[\nr=0.990\n\\]\nThe fitted line is:\n\\[\n\\hat{y}=0.210+0.102x\n\\]\nThe coefficient of determination is:\n\\[\nR^2=0.980\n\\]\nSince \\(r\\) is close to \\(1\\), the relationship is strongly positive and approximately linear.\n\n\nTarget relationship\nWe compare practice laps and lap-time improvement.\nThe positive sign means improvement tends to increase as practice laps increase.\n\n\nAbout 98.0% of the variation in lap-time improvement is explained by practice laps through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ronaldo-vs-messi-debate-clips",
+    "href": "Chapter Slides/chapter9-slides.html#example-ronaldo-vs-messi-debate-clips",
+    "title": "STA258",
+    "section": "Example: Ronaldo vs Messi Debate Clips",
+    "text": "Example: Ronaldo vs Messi Debate Clips\n\n\nA sports media page studies fictional Ronaldo vs Messi debate clips.\nFor each viewer group, it records:\n\n\\(x=\\) debate clips watched\n\\(y=\\) engagement score out of 100\n\nThe fitted equation is:\n\\[\n\\hat{y}=33.988+4.079x.\n\\]\n\n\nVariation decomposition\n\\[\nSSE=5.988\n\\]\n\\[\nSSR=1372.512\n\\]\n\\[\nSST=1378.500\n\\]\nCheck:\n\\[\nSSR+SSE\n=\n1372.512+5.988\n=\n1378.500\n=\nSST\n\\]\n\\[\nR^2=\n\\frac{1372.512}{1378.500}\n=\n0.996\n\\]\n\n\nTarget relationship\nWe model debate engagement using number of clips watched.\nThe positive slope means engagement tends to increase as clip watch count increases.\n\n\nAbout 99.6% of the variation in engagement score is explained by debate clips watched through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ishowspeed-stream-clip-hype",
+    "href": "Chapter Slides/chapter9-slides.html#example-ishowspeed-stream-clip-hype",
+    "title": "STA258",
+    "section": "Example: IShowSpeed Stream Clip Hype",
+    "text": "Example: IShowSpeed Stream Clip Hype\n\n\nA streaming analytics team studies fictional IShowSpeed stream clips.\nFor each group of viewers, it records:\n\n\\(x=\\) stream clips watched\n\\(y=\\) live-chat hype score out of 100\n\nThe fitted equation is:\n\\[\n\\hat{y}=23.933+4.794x.\n\\]\n\n\nVariation decomposition\n\\[\nSSE=8.097\n\\]\n\\[\nSSR=1896.003\n\\]\n\\[\nSST=1904.100\n\\]\nCheck:\n\\[\nSSR+SSE\n=\n1896.003+8.097\n=\n1904.100\n=\nSST\n\\]\n\\[\nR^2=\n\\frac{1896.003}{1904.100}\n=\n0.996\n\\]\n\n\nTarget relationship\nWe model live-chat hype using number of stream clips watched.\nThe positive slope means hype tends to increase as clip watch count increases.\n\n\nAbout 99.6% of the variation in live-chat hype score is explained by stream clips watched through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-residual-variation",
+    "href": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-residual-variation",
+    "title": "STA258",
+    "section": "Visual: Total, Explained, and Residual Variation",
+    "text": "Visual: Total, Explained, and Residual Variation"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#confidence-intervals-and-hypothesis-tests",
+    "href": "Chapter Slides/chapter9-slides.html#confidence-intervals-and-hypothesis-tests",
+    "title": "STA258",
+    "section": "9.2.2 Confidence Intervals and Hypothesis Tests",
+    "text": "9.2.2 Confidence Intervals and Hypothesis Tests\n\nA level \\(100(1-\\alpha)\\%\\) confidence interval for the true slope is:\n\\[\n\\hat{\\beta}_1\n\\pm\nt_{1-\\alpha/2,\\;n-2}\nSE(\\hat{\\beta}_1).\n\\]\nThe reference distribution uses \\(n-2\\) degrees of freedom.\n\n\n\nIf the CI is entirely positive, the slope is plausibly positive.\n\n\nIf the CI is entirely negative, the slope is plausibly negative.\n\n\n\nIf the CI contains 0, then no linear relationship is plausible."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#hypothesis-tests-for-the-slope",
+    "href": "Chapter Slides/chapter9-slides.html#hypothesis-tests-for-the-slope",
+    "title": "STA258",
+    "section": "Hypothesis Tests for the Slope",
+    "text": "Hypothesis Tests for the Slope\n\nCommon slope hypotheses are:\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1\\ne 0\n\\]\nor one-sided alternatives:\n\\[\nH_A:\\beta_1&gt;0\n\\qquad \\text{or} \\qquad\nH_A:\\beta_1&lt;0.\n\\]\nThe test statistic is:\n\\[\nt=\n\\frac{\\hat{\\beta}_1-0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nA small p-value gives evidence of a linear relationship between \\(x\\) and \\(y\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ea-fc-practice-matches",
+    "href": "Chapter Slides/chapter9-slides.html#example-ea-fc-practice-matches",
+    "title": "STA258",
+    "section": "Example: EA FC Practice Matches",
+    "text": "Example: EA FC Practice Matches\n\n\nA gaming coach studies a fictional EA FC practice challenge.\nFor each player, the coach records:\n\n\\(x=\\) practice matches played\n\\(y=\\) win-rate improvement in percentage points\n\nThe fitted equation is:\n\\[\n\\hat{y}=0.518+0.383x.\n\\]\nTest whether the slope differs from 0.\n\n\nSlope inference\n\\[\n\\hat{\\beta}_1=0.383,\n\\qquad\nSE(\\hat{\\beta}_1)=0.011\n\\]\n\\[\ndf=n-2=10\n\\]\n\\[\nt=\n\\frac{0.383}{0.011}\n=\n34.870\n\\]\n\\[\np&lt;0.001\n\\]\nA 95% CI for the slope is:\n\\[\n(0.358,\\;0.407)\n\\]\n\n\nTarget parameter\nWe are estimating \\(\\beta_1\\), the average change in win-rate improvement for each additional practice match.\n\n\nThe data provide strong evidence of a positive linear relationship. Each additional practice match is associated with about 0.38 percentage points more win-rate improvement, on average."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-champions-league-seat-distance",
+    "href": "Chapter Slides/chapter9-slides.html#example-champions-league-seat-distance",
+    "title": "STA258",
+    "section": "Example: Champions League Seat Distance",
+    "text": "Example: Champions League Seat Distance\n\n\nA ticket analyst studies fictional Champions League final resale listings.\nFor each section, the analyst records:\n\n\\(x=\\) rows from the pitch\n\\(y=\\) resale ticket price in dollars\n\nThe fitted equation is:\n\\[\n\\hat{y}=761.147-10.533x.\n\\]\nTest whether the slope differs from 0.\n\n\nSlope inference\n\\[\n\\hat{\\beta}_1=-10.533,\n\\qquad\nSE(\\hat{\\beta}_1)=0.326\n\\]\n\\[\ndf=n-2=10\n\\]\n\\[\nt=\n\\frac{-10.533}{0.326}\n=\n-32.267\n\\]\n\\[\np&lt;0.001\n\\]\nA 95% CI for the slope is:\n\\[\n(-11.260,\\;-9.806)\n\\]\n\n\nTarget parameter\nWe are estimating \\(\\beta_1\\), the average change in resale price for each additional row away from the pitch.\n\n\nThe data provide strong evidence of a negative linear relationship. Each additional row away from the pitch is associated with about 10.53 dollars lower resale price, on average."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#assumptions-for-regression-inference",
+    "href": "Chapter Slides/chapter9-slides.html#assumptions-for-regression-inference",
+    "title": "STA258",
+    "section": "Assumptions for Regression Inference",
+    "text": "Assumptions for Regression Inference\n\nAssumptions\n\n\nLinearity: The relationship between the mean response and the predictor should be approximately linear.\n\n\nIndependence: Observations and errors should be independent.\n\n\nMean zero errors: At each value of \\(x\\), the average error should be 0.\n\n\nConstant variance: The error variance should be the same for all values of \\(x\\).\n\n\nNormal errors: The errors should be approximately normally distributed, especially for small samples.\n\n\n\n\nPractical reminder\nThese assumptions support the confidence interval and hypothesis test for the slope."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#anova-table-for-simple-linear-regression",
+    "href": "Chapter Slides/chapter9-slides.html#anova-table-for-simple-linear-regression",
+    "title": "STA258",
+    "section": "9.2.3 ANOVA Table for Simple Linear Regression",
+    "text": "9.2.3 ANOVA Table for Simple Linear Regression\n\nAn ANOVA table summarizes the variation in the response using sums of squares, degrees of freedom, mean squares, and an \\(F\\) statistic.\nFor simple linear regression:\n\\[\nSST=SSR+SSE.\n\\]\n\n\nThe ANOVA table asks whether the regression model explains a meaningful amount of variation compared with the residual variation left over."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#anova-table-structure",
+    "href": "Chapter Slides/chapter9-slides.html#anova-table-structure",
+    "title": "STA258",
+    "section": "ANOVA Table Structure",
+    "text": "ANOVA Table Structure\n\nSimple linear regression ANOVA table\n\n\n\n\n\n\n\n\n\n\nSource\nSum of Squares\nDegrees of Freedom\nMean Square\nComputed F\n\n\n\n\nRegression\n\\(SSR\\)\n\\(1\\)\n\\(MSR=SSR\\)\n\\(F=\\dfrac{MSR}{MSE}\\)\n\n\nError\n\\(SSE\\)\n\\(n-2\\)\n\\(MSE=\\dfrac{SSE}{n-2}\\)\n\n\n\nTotal\n\\(SST\\)\n\\(n-1\\)\n\n\n\n\n\n\n\nThe test statistic is:\n\\[\nF=\\frac{MSR}{MSE}\n=\n\\frac{SSR}{SSE/(n-2)}.\n\\]\nFor simple linear regression, this tests whether the slope is zero."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-toronto-rental-size-and-price",
+    "href": "Chapter Slides/chapter9-slides.html#example-toronto-rental-size-and-price",
+    "title": "STA258",
+    "section": "Example: Toronto Rental Size and Price",
+    "text": "Example: Toronto Rental Size and Price\n\n\nA housing analyst studies fictional Toronto rental listings.\nFor each listing, the analyst records:\n\n\\(x=\\) unit size in hundreds of square feet\n\\(y=\\) monthly rent in dollars\n\nThe fitted equation is:\n\\[\n\\hat{y}=1099.111+240.667x.\n\\]\nConstruct the ANOVA table.\n\n\nANOVA calculations\n\\[\nSSR=3{,}475{,}226.667,\n\\qquad\nSSE=23{,}395.556\n\\]\n\\[\nSST=3{,}498{,}622.222\n\\]\n\\[\ndf_R=1,\n\\qquad\ndf_E=n-2=7,\n\\qquad\ndf_T=n-1=8\n\\]\n\\[\nMSR=3{,}475{,}226.667\n\\]\n\\[\nMSE=\n\\frac{23{,}395.556}{7}\n=\n3{,}342.222\n\\]\n\\[\nF=\n\\frac{3{,}475{,}226.667}{3{,}342.222}\n=\n1039.795\n\\]\n\n\nTarget question\nDoes unit size explain a statistically meaningful amount of variation in monthly rent?\n\n\nThe \\(F\\) statistic is very large and the p-value is very small, so there is strong evidence that unit size is linearly related to monthly rent in this fictional dataset."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-anova-table",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-anova-table",
+    "title": "STA258",
+    "section": "Check in R: ANOVA Table",
+    "text": "Check in R: ANOVA Table\n\n\n\nIShowSpeed teaser example\nFor simple linear regression:\n\\[\nF=t^2.\n\\]\nFrom the slope test:\n\\[\n3.656^2\\approx13.36.\n\\]\nSo the ANOVA (F)-test and the two-sided slope (t)-test lead to the same conclusion."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
+    "href": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
+    "title": "STA258",
+    "section": "Prediction, Interpolation, and Extrapolation",
+    "text": "Prediction, Interpolation, and Extrapolation\n\nOnce a fitted regression equation is available,\n\\[\n\\hat{y}=\\hat{\\beta}_0+\\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\n\nInterpolation\nPrediction for an \\(x\\) value inside the observed range of the data.\nUsually safer if the model is reasonable.\n\n\nExtrapolation\nPrediction for an \\(x\\) value outside the observed range of the data.\nThis can be very inaccurate."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-rental-price-prediction",
+    "href": "Chapter Slides/chapter9-slides.html#example-rental-price-prediction",
+    "title": "STA258",
+    "section": "Example: Rental Price Prediction",
+    "text": "Example: Rental Price Prediction\n\n\nUsing the Toronto rental model:\n\\[\n\\hat{y}=1099.111+240.667x\n\\]\nwhere:\n\n\\(x=\\) unit size in hundreds of square feet\n\\(y=\\) monthly rent in dollars\n\nPredict rent for:\n\\[\nx=9\n\\]\nand compare with predicting at:\n\\[\nx=20.\n\\]\n\n\nCalculation\nFor a 900 sq ft unit:\n\\[\n\\hat{y}\n=\n1099.111+240.667(9)\n=\n3265.11\n\\]\nThis is interpolation because \\(x=9\\) is inside the observed range.\nFor a 2000 sq ft unit:\n\\[\n\\hat{y}\n=\n1099.111+240.667(20)\n=\n5912.44\n\\]\nThis is extrapolation because \\(x=20\\) is outside the observed range.\n\n\nPrediction target\nThe model predicts monthly rent from unit size.\nThe observed data only cover units from 400 to 1200 sq ft.\n\n\nThe 900 sq ft prediction is within the data range. The 2000 sq ft prediction should be treated carefully because it is outside the range used to fit the model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#residual-plots",
+    "href": "Chapter Slides/chapter9-slides.html#residual-plots",
+    "title": "STA258",
+    "section": "9.2.4 Residual Plots",
+    "text": "9.2.4 Residual Plots\n\nResidual plots are used to verify assumptions related to the error terms in a regression model.\nFor each observation:\n\\[\ne_i=y_i-\\hat{y}_i.\n\\]\nWe usually plot residuals against fitted values.\n\n\nA good residual plot should look like random scatter around zero."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#assumptions-checked-by-residual-plots",
+    "href": "Chapter Slides/chapter9-slides.html#assumptions-checked-by-residual-plots",
+    "title": "STA258",
+    "section": "Assumptions Checked by Residual Plots",
+    "text": "Assumptions Checked by Residual Plots\n\nResidual plot checklist\n\n\nRandom scatter: There should be no obvious pattern in the residuals.\n\n\nNo curve: A curved pattern suggests the relationship may not be linear.\n\n\nConstant variance: The residuals should fall in a roughly horizontal band with similar spread.\n\n\nNo clustering: Clusters may suggest separate groups or lack of independence.\n\n\nNo influential outliers: A few extreme points should not dominate the fitted line.\n\n\n\n\nTextbook logic\nResidual plots help assess whether the regression assumptions are reasonable before trusting inference."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-a-reasonable-residual-plot",
+    "href": "Chapter Slides/chapter9-slides.html#visual-a-reasonable-residual-plot",
+    "title": "STA258",
+    "section": "Visual: A Reasonable Residual Plot",
+    "text": "Visual: A Reasonable Residual Plot\n\n\n\nWhat we want to see\nA reasonable residual plot has:\n\npoints scattered around 0,\nno clear curve,\nno funnel shape,\nno obvious clusters.\n\nThis supports the linear model assumptions."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-problem-patterns-in-residual-plots",
+    "href": "Chapter Slides/chapter9-slides.html#visual-problem-patterns-in-residual-plots",
+    "title": "STA258",
+    "section": "Visual: Problem Patterns in Residual Plots",
+    "text": "Visual: Problem Patterns in Residual Plots"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-residual-plot",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-residual-plot",
+    "title": "STA258",
+    "section": "Check in R: Residual Plot",
+    "text": "Check in R: Residual Plot\n\n\n\nResidual diagnostic\nThe residual plot uses:\n\\[\nx\\text{-axis}=\\hat{y}_i\n\\]\nand\n\\[\ny\\text{-axis}=e_i=y_i-\\hat{y}_i.\n\\]\nLook for random scatter around zero."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#full-chapter-workflow",
+    "href": "Chapter Slides/chapter9-slides.html#full-chapter-workflow",
+    "title": "STA258",
+    "section": "Full Chapter Workflow",
+    "text": "Full Chapter Workflow\n\nSimple linear regression workflow\n1. Visualize: Make a scatterplot.\n2. Fit: Estimate the least-squares line.\n3. Interpret: Explain the intercept and slope in context.\n4. Summarize: Use covariance, correlation, \\(SSE\\), \\(SSR\\), \\(SST\\), and \\(R^2\\).\n5. Infer: Estimate \\(s^2\\), compute standard errors, and test the slope.\n6. Diagnose: Use residual plots to check model assumptions."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-full-workflow",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-full-workflow",
+    "title": "STA258",
+    "section": "Check in R: Full Workflow",
+    "text": "Check in R: Full Workflow"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-a-straight-line-pattern",
+    "href": "Chapter Slides/chapter9-slides.html#visual-a-straight-line-pattern",
+    "title": "STA258",
+    "section": "Visual: A Straight-Line Pattern",
+    "text": "Visual: A Straight-Line Pattern"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ronaldo-vs-messi-goat-debate-clips",
+    "href": "Chapter Slides/chapter9-slides.html#example-ronaldo-vs-messi-goat-debate-clips",
+    "title": "STA258",
+    "section": "Example: Ronaldo vs Messi GOAT Debate Clips",
+    "text": "Example: Ronaldo vs Messi GOAT Debate Clips\n\n\nA sports media page studies fictional engagement with Ronaldo vs Messi GOAT debate clips.\n\n\n\nClips watched \\((x)\\)\nEngagement score \\((y)\\)\n\n\n\n\n2\n41\n\n\n3\n47\n\n\n4\n50\n\n\n5\n56\n\n\n6\n61\n\n\n7\n65\n\n\n8\n70\n\n\n9\n75\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=5.500,\n\\qquad\n\\bar{y}=58.125\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=201.500\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{S_{xy}}{S_{xx}}\n=\n\\frac{201.500}{42.000}\n=\n4.798\n\\]\n\\[\n\\hat{\\beta}_0=\n58.125-4.798(5.500)\n=\n31.738\n\\]\n\\[\n\\hat{y}=31.738+4.798x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{engagement score}\n\\]\nusing:\n\\[\nx=\\text{debate clips watched}\n\\]\n\n\nFor each additional debate clip watched, the predicted engagement score increases by about 4.80 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-argentina-vs-france-world-cup-final-highlights",
+    "href": "Chapter Slides/chapter9-slides.html#example-argentina-vs-france-world-cup-final-highlights",
+    "title": "STA258",
+    "section": "Example: Argentina vs France World Cup Final Highlights",
+    "text": "Example: Argentina vs France World Cup Final Highlights\n\n\nA football media account studies fictional replay interest after viewers watch Argentina vs France World Cup Final highlight packages.\n\n\n\nHighlight minutes \\((x)\\)\nReplay interest \\((y)\\)\n\n\n\n\n3\n52\n\n\n4\n57\n\n\n5\n61\n\n\n6\n63\n\n\n7\n70\n\n\n8\n73\n\n\n9\n78\n\n\n10\n82\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=6.500,\n\\qquad\n\\bar{y}=67.000\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=179.000\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{179.000}{42.000}\n=\n4.262\n\\]\n\\[\n\\hat{\\beta}_0=\n67.000-4.262(6.500)\n=\n39.298\n\\]\n\\[\n\\hat{y}=39.298+4.262x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{replay interest score}\n\\]\nusing:\n\\[\nx=\\text{highlight minutes watched}\n\\]\n\n\nFor each additional minute of highlights watched, the predicted replay interest score increases by about 4.26 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ishowspeed-stream-clips-and-chat-hype",
+    "href": "Chapter Slides/chapter9-slides.html#example-ishowspeed-stream-clips-and-chat-hype",
+    "title": "STA258",
+    "section": "Example: IShowSpeed Stream Clips and Chat Hype",
+    "text": "Example: IShowSpeed Stream Clips and Chat Hype\n\n\nA streaming analytics page studies fictional viewer groups watching IShowSpeed stream clips.\n\n\n\nStream clips \\((x)\\)\nChat hype score \\((y)\\)\n\n\n\n\n1\n24\n\n\n3\n31\n\n\n5\n35\n\n\n6\n47\n\n\n8\n48\n\n\n\nCompute and interpret the sample correlation.\n\n\nCalculation\n\\[\n\\bar{x}=4.600,\n\\qquad\n\\bar{y}=37.000\n\\]\n\\[\ns_x=2.702,\n\\qquad\ns_y=10.368\n\\]\n\\[\ns_{xy}\n=\n\\frac{1}{5-1}\n\\sum(x_i-\\bar{x})(y_i-\\bar{y})\n=\n26.750\n\\]\n\\[\nr=\n\\frac{s_{xy}}{s_xs_y}\n=\n\\frac{26.750}{(2.702)(10.368)}\n=\n0.955\n\\]\n\\[\nr^2=0.912\n\\]\n\n\nTarget relationship\nWe compare stream clips watched and chat hype score.\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\nThe correlation is 0.955, so the relationship is strongly positive: groups that watch more clips tend to have higher chat hype scores."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-three-types-of-correlation",
+    "href": "Chapter Slides/chapter9-slides.html#visual-three-types-of-correlation",
+    "title": "STA258",
+    "section": "Visual: Three Types of Correlation",
+    "text": "Visual: Three Types of Correlation"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice",
+    "href": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice",
+    "title": "STA258",
+    "section": "Example: F1 Monaco Simulator Practice",
+    "text": "Example: F1 Monaco Simulator Practice\n\n\nAn F1 analytics page studies a fictional Monaco simulator practice session.\nFor each player:\n\n\\(x=\\) simulator practice laps\n\\(y=\\) lap-time improvement in seconds\n\nThe fitted line is:\n\\[\n\\hat{y}=-0.098+0.141x.\n\\]\nQuestion. Calculate \\(SSE\\), \\(SSR\\), \\(SST\\), and \\(R^2\\).\n\n\n\n\\(x\\)\n\\(y\\)\n\\(\\hat y\\)\n\\((y-\\hat y)^2\\)\n\\((\\hat y-\\bar y)^2\\)\n\n\n\n\n5\n0.6\n0.607\n0.000\n0.798\n\n\n8\n1.0\n1.030\n0.001\n0.221\n\n\n10\n1.4\n1.312\n0.008\n0.035\n\n\n12\n1.5\n1.594\n0.009\n0.009\n\n\n15\n2.1\n2.017\n0.007\n0.267\n\n\n18\n2.4\n2.440\n0.002\n0.884\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=1.500\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum(y_i-\\hat{y}_i)^2=0.026\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=2.214\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=2.240\n\\]\nCheck:\n\\[\nSSR+SSE=2.214+0.026=2.240=SST\n\\]\n\\[\nR^2=\\frac{2.214}{2.240}=0.988\n\\]\n\n\nTarget relationship\nWe model lap-time improvement using simulator practice laps.\n\n\nAbout 98.8% of the variation in lap-time improvement is explained by practice laps through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ishowspeed-charity-stream-teasers",
+    "href": "Chapter Slides/chapter9-slides.html#example-ishowspeed-charity-stream-teasers",
+    "title": "STA258",
+    "section": "Example: IShowSpeed Charity Stream Teasers",
+    "text": "Example: IShowSpeed Charity Stream Teasers\n\n\nA streaming team studies a fictional IShowSpeed charity stream campaign.\nFor each day:\n\n\\(x=\\) teaser clips posted\n\\(y=\\) live viewers in ten-thousands\n\nData:\n\\[\nx: 1,\\;2,\\;3,\\;4,\\;5\n\\]\n\\[\ny: 1,\\;1,\\;2,\\;2,\\;4\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nFrom least squares:\n\\[\n\\hat{y}=-0.100+0.700x\n\\]\n\\[\nSSE=1.100,\n\\qquad\nS_{xx}=10.000,\n\\qquad\nn=5\n\\]\n\\[\ns^2=\n\\frac{SSE}{n-2}\n=\n\\frac{1.100}{3}\n=\n0.3667\n\\]\n\\[\ns=\\sqrt{0.3667}=0.6055\n\\]\n\\[\nSE(\\hat{\\beta}_1)=\n\\frac{0.6055}{\\sqrt{10}}\n=\n0.1915\n\\]\n\\[\nt=\n\\frac{0.700}{0.1915}\n=\n3.656,\n\\qquad\ndf=3\n\\]\n\\[\n95\\%\\ CI:\n\\quad\n0.700\\pm3.182(0.1915)\n=\n(0.091,\\;1.309)\n\\]\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_3\\).\n\n\nSince the p-value is about 0.035, we reject \\(H_0\\) at the 5% level. There is evidence of a positive linear relationship between teaser clips posted and live viewers."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-starbucks-mobile-order-queue",
+    "href": "Chapter Slides/chapter9-slides.html#example-starbucks-mobile-order-queue",
+    "title": "STA258",
+    "section": "Example: Starbucks Mobile-Order Queue",
+    "text": "Example: Starbucks Mobile-Order Queue\n\n\nA Starbucks location studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n\\[\ns^2=\n\\frac{1.328}{8-2}\n=\n0.221\n\\]\n\\[\ns=\\sqrt{0.221}=0.470\n\\]\n\\[\nSE(\\hat{\\beta}_1)=\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\n\\]\n\\[\nt=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\]\n\\[\n95\\%\\ CI:\n\\quad\n1.038\\pm2.447(0.043)\n=\n(0.932,\\;1.144)\n\\]\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
+    "href": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
+    "title": "STA258",
+    "section": "Check in R: Slope Test and Confidence Interval",
+    "text": "Check in R: Slope Test and Confidence Interval\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nStarbucks queue example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-ishowspeed-teaser-clips",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-ishowspeed-teaser-clips",
+    "title": "STA258",
+    "section": "Example: ANOVA for IShowSpeed Teaser Clips",
+    "text": "Example: ANOVA for IShowSpeed Teaser Clips\n\n\nReturn to the IShowSpeed charity stream teaser example.\nThe fitted line is:\n\\[\n\\hat{y}=-0.100+0.700x.\n\\]\nThe variation quantities are:\n\\[\nSST=6.000,\n\\qquad\nSSR=4.900,\n\\qquad\nSSE=1.100.\n\\]\nQuestion. Construct the ANOVA table and test whether the regression model explains a meaningful amount of variation in live viewers.\n\n\nANOVA calculations\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n4.900\n1\n4.900\n13.364\n\n\nError\n1.100\n3\n0.367\n\n\n\nTotal\n6.000\n4\n\n\n\n\n\n\\[\nMSR=\\frac{SSR}{1}=4.900\n\\]\n\\[\nMSE=\\frac{SSE}{n-2}\n=\n\\frac{1.100}{3}\n=\n0.3667\n\\]\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{4.900}{0.3667}\n=\n13.364\n\\]\nSince (p=0.0354&lt;0.05), reject (H_0:_1=0).\n\n\nTarget question\nDoes the number of teaser clips explain a statistically meaningful amount of variation in live viewers?\n\n\nThe ANOVA test gives evidence that teaser clips posted are linearly related to live viewers in this fictional example."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-toronto-condo-rent-and-unit-size",
+    "href": "Chapter Slides/chapter9-slides.html#example-toronto-condo-rent-and-unit-size",
+    "title": "STA258",
+    "section": "Example: Toronto Condo Rent and Unit Size",
+    "text": "Example: Toronto Condo Rent and Unit Size\n\n\nA housing analyst studies fictional Toronto condo listings.\nThe fitted line is:\n\\[\n\\hat{y}=1090.476+220.238x\n\\]\nwhere:\n\n\\(x=\\) unit size in hundreds of square feet\n\\(y=\\) monthly rent in dollars\n\nPredict rent for:\n\\[\nx=8\n\\]\nand compare with predicting at:\n\\[\nx=20.\n\\]\n\n\nCalculation\nFor an 800 sq ft unit:\n\\[\n\\hat{y}\n=\n1090.476+220.238(8)\n=\n2852.38\n\\]\nThis is interpolation because \\(x=8\\) is inside the observed range.\nFor a 2000 sq ft unit:\n\\[\n\\hat{y}\n=\n1090.476+220.238(20)\n=\n5495.24\n\\]\nThis is extrapolation because \\(x=20\\) is outside the observed range.\n\n\nPrediction target\nThe observed data only cover units from 500 to 1200 sq ft.\n\n\nThe 800 sq ft prediction is within the data range. The 2000 sq ft prediction should be treated carefully because it is outside the range used to fit the model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#residual-plot-checks",
+    "href": "Chapter Slides/chapter9-slides.html#residual-plot-checks",
+    "title": "STA258",
+    "section": "9.2.4 Residual Plot Checks",
+    "text": "9.2.4 Residual Plot Checks\n\nResidual plot checklist\n\n\nRandom scatter: There should be no obvious pattern in the residuals.\n\n\nNo curve: A curved pattern suggests the relationship may not be linear.\n\n\nConstant variance: The residuals should fall in a roughly horizontal band with similar spread.\n\n\nNo clustering: Clusters may suggest separate groups or lack of independence.\n\n\nNo influential outliers: A few extreme points should not dominate the fitted line.\n\n\n\n\nTextbook logic\nResidual plots are used to judge whether the regression assumptions are reasonable before trusting inference."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-caitlin-clark-highlight-clips-and-shares",
+    "href": "Chapter Slides/chapter9-slides.html#example-caitlin-clark-highlight-clips-and-shares",
+    "title": "STA258",
+    "section": "Example: Caitlin Clark Highlight Clips and Shares",
+    "text": "Example: Caitlin Clark Highlight Clips and Shares\n\n\nA sports social-media team studies fictional viewer groups watching Caitlin Clark (WNBA Star) highlight clips.\n\n\n\nHighlight clips watched \\((x)\\)\nGroup-chat shares \\((y)\\)\n\n\n\n\n1\n18\n\n\n2\n21\n\n\n4\n34\n\n\n6\n43\n\n\n7\n48\n\n\n\nCompute and interpret the sample correlation.\n\n\nCalculation\n\\[\n\\bar{x}=4.000,\n\\qquad\n\\bar{y}=32.800\n\\]\n\\[\ns_x=2.550,\n\\qquad\ns_y=13.180\n\\]\n\\[\ns_{xy}\n=\n\\frac{1}{5-1}\n\\sum(x_i-\\bar{x})(y_i-\\bar{y})\n=\n33.500\n\\]\n\\[\nr=\n\\frac{s_{xy}}{s_xs_y}\n=\n\\frac{33.500}{(2.550)(13.180)}\n=\n0.997\n\\]\n\\[\nr^2=0.994\n\\]\n\n\nTarget relationship\nWe compare highlight clips watched and group-chat shares.\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\nThe correlation is 0.997, so the relationship is strongly positive: groups that watch more highlight clips tend to share more clips."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-positive-negative-and-weak-correlation",
+    "href": "Chapter Slides/chapter9-slides.html#visual-positive-negative-and-weak-correlation",
+    "title": "STA258",
+    "section": "Visual: Positive, Negative, and Weak Correlation",
+    "text": "Visual: Positive, Negative, and Weak Correlation"
   }
 ]

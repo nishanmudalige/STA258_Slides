@@ -2763,5 +2763,299 @@
     "title": "STA258",
     "section": "Example: Jordan vs LeBron GOAT Rating",
     "text": "Example: Jordan vs LeBron GOAT Rating\n\n\nA sports media page wants to estimate the mean rating fans give to a Jordan vs LeBron GOAT debate video.\nEach fan rates the video on a 0 to 100 scale.\nSince \\(\\sigma\\) is unknown, the page uses a pilot study:\n\\[\ns=14.5\n\\]\nThey want the margin of error to be at most:\n\\[\nE=4\n\\]\nFind the required sample size for 95% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{t^*s}{E}\n\\right)^2\n\\]\nStart with the \\(z\\) approximation:\n\\[\nn_0=\n\\left(\n\\frac{1.96(14.5)}{4}\n\\right)^2\n=\n50.48\n\\Rightarrow\n51\n\\]\nThen update using \\(t\\) critical values:\n\\[\n\\begin{array}{c|c|c|c}\n\\text{Use } n & df & t^* & \\text{New } n \\\\ \\hline\n51 & 50 & 2.009 & 53.04 \\Rightarrow 54 \\\\\n54 & 53 & 2.006 & 52.88 \\Rightarrow 53 \\\\\n53 & 52 & 2.007 & 52.94 \\Rightarrow 53\n\\end{array}\n\\]\nSo the sample size stabilizes at:\n\\[\nn=53\n\\]\n\n\nPlanning goal\nWe are planning a confidence interval for the population mean fan rating.\nBecause \\(\\sigma\\) is unknown, the pilot-study standard deviation \\(s=14.5\\) is used as the preliminary estimate.\n\n\nThe sports media page should sample at least 53 fans to estimate the mean GOAT-debate video rating within 4 points at 95% confidence."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#chapter-roadmap",
+    "href": "Chapter Slides/chapter9-slides.html#chapter-roadmap",
+    "title": "STA258",
+    "section": "Chapter Roadmap",
+    "text": "Chapter Roadmap\n\n\n1 - Regression Model Connect a quantitative response \\(Y\\) to one quantitative predictor \\(x\\) using a straight-line model.\n\n\n2 - Least Squares Estimate the intercept and slope by choosing the line that makes residuals as small as possible.\n\n\n3 - Inference Use assumptions, standard errors, confidence intervals, and tests to decide whether the linear relationship is statistically meaningful.\n\n\n\n\n\nCore skill Interpret slope, intercept, residuals, and fitted values in context.\n\n\nCore tool Use lm() in R to fit and summarize a simple linear regression model.\n\n\nCore habit Always check whether a straight-line model is reasonable before interpreting the equation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#introduction-to-the-linear-model",
+    "href": "Chapter Slides/chapter9-slides.html#introduction-to-the-linear-model",
+    "title": "STA258",
+    "section": "9.1 Introduction to the Linear Model",
+    "text": "9.1 Introduction to the Linear Model\n\nGeneral Linear Model\nA linear model has the form\n\\[\ny_i = \\beta_0 + \\beta_1z_{i1} + \\beta_2z_{i2} + \\cdots +\n\\beta_pz_{ip} + \\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\nHere \\(y_i\\) is the response variable, the \\(z\\)’s are predictors, and \\(\\varepsilon_i\\) is random error.\n\n\n\nPrediction goal\nUse the predictors to estimate or predict the response.\nExample: use advertising spending to predict sales revenue.\n\n\nInference goal\nDecide whether a predictor is meaningfully related to the response.\nExample: test whether advertising spending has a nonzero relationship with sales revenue."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#simple-linear-regression",
+    "href": "Chapter Slides/chapter9-slides.html#simple-linear-regression",
+    "title": "STA258",
+    "section": "Simple Linear Regression",
+    "text": "Simple Linear Regression\n\nSimple Linear Regression\nA simple linear regression model has exactly one predictor:\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\n\n\\(\\beta_0\\) is the intercept.\n\\(\\beta_1\\) is the slope.\n\\(\\varepsilon_i\\) is the random error term.\n\n\n\nThe fitted regression line is written as\n\\[\n\\hat{y}_i = \\hat{\\beta}_0 + \\hat{\\beta}_1x_i.\n\\]\nThe hats remind us that these are estimated values from sample data."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#regression-as-a-picture",
+    "href": "Chapter Slides/chapter9-slides.html#regression-as-a-picture",
+    "title": "STA258",
+    "section": "Regression as a Picture",
+    "text": "Regression as a Picture\n\n\n\nExample Suppose an appliance store records the number of tools made in a day and the daily electricity cost.\nWe want to answer:\n(a) Does cost tend to increase as the number of tools increases?\n(b) Can we summarize this relationship using a line?\n(c) Can we use the line to predict electricity cost?\n\n\nRegression starts with a scatterplot. Before formulas, first ask: does a straight line look reasonable?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#least-squares-method",
+    "href": "Chapter Slides/chapter9-slides.html#least-squares-method",
+    "title": "STA258",
+    "section": "9.1.1 Least Squares Method",
+    "text": "9.1.1 Least Squares Method\n\nResidual\nA residual is the difference between the observed value and the fitted value:\n\\[\ne_i = y_i - \\hat{y}_i.\n\\]\nIt measures the vertical distance from a data point to the regression line.\n\n\n\nIf \\(e_i &gt; 0\\), the point is above the fitted line.\nThe model underpredicted the observed response.\n\n\nIf \\(e_i &lt; 0\\), the point is below the fitted line.\nThe model overpredicted the observed response."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#residuals-on-a-regression-plot",
+    "href": "Chapter Slides/chapter9-slides.html#residuals-on-a-regression-plot",
+    "title": "STA258",
+    "section": "Residuals on a Regression Plot",
+    "text": "Residuals on a Regression Plot"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#sum-of-squared-errors",
+    "href": "Chapter Slides/chapter9-slides.html#sum-of-squared-errors",
+    "title": "STA258",
+    "section": "Sum of Squared Errors",
+    "text": "Sum of Squared Errors\n\nSum of Squared Errors\nFor a fitted regression line, the residual sum of squares is\n\\[\nSSE = \\sum_{i=1}^{n}e_i^2\n= \\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\nThe least-squares method chooses the line that makes \\(SSE\\) as small as possible.\n\n\nWhy square the residuals?\n\nSquaring prevents positive and negative residuals from cancelling.\nLarge mistakes are penalized more heavily.\nThe resulting optimization problem has a clean mathematical solution."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#least-squares-optimization",
+    "href": "Chapter Slides/chapter9-slides.html#least-squares-optimization",
+    "title": "STA258",
+    "section": "Least Squares Optimization",
+    "text": "Least Squares Optimization\n\nFor simple linear regression, least squares solves\n\\[\n\\min_{\\beta_0,\\beta_1}\n\\sum_{i=1}^{n}(y_i-\\beta_0-\\beta_1x_i)^2.\n\\]\n\n\n\nThe output is the fitted line:\n\\[\n\\hat{y}_i = \\hat{\\beta}_0 + \\hat{\\beta}_1x_i.\n\\]\nThis is the line with the smallest possible SSE among all straight lines.\n\n\nLeast squares finds the best line among straight lines.\nIt does not guarantee that a straight line is actually the right model. Always inspect the scatterplot and residuals."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#estimating-parameters-for-the-simple-linear-model",
+    "href": "Chapter Slides/chapter9-slides.html#estimating-parameters-for-the-simple-linear-model",
+    "title": "STA258",
+    "section": "9.1.2 Estimating Parameters for the Simple Linear Model",
+    "text": "9.1.2 Estimating Parameters for the Simple Linear Model\n\nFor the model\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i,\n\\]\nthe least-squares estimates are\n\\[\n\\hat{\\beta}_1 =\n\\frac{\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})}\n{\\sum_{i=1}^{n}(x_i-\\bar{x})^2}\n=\n\\frac{S_{xy}}{S_{xx}},\n\\]\nand\n\\[\n\\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1\\bar{x}.\n\\]\n\n\nThe fitted regression line always passes through the point \\((\\bar{x}, \\bar{y})\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#interpreting-the-coefficients",
+    "href": "Chapter Slides/chapter9-slides.html#interpreting-the-coefficients",
+    "title": "STA258",
+    "section": "Interpreting the Coefficients",
+    "text": "Interpreting the Coefficients\n\n\nIntercept\n\\[\n\\hat{\\beta}_0\n\\]\nThe predicted value of \\(Y\\) when \\(x = 0\\).\nInterpret only if \\(x = 0\\) makes sense in context.\n\n\nSlope\n\\[\n\\hat{\\beta}_1\n\\]\nThe predicted change in \\(Y\\) for a one-unit increase in \\(x\\).\nThis is usually the most important coefficient.\n\n\n\nIf \\(\\hat{\\beta}_1 = 2.25\\), then each additional tool is associated with an estimated increase of about 2.25 units in electricity cost."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-9.1-electricity-cost-data",
+    "href": "Chapter Slides/chapter9-slides.html#example-9.1-electricity-cost-data",
+    "title": "STA258",
+    "section": "Example 9.1: Electricity Cost Data",
+    "text": "Example 9.1: Electricity Cost Data\n\n\n\nExample The data below show the number of tools made and daily electricity cost for 10 days.\n\n\n\nDay\nTools \\((X)\\)\nCost \\((Y)\\)\n\n\n\n\n1\n7\n23.80\n\n\n2\n3\n11.89\n\n\n3\n2\n15.89\n\n\n4\n5\n26.11\n\n\n5\n8\n31.79\n\n\n6\n11\n39.93\n\n\n7\n5\n12.27\n\n\n8\n15\n40.06\n\n\n9\n3\n21.38\n\n\n10\n6\n18.65\n\n\n\n(a) Estimate the regression equation.\n(b) Interpret the slope."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#electricity-example-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#electricity-example-check-in-r",
+    "title": "STA258",
+    "section": "Electricity Example — Check in R",
+    "text": "Electricity Example — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#fitted-values-and-residuals-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#fitted-values-and-residuals-in-r",
+    "title": "STA258",
+    "section": "Fitted Values and Residuals in R",
+    "text": "Fitted Values and Residuals in R\n\n\n\n\n\n\n\n\n\nFor a least-squares regression with an intercept, residuals always sum to approximately zero, up to rounding."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#section",
+    "href": "Chapter Slides/chapter9-slides.html#section",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nA fitted regression line is\n\\[\n\\hat{y} = 9.59 + 2.25x.\n\\]\nWhat is the correct interpretation of the slope?\n\n\n\n\nWhen \\(x = 0\\), the predicted value of \\(y\\) is 2.25\nFor every one-unit increase in \\(x\\), the predicted value of \\(y\\) increases by about 2.25\nThe correlation between \\(x\\) and \\(y\\) is 2.25\nThe residuals increase by 2.25 each time"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#measures-of-linear-relationship",
+    "href": "Chapter Slides/chapter9-slides.html#measures-of-linear-relationship",
+    "title": "STA258",
+    "section": "9.1.3 Measures of Linear Relationship",
+    "text": "9.1.3 Measures of Linear Relationship\n\nSample Covariance\nThe sample covariance between \\(x\\) and \\(y\\) is\n\\[\ns_{xy}\n=\n\\frac{1}{n-1}\n\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y}).\n\\]\nIt measures whether two variables tend to move together.\n\n\n\nPositive covariance: large \\(x\\) values tend to occur with large \\(y\\) values.\n\n\nNegative covariance: large \\(x\\) values tend to occur with small \\(y\\) values."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#correlation",
+    "href": "Chapter Slides/chapter9-slides.html#correlation",
+    "title": "STA258",
+    "section": "Correlation",
+    "text": "Correlation\n\nCorrelation Coefficient\nThe sample correlation coefficient is\n\\[\nr_{xy} = \\frac{s_{xy}}{s_xs_y}.\n\\]\nCorrelation is a standardized measure of the strength and direction of a linear relationship.\n\n\n\n\\(r \\approx 1\\) Strong positive linear relationship.\n\n\n\\(r \\approx -1\\) Strong negative linear relationship.\n\n\n\\(r \\approx 0\\) Little or no straight-line relationship.\n\n\n\nCorrelation measures linear association. A curved relationship can have correlation near zero."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#correlation-three-visual-cases",
+    "href": "Chapter Slides/chapter9-slides.html#correlation-three-visual-cases",
+    "title": "STA258",
+    "section": "Correlation: Three Visual Cases",
+    "text": "Correlation: Three Visual Cases"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#covariance-and-correlation-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#covariance-and-correlation-check-in-r",
+    "title": "STA258",
+    "section": "Covariance and Correlation — Check in R",
+    "text": "Covariance and Correlation — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#sse-ssr-and-sst",
+    "href": "Chapter Slides/chapter9-slides.html#sse-ssr-and-sst",
+    "title": "STA258",
+    "section": "9.1.4 SSE, SSR and SST",
+    "text": "9.1.4 SSE, SSR and SST\n\nRegression separates the total variation in \\(Y\\) into two parts:\n\\[\nSST = SSR + SSE.\n\\]\n\nSST: total variation in observed \\(y_i\\) around \\(\\bar{y}\\)\nSSR: variation explained by the regression line\nSSE: unexplained variation left in the residuals\n\n\n\n\nSST\n\\[\n\\sum (y_i-\\bar{y})^2\n\\]\nTotal variation.\n\n\nSSR\n\\[\n\\sum (\\hat{y}_i-\\bar{y})^2\n\\]\nExplained variation.\n\n\nSSE\n\\[\n\\sum (y_i-\\hat{y}_i)^2\n\\]\nUnexplained variation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-decomposition-of-variation",
+    "href": "Chapter Slides/chapter9-slides.html#visual-decomposition-of-variation",
+    "title": "STA258",
+    "section": "Visual Decomposition of Variation",
+    "text": "Visual Decomposition of Variation"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#coefficient-of-determination",
+    "href": "Chapter Slides/chapter9-slides.html#coefficient-of-determination",
+    "title": "STA258",
+    "section": "Coefficient of Determination",
+    "text": "Coefficient of Determination\n\nCoefficient of Determination\nThe proportion of total variation in \\(Y\\) explained by the linear model is\n\\[\nR^2 = \\frac{SSR}{SST} = 1 - \\frac{SSE}{SST}.\n\\]\n\n\n\nIf \\(R^2 = 0.72\\), then about 72% of the variation in the response is explained by the predictor through the fitted linear model.\n\n\nA large \\(R^2\\) does not prove causation.\nIt only describes how well the fitted line explains variation in the observed data."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#sse-ssr-sst-and-r²-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#sse-ssr-sst-and-r²-check-in-r",
+    "title": "STA258",
+    "section": "SSE, SSR, SST and R² — Check in R",
+    "text": "SSE, SSR, SST and R² — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#section-1",
+    "href": "Chapter Slides/chapter9-slides.html#section-1",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nIn a simple linear regression, \\(SSE\\) measures:\n\n\n\n\nThe total variation in \\(Y\\) around \\(\\bar{y}\\)\nThe variation explained by the fitted regression line\nThe squared residual variation left unexplained by the model\nThe slope of the regression line"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#inference-for-simple-linear-regression",
+    "href": "Chapter Slides/chapter9-slides.html#inference-for-simple-linear-regression",
+    "title": "STA258",
+    "section": "9.2 Inference for Simple Linear Regression",
+    "text": "9.2 Inference for Simple Linear Regression\n\nFor inference, we use the model\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\nThe goal is not only to fit a line, but to decide whether the slope and intercept are statistically meaningful.\n\n\nIn practice, we are usually most interested in the slope \\(\\beta_1\\).\nA slope of zero means there is no linear change in the expected response as \\(x\\) increases."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#regression-assumptions",
+    "href": "Chapter Slides/chapter9-slides.html#regression-assumptions",
+    "title": "STA258",
+    "section": "Regression Assumptions",
+    "text": "Regression Assumptions\n\n\nLinearity The mean of \\(Y\\) changes linearly with \\(x\\).\n\n\nIndependence The observations/errors are independent.\n\n\nConstant variance The error variance is the same at every value of \\(x\\).\n\n\n\n\n\nNormal errors The errors are approximately normally distributed.\n\n\nMean zero errors At each \\(x\\), the error term has mean zero.\n\n\nCheck residuals Residual plots help diagnose assumption problems."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#estimating-variance-in-linear-regression",
+    "href": "Chapter Slides/chapter9-slides.html#estimating-variance-in-linear-regression",
+    "title": "STA258",
+    "section": "9.2.1 Estimating Variance in Linear Regression",
+    "text": "9.2.1 Estimating Variance in Linear Regression\n\nBecause \\(\\sigma^2\\) is unknown, we estimate it using the residuals:\n\\[\ns^2 = \\frac{\\sum_{i=1}^{n}e_i^2}{n-2}\n= \\frac{SSE}{n-2}.\n\\]\nThe denominator is \\(n-2\\) because we estimate two parameters: \\(\\beta_0\\) and \\(\\beta_1\\).\n\n\nThe residual standard error is\n\\[\ns = \\sqrt{\\frac{SSE}{n-2}}.\n\\]\nIt measures the typical vertical size of the residuals."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#why-divide-by-n-2",
+    "href": "Chapter Slides/chapter9-slides.html#why-divide-by-n-2",
+    "title": "STA258",
+    "section": "Why Divide by \\(n-2\\)?",
+    "text": "Why Divide by \\(n-2\\)?\n\n\nIn simple linear regression, the fitted line is determined by two estimated quantities:\n\\[\n\\hat{\\beta}_0\n\\quad \\text{and} \\quad\n\\hat{\\beta}_1.\n\\]\nSo there are \\(n-2\\) residual degrees of freedom.\n\n\nThis is the regression version of using \\(n-1\\) when estimating a variance from a sample mean.\nWe lose degrees of freedom for parameters estimated from the data."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#estimating-sigma2-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#estimating-sigma2-check-in-r",
+    "title": "STA258",
+    "section": "Estimating \\(\\sigma^2\\) — Check in R",
+    "text": "Estimating \\(\\sigma^2\\) — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#standard-error-of-the-slope",
+    "href": "Chapter Slides/chapter9-slides.html#standard-error-of-the-slope",
+    "title": "STA258",
+    "section": "Standard Error of the Slope",
+    "text": "Standard Error of the Slope\n\nThe standard error of the estimated slope is\n\\[\nSE(\\hat{\\beta}_1)\n=\n\\frac{s}{\\sqrt{S_{xx}}},\n\\qquad\nS_{xx} = \\sum_{i=1}^{n}(x_i-\\bar{x})^2.\n\\]\nThis measures how much \\(\\hat{\\beta}_1\\) would vary from sample to sample.\n\n\nMore spread in the \\(x\\) values means larger \\(S_{xx}\\), which gives a smaller standard error for the slope."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#testing-whether-the-slope-is-zero",
+    "href": "Chapter Slides/chapter9-slides.html#testing-whether-the-slope-is-zero",
+    "title": "STA258",
+    "section": "Testing Whether the Slope is Zero",
+    "text": "Testing Whether the Slope is Zero\n\nA common hypothesis test is\n\\[\nH_0:\\beta_1 = 0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1 \\ne 0.\n\\]\nThe test statistic is\n\\[\nt =\n\\frac{\\hat{\\beta}_1 - 0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nIf the p-value is small, there is evidence that the predictor is linearly associated with the response."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#slope-test-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#slope-test-check-in-r",
+    "title": "STA258",
+    "section": "Slope Test — Check in R",
+    "text": "Slope Test — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#confidence-interval-for-the-slope",
+    "href": "Chapter Slides/chapter9-slides.html#confidence-interval-for-the-slope",
+    "title": "STA258",
+    "section": "Confidence Interval for the Slope",
+    "text": "Confidence Interval for the Slope\n\nA \\(100(1-\\alpha)\\%\\) confidence interval for the slope is\n\\[\n\\hat{\\beta}_1\n\\pm\nt_{\\alpha/2,n-2}^{\\star} SE(\\hat{\\beta}_1).\n\\]\n\n\n\nIf the interval does not contain 0, then the slope is statistically significant at the corresponding two-sided level.\n\n\nInterpretation: we are estimating the average change in the response for a one-unit increase in the predictor."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#confidence-interval-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#confidence-interval-check-in-r",
+    "title": "STA258",
+    "section": "Confidence Interval — Check in R",
+    "text": "Confidence Interval — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#residual-diagnostics",
+    "href": "Chapter Slides/chapter9-slides.html#residual-diagnostics",
+    "title": "STA258",
+    "section": "Residual Diagnostics",
+    "text": "Residual Diagnostics\n\n\n\nDiagnostic idea After fitting a regression line, check the residuals.\nA good residual plot should look like random scatter around zero.\nWatch for:\n\ncurved patterns,\nchanging spread,\nstrong outliers,\nclusters or time trends."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#residual-plot-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#residual-plot-check-in-r",
+    "title": "STA258",
+    "section": "Residual Plot — Check in R",
+    "text": "Residual Plot — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#prediction-with-a-regression-line",
+    "href": "Chapter Slides/chapter9-slides.html#prediction-with-a-regression-line",
+    "title": "STA258",
+    "section": "Prediction with a Regression Line",
+    "text": "Prediction with a Regression Line\n\nOnce we have a fitted regression equation,\n\\[\n\\hat{y} = \\hat{\\beta}_0 + \\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\nFor the electricity data,\n\\[\n\\hat{y} = 9.588 + 2.246x.\n\\]\nIf \\(x = 10\\) tools are made, then\n\\[\n\\hat{y} = 9.588 + 2.246(10) = 32.046.\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#prediction-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#prediction-check-in-r",
+    "title": "STA258",
+    "section": "Prediction — Check in R",
+    "text": "Prediction — Check in R\n\n\n\n\n\n\n\n\n\nA confidence interval estimates the mean response at \\(x=10\\). A prediction interval predicts one new individual observation, so it is wider."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#section-2",
+    "href": "Chapter Slides/chapter9-slides.html#section-2",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nWhy is a prediction interval usually wider than a confidence interval for the mean response?\n\n\n\n\nIt uses a different fitted line\nIt accounts for both uncertainty in the mean response and random variation in a new observation\nIt always uses a normal distribution instead of a t distribution\nIt ignores the residual standard error"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-full-regression-workflow",
+    "href": "Chapter Slides/chapter9-slides.html#example-full-regression-workflow",
+    "title": "STA258",
+    "section": "Example: Full Regression Workflow",
+    "text": "Example: Full Regression Workflow\n\nExample Using the electricity data:\n(a) Fit the simple linear regression model.\n(b) State the estimated regression equation.\n(c) Interpret the slope.\n(d) Test whether the slope is different from zero.\n(e) Estimate the cost when 10 tools are made.\n(f) Check whether the residual plot shows any obvious problems."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#full-workflow-check-in-r",
+    "href": "Chapter Slides/chapter9-slides.html#full-workflow-check-in-r",
+    "title": "STA258",
+    "section": "Full Workflow — Check in R",
+    "text": "Full Workflow — Check in R"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#chapter-summary",
+    "href": "Chapter Slides/chapter9-slides.html#chapter-summary",
+    "title": "STA258",
+    "section": "Chapter Summary",
+    "text": "Chapter Summary\n\n\nModel Simple linear regression models the mean response as\n\\[\nE(Y \\mid x) = \\beta_0 + \\beta_1x.\n\\]\n\n\nEstimation Least squares chooses the line that minimizes\n\\[\nSSE = \\sum (y_i-\\hat{y}_i)^2.\n\\]\n\n\nInference Use \\(s^2 = SSE/(n-2)\\), standard errors, \\(t\\) tests, and confidence intervals to reason about \\(\\beta_1\\).\n\n\n\n\nOne slide takeaway. Regression is not just drawing a line. It is a full workflow: visualize the relationship, estimate the line, interpret the slope, check residuals, and then use inference carefully."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#up-next",
+    "href": "Chapter Slides/chapter9-slides.html#up-next",
+    "title": "STA258",
+    "section": "Up Next",
+    "text": "Up Next\n\nChapter 10 — Multiple Linear Regression\nWe extend the model from one predictor to several predictors. The core ideas stay the same: fitted values, residuals, least squares, and inference — but interpretation becomes more careful because variables are held fixed.\n\n\nBack to Homepage"
   }
 ]

@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <title>STA258 – Chapter 9: Simple Linear Regression - Slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <script src="../site_libs/plotly-binding-4.12.0/plotly.js"></script>
+  <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+  <script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+  <link href="../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+  <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+  <link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+  <script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+<section id="chapter-9-simple-linear-regression" class="title-slide slide level1 center">
+<h1>Chapter 9: Simple Linear Regression</h1>
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+}
+
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1 { font-size: 1.72em !important; }
+.reveal h2 {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3 { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p { font-size: 0.78em; color: var(--sta-muted); }
+
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.two-col-lean  { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
+.two-col-wide  { grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr); }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.one-col       { grid-template-columns: 1fr; }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
+.col           { min-width: 0; }
+
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 700px;
+}
+
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 660px !important;
+  height: 660px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1120px; }
+.reveal .quiz-question h2 { font-size: 0.96em !important; margin-bottom: 4px; text-align: left; }
+.reveal .quiz-question .callout-note { margin: 0 auto 8px auto !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-content { padding: 9px 14px 11px 14px !important; }
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p { font-size: 0.70em !important; line-height: 1.18; margin: 2px 0; }
+.reveal .quiz-question .callout-title { font-size: 0.74em !important; padding: 4px 11px !important; }
+.reveal .quiz-question ul { margin: 6px auto 0 auto !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 2px !important; }
+.reveal .option-button {
+  padding: 5px 12px !important;
+  margin: 0 auto 4px auto !important;
+  font-size: 0.62em !important;
+  line-height: 1.08 !important;
+  border-radius: 6px !important;
+  text-align: left !important;
+  max-width: 1120px !important;
+}
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation { font-size: 0.62em !important; margin-top: 4px; }
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+
+.reveal .html-widget,
+.reveal .plotly {
+  margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+.reveal .plot-container {
+  border-radius: 10px;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+.reveal .svg-container,
+.reveal .main-svg {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.callout { font-size: 0.75em; }
+
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
+</style>
+<script>
+function resizeChapter9Plotly() {
+  if (!window.Plotly) return;
+  document.querySelectorAll(".plotly.html-widget, .js-plotly-plot").forEach(function(el) {
+    var plot = el.classList.contains("js-plotly-plot") ? el : el.querySelector(".js-plotly-plot");
+    if (plot) {
+      window.Plotly.Plots.resize(plot);
+    }
+  });
+}
+
+function scheduleChapter9PlotlyResize() {
+  [0, 80, 250, 600].forEach(function(delay) {
+    window.setTimeout(resizeChapter9Plotly, delay);
+  });
+}
+
+window.addEventListener("load", scheduleChapter9PlotlyResize);
+window.addEventListener("resize", scheduleChapter9PlotlyResize);
+
+if (window.Reveal) {
+  Reveal.on("ready", scheduleChapter9PlotlyResize);
+  Reveal.on("slidechanged", scheduleChapter9PlotlyResize);
+  Reveal.on("fragmentshown", scheduleChapter9PlotlyResize);
+}
+</script>
+<p>STA258: Statistics with Applied Probability University of Toronto Mississauga</p>
+
+<img data-src="../images/cat.png" alt="Course mascot" width="245" class="r-stretch"></section>
+<section id="chapter-roadmap" class="slide level2 compact">
+<h2>Chapter Roadmap</h2>
+<div class="three-col">
+<div class="card fragment">
+<p><span class="label">1 - Regression Model</span> Connect a quantitative response <span class="math inline">\(Y\)</span> to one quantitative predictor <span class="math inline">\(x\)</span> using a straight-line model.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">2 - Least Squares</span> Estimate the intercept and slope by choosing the line that makes residuals as small as possible.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">3 - Inference</span> Use assumptions, standard errors, confidence intervals, and tests to decide whether the linear relationship is statistically meaningful.</p>
+</div>
+</div>
+<p><br></p>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Core skill</span> Interpret slope, intercept, residuals, and fitted values in context.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Core tool</span> Use <code>lm()</code> in R to fit and summarize a simple linear regression model.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Core habit</span> Always check whether a straight-line model is reasonable before interpreting the equation.</p>
+</div>
+</div>
+</section>
+<section id="introduction-to-the-linear-model" class="slide level2">
+<h2>9.1 Introduction to the Linear Model</h2>
+<div class="defbox fragment">
+<p><strong>General Linear Model</strong></p>
+<p>A linear model has the form</p>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1z_{i1} + \beta_2z_{i2} + \cdots +
+\beta_pz_{ip} + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2).
+\]</span></p>
+<p>Here <span class="math inline">\(y_i\)</span> is the <strong>response</strong> variable, the <span class="math inline">\(z\)</span>’s are <strong>predictors</strong>, and <span class="math inline">\(\varepsilon_i\)</span> is random error.</p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p><strong>Prediction goal</strong></p>
+<p>Use the predictors to estimate or predict the response.</p>
+<p>Example: use advertising spending to predict sales revenue.</p>
+</div>
+<div class="thinkbox fragment">
+<p><strong>Inference goal</strong></p>
+<p>Decide whether a predictor is meaningfully related to the response.</p>
+<p>Example: test whether advertising spending has a nonzero relationship with sales revenue.</p>
+</div>
+</div>
+</section>
+<section id="simple-linear-regression" class="slide level2">
+<h2>Simple Linear Regression</h2>
+<div class="defbox fragment">
+<p><strong>Simple Linear Regression</strong></p>
+<p>A simple linear regression model has exactly <strong>one predictor</strong>:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1x_i + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2).
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> is the <strong>intercept</strong>.</li>
+<li><span class="math inline">\(\beta_1\)</span> is the <strong>slope</strong>.</li>
+<li><span class="math inline">\(\varepsilon_i\)</span> is the random error term.</li>
+</ul>
+</div>
+<div class="examplebox fragment">
+<p>The fitted regression line is written as</p>
+<p><span class="math display">\[
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i.
+\]</span></p>
+<p>The hats remind us that these are <strong>estimated</strong> values from sample data.</p>
+</div>
+</section>
+<section id="regression-as-a-picture" class="slide level2">
+<h2>Regression as a Picture</h2>
+<div class="two-col-wide">
+<div class="col">
+<div class="taskbox">
+<p><span class="label">Example</span> Suppose an appliance store records the number of tools made in a day and the daily electricity cost.</p>
+<p>We want to answer:</p>
+<p><strong>(a)</strong> Does cost tend to increase as the number of tools increases?</p>
+<p><strong>(b)</strong> Can we summarize this relationship using a line?</p>
+<p><strong>(c)</strong> Can we use the line to predict electricity cost?</p>
+</div>
+<div class="thinkbox fragment">
+<p>Regression starts with a scatterplot. Before formulas, first ask: <strong>does a straight line look reasonable?</strong></p>
+</div>
+</div>
+<div class="col">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-0848ec65798a9f4d0a99" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0848ec65798a9f4d0a99">{"x":{"visdat":{"b6087adadd01":["function () ","plotlyVisDat"]},"cur_data":"b6087adadd01","attrs":{"b6087adadd01":{"x":{},"y":{},"mode":"markers","marker":{"color":"#2563eb","size":11,"line":{"color":"white","width":1.2}},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"height":390,"margin":{"b":50,"l":64,"t":48,"r":22},"title":{"text":"<b>Electricity cost versus number of tools<\/b>","x":0.014999999999999999,"xanchor":"left","font":{"size":20,"family":"Arial, sans-serif","color":"#111827"}},"font":{"family":"Arial, sans-serif","color":"#111827"},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Number of tools made<\/b>","standoff":16,"font":{"size":15,"color":"#111827"}},"range":[0,16],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"showgrid":false,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Electricity cost<\/b>","standoff":18,"font":{"size":15,"color":"#111827"}},"range":[0,45],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"gridcolor":"#e5e7eb","gridwidth":1,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","rangemode":"tozero","fixedrange":true},"showlegend":false,"legend":{"orientation":"h","x":0,"y":-0.17999999999999999,"bgcolor":"rgba(255,255,255,0)","font":{"size":13,"color":"#111827"}},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","hoverlabel":{"bgcolor":"white","bordercolor":"#1f4e79","font":{"size":13,"color":"#111827","family":"Arial, sans-serif"}},"dragmode":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"displayModeBar":false,"responsive":true,"scrollZoom":false},"data":[{"x":[7,3,2,5,8,11,5,15,3,6],"y":[23.800000000000001,11.890000000000001,15.890000000000001,26.109999999999999,31.789999999999999,39.93,12.27,40.060000000000002,21.379999999999999,18.649999999999999],"mode":"markers","marker":{"color":"#2563eb","size":11,"line":{"color":"white","width":1.2}},"text":["<b>Tools:<\/b> 7<br><b>Electricity cost:<\/b> $23.8","<b>Tools:<\/b> 3<br><b>Electricity cost:<\/b> $11.89","<b>Tools:<\/b> 2<br><b>Electricity cost:<\/b> $15.89","<b>Tools:<\/b> 5<br><b>Electricity cost:<\/b> $26.11","<b>Tools:<\/b> 8<br><b>Electricity cost:<\/b> $31.79","<b>Tools:<\/b> 11<br><b>Electricity cost:<\/b> $39.93","<b>Tools:<\/b> 5<br><b>Electricity cost:<\/b> $12.27","<b>Tools:<\/b> 15<br><b>Electricity cost:<\/b> $40.06","<b>Tools:<\/b> 3<br><b>Electricity cost:<\/b> $21.38","<b>Tools:<\/b> 6<br><b>Electricity cost:<\/b> $18.65"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"type":"scatter","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="least-squares-method" class="slide level2">
+<h2>9.1.1 Least Squares Method</h2>
+<div class="defbox fragment">
+<p><strong>Residual</strong></p>
+<p>A residual is the difference between the observed value and the fitted value:</p>
+<p><span class="math display">\[
+e_i = y_i - \hat{y}_i.
+\]</span></p>
+<p>It measures the vertical distance from a data point to the regression line.</p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p>If <span class="math inline">\(e_i &gt; 0\)</span>, the point is <strong>above</strong> the fitted line.</p>
+<p>The model underpredicted the observed response.</p>
+</div>
+<div class="examplebox fragment">
+<p>If <span class="math inline">\(e_i &lt; 0\)</span>, the point is <strong>below</strong> the fitted line.</p>
+<p>The model overpredicted the observed response.</p>
+</div>
+</div>
+</section>
+<section id="residuals-on-a-regression-plot" class="slide level2 scrollable">
+<h2>Residuals on a Regression Plot</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-3e192d23807bc478caa3" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-3e192d23807bc478caa3">{"x":{"visdat":{"b608688d7268":["function () ","plotlyVisDat"],"b6081e523f78":["function () ","data"],"b60829c4eed5":["function () ","data"],"b608401bf75f":["function () ","data"]},"cur_data":"b608401bf75f","attrs":{"b6081e523f78":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","line":{"color":"rgba(0,0,0,0.75)","width":2},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true},"b60829c4eed5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"lines","line":{"color":"#b91c1c","width":3.3999999999999999},"name":"Regression line","hoverinfo":"skip","inherit":true},"b608401bf75f":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"color":"#2563eb","size":10,"line":{"color":"white","width":1.2}},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"inherit":true}},"layout":{"height":500,"margin":{"b":50,"l":64,"t":48,"r":22},"title":{"text":"<b>Residuals measure vertical distance from the fitted line<\/b>","x":0.014999999999999999,"xanchor":"left","font":{"size":20,"family":"Arial, sans-serif","color":"#111827"}},"font":{"family":"Arial, sans-serif","color":"#111827"},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Number of tools made<\/b>","standoff":16,"font":{"size":15,"color":"#111827"}},"range":[0,16],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"showgrid":false,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Electricity cost<\/b>","standoff":18,"font":{"size":15,"color":"#111827"}},"range":[0,45],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"gridcolor":"#e5e7eb","gridwidth":1,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","rangemode":"tozero","fixedrange":true},"showlegend":true,"legend":{"orientation":"h","x":0,"y":1.05,"bgcolor":"rgba(255,255,255,0)","font":{"size":13,"color":"#111827"}},"annotations":[{"x":0.69999999999999996,"y":0.95999999999999996,"xref":"paper","yref":"paper","text":"<b>Black vertical distances are residuals:<\/b> eᵢ = yᵢ − ŷᵢ","showarrow":false,"font":{"size":14,"color":"#111827"},"bgcolor":"rgba(255,255,255,0.82)","bordercolor":"rgba(148,163,184,0.25)","borderpad":5}],"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","hoverlabel":{"bgcolor":"white","bordercolor":"#1f4e79","font":{"size":13,"color":"#111827","family":"Arial, sans-serif"}},"dragmode":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"displayModeBar":false,"responsive":true,"scrollZoom":false},"data":[{"x":[7,7,null,3,3,null,2,2,null,5,5,null,8,8,null,11,11,null,5,5,null,15,15,null,3,3,null,6,6],"y":[25.301342560553646,23.800000000000001,null,16.30660207612457,11.890000000000001,null,14.0579169550173,15.890000000000001,null,20.803972318339099,26.109999999999999,null,27.5500276816609,31.789999999999999,null,34.296083044982701,39.93,null,20.803972318339099,12.27,null,43.290823529411767,40.060000000000002,null,16.306602076124566,21.379999999999999,null,23.052657439446364,18.649999999999999],"type":"scatter","mode":"lines","line":{"color":"rgba(0,0,0,0.75)","width":2},"text":["<b>Residual:<\/b> -1.5<br>Observed: 23.8<br>Fitted: 25.3","<b>Residual:<\/b> -1.5<br>Observed: 23.8<br>Fitted: 25.3",null,"<b>Residual:<\/b> -4.42<br>Observed: 11.89<br>Fitted: 16.31","<b>Residual:<\/b> -4.42<br>Observed: 11.89<br>Fitted: 16.31",null,"<b>Residual:<\/b> 1.83<br>Observed: 15.89<br>Fitted: 14.06","<b>Residual:<\/b> 1.83<br>Observed: 15.89<br>Fitted: 14.06",null,"<b>Residual:<\/b> 5.31<br>Observed: 26.11<br>Fitted: 20.8","<b>Residual:<\/b> 5.31<br>Observed: 26.11<br>Fitted: 20.8",null,"<b>Residual:<\/b> 4.24<br>Observed: 31.79<br>Fitted: 27.55","<b>Residual:<\/b> 4.24<br>Observed: 31.79<br>Fitted: 27.55",null,"<b>Residual:<\/b> 5.63<br>Observed: 39.93<br>Fitted: 34.3","<b>Residual:<\/b> 5.63<br>Observed: 39.93<br>Fitted: 34.3",null,"<b>Residual:<\/b> -8.53<br>Observed: 12.27<br>Fitted: 20.8","<b>Residual:<\/b> -8.53<br>Observed: 12.27<br>Fitted: 20.8",null,"<b>Residual:<\/b> -3.23<br>Observed: 40.06<br>Fitted: 43.29","<b>Residual:<\/b> -3.23<br>Observed: 40.06<br>Fitted: 43.29",null,"<b>Residual:<\/b> 5.07<br>Observed: 21.38<br>Fitted: 16.31","<b>Residual:<\/b> 5.07<br>Observed: 21.38<br>Fitted: 16.31",null,"<b>Residual:<\/b> -4.4<br>Observed: 18.65<br>Fitted: 23.05","<b>Residual:<\/b> -4.4<br>Observed: 18.65<br>Fitted: 23.05"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>",null,"%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,0.080402010050251257,0.16080402010050251,0.24120603015075376,0.32160804020100503,0.4020100502512563,0.48241206030150752,0.56281407035175879,0.64321608040201006,0.72361809045226133,0.8040201005025126,0.88442211055276387,0.96482412060301503,1.0452261306532664,1.1256281407035176,1.206030150753769,1.2864321608040201,1.3668341708542713,1.4472361809045227,1.5276381909547738,1.6080402010050252,1.6884422110552764,1.7688442211055277,1.8492462311557789,1.9296482412060301,2.0100502512562812,2.0904522613065328,2.170854271356784,2.2512562814070352,2.3316582914572863,2.4120603015075379,2.4924623115577891,2.5728643216080402,2.6532663316582914,2.7336683417085426,2.8140703517587942,2.8944723618090453,2.9748743718592965,3.0552763819095476,3.1356783919597992,3.2160804020100504,3.2964824120603016,3.3768844221105527,3.4572864321608039,3.5376884422110555,3.6180904522613067,3.6984924623115578,3.778894472361809,3.8592964824120601,3.9396984924623117,4.0201005025125625,4.1005025125628141,4.1809045226130657,4.2613065326633164,4.341708542713568,4.4221105527638196,4.5025125628140703,4.5829145728643219,4.6633165829145726,4.7437185929648242,4.8241206030150758,4.9045226130653266,4.9849246231155782,5.0653266331658289,5.1457286432160805,5.2261306532663321,5.3065326633165828,5.3869346733668344,5.4673366834170851,5.5477386934673367,5.6281407035175883,5.708542713567839,5.7889447236180906,5.8693467336683414,5.949748743718593,6.0301507537688446,6.1105527638190953,6.1909547738693469,6.2713567839195985,6.3517587939698492,6.4321608040201008,6.5125628140703515,6.5929648241206031,6.6733668341708547,6.7537688442211055,6.8341708542713571,6.9145728643216078,6.9949748743718594,7.075376884422111,7.1557788944723617,7.2361809045226133,7.316582914572864,7.3969849246231156,7.4773869346733672,7.557788944723618,7.6381909547738696,7.7185929648241203,7.7989949748743719,7.8793969849246235,7.9597989949748742,8.0402010050251249,8.1206030150753765,8.2010050251256281,8.2814070351758797,8.3618090452261313,8.4422110552763812,8.5226130653266328,8.6030150753768844,8.683417085427136,8.7638190954773876,8.8442211055276392,8.924623115577889,9.0050251256281406,9.0854271356783922,9.1658291457286438,9.2462311557788954,9.3266331658291453,9.4070351758793969,9.4874371859296485,9.5678391959799001,9.6482412060301517,9.7286432160804015,9.8090452261306531,9.8894472361809047,9.9698492462311563,10.050251256281408,10.130653266331658,10.211055276381909,10.291457286432161,10.371859296482413,10.452261306532664,10.532663316582914,10.613065326633166,10.693467336683417,10.773869346733669,10.85427135678392,10.93467336683417,11.015075376884422,11.095477386934673,11.175879396984925,11.256281407035177,11.336683417085426,11.417085427135678,11.49748743718593,11.577889447236181,11.658291457286433,11.738693467336683,11.819095477386934,11.899497487437186,11.979899497487438,12.060301507537689,12.140703517587941,12.221105527638191,12.301507537688442,12.381909547738694,12.462311557788945,12.542713567839197,12.623115577889447,12.703517587939698,12.78391959798995,12.864321608040202,12.944723618090453,13.025125628140703,13.105527638190955,13.185929648241206,13.266331658291458,13.346733668341709,13.427135678391959,13.507537688442211,13.587939698492463,13.668341708542714,13.748743718592966,13.829145728643216,13.909547738693467,13.989949748743719,14.07035175879397,14.150753768844222,14.231155778894472,14.311557788944723,14.391959798994975,14.472361809045227,14.552763819095478,14.633165829145728,14.71356783919598,14.793969849246231,14.874371859296483,14.954773869346734,15.035175879396984,15.115577889447236,15.195979899497488,15.276381909547739,15.356783919597991,15.437185929648241,15.517587939698492,15.597989949748744,15.678391959798995,15.758793969849247,15.839195979899499,15.919597989949748,16],"y":[9.5605467128027577,9.7413455165098739,9.9221443202169919,10.102943123924108,10.283741927631226,10.464540731338342,10.645339535045458,10.826138338752576,11.006937142459693,11.187735946166811,11.368534749873927,11.549333553581045,11.730132357288161,11.910931160995277,12.091729964702395,12.272528768409511,12.453327572116629,12.634126375823746,12.814925179530862,12.99572398323798,13.176522786945096,13.357321590652214,13.53812039435933,13.718919198066446,13.899718001773564,14.080516805480681,14.261315609187799,14.442114412894915,14.622913216602033,14.803712020309149,14.984510824016267,15.165309627723383,15.346108431430499,15.526907235137617,15.707706038844734,15.888504842551852,16.069303646258966,16.250102449966086,16.430901253673202,16.611700057380318,16.792498861087434,16.973297664794551,17.15409646850167,17.334895272208787,17.515694075915903,17.696492879623019,17.877291683330135,18.058090487037255,18.238889290744371,18.419688094451487,18.600486898158604,18.781285701865723,18.96208450557284,19.142883309279956,19.323682112987072,19.504480916694192,19.685279720401308,19.866078524108424,20.04687732781554,20.227676131522657,20.408474935229776,20.589273738936892,20.770072542644009,20.950871346351125,21.131670150058241,21.312468953765361,21.493267757472477,21.674066561179593,21.85486536488671,22.035664168593826,22.216462972300945,22.397261776008062,22.578060579715178,22.758859383422294,22.93965818712941,23.12045699083653,23.301255794543646,23.482054598250762,23.662853401957879,23.843652205664995,24.024451009372115,24.205249813079231,24.386048616786347,24.566847420493463,24.747646224200579,24.928445027907699,25.109243831614815,25.290042635321932,25.470841439029048,25.651640242736164,25.832439046443284,26.0132378501504,26.194036653857516,26.374835457564632,26.555634261271749,26.736433064978868,26.917231868685985,27.098030672393101,27.278829476100217,27.459628279807333,27.640427083514449,27.821225887221569,28.002024690928685,28.182823494635802,28.363622298342921,28.544421102050034,28.725219905757154,28.90601870946427,29.086817513171386,29.267616316878506,29.448415120585622,29.629213924292738,29.810012727999855,29.990811531706971,30.171610335414091,30.352409139121207,30.533207942828323,30.714006746535439,30.894805550242555,31.075604353949675,31.256403157656791,31.437201961363908,31.618000765071024,31.79879956877814,31.97959837248526,32.160397176192376,32.341195979899489,32.521994783606608,32.702793587313728,32.883592391020841,33.064391194727961,33.245189998435073,33.425988802142193,33.606787605849313,33.787586409556425,33.968385213263545,34.149184016970658,34.329982820677778,34.510781624384897,34.69158042809201,34.87237923179913,35.053178035506242,35.233976839213362,35.414775642920482,35.595574446627595,35.776373250334714,35.957172054041827,36.137970857748947,36.318769661456066,36.499568465163179,36.680367268870299,36.861166072577419,37.041964876284531,37.222763679991651,37.403562483698764,37.584361287405883,37.765160091113003,37.945958894820116,38.126757698527236,38.307556502234348,38.488355305941468,38.669154109648588,38.8499529133557,39.03075171706282,39.211550520769933,39.392349324477053,39.573148128184172,39.753946931891285,39.934745735598405,40.115544539305517,40.296343343012637,40.477142146719757,40.65794095042687,40.838739754133989,41.019538557841102,41.200337361548222,41.381136165255342,41.561934968962454,41.742733772669574,41.923532576376687,42.104331380083806,42.285130183790926,42.465928987498039,42.646727791205159,42.827526594912271,43.008325398619391,43.189124202326511,43.369923006033623,43.550721809740743,43.731520613447856,43.912319417154976,44.093118220862095,44.273917024569208,44.454715828276328,44.63551463198344,44.81631343569056,44.99711223939768,45.1779110431048,45.358709846811912,45.539508650519025],"type":"scatter","mode":"lines","line":{"color":"#b91c1c","width":3.3999999999999999},"name":"Regression line","hoverinfo":["skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[7,3,2,5,8,11,5,15,3,6],"y":[23.800000000000001,11.890000000000001,15.890000000000001,26.109999999999999,31.789999999999999,39.93,12.27,40.060000000000002,21.379999999999999,18.649999999999999],"type":"scatter","mode":"markers","marker":{"color":"#2563eb","size":10,"line":{"color":"white","width":1.2}},"text":["<b>Tools:<\/b> 7<br><b>Observed cost:<\/b> 23.8<br><b>Fitted cost:<\/b> 25.3<br><b>Residual:<\/b> -1.5","<b>Tools:<\/b> 3<br><b>Observed cost:<\/b> 11.89<br><b>Fitted cost:<\/b> 16.31<br><b>Residual:<\/b> -4.42","<b>Tools:<\/b> 2<br><b>Observed cost:<\/b> 15.89<br><b>Fitted cost:<\/b> 14.06<br><b>Residual:<\/b> 1.83","<b>Tools:<\/b> 5<br><b>Observed cost:<\/b> 26.11<br><b>Fitted cost:<\/b> 20.8<br><b>Residual:<\/b> 5.31","<b>Tools:<\/b> 8<br><b>Observed cost:<\/b> 31.79<br><b>Fitted cost:<\/b> 27.55<br><b>Residual:<\/b> 4.24","<b>Tools:<\/b> 11<br><b>Observed cost:<\/b> 39.93<br><b>Fitted cost:<\/b> 34.3<br><b>Residual:<\/b> 5.63","<b>Tools:<\/b> 5<br><b>Observed cost:<\/b> 12.27<br><b>Fitted cost:<\/b> 20.8<br><b>Residual:<\/b> -8.53","<b>Tools:<\/b> 15<br><b>Observed cost:<\/b> 40.06<br><b>Fitted cost:<\/b> 43.29<br><b>Residual:<\/b> -3.23","<b>Tools:<\/b> 3<br><b>Observed cost:<\/b> 21.38<br><b>Fitted cost:<\/b> 16.31<br><b>Residual:<\/b> 5.07","<b>Tools:<\/b> 6<br><b>Observed cost:<\/b> 18.65<br><b>Fitted cost:<\/b> 23.05<br><b>Residual:<\/b> -4.4"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"line":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="sum-of-squared-errors" class="slide level2">
+<h2>Sum of Squared Errors</h2>
+<div class="defbox fragment">
+<p><strong>Sum of Squared Errors</strong></p>
+<p>For a fitted regression line, the residual sum of squares is</p>
+<p><span class="math display">\[
+SSE = \sum_{i=1}^{n}e_i^2
+= \sum_{i=1}^{n}(y_i-\hat{y}_i)^2.
+\]</span></p>
+<p>The least-squares method chooses the line that makes <span class="math inline">\(SSE\)</span> as small as possible.</p>
+</div>
+<div class="thinkbox fragment">
+<p>Why square the residuals?</p>
+<ul>
+<li>Squaring prevents positive and negative residuals from cancelling.</li>
+<li>Large mistakes are penalized more heavily.</li>
+<li>The resulting optimization problem has a clean mathematical solution.</li>
+</ul>
+</div>
+</section>
+<section id="least-squares-optimization" class="slide level2">
+<h2>Least Squares Optimization</h2>
+<div class="defbox fragment">
+<p>For simple linear regression, least squares solves</p>
+<p><span class="math display">\[
+\min_{\beta_0,\beta_1}
+\sum_{i=1}^{n}(y_i-\beta_0-\beta_1x_i)^2.
+\]</span></p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p>The output is the fitted line:</p>
+<p><span class="math display">\[
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i.
+\]</span></p>
+<p>This is the line with the smallest possible SSE among all straight lines.</p>
+</div>
+<div class="warnbox fragment">
+<p>Least squares finds the <strong>best line among straight lines</strong>.</p>
+<p>It does not guarantee that a straight line is actually the right model. Always inspect the scatterplot and residuals.</p>
+</div>
+</div>
+</section>
+<section id="estimating-parameters-for-the-simple-linear-model" class="slide level2">
+<h2>9.1.2 Estimating Parameters for the Simple Linear Model</h2>
+<div class="defbox fragment">
+<p>For the model</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1x_i + \varepsilon_i,
+\]</span></p>
+<p>the least-squares estimates are</p>
+<p><span class="math display">\[
+\hat{\beta}_1 =
+\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}
+{\sum_{i=1}^{n}(x_i-\bar{x})^2}
+=
+\frac{S_{xy}}{S_{xx}},
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}.
+\]</span></p>
+</div>
+<div class="thinkbox fragment">
+<p>The fitted regression line always passes through the point <span class="math inline">\((\bar{x}, \bar{y})\)</span>.</p>
+</div>
+</section>
+<section id="interpreting-the-coefficients" class="slide level2">
+<h2>Interpreting the Coefficients</h2>
+<div class="two-col">
+<div class="stat-card fragment">
+<p><span class="label">Intercept</span></p>
+<p><span class="math display">\[
+\hat{\beta}_0
+\]</span></p>
+<p>The predicted value of <span class="math inline">\(Y\)</span> when <span class="math inline">\(x = 0\)</span>.</p>
+<p>Interpret only if <span class="math inline">\(x = 0\)</span> makes sense in context.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Slope</span></p>
+<p><span class="math display">\[
+\hat{\beta}_1
+\]</span></p>
+<p>The predicted change in <span class="math inline">\(Y\)</span> for a one-unit increase in <span class="math inline">\(x\)</span>.</p>
+<p>This is usually the most important coefficient.</p>
+</div>
+</div>
+<div class="examplebox fragment">
+<p>If <span class="math inline">\(\hat{\beta}_1 = 2.25\)</span>, then each additional tool is associated with an estimated increase of about <strong>2.25 units</strong> in electricity cost.</p>
+</div>
+</section>
+<section id="example-9.1-electricity-cost-data" class="slide level2 scrollable">
+<h2>Example 9.1: Electricity Cost Data</h2>
+<div class="two-col-wide">
+<div class="col">
+<div class="taskbox">
+<p><span class="label">Example</span> The data below show the number of tools made and daily electricity cost for 10 days.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Day</th>
+<th style="text-align: right;">Tools <span class="math inline">\((X)\)</span></th>
+<th style="text-align: right;">Cost <span class="math inline">\((Y)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">23.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">11.89</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">15.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">26.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">31.79</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">39.93</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">12.27</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">40.06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">21.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">18.65</td>
+</tr>
+</tbody>
+</table>
+<p><strong>(a)</strong> Estimate the regression equation.</p>
+<p><strong>(b)</strong> Interpret the slope.</p>
+</div>
+</div>
+<div class="col">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-e2b85d5dd00dff24b7b3" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-e2b85d5dd00dff24b7b3">{"x":{"visdat":{"b60847427b9c":["function () ","plotlyVisDat"],"b6085dc16350":["function () ","data"],"b608435f4946":["function () ","data"]},"cur_data":"b608435f4946","attrs":{"b6085dc16350":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"color":"#2563eb","size":10,"line":{"color":"white","width":1.2}},"text":{},"hovertemplate":"%{text}<extra><\/extra>","name":"Observed data","inherit":true},"b608435f4946":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"lines","line":{"color":"#b91c1c","width":3.5},"name":"Least-squares line","hovertemplate":"<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","inherit":true}},"layout":{"height":430,"margin":{"b":50,"l":64,"t":48,"r":22},"title":{"text":"<b><\/b>","x":0.014999999999999999,"xanchor":"left","font":{"size":20,"family":"Arial, sans-serif","color":"#111827"}},"font":{"family":"Arial, sans-serif","color":"#111827"},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Number of tools made<\/b>","standoff":16,"font":{"size":15,"color":"#111827"}},"range":[0,16],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"showgrid":false,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Electricity cost<\/b>","standoff":18,"font":{"size":15,"color":"#111827"}},"range":[0,45],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"gridcolor":"#e5e7eb","gridwidth":1,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","rangemode":"tozero","fixedrange":true},"showlegend":true,"legend":{"orientation":"h","x":0,"y":-0.17999999999999999,"bgcolor":"rgba(255,255,255,0)","font":{"size":13,"color":"#111827"}},"annotations":[{"x":0.5,"y":1.0600000000000001,"xref":"paper","yref":"paper","text":"<b>Estimated equation:<\/b> ŷ = 9.561 + 2.249x","showarrow":false,"xanchor":"center","font":{"size":14,"color":"#16324f"}}],"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","hoverlabel":{"bgcolor":"white","bordercolor":"#1f4e79","font":{"size":13,"color":"#111827","family":"Arial, sans-serif"}},"dragmode":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"displayModeBar":false,"responsive":true,"scrollZoom":false},"data":[{"x":[7,3,2,5,8,11,5,15,3,6],"y":[23.800000000000001,11.890000000000001,15.890000000000001,26.109999999999999,31.789999999999999,39.93,12.27,40.060000000000002,21.379999999999999,18.649999999999999],"type":"scatter","mode":"markers","marker":{"color":"#2563eb","size":10,"line":{"color":"white","width":1.2}},"text":["<b>Tools:<\/b> 7<br><b>Cost:<\/b> 23.8","<b>Tools:<\/b> 3<br><b>Cost:<\/b> 11.89","<b>Tools:<\/b> 2<br><b>Cost:<\/b> 15.89","<b>Tools:<\/b> 5<br><b>Cost:<\/b> 26.11","<b>Tools:<\/b> 8<br><b>Cost:<\/b> 31.79","<b>Tools:<\/b> 11<br><b>Cost:<\/b> 39.93","<b>Tools:<\/b> 5<br><b>Cost:<\/b> 12.27","<b>Tools:<\/b> 15<br><b>Cost:<\/b> 40.06","<b>Tools:<\/b> 3<br><b>Cost:<\/b> 21.38","<b>Tools:<\/b> 6<br><b>Cost:<\/b> 18.65"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"name":"Observed data","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0,0.080402010050251257,0.16080402010050251,0.24120603015075376,0.32160804020100503,0.4020100502512563,0.48241206030150752,0.56281407035175879,0.64321608040201006,0.72361809045226133,0.8040201005025126,0.88442211055276387,0.96482412060301503,1.0452261306532664,1.1256281407035176,1.206030150753769,1.2864321608040201,1.3668341708542713,1.4472361809045227,1.5276381909547738,1.6080402010050252,1.6884422110552764,1.7688442211055277,1.8492462311557789,1.9296482412060301,2.0100502512562812,2.0904522613065328,2.170854271356784,2.2512562814070352,2.3316582914572863,2.4120603015075379,2.4924623115577891,2.5728643216080402,2.6532663316582914,2.7336683417085426,2.8140703517587942,2.8944723618090453,2.9748743718592965,3.0552763819095476,3.1356783919597992,3.2160804020100504,3.2964824120603016,3.3768844221105527,3.4572864321608039,3.5376884422110555,3.6180904522613067,3.6984924623115578,3.778894472361809,3.8592964824120601,3.9396984924623117,4.0201005025125625,4.1005025125628141,4.1809045226130657,4.2613065326633164,4.341708542713568,4.4221105527638196,4.5025125628140703,4.5829145728643219,4.6633165829145726,4.7437185929648242,4.8241206030150758,4.9045226130653266,4.9849246231155782,5.0653266331658289,5.1457286432160805,5.2261306532663321,5.3065326633165828,5.3869346733668344,5.4673366834170851,5.5477386934673367,5.6281407035175883,5.708542713567839,5.7889447236180906,5.8693467336683414,5.949748743718593,6.0301507537688446,6.1105527638190953,6.1909547738693469,6.2713567839195985,6.3517587939698492,6.4321608040201008,6.5125628140703515,6.5929648241206031,6.6733668341708547,6.7537688442211055,6.8341708542713571,6.9145728643216078,6.9949748743718594,7.075376884422111,7.1557788944723617,7.2361809045226133,7.316582914572864,7.3969849246231156,7.4773869346733672,7.557788944723618,7.6381909547738696,7.7185929648241203,7.7989949748743719,7.8793969849246235,7.9597989949748742,8.0402010050251249,8.1206030150753765,8.2010050251256281,8.2814070351758797,8.3618090452261313,8.4422110552763812,8.5226130653266328,8.6030150753768844,8.683417085427136,8.7638190954773876,8.8442211055276392,8.924623115577889,9.0050251256281406,9.0854271356783922,9.1658291457286438,9.2462311557788954,9.3266331658291453,9.4070351758793969,9.4874371859296485,9.5678391959799001,9.6482412060301517,9.7286432160804015,9.8090452261306531,9.8894472361809047,9.9698492462311563,10.050251256281408,10.130653266331658,10.211055276381909,10.291457286432161,10.371859296482413,10.452261306532664,10.532663316582914,10.613065326633166,10.693467336683417,10.773869346733669,10.85427135678392,10.93467336683417,11.015075376884422,11.095477386934673,11.175879396984925,11.256281407035177,11.336683417085426,11.417085427135678,11.49748743718593,11.577889447236181,11.658291457286433,11.738693467336683,11.819095477386934,11.899497487437186,11.979899497487438,12.060301507537689,12.140703517587941,12.221105527638191,12.301507537688442,12.381909547738694,12.462311557788945,12.542713567839197,12.623115577889447,12.703517587939698,12.78391959798995,12.864321608040202,12.944723618090453,13.025125628140703,13.105527638190955,13.185929648241206,13.266331658291458,13.346733668341709,13.427135678391959,13.507537688442211,13.587939698492463,13.668341708542714,13.748743718592966,13.829145728643216,13.909547738693467,13.989949748743719,14.07035175879397,14.150753768844222,14.231155778894472,14.311557788944723,14.391959798994975,14.472361809045227,14.552763819095478,14.633165829145728,14.71356783919598,14.793969849246231,14.874371859296483,14.954773869346734,15.035175879396984,15.115577889447236,15.195979899497488,15.276381909547739,15.356783919597991,15.437185929648241,15.517587939698492,15.597989949748744,15.678391959798995,15.758793969849247,15.839195979899499,15.919597989949748,16],"y":[9.5605467128027577,9.7413455165098739,9.9221443202169919,10.102943123924108,10.283741927631226,10.464540731338342,10.645339535045458,10.826138338752576,11.006937142459693,11.187735946166811,11.368534749873927,11.549333553581045,11.730132357288161,11.910931160995277,12.091729964702395,12.272528768409511,12.453327572116629,12.634126375823746,12.814925179530862,12.99572398323798,13.176522786945096,13.357321590652214,13.53812039435933,13.718919198066446,13.899718001773564,14.080516805480681,14.261315609187799,14.442114412894915,14.622913216602033,14.803712020309149,14.984510824016267,15.165309627723383,15.346108431430499,15.526907235137617,15.707706038844734,15.888504842551852,16.069303646258966,16.250102449966086,16.430901253673202,16.611700057380318,16.792498861087434,16.973297664794551,17.15409646850167,17.334895272208787,17.515694075915903,17.696492879623019,17.877291683330135,18.058090487037255,18.238889290744371,18.419688094451487,18.600486898158604,18.781285701865723,18.96208450557284,19.142883309279956,19.323682112987072,19.504480916694192,19.685279720401308,19.866078524108424,20.04687732781554,20.227676131522657,20.408474935229776,20.589273738936892,20.770072542644009,20.950871346351125,21.131670150058241,21.312468953765361,21.493267757472477,21.674066561179593,21.85486536488671,22.035664168593826,22.216462972300945,22.397261776008062,22.578060579715178,22.758859383422294,22.93965818712941,23.12045699083653,23.301255794543646,23.482054598250762,23.662853401957879,23.843652205664995,24.024451009372115,24.205249813079231,24.386048616786347,24.566847420493463,24.747646224200579,24.928445027907699,25.109243831614815,25.290042635321932,25.470841439029048,25.651640242736164,25.832439046443284,26.0132378501504,26.194036653857516,26.374835457564632,26.555634261271749,26.736433064978868,26.917231868685985,27.098030672393101,27.278829476100217,27.459628279807333,27.640427083514449,27.821225887221569,28.002024690928685,28.182823494635802,28.363622298342921,28.544421102050034,28.725219905757154,28.90601870946427,29.086817513171386,29.267616316878506,29.448415120585622,29.629213924292738,29.810012727999855,29.990811531706971,30.171610335414091,30.352409139121207,30.533207942828323,30.714006746535439,30.894805550242555,31.075604353949675,31.256403157656791,31.437201961363908,31.618000765071024,31.79879956877814,31.97959837248526,32.160397176192376,32.341195979899489,32.521994783606608,32.702793587313728,32.883592391020841,33.064391194727961,33.245189998435073,33.425988802142193,33.606787605849313,33.787586409556425,33.968385213263545,34.149184016970658,34.329982820677778,34.510781624384897,34.69158042809201,34.87237923179913,35.053178035506242,35.233976839213362,35.414775642920482,35.595574446627595,35.776373250334714,35.957172054041827,36.137970857748947,36.318769661456066,36.499568465163179,36.680367268870299,36.861166072577419,37.041964876284531,37.222763679991651,37.403562483698764,37.584361287405883,37.765160091113003,37.945958894820116,38.126757698527236,38.307556502234348,38.488355305941468,38.669154109648588,38.8499529133557,39.03075171706282,39.211550520769933,39.392349324477053,39.573148128184172,39.753946931891285,39.934745735598405,40.115544539305517,40.296343343012637,40.477142146719757,40.65794095042687,40.838739754133989,41.019538557841102,41.200337361548222,41.381136165255342,41.561934968962454,41.742733772669574,41.923532576376687,42.104331380083806,42.285130183790926,42.465928987498039,42.646727791205159,42.827526594912271,43.008325398619391,43.189124202326511,43.369923006033623,43.550721809740743,43.731520613447856,43.912319417154976,44.093118220862095,44.273917024569208,44.454715828276328,44.63551463198344,44.81631343569056,44.99711223939768,45.1779110431048,45.358709846811912,45.539508650519025],"type":"scatter","mode":"lines","line":{"color":"#b91c1c","width":3.5},"name":"Least-squares line","hovertemplate":["<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>","<b>Fitted line:<\/b><br>ŷ = 9.561 + 2.249x<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="electricity-example-check-in-r" class="slide level2">
+<h2>Electricity Example — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG4jIE1hbnVhbCBsZWFzdC1zcXVhcmVzIGNhbGN1bGF0aW9uc1xueGJhciA8LSBtZWFuKHRvb2xzKVxueWJhciA8LSBtZWFuKGNvc3QpXG5cblN4eCA8LSBzdW0oKHRvb2xzIC0geGJhcileMilcblN4eSA8LSBzdW0oKHRvb2xzIC0geGJhcikgKiAoY29zdCAtIHliYXIpKVxuXG5iMSA8LSBTeHkgLyBTeHhcbmIwIDwtIHliYXIgLSBiMSAqIHhiYXJcblxuYjBcbmIxXG5cbiMgRXF1aXZhbGVudCBSIHNob3J0Y3V0XG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5jb2VmKG1vZGVsKVxuc3VtbWFyeShtb2RlbCkifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="fitted-values-and-residuals-in-r" class="slide level2">
+<h2>Fitted Values and Residuals in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5cbmZpdHRlZF92YWx1ZXMgPC0gZml0dGVkKG1vZGVsKVxucmVzaWR1YWxzIDwtIHJlc2lkKG1vZGVsKVxuXG5kYXRhLmZyYW1lKFxuICB0b29scyA9IHRvb2xzLFxuICBvYnNlcnZlZF9jb3N0ID0gY29zdCxcbiAgZml0dGVkX2Nvc3QgPSByb3VuZChmaXR0ZWRfdmFsdWVzLCAyKSxcbiAgcmVzaWR1YWwgPSByb3VuZChyZXNpZHVhbHMsIDIpXG4pXG5cbnN1bShyZXNpZHVhbHMpXG5zdW0ocmVzaWR1YWxzXjIpIn0=
+</script>
+</div>
+</div>
+<div class="small-text">
+<p>For a least-squares regression with an intercept, residuals always sum to approximately zero, up to rounding.</p>
+</div>
+</section>
+<section id="section" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>A fitted regression line is</p>
+<p><span class="math display">\[
+\hat{y} = 9.59 + 2.25x.
+\]</span></p>
+<p>What is the correct interpretation of the slope?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>When <span class="math inline">\(x = 0\)</span>, the predicted value of <span class="math inline">\(y\)</span> is 2.25</li>
+<li>For every one-unit increase in <span class="math inline">\(x\)</span>, the predicted value of <span class="math inline">\(y\)</span> increases by about 2.25</li>
+<li>The correlation between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is 2.25</li>
+<li>The residuals increase by 2.25 each time</li>
+</ul>
+</section>
+<section id="measures-of-linear-relationship" class="slide level2">
+<h2>9.1.3 Measures of Linear Relationship</h2>
+<div class="defbox fragment">
+<p><strong>Sample Covariance</strong></p>
+<p>The sample covariance between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is</p>
+<p><span class="math display">\[
+s_{xy}
+=
+\frac{1}{n-1}
+\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y}).
+\]</span></p>
+<p>It measures whether two variables tend to move together.</p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p>Positive covariance: large <span class="math inline">\(x\)</span> values tend to occur with large <span class="math inline">\(y\)</span> values.</p>
+</div>
+<div class="examplebox fragment">
+<p>Negative covariance: large <span class="math inline">\(x\)</span> values tend to occur with small <span class="math inline">\(y\)</span> values.</p>
+</div>
+</div>
+</section>
+<section id="correlation" class="slide level2">
+<h2>Correlation</h2>
+<div class="defbox fragment">
+<p><strong>Correlation Coefficient</strong></p>
+<p>The sample correlation coefficient is</p>
+<p><span class="math display">\[
+r_{xy} = \frac{s_{xy}}{s_xs_y}.
+\]</span></p>
+<p>Correlation is a standardized measure of the strength and direction of a linear relationship.</p>
+</div>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label"><span class="math inline">\(r \approx 1\)</span></span> Strong positive linear relationship.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label"><span class="math inline">\(r \approx -1\)</span></span> Strong negative linear relationship.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label"><span class="math inline">\(r \approx 0\)</span></span> Little or no straight-line relationship.</p>
+</div>
+</div>
+<div class="warnbox fragment">
+<p>Correlation measures <strong>linear</strong> association. A curved relationship can have correlation near zero.</p>
+</div>
+</section>
+<section id="correlation-three-visual-cases" class="slide level2">
+<h2>Correlation: Three Visual Cases</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-8b0dcf2375cd2401d031" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-8b0dcf2375cd2401d031">{"x":{"visdat":{"b60874f2487f":["function () ","plotlyVisDat"]},"cur_data":"b60874f2487f","attrs":{"b60874f2487f":{"x":{},"y":{},"mode":"markers","marker":{"size":8,"opacity":0.78000000000000003,"line":{"color":"white","width":0.80000000000000004}},"hovertemplate":"x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","color":{},"colors":["#047857","#b91c1c","#475569"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"height":430,"margin":{"b":50,"l":64,"t":48,"r":22},"title":{"text":"<b>Correlation describes strength and direction<\/b>","x":0.014999999999999999,"xanchor":"left","font":{"size":20,"family":"Arial, sans-serif","color":"#111827"}},"font":{"family":"Arial, sans-serif","color":"#111827"},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>x<\/b>","standoff":16,"font":{"size":15,"color":"#111827"}},"range":[-3.2000000000000002,3.2000000000000002],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"showgrid":false,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>y<\/b>","standoff":18,"font":{"size":15,"color":"#111827"}},"range":[-4.2000000000000002,4.2000000000000002],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"gridcolor":"#e5e7eb","gridwidth":1,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","rangemode":"tozero","fixedrange":true},"showlegend":true,"legend":{"orientation":"h","x":0,"y":-0.14999999999999999,"bgcolor":"rgba(255,255,255,0)","font":{"size":13,"color":"#111827"}},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","hoverlabel":{"bgcolor":"white","bordercolor":"#1f4e79","font":{"size":13,"color":"#111827","family":"Arial, sans-serif"}},"dragmode":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"displayModeBar":false,"responsive":true,"scrollZoom":false},"data":[{"x":[0.36290767736876367,1.2436253883218245,-1.062311757489067,-1.0933996449025305,-0.32877957475520692,-0.14915895525910727,-0.1740408771821797,1.8770532149434214,0.18654183438474289,-0.12395651758176579,-0.56504353286463338,0.457839024236466,-0.9440451088793097,-0.62065833859835939,1.7733698224581147,1.4295805242676698,0.53790373693596805,0.76929820221524525,1.5338288256311958,0.60929141767145711,0.46724331711654282,-0.69938294111576971,0.30352010376142291,-0.90089816162553871,-0.4627309332298184,0.78134254713970386,0.87010553161124105,-0.25235746926556657,0.26618534550887957,-0.12780174968696931,0.45193217102533972,0.090697468541670642,-0.18920800193175868,1.0109386425805436,0.95794536401897723,-0.97160728351480519,0.58479572760428478,-0.85048045584227261,-0.76458006184312544,1.645711378369779,-0.99769965434715402,-0.27128712843989694,1.3932367396275165,0.013251750865651087,-1.6142333935476332,-1.3062957264779558,-0.61800946722746963,0.6642369566603038,0.44737026830911242,-1.5386218389025677,-0.45984532044474991,1.1568610378640514,0.19357422055954199,1.0917210955361751,-0.57104098295599515,1.0166478176078328,-0.27268339159370736,-0.43006407929883372,-0.37933680280921489,0.78827743599255551,0.35093091114674391,-2.0867670883869778,0.28475942907268237,0.63377712683005061,0.27865186108221618,1.0869339989242954,1.6270982005689674,0.93371943631673582,1.100338742727099,0.69780777286040729],"y":[-0.80112565207425779,-1.5217594203232898,0.98706871523028639,1.1215024758351626,0.10950860629336356,0.066607464534319746,0.55448526931288356,-2.3668819524834817,-0.43348731964909648,0.1298103122638514,0.21259113101251959,0.37156556418623099,0.7632261992512408,-0.13812697234269644,-1.9523222834183818,-1.8431209413852316,-1.3133618623911993,-1.5035202800430858,-1.8057217604396223,-1.0041463143026679,-0.43340646366307745,0.87736286432782185,-1.3465571848978497,0.82423737468957303,-0.088960095453551435,-1.2384694816714108,-1.2226433989394432,0.16315860163127788,-0.64090871921616832,0.20880238410623903,-0.10813744540193659,-0.050132457982664511,0.49792954219699215,-1.3784157517754869,-0.75752304562789985,1.5466199230407813,-0.8740536095857947,0.53988340228469722,0.85628930385468427,-1.8095210756628088,0.98133085369844975,0.19161089523216809,-1.902242332015379,0.19701958754687043,2.7621485321935726,1.6577093664880851,0.59336762668964815,-0.39255847925065046,-0.79686160279058438,1.8429704931551156,0.71624042729683679,-1.9362288513864967,-0.1417092121486698,-1.2241051431651371,0.72685248414337744,-0.88219600133879217,0.45201675734742663,0.63614985220238562,0.65623643513472252,-0.61956143292426946,-0.92315036480014045,2.8341904144412764,-0.44208521835485037,-0.53880717778814846,-0.8157200336598398,-1.0430674417350436,-2.5912090749787451,-1.2113427404836614,-1.2209648560447046,-0.98482278457147809],"mode":"markers","marker":{"color":"rgba(4,120,87,1)","size":8,"opacity":0.78000000000000003,"line":{"color":"white","width":0.80000000000000004}},"hovertemplate":["x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>"],"type":"scatter","name":"Negative: r = -0.95","textfont":{"color":"rgba(4,120,87,1)"},"error_y":{"color":"rgba(4,120,87,1)"},"error_x":{"color":"rgba(4,120,87,1)"},"line":{"color":"rgba(4,120,87,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0.93206626272009119,-0.088988077654200137,0.85107203037044366,1.1063827489975064,-0.048583671484718483,0.31086891930632882,0.19888385350410573,1.2838050214574166,0.95864193616530879,0.80034798777771521,-0.79129335217396257,0.17086006310604901,0.12582297075610793,-2.1540633427379379,-0.44817405657715176,0.034700757843788003,-1.1732502873281754,-1.8379154145042194,0.020982421090981335,0.92875375033619467,1.0300968916918096,-1.2421075826166408,-0.19146878387356381,-0.80977886277307043,1.5259901503069804,0.25895129745381262,0.14625518227256759,0.72556662493196022,0.57072645259490551,-0.87495047162814399,-0.90548023276232581,-1.2990577960638687,-0.11689955254459991,-1.5834424517330008,-0.60587965663922383,0.25855885933903655,2.2118586547015266,0.32471251952257074,-0.50070784684092817,-0.45479480306044356,0.5257820826515488,-0.53393084544503844,0.79574641875030638,-0.15285865510602889,1.1134708626142469,0.59873640182377375,-0.36794414340090442,-0.0098242407338069524,0.38338535600488349,-0.17917445045385402,1.3296220143455559,0.79012605450268025,-0.42127167829255641,-0.067595718720663334,-0.74374732084541539,0.96754724937760161,-1.1818191220039751,0.81611078823622374,0.30155200762887585,0.15407734166537657,0.52360196976486817,-1.1005926047484644,-1.8317944424589909,1.7309848555835354,0.16632658105539522,0.38490911981091713,1.3848359888575186,0.37066364026855386,-1.8257555100284419,0.74037826912545357],"y":[0.52441736765710489,0.73834154332965518,1.6593824821417575,1.2824019857708133,-0.42502407976660728,0.30466650354354097,-0.097659961805720924,0.79351955022301457,1.4765267808328224,1.0418079231265518,-1.2540770586949757,-0.029679933741359965,-0.18803248083814555,-2.4045578281010811,-0.65550180879140973,0.37955813270721839,-0.97538303933129922,-1.7008504500594122,-0.64829290616324831,1.2362853227151718,1.9803712751357945,-1.9481404820983719,0.16594203254562423,-0.63601792829273562,1.8601810488831672,-0.10594019684543632,0.405434643140968,1.3747019573546913,0.62360297718815216,-0.88104238702027848,-0.91601281357457176,-1.6412455191762447,0.29995467128891018,-1.5457129934889802,-1.5305720738676176,0.51252760922531482,2.5073198958727656,0.91113588933992862,-1.1918351823866538,-1.0264760819616219,1.2075092778382581,-0.39950944598832783,1.2607664954520359,-0.26565185011312842,1.0921312075375176,0.92209542332308037,-0.19146901783564835,-0.26984249807010791,1.0388965997061042,-0.37008340005664458,1.7392855664001838,1.1706925681223317,-0.51069382822691745,0.11952562368351748,-0.39333230744572117,0.69362117168749138,-1.2027219389493835,1.1363625447331451,0.24611948470395983,0.89708740261145992,1.1178864272570279,-1.8574223474955811,-2.7503281418767793,2.1288974613948417,0.67734235992614633,0.81526752737962238,0.77723405131264922,0.73618861691819748,-2.6277109244632788,1.8933798137410989],"mode":"markers","marker":{"color":"rgba(185,28,28,1)","size":8,"opacity":0.78000000000000003,"line":{"color":"white","width":0.80000000000000004}},"hovertemplate":["x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>"],"type":"scatter","name":"Positive: r = 0.94","textfont":{"color":"rgba(185,28,28,1)"},"error_y":{"color":"rgba(185,28,28,1)"},"error_x":{"color":"rgba(185,28,28,1)"},"line":{"color":"rgba(185,28,28,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[0.17466011990162528,0.027752181429835335,-0.17182259315013404,0.13011843659809139,0.58586768140593892,-0.53430004331433845,0.34197666501087909,0.88089689138424954,0.87085144094412636,-1.5622251468101729,-0.40642064271014483,0.7549970858049242,-1.4428157397428938,-1.00001365821294,-1.132284570651211,-0.5680162307853357,0.33587941420956113,0.55768440376352424,-0.22124122512089187,-0.89031109459952873,-0.80551771905667979,-0.37728413195286836,0.78052824905638452,0.033654354296995502,0.58797101543418784,-0.16292405308424798,-1.3848156868556287,0.2651365294588614,2.8759115681916376,-1.1484054368767012,-0.7312610375321057,0.51015283046092041,0.48043178088116928,0.48823111377816369,0.43533879303735595,0.41917847665388502,-0.7689644133961554,0.63672106245363891,-0.66478598118063514,-0.43623075377755838,-1.5869194371674318,1.1419590102288106,-0.53723198498518832,0.79191092916777328,-0.89664089538425173,0.26742643965431467,1.0958954251283313,-0.16577746688528816,0.61839005160095106,-0.39017805610777229,-1.2050367827480515,-0.070110826943445267,0.7721045185946972,-1.3464548621025594,1.8900821810855208,0.22896590991637214,0.28469475331454597,-0.96835613961405509,0.58332847143652633,-1.0256133856694307,-0.60433391399774272,0.40900501807702133,0.13522679378236999,-0.42181653205595449,-0.5863262983694788,-0.61823440562451981,1.1689241152449099,-2.8230649105658561,1.2316764220830609,0.12979057579002889],"y":[1.1042965731519034,-0.85140281370908244,-0.15452040704867792,0.77420295444888476,-0.21367222889522386,-0.0027890658989305414,-0.72976233905011045,1.0459881805341185,0.57192263607527172,-0.38286033274063003,-1.4162671874940513,-1.039453305022745,-0.77463578161222979,0.27734238929238986,-0.14076859898156205,1.27893522495318,-1.2347620516252817,-0.20314002478222259,-0.74951860817037774,-0.44875782024842631,1.166653809540334,0.50675741035428901,-1.2107190659892308,-0.59954251993397123,-0.27146974585401695,0.99570172649463384,1.7732631606349691,0.27720876705016806,-1.9447918676070199,-1.4735749994440273,1.8850677215301062,-0.012056564224786835,-0.50177474690604806,-0.19008692646606912,0.22686300942152468,-0.94506099857880155,-0.59464804458044684,0.82425673991523596,-0.17997330251104401,-0.55050168238442021,-0.63035018062580794,-0.24945789634010773,-0.37907809900765649,-0.29615144856276687,-0.21797164890695733,0.50326642659892806,0.37674178496150684,1.3744158049049091,-1.061129324409027,-0.56822747736451962,-0.51972851970230927,-0.18195205019633409,0.92958031727350265,0.56169687730268358,1.0031449365193181,-0.76336427716985111,-0.39114463593528676,-0.033536452029991275,-0.27890185384050104,0.41641644615738693,0.19782441740561837,-3.227378306338843,-0.13043971187845632,0.77707906670907179,2.5534741020074669,-0.080179275456839116,1.203934749771242,1.3823695135188585,-0.7787613365717726,0.6077957504587117],"mode":"markers","marker":{"color":"rgba(71,85,105,1)","size":8,"opacity":0.78000000000000003,"line":{"color":"white","width":0.80000000000000004}},"hovertemplate":["x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>","x: %{x:.2f}<br>y: %{y:.2f}<extra><\/extra>"],"type":"scatter","name":"Weak: r = -0.2","textfont":{"color":"rgba(71,85,105,1)"},"error_y":{"color":"rgba(71,85,105,1)"},"error_x":{"color":"rgba(71,85,105,1)"},"line":{"color":"rgba(71,85,105,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="covariance-and-correlation-check-in-r" class="slide level2">
+<h2>Covariance and Correlation — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5jb3YodG9vbHMsIGNvc3QpXG5jb3IodG9vbHMsIGNvc3QpXG5cbiMgUmVsYXRpb24gdG8gc2xvcGU6XG5zZChjb3N0KSAvIHNkKHRvb2xzKSAqIGNvcih0b29scywgY29zdClcblxuIyBUaGlzIGVxdWFscyB0aGUgbGVhc3Qtc3F1YXJlcyBzbG9wZTpcbmNvZWYobG0oY29zdCB+IHRvb2xzKSlbMl0ifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="sse-ssr-and-sst" class="slide level2">
+<h2>9.1.4 SSE, SSR and SST</h2>
+<div class="defbox fragment">
+<p>Regression separates the total variation in <span class="math inline">\(Y\)</span> into two parts:</p>
+<p><span class="math display">\[
+SST = SSR + SSE.
+\]</span></p>
+<ul>
+<li><strong>SST</strong>: total variation in observed <span class="math inline">\(y_i\)</span> around <span class="math inline">\(\bar{y}\)</span></li>
+<li><strong>SSR</strong>: variation explained by the regression line</li>
+<li><strong>SSE</strong>: unexplained variation left in the residuals</li>
+</ul>
+</div>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">SST</span></p>
+<p><span class="math display">\[
+\sum (y_i-\bar{y})^2
+\]</span></p>
+<p>Total variation.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">SSR</span></p>
+<p><span class="math display">\[
+\sum (\hat{y}_i-\bar{y})^2
+\]</span></p>
+<p>Explained variation.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">SSE</span></p>
+<p><span class="math display">\[
+\sum (y_i-\hat{y}_i)^2
+\]</span></p>
+<p>Unexplained variation.</p>
+</div>
+</div>
+</section>
+<section id="visual-decomposition-of-variation" class="slide level2 scrollable">
+<h2>Visual Decomposition of Variation</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-38866a0490a483debe66" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-38866a0490a483debe66">{"x":{"visdat":{"b608353b4e56":["function () ","plotlyVisDat"],"b60848940b67":["function () ","data"],"b6086f78bc6a":["function () ","data"],"b6085f9a0c52":["function () ","data"],"b6087a9f0c86":["function () ","data"],"b6085fef704e":["function () ","data"]},"cur_data":"b6085fef704e","attrs":{"b60848940b67":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"lines","line":{"color":"#b91c1c","width":3.3999999999999999},"name":"Regression line","hoverinfo":"skip","inherit":true},"b6086f78bc6a":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":24.177,"xend":{},"yend":{},"type":"scatter","mode":"lines","line":{"color":"rgba(100,116,139,0.32)","width":7},"name":"Total: yᵢ − ȳ","hoverinfo":"skip","inherit":true},"b6085f9a0c52":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":24.177,"xend":{},"yend":{},"type":"scatter","mode":"lines","line":{"color":"rgba(4,120,87,0.55)","width":3},"name":"Explained: ŷᵢ − ȳ","hoverinfo":"skip","inherit":true},"b6087a9f0c86":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"xend":{},"yend":{},"type":"scatter","mode":"lines","line":{"color":"rgba(185,28,28,0.75)","width":2.3999999999999999},"name":"Residual: yᵢ − ŷᵢ","hoverinfo":"skip","inherit":true},"b6085fef704e":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","marker":{"color":"#2563eb","size":9,"line":{"color":"white","width":1}},"name":"Observed data","hovertemplate":"x: %{x}<br>y: %{y:.2f}<extra><\/extra>","inherit":true}},"layout":{"height":500,"margin":{"b":50,"l":64,"t":48,"r":22},"title":{"text":"<b>Total variation = explained variation + unexplained variation<\/b>","x":0.014999999999999999,"xanchor":"left","font":{"size":20,"family":"Arial, sans-serif","color":"#111827"}},"font":{"family":"Arial, sans-serif","color":"#111827"},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Number of tools made<\/b>","standoff":16,"font":{"size":15,"color":"#111827"}},"range":[0,16],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"showgrid":false,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Electricity cost<\/b>","standoff":18,"font":{"size":15,"color":"#111827"}},"range":[0,45],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"gridcolor":"#e5e7eb","gridwidth":1,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","rangemode":"tozero","fixedrange":true},"showlegend":true,"legend":{"orientation":"h","x":0,"y":-0.16,"bgcolor":"rgba(255,255,255,0)","font":{"size":13,"color":"#111827"}},"shapes":[{"type":"line","x0":0,"x1":16,"y0":24.177,"y1":24.177,"line":{"color":"#475569","width":2,"dash":"dash"}}],"annotations":[{"x":14.699999999999999,"y":25.376999999999999,"text":"<b>ȳ<\/b>","showarrow":false,"font":{"size":14,"color":"#475569"}}],"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","hoverlabel":{"bgcolor":"white","bordercolor":"#1f4e79","font":{"size":13,"color":"#111827","family":"Arial, sans-serif"}},"dragmode":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"displayModeBar":false,"responsive":true,"scrollZoom":false},"data":[{"x":[0,0.080402010050251257,0.16080402010050251,0.24120603015075376,0.32160804020100503,0.4020100502512563,0.48241206030150752,0.56281407035175879,0.64321608040201006,0.72361809045226133,0.8040201005025126,0.88442211055276387,0.96482412060301503,1.0452261306532664,1.1256281407035176,1.206030150753769,1.2864321608040201,1.3668341708542713,1.4472361809045227,1.5276381909547738,1.6080402010050252,1.6884422110552764,1.7688442211055277,1.8492462311557789,1.9296482412060301,2.0100502512562812,2.0904522613065328,2.170854271356784,2.2512562814070352,2.3316582914572863,2.4120603015075379,2.4924623115577891,2.5728643216080402,2.6532663316582914,2.7336683417085426,2.8140703517587942,2.8944723618090453,2.9748743718592965,3.0552763819095476,3.1356783919597992,3.2160804020100504,3.2964824120603016,3.3768844221105527,3.4572864321608039,3.5376884422110555,3.6180904522613067,3.6984924623115578,3.778894472361809,3.8592964824120601,3.9396984924623117,4.0201005025125625,4.1005025125628141,4.1809045226130657,4.2613065326633164,4.341708542713568,4.4221105527638196,4.5025125628140703,4.5829145728643219,4.6633165829145726,4.7437185929648242,4.8241206030150758,4.9045226130653266,4.9849246231155782,5.0653266331658289,5.1457286432160805,5.2261306532663321,5.3065326633165828,5.3869346733668344,5.4673366834170851,5.5477386934673367,5.6281407035175883,5.708542713567839,5.7889447236180906,5.8693467336683414,5.949748743718593,6.0301507537688446,6.1105527638190953,6.1909547738693469,6.2713567839195985,6.3517587939698492,6.4321608040201008,6.5125628140703515,6.5929648241206031,6.6733668341708547,6.7537688442211055,6.8341708542713571,6.9145728643216078,6.9949748743718594,7.075376884422111,7.1557788944723617,7.2361809045226133,7.316582914572864,7.3969849246231156,7.4773869346733672,7.557788944723618,7.6381909547738696,7.7185929648241203,7.7989949748743719,7.8793969849246235,7.9597989949748742,8.0402010050251249,8.1206030150753765,8.2010050251256281,8.2814070351758797,8.3618090452261313,8.4422110552763812,8.5226130653266328,8.6030150753768844,8.683417085427136,8.7638190954773876,8.8442211055276392,8.924623115577889,9.0050251256281406,9.0854271356783922,9.1658291457286438,9.2462311557788954,9.3266331658291453,9.4070351758793969,9.4874371859296485,9.5678391959799001,9.6482412060301517,9.7286432160804015,9.8090452261306531,9.8894472361809047,9.9698492462311563,10.050251256281408,10.130653266331658,10.211055276381909,10.291457286432161,10.371859296482413,10.452261306532664,10.532663316582914,10.613065326633166,10.693467336683417,10.773869346733669,10.85427135678392,10.93467336683417,11.015075376884422,11.095477386934673,11.175879396984925,11.256281407035177,11.336683417085426,11.417085427135678,11.49748743718593,11.577889447236181,11.658291457286433,11.738693467336683,11.819095477386934,11.899497487437186,11.979899497487438,12.060301507537689,12.140703517587941,12.221105527638191,12.301507537688442,12.381909547738694,12.462311557788945,12.542713567839197,12.623115577889447,12.703517587939698,12.78391959798995,12.864321608040202,12.944723618090453,13.025125628140703,13.105527638190955,13.185929648241206,13.266331658291458,13.346733668341709,13.427135678391959,13.507537688442211,13.587939698492463,13.668341708542714,13.748743718592966,13.829145728643216,13.909547738693467,13.989949748743719,14.07035175879397,14.150753768844222,14.231155778894472,14.311557788944723,14.391959798994975,14.472361809045227,14.552763819095478,14.633165829145728,14.71356783919598,14.793969849246231,14.874371859296483,14.954773869346734,15.035175879396984,15.115577889447236,15.195979899497488,15.276381909547739,15.356783919597991,15.437185929648241,15.517587939698492,15.597989949748744,15.678391959798995,15.758793969849247,15.839195979899499,15.919597989949748,16],"y":[9.5605467128027577,9.7413455165098739,9.9221443202169919,10.102943123924108,10.283741927631226,10.464540731338342,10.645339535045458,10.826138338752576,11.006937142459693,11.187735946166811,11.368534749873927,11.549333553581045,11.730132357288161,11.910931160995277,12.091729964702395,12.272528768409511,12.453327572116629,12.634126375823746,12.814925179530862,12.99572398323798,13.176522786945096,13.357321590652214,13.53812039435933,13.718919198066446,13.899718001773564,14.080516805480681,14.261315609187799,14.442114412894915,14.622913216602033,14.803712020309149,14.984510824016267,15.165309627723383,15.346108431430499,15.526907235137617,15.707706038844734,15.888504842551852,16.069303646258966,16.250102449966086,16.430901253673202,16.611700057380318,16.792498861087434,16.973297664794551,17.15409646850167,17.334895272208787,17.515694075915903,17.696492879623019,17.877291683330135,18.058090487037255,18.238889290744371,18.419688094451487,18.600486898158604,18.781285701865723,18.96208450557284,19.142883309279956,19.323682112987072,19.504480916694192,19.685279720401308,19.866078524108424,20.04687732781554,20.227676131522657,20.408474935229776,20.589273738936892,20.770072542644009,20.950871346351125,21.131670150058241,21.312468953765361,21.493267757472477,21.674066561179593,21.85486536488671,22.035664168593826,22.216462972300945,22.397261776008062,22.578060579715178,22.758859383422294,22.93965818712941,23.12045699083653,23.301255794543646,23.482054598250762,23.662853401957879,23.843652205664995,24.024451009372115,24.205249813079231,24.386048616786347,24.566847420493463,24.747646224200579,24.928445027907699,25.109243831614815,25.290042635321932,25.470841439029048,25.651640242736164,25.832439046443284,26.0132378501504,26.194036653857516,26.374835457564632,26.555634261271749,26.736433064978868,26.917231868685985,27.098030672393101,27.278829476100217,27.459628279807333,27.640427083514449,27.821225887221569,28.002024690928685,28.182823494635802,28.363622298342921,28.544421102050034,28.725219905757154,28.90601870946427,29.086817513171386,29.267616316878506,29.448415120585622,29.629213924292738,29.810012727999855,29.990811531706971,30.171610335414091,30.352409139121207,30.533207942828323,30.714006746535439,30.894805550242555,31.075604353949675,31.256403157656791,31.437201961363908,31.618000765071024,31.79879956877814,31.97959837248526,32.160397176192376,32.341195979899489,32.521994783606608,32.702793587313728,32.883592391020841,33.064391194727961,33.245189998435073,33.425988802142193,33.606787605849313,33.787586409556425,33.968385213263545,34.149184016970658,34.329982820677778,34.510781624384897,34.69158042809201,34.87237923179913,35.053178035506242,35.233976839213362,35.414775642920482,35.595574446627595,35.776373250334714,35.957172054041827,36.137970857748947,36.318769661456066,36.499568465163179,36.680367268870299,36.861166072577419,37.041964876284531,37.222763679991651,37.403562483698764,37.584361287405883,37.765160091113003,37.945958894820116,38.126757698527236,38.307556502234348,38.488355305941468,38.669154109648588,38.8499529133557,39.03075171706282,39.211550520769933,39.392349324477053,39.573148128184172,39.753946931891285,39.934745735598405,40.115544539305517,40.296343343012637,40.477142146719757,40.65794095042687,40.838739754133989,41.019538557841102,41.200337361548222,41.381136165255342,41.561934968962454,41.742733772669574,41.923532576376687,42.104331380083806,42.285130183790926,42.465928987498039,42.646727791205159,42.827526594912271,43.008325398619391,43.189124202326511,43.369923006033623,43.550721809740743,43.731520613447856,43.912319417154976,44.093118220862095,44.273917024569208,44.454715828276328,44.63551463198344,44.81631343569056,44.99711223939768,45.1779110431048,45.358709846811912,45.539508650519025],"type":"scatter","mode":"lines","line":{"color":"#b91c1c","width":3.3999999999999999},"name":"Regression line","hoverinfo":["skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip","skip"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[7,7,null,3,3,null,2,2,null,5,5,null,8,8,null,11,11,null,5,5,null,15,15,null,3,3,null,6,6],"y":[24.177,23.800000000000001,null,24.177,11.890000000000001,null,24.177,15.890000000000001,null,24.177,26.109999999999999,null,24.177,31.789999999999999,null,24.177,39.93,null,24.177,12.27,null,24.177,40.060000000000002,null,24.177,21.379999999999999,null,24.177,18.649999999999999],"type":"scatter","mode":"lines","line":{"color":"rgba(100,116,139,0.32)","width":7},"name":"Total: yᵢ − ȳ","hoverinfo":["skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[7,7,null,3,3,null,2,2,null,5,5,null,8,8,null,11,11,null,5,5,null,15,15,null,3,3,null,6,6],"y":[24.177,25.301342560553646,null,24.177,16.30660207612457,null,24.177,14.0579169550173,null,24.177,20.803972318339099,null,24.177,27.5500276816609,null,24.177,34.296083044982701,null,24.177,20.803972318339099,null,24.177,43.290823529411767,null,24.177,16.306602076124566,null,24.177,23.052657439446364],"type":"scatter","mode":"lines","line":{"color":"rgba(4,120,87,0.55)","width":3},"name":"Explained: ŷᵢ − ȳ","hoverinfo":["skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip"],"marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[7,7,null,3,3,null,2,2,null,5,5,null,8,8,null,11,11,null,5,5,null,15,15,null,3,3,null,6,6],"y":[25.301342560553646,23.800000000000001,null,16.30660207612457,11.890000000000001,null,14.0579169550173,15.890000000000001,null,20.803972318339099,26.109999999999999,null,27.5500276816609,31.789999999999999,null,34.296083044982701,39.93,null,20.803972318339099,12.27,null,43.290823529411767,40.060000000000002,null,16.306602076124566,21.379999999999999,null,23.052657439446364,18.649999999999999],"type":"scatter","mode":"lines","line":{"color":"rgba(185,28,28,0.75)","width":2.3999999999999999},"name":"Residual: yᵢ − ŷᵢ","hoverinfo":["skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip",null,"skip","skip"],"marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[7,3,2,5,8,11,5,15,3,6],"y":[23.800000000000001,11.890000000000001,15.890000000000001,26.109999999999999,31.789999999999999,39.93,12.27,40.060000000000002,21.379999999999999,18.649999999999999],"type":"scatter","mode":"markers","marker":{"color":"#2563eb","size":9,"line":{"color":"white","width":1}},"name":"Observed data","hovertemplate":["x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>","x: %{x}<br>y: %{y:.2f}<extra><\/extra>"],"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"line":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="coefficient-of-determination" class="slide level2">
+<h2>Coefficient of Determination</h2>
+<div class="defbox fragment">
+<p><strong>Coefficient of Determination</strong></p>
+<p>The proportion of total variation in <span class="math inline">\(Y\)</span> explained by the linear model is</p>
+<p><span class="math display">\[
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}.
+\]</span></p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p>If <span class="math inline">\(R^2 = 0.72\)</span>, then about <strong>72% of the variation in the response</strong> is explained by the predictor through the fitted linear model.</p>
+</div>
+<div class="warnbox fragment">
+<p>A large <span class="math inline">\(R^2\)</span> does not prove causation.</p>
+<p>It only describes how well the fitted line explains variation in the observed data.</p>
+</div>
+</div>
+</section>
+<section id="sse-ssr-sst-and-r²-check-in-r" class="slide level2">
+<h2>SSE, SSR, SST and R² — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5cbnloYXQgPC0gZml0dGVkKG1vZGVsKVxuZSA8LSByZXNpZChtb2RlbClcbnliYXIgPC0gbWVhbihjb3N0KVxuXG5TU0UgPC0gc3VtKChjb3N0IC0geWhhdCleMilcblNTUiA8LSBzdW0oKHloYXQgLSB5YmFyKV4yKVxuU1NUIDwtIHN1bSgoY29zdCAtIHliYXIpXjIpXG5cblNTRVxuU1NSXG5TU1RcblNTUiArIFNTRVxuXG5SMiA8LSBTU1IgLyBTU1RcblIyXG5cbnN1bW1hcnkobW9kZWwpJHIuc3F1YXJlZCJ9
+</script>
+</div>
+</div>
+</section>
+<section id="section-1" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>In a simple linear regression, <span class="math inline">\(SSE\)</span> measures:</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The total variation in <span class="math inline">\(Y\)</span> around <span class="math inline">\(\bar{y}\)</span></li>
+<li>The variation explained by the fitted regression line</li>
+<li>The squared residual variation left unexplained by the model</li>
+<li>The slope of the regression line</li>
+</ul>
+</section>
+<section id="inference-for-simple-linear-regression" class="slide level2">
+<h2>9.2 Inference for Simple Linear Regression</h2>
+<div class="defbox fragment">
+<p>For inference, we use the model</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1x_i + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2).
+\]</span></p>
+<p>The goal is not only to fit a line, but to decide whether the slope and intercept are statistically meaningful.</p>
+</div>
+<div class="thinkbox fragment">
+<p>In practice, we are usually most interested in the slope <span class="math inline">\(\beta_1\)</span>.</p>
+<p>A slope of zero means there is no linear change in the expected response as <span class="math inline">\(x\)</span> increases.</p>
+</div>
+</section>
+<section id="regression-assumptions" class="slide level2">
+<h2>Regression Assumptions</h2>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Linearity</span> The mean of <span class="math inline">\(Y\)</span> changes linearly with <span class="math inline">\(x\)</span>.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Independence</span> The observations/errors are independent.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Constant variance</span> The error variance is the same at every value of <span class="math inline">\(x\)</span>.</p>
+</div>
+</div>
+<p><br></p>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Normal errors</span> The errors are approximately normally distributed.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Mean zero errors</span> At each <span class="math inline">\(x\)</span>, the error term has mean zero.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Check residuals</span> Residual plots help diagnose assumption problems.</p>
+</div>
+</div>
+</section>
+<section id="estimating-variance-in-linear-regression" class="slide level2">
+<h2>9.2.1 Estimating Variance in Linear Regression</h2>
+<div class="defbox fragment">
+<p>Because <span class="math inline">\(\sigma^2\)</span> is unknown, we estimate it using the residuals:</p>
+<p><span class="math display">\[
+s^2 = \frac{\sum_{i=1}^{n}e_i^2}{n-2}
+= \frac{SSE}{n-2}.
+\]</span></p>
+<p>The denominator is <span class="math inline">\(n-2\)</span> because we estimate two parameters: <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+<div class="examplebox fragment">
+<p>The residual standard error is</p>
+<p><span class="math display">\[
+s = \sqrt{\frac{SSE}{n-2}}.
+\]</span></p>
+<p>It measures the typical vertical size of the residuals.</p>
+</div>
+</section>
+<section id="why-divide-by-n-2" class="slide level2">
+<h2>Why Divide by <span class="math inline">\(n-2\)</span>?</h2>
+<div class="two-col">
+<div class="examplebox fragment">
+<p>In simple linear regression, the fitted line is determined by two estimated quantities:</p>
+<p><span class="math display">\[
+\hat{\beta}_0
+\quad \text{and} \quad
+\hat{\beta}_1.
+\]</span></p>
+<p>So there are <span class="math inline">\(n-2\)</span> residual degrees of freedom.</p>
+</div>
+<div class="thinkbox fragment">
+<p>This is the regression version of using <span class="math inline">\(n-1\)</span> when estimating a variance from a sample mean.</p>
+<p>We lose degrees of freedom for parameters estimated from the data.</p>
+</div>
+</div>
+</section>
+<section id="estimating-sigma2-check-in-r" class="slide level2">
+<h2>Estimating <span class="math inline">\(\sigma^2\)</span> — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5cbmUgPC0gcmVzaWQobW9kZWwpXG5TU0UgPC0gc3VtKGVeMilcbm4gPC0gbGVuZ3RoKGNvc3QpXG5cbnMyIDwtIFNTRSAvIChuIC0gMilcbnMgPC0gc3FydChzMilcblxuU1NFXG5zMlxuc1xuXG5zdW1tYXJ5KG1vZGVsKSRzaWdtYSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="standard-error-of-the-slope" class="slide level2">
+<h2>Standard Error of the Slope</h2>
+<div class="defbox fragment">
+<p>The standard error of the estimated slope is</p>
+<p><span class="math display">\[
+SE(\hat{\beta}_1)
+=
+\frac{s}{\sqrt{S_{xx}}},
+\qquad
+S_{xx} = \sum_{i=1}^{n}(x_i-\bar{x})^2.
+\]</span></p>
+<p>This measures how much <span class="math inline">\(\hat{\beta}_1\)</span> would vary from sample to sample.</p>
+</div>
+<div class="thinkbox fragment">
+<p>More spread in the <span class="math inline">\(x\)</span> values means larger <span class="math inline">\(S_{xx}\)</span>, which gives a smaller standard error for the slope.</p>
+</div>
+</section>
+<section id="testing-whether-the-slope-is-zero" class="slide level2">
+<h2>Testing Whether the Slope is Zero</h2>
+<div class="defbox fragment">
+<p>A common hypothesis test is</p>
+<p><span class="math display">\[
+H_0:\beta_1 = 0
+\qquad \text{versus} \qquad
+H_A:\beta_1 \ne 0.
+\]</span></p>
+<p>The test statistic is</p>
+<p><span class="math display">\[
+t =
+\frac{\hat{\beta}_1 - 0}{SE(\hat{\beta}_1)}
+\sim t_{n-2}
+\quad \text{under } H_0.
+\]</span></p>
+</div>
+<div class="examplebox fragment">
+<p>If the p-value is small, there is evidence that the predictor is linearly associated with the response.</p>
+</div>
+</section>
+<section id="slope-test-check-in-r" class="slide level2">
+<h2>Slope Test — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5zdW1tYXJ5KG1vZGVsKVxuXG4jIE1hbnVhbCB0LXRlc3QgZm9yIHNsb3BlXG5iMSA8LSBjb2VmKG1vZGVsKVsyXVxucyA8LSBzdW1tYXJ5KG1vZGVsKSRzaWdtYVxuU3h4IDwtIHN1bSgodG9vbHMgLSBtZWFuKHRvb2xzKSleMilcblxuU0VfYjEgPC0gcyAvIHNxcnQoU3h4KVxudF9zdGF0IDwtIGIxIC8gU0VfYjFcbmRmIDwtIGxlbmd0aCh0b29scykgLSAyXG5wX3ZhbHVlIDwtIDIgKiBwdChhYnModF9zdGF0KSwgZGYgPSBkZiwgbG93ZXIudGFpbCA9IEZBTFNFKVxuXG5iMVxuU0VfYjFcbnRfc3RhdFxucF92YWx1ZSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="confidence-interval-for-the-slope" class="slide level2">
+<h2>Confidence Interval for the Slope</h2>
+<div class="defbox fragment">
+<p>A <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for the slope is</p>
+<p><span class="math display">\[
+\hat{\beta}_1
+\pm
+t_{\alpha/2,n-2}^{\star} SE(\hat{\beta}_1).
+\]</span></p>
+</div>
+<div class="two-col">
+<div class="examplebox fragment">
+<p>If the interval does <strong>not</strong> contain 0, then the slope is statistically significant at the corresponding two-sided level.</p>
+</div>
+<div class="thinkbox fragment">
+<p>Interpretation: we are estimating the average change in the response for a one-unit increase in the predictor.</p>
+</div>
+</div>
+</section>
+<section id="confidence-interval-check-in-r" class="slide level2">
+<h2>Confidence Interval — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-7" class="exercise-cell">
+
+</div>
+<script type="webr-7-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5cbiMgUiBzaG9ydGN1dFxuY29uZmludChtb2RlbClcblxuIyBNYW51YWwgOTUlIENJIGZvciBzbG9wZVxuYjEgPC0gY29lZihtb2RlbClbMl1cbnMgPC0gc3VtbWFyeShtb2RlbCkkc2lnbWFcblN4eCA8LSBzdW0oKHRvb2xzIC0gbWVhbih0b29scykpXjIpXG5TRV9iMSA8LSBzIC8gc3FydChTeHgpXG5cbmRmIDwtIGxlbmd0aCh0b29scykgLSAyXG50X3N0YXIgPC0gcXQoMC45NzUsIGRmID0gZGYpXG5cbmxvd2VyIDwtIGIxIC0gdF9zdGFyICogU0VfYjFcbnVwcGVyIDwtIGIxICsgdF9zdGFyICogU0VfYjFcblxuYyhsb3dlciwgdXBwZXIpIn0=
+</script>
+</div>
+</div>
+</section>
+<section id="residual-diagnostics" class="slide level2">
+<h2>Residual Diagnostics</h2>
+<div class="two-col-wide">
+<div class="col">
+<div class="taskbox">
+<p><span class="label">Diagnostic idea</span> After fitting a regression line, check the residuals.</p>
+<p>A good residual plot should look like random scatter around zero.</p>
+<p>Watch for:</p>
+<ul>
+<li>curved patterns,</li>
+<li>changing spread,</li>
+<li>strong outliers,</li>
+<li>clusters or time trends.</li>
+</ul>
+</div>
+</div>
+<div class="col">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-276de2d415ee4544d858" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-276de2d415ee4544d858">{"x":{"visdat":{"b6081a9d838":["function () ","plotlyVisDat"]},"cur_data":"b6081a9d838","attrs":{"b6081a9d838":{"x":{},"y":{},"mode":"markers","marker":{"color":"#2563eb","size":10,"line":{"color":"white","width":1.2}},"text":{},"hovertemplate":"%{text}<extra><\/extra>","showlegend":false,"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"height":390,"margin":{"b":50,"l":64,"t":48,"r":22},"title":{"text":"<b>Residuals versus fitted values<\/b>","x":0.014999999999999999,"xanchor":"left","font":{"size":20,"family":"Arial, sans-serif","color":"#111827"}},"font":{"family":"Arial, sans-serif","color":"#111827"},"xaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Fitted value<\/b>","standoff":16,"font":{"size":15,"color":"#111827"}},"range":[10,45],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"showgrid":false,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","fixedrange":true},"yaxis":{"domain":[0,1],"automargin":true,"title":{"text":"<b>Residual<\/b>","standoff":18,"font":{"size":15,"color":"#111827"}},"range":[-14,14],"tickfont":{"size":13,"color":"#4b5563"},"showline":true,"linewidth":1.2,"linecolor":"#cbd5e1","zeroline":false,"gridcolor":"#e5e7eb","gridwidth":1,"ticks":"outside","ticklen":5,"tickcolor":"#cbd5e1","rangemode":"tozero","fixedrange":true},"showlegend":false,"legend":{"orientation":"h","x":0,"y":-0.17999999999999999,"bgcolor":"rgba(255,255,255,0)","font":{"size":13,"color":"#111827"}},"shapes":[{"type":"line","x0":12.0579169550173,"x1":45.290823529411767,"y0":0,"y1":0,"line":{"color":"#d97706","width":2.3999999999999999,"dash":"dash"}}],"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","hoverlabel":{"bgcolor":"white","bordercolor":"#1f4e79","font":{"size":13,"color":"#111827","family":"Arial, sans-serif"}},"dragmode":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displaylogo":false,"displayModeBar":false,"responsive":true,"scrollZoom":false},"data":[{"x":[25.301342560553646,16.30660207612457,14.0579169550173,20.803972318339099,27.5500276816609,34.296083044982701,20.803972318339099,43.290823529411767,16.306602076124566,23.052657439446364],"y":[-1.5013425605536446,-4.4166020761245681,1.8320830449827006,5.3060276816609013,4.2399723183391007,5.6339169550173009,-8.5339723183390994,-3.2308235294117615,5.0733979238754339,-4.4026574394463669],"mode":"markers","marker":{"color":"#2563eb","size":10,"line":{"color":"white","width":1.2}},"text":["<b>Fitted:<\/b> 25.3<br><b>Residual:<\/b> -1.5","<b>Fitted:<\/b> 16.31<br><b>Residual:<\/b> -4.42","<b>Fitted:<\/b> 14.06<br><b>Residual:<\/b> 1.83","<b>Fitted:<\/b> 20.8<br><b>Residual:<\/b> 5.31","<b>Fitted:<\/b> 27.55<br><b>Residual:<\/b> 4.24","<b>Fitted:<\/b> 34.3<br><b>Residual:<\/b> 5.63","<b>Fitted:<\/b> 20.8<br><b>Residual:<\/b> -8.53","<b>Fitted:<\/b> 43.29<br><b>Residual:<\/b> -3.23","<b>Fitted:<\/b> 16.31<br><b>Residual:<\/b> 5.07","<b>Fitted:<\/b> 23.05<br><b>Residual:<\/b> -4.4"],"hovertemplate":["%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>","%{text}<extra><\/extra>"],"showlegend":false,"type":"scatter","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="residual-plot-check-in-r" class="slide level2">
+<h2>Residual Plot — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-8" class="exercise-cell">
+
+</div>
+<script type="webr-8-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5cbnBsb3QoZml0dGVkKG1vZGVsKSwgcmVzaWQobW9kZWwpLFxuICAgICBwY2ggPSAxOSxcbiAgICAgY29sID0gXCIjMDA2OTVjXCIsXG4gICAgIHhsYWIgPSBcIkZpdHRlZCB2YWx1ZXNcIixcbiAgICAgeWxhYiA9IFwiUmVzaWR1YWxzXCIsXG4gICAgIG1haW4gPSBcIlJlc2lkdWFsIHBsb3RcIilcbmFibGluZShoID0gMCwgbHR5ID0gMiwgY29sID0gXCIjZjlhODI1XCIsIGx3ZCA9IDIpXG5cbnFxbm9ybShyZXNpZChtb2RlbCkpXG5xcWxpbmUocmVzaWQobW9kZWwpLCBjb2wgPSBcIiNmOWE4MjVcIiwgbHdkID0gMikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="prediction-with-a-regression-line" class="slide level2">
+<h2>Prediction with a Regression Line</h2>
+<div class="defbox fragment">
+<p>Once we have a fitted regression equation,</p>
+<p><span class="math display">\[
+\hat{y} = \hat{\beta}_0 + \hat{\beta}_1x,
+\]</span></p>
+<p>we can plug in a value of <span class="math inline">\(x\)</span> to predict the response.</p>
+</div>
+<div class="examplebox fragment">
+<p>For the electricity data,</p>
+<p><span class="math display">\[
+\hat{y} = 9.588 + 2.246x.
+\]</span></p>
+<p>If <span class="math inline">\(x = 10\)</span> tools are made, then</p>
+<p><span class="math display">\[
+\hat{y} = 9.588 + 2.246(10) = 32.046.
+\]</span></p>
+</div>
+</section>
+<section id="prediction-check-in-r" class="slide level2">
+<h2>Prediction — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-9" class="exercise-cell">
+
+</div>
+<script type="webr-9-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5cbiMgUHJlZGljdCBlbGVjdHJpY2l0eSBjb3N0IHdoZW4gMTAgdG9vbHMgYXJlIG1hZGVcbm5ld19kYXkgPC0gZGF0YS5mcmFtZSh0b29scyA9IDEwKVxuXG5wcmVkaWN0KG1vZGVsLCBuZXdkYXRhID0gbmV3X2RheSlcblxuIyBDb25maWRlbmNlIGludGVydmFsIGZvciBtZWFuIHJlc3BvbnNlXG5wcmVkaWN0KG1vZGVsLCBuZXdkYXRhID0gbmV3X2RheSwgaW50ZXJ2YWwgPSBcImNvbmZpZGVuY2VcIilcblxuIyBQcmVkaWN0aW9uIGludGVydmFsIGZvciBhIG5ldyBpbmRpdmlkdWFsIGRheVxucHJlZGljdChtb2RlbCwgbmV3ZGF0YSA9IG5ld19kYXksIGludGVydmFsID0gXCJwcmVkaWN0aW9uXCIpIn0=
+</script>
+</div>
+</div>
+<div class="small-text">
+<p>A confidence interval estimates the mean response at <span class="math inline">\(x=10\)</span>. A prediction interval predicts one new individual observation, so it is wider.</p>
+</div>
+</section>
+<section id="section-2" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>Why is a prediction interval usually wider than a confidence interval for the mean response?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>It uses a different fitted line</li>
+<li>It accounts for both uncertainty in the mean response and random variation in a new observation</li>
+<li>It always uses a normal distribution instead of a t distribution</li>
+<li>It ignores the residual standard error</li>
+</ul>
+</section>
+<section id="example-full-regression-workflow" class="slide level2 scrollable">
+<h2>Example: Full Regression Workflow</h2>
+<div class="taskbox">
+<p><span class="label">Example</span> Using the electricity data:</p>
+<p><strong>(a)</strong> Fit the simple linear regression model.</p>
+<p><strong>(b)</strong> State the estimated regression equation.</p>
+<p><strong>(c)</strong> Interpret the slope.</p>
+<p><strong>(d)</strong> Test whether the slope is different from zero.</p>
+<p><strong>(e)</strong> Estimate the cost when 10 tools are made.</p>
+<p><strong>(f)</strong> Check whether the residual plot shows any obvious problems.</p>
+</div>
+</section>
+<section id="full-workflow-check-in-r" class="slide level2">
+<h2>Full Workflow — Check in R</h2>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-10" class="exercise-cell">
+
+</div>
+<script type="webr-10-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxudG9vbHMgPC0gYyg3LCAzLCAyLCA1LCA4LCAxMSwgNSwgMTUsIDMsIDYpXG5jb3N0ICA8LSBjKDIzLjgwLCAxMS44OSwgMTUuODksIDI2LjExLCAzMS43OSxcbiAgICAgICAgICAgMzkuOTMsIDEyLjI3LCA0MC4wNiwgMjEuMzgsIDE4LjY1KVxuXG5tb2RlbCA8LSBsbShjb3N0IH4gdG9vbHMpXG5cbiMgKGEpLShkKVxuc3VtbWFyeShtb2RlbClcblxuIyAoZSlcbnByZWRpY3QobW9kZWwsIG5ld2RhdGEgPSBkYXRhLmZyYW1lKHRvb2xzID0gMTApLFxuICAgICAgICBpbnRlcnZhbCA9IFwicHJlZGljdGlvblwiKVxuXG4jIChmKVxucGxvdChmaXR0ZWQobW9kZWwpLCByZXNpZChtb2RlbCksXG4gICAgIHBjaCA9IDE5LFxuICAgICBjb2wgPSBcIiMwMDY5NWNcIixcbiAgICAgeGxhYiA9IFwiRml0dGVkIHZhbHVlc1wiLFxuICAgICB5bGFiID0gXCJSZXNpZHVhbHNcIixcbiAgICAgbWFpbiA9IFwiUmVzaWR1YWwgcGxvdFwiKVxuYWJsaW5lKGggPSAwLCBsdHkgPSAyLCBjb2wgPSBcIiNmOWE4MjVcIiwgbHdkID0gMikifQ==
+</script>
+</div>
+</div>
+</section>
+<section id="chapter-summary" class="slide level2 compact">
+<h2>Chapter Summary</h2>
+<div class="three-col">
+<div class="card fragment">
+<p><span class="label">Model</span> Simple linear regression models the mean response as</p>
+<p><span class="math display">\[
+E(Y \mid x) = \beta_0 + \beta_1x.
+\]</span></p>
+</div>
+<div class="card fragment">
+<p><span class="label">Estimation</span> Least squares chooses the line that minimizes</p>
+<p><span class="math display">\[
+SSE = \sum (y_i-\hat{y}_i)^2.
+\]</span></p>
+</div>
+<div class="card fragment">
+<p><span class="label">Inference</span> Use <span class="math inline">\(s^2 = SSE/(n-2)\)</span>, standard errors, <span class="math inline">\(t\)</span> tests, and confidence intervals to reason about <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+</div>
+<p><br></p>
+<div class="thinkbox fragment">
+<p><strong>One slide takeaway.</strong> Regression is not just drawing a line. It is a full workflow: visualize the relationship, estimate the line, interpret the slope, check residuals, and then use inference carefully.</p>
+</div>
+</section>
+<section id="up-next" class="slide level2">
+<h2>Up Next</h2>
+<div class="examplebox">
+<p><strong>Chapter 10 — Multiple Linear Regression</strong></p>
+<p>We extend the model from one predictor to several predictors. The core ideas stay the same: fitted values, residuals, least squares, and inference — but interpretation becomes more careful because variables are held fixed.</p>
+</div>
+<div class="home-button-row">
+<p><a href="../index.html" class="home-button">Back to Homepage</a></p>
+</div>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImdncGxvdDIiLCJkcGx5ciJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMTA7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xMCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEwID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMTAtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xMC1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xMCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMTAsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC05IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV85O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItOSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzkgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici05LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItOS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV85ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl85LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtOCIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfODtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTgiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl84ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItOC1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTgtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfOCA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfOCwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTciLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzc7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici03IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNyA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTctY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici03LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzcgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzcsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>STA258 | Chapter 9</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"","defaultIncorrect":"","includeScore":false,"disableReset":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 5.5e-2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealQuiz, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../Chapter Slides";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "..";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/nishanmudalige\.github\.io\/STA258_Slides");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

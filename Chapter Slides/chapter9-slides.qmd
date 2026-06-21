@@ -1,0 +1,1994 @@
+---
+pagetitle: "Chapter 9: Simple Linear Regression - Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 9"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+live:
+  show-solutions: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup}
+#| include: false
+
+library(ggplot2)
+library(dplyr)
+library(plotly)
+
+theme_set(theme_minimal(base_size = 13))
+set.seed(258)
+
+plot_cols <- list(
+  main        = "#1f4e79",
+  main_dark   = "#16324f",
+  secondary   = "#2563eb",
+  accent      = "#d97706",
+  red         = "#b91c1c",
+  green       = "#047857",
+  purple      = "#6d28d9",
+  slate       = "#475569",
+  text        = "#111827",
+  muted       = "#4b5563",
+  grid        = "#e5e7eb",
+  border      = "#cbd5e1",
+  shade_blue  = "rgba(37, 99, 235, 0.16)",
+  shade_orange = "rgba(217, 119, 6, 0.22)",
+  shade_grey  = "rgba(100, 116, 139, 0.14)",
+  shade_green = "rgba(4, 120, 87, 0.14)"
+)
+
+plotly_slide_layout <- function(
+    p,
+    title,
+    x_title,
+    y_title,
+    height = 340,
+    x_range = NULL,
+    y_range = NULL,
+    shapes = list(),
+    annotations = list(),
+    showlegend = FALSE,
+    legend_y = -0.18,
+    margin = list(l = 64, r = 22, t = 48, b = 50)
+) {
+  p |>
+    layout(
+      title = list(
+        text = paste0("<b>", title, "</b>"),
+        x = 0.015,
+        xanchor = "left",
+        font = list(
+          size = 20,
+          family = "Arial, sans-serif",
+          color = plot_cols$text
+        )
+      ),
+      font = list(
+        family = "Arial, sans-serif",
+        color = plot_cols$text
+      ),
+      xaxis = list(
+        title = list(
+          text = paste0("<b>", x_title, "</b>"),
+          standoff = 16,
+          font = list(size = 15, color = plot_cols$text)
+        ),
+        range = x_range,
+        tickfont = list(size = 13, color = plot_cols$muted),
+        showline = TRUE,
+        linewidth = 1.2,
+        linecolor = plot_cols$border,
+        zeroline = FALSE,
+        showgrid = FALSE,
+        ticks = "outside",
+        ticklen = 5,
+        tickcolor = plot_cols$border,
+        automargin = TRUE
+      ),
+      yaxis = list(
+        title = list(
+          text = paste0("<b>", y_title, "</b>"),
+          standoff = 18,
+          font = list(size = 15, color = plot_cols$text)
+        ),
+        range = y_range,
+        tickfont = list(size = 13, color = plot_cols$muted),
+        showline = TRUE,
+        linewidth = 1.2,
+        linecolor = plot_cols$border,
+        zeroline = FALSE,
+        gridcolor = plot_cols$grid,
+        gridwidth = 1,
+        ticks = "outside",
+        ticklen = 5,
+        tickcolor = plot_cols$border,
+        automargin = TRUE,
+        rangemode = "tozero"
+      ),
+      showlegend = showlegend,
+      legend = list(
+        orientation = "h",
+        x = 0,
+        y = legend_y,
+        bgcolor = "rgba(255,255,255,0)",
+        font = list(size = 13, color = plot_cols$text)
+      ),
+      shapes = shapes,
+      annotations = annotations,
+      margin = margin,
+      paper_bgcolor = "rgba(0,0,0,0)",
+      plot_bgcolor = "white",
+      hovermode = "closest",
+      hoverlabel = list(
+        bgcolor = "white",
+        bordercolor = plot_cols$main,
+        font = list(
+          size = 13,
+          color = plot_cols$text,
+          family = "Arial, sans-serif"
+        )
+      ),
+      height = height
+    ) |>
+    config(
+      displaylogo = FALSE,
+      displayModeBar = FALSE,
+      responsive = TRUE,
+      scrollZoom = FALSE
+    )
+}
+```
+
+# Chapter 9: Simple Linear Regression {.title-slide}
+
+```{=html}
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+}
+
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1 { font-size: 1.72em !important; }
+.reveal h2 {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3 { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p { font-size: 0.78em; color: var(--sta-muted); }
+
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.two-col-lean  { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); }
+.two-col-wide  { grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr); }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.one-col       { grid-template-columns: 1fr; }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
+.col           { min-width: 0; }
+
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 700px;
+}
+
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 660px !important;
+  height: 660px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1120px; }
+.reveal .quiz-question h2 { font-size: 0.96em !important; margin-bottom: 4px; text-align: left; }
+.reveal .quiz-question .callout-note { margin: 0 auto 8px auto !important; text-align: left; }
+.reveal .quiz-question .callout-note .callout-content { padding: 9px 14px 11px 14px !important; }
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p { font-size: 0.70em !important; line-height: 1.18; margin: 2px 0; }
+.reveal .quiz-question .callout-title { font-size: 0.74em !important; padding: 4px 11px !important; }
+.reveal .quiz-question ul { margin: 6px auto 0 auto !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 2px !important; }
+.reveal .option-button {
+  padding: 5px 12px !important;
+  margin: 0 auto 4px auto !important;
+  font-size: 0.62em !important;
+  line-height: 1.08 !important;
+  border-radius: 6px !important;
+  text-align: left !important;
+  max-width: 1120px !important;
+}
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation { font-size: 0.62em !important; margin-top: 4px; }
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+
+.reveal .html-widget,
+.reveal .plotly {
+  margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+.reveal .plot-container {
+  border-radius: 10px;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+.reveal .svg-container,
+.reveal .main-svg {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.callout { font-size: 0.75em; }
+
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+.home-button-row { text-align: center; margin-top: 32px; }
+</style>
+```
+
+```{=html}
+<script>
+function resizeChapter9Plotly() {
+  if (!window.Plotly) return;
+  document.querySelectorAll(".plotly.html-widget, .js-plotly-plot").forEach(function(el) {
+    var plot = el.classList.contains("js-plotly-plot") ? el : el.querySelector(".js-plotly-plot");
+    if (plot) {
+      window.Plotly.Plots.resize(plot);
+    }
+  });
+}
+
+function scheduleChapter9PlotlyResize() {
+  [0, 80, 250, 600].forEach(function(delay) {
+    window.setTimeout(resizeChapter9Plotly, delay);
+  });
+}
+
+window.addEventListener("load", scheduleChapter9PlotlyResize);
+window.addEventListener("resize", scheduleChapter9PlotlyResize);
+
+if (window.Reveal) {
+  Reveal.on("ready", scheduleChapter9PlotlyResize);
+  Reveal.on("slidechanged", scheduleChapter9PlotlyResize);
+  Reveal.on("fragmentshown", scheduleChapter9PlotlyResize);
+}
+</script>
+```
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability University of Toronto
+Mississauga
+
+![](../images/cat.png){width="245" fig-alt="Course mascot"}
+
+------------------------------------------------------------------------
+
+## Chapter Roadmap {.compact}
+
+:::::: three-col
+::: {.card .fragment}
+[1 - Regression Model]{.label} Connect a quantitative response $Y$ to
+one quantitative predictor $x$ using a straight-line model.
+:::
+
+::: {.card .fragment}
+[2 - Least Squares]{.label} Estimate the intercept and slope by choosing
+the line that makes residuals as small as possible.
+:::
+
+::: {.card .fragment}
+[3 - Inference]{.label} Use assumptions, standard errors, confidence
+intervals, and tests to decide whether the linear relationship is
+statistically meaningful.
+:::
+::::::
+
+<br>
+
+:::::: three-col
+::: {.stat-card .fragment}
+[Core skill]{.label} Interpret slope, intercept, residuals, and fitted
+values in context.
+:::
+
+::: {.stat-card .fragment}
+[Core tool]{.label} Use `lm()` in R to fit and summarize a simple linear
+regression model.
+:::
+
+::: {.stat-card .fragment}
+[Core habit]{.label} Always check whether a straight-line model is
+reasonable before interpreting the equation.
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## 9.1 Introduction to the Linear Model
+
+::: {.defbox .fragment}
+**General Linear Model**
+
+A linear model has the form
+
+$$
+y_i = \beta_0 + \beta_1z_{i1} + \beta_2z_{i2} + \cdots +
+\beta_pz_{ip} + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2).
+$$
+
+Here $y_i$ is the **response** variable, the $z$'s are **predictors**,
+and $\varepsilon_i$ is random error.
+:::
+
+::::: two-col
+::: {.examplebox .fragment}
+**Prediction goal**
+
+Use the predictors to estimate or predict the response.
+
+Example: use advertising spending to predict sales revenue.
+:::
+
+::: {.thinkbox .fragment}
+**Inference goal**
+
+Decide whether a predictor is meaningfully related to the response.
+
+Example: test whether advertising spending has a nonzero relationship
+with sales revenue.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Simple Linear Regression
+
+::: {.defbox .fragment}
+**Simple Linear Regression**
+
+A simple linear regression model has exactly **one predictor**:
+
+$$
+Y_i = \beta_0 + \beta_1x_i + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2).
+$$
+
+- $\beta_0$ is the **intercept**.
+- $\beta_1$ is the **slope**.
+- $\varepsilon_i$ is the random error term.
+:::
+
+::: {.examplebox .fragment}
+The fitted regression line is written as
+
+$$
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i.
+$$
+
+The hats remind us that these are **estimated** values from sample data.
+:::
+
+------------------------------------------------------------------------
+
+## Regression as a Picture
+
+:::::: two-col-wide
+:::: col
+::: {.taskbox}
+[Example]{.label} Suppose an appliance store records the number of tools
+made in a day and the daily electricity cost.
+
+We want to answer:
+
+**(a)** Does cost tend to increase as the number of tools increases?
+
+**(b)** Can we summarize this relationship using a line?
+
+**(c)** Can we use the line to predict electricity cost?
+:::
+
+::: {.thinkbox .fragment}
+Regression starts with a scatterplot. Before formulas, first ask:
+**does a straight line look reasonable?**
+:::
+::::
+
+::: col
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79, 39.93, 12.27, 40.06, 21.38, 18.65)
+
+df_tools <- data.frame(tools = tools, cost = cost)
+
+p <- plot_ly(
+  data = df_tools,
+  x = ~tools,
+  y = ~cost,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    color = plot_cols$secondary,
+    size = 11,
+    line = list(color = "white", width = 1.2)
+  ),
+  text = ~paste0(
+    "<b>Tools:</b> ", tools,
+    "<br><b>Electricity cost:</b> $", cost
+  ),
+  hovertemplate = "%{text}<extra></extra>",
+  showlegend = FALSE
+)
+
+plotly_slide_layout(
+  p,
+  title = "Electricity cost versus number of tools",
+  x_title = "Number of tools made",
+  y_title = "Electricity cost",
+  height = 390,
+  x_range = c(0, 16),
+  y_range = c(0, 45)
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  )
+```
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## 9.1.1 Least Squares Method
+
+::: {.defbox .fragment}
+**Residual**
+
+A residual is the difference between the observed value and the fitted
+value:
+
+$$
+e_i = y_i - \hat{y}_i.
+$$
+
+It measures the vertical distance from a data point to the regression
+line.
+:::
+
+::::: two-col
+::: {.examplebox .fragment}
+If $e_i > 0$, the point is **above** the fitted line.
+
+The model underpredicted the observed response.
+:::
+
+::: {.examplebox .fragment}
+If $e_i < 0$, the point is **below** the fitted line.
+
+The model overpredicted the observed response.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Residuals on a Regression Plot {.scrollable}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+fit_tools <- lm(cost ~ tools, data = df_tools)
+df_tools$fitted <- fitted(fit_tools)
+df_tools$resid <- resid(fit_tools)
+
+x_line <- seq(0, 16, length.out = 200)
+line_df <- data.frame(
+  tools = x_line,
+  fitted = predict(fit_tools, newdata = data.frame(tools = x_line))
+)
+
+p <- plot_ly() |>
+  add_segments(
+    data = df_tools,
+    x = ~tools,
+    xend = ~tools,
+    y = ~fitted,
+    yend = ~cost,
+    line = list(color = "rgba(0,0,0,0.75)", width = 2),
+    text = ~paste0(
+      "<b>Residual:</b> ", round(resid, 2),
+      "<br>Observed: ", round(cost, 2),
+      "<br>Fitted: ", round(fitted, 2)
+    ),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_lines(
+    data = line_df,
+    x = ~tools,
+    y = ~fitted,
+    line = list(color = plot_cols$red, width = 3.4),
+    name = "Regression line",
+    hoverinfo = "skip"
+  ) |>
+  add_markers(
+    data = df_tools,
+    x = ~tools,
+    y = ~cost,
+    marker = list(
+      color = plot_cols$secondary,
+      size = 10,
+      line = list(color = "white", width = 1.2)
+    ),
+    text = ~paste0(
+      "<b>Tools:</b> ", tools,
+      "<br><b>Observed cost:</b> ", round(cost, 2),
+      "<br><b>Fitted cost:</b> ", round(fitted, 2),
+      "<br><b>Residual:</b> ", round(resid, 2)
+    ),
+    hovertemplate = "%{text}<extra></extra>",
+    showlegend = FALSE
+  )
+
+annotations <- list(
+  list(
+    x = 0.70,
+    y = 0.96,
+    xref = "paper",
+    yref = "paper",
+    text = "<b>Black vertical distances are residuals:</b> eᵢ = yᵢ − ŷᵢ",
+    showarrow = FALSE,
+    font = list(size = 14, color = plot_cols$text),
+    bgcolor = "rgba(255,255,255,0.82)",
+    bordercolor = "rgba(148,163,184,0.25)",
+    borderpad = 5
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Residuals measure vertical distance from the fitted line",
+  x_title = "Number of tools made",
+  y_title = "Electricity cost",
+  height = 500,
+  x_range = c(0, 16),
+  y_range = c(0, 45),
+  annotations = annotations,
+  showlegend = TRUE,
+  legend_y = 1.05
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  )
+```
+
+------------------------------------------------------------------------
+
+## Sum of Squared Errors
+
+::: {.defbox .fragment}
+**Sum of Squared Errors**
+
+For a fitted regression line, the residual sum of squares is
+
+$$
+SSE = \sum_{i=1}^{n}e_i^2
+= \sum_{i=1}^{n}(y_i-\hat{y}_i)^2.
+$$
+
+The least-squares method chooses the line that makes $SSE$ as small as
+possible.
+:::
+
+::: {.thinkbox .fragment}
+Why square the residuals?
+
+- Squaring prevents positive and negative residuals from cancelling.
+- Large mistakes are penalized more heavily.
+- The resulting optimization problem has a clean mathematical solution.
+:::
+
+------------------------------------------------------------------------
+
+## Least Squares Optimization
+
+::: {.defbox .fragment}
+For simple linear regression, least squares solves
+
+$$
+\min_{\beta_0,\beta_1}
+\sum_{i=1}^{n}(y_i-\beta_0-\beta_1x_i)^2.
+$$
+:::
+
+::::: two-col
+::: {.examplebox .fragment}
+The output is the fitted line:
+
+$$
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1x_i.
+$$
+
+This is the line with the smallest possible SSE among all straight lines.
+:::
+
+::: {.warnbox .fragment}
+Least squares finds the **best line among straight lines**.
+
+It does not guarantee that a straight line is actually the right model.
+Always inspect the scatterplot and residuals.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## 9.1.2 Estimating Parameters for the Simple Linear Model
+
+::: {.defbox .fragment}
+For the model
+
+$$
+Y_i = \beta_0 + \beta_1x_i + \varepsilon_i,
+$$
+
+the least-squares estimates are
+
+$$
+\hat{\beta}_1 =
+\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}
+{\sum_{i=1}^{n}(x_i-\bar{x})^2}
+=
+\frac{S_{xy}}{S_{xx}},
+$$
+
+and
+
+$$
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}.
+$$
+:::
+
+::: {.thinkbox .fragment}
+The fitted regression line always passes through the point
+$(\bar{x}, \bar{y})$.
+:::
+
+------------------------------------------------------------------------
+
+## Interpreting the Coefficients
+
+:::::: two-col
+::: {.stat-card .fragment}
+[Intercept]{.label}
+
+$$
+\hat{\beta}_0
+$$
+
+The predicted value of $Y$ when $x = 0$.
+
+Interpret only if $x = 0$ makes sense in context.
+:::
+
+::: {.stat-card .fragment}
+[Slope]{.label}
+
+$$
+\hat{\beta}_1
+$$
+
+The predicted change in $Y$ for a one-unit increase in $x$.
+
+This is usually the most important coefficient.
+:::
+::::::
+
+::: {.examplebox .fragment}
+If $\hat{\beta}_1 = 2.25$, then each additional tool is associated with
+an estimated increase of about **2.25 units** in electricity cost.
+:::
+
+------------------------------------------------------------------------
+
+## Example 9.1: Electricity Cost Data {.scrollable}
+
+:::::: two-col-wide
+:::: col
+::: taskbox
+[Example]{.label} The data below show the number of tools made and daily
+electricity cost for 10 days.
+
+| Day | Tools $(X)$ | Cost $(Y)$ |
+|---:|---:|---:|
+| 1 | 7 | 23.80 |
+| 2 | 3 | 11.89 |
+| 3 | 2 | 15.89 |
+| 4 | 5 | 26.11 |
+| 5 | 8 | 31.79 |
+| 6 | 11 | 39.93 |
+| 7 | 5 | 12.27 |
+| 8 | 15 | 40.06 |
+| 9 | 3 | 21.38 |
+| 10 | 6 | 18.65 |
+
+**(a)** Estimate the regression equation.
+
+**(b)** Interpret the slope.
+:::
+::::
+
+::: col
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+b0 <- coef(fit_tools)[1]
+b1 <- coef(fit_tools)[2]
+
+p <- plot_ly() |>
+  add_markers(
+    data = df_tools,
+    x = ~tools,
+    y = ~cost,
+    marker = list(
+      color = plot_cols$secondary,
+      size = 10,
+      line = list(color = "white", width = 1.2)
+    ),
+    text = ~paste0(
+      "<b>Tools:</b> ", tools,
+      "<br><b>Cost:</b> ", round(cost, 2)
+    ),
+    hovertemplate = "%{text}<extra></extra>",
+    name = "Observed data"
+  ) |>
+  add_lines(
+    data = line_df,
+    x = ~tools,
+    y = ~fitted,
+    line = list(color = plot_cols$red, width = 3.5),
+    name = "Least-squares line",
+    hovertemplate = paste0(
+      "<b>Fitted line:</b><br>",
+      "ŷ = ", round(b0, 3), " + ", round(b1, 3), "x",
+      "<extra></extra>"
+    )
+  )
+
+annotations <- list(
+  list(
+    x = 0.5,
+    y = 1.06,
+    xref = "paper",
+    yref = "paper",
+    text = paste0(
+      "<b>Estimated equation:</b> ŷ = ",
+      round(b0, 3), " + ", round(b1, 3), "x"
+    ),
+    showarrow = FALSE,
+    xanchor = "center",
+    font = list(size = 14, color = plot_cols$main_dark)
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "",
+  x_title = "Number of tools made",
+  y_title = "Electricity cost",
+  height = 430,
+  x_range = c(0, 16),
+  y_range = c(0, 45),
+  annotations = annotations,
+  showlegend = TRUE,
+  legend_y = -0.18
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  )
+```
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## Electricity Example — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+# Manual least-squares calculations
+xbar <- mean(tools)
+ybar <- mean(cost)
+
+Sxx <- sum((tools - xbar)^2)
+Sxy <- sum((tools - xbar) * (cost - ybar))
+
+b1 <- Sxy / Sxx
+b0 <- ybar - b1 * xbar
+
+b0
+b1
+
+# Equivalent R shortcut
+model <- lm(cost ~ tools)
+coef(model)
+summary(model)
+```
+
+------------------------------------------------------------------------
+
+## Fitted Values and Residuals in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+
+fitted_values <- fitted(model)
+residuals <- resid(model)
+
+data.frame(
+  tools = tools,
+  observed_cost = cost,
+  fitted_cost = round(fitted_values, 2),
+  residual = round(residuals, 2)
+)
+
+sum(residuals)
+sum(residuals^2)
+```
+
+::: {.small-text}
+For a least-squares regression with an intercept, residuals always sum to
+approximately zero, up to rounding.
+:::
+
+------------------------------------------------------------------------
+
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+A fitted regression line is
+
+$$
+\hat{y} = 9.59 + 2.25x.
+$$
+
+What is the correct interpretation of the slope?
+:::
+
+-   When $x = 0$, the predicted value of $y$ is 2.25
+-   For every one-unit increase in $x$, the predicted value of $y$
+    increases by about 2.25
+-   The correlation between $x$ and $y$ is 2.25
+-   The residuals increase by 2.25 each time
+
+------------------------------------------------------------------------
+
+## 9.1.3 Measures of Linear Relationship
+
+::: {.defbox .fragment}
+**Sample Covariance**
+
+The sample covariance between $x$ and $y$ is
+
+$$
+s_{xy}
+=
+\frac{1}{n-1}
+\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y}).
+$$
+
+It measures whether two variables tend to move together.
+:::
+
+::::: two-col
+::: {.examplebox .fragment}
+Positive covariance: large $x$ values tend to occur with large $y$
+values.
+:::
+
+::: {.examplebox .fragment}
+Negative covariance: large $x$ values tend to occur with small $y$
+values.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Correlation
+
+::: {.defbox .fragment}
+**Correlation Coefficient**
+
+The sample correlation coefficient is
+
+$$
+r_{xy} = \frac{s_{xy}}{s_xs_y}.
+$$
+
+Correlation is a standardized measure of the strength and direction of a
+linear relationship.
+:::
+
+:::::: three-col
+::: {.stat-card .fragment}
+[$r \approx 1$]{.label} Strong positive linear relationship.
+:::
+
+::: {.stat-card .fragment}
+[$r \approx -1$]{.label} Strong negative linear relationship.
+:::
+
+::: {.stat-card .fragment}
+[$r \approx 0$]{.label} Little or no straight-line relationship.
+:::
+::::::
+
+::: {.warnbox .fragment}
+Correlation measures **linear** association. A curved relationship can
+have correlation near zero.
+:::
+
+------------------------------------------------------------------------
+
+## Correlation: Three Visual Cases
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+set.seed(258)
+
+n <- 70
+x1 <- rnorm(n)
+y1 <- 1.2 * x1 + rnorm(n, sd = 0.45)
+
+x2 <- rnorm(n)
+y2 <- -1.2 * x2 + rnorm(n, sd = 0.45)
+
+x3 <- rnorm(n)
+y3 <- rnorm(n)
+
+df_cor <- rbind(
+  data.frame(x = x1, y = y1, group = paste0("Positive: r = ", round(cor(x1, y1), 2))),
+  data.frame(x = x2, y = y2, group = paste0("Negative: r = ", round(cor(x2, y2), 2))),
+  data.frame(x = x3, y = y3, group = paste0("Weak: r = ", round(cor(x3, y3), 2)))
+)
+
+p <- plot_ly(
+  data = df_cor,
+  x = ~x,
+  y = ~y,
+  color = ~group,
+  colors = c(plot_cols$green, plot_cols$red, plot_cols$slate),
+  type = "scatter",
+  mode = "markers",
+  marker = list(size = 8, opacity = 0.78, line = list(color = "white", width = 0.8)),
+  hovertemplate = "x: %{x:.2f}<br>y: %{y:.2f}<extra></extra>"
+)
+
+plotly_slide_layout(
+  p,
+  title = "Correlation describes strength and direction",
+  x_title = "x",
+  y_title = "y",
+  height = 430,
+  x_range = c(-3.2, 3.2),
+  y_range = c(-4.2, 4.2),
+  showlegend = TRUE,
+  legend_y = -0.15
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  )
+```
+
+------------------------------------------------------------------------
+
+## Covariance and Correlation — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+cov(tools, cost)
+cor(tools, cost)
+
+# Relation to slope:
+sd(cost) / sd(tools) * cor(tools, cost)
+
+# This equals the least-squares slope:
+coef(lm(cost ~ tools))[2]
+```
+
+------------------------------------------------------------------------
+
+## 9.1.4 SSE, SSR and SST
+
+::: {.defbox .fragment}
+Regression separates the total variation in $Y$ into two parts:
+
+$$
+SST = SSR + SSE.
+$$
+
+- **SST**: total variation in observed $y_i$ around $\bar{y}$
+- **SSR**: variation explained by the regression line
+- **SSE**: unexplained variation left in the residuals
+:::
+
+:::::: three-col
+::: {.stat-card .fragment}
+[SST]{.label}
+
+$$
+\sum (y_i-\bar{y})^2
+$$
+
+Total variation.
+:::
+
+::: {.stat-card .fragment}
+[SSR]{.label}
+
+$$
+\sum (\hat{y}_i-\bar{y})^2
+$$
+
+Explained variation.
+:::
+
+::: {.stat-card .fragment}
+[SSE]{.label}
+
+$$
+\sum (y_i-\hat{y}_i)^2
+$$
+
+Unexplained variation.
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## Visual Decomposition of Variation {.scrollable}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+ybar <- mean(df_tools$cost)
+
+p <- plot_ly() |>
+  add_lines(
+    data = line_df,
+    x = ~tools,
+    y = ~fitted,
+    line = list(color = plot_cols$red, width = 3.4),
+    name = "Regression line",
+    hoverinfo = "skip"
+  ) |>
+  add_segments(
+    data = df_tools,
+    x = ~tools,
+    xend = ~tools,
+    y = ybar,
+    yend = ~cost,
+    line = list(color = "rgba(100,116,139,0.32)", width = 7),
+    name = "Total: yᵢ − ȳ",
+    hoverinfo = "skip"
+  ) |>
+  add_segments(
+    data = df_tools,
+    x = ~tools,
+    xend = ~tools,
+    y = ybar,
+    yend = ~fitted,
+    line = list(color = "rgba(4,120,87,0.55)", width = 3),
+    name = "Explained: ŷᵢ − ȳ",
+    hoverinfo = "skip"
+  ) |>
+  add_segments(
+    data = df_tools,
+    x = ~tools,
+    xend = ~tools,
+    y = ~fitted,
+    yend = ~cost,
+    line = list(color = "rgba(185,28,28,0.75)", width = 2.4),
+    name = "Residual: yᵢ − ŷᵢ",
+    hoverinfo = "skip"
+  ) |>
+  add_markers(
+    data = df_tools,
+    x = ~tools,
+    y = ~cost,
+    marker = list(color = plot_cols$secondary, size = 9, line = list(color = "white", width = 1)),
+    name = "Observed data",
+    hovertemplate = "x: %{x}<br>y: %{y:.2f}<extra></extra>"
+  )
+
+shapes <- list(
+  list(
+    type = "line",
+    x0 = 0,
+    x1 = 16,
+    y0 = ybar,
+    y1 = ybar,
+    line = list(color = plot_cols$slate, width = 2, dash = "dash")
+  )
+)
+
+annotations <- list(
+  list(
+    x = 14.7,
+    y = ybar + 1.2,
+    text = "<b>ȳ</b>",
+    showarrow = FALSE,
+    font = list(size = 14, color = plot_cols$slate)
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Total variation = explained variation + unexplained variation",
+  x_title = "Number of tools made",
+  y_title = "Electricity cost",
+  height = 500,
+  x_range = c(0, 16),
+  y_range = c(0, 45),
+  shapes = shapes,
+  annotations = annotations,
+  showlegend = TRUE,
+  legend_y = -0.16
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  )
+```
+
+------------------------------------------------------------------------
+
+## Coefficient of Determination
+
+::: {.defbox .fragment}
+**Coefficient of Determination**
+
+The proportion of total variation in $Y$ explained by the linear model is
+
+$$
+R^2 = \frac{SSR}{SST} = 1 - \frac{SSE}{SST}.
+$$
+:::
+
+::::: two-col
+::: {.examplebox .fragment}
+If $R^2 = 0.72$, then about **72% of the variation in the response** is
+explained by the predictor through the fitted linear model.
+:::
+
+::: {.warnbox .fragment}
+A large $R^2$ does not prove causation.
+
+It only describes how well the fitted line explains variation in the
+observed data.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## SSE, SSR, SST and R² — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+
+yhat <- fitted(model)
+e <- resid(model)
+ybar <- mean(cost)
+
+SSE <- sum((cost - yhat)^2)
+SSR <- sum((yhat - ybar)^2)
+SST <- sum((cost - ybar)^2)
+
+SSE
+SSR
+SST
+SSR + SSE
+
+R2 <- SSR / SST
+R2
+
+summary(model)$r.squared
+```
+
+------------------------------------------------------------------------
+
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+In a simple linear regression, $SSE$ measures:
+:::
+
+-   The total variation in $Y$ around $\bar{y}$
+-   The variation explained by the fitted regression line
+-   The squared residual variation left unexplained by the model
+-   The slope of the regression line
+
+------------------------------------------------------------------------
+
+## 9.2 Inference for Simple Linear Regression
+
+::: {.defbox .fragment}
+For inference, we use the model
+
+$$
+Y_i = \beta_0 + \beta_1x_i + \varepsilon_i,
+\qquad
+\varepsilon_i \sim N(0,\sigma^2).
+$$
+
+The goal is not only to fit a line, but to decide whether the slope and
+intercept are statistically meaningful.
+:::
+
+::: {.thinkbox .fragment}
+In practice, we are usually most interested in the slope $\beta_1$.
+
+A slope of zero means there is no linear change in the expected response
+as $x$ increases.
+:::
+
+------------------------------------------------------------------------
+
+## Regression Assumptions
+
+:::::: three-col
+::: {.stat-card .fragment}
+[Linearity]{.label} The mean of $Y$ changes linearly with $x$.
+:::
+
+::: {.stat-card .fragment}
+[Independence]{.label} The observations/errors are independent.
+:::
+
+::: {.stat-card .fragment}
+[Constant variance]{.label} The error variance is the same at every
+value of $x$.
+:::
+::::::
+
+<br>
+
+
+
+
+
+
+:::::: three-col
+::: {.stat-card .fragment}
+[Normal errors]{.label} The errors are approximately normally
+distributed.
+:::
+
+::: {.stat-card .fragment}
+[Mean zero errors]{.label} At each $x$, the error term has mean zero.
+:::
+
+::: {.stat-card .fragment}
+[Check residuals]{.label} Residual plots help diagnose assumption
+problems.
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## 9.2.1 Estimating Variance in Linear Regression
+
+::: {.defbox .fragment}
+Because $\sigma^2$ is unknown, we estimate it using the residuals:
+
+$$
+s^2 = \frac{\sum_{i=1}^{n}e_i^2}{n-2}
+= \frac{SSE}{n-2}.
+$$
+
+The denominator is $n-2$ because we estimate two parameters:
+$\beta_0$ and $\beta_1$.
+:::
+
+::: {.examplebox .fragment}
+The residual standard error is
+
+$$
+s = \sqrt{\frac{SSE}{n-2}}.
+$$
+
+It measures the typical vertical size of the residuals.
+:::
+
+------------------------------------------------------------------------
+
+## Why Divide by $n-2$?
+
+::::: two-col
+::: {.examplebox .fragment}
+In simple linear regression, the fitted line is determined by two
+estimated quantities:
+
+$$
+\hat{\beta}_0
+\quad \text{and} \quad
+\hat{\beta}_1.
+$$
+
+So there are $n-2$ residual degrees of freedom.
+:::
+
+::: {.thinkbox .fragment}
+This is the regression version of using $n-1$ when estimating a variance
+from a sample mean.
+
+We lose degrees of freedom for parameters estimated from the data.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Estimating $\sigma^2$ — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+
+e <- resid(model)
+SSE <- sum(e^2)
+n <- length(cost)
+
+s2 <- SSE / (n - 2)
+s <- sqrt(s2)
+
+SSE
+s2
+s
+
+summary(model)$sigma
+```
+
+------------------------------------------------------------------------
+
+## Standard Error of the Slope
+
+::: {.defbox .fragment}
+The standard error of the estimated slope is
+
+$$
+SE(\hat{\beta}_1)
+=
+\frac{s}{\sqrt{S_{xx}}},
+\qquad
+S_{xx} = \sum_{i=1}^{n}(x_i-\bar{x})^2.
+$$
+
+This measures how much $\hat{\beta}_1$ would vary from sample to sample.
+:::
+
+::: {.thinkbox .fragment}
+More spread in the $x$ values means larger $S_{xx}$, which gives a
+smaller standard error for the slope.
+:::
+
+------------------------------------------------------------------------
+
+## Testing Whether the Slope is Zero
+
+::: {.defbox .fragment}
+A common hypothesis test is
+
+$$
+H_0:\beta_1 = 0
+\qquad \text{versus} \qquad
+H_A:\beta_1 \ne 0.
+$$
+
+The test statistic is
+
+$$
+t =
+\frac{\hat{\beta}_1 - 0}{SE(\hat{\beta}_1)}
+\sim t_{n-2}
+\quad \text{under } H_0.
+$$
+:::
+
+::: {.examplebox .fragment}
+If the p-value is small, there is evidence that the predictor is linearly
+associated with the response.
+:::
+
+------------------------------------------------------------------------
+
+## Slope Test — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+summary(model)
+
+# Manual t-test for slope
+b1 <- coef(model)[2]
+s <- summary(model)$sigma
+Sxx <- sum((tools - mean(tools))^2)
+
+SE_b1 <- s / sqrt(Sxx)
+t_stat <- b1 / SE_b1
+df <- length(tools) - 2
+p_value <- 2 * pt(abs(t_stat), df = df, lower.tail = FALSE)
+
+b1
+SE_b1
+t_stat
+p_value
+```
+
+------------------------------------------------------------------------
+
+## Confidence Interval for the Slope
+
+::: {.defbox .fragment}
+A $100(1-\alpha)\%$ confidence interval for the slope is
+
+$$
+\hat{\beta}_1
+\pm
+t_{\alpha/2,n-2}^{\star} SE(\hat{\beta}_1).
+$$
+:::
+
+::::: two-col
+::: {.examplebox .fragment}
+If the interval does **not** contain 0, then the slope is statistically
+significant at the corresponding two-sided level.
+:::
+
+::: {.thinkbox .fragment}
+Interpretation: we are estimating the average change in the response for
+a one-unit increase in the predictor.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Confidence Interval — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+
+# R shortcut
+confint(model)
+
+# Manual 95% CI for slope
+b1 <- coef(model)[2]
+s <- summary(model)$sigma
+Sxx <- sum((tools - mean(tools))^2)
+SE_b1 <- s / sqrt(Sxx)
+
+df <- length(tools) - 2
+t_star <- qt(0.975, df = df)
+
+lower <- b1 - t_star * SE_b1
+upper <- b1 + t_star * SE_b1
+
+c(lower, upper)
+```
+
+------------------------------------------------------------------------
+
+## Residual Diagnostics
+
+:::::: two-col-wide
+:::: col
+::: {.taskbox}
+[Diagnostic idea]{.label} After fitting a regression line, check the
+residuals.
+
+A good residual plot should look like random scatter around zero.
+
+Watch for:
+
+- curved patterns,
+- changing spread,
+- strong outliers,
+- clusters or time trends.
+:::
+::::
+
+::: col
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+diag_df <- data.frame(
+  fitted = fitted(fit_tools),
+  resid = resid(fit_tools)
+)
+
+p <- plot_ly(
+  data = diag_df,
+  x = ~fitted,
+  y = ~resid,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    color = plot_cols$secondary,
+    size = 10,
+    line = list(color = "white", width = 1.2)
+  ),
+  text = ~paste0(
+    "<b>Fitted:</b> ", round(fitted, 2),
+    "<br><b>Residual:</b> ", round(resid, 2)
+  ),
+  hovertemplate = "%{text}<extra></extra>",
+  showlegend = FALSE
+)
+
+shapes <- list(
+  list(
+    type = "line",
+    x0 = min(diag_df$fitted) - 2,
+    x1 = max(diag_df$fitted) + 2,
+    y0 = 0,
+    y1 = 0,
+    line = list(color = plot_cols$accent, width = 2.4, dash = "dash")
+  )
+)
+
+plotly_slide_layout(
+  p,
+  title = "Residuals versus fitted values",
+  x_title = "Fitted value",
+  y_title = "Residual",
+  height = 390,
+  x_range = c(10, 45),
+  y_range = c(-14, 14),
+  shapes = shapes
+) |>
+  layout(
+    dragmode = FALSE,
+    xaxis = list(fixedrange = TRUE),
+    yaxis = list(fixedrange = TRUE)
+  )
+```
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## Residual Plot — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+
+plot(fitted(model), resid(model),
+     pch = 19,
+     col = "#00695c",
+     xlab = "Fitted values",
+     ylab = "Residuals",
+     main = "Residual plot")
+abline(h = 0, lty = 2, col = "#f9a825", lwd = 2)
+
+qqnorm(resid(model))
+qqline(resid(model), col = "#f9a825", lwd = 2)
+```
+
+------------------------------------------------------------------------
+
+## Prediction with a Regression Line
+
+::: {.defbox .fragment}
+Once we have a fitted regression equation,
+
+$$
+\hat{y} = \hat{\beta}_0 + \hat{\beta}_1x,
+$$
+
+we can plug in a value of $x$ to predict the response.
+:::
+
+::: {.examplebox .fragment}
+For the electricity data,
+
+$$
+\hat{y} = 9.588 + 2.246x.
+$$
+
+If $x = 10$ tools are made, then
+
+$$
+\hat{y} = 9.588 + 2.246(10) = 32.046.
+$$
+:::
+
+------------------------------------------------------------------------
+
+## Prediction — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+
+# Predict electricity cost when 10 tools are made
+new_day <- data.frame(tools = 10)
+
+predict(model, newdata = new_day)
+
+# Confidence interval for mean response
+predict(model, newdata = new_day, interval = "confidence")
+
+# Prediction interval for a new individual day
+predict(model, newdata = new_day, interval = "prediction")
+```
+
+::: {.small-text}
+A confidence interval estimates the mean response at $x=10$. A prediction
+interval predicts one new individual observation, so it is wider.
+:::
+
+------------------------------------------------------------------------
+
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+Why is a prediction interval usually wider than a confidence interval for
+the mean response?
+:::
+
+-   It uses a different fitted line
+-   It accounts for both uncertainty in the mean response and random
+    variation in a new observation
+-   It always uses a normal distribution instead of a t distribution
+-   It ignores the residual standard error
+
+------------------------------------------------------------------------
+
+## Example: Full Regression Workflow {.scrollable}
+
+::: {.taskbox}
+[Example]{.label} Using the electricity data:
+
+**(a)** Fit the simple linear regression model.
+
+**(b)** State the estimated regression equation.
+
+**(c)** Interpret the slope.
+
+**(d)** Test whether the slope is different from zero.
+
+**(e)** Estimate the cost when 10 tools are made.
+
+**(f)** Check whether the residual plot shows any obvious problems.
+:::
+
+------------------------------------------------------------------------
+
+## Full Workflow — Check in R
+
+```{webr}
+#| autorun: false
+
+tools <- c(7, 3, 2, 5, 8, 11, 5, 15, 3, 6)
+cost  <- c(23.80, 11.89, 15.89, 26.11, 31.79,
+           39.93, 12.27, 40.06, 21.38, 18.65)
+
+model <- lm(cost ~ tools)
+
+# (a)-(d)
+summary(model)
+
+# (e)
+predict(model, newdata = data.frame(tools = 10),
+        interval = "prediction")
+
+# (f)
+plot(fitted(model), resid(model),
+     pch = 19,
+     col = "#00695c",
+     xlab = "Fitted values",
+     ylab = "Residuals",
+     main = "Residual plot")
+abline(h = 0, lty = 2, col = "#f9a825", lwd = 2)
+```
+
+------------------------------------------------------------------------
+
+## Chapter Summary {.compact}
+
+:::::: three-col
+::: {.card .fragment}
+[Model]{.label} Simple linear regression models the mean response as
+
+$$
+E(Y \mid x) = \beta_0 + \beta_1x.
+$$
+:::
+
+::: {.card .fragment}
+[Estimation]{.label} Least squares chooses the line that minimizes
+
+$$
+SSE = \sum (y_i-\hat{y}_i)^2.
+$$
+:::
+
+::: {.card .fragment}
+[Inference]{.label} Use $s^2 = SSE/(n-2)$, standard errors, $t$ tests,
+and confidence intervals to reason about $\beta_1$.
+:::
+::::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Regression is not just drawing a line. It is a
+full workflow: visualize the relationship, estimate the line, interpret
+the slope, check residuals, and then use inference carefully.
+:::
+
+------------------------------------------------------------------------
+
+## Up Next
+
+::: examplebox
+**Chapter 10 — Multiple Linear Regression**
+
+We extend the model from one predictor to several predictors. The core
+ideas stay the same: fitted values, residuals, least squares, and
+inference — but interpretation becomes more careful because variables are
+held fixed.
+:::
+
+::: home-button-row
+<a href="../index.html" class="home-button">Back to Homepage</a>
+:::

@@ -2106,61 +2106,77 @@ proportions, not the difference between two sample counts.
 
 ------------------------------------------------------------------------
 
-## Example 1: Difference of Proportions - Left-Handed Students {.scrollable}
+## Example: GTA VI Trailer Alert Comparison
 
-::: {.taskbox}
-Campus 1 has 18 left-handed students out of 120. Campus 2 has 10 left-handed students out of 100.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Construct a 95% CI for $p_1-p_2$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A gaming news app wants to compare two ways of promoting a GTA VI trailer
+drop.
+
+One group receives a direct push notification about the trailer. The
+other group only sees a generic homepage banner.
+
+<br>
+
+**Group 1: Push notification users**  
+$x_1=210$ of $n_1=500$ watched the trailer within 24 hours
+
+**Group 2: Homepage banner users**  
+$x_2=170$ of $n_2=450$ watched the trailer within 24 hours
 :::
 
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
 $$
-\hat p_1=0.1500,\quad \hat p_2=0.1000,\quad \hat p_1-\hat p_2=0.0500
+\hat p_1=\frac{210}{500}=0.4200,
+\qquad
+\hat p_2=\frac{170}{450}=0.3778
 $$
 
 $$
-SE=\sqrt{\frac{0.15(0.85)}{120}+\frac{0.10(0.90)}{100}}=0.0443
+\hat p_1-\hat p_2=0.4200-0.3778=0.0422
 $$
 
 $$
-0.05\pm1.96(0.0443)=(-0.0368,0.1368)
+SE=
+\sqrt{
+\frac{0.4200(0.5800)}{500}
++
+\frac{0.3778(0.6222)}{450}
+}
+=
+0.0318
 $$
 
-::: {.examplebox}
-The interval includes 0, so a zero difference in population proportions is plausible.
+$$
+0.0422\pm1.645(0.0318)
+=
+(-0.0100,\;0.0945)
+$$
 :::
 
----
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
 
-## Example 2: Difference of Proportions - Policy Support {.scrollable}
+Construct a 90% confidence interval for $p_1-p_2$.
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-City 1 has 210 supporters out of 500. City 2 has 170 supporters out of 450.
-
-Construct a 90% CI for $p_1-p_2$.
-:::
+The order is **push notification minus homepage banner**, so positive
+values mean the push notification has the higher population proportion of
+users who watch the trailer.
 :::
 
-::: {.col}
-```{webr}
-#| autorun: false
-
-x1 <- 210; n1 <- 500
-x2 <- 170; n2 <- 450
-p1 <- x1/n1; p2 <- x2/n2
-se <- sqrt(p1*(1-p1)/n1 + p2*(1-p2)/n2)
-(p1 - p2) + c(-1, 1) * qnorm(0.95) * se
-```
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 90% confident that the push notification's population proportion
+is between **1.00 percentage point lower and 9.45 percentage points
+higher** than the homepage banner's population proportion.
 :::
+
 ::::
 
-::: {.examplebox}
-The 90% CI is approximately $(-0.010,0.095)$. Because 0 is inside, the data do not clearly establish a higher support rate for City 1.
-:::
-
 ------------------------------------------------------------------------
+
 
 ## Assumptions for Difference of Proportions
 
@@ -2251,63 +2267,151 @@ intervals.
 
 ------------------------------------------------------------------------
 
-## Example 1: Ratio of Variances - Machines {.scrollable}
+## Example: Offline Downloads
 
-::: {.taskbox}
-Machine 1: $n_1=16$, $s_1=12$. Machine 2: $n_2=14$, $s_2=8$.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Assuming normal populations, construct a 95% CI for $\sigma_1^2/\sigma_2^2$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A streaming app wants to compare two reminder designs for users who may
+want to download shows before travelling or going somewhere with poor
+Wi-Fi.
+
+One group receives a personalized offline-download reminder. The other
+group sees a generic homepage prompt.
+
+<br>
+
+**Group 1: Personalized reminder users**  
+$x_1=210$ of $n_1=500$ downloaded at least one show offline
+
+**Group 2: Generic prompt users**  
+$x_2=170$ of $n_2=450$ downloaded at least one show offline
 :::
 
-```{webr}
-#| autorun: false
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
 
-n1 <- 16; n2 <- 14
-s12 <- 12^2; s22 <- 8^2
-alpha <- 0.05
-ratio <- s12 / s22
-lower <- ratio / qf(1 - alpha/2, n1 - 1, n2 - 1)
-upper <- ratio / qf(alpha/2, n1 - 1, n2 - 1)
-c(lower, upper)
-```
+$$
+\hat p_1=\frac{210}{500}=0.4200,
+\qquad
+\hat p_2=\frac{170}{450}=0.3778
+$$
 
-::: {.examplebox}
-The 95% CI is approximately $(0.74,6.58)$. Since 1 is inside, equal variances are plausible.
+$$
+\hat p_1-\hat p_2=0.4200-0.3778=0.0422
+$$
+
+$$
+SE=
+\sqrt{
+\frac{0.4200(0.5800)}{500}
++
+\frac{0.3778(0.6222)}{450}
+}
+=
+0.0318
+$$
+
+$$
+0.0422\pm1.645(0.0318)
+=
+(-0.0100,\;0.0945)
+$$
 :::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
+
+Construct a 90% confidence interval for $p_1-p_2$.
+
+The order is **personalized reminder minus generic prompt**, so positive
+values mean the personalized reminder has the higher population
+proportion of users who download shows offline.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 90% confident that the personalized reminder's population
+proportion is between **1.00 percentage point lower and 9.45 percentage
+points higher** than the generic prompt's population proportion.
+:::
+
+::::
 
 ---
 
-## Example 2: Ratio of Variances - Labs {.scrollable}
+## Example: Charging-Time Variability
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Lab 1: $n_1=21$, $s_1=5.5$. Lab 2: $n_2=19$, $s_2=3.8$.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Construct a 90% CI for $\sigma_1^2/\sigma_2^2$.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A phone reviewer wants to compare how consistent two charging setups are.
+
+Both setups are tested from 20% to 80% battery under similar conditions.
+The question is not which setup is faster on average, but which setup has
+more variability in charging time.
+
+Assume charging times are approximately normal.
+
+<br>
+
+**Group 1: Budget fast charger**  
+$n_1=16$, $s_1=12$ minutes
+
+**Group 2: Branded fast charger**  
+$n_2=14$, $s_2=8$ minutes
 :::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+\frac{s_1^2}{s_2^2}
+=
+\frac{12^2}{8^2}
+=
+2.25
+$$
+
+$$
+df_1=n_1-1=15,
+\qquad
+df_2=n_2-1=13
+$$
+
+$$
+F_{0.975,15,13}=3.053,
+\qquad
+F_{0.025,15,13}=0.342
+$$
+
+$$
+\left(
+\frac{2.25}{3.053},
+\frac{2.25}{0.342}
+\right)
+=
+(0.74,\;6.58)
+$$
 :::
 
-::: {.col}
-```{webr}
-#| autorun: false
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
 
-n1 <- 21; n2 <- 19
-s12 <- 5.5^2; s22 <- 3.8^2
-alpha <- 0.10
-ratio <- s12 / s22
-c(
-  ratio / qf(1 - alpha/2, n1 - 1, n2 - 1),
-  ratio / qf(alpha/2, n1 - 1, n2 - 1)
-)
-```
+Construct a 95% confidence interval for $\sigma_1^2/\sigma_2^2$.
+
+The order is **budget charger variance divided by branded charger
+variance**, so values above 1 mean the budget charger has more variable
+charging times.
 :::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that the budget charger's population variance in
+charging time is between **0.74 and 6.58 times** the branded charger's
+population variance. Since 1 is inside the interval, equal variances are
+plausible.
+:::
+
 ::::
-
-::: {.examplebox}
-The 90% CI is approximately $(0.96,4.51)$. Since 1 is inside, the evidence for different variances is not decisive.
-:::
-
 ------------------------------------------------------------------------
 
 ## Assumptions for Ratio of Variances
@@ -2514,57 +2618,158 @@ student change, not two unrelated groups.
 
 ------------------------------------------------------------------------
 
-## Example 1: Paired Data - Tutoring Scores {.scrollable}
+## Example: Vitamin C and Sick Days
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.taskbox}
-Ten students take a quiz before and after tutoring. Differences are after minus before:
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-$$5,2,5,2,4,4,4,4,3,5$$
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A researcher wants to study whether regular Vitamin C use is associated
+with fewer sick days during cold season.
 
-Construct a 95% CI for the mean improvement.
+The same 12 people are observed across two comparable winter periods:
+one without regular Vitamin C use and one with regular Vitamin C use.
+
+For each person, define:
+
+$$
+d=\text{sick days without Vitamin C}-\text{sick days with Vitamin C}
+$$
+
+Observed differences:
+
+$$
+2,\;1,\;3,\;0,\;2,\;4,\;1,\;2,\;3,\;1,\;0,\;2
+$$
 :::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+n=12,
+\qquad
+\bar d=1.750,
+\qquad
+s_d=1.215
+$$
+
+$$
+SE=
+\frac{s_d}{\sqrt n}
+=
+\frac{1.215}{\sqrt{12}}
+=
+0.351
+$$
+
+$$
+df=n-1=11,
+\qquad
+t^*=2.201
+$$
+
+$$
+\bar d\pm t^*SE
+=
+1.750\pm2.201(0.351)
+=
+(0.98,\;2.52)
+$$
 :::
 
-::: {.col}
-```{webr}
-#| autorun: false
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
 
-d <- c(5,2,5,2,4,4,4,4,3,5)
-mean(d)
-sd(d)
-t.test(d, conf.level = 0.95)
-```
+Construct a 95% confidence interval for $\mu_d$.
+
+The order is **without Vitamin C minus with Vitamin C**, so positive
+values mean fewer sick days during the Vitamin C period.
 :::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that regular Vitamin C use is associated with
+between **0.98 and 2.52 fewer sick days**, on average, for people like
+those in this paired study.
+:::
+
 ::::
-
-::: {.examplebox}
-The 95% CI is approximately $(2.99,4.61)$ points. We are 95% confident that the mean improvement is positive.
-:::
-
 ---
 
-## Example 2: Paired Data - Blood Pressure {.scrollable}
+## Example: Phone-Free Bedtime Routine
 
-::: {.taskbox}
-Twelve patients have blood pressure measured before and after treatment. Let $d=$ before minus after:
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-$$6,8,3,10,7,5,9,4,6,8,7,5$$
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A sleep app wants to study whether a phone-free bedtime routine is
+associated with more sleep.
 
-Construct a 90% CI for the mean reduction.
+The same 12 people track their sleep before and after using a 30-minute
+phone-free routine before bed.
+
+For each person, define:
+
+$$
+d=\text{sleep after routine}-\text{sleep before routine}
+$$
+
+Observed differences in minutes:
+
+$$
+18,\;12,\;24,\;9,\;30,\;15,\;21,\;6,\;27,\;12,\;18,\;24
+$$
 :::
 
-```{webr}
-#| autorun: false
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
 
-d <- c(6,8,3,10,7,5,9,4,6,8,7,5)
-t.test(d, conf.level = 0.90)
-```
+$$
+n=12,
+\qquad
+\bar d=18.000,
+\qquad
+s_d=7.459
+$$
 
-::: {.examplebox}
-The 90% CI is approximately $(5.43,7.57)$. Positive values mean the treatment lowers blood pressure on average.
+$$
+SE=
+\frac{s_d}{\sqrt n}
+=
+\frac{7.459}{\sqrt{12}}
+=
+2.153
+$$
+
+$$
+df=n-1=11,
+\qquad
+t^*=1.796
+$$
+
+$$
+\bar d\pm t^*SE
+=
+18.000\pm1.796(2.153)
+=
+(14.13,\;21.87)
+$$
 :::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
+
+Construct a 90% confidence interval for $\mu_d$.
+
+The order is **after routine minus before routine**, so positive values
+mean more sleep after using the phone-free bedtime routine.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 90% confident that the phone-free bedtime routine is associated
+with between **14.13 and 21.87 more minutes of sleep**, on average, for
+people like those in this paired study.
+:::
+
+::::
 
 ------------------------------------------------------------------------
 
@@ -2673,42 +2878,152 @@ margin of error too large.
 
 ------------------------------------------------------------------------
 
-## Example 1: Sample Size for a Mean {.scrollable}
+## Example: MrBeast 500M Giveaway Survey
 
-::: {.taskbox}
-A lab measurement has known $\sigma=0.0068$ grams per liter. Management wants results accurate within $E=0.005$ with 95% confidence.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-How many repeated measurements are needed?
-:::
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+After MrBeast reaches 500 million YouTube subscribers, his team plans a
+large online giveaway to celebrate the milestone.
+
+Before launch, they want to estimate the proportion of subscribers who
+would actually enter the giveaway.
+
+A previous fan survey suggests a planning value of:
 
 $$
-n=\left(\frac{1.96(0.0068)}{0.005}\right)^2=7.10
+p^*=0.156
 $$
 
-::: {.examplebox}
-Round up: the lab needs $n=8$ measurements.
+The team wants the margin of error to be at most:
+
+$$
+E=0.03
+$$
+
+Find the required sample size for 95% and 99% confidence.
 :::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+n=
+\left(
+\frac{z^*}{E}
+\right)^2
+p^*(1-p^*)
+$$
+
+$$
+p^*=0.156,
+\qquad
+1-p^*=0.844,
+\qquad
+E=0.03
+$$
+
+$$
+n_{95}=
+\left(
+\frac{1.96}{0.03}
+\right)^2
+(0.156)(0.844)
+=
+562.54
+\Rightarrow
+563
+$$
+
+$$
+n_{99}=
+\left(
+\frac{2.576}{0.03}
+\right)^2
+(0.156)(0.844)
+=
+970.97
+\Rightarrow
+971
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+Find the sample size needed for a confidence interval for the population
+proportion of subscribers who would enter the 500M giveaway.
+
+The margin of error should be no more than **3 percentage points**.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+The team should survey at least **563 subscribers** for 95% confidence
+and **971 subscribers** for 99% confidence. Higher confidence requires a
+larger sample size when the margin of error stays fixed.
+:::
+
+::::
 
 ---
 
-## Example 2: Sample Size for a Mean {.scrollable .sample-size-mean-example}
+## Example: Pickup-Time Estimate Accuracy
 
-::: {.taskbox}
-A planning value is $\sigma=22.50$ and the desired margin is $E=2$.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Find the sample size for 90%, 95%, and 99% confidence.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A ride-share app wants to estimate its average pickup-time prediction
+error.
+
+From past trip data, the population standard deviation of prediction
+error is treated as known:
+
+$$
+\sigma=22.5\text{ seconds}
+$$
+
+The app wants the margin of error to be at most:
+
+$$
+E=2\text{ seconds}
+$$
+
+Find the required sample size for 90%, 95%, and 99% confidence.
 :::
 
-| Level | Critical value | Calculation | Required $n$ |
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+n=
+\left(
+\frac{z^*\sigma}{E}
+\right)^2
+$$
+
+| Confidence | $z^*$ | Calculation | Required $n$ |
 |:--:|:--:|:--:|:--:|
-| 90% | 1.645 | $(1.645(22.5)/2)^2=342.41$ | 343 |
-| 95% | 1.960 | $(1.960(22.5)/2)^2=486.20$ | 487 |
-| 99% | 2.576 | $(2.576(22.5)/2)^2=839.45$ | 840 |
-
-::: {.thinkbox}
-Higher confidence requires a larger sample size when the desired margin of error stays fixed.
+| 90% | 1.645 | $\left(\frac{1.645(22.5)}{2}\right)^2=342.41$ | 343 |
+| 95% | 1.960 | $\left(\frac{1.960(22.5)}{2}\right)^2=486.20$ | 487 |
+| 99% | 2.576 | $\left(\frac{2.576(22.5)}{2}\right)^2=839.45$ | 840 |
 :::
 
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+Choose $n$ so the confidence interval for the population mean prediction
+error has margin of error no more than **2 seconds**.
+
+The only thing changing across rows is the confidence level.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+Higher confidence requires a larger sample size. To keep the same
+2-second margin of error, the app needs **343 trips** for 90% confidence,
+**487 trips** for 95%, and **840 trips** for 99%.
+:::
+
+::::
 ------------------------------------------------------------------------
 
 ## Sample Size for a Mean When $\sigma$ is Unknown
@@ -2742,96 +3057,168 @@ This is why an iterative approach is used:
 
 ------------------------------------------------------------------------
 
-## Example 1: Sample Size, Sigma Unknown {.scrollable}
+## Example: App Load-Time Estimate
 
-::: {.taskbox}
-A pilot study estimates the standard deviation of response time as $s=12$ seconds. A researcher wants a 95% CI with margin of error at most $E=5$ seconds.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-Find the required sample size using the iterative $t$ approach.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A mobile app team wants to estimate the average loading time for a new
+feature.
+
+A small pilot study gives an estimated standard deviation of:
+
+$$
+s=12\text{ seconds}
+$$
+
+The team wants a 95% confidence interval with margin of error at most:
+
+$$
+E=5\text{ seconds}
+$$
+
+Since $\sigma$ is unknown, use the iterative $t$ approach.
 :::
 
-```{webr}
-#| autorun: false
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
 
-s <- 12
-E <- 5
-conf <- 0.95
-alpha <- 1 - conf
+$$
+n_0=
+\left\lceil
+\left(\frac{1.96(12)}{5}\right)^2
+\right\rceil
+=
+23
+$$
 
-# Step 1: start with the z approximation
-n_current <- ceiling((qnorm(1 - alpha/2) * s / E)^2)
+$$
+n=23:
+\quad
+t^*_{22}=2.074
+$$
 
-history <- data.frame(
-  step = 0,
-  critical_value = qnorm(1 - alpha/2),
-  n = n_current
-)
+$$
+\left\lceil
+\left(\frac{2.074(12)}{5}\right)^2
+\right\rceil
+=
+25
+$$
 
-for (i in 1:10) {
-  tstar <- qt(1 - alpha/2, df = n_current - 1)
-  n_next <- ceiling((tstar * s / E)^2)
+$$
+n=25:
+\quad
+t^*_{24}=2.064
+$$
 
-  history <- rbind(
-    history,
-    data.frame(step = i, critical_value = tstar, n = n_next)
-  )
-
-  if (n_next == n_current) break
-  n_current <- n_next
-}
-
-history
-```
-
-::: {.examplebox}
-The sample size stabilizes at $n=25$, so the researcher needs at least 25 observations.
+$$
+\left\lceil
+\left(\frac{2.064(12)}{5}\right)^2
+\right\rceil
+=
+25
+$$
 :::
 
----
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Planning goal</span>
 
-## Example 2: Sample Size, Sigma Unknown {.scrollable}
+Find the sample size needed for a 95% confidence interval for the
+population mean loading time.
 
-::: {.taskbox}
-A pilot study estimates the standard deviation of monthly textbook spending as $s=18$. A 90% CI is desired with margin of error at most $E=4$.
-
-Find the required sample size using the iterative $t$ approach.
+Because $\sigma$ is unknown, the pilot estimate $s=12$ is used.
 :::
 
-```{webr}
-#| autorun: false
-
-s <- 18
-E <- 4
-conf <- 0.90
-alpha <- 1 - conf
-
-n_current <- ceiling((qnorm(1 - alpha/2) * s / E)^2)
-
-history <- data.frame(
-  step = 0,
-  critical_value = qnorm(1 - alpha/2),
-  n = n_current
-)
-
-for (i in 1:10) {
-  tstar <- qt(1 - alpha/2, df = n_current - 1)
-  n_next <- ceiling((tstar * s / E)^2)
-
-  history <- rbind(
-    history,
-    data.frame(step = i, critical_value = tstar, n = n_next)
-  )
-
-  if (n_next == n_current) break
-  n_current <- n_next
-}
-
-history
-```
-
-::: {.examplebox}
-The sample size stabilizes at $n=57$.
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+The iteration stabilizes at **25**, so the app team should test at least
+**25 loading times** to keep the margin of error at most 5 seconds.
 :::
+
+::::
+
+--------------
+
+## Example: Grocery-Delivery Fee Estimate
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A consumer app wants to estimate the average extra cost from grocery
+delivery fees, service charges, and tips.
+
+A pilot sample gives an estimated standard deviation of:
+
+$$
+s=18\text{ dollars}
+$$
+
+The app wants a 90% confidence interval with margin of error at most:
+
+$$
+E=4\text{ dollars}
+$$
+
+Since $\sigma$ is unknown, use the iterative $t$ approach.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+n_0=
+\left\lceil
+\left(\frac{1.645(18)}{4}\right)^2
+\right\rceil
+=
+55
+$$
+
+$$
+n=55:
+\quad
+t^*_{54}=1.674
+$$
+
+$$
+\left\lceil
+\left(\frac{1.674(18)}{4}\right)^2
+\right\rceil
+=
+57
+$$
+
+$$
+n=57:
+\quad
+t^*_{56}=1.673
+$$
+
+$$
+\left\lceil
+\left(\frac{1.673(18)}{4}\right)^2
+\right\rceil
+=
+57
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+Find the sample size needed for a 90% confidence interval for the
+population mean extra grocery-delivery cost.
+
+Because $\sigma$ is unknown, the pilot estimate $s=18$ is used.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+The iteration stabilizes at **57**, so the app should sample at least
+**57 grocery-delivery orders** to keep the margin of error at most
+4 dollars.
+:::
+
+::::
 
 ------------------------------------------------------------------------
 
@@ -2868,41 +3255,171 @@ size.
 
 ------------------------------------------------------------------------
 
-## Example 1: Sample Size for a Proportion {.scrollable}
+## Example: Ad-Supported Plan Survey
 
-::: {.taskbox}
-A mayoral survey needs to estimate a candidate's support with 95% confidence and margin of error no greater than 0.03. No prior estimate is available.
-:::
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A streaming service wants to estimate the proportion of subscribers who
+would switch to a cheaper ad-supported plan.
+
+The company wants a 95% confidence interval with margin of error no more
+than:
 
 $$
-n=\left(\frac{1.96}{0.03}\right)^2(0.5)(0.5)=1067.11
+E=0.03
 $$
 
-::: {.examplebox}
-Round up: contact at least $n=1068$ voters.
+There is no reliable prior estimate for the true proportion, so use the
+conservative planning value:
+
+$$
+p^*=0.5
+$$
 :::
 
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+n=
+\left(
+\frac{z^*}{E}
+\right)^2
+p^*(1-p^*)
+$$
+
+$$
+z^*=1.96,
+\qquad
+E=0.03,
+\qquad
+p^*=0.5
+$$
+
+$$
+n=
+\left(
+\frac{1.96}{0.03}
+\right)^2
+(0.5)(0.5)
+$$
+
+$$
+n=1067.11
+$$
+
+$$
+n=1068
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+Find the sample size needed for a 95% confidence interval for a
+population proportion.
+
+The margin of error should be no more than **3 percentage points**.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+The streaming service should survey at least **1068 subscribers**. We
+round up because rounding down would make the margin of error slightly
+larger than 3 percentage points.
+:::
+
+::::
+  
 ---
 
-## Example 2: Sample Size for a Proportion {.scrollable}
+## Example: Sabrina Carpenter Merch Survey
 
-::: {.taskbox}
-In 2007, 15.6% of people in the USA were not covered by health care insurance. Use $p^*=0.156$ and $E=0.03$.
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A merch company is planning a limited online drop connected to a Sabrina
+Carpenter concert weekend.
+
+Before the drop, the company wants to estimate the proportion of people
+on the waitlist who plan to buy merch when it goes live.
+
+A previous fan survey suggests a planning value of:
+
+$$
+p^*=0.156
+$$
+
+The company wants the margin of error to be at most:
+
+$$
+E=0.03
+$$
 
 Find the required sample size for 95% and 99% confidence.
 :::
 
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
 $$
-n_{95}=\left(\frac{1.96}{0.03}\right)^2(0.156)(0.844)=562.54\Rightarrow563
+n=
+\left(
+\frac{z^*}{E}
+\right)^2
+p^*(1-p^*)
 $$
 
 $$
-n_{99}=\left(\frac{2.576}{0.03}\right)^2(0.156)(0.844)=970.97\Rightarrow971
+p^*=0.156,
+\qquad
+1-p^*=0.844,
+\qquad
+E=0.03
 $$
 
-::: {.examplebox}
-The 99% confidence level requires a larger survey because the critical value is larger.
+$$
+n_{95}=
+\left(
+\frac{1.96}{0.03}
+\right)^2
+(0.156)(0.844)
+=
+562.54
+\Rightarrow
+563
+$$
+
+$$
+n_{99}=
+\left(
+\frac{2.576}{0.03}
+\right)^2
+(0.156)(0.844)
+=
+970.97
+\Rightarrow
+971
+$$
 :::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+Find the sample size needed for a confidence interval for the population
+proportion of waitlist users who plan to buy Sabrina Carpenter merch.
+
+The margin of error should be no more than **3 percentage points**.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+The company should survey at least **563 waitlist users** for 95%
+confidence and **971 waitlist users** for 99% confidence. Higher
+confidence requires a larger sample size when the margin of error stays
+fixed.
+:::
+
+::::
 
 ------------------------------------------------------------------------
 

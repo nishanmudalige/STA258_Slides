@@ -2622,7 +2622,7 @@
     "href": "Chapter Slides/chapter5-slides.html#example-free-trial-reminder-comparison",
     "title": "STA258",
     "section": "Example: Free-Trial Reminder Comparison",
-    "text": "Example: Free-Trial Reminder Comparison\n\n\nA subscription app wants to compare two reminder designs for users whose free trials are about to end.\nOne design gives a clear reminder with plan details and a cancellation link. The other sends a shorter generic reminder.\n\nGroup 1: Clear reminder users\n\\(x_1=78\\) out of \\(n_1=300\\) cancelled or changed their plan before billing\nGroup 2: Generic reminder users\n\\(x_2=52\\) out of \\(n_2=280\\) cancelled or changed their plan before billing\n\n\nCalculation\n\\[\n{\\large\n\\hat p_1=\\frac{78}{300}=0.2600,\n\\qquad\n\\hat p_2=\\frac{52}{280}=0.1857\n}\n\\]\n\\[\n{\\large\n\\hat p_1-\\hat p_2=0.2600-0.1857=0.0743\n}\n\\]\n\\[\n{\\large\nSE=\n\\sqrt{\n\\frac{0.2600(0.7400)}{300}\n+\n\\frac{0.1857(0.8143)}{280}\n}\n=0.0344\n}\n\\]\n\\[\n{\\large\n0.0743\\pm1.96(0.0344)\n=\n(0.0069,\\;0.1417)\n}\n\\]\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(p_1-p_2\\).\nThe order is clear reminder minus generic reminder, so positive values mean the clear reminder has the higher population proportion of users who cancel or change plans before billing.\n\n\nWe are 95% confident that the clear reminder increases the population proportion of users who cancel or change plans before billing by between 0.69 and 14.17 percentage points compared with the generic reminder."
+    "text": "Example: Free-Trial Reminder Comparison\n\n\nA streaming app wants to compare two ways of reminding users before a free trial ends.\nOne group receives a direct reminder about the upcoming charge. The other group receives a general app notification.\n\nGroup 1: Direct reminder users\n\\(x_1=78\\) of \\(n_1=300\\) continued the subscription\nGroup 2: General notification users\n\\(x_2=52\\) of \\(n_2=280\\) continued the subscription\n\n\nCalculation\n\\[\n\\hat p_1=\\frac{78}{300}=0.2600,\n\\qquad\n\\hat p_2=\\frac{52}{280}=0.1857\n\\]\n\\[\n\\hat p_1-\\hat p_2\n=\n0.2600-0.1857\n=\n0.0743\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{0.2600(0.7400)}{300}\n+\n\\frac{0.1857(0.8143)}{280}\n}\n=\n0.0344\n\\]\n\\[\n0.0743\\pm1.96(0.0344)\n=\n(0.0069,\\;0.1417)\n\\]\n\n\nTarget parameter\nConstruct a 95% confidence interval for \\(p_1-p_2\\).\nThe order is direct reminder minus general notification, so positive values mean the direct reminder has the higher population continuation rate.\n\n\nWe are 95% confident that the direct reminder’s population continuation rate is between 0.69 and 14.17 percentage points higher than the general notification’s population continuation rate."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#r-check-free-trial-reminder-comparison",
@@ -2678,7 +2678,7 @@
     "href": "Chapter Slides/chapter5-slides.html#example-pickup-time-estimate-accuracy",
     "title": "STA258",
     "section": "Example: Pickup-Time Estimate Accuracy",
-    "text": "Example: Pickup-Time Estimate Accuracy\n\n\nA ride-share app wants to estimate its average pickup-time prediction error.\nFrom past trip data, the population standard deviation of prediction error is treated as known:\n\\[\n\\sigma=22.5\\text{ seconds}\n\\]\nThe app wants the margin of error to be at most:\n\\[\nE=2\\text{ seconds}\n\\]\nFind the required sample size for 90%, 95%, and 99% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{z^*\\sigma}{E}\n\\right)^2\n\\]\n\n\n\nConfidence\n\\(z^*\\)\nCalculation\nRequired \\(n\\)\n\n\n\n\n90%\n1.645\n\\(\\left(\\frac{1.645(22.5)}{2}\\right)^2=342.41\\)\n343\n\n\n95%\n1.960\n\\(\\left(\\frac{1.960(22.5)}{2}\\right)^2=486.20\\)\n487\n\n\n99%\n2.576\n\\(\\left(\\frac{2.576(22.5)}{2}\\right)^2=839.45\\)\n840\n\n\n\n\n\nPlanning goal\nChoose \\(n\\) so the confidence interval for the population mean prediction error has margin of error no more than 2 seconds.\nThe only thing changing across rows is the confidence level.\n\n\nHigher confidence requires a larger sample size. To keep the same 2-second margin of error, the app needs 343 trips for 90% confidence, 487 trips for 95%, and 840 trips for 99%."
+    "text": "Example: Pickup-Time Estimate Accuracy\n\n\nA ride-share app wants to estimate its average pickup-time prediction error.\nFrom past trip data, the population standard deviation of prediction error is treated as known:\n\\[\n\\sigma = 22.5 \\text{ seconds}\n\\]\nThe app wants the margin of error to be at most:\n\\[\nE = 2 \\text{ seconds}\n\\]\nFind the required sample size for 99% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{z^*\\sigma}{E}\n\\right)^2\n\\]\n\\[\nz^*=2.576,\n\\qquad\n\\sigma=22.5,\n\\qquad\nE=2\n\\]\n\\[\nn=\n\\left(\n\\frac{2.576(22.5)}{2}\n\\right)^2\n\\]\n\\[\nn=839.45\n\\]\n\\[\nn=840\n\\]\n\n\nPlanning goal\nChoose (n) so the confidence interval for the population mean prediction error has margin of error no more than 2 seconds.\n\n\nThe app should sample at least 840 trips to estimate the mean pickup-time prediction error within 2 seconds at 99% confidence."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-app-load-time-estimate",
@@ -3092,5 +3092,96 @@
     "title": "STA258",
     "section": "Check in R: Known Sigma Difference of Means",
     "text": "Check in R: Known Sigma Difference of Means\n\n\n\nWhat this checks\nThis checks the USA-Canada hockey shot-speed example.\nWe are constructing a 95% confidence interval for:\n\\[\n\\mu_1-\\mu_2\n\\]\nwhere the order is:\n\\[\n\\text{Canada} - \\text{USA}\n\\]\nSince both population standard deviations are known, we use a two-sample z interval.\n\n\nReminder\nThis is the rare known-sigma case, so there is only one worked example for this topic."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-known-sigma-means",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-known-sigma-means",
+    "title": "STA258",
+    "section": "Check in R: Known Sigma Means",
+    "text": "Check in R: Known Sigma Means\n\n\n\nUSA-Canada hockey example\nWe check the 95% confidence interval for the difference in population mean slapshot speeds:\n\\[\n\\mu_1-\\mu_2\n=\n\\text{Canada} - \\text{USA}\n\\]\nBecause \\(\\sigma_1\\) and \\(\\sigma_2\\) are known, the interval uses:\n\\[\n(\\bar{x}_1-\\bar{x}_2)\n\\pm\nz^*\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n}\n\\]\n\n\nThe R code should return the same interval as the worked example:\n\\[\n(0.72,\\;5.68)\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-hockey-shot-speed-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-hockey-shot-speed-comparison",
+    "title": "STA258",
+    "section": "Example: Hockey Shot-Speed Comparison",
+    "text": "Example: Hockey Shot-Speed Comparison\n\n\nA sports analytics group compares slapshot speeds from a USA-Canada hockey rivalry skills event.\nLong-term player-tracking data gives the population standard deviations.\n\nGroup 1: Team Canada players\n\\(n_1=64,\\quad \\bar{x}_1=94.8,\\quad \\sigma_1=8\\)\nGroup 2: Team USA players\n\\(n_2=81,\\quad \\bar{x}_2=91.6,\\quad \\sigma_2=7\\)\nConstruct a 95% CI for \\(\\mu_1-\\mu_2\\).\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2\n=\n94.8-91.6\n=\n3.2\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{8^2}{64}\n+\n\\frac{7^2}{81}\n}\n=\n\\sqrt{1.0000+0.6049}\n=\n1.2669\n\\]\n\\[\n3.2\\pm1.96(1.2669)\n=\n3.2\\pm2.48\n\\]\n\\[\n(0.72,\\;5.68)\n\\]\n\n\nTarget parameter\nWe are estimating \\(\\mu_1-\\mu_2\\), where:\n\\(\\mu_1=\\) mean slapshot speed for Team Canada players\n\\(\\mu_2=\\) mean slapshot speed for Team USA players\nThe order is Canada minus USA.\n\n\nWe are 95% confident that Team Canada’s population mean slapshot speed is between 0.72 and 5.68 mph higher than Team USA’s population mean slapshot speed."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-hockey-shot-speed-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-hockey-shot-speed-comparison",
+    "title": "STA258",
+    "section": "Check in R: Hockey Shot-Speed Comparison",
+    "text": "Check in R: Hockey Shot-Speed Comparison\n\n\n\nUSA-Canada hockey example\nWe check the 95% confidence interval for the difference in population mean slapshot speeds:\n\\[\n\\mu_1-\\mu_2\n=\n\\text{Canada} - \\text{USA}\n\\]\nBecause \\(\\sigma_1\\) and \\(\\sigma_2\\) are known, the interval uses:\n\\[\n(\\bar{x}_1-\\bar{x}_2)\n\\pm\nz^*\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n}\n\\]\n\n\nThe R code should return the same interval as the worked example:\n\\[\n(0.72,\\;5.68)\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-pooled-two-sample-t-intervals",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-pooled-two-sample-t-intervals",
+    "title": "STA258",
+    "section": "Check in R: Pooled Two-Sample t Intervals",
+    "text": "Check in R: Pooled Two-Sample t Intervals\n\n\n\nEarbud battery-life example\n\n\n\n\n\n\n\n\n\n\n\n\nFitness app calorie-burn example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-welch-two-sample-t-intervals",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-welch-two-sample-t-intervals",
+    "title": "STA258",
+    "section": "Check in R: Welch Two-Sample t Intervals",
+    "text": "Check in R: Welch Two-Sample t Intervals\n\n\n\nFood-delivery wait-time example\n\n\n\n\n\n\n\n\n\n\n\n\nUFC highlight watch-time example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-difference-of-proportions",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-difference-of-proportions",
+    "title": "STA258",
+    "section": "Check in R: Difference of Proportions",
+    "text": "Check in R: Difference of Proportions\n\n\n\n\nFree-trial reminder example\n\n\n\n\n\n\n\n\n\n\n\n\nGTA VI trailer alert example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-ratio-of-variances",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-ratio-of-variances",
+    "title": "STA258",
+    "section": "Check in R: Ratio of Variances",
+    "text": "Check in R: Ratio of Variances\n\n\n\n\nCharging-time variability example\n\n\n\n\n\n\n\n\n\n\n\n\nPS5 restock checkout-time example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-paired-data",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-paired-data",
+    "title": "STA258",
+    "section": "Check in R: Paired Data",
+    "text": "Check in R: Paired Data\n\n\n\n\nVitamin C sick-days example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone-free bedtime example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-sample-size-for-a-mean",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-sample-size-for-a-mean",
+    "title": "STA258",
+    "section": "Check in R: Sample Size for a Mean",
+    "text": "Check in R: Sample Size for a Mean\n\n\n\n\nMrBeast entry-time example\n\n\n\n\n\n\n\n\n\n\n\n\nPickup-time estimate example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-sample-size-when-sigma-is-unknown",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-sample-size-when-sigma-is-unknown",
+    "title": "STA258",
+    "section": "Check in R: Sample Size When Sigma is Unknown",
+    "text": "Check in R: Sample Size When Sigma is Unknown\n\n\n\n\nJordan vs LeBron GOAT rating example\n\n\n\n\n\n\n\n\n\n\n\n\nGrocery-delivery fee example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-sigma-unknown-sample-size",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-sigma-unknown-sample-size",
+    "title": "STA258",
+    "section": "Check in R: Sigma Unknown Sample Size",
+    "text": "Check in R: Sigma Unknown Sample Size\n\n\n\n\nJordan vs LeBron GOAT rating example\n\n\n\n\n\n\n\n\n\n\n\n\nGrocery-delivery fee example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-proportion-sample-size",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-proportion-sample-size",
+    "title": "STA258",
+    "section": "Check in R: Proportion Sample Size",
+    "text": "Check in R: Proportion Sample Size\n\n\n\n\nAd-supported plan survey example\n\n\n\n\n\n\n\n\n\n\n\n\nSabrina Carpenter merch survey example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-mrbeast-500m-giveaway-entry-time-estimate",
+    "href": "Chapter Slides/chapter5-slides.html#example-mrbeast-500m-giveaway-entry-time-estimate",
+    "title": "STA258",
+    "section": "Example: MrBeast 500M Giveaway Entry-Time Estimate",
+    "text": "Example: MrBeast 500M Giveaway Entry-Time Estimate\n\n\nA media analytics team is planning a large MrBeast 500M giveaway page.\nBefore launch, they want to estimate the mean time it takes a subscriber to complete the giveaway entry form.\nFrom previous giveaway launches, the population standard deviation is treated as known:\n\\[\n\\sigma = 24 \\text{ seconds}\n\\]\nThe team wants the estimate to be within:\n\\[\nE = 5 \\text{ seconds}\n\\]\nFind the required sample size for 95% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{z^*\\sigma}{E}\n\\right)^2\n\\]\n\\[\nz^*=1.96,\n\\qquad\n\\sigma=24,\n\\qquad\nE=5\n\\]\n\\[\nn=\n\\left(\n\\frac{1.96(24)}{5}\n\\right)^2\n\\]\n\\[\nn=\n88.51\n\\]\n\\[\nn=89\n\\]\n\n\nPlanning goal\nFind the sample size needed for a confidence interval for the population mean giveaway entry time.\nThe margin of error should be no more than 5 seconds.\n\n\nThe team should sample at least 89 subscribers to estimate the mean giveaway entry time within 5 seconds at 95% confidence."
   }
 ]

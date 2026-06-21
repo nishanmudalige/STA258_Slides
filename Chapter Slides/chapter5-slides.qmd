@@ -1538,7 +1538,7 @@ population standard deviations are usually unknown.
 
 ------------------------------------------------------------------------
 
-## Example: USA-Canada Hockey Shot-Speed Comparison
+## Example: Hockey Shot-Speed Comparison
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -1616,34 +1616,43 @@ slapshot speed.
 
 ---
 
-## Check in R: Known Sigma Difference of Means
+## Check in R: Hockey Shot-Speed Comparison
 
-:::: {.two-col-wide}
+:::: {.two-col-wide style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;"}
+
 ::: {.col}
-::: {.notebox style="font-size: 0.68em; line-height: 1.22; padding: 13px 16px; margin-top: 10px;"}
-<span class="label">What this checks</span>
+::: {.notebox style="font-size: 0.66em; line-height: 1.20; padding: 13px 16px; margin-top: 8px;"}
+<span class="label">USA-Canada hockey example</span>
 
-This checks the **USA-Canada hockey shot-speed** example.
-
-We are constructing a 95% confidence interval for:
+We check the 95% confidence interval for the difference in population mean
+slapshot speeds:
 
 $$
 \mu_1-\mu_2
-$$
-
-where the order is:
-
-$$
+=
 \text{Canada} - \text{USA}
 $$
 
-Since both population standard deviations are known, we use a **two-sample z interval**.
+Because $\sigma_1$ and $\sigma_2$ are known, the interval uses:
+
+$$
+(\bar{x}_1-\bar{x}_2)
+\pm
+z^*
+\sqrt{
+\frac{\sigma_1^2}{n_1}
++
+\frac{\sigma_2^2}{n_2}
+}
+$$
 :::
 
-::: {.thinkbox style="font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;"}
-<span class="label">Reminder</span>
+::: {.examplebox style="font-size: 0.63em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;"}
+The R code should return the same interval as the worked example:
 
-This is the rare known-sigma case, so there is only one worked example for this topic.
+$$
+(0.72,\;5.68)
+$$
 :::
 :::
 
@@ -1651,32 +1660,25 @@ This is the rare known-sigma case, so there is only one worked example for this 
 ```{webr}
 #| autorun: false
 
-# Known sigma difference of means
-# Example: USA-Canada hockey shot speeds
-
-n1 <- 64
-xbar1 <- 94.8
-sigma1 <- 8
-
-n2 <- 81
-xbar2 <- 91.6
-sigma2 <- 7
-
-conf <- 0.95
-alpha <- 1 - conf
+n1 <- 64; xbar1 <- 94.8; sigma1 <- 8
+n2 <- 81; xbar2 <- 91.6; sigma2 <- 7
 
 diff <- xbar1 - xbar2
-se <- sqrt(sigma1^2 / n1 + sigma2^2 / n2)
-zstar <- qnorm(1 - alpha / 2)
+se <- sqrt(sigma1^2/n1 + sigma2^2/n2)
+zstar <- qnorm(0.975)
 
 ci <- diff + c(-1, 1) * zstar * se
 
-round(diff, 2)
-round(se, 4)
-round(zstar, 3)
-round(ci, 2)
+round(data.frame(
+  difference = diff,
+  SE = se,
+  z_star = zstar,
+  lower = ci[1],
+  upper = ci[2]
+), 3)
 ```
 :::
+
 ::::
 
 ------------------------------------------------------------------------
@@ -1870,6 +1872,62 @@ population mean calories burned.
 We are 90% confident that the high-intensity app workout burns between
 **1.06 and 10.14 more calories**, on average, than the guided
 strength/stretch routine.
+:::
+
+::::
+
+---
+
+## Check in R: Pooled Two-Sample t Intervals
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Earbud battery-life example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 12; x1 <- 52.4; s1 <- 6.1
+n2 <- 10; x2 <- 47.8; s2 <- 5.4
+
+df <- n1 + n2 - 2
+sp <- sqrt(((n1-1)*s1^2 + (n2-1)*s2^2) / df)
+se <- sp * sqrt(1/n1 + 1/n2)
+tstar <- qt(0.975, df)
+
+ci <- (x1 - x2) + c(-1, 1) * tstar * se
+
+round(c(diff = x1-x2, sp = sp, SE = se,
+        df = df, tstar = tstar,
+        lower = ci[1], upper = ci[2]), 3)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Fitness app calorie-burn example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 15; x1 <- 84.2; s1 <- 7.5
+n2 <- 14; x2 <- 78.6; s2 <- 6.8
+
+df <- n1 + n2 - 2
+sp <- sqrt(((n1-1)*s1^2 + (n2-1)*s2^2) / df)
+se <- sp * sqrt(1/n1 + 1/n2)
+tstar <- qt(0.95, df)
+
+ci <- (x1 - x2) + c(-1, 1) * tstar * se
+
+round(c(diff = x1-x2, sp = sp, SE = se,
+        df = df, tstar = tstar,
+        lower = ci[1], upper = ci[2]), 3)
+```
 :::
 
 ::::
@@ -2111,6 +2169,60 @@ users.
 
 ::::
 
+---
+
+## Check in R: Welch Two-Sample t Intervals
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Food-delivery wait-time example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 25; x1 <- 42; s1 <- 14
+n2 <- 30; x2 <- 35; s2 <- 9
+
+df <- min(n1 - 1, n2 - 1)
+se <- sqrt(s1^2/n1 + s2^2/n2)
+tstar <- qt(0.975, df)
+
+ci <- (x1 - x2) + c(-1, 1) * tstar * se
+
+round(c(diff = x1-x2, SE = se,
+        df = df, tstar = tstar,
+        lower = ci[1], upper = ci[2]), 3)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">UFC highlight watch-time example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 24; x1 <- 9.8; s1 <- 3.1
+n2 <- 20; x2 <- 12.6; s2 <- 5.8
+
+df <- min(n1 - 1, n2 - 1)
+se <- sqrt(s1^2/n1 + s2^2/n2)
+tstar <- qt(0.975, df)
+
+ci <- (x1 - x2) + c(-1, 1) * tstar * se
+
+round(c(diff = x1-x2, SE = se,
+        df = df, tstar = tstar,
+        lower = ci[1], upper = ci[2]), 3)
+```
+:::
+
+::::
+
 ------------------------------------------------------------------------
 
 ## Assumptions for Two-Sample Mean Intervals
@@ -2184,6 +2296,81 @@ The interval estimates the difference between two population
 proportions, not the difference between two sample counts.
 :::
 
+------------------------
+
+## Example: Free-Trial Reminder Comparison
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A streaming app wants to compare two ways of reminding users before a
+free trial ends.
+
+One group receives a direct reminder about the upcoming charge. The other
+group receives a general app notification.
+
+<br>
+
+**Group 1: Direct reminder users**  
+$x_1=78$ of $n_1=300$ continued the subscription
+
+**Group 2: General notification users**  
+$x_2=52$ of $n_2=280$ continued the subscription
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+\hat p_1=\frac{78}{300}=0.2600,
+\qquad
+\hat p_2=\frac{52}{280}=0.1857
+$$
+
+$$
+\hat p_1-\hat p_2
+=
+0.2600-0.1857
+=
+0.0743
+$$
+
+$$
+SE=
+\sqrt{
+\frac{0.2600(0.7400)}{300}
++
+\frac{0.1857(0.8143)}{280}
+}
+=
+0.0344
+$$
+
+$$
+0.0743\pm1.96(0.0344)
+=
+(0.0069,\;0.1417)
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target parameter</span>
+
+Construct a 95% confidence interval for $p_1-p_2$.
+
+The order is **direct reminder minus general notification**, so positive
+values mean the direct reminder has the higher population continuation
+rate.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that the direct reminder's population continuation
+rate is between **0.69 and 14.17 percentage points higher** than the
+general notification's population continuation rate.
+:::
+
+::::
+
 ------------------------------------------------------------------------
 
 ## Example: GTA VI Trailer Alert Comparison
@@ -2251,6 +2438,91 @@ users who watch the trailer.
 We are 90% confident that the push notification's population proportion
 is between **1.00 percentage point lower and 9.45 percentage points
 higher** than the homepage banner's population proportion.
+:::
+
+::::
+
+---
+
+## Check in R: Difference of Proportions {.prop-r-check}
+
+<style>
+.reveal section.prop-r-check .cm-editor,
+.reveal section.prop-r-check .cm-content,
+.reveal section.prop-r-check .cm-line,
+.reveal section.prop-r-check pre,
+.reveal section.prop-r-check code {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
+
+.reveal section.prop-r-check .cell-output,
+.reveal section.prop-r-check .cell-output-stdout,
+.reveal section.prop-r-check .cell-output pre {
+  font-size: 0.72em !important;
+  line-height: 1.05 !important;
+  white-space: pre !important;
+}
+
+.reveal section.prop-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Free-trial reminder example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(78, 52)
+n <- c(300, 280)
+
+p <- x / n
+diff <- p[1] - p[2]
+SE <- sqrt(sum(p * (1 - p) / n))
+zstar <- qnorm(0.975)
+
+ci <- diff + c(-1, 1) * zstar * SE
+
+out <- round(data.frame(
+  p1 = p[1], p2 = p[2], diff = diff,
+  SE = SE, lower = ci[1], upper = ci[2]
+), 4)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">GTA VI trailer alert example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(210, 170)
+n <- c(500, 450)
+
+p <- x / n
+diff <- p[1] - p[2]
+SE <- sqrt(sum(p * (1 - p) / n))
+zstar <- qnorm(0.95)
+
+ci <- diff + c(-1, 1) * zstar * SE
+
+out <- round(data.frame(
+  p1 = p[1], p2 = p[2], diff = diff,
+  SE = SE, lower = ci[1], upper = ci[2]
+), 4)
+
+print(out, row.names = FALSE)
+```
 :::
 
 ::::
@@ -2497,6 +2769,77 @@ plausible.
 
 ::::
 
+---
+
+## Check in R: Ratio of Variances {.ratio-r-check}
+
+<style>
+.reveal section.ratio-r-check .cm-editor,
+.reveal section.ratio-r-check .cm-content,
+.reveal section.ratio-r-check .cm-line,
+.reveal section.ratio-r-check pre,
+.reveal section.ratio-r-check code {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
+
+.reveal section.ratio-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Charging-time variability example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 16; s1 <- 12
+n2 <- 14; s2 <- 8
+alpha <- 0.05
+
+df1 <- n1 - 1; df2 <- n2 - 1
+ratio <- s1^2 / s2^2
+
+ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
+
+round(data.frame(
+  ratio = ratio, df1 = df1, df2 = df2,
+  lower = ci[1], upper = ci[2]
+), 3)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">PS5 restock checkout-time example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 18; s1 <- 6
+n2 <- 16; s2 <- 14
+alpha <- 0.05
+
+df1 <- n2 - 1; df2 <- n1 - 1
+ratio <- s2^2 / s1^2
+
+ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
+
+round(data.frame(
+  ratio = ratio, df1 = df1, df2 = df2,
+  lower = ci[1], upper = ci[2]
+), 3)
+```
+:::
+
+::::
+
 ------------------------------------------------------------------------
 
 ## Assumptions for Ratio of Variances
@@ -2721,6 +3064,7 @@ plotly_slide_layout(
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
 Each grey line connects the same person from **before** to **after**. The coloured dots identify the paired observations, and the labels show the within-person increase.
 :::
+
 ------------------------------------------------------------------------
 
 ## Example: Vitamin C and Sick Days
@@ -2798,6 +3142,7 @@ those in this paired study.
 :::
 
 ::::
+
 ---
 
 ## Example: Phone-Free Bedtime Routine
@@ -2872,6 +3217,96 @@ mean more sleep after using the phone-free bedtime routine.
 We are 90% confident that the phone-free bedtime routine is associated
 with between **14.13 and 21.87 more minutes of sleep**, on average, for
 people like those in this paired study.
+:::
+
+::::
+
+
+---
+
+## Check in R: Paired Data {.paired-r-check}
+
+<style>
+.reveal section.paired-r-check .cm-editor,
+.reveal section.paired-r-check .cm-content,
+.reveal section.paired-r-check .cm-line,
+.reveal section.paired-r-check pre,
+.reveal section.paired-r-check code {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
+
+.reveal section.paired-r-check .cell-output,
+.reveal section.paired-r-check .cell-output-stdout,
+.reveal section.paired-r-check .cell-output pre {
+  font-size: 0.70em !important;
+  line-height: 1.05 !important;
+  white-space: pre !important;
+}
+
+.reveal section.paired-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Vitamin C sick-days example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+d <- c(2, 1, 3, 0, 2, 4, 1, 2, 3, 1, 0, 2)
+
+mean_d <- mean(d)
+sd_d <- sd(d)
+n <- length(d)
+df <- n - 1
+SE <- sd_d / sqrt(n)
+tstar <- qt(0.975, df)
+
+ci <- mean_d + c(-1, 1) * tstar * SE
+
+out <- round(data.frame(
+  mean_d = mean_d, sd_d = sd_d, SE = SE,
+  df = df, tstar = tstar,
+  lower = ci[1], upper = ci[2]
+), 3)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Phone-free bedtime example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+d <- c(18, 12, 24, 9, 30, 15, 21, 6, 27, 12, 18, 24)
+
+mean_d <- mean(d)
+sd_d <- sd(d)
+n <- length(d)
+df <- n - 1
+SE <- sd_d / sqrt(n)
+tstar <- qt(0.95, df)
+
+ci <- mean_d + c(-1, 1) * tstar * SE
+
+out <- round(data.frame(
+  mean_d = mean_d, sd_d = sd_d, SE = SE,
+  df = df, tstar = tstar,
+  lower = ci[1], upper = ci[2]
+), 3)
+
+print(out, row.names = FALSE)
+```
 :::
 
 ::::
@@ -2982,73 +3417,64 @@ margin of error too large.
 
 ------------------------------------------------------------------------
 
-## Example: MrBeast 500M Giveaway Survey
+## Example: MrBeast 500M Giveaway Entry-Time Estimate
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-After MrBeast reaches 500 million YouTube subscribers, his team plans a
-large online giveaway to celebrate the milestone.
+A media analytics team is planning a large MrBeast 500M giveaway page.
 
-Before launch, they want to estimate the proportion of subscribers who
-would actually enter the giveaway.
+Before launch, they want to estimate the **mean time** it takes a subscriber
+to complete the giveaway entry form.
 
-A previous fan survey suggests a planning value of:
-
-$$
-p_0=0.156
-$$
-
-The team wants the margin of error to be at most:
+From previous giveaway launches, the population standard deviation is
+treated as known:
 
 $$
-E=0.03
+\sigma = 24 \text{ seconds}
 $$
 
-Find the required sample size for 95% and 99% confidence.
+The team wants the estimate to be within:
+
+$$
+E = 5 \text{ seconds}
+$$
+
+Find the required sample size for 95% confidence.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
 n=
 \left(
-\frac{z^*}{E}
+\frac{z^*\sigma}{E}
 \right)^2
-p_0(1-p_0)
 $$
 
 $$
-p_0=0.156,
+z^*=1.96,
 \qquad
-1-p_0=0.844,
+\sigma=24,
 \qquad
-E=0.03
+E=5
 $$
 
 $$
-n_{95}=
+n=
 \left(
-\frac{1.96}{0.03}
+\frac{1.96(24)}{5}
 \right)^2
-(0.156)(0.844)
-=
-562.54
-\Rightarrow
-563
 $$
 
 $$
-n_{99}=
-\left(
-\frac{2.576}{0.03}
-\right)^2
-(0.156)(0.844)
-=
-970.97
-\Rightarrow
-971
+n=
+88.51
+$$
+
+$$
+n=89
 $$
 :::
 
@@ -3056,15 +3482,14 @@ $$
 <span class="label">Planning goal</span>
 
 Find the sample size needed for a confidence interval for the population
-proportion of subscribers who would enter the 500M giveaway.
+mean giveaway entry time.
 
-The margin of error should be no more than **3 percentage points**.
+The margin of error should be no more than **5 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The team should survey at least **563 subscribers** for 95% confidence
-and **971 subscribers** for 99% confidence. Higher confidence requires a
-larger sample size when the margin of error stays fixed.
+The team should sample at least **89 subscribers** to estimate the mean
+giveaway entry time within **5 seconds** at 95% confidence.
 :::
 
 ::::
@@ -3076,26 +3501,25 @@ larger sample size when the margin of error stays fixed.
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A ride-share app wants to estimate its average pickup-time prediction
-error.
+A ride-share app wants to estimate its average pickup-time prediction error.
 
-From past trip data, the population standard deviation of prediction
-error is treated as known:
+From past trip data, the population standard deviation of prediction error
+is treated as known:
 
 $$
-\sigma=22.5\text{ seconds}
+\sigma = 22.5 \text{ seconds}
 $$
 
 The app wants the margin of error to be at most:
 
 $$
-E=2\text{ seconds}
+E = 2 \text{ seconds}
 $$
 
-Find the required sample size for 90%, 95%, and 99% confidence.
+Find the required sample size for **99% confidence**.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -3105,29 +3529,131 @@ n=
 \right)^2
 $$
 
-| Confidence | $z^*$ | Calculation | Required $n$ |
-|:--:|:--:|:--:|:--:|
-| 90% | 1.645 | $\left(\frac{1.645(22.5)}{2}\right)^2=342.41$ | 343 |
-| 95% | 1.960 | $\left(\frac{1.960(22.5)}{2}\right)^2=486.20$ | 487 |
-| 99% | 2.576 | $\left(\frac{2.576(22.5)}{2}\right)^2=839.45$ | 840 |
+$$
+z^*=2.576,
+\qquad
+\sigma=22.5,
+\qquad
+E=2
+$$
+
+$$
+n=
+\left(
+\frac{2.576(22.5)}{2}
+\right)^2
+$$
+
+$$
+n=839.45
+$$
+
+$$
+n=840
+$$
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Choose $n$ so the confidence interval for the population mean prediction
+Choose \(n\) so the confidence interval for the population mean prediction
 error has margin of error no more than **2 seconds**.
-
-The only thing changing across rows is the confidence level.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-Higher confidence requires a larger sample size. To keep the same
-2-second margin of error, the app needs **343 trips** for 90% confidence,
-**487 trips** for 95%, and **840 trips** for 99%.
+The app should sample at least **840 trips** to estimate the mean pickup-time
+prediction error within **2 seconds** at 99% confidence.
 :::
 
 ::::
+
+---
+
+## Check in R: Sample Size for a Mean {.mean-size-r-check}
+
+<style>
+.reveal section.mean-size-r-check .cm-editor,
+.reveal section.mean-size-r-check .cm-content,
+.reveal section.mean-size-r-check .cm-line,
+.reveal section.mean-size-r-check pre,
+.reveal section.mean-size-r-check code {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
+
+.reveal section.mean-size-r-check .cell-output,
+.reveal section.mean-size-r-check .cell-output-stdout,
+.reveal section.mean-size-r-check .cell-output pre {
+  font-size: 0.72em !important;
+  line-height: 1.05 !important;
+  white-space: pre !important;
+}
+
+.reveal section.mean-size-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">MrBeast entry-time example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+sigma <- 24
+E <- 5
+conf <- 0.95
+
+zstar <- qnorm(1 - (1 - conf)/2)
+n_raw <- (zstar * sigma / E)^2
+required_n <- ceiling(n_raw)
+
+out <- data.frame(
+  sigma = sigma,
+  E = E,
+  zstar = round(zstar, 3),
+  n_raw = round(n_raw, 2),
+  required_n = required_n
+)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Pickup-time estimate example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+sigma <- 22.5
+E <- 2
+conf <- 0.99
+
+zstar <- qnorm(1 - (1 - conf)/2)
+n_raw <- (zstar * sigma / E)^2
+required_n <- ceiling(n_raw)
+
+out <- data.frame(
+  sigma = sigma,
+  E = E,
+  zstar = round(zstar, 3),
+  n_raw = round(n_raw, 2),
+  required_n = required_n
+)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::::
+
 ------------------------------------------------------------------------
 
 ## Sample Size for a Mean When $\sigma$ is Unknown
@@ -3322,6 +3848,85 @@ Because $\sigma$ is unknown, the pilot estimate $s=18$ is used.
 The iteration stabilizes at **57**, so the app should sample at least
 **57 grocery-delivery orders** to keep the margin of error at most
 4 dollars.
+:::
+
+::::
+
+---
+
+## Check in R: Sigma Unknown Sample Size {.unknown-size-r-check}
+
+<style>
+.reveal section.unknown-size-r-check .cm-editor,
+.reveal section.unknown-size-r-check .cm-content,
+.reveal section.unknown-size-r-check .cm-line,
+.reveal section.unknown-size-r-check pre,
+.reveal section.unknown-size-r-check code {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
+
+.reveal section.unknown-size-r-check .cell-output,
+.reveal section.unknown-size-r-check .cell-output-stdout,
+.reveal section.unknown-size-r-check .cell-output pre {
+  font-size: 0.72em !important;
+  line-height: 1.05 !important;
+  white-space: pre !important;
+}
+
+.reveal section.unknown-size-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Jordan vs LeBron GOAT rating example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+s <- 14.5
+E <- 4
+
+n0 <- ceiling((qnorm(0.975) * s / E)^2)
+n1 <- ceiling((qt(0.975, n0 - 1) * s / E)^2)
+n2 <- ceiling((qt(0.975, n1 - 1) * s / E)^2)
+n3 <- ceiling((qt(0.975, n2 - 1) * s / E)^2)
+
+out <- data.frame(
+  start = n0, iter1 = n1, iter2 = n2, final = n3
+)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Grocery-delivery fee example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+s <- 18
+E <- 4
+
+n0 <- ceiling((qnorm(0.95) * s / E)^2)
+n1 <- ceiling((qt(0.95, n0 - 1) * s / E)^2)
+n2 <- ceiling((qt(0.95, n1 - 1) * s / E)^2)
+n3 <- ceiling((qt(0.95, n2 - 1) * s / E)^2)
+
+out <- data.frame(
+  start = n0, iter1 = n1, iter2 = n2, final = n3
+)
+
+print(out, row.names = FALSE)
+```
 :::
 
 ::::
@@ -3527,22 +4132,92 @@ fixed.
 
 ::::
 
-------------------------------------------------------------------------
+---
 
-##  {.quiz-question}
+## Check in R: Proportion Sample Size {.prop-size-r-check}
 
-::: {.callout-note icon="false"}
-## Question
+<style>
+.reveal section.prop-size-r-check .cm-editor,
+.reveal section.prop-size-r-check .cm-content,
+.reveal section.prop-size-r-check .cm-line,
+.reveal section.prop-size-r-check pre,
+.reveal section.prop-size-r-check code {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
 
-When planning a confidence interval for a population proportion, no prior
-estimate of $p$ is available. What value should we use for $p_0$?
+.reveal section.prop-size-r-check .cell-output,
+.reveal section.prop-size-r-check .cell-output-stdout,
+.reveal section.prop-size-r-check .cell-output pre {
+  font-size: 0.72em !important;
+  line-height: 1.05 !important;
+  white-space: pre !important;
+}
+
+.reveal section.prop-size-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Ad-supported plan survey example</span>
 :::
 
--   $p_0=0$
--   $p_0=0.25$
--   [$p_0=0.5$]{.correct
-    data-explanation="When no prior estimate is available, p*=0.5 is used because p*(1-p*) is maximized at 0.5. This gives the most conservative required sample size."}
--   $p_0=1$
+```{webr}
+#| autorun: false
+
+p0 <- 0.5
+E <- 0.03
+conf <- 0.95
+
+zstar <- qnorm(1 - (1 - conf)/2)
+n_raw <- (zstar / E)^2 * p0 * (1 - p0)
+required_n <- ceiling(n_raw)
+
+out <- data.frame(
+  p0 = p0,
+  E = E,
+  zstar = round(zstar, 3),
+  n_raw = round(n_raw, 2),
+  required_n = required_n
+)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Sabrina Carpenter merch survey example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+p0 <- 0.156
+E <- 0.03
+conf <- c(0.95, 0.99)
+
+zstar <- qnorm(1 - (1 - conf)/2)
+n_raw <- (zstar / E)^2 * p0 * (1 - p0)
+required_n <- ceiling(n_raw)
+
+out <- data.frame(
+  level = paste0(conf * 100, "%"),
+  p0 = p0,
+  zstar = round(zstar, 3),
+  n_raw = round(n_raw, 2),
+  required_n = required_n
+)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::::
 
 ---
 

@@ -3057,5 +3057,40 @@
     "title": "STA258",
     "section": "Up Next",
     "text": "Up Next\n\nChapter 10 — Multiple Linear Regression\nWe extend the model from one predictor to several predictors. The core ideas stay the same: fitted values, residuals, least squares, and inference — but interpretation becomes more careful because variables are held fixed.\n\n\nBack to Homepage"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter9.html",
+    "href": "Chapter Landing Pages/chapter9.html",
+    "title": "Chapter 9: Simple Linear Regression",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter9.html#what-youll-learn",
+    "href": "Chapter Landing Pages/chapter9.html#what-youll-learn",
+    "title": "Chapter 9: Simple Linear Regression",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 9 you’ll be able to:\n\nDescribe the simple linear regression model and identify the response, predictor, intercept, slope, and error term.\nInterpret fitted values and residuals in context.\nExplain how least squares chooses the regression line by minimizing the sum of squared errors.\nCompute and interpret the estimated regression equation.\nUse covariance, correlation, and \\(R^2\\) to describe the strength of a linear relationship.\nDecompose variation using \\(SST\\), \\(SSR\\), and \\(SSE\\).\nTest whether the regression slope is significantly different from zero.\nConstruct and interpret confidence intervals for the slope.\nUse residual plots to check whether a straight-line model is reasonable.\nUse lm() in R to fit, summarize, diagnose, and make predictions from a regression model."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter9.html#key-ideas",
+    "href": "Chapter Landing Pages/chapter9.html#key-ideas",
+    "title": "Chapter 9: Simple Linear Regression",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nSimple Linear Regression Model\nSimple linear regression models the relationship between one quantitative response variable \\(Y\\) and one quantitative predictor \\(x\\) using a straight line. The model is written as\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i.\n\\]\n\n\nLeast Squares\nThe least-squares method chooses the line that makes the residuals as small as possible overall. It does this by minimizing\n\\[\nSSE = \\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\n\n\nInterpreting the Slope\nThe slope is usually the most important part of the regression equation. It tells us the predicted change in the response variable for a one-unit increase in the predictor.\n\n\nCorrelation and \\(R^2\\)\nCorrelation describes the strength and direction of a linear relationship. The coefficient of determination, \\(R^2\\), tells us the proportion of variation in the response explained by the fitted linear model.\n\n\nInference for the Slope\nRegression inference allows us to test whether the predictor has a statistically meaningful linear relationship with the response. A common test is\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1\\ne 0.\n\\]\n\n\nPrediction and Diagnostics\nA fitted regression line can be used for prediction, but only after checking whether the model is reasonable. Residual plots help us detect curvature, changing spread, outliers, and other model issues."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter9.html#how-to-use-this-chapter",
+    "href": "Chapter Landing Pages/chapter9.html#how-to-use-this-chapter",
+    "title": "Chapter 9: Simple Linear Regression",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough of simple linear regression.\nUse the PDF button for an offline-friendly version.\nWork through the electricity cost example to see the full regression workflow.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to check calculations using lm().\nUse the final summary as a study guide for interpreting slope, residuals, \\(R^2\\), confidence intervals, hypothesis tests, and predictions."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-known-sigma-difference-of-means",
+    "href": "Chapter Slides/chapter5-slides.html#check-in-r-known-sigma-difference-of-means",
+    "title": "STA258",
+    "section": "Check in R: Known Sigma Difference of Means",
+    "text": "Check in R: Known Sigma Difference of Means\n\n\n\nWhat this checks\nThis checks the USA-Canada hockey shot-speed example.\nWe are constructing a 95% confidence interval for:\n\\[\n\\mu_1-\\mu_2\n\\]\nwhere the order is:\n\\[\n\\text{Canada} - \\text{USA}\n\\]\nSince both population standard deviations are known, we use a two-sample z interval.\n\n\nReminder\nThis is the rare known-sigma case, so there is only one worked example for this topic."
   }
 ]

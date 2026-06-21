@@ -1614,6 +1614,71 @@ slapshot speed.
 
 ::::
 
+---
+
+## Check in R: Known Sigma Difference of Means
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.notebox style="font-size: 0.68em; line-height: 1.22; padding: 13px 16px; margin-top: 10px;"}
+<span class="label">What this checks</span>
+
+This checks the **USA-Canada hockey shot-speed** example.
+
+We are constructing a 95% confidence interval for:
+
+$$
+\mu_1-\mu_2
+$$
+
+where the order is:
+
+$$
+\text{Canada} - \text{USA}
+$$
+
+Since both population standard deviations are known, we use a **two-sample z interval**.
+:::
+
+::: {.thinkbox style="font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;"}
+<span class="label">Reminder</span>
+
+This is the rare known-sigma case, so there is only one worked example for this topic.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+# Known sigma difference of means
+# Example: USA-Canada hockey shot speeds
+
+n1 <- 64
+xbar1 <- 94.8
+sigma1 <- 8
+
+n2 <- 81
+xbar2 <- 91.6
+sigma2 <- 7
+
+conf <- 0.95
+alpha <- 1 - conf
+
+diff <- xbar1 - xbar2
+se <- sqrt(sigma1^2 / n1 + sigma2^2 / n2)
+zstar <- qnorm(1 - alpha / 2)
+
+ci <- diff + c(-1, 1) * zstar * se
+
+round(diff, 2)
+round(se, 4)
+round(zstar, 3)
+round(ci, 2)
+```
+:::
+::::
+
 ------------------------------------------------------------------------
 
 ## Difference of Means: Equal Unknown Variances

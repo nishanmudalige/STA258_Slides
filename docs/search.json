@@ -3750,5 +3750,33 @@
     "title": "STA258",
     "section": "Example: Argentina vs France World Cup",
     "text": "Example: Argentina vs France World Cup\n\n\nA football media account studies fictional replay interest after viewers watch Argentina vs France World Cup Final highlight packages.\n\n\n\nHighlight minutes \\((x)\\)\nReplay interest \\((y)\\)\n\n\n\n\n3\n52\n\n\n4\n57\n\n\n5\n61\n\n\n6\n63\n\n\n7\n70\n\n\n8\n73\n\n\n9\n78\n\n\n10\n82\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=6.500,\n\\qquad\n\\bar{y}=67.000\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=179.000\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{179.000}{42.000}\n=\n4.262\n\\]\n\\[\n\\hat{\\beta}_0=\n67.000-4.262(6.500)\n=\n39.298\n\\]\n\\[\n\\hat{y}=39.298+4.262x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{replay interest score}\n\\]\nusing:\n\\[\nx=\\text{highlight minutes watched}\n\\]\n\n\nFor each additional minute of highlights watched, the predicted replay interest score increases by about 4.26 points."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter10.html",
+    "href": "Chapter Landing Pages/chapter10.html",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter10.html#what-youll-learn",
+    "href": "Chapter Landing Pages/chapter10.html#what-youll-learn",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 10 you’ll be able to:\n\nRecognize when data are categorical rather than quantitative.\nDescribe the multinomial response model for counts across several categories.\nSet up hypotheses for a chi-square goodness-of-fit test.\nCompute expected counts using the hypothesized category probabilities.\nCalculate and interpret the chi-square test statistic.\nFind a P-value using the chi-square distribution with the correct degrees of freedom.\nCheck the expected cell frequency condition before applying the test.\nUse chisq.test() in R to check goodness-of-fit calculations."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter10.html#key-ideas",
+    "href": "Chapter Landing Pages/chapter10.html#key-ideas",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nCategorical Data\nCategorical data record which group, class, brand, color, outcome, or category each observation belongs to. Instead of analyzing means, we usually analyze counts or proportions in each category.\n\n\nMultinomial Response Model\nWhen each trial results in exactly one of \\(k\\) possible categories, the counts follow a multinomial model. If the category probabilities are \\[\np_1, p_2, \\ldots, p_k,\n\\] then they must satisfy \\[\np_1+p_2+\\cdots+p_k=1.\n\\] The binomial model is the special case where \\(k=2\\).\n\n\nExpected Counts\nUnder the null hypothesis, each category has a hypothesized probability. The expected count in category \\(i\\) is \\[\nE_i = np_i.\n\\] These expected counts describe what we would expect to see if the null hypothesis were true.\n\n\nChi-square Goodness-of-Fit Statistic\nThe goodness-of-fit test compares observed counts to expected counts: \\[\n\\chi^2 =\n\\sum\n\\frac{(\\text{observed count} - \\text{expected count})^2}\n{\\text{expected count}}.\n\\] Large values of \\(\\chi^2\\) mean the observed counts are far from what the null hypothesis predicts.\n\n\nDegrees of Freedom and P-value\nFor a goodness-of-fit test with \\(k\\) categories, the test statistic is compared to a chi-square distribution with \\[\nk-1\n\\] degrees of freedom. The P-value is the area to the right of the observed test statistic.\n\n\nSample Size Assumption\nThe chi-square approximation works well when the expected counts are large enough. A common rule is that every expected cell count should be at least 5."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter10.html#how-to-use-this-chapter",
+    "href": "Chapter Landing Pages/chapter10.html#how-to-use-this-chapter",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough.\nUse the PDF button for an offline-friendly version.\nFollow the worked examples to practice setting up observed and expected counts.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples using chisq.test().\nRevisit the examples later as templates for homework and exam practice."
   }
 ]

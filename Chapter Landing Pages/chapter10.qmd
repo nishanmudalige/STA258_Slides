@@ -1,0 +1,110 @@
+---
+title: "Chapter 10: Analysis of Categorical Data"
+subtitle: "STA258 - University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter10-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter10-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 10 you'll be able to:
+
+- Recognize when data are **categorical** rather than quantitative.
+- Describe the multinomial response model for counts across several categories.
+- Set up hypotheses for a chi-square goodness-of-fit test.
+- Compute expected counts using the hypothesized category probabilities.
+- Calculate and interpret the chi-square test statistic.
+- Find a P-value using the chi-square distribution with the correct degrees of freedom.
+- Check the expected cell frequency condition before applying the test.
+- Use `chisq.test()` in R to check goodness-of-fit calculations.
+
+## Key ideas
+
+::: {.summary-card}
+### Categorical Data
+Categorical data record which group, class, brand, color, outcome, or category each observation belongs to. Instead of analyzing means, we usually analyze **counts** or **proportions** in each category.
+:::
+
+::: {.summary-card}
+### Multinomial Response Model
+When each trial results in exactly one of $k$ possible categories, the counts follow a multinomial model. If the category probabilities are
+$$
+p_1, p_2, \ldots, p_k,
+$$
+then they must satisfy
+$$
+p_1+p_2+\cdots+p_k=1.
+$$
+The binomial model is the special case where $k=2$.
+:::
+
+::: {.summary-card}
+### Expected Counts
+Under the null hypothesis, each category has a hypothesized probability. The expected count in category $i$ is
+$$
+E_i = np_i.
+$$
+These expected counts describe what we would expect to see if the null hypothesis were true.
+:::
+
+::: {.summary-card}
+### Chi-square Goodness-of-Fit Statistic
+The goodness-of-fit test compares observed counts to expected counts:
+$$
+\chi^2 =
+\sum
+\frac{(\text{observed count} - \text{expected count})^2}
+{\text{expected count}}.
+$$
+Large values of $\chi^2$ mean the observed counts are far from what the null hypothesis predicts.
+:::
+
+::: {.summary-card}
+### Degrees of Freedom and P-value
+For a goodness-of-fit test with $k$ categories, the test statistic is compared to a chi-square distribution with
+$$
+k-1
+$$
+degrees of freedom. The P-value is the area to the right of the observed test statistic.
+:::
+
+::: {.summary-card}
+### Sample Size Assumption
+The chi-square approximation works well when the expected counts are large enough. A common rule is that every expected cell count should be at least 5.
+:::
+
+## How to use this chapter
+
+- Open the **slides** for an interactive walkthrough.
+- Use the **PDF** button for an offline-friendly version.
+- Follow the worked examples to practice setting up observed and expected counts.
+- Try the embedded quiz questions before revealing the answer.
+- Run and edit the WebR examples using `chisq.test()`.
+- Revisit the examples later as templates for homework and exam practice.

@@ -127,15 +127,6 @@
   </style>
   <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
   <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
-  <link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
-  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-  <script src="../site_libs/plotly-binding-4.12.0/plotly.js"></script>
-  <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
-  <script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
-  <link href="../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
-  <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
-  <link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
-  <script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -702,15 +693,6 @@ H_a:\text{the three probabilities are not all equal}
 </div>
 <div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
 <p>Since <span class="math inline">\(0.031&lt;0.05\)</span>, we reject <span class="math inline">\(H_0\)</span>. The sample suggests that the three café drinks are not equally preferred.</p>
-</div>
-</div>
-</section>
-<section id="visual-check-observed-vs-expected" class="slide level2">
-<h2>Visual Check: Observed vs Expected</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-0848ec65798a9f4d0a99" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-0848ec65798a9f4d0a99">{"x":{"visdat":{"e9fb3977e535":["function () ","plotlyVisDat"],"e9fb6e69180c":["function () ","data"],"e9fb35a9f475":["function () ","data"]},"cur_data":"e9fb35a9f475","attrs":{"e9fb6e69180c":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"bar","name":"Observed","marker":{"color":"#00695c"},"text":{},"textposition":"outside","hovertemplate":"<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","inherit":true},"e9fb35a9f475":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"bar","name":"Expected under equal preference","marker":{"color":"#9bd3e6"},"text":{},"textposition":"outside","hovertemplate":"<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","inherit":true}},"layout":{"height":420,"margin":{"b":70,"l":70,"t":86,"r":25},"barmode":"group","bargap":0.28000000000000003,"bargroupgap":0.080000000000000002,"legend":{"orientation":"h","x":0.02,"y":1.0800000000000001,"bgcolor":"rgba(255,255,255,0)"},"title":{"text":"Streaming app preference: observed counts vs equal-preference expected counts","font":{"size":16},"x":0.02},"dragmode":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Streaming app","range":[],"fixedrange":true,"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","type":"category","categoryorder":"array","categoryarray":["Disney+","Netflix","Prime","YouTube"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Student count","range":[0,100],"fixedrange":true,"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)"},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"displaylogo":false,"scrollZoom":false,"doubleClick":false,"staticPlot":false},"data":[{"x":["Netflix","YouTube","Disney+","Prime"],"y":[88,72,50,30],"type":"bar","name":"Observed","marker":{"color":"#00695c","line":{"color":"rgba(31,119,180,1)"}},"text":[88,72,50,30],"textposition":["outside","outside","outside","outside"],"hovertemplate":["<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>"],"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Netflix","YouTube","Disney+","Prime"],"y":[60,60,60,60],"type":"bar","name":"Expected under equal preference","marker":{"color":"#9bd3e6","line":{"color":"rgba(255,127,14,1)"}},"text":[60,60,60,60],"textposition":["outside","outside","outside","outside"],"hovertemplate":["<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>"],"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>

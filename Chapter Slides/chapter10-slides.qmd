@@ -1,0 +1,1475 @@
+---
+pagetitle: "Chapter 10: Analysis of Categorical Data - Slides"
+engine: knitr
+format:
+  live-revealjs:
+    theme: simple
+    transition: slide
+    slide-number: true
+    toc: false
+    chalkboard: true
+    footer: "STA258 | Chapter 10"
+    pdf-separate-fragments: false
+    html-math-method: mathjax
+    code-copy: true
+    code-fold: false
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - ggplot2
+    - dplyr
+    - plotly
+live:
+  show-solutions: true
+---
+
+```{r setup}
+#| include: false
+library(ggplot2)
+library(dplyr)
+library(plotly)
+
+theme_set(theme_minimal(base_size = 13))
+set.seed(258)
+
+plot_cols <- list(
+  main        = "#00695c",
+  teal        = "#00695c",
+  teal_dark   = "#004d40",
+  teal_light  = "#e0f2f1",
+  blue        = "#c8e6f3",
+  blue_soft   = "#eef8fb",
+  grey        = "#f5f6f7",
+  gray        = "#f5f6f7",
+  yellow      = "#fff8e1",
+  orange      = "#f9a825",
+  text        = "#2f3437",
+  muted       = "#667174",
+  border      = "#d8dee2",
+  code        = "#f3f4f5",
+  white       = "#ffffff",
+  red         = "#c62828",
+  purple      = "#7e57c2"
+)
+
+plotly_slide_layout <- function(
+  p,
+  title = NULL,
+  x_title = NULL,
+  y_title = NULL,
+  width = NULL,
+  height = 390,
+  x_range = NULL,
+  y_range = NULL,
+  margin = list(l = 70, r = 25, t = 70, b = 60)
+) {
+  p |>
+    layout(
+      title = list(text = title, font = list(size = 16), x = 0.02),
+      width = width,
+      height = height,
+      margin = margin,
+      dragmode = FALSE,
+      xaxis = list(
+        title = x_title,
+        range = x_range,
+        fixedrange = TRUE,
+        zeroline = FALSE,
+        showline = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      yaxis = list(
+        title = y_title,
+        range = y_range,
+        fixedrange = TRUE,
+        zeroline = FALSE,
+        showline = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      paper_bgcolor = "rgba(0,0,0,0)",
+      plot_bgcolor = "white"
+    ) |>
+    config(
+      displayModeBar = FALSE,
+      displaylogo = FALSE,
+      scrollZoom = FALSE,
+      doubleClick = FALSE,
+      staticPlot = FALSE
+    )
+}
+```
+
+# Chapter 10: Analysis of Categorical Data {.title-slide}
+
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+  --sta-red:         #c62828;
+}
+
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1 { font-size: 1.72em !important; }
+.reveal h2 {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3 { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p { font-size: 0.78em; color: var(--sta-muted); }
+
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: 1fr 1fr; }
+.two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide  { grid-template-columns: 1.08fr 0.92fr; }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.one-col       { grid-template-columns: 1fr; }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
+.col           { min-width: 0; }
+
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 700px;
+}
+
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.reveal .quiz-question .callout-note {
+  margin: 4px 0 12px 0 !important;
+  text-align: left;
+}
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+.reveal .quiz-question ul {
+  margin: 4px 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+.callout { font-size: 0.75em; }
+
+.reveal .assumption-list {
+  list-style: none !important;
+  margin: 8px 0 0 0 !important;
+  padding-left: 0 !important;
+  display: grid;
+  gap: 8px;
+}
+.reveal .assumption-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92em !important;
+  line-height: 1.22;
+  margin-bottom: 0 !important;
+}
+.reveal .assumption-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sta-teal);
+}
+
+.reveal .html-widget,
+.reveal .plotly,
+.reveal .js-plotly-plot {
+  margin: 0 auto !important;
+  max-width: 100% !important;
+}
+.reveal .plot-container { border-radius: 10px; }
+
+.home-button-row { text-align: center; margin-top: 24px; }
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 18px !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+</style>
+
+```{=html}
+<script>
+function resizePlotlyOnSlides() {
+  if (!window.Plotly) return;
+  document.querySelectorAll(".js-plotly-plot").forEach(function(plot) {
+    Plotly.Plots.resize(plot);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(resizePlotlyOnSlides, 250);
+  setTimeout(resizePlotlyOnSlides, 750);
+  setTimeout(resizePlotlyOnSlides, 1500);
+
+  if (window.Reveal) {
+    Reveal.on("ready", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+    Reveal.on("slidechanged", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+    Reveal.on("fragmentshown", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+    Reveal.on("fragmenthidden", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+  }
+
+  window.addEventListener("resize", resizePlotlyOnSlides);
+});
+</script>
+```
+
+{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
+
+STA258: Statistics with Applied Probability  
+University of Toronto Mississauga
+
+![](../images/cat.png){width="245" fig-alt="Course mascot"}
+
+---
+
+## Chapter Roadmap {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">10.1 - Multinomial model</span>
+Use counts across categories when each observation falls into exactly one group.
+:::
+
+::: {.card .fragment}
+<span class="label">10.2 - Goodness of fit</span>
+Compare observed counts to expected counts under a hypothesized probability model.
+:::
+
+::: {.card .fragment}
+<span class="label">10.3 - Assumptions</span>
+Check independence and expected cell frequencies before using $\chi^2$.
+:::
+::::
+
+<br>
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Core skill</span>
+Turn category probabilities into expected counts.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Core tool</span>
+Use `chisq.test()` to check the statistic, degrees of freedom, P-value, and expected counts.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Core habit</span>
+Interpret the result in context, not just as “reject” or “do not reject.”
+:::
+::::
+
+---
+
+## Why Categorical Data Need a New Tool
+
+::: {.defbox}
+So far, many methods focused on means, variances, or proportions.
+
+In this chapter, the data are often **counts across categories**.
+
+Examples:
+
+- Which app did a student choose?
+- Which colour did a customer prefer?
+- Which pickup time did an order fall into?
+- Which outcome happened in a repeated experiment?
+:::
+
+::: {.thinkbox .fragment}
+The question is no longer “What is the average?”  
+The question is usually: **Do the observed counts match what the model predicted?**
+:::
+
+---
+
+## From Binomial to Chi-square
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.defbox}
+For two categories, one count can be modelled with a binomial distribution.
+
+If $Y_1 \sim Bin(n,p_1)$, then for large $n$,
+
+$$
+Z=
+\frac{Y_1-np_1}
+{\sqrt{np_1(1-p_1)}}
+\approx N(0,1)
+$$
+
+So,
+
+$$
+Z^2 \approx \chi^2_1
+$$
+:::
+:::
+
+::: {.col}
+::: {.notebox .fragment}
+<span class="label">Pearson's idea</span>
+
+Instead of only checking one binomial count, compare every observed count to its expected count.
+
+For two categories:
+
+$$
+Q_1=
+\sum_{i=1}^{2}
+\frac{(Y_i-np_i)^2}{np_i}
+$$
+
+This extends naturally to more than two categories.
+:::
+:::
+::::
+
+---
+
+## 10.1 Multinomial Response Model
+
+::: {.defbox}
+A **multinomial response model** applies when each trial results in exactly one of $k$ mutually exclusive and exhaustive categories.
+
+The category probabilities are:
+
+$$
+p_1,p_2,\ldots,p_k
+$$
+
+with
+
+$$
+p_1+p_2+\cdots+p_k=1
+$$
+:::
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Trials</span>
+There are $n$ independent and identical trials.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Categories</span>
+Each trial lands in one of $k$ possible categories.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Counts</span>
+The observed category counts are $Y_1,Y_2,\ldots,Y_k$.
+:::
+::::
+
+---
+
+## Multinomial Counts
+
+::: {.defbox}
+If the model probabilities are $p_1,\ldots,p_k$, the expected count in category $i$ is:
+
+$$
+E_i=np_i
+$$
+
+The Pearson chi-square statistic is:
+
+$$
+Q_{k-1}
+=
+\sum_{i=1}^{k}
+\frac{(Y_i-np_i)^2}{np_i}
+=
+\sum_{i=1}^{k}
+\frac{(O_i-E_i)^2}{E_i}
+$$
+
+For large enough expected counts,
+
+$$
+Q_{k-1}\approx \chi^2_{k-1}
+$$
+:::
+
+::: {.thinkbox .fragment}
+The statistic gets large when observed counts are far from expected counts.
+:::
+
+---
+
+## Example: Streaming App Preference
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A campus media club asks $n=240$ students which streaming app they would keep if they could keep only one.
+
+The club wants to test whether the four apps are equally preferred.
+
+<br>
+
+| App | Netflix | YouTube | Disney+ | Prime |
+|---|---:|---:|---:|---:|
+| Observed count | 88 | 72 | 50 | 30 |
+
+Use $\alpha=0.05$.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+If all four apps are equally preferred:
+
+$$
+p_1=p_2=p_3=p_4=\frac14
+$$
+
+$$
+E_i=np_i=240\left(\frac14\right)=60
+$$
+
+$$
+\chi^2=
+\frac{(88-60)^2}{60}
++
+\frac{(72-60)^2}{60}
++
+\frac{(50-60)^2}{60}
++
+\frac{(30-60)^2}{60}
+$$
+
+$$
+\chi^2=32.13,\qquad df=4-1=3
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:p_1=p_2=p_3=p_4=\frac14
+$$
+
+$$
+H_a:\text{the four probabilities are not all equal}
+$$
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+Since the P-value is very small, we reject $H_0$. The sample gives strong evidence that the four streaming apps are **not equally preferred**.
+:::
+
+::::
+
+---
+
+## Example: Campus Café Drink Preference
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A campus café wants to know whether three cold drink options are equally preferred by students.
+
+A random sample of $n=180$ student purchases gives:
+
+<br>
+
+| Drink | Iced coffee | Matcha latte | Smoothie |
+|---|---:|---:|---:|
+| Observed count | 72 | 64 | 44 |
+
+Use $\alpha=0.05$.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+If all three drinks are equally preferred:
+
+$$
+p_1=p_2=p_3=\frac13
+$$
+
+$$
+E_i=np_i=180\left(\frac13\right)=60
+$$
+
+$$
+\chi^2=
+\frac{(72-60)^2}{60}
++
+\frac{(64-60)^2}{60}
++
+\frac{(44-60)^2}{60}
+$$
+
+$$
+\chi^2=6.93,\qquad df=3-1=2
+$$
+
+$$
+p\text{-value}\approx0.031
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:p_1=p_2=p_3=\frac13
+$$
+
+$$
+H_a:\text{the three probabilities are not all equal}
+$$
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café drinks are not equally preferred.
+:::
+
+::::
+
+---
+
+## Visual Check: Observed vs Expected
+
+```{r}
+#| echo: false
+
+stream_obs <- data.frame(
+  app = c("Netflix", "YouTube", "Disney+", "Prime"),
+  count = c(88, 72, 50, 30)
+)
+
+stream_exp <- data.frame(
+  app = c("Netflix", "YouTube", "Disney+", "Prime"),
+  count = c(60, 60, 60, 60)
+)
+
+p <- plot_ly() |>
+  add_bars(
+    data = stream_obs,
+    x = ~app,
+    y = ~count,
+    name = "Observed",
+    marker = list(color = plot_cols$teal),
+    text = ~count,
+    textposition = "outside",
+    hovertemplate = "<b>%{x}</b><br>Observed: %{y}<extra></extra>"
+  ) |>
+  add_bars(
+    data = stream_exp,
+    x = ~app,
+    y = ~count,
+    name = "Expected under equal preference",
+    marker = list(color = "#9bd3e6"),
+    text = ~count,
+    textposition = "outside",
+    hovertemplate = "<b>%{x}</b><br>Expected: %{y}<extra></extra>"
+  ) |>
+  layout(
+    barmode = "group",
+    bargap = 0.28,
+    bargroupgap = 0.08,
+    legend = list(
+      orientation = "h",
+      x = 0.02,
+      y = 1.08,
+      bgcolor = "rgba(255,255,255,0)"
+    )
+  )
+
+plotly_slide_layout(
+  p,
+  title = "Streaming app preference: observed counts vs equal-preference expected counts",
+  x_title = "Streaming app",
+  y_title = "Student count",
+  y_range = c(0, 100),
+  height = 420,
+  margin = list(l = 70, r = 25, t = 86, b = 70)
+)
+```
+
+---
+
+## Check in R: Multinomial Equal-Preference Tests {.gof-r-check}
+
+<style>
+.reveal section.gof-r-check .cm-editor,
+.reveal section.gof-r-check .cm-content,
+.reveal section.gof-r-check .cm-line,
+.reveal section.gof-r-check pre,
+.reveal section.gof-r-check code {
+  font-size: 0.78em !important;
+  line-height: 1.05 !important;
+}
+
+.reveal section.gof-r-check .cell-output,
+.reveal section.gof-r-check .cell-output-stdout,
+.reveal section.gof-r-check .cell-output pre {
+  font-size: 0.68em !important;
+  line-height: 1.02 !important;
+  white-space: pre !important;
+}
+
+.reveal section.gof-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Streaming app example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(Netflix = 88,
+       YouTube = 72,
+       Disney = 50,
+       Prime = 30)
+
+tt <- chisq.test(x)
+
+out <- data.frame(
+  X2 = unname(tt$statistic),
+  df = unname(tt$parameter),
+  p_value = tt$p.value
+)
+
+print(round(out, 5), row.names = FALSE)
+tt$expected
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Campus café drink example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(IcedCoffee = 72,
+       Matcha = 64,
+       Smoothie = 44)
+
+tt <- chisq.test(x)
+
+out <- data.frame(
+  X2 = unname(tt$statistic),
+  df = unname(tt$parameter),
+  p_value = tt$p.value
+)
+
+print(round(out, 5), row.names = FALSE)
+tt$expected
+```
+:::
+
+::::
+
+---
+
+## 10.2 Chi-square Test for Goodness of Fit
+
+::: {.defbox}
+A **chi-square goodness-of-fit test** checks whether observed category counts agree with a hypothesized probability model.
+
+The hypotheses are:
+
+$$
+H_0:
+p_1=p_{hyp,1},\;
+p_2=p_{hyp,2},\;
+\ldots,\;
+p_k=p_{hyp,k}
+$$
+
+$$
+H_a:\text{at least one category probability is different}
+$$
+:::
+
+::: {.thinkbox .fragment}
+The null hypothesis can say “all categories are equal,” but it can also give unequal hypothesized probabilities.
+:::
+
+---
+
+## Goodness-of-Fit Test Statistic
+
+::: {.defbox}
+The test statistic is:
+
+$$
+\chi^2
+=
+\sum
+\frac{(\text{observed count}-\text{expected count})^2}
+{\text{expected count}}
+$$
+
+where:
+
+$$
+\text{expected count}=np_i
+$$
+
+The P-value is the area to the right of the observed $\chi^2$ statistic under a chi-square distribution with:
+
+$$
+df=k-1
+$$
+:::
+
+::: {.warnbox .fragment}
+This is always a **right-tail test**. Large $\chi^2$ values mean the observed counts are too far from the hypothesized model.
+:::
+
+---
+
+## Example: Campus Food Pickup Slots
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A campus food hall predicts how mobile pickup orders are distributed across four time slots.
+
+The historical model is:
+
+$$
+(0.15,\;0.35,\;0.30,\;0.20)
+$$
+
+A random sample of $n=200$ orders gives:
+
+| Slot | 11-12 | 12-1 | 1-2 | 2-3 |
+|---|---:|---:|---:|---:|
+| Observed count | 24 | 82 | 54 | 40 |
+
+Use $\alpha=0.05$.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+Expected counts:
+
+$$
+200(0.15,0.35,0.30,0.20)
+=
+(30,70,60,40)
+$$
+
+$$
+\chi^2=
+\frac{(24-30)^2}{30}
++
+\frac{(82-70)^2}{70}
++
+\frac{(54-60)^2}{60}
++
+\frac{(40-40)^2}{40}
+$$
+
+$$
+\chi^2=3.86,\qquad df=4-1=3
+$$
+
+$$
+p\text{-value}\approx0.277
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:(p_1,p_2,p_3,p_4)
+=
+(0.15,0.35,0.30,0.20)
+$$
+
+$$
+H_a:\text{at least one probability differs}
+$$
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+Since $0.277>0.05$, we do not reject $H_0$. The observed pickup counts are reasonably consistent with the historical time-slot model.
+:::
+
+::::
+
+---
+
+## Example: Phone Case Colour Demand
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A phone accessory shop expects case colour demand to follow:
+
+$$
+(0.30,\;0.25,\;0.25,\;0.20)
+$$
+
+for black, clear, blue, and pink cases.
+
+A sample of $n=150$ recent purchases gives:
+
+| Colour | Black | Clear | Blue | Pink |
+|---|---:|---:|---:|---:|
+| Observed count | 63 | 28 | 36 | 23 |
+
+Use $\alpha=0.05$.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+Expected counts:
+
+$$
+150(0.30,0.25,0.25,0.20)
+=
+(45,37.5,37.5,30)
+$$
+
+$$
+\chi^2=
+\frac{(63-45)^2}{45}
++
+\frac{(28-37.5)^2}{37.5}
++
+\frac{(36-37.5)^2}{37.5}
++
+\frac{(23-30)^2}{30}
+$$
+
+$$
+\chi^2=11.30,\qquad df=3
+$$
+
+$$
+p\text{-value}\approx0.0102
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Interpretation setup</span>
+
+One term of the statistic is especially large:
+
+$$
+\frac{(63-45)^2}{45}=7.20
+$$
+
+This shows that black case purchases are far above what the model expected.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+Since $0.0102<0.05$, we reject $H_0$. The colour demand pattern does not fit the shop's expected distribution well.
+:::
+
+::::
+
+---
+
+## Check in R: Goodness-of-Fit Tests {.gof-r-check}
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Campus food pickup example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c("11-12" = 24, "12-1" = 82,
+       "1-2" = 54, "2-3" = 40)
+
+p0 <- c(0.15, 0.35, 0.30, 0.20)
+
+tt <- chisq.test(x, p = p0)
+
+out <- data.frame(
+  X2 = unname(tt$statistic),
+  df = unname(tt$parameter),
+  p_value = tt$p.value
+)
+
+print(round(out, 4), row.names = FALSE)
+round(tt$expected, 1)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Phone case colour example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(Black = 63, Clear = 28,
+       Blue = 36, Pink = 23)
+
+p0 <- c(0.30, 0.25, 0.25, 0.20)
+
+tt <- chisq.test(x, p = p0)
+
+out <- data.frame(
+  X2 = unname(tt$statistic),
+  df = unname(tt$parameter),
+  p_value = tt$p.value
+)
+
+print(round(out, 4), row.names = FALSE)
+round(tt$expected, 1)
+```
+:::
+
+::::
+
+---
+
+## Reading the Chi-square Statistic
+
+:::: {.two-col}
+::: {.defbox}
+Each category contributes one term:
+
+$$
+\frac{(O_i-E_i)^2}{E_i}
+$$
+
+The total $\chi^2$ statistic is the sum of these terms.
+:::
+
+::: {.notebox .fragment}
+<span class="label">How to read the terms</span>
+
+A category contributes more when the observed count is far from the expected count.
+
+This helps explain why the final statistic is small or large.
+:::
+::::
+
+```{webr}
+#| autorun: false
+
+observed <- c(Black = 63, Clear = 28,
+              Blue = 36, Pink = 23)
+
+expected <- c(45, 37.5, 37.5, 30)
+
+contrib <- (observed - expected)^2 / expected
+
+round(data.frame(
+  observed = observed,
+  expected = expected,
+  contribution = contrib
+), 3)
+```
+
+---
+
+## 10.3 Sample Size Assumption
+
+::: {.defbox}
+The chi-square approximation works well only when the expected counts are large enough.
+
+A common course rule is:
+
+$$
+E_i=np_i\ge 5
+\quad
+\text{for every category}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Good situation</span>
+
+Expected counts:
+
+$$
+(30,70,60,40)
+$$
+
+Every expected count is at least 5, so the chi-square approximation is reasonable.
+:::
+
+::: {.warnbox .fragment}
+<span class="label">Problem situation</span>
+
+Expected counts:
+
+$$
+(2.5,4.5,18,25)
+$$
+
+Some expected counts are below 5, so the chi-square approximation may be unreliable.
+:::
+::::
+
+---
+
+## Assumptions for Chi-square Goodness of Fit
+
+::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
+<span class="label">Assumptions</span>
+
+<ul class="assumption-list" style="gap: 10px;">
+  <li><strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.</li>
+
+  <li><strong>One category per trial:</strong> Each observation should fall into exactly one of the possible categories.</li>
+
+  <li><strong>Independent trials:</strong> The trials or observations should be independent.</li>
+
+  <li><strong>Expected cell frequency:</strong> Each expected count should usually be at least 5.</li>
+</ul>
+:::
+
+::: {.thinkbox style="font-size: 0.70em; line-height: 1.22; padding: 13px 16px; margin-top: 14px;"}
+<span class="label">Course reminder</span>
+
+Check expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied.
+:::
+
+---
+
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+A goodness-of-fit test has five categories. Under $H_0$, the expected counts are:
+
+$$
+(8,\;12,\;20,\;4,\;16)
+$$
+
+Which statement is best?
+:::
+
+- The test is fine because the total sample size is large
+- The test is fine because most observed counts are above 5
+- [The chi-square approximation is questionable because one expected count is below 5]{.correct data-explanation="The expected cell frequency condition checks expected counts, and here one expected count is 4, which is below 5."}
+- The degrees of freedom should be 5
+
+---
+
+## Practice: Food Delivery App Share
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A student group claims food delivery app choices on campus follow:
+
+$$
+(0.10,\;0.20,\;0.30,\;0.20,\;0.20)
+$$
+
+A random sample of $n=150$ students gives:
+
+| App | A | B | C | D | E |
+|---|---:|---:|---:|---:|---:|
+| Observed count | 12 | 32 | 42 | 36 | 28 |
+
+Test the model at the 1% significance level.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+Expected counts:
+
+$$
+150(0.10,0.20,0.30,0.20,0.20)
+=
+(15,30,45,30,30)
+$$
+
+$$
+\chi^2=
+\frac{(12-15)^2}{15}
++
+\frac{(32-30)^2}{30}
++
+\frac{(42-45)^2}{45}
++
+\frac{(36-30)^2}{30}
++
+\frac{(28-30)^2}{30}
+$$
+
+$$
+\chi^2=2.27,\qquad df=5-1=4
+$$
+
+$$
+p\text{-value}\approx0.687
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Decision rule</span>
+
+At the 1% level, reject $H_0$ only if the P-value is less than $0.01$.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+Since $0.687>0.01$, we do not reject $H_0$. The observed app choices are consistent with the claimed distribution.
+:::
+
+::::
+
+---
+
+## Check in R: Practice Test {.gof-r-check}
+
+:::: {.two-col-wide style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.66em; line-height: 1.20; padding: 13px 16px; margin-top: 8px;"}
+<span class="label">Food delivery app share</span>
+
+We test:
+
+$$
+H_0:(p_1,p_2,p_3,p_4,p_5)
+=
+(0.10,0.20,0.30,0.20,0.20)
+$$
+
+The expected counts should be:
+
+$$
+(15,30,45,30,30)
+$$
+:::
+
+::: {.examplebox style="font-size: 0.63em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;"}
+At $\alpha=0.01$, the large P-value means we do not reject the model.
+:::
+:::
+
+::: {.col}
+```{webr}
+#| autorun: false
+
+x <- c(A = 12, B = 32, C = 42,
+       D = 36, E = 28)
+
+p0 <- c(0.10, 0.20, 0.30, 0.20, 0.20)
+
+tt <- chisq.test(x, p = p0)
+
+out <- data.frame(
+  X2 = unname(tt$statistic),
+  df = unname(tt$parameter),
+  p_value = tt$p.value
+)
+
+print(round(out, 4), row.names = FALSE)
+tt$expected
+```
+:::
+
+::::
+
+---
+
+## Chapter Summary
+
+:::: {.three-col}
+::: {.card}
+<span class="label">1. Model the counts</span>
+Use a multinomial model when each trial falls into exactly one of $k$ categories.
+:::
+
+::: {.card}
+<span class="label">2. Build expected counts</span>
+Under the null model:
+
+$$
+E_i=np_i
+$$
+
+These are the counts we would expect if $H_0$ were true.
+:::
+
+::: {.card}
+<span class="label">3. Compare with $\chi^2$</span>
+Use:
+
+$$
+\chi^2=\sum\frac{(O_i-E_i)^2}{E_i}
+$$
+
+Large values give evidence against $H_0$.
+:::
+::::
+
+<br>
+
+:::: {.three-col}
+::: {.stat-card}
+<span class="label">Degrees of freedom</span>
+
+$$
+df=k-1
+$$
+:::
+
+::: {.stat-card}
+<span class="label">P-value</span>
+Use the right-tail area under the chi-square distribution.
+:::
+
+::: {.stat-card}
+<span class="label">Assumption check</span>
+Each expected count should usually be at least 5.
+:::
+::::
+
+---
+
+## End of Chapter 10
+
+:::: {.three-col}
+::: {.card}
+<span class="label">You can now...</span>
+Recognize categorical count data and connect it to a multinomial model.
+:::
+
+::: {.card}
+<span class="label">You can now...</span>
+Compute expected counts and a chi-square goodness-of-fit statistic.
+:::
+
+::: {.card}
+<span class="label">You can now...</span>
+Use `chisq.test()` to check the statistic, degrees of freedom, P-value, and expected counts.
+:::
+::::
+
+::: {.thinkbox style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;"}
+<span class="label">Final takeaway</span>
+
+Goodness-of-fit tests ask whether the observed category counts are close enough to what the null model predicted, allowing for natural sampling variation.
+:::
+
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Course Home</a>
+</div>

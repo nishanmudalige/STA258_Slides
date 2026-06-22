@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
+<link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
+
+  <title>STA258 – Chapter 10: Analysis of Categorical Data - Slides</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <script src="../site_libs/plotly-binding-4.12.0/plotly.js"></script>
+  <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+  <script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+  <link href="../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+  <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+  <link href="../site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+  <script src="../site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+<section id="chapter-10-analysis-of-categorical-data" class="title-slide slide level1 center">
+<h1>Chapter 10: Analysis of Categorical Data</h1>
+<style>
+:root {
+  --sta-teal:        #00695c;
+  --sta-teal-dark:   #004d40;
+  --sta-teal-light:  #e0f2f1;
+  --sta-blue:        #c8e6f3;
+  --sta-blue-soft:   #eef8fb;
+  --sta-grey:        #f5f6f7;
+  --sta-yellow:      #fff8e1;
+  --sta-orange:      #f9a825;
+  --sta-text:        #2f3437;
+  --sta-muted:       #667174;
+  --sta-border:      #d8dee2;
+  --sta-code:        #f3f4f5;
+  --sta-red:         #c62828;
+}
+
+.reveal {
+  font-family: Arial, sans-serif;
+  color: var(--sta-text);
+}
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
+}
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+.reveal h1 { font-size: 1.72em !important; }
+.reveal h2 {
+  font-size: 1.6em !important;
+  border-bottom: 3px solid var(--sta-teal);
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.reveal h3 { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
+
+.title-slide { text-align: center !important; }
+.title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide p { font-size: 0.78em; color: var(--sta-muted); }
+
+.two-col, .two-col-lean, .two-col-wide,
+.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+  display: grid;
+  gap: 28px;
+  align-items: start;
+}
+.two-col       { grid-template-columns: 1fr 1fr; }
+.two-col-lean  { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide  { grid-template-columns: 1.08fr 0.92fr; }
+.three-col     { grid-template-columns: repeat(3, 1fr); }
+.one-col       { grid-template-columns: 1fr; }
+.four-grid     { grid-template-columns: repeat(2, 1fr); }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
+.col           { min-width: 0; }
+
+.defbox, .examplebox, .thinkbox, .card,
+.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 16px 18px;
+  border-radius: 10px;
+  font-size: 0.74em;
+  line-height: 1.28;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+.defbox, .card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+.examplebox, .notebox, .mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+}
+.thinkbox, .taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+}
+.warnbox {
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.card .label, .taskbox .label, .notebox .label,
+.mini-card .label, .stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
+.center     { text-align: center; }
+.small-text { font-size: 0.64em; }
+.tight li   { margin-bottom: 0.18em; }
+.formula {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
+}
+
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
+}
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
+
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+.reveal pre code { font-size: 0.75em; max-height: 340px; }
+.reveal code {
+  background: var(--sta-code);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 700px;
+}
+
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.reveal .quiz-question .callout-note {
+  margin: 4px 0 12px 0 !important;
+  text-align: left;
+}
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+.reveal .quiz-question ul {
+  margin: 4px 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+.callout { font-size: 0.75em; }
+
+.reveal .assumption-list {
+  list-style: none !important;
+  margin: 8px 0 0 0 !important;
+  padding-left: 0 !important;
+  display: grid;
+  gap: 8px;
+}
+.reveal .assumption-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92em !important;
+  line-height: 1.22;
+  margin-bottom: 0 !important;
+}
+.reveal .assumption-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sta-teal);
+}
+
+.reveal .html-widget,
+.reveal .plotly,
+.reveal .js-plotly-plot {
+  margin: 0 auto !important;
+  max-width: 100% !important;
+}
+.reveal .plot-container { border-radius: 10px; }
+
+.home-button-row { text-align: center; margin-top: 24px; }
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 18px !important;
+}
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+</style>
+<script>
+function resizePlotlyOnSlides() {
+  if (!window.Plotly) return;
+  document.querySelectorAll(".js-plotly-plot").forEach(function(plot) {
+    Plotly.Plots.resize(plot);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(resizePlotlyOnSlides, 250);
+  setTimeout(resizePlotlyOnSlides, 750);
+  setTimeout(resizePlotlyOnSlides, 1500);
+
+  if (window.Reveal) {
+    Reveal.on("ready", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+    Reveal.on("slidechanged", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+    Reveal.on("fragmentshown", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+    Reveal.on("fragmenthidden", function () {
+      setTimeout(resizePlotlyOnSlides, 300);
+    });
+  }
+
+  window.addEventListener("resize", resizePlotlyOnSlides);
+});
+</script>
+<p>STA258: Statistics with Applied Probability<br>
+University of Toronto Mississauga</p>
+
+<img data-src="../images/cat.png" alt="Course mascot" width="245" class="r-stretch"></section>
+<section id="chapter-roadmap" class="slide level2 compact">
+<h2>Chapter Roadmap</h2>
+<div class="three-col">
+<div class="card fragment">
+<p><span class="label">10.1 - Multinomial model</span> Use counts across categories when each observation falls into exactly one group.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">10.2 - Goodness of fit</span> Compare observed counts to expected counts under a hypothesized probability model.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">10.3 - Assumptions</span> Check independence and expected cell frequencies before using <span class="math inline">\(\chi^2\)</span>.</p>
+</div>
+</div>
+<p><br></p>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Core skill</span> Turn category probabilities into expected counts.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Core tool</span> Use <code>chisq.test()</code> to check the statistic, degrees of freedom, P-value, and expected counts.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Core habit</span> Interpret the result in context, not just as “reject” or “do not reject.”</p>
+</div>
+</div>
+</section>
+<section id="why-categorical-data-need-a-new-tool" class="slide level2">
+<h2>Why Categorical Data Need a New Tool</h2>
+<div class="defbox">
+<p>So far, many methods focused on means, variances, or proportions.</p>
+<p>In this chapter, the data are often <strong>counts across categories</strong>.</p>
+<p>Examples:</p>
+<ul>
+<li>Which app did a student choose?</li>
+<li>Which colour did a customer prefer?</li>
+<li>Which pickup time did an order fall into?</li>
+<li>Which outcome happened in a repeated experiment?</li>
+</ul>
+</div>
+<div class="thinkbox fragment">
+<p>The question is no longer “What is the average?”<br>
+The question is usually: <strong>Do the observed counts match what the model predicted?</strong></p>
+</div>
+</section>
+<section id="from-binomial-to-chi-square" class="slide level2">
+<h2>From Binomial to Chi-square</h2>
+<div class="two-col-wide">
+<div class="col">
+<div class="defbox">
+<p>For two categories, one count can be modelled with a binomial distribution.</p>
+<p>If <span class="math inline">\(Y_1 \sim Bin(n,p_1)\)</span>, then for large <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+Z=
+\frac{Y_1-np_1}
+{\sqrt{np_1(1-p_1)}}
+\approx N(0,1)
+\]</span></p>
+<p>So,</p>
+<p><span class="math display">\[
+Z^2 \approx \chi^2_1
+\]</span></p>
+</div>
+</div>
+<div class="col">
+<div class="notebox fragment">
+<p><span class="label">Pearson’s idea</span></p>
+<p>Instead of only checking one binomial count, compare every observed count to its expected count.</p>
+<p>For two categories:</p>
+<p><span class="math display">\[
+Q_1=
+\sum_{i=1}^{2}
+\frac{(Y_i-np_i)^2}{np_i}
+\]</span></p>
+<p>This extends naturally to more than two categories.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="multinomial-response-model" class="slide level2">
+<h2>10.1 Multinomial Response Model</h2>
+<div class="defbox">
+<p>A <strong>multinomial response model</strong> applies when each trial results in exactly one of <span class="math inline">\(k\)</span> mutually exclusive and exhaustive categories.</p>
+<p>The category probabilities are:</p>
+<p><span class="math display">\[
+p_1,p_2,\ldots,p_k
+\]</span></p>
+<p>with</p>
+<p><span class="math display">\[
+p_1+p_2+\cdots+p_k=1
+\]</span></p>
+</div>
+<div class="three-col">
+<div class="stat-card fragment">
+<p><span class="label">Trials</span> There are <span class="math inline">\(n\)</span> independent and identical trials.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Categories</span> Each trial lands in one of <span class="math inline">\(k\)</span> possible categories.</p>
+</div>
+<div class="stat-card fragment">
+<p><span class="label">Counts</span> The observed category counts are <span class="math inline">\(Y_1,Y_2,\ldots,Y_k\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="multinomial-counts" class="slide level2">
+<h2>Multinomial Counts</h2>
+<div class="defbox">
+<p>If the model probabilities are <span class="math inline">\(p_1,\ldots,p_k\)</span>, the expected count in category <span class="math inline">\(i\)</span> is:</p>
+<p><span class="math display">\[
+E_i=np_i
+\]</span></p>
+<p>The Pearson chi-square statistic is:</p>
+<p><span class="math display">\[
+Q_{k-1}
+=
+\sum_{i=1}^{k}
+\frac{(Y_i-np_i)^2}{np_i}
+=
+\sum_{i=1}^{k}
+\frac{(O_i-E_i)^2}{E_i}
+\]</span></p>
+<p>For large enough expected counts,</p>
+<p><span class="math display">\[
+Q_{k-1}\approx \chi^2_{k-1}
+\]</span></p>
+</div>
+<div class="thinkbox fragment">
+<p>The statistic gets large when observed counts are far from expected counts.</p>
+</div>
+</section>
+<section id="example-streaming-app-preference" class="slide level2">
+<h2>Example: Streaming App Preference</h2>
+<div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
+<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
+<p>A campus media club asks <span class="math inline">\(n=240\)</span> students which streaming app they would keep if they could keep only one.</p>
+<p>The club wants to test whether the four apps are equally preferred.</p>
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>App</th>
+<th style="text-align: right;">Netflix</th>
+<th style="text-align: right;">YouTube</th>
+<th style="text-align: right;">Disney+</th>
+<th style="text-align: right;">Prime</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed count</td>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">30</td>
+</tr>
+</tbody>
+</table>
+<p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
+</div>
+<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<p><span class="label">Calculation</span></p>
+<p>If all four apps are equally preferred:</p>
+<p><span class="math display">\[
+p_1=p_2=p_3=p_4=\frac14
+\]</span></p>
+<p><span class="math display">\[
+E_i=np_i=240\left(\frac14\right)=60
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=
+\frac{(88-60)^2}{60}
++
+\frac{(72-60)^2}{60}
++
+\frac{(50-60)^2}{60}
++
+\frac{(30-60)^2}{60}
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=32.13,\qquad df=4-1=3
+\]</span></p>
+</div>
+<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
+<p><span class="label">Hypotheses</span></p>
+<p><span class="math display">\[
+H_0:p_1=p_2=p_3=p_4=\frac14
+\]</span></p>
+<p><span class="math display">\[
+H_a:\text{the four probabilities are not all equal}
+\]</span></p>
+</div>
+<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<p>Since the P-value is very small, we reject <span class="math inline">\(H_0\)</span>. The sample gives strong evidence that the four streaming apps are <strong>not equally preferred</strong>.</p>
+</div>
+</div>
+</section>
+<section id="example-campus-café-drink-preference" class="slide level2">
+<h2>Example: Campus Café Drink Preference</h2>
+<div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
+<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
+<p>A campus café wants to know whether three cold drink options are equally preferred by students.</p>
+<p>A random sample of <span class="math inline">\(n=180\)</span> student purchases gives:</p>
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Drink</th>
+<th style="text-align: right;">Iced coffee</th>
+<th style="text-align: right;">Matcha latte</th>
+<th style="text-align: right;">Smoothie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed count</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">44</td>
+</tr>
+</tbody>
+</table>
+<p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
+</div>
+<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<p><span class="label">Calculation</span></p>
+<p>If all three drinks are equally preferred:</p>
+<p><span class="math display">\[
+p_1=p_2=p_3=\frac13
+\]</span></p>
+<p><span class="math display">\[
+E_i=np_i=180\left(\frac13\right)=60
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=
+\frac{(72-60)^2}{60}
++
+\frac{(64-60)^2}{60}
++
+\frac{(44-60)^2}{60}
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=6.93,\qquad df=3-1=2
+\]</span></p>
+<p><span class="math display">\[
+p\text{-value}\approx0.031
+\]</span></p>
+</div>
+<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
+<p><span class="label">Hypotheses</span></p>
+<p><span class="math display">\[
+H_0:p_1=p_2=p_3=\frac13
+\]</span></p>
+<p><span class="math display">\[
+H_a:\text{the three probabilities are not all equal}
+\]</span></p>
+</div>
+<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<p>Since <span class="math inline">\(0.031&lt;0.05\)</span>, we reject <span class="math inline">\(H_0\)</span>. The sample suggests that the three café drinks are not equally preferred.</p>
+</div>
+</div>
+</section>
+<section id="visual-check-observed-vs-expected" class="slide level2">
+<h2>Visual Check: Observed vs Expected</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-0848ec65798a9f4d0a99" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-0848ec65798a9f4d0a99">{"x":{"visdat":{"e9fb3977e535":["function () ","plotlyVisDat"],"e9fb6e69180c":["function () ","data"],"e9fb35a9f475":["function () ","data"]},"cur_data":"e9fb35a9f475","attrs":{"e9fb6e69180c":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"bar","name":"Observed","marker":{"color":"#00695c"},"text":{},"textposition":"outside","hovertemplate":"<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","inherit":true},"e9fb35a9f475":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"bar","name":"Expected under equal preference","marker":{"color":"#9bd3e6"},"text":{},"textposition":"outside","hovertemplate":"<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","inherit":true}},"layout":{"height":420,"margin":{"b":70,"l":70,"t":86,"r":25},"barmode":"group","bargap":0.28000000000000003,"bargroupgap":0.080000000000000002,"legend":{"orientation":"h","x":0.02,"y":1.0800000000000001,"bgcolor":"rgba(255,255,255,0)"},"title":{"text":"Streaming app preference: observed counts vs equal-preference expected counts","font":{"size":16},"x":0.02},"dragmode":false,"xaxis":{"domain":[0,1],"automargin":true,"title":"Streaming app","range":[],"fixedrange":true,"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)","type":"category","categoryorder":"array","categoryarray":["Disney+","Netflix","Prime","YouTube"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Student count","range":[0,100],"fixedrange":true,"zeroline":false,"showline":true,"linecolor":"#d8dee2","gridcolor":"rgba(0,0,0,0.08)"},"paper_bgcolor":"rgba(0,0,0,0)","plot_bgcolor":"white","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"displaylogo":false,"scrollZoom":false,"doubleClick":false,"staticPlot":false},"data":[{"x":["Netflix","YouTube","Disney+","Prime"],"y":[88,72,50,30],"type":"bar","name":"Observed","marker":{"color":"#00695c","line":{"color":"rgba(31,119,180,1)"}},"text":[88,72,50,30],"textposition":["outside","outside","outside","outside"],"hovertemplate":["<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Observed: %{y}<extra><\/extra>"],"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["Netflix","YouTube","Disney+","Prime"],"y":[60,60,60,60],"type":"bar","name":"Expected under equal preference","marker":{"color":"#9bd3e6","line":{"color":"rgba(255,127,14,1)"}},"text":[60,60,60,60],"textposition":["outside","outside","outside","outside"],"hovertemplate":["<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>","<b>%{x}<\/b><br>Expected: %{y}<extra><\/extra>"],"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="check-in-r-multinomial-equal-preference-tests" class="slide level2 gof-r-check">
+<h2>Check in R: Multinomial Equal-Preference Tests</h2>
+<style>
+.reveal section.gof-r-check .cm-editor,
+.reveal section.gof-r-check .cm-content,
+.reveal section.gof-r-check .cm-line,
+.reveal section.gof-r-check pre,
+.reveal section.gof-r-check code {
+  font-size: 0.78em !important;
+  line-height: 1.05 !important;
+}
+
+.reveal section.gof-r-check .cell-output,
+.reveal section.gof-r-check .cell-output-stdout,
+.reveal section.gof-r-check .cell-output pre {
+  font-size: 0.68em !important;
+  line-height: 1.02 !important;
+  white-space: pre !important;
+}
+
+.reveal section.gof-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
+<div class="two-col-wide" style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;">
+<div class="col">
+<div class="notebox" style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;">
+<p><span class="label">Streaming app example</span></p>
+</div>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-1" class="exercise-cell">
+
+</div>
+<script type="webr-1-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxueCA8LSBjKE5ldGZsaXggPSA4OCxcbiAgICAgICBZb3VUdWJlID0gNzIsXG4gICAgICAgRGlzbmV5ID0gNTAsXG4gICAgICAgUHJpbWUgPSAzMClcblxudHQgPC0gY2hpc3EudGVzdCh4KVxuXG5vdXQgPC0gZGF0YS5mcmFtZShcbiAgWDIgPSB1bm5hbWUodHQkc3RhdGlzdGljKSxcbiAgZGYgPSB1bm5hbWUodHQkcGFyYW1ldGVyKSxcbiAgcF92YWx1ZSA9IHR0JHAudmFsdWVcbilcblxucHJpbnQocm91bmQob3V0LCA1KSwgcm93Lm5hbWVzID0gRkFMU0UpXG50dCRleHBlY3RlZCJ9
+</script>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="notebox" style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;">
+<p><span class="label">Campus café drink example</span></p>
+</div>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-2" class="exercise-cell">
+
+</div>
+<script type="webr-2-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxueCA8LSBjKEljZWRDb2ZmZWUgPSA3MixcbiAgICAgICBNYXRjaGEgPSA2NCxcbiAgICAgICBTbW9vdGhpZSA9IDQ0KVxuXG50dCA8LSBjaGlzcS50ZXN0KHgpXG5cbm91dCA8LSBkYXRhLmZyYW1lKFxuICBYMiA9IHVubmFtZSh0dCRzdGF0aXN0aWMpLFxuICBkZiA9IHVubmFtZSh0dCRwYXJhbWV0ZXIpLFxuICBwX3ZhbHVlID0gdHQkcC52YWx1ZVxuKVxuXG5wcmludChyb3VuZChvdXQsIDUpLCByb3cubmFtZXMgPSBGQUxTRSlcbnR0JGV4cGVjdGVkIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="chi-square-test-for-goodness-of-fit" class="slide level2">
+<h2>10.2 Chi-square Test for Goodness of Fit</h2>
+<div class="defbox">
+<p>A <strong>chi-square goodness-of-fit test</strong> checks whether observed category counts agree with a hypothesized probability model.</p>
+<p>The hypotheses are:</p>
+<p><span class="math display">\[
+H_0:
+p_1=p_{hyp,1},\;
+p_2=p_{hyp,2},\;
+\ldots,\;
+p_k=p_{hyp,k}
+\]</span></p>
+<p><span class="math display">\[
+H_a:\text{at least one category probability is different}
+\]</span></p>
+</div>
+<div class="thinkbox fragment">
+<p>The null hypothesis can say “all categories are equal,” but it can also give unequal hypothesized probabilities.</p>
+</div>
+</section>
+<section id="goodness-of-fit-test-statistic" class="slide level2">
+<h2>Goodness-of-Fit Test Statistic</h2>
+<div class="defbox">
+<p>The test statistic is:</p>
+<p><span class="math display">\[
+\chi^2
+=
+\sum
+\frac{(\text{observed count}-\text{expected count})^2}
+{\text{expected count}}
+\]</span></p>
+<p>where:</p>
+<p><span class="math display">\[
+\text{expected count}=np_i
+\]</span></p>
+<p>The P-value is the area to the right of the observed <span class="math inline">\(\chi^2\)</span> statistic under a chi-square distribution with:</p>
+<p><span class="math display">\[
+df=k-1
+\]</span></p>
+</div>
+<div class="warnbox fragment">
+<p>This is always a <strong>right-tail test</strong>. Large <span class="math inline">\(\chi^2\)</span> values mean the observed counts are too far from the hypothesized model.</p>
+</div>
+</section>
+<section id="example-campus-food-pickup-slots" class="slide level2">
+<h2>Example: Campus Food Pickup Slots</h2>
+<div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
+<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
+<p>A campus food hall predicts how mobile pickup orders are distributed across four time slots.</p>
+<p>The historical model is:</p>
+<p><span class="math display">\[
+(0.15,\;0.35,\;0.30,\;0.20)
+\]</span></p>
+<p>A random sample of <span class="math inline">\(n=200\)</span> orders gives:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Slot</th>
+<th style="text-align: right;">11-12</th>
+<th style="text-align: right;">12-1</th>
+<th style="text-align: right;">1-2</th>
+<th style="text-align: right;">2-3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed count</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+<p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
+</div>
+<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<p><span class="label">Calculation</span></p>
+<p>Expected counts:</p>
+<p><span class="math display">\[
+200(0.15,0.35,0.30,0.20)
+=
+(30,70,60,40)
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=
+\frac{(24-30)^2}{30}
++
+\frac{(82-70)^2}{70}
++
+\frac{(54-60)^2}{60}
++
+\frac{(40-40)^2}{40}
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=3.86,\qquad df=4-1=3
+\]</span></p>
+<p><span class="math display">\[
+p\text{-value}\approx0.277
+\]</span></p>
+</div>
+<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
+<p><span class="label">Hypotheses</span></p>
+<p><span class="math display">\[
+H_0:(p_1,p_2,p_3,p_4)
+=
+(0.15,0.35,0.30,0.20)
+\]</span></p>
+<p><span class="math display">\[
+H_a:\text{at least one probability differs}
+\]</span></p>
+</div>
+<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<p>Since <span class="math inline">\(0.277&gt;0.05\)</span>, we do not reject <span class="math inline">\(H_0\)</span>. The observed pickup counts are reasonably consistent with the historical time-slot model.</p>
+</div>
+</div>
+</section>
+<section id="example-phone-case-colour-demand" class="slide level2">
+<h2>Example: Phone Case Colour Demand</h2>
+<div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
+<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
+<p>A phone accessory shop expects case colour demand to follow:</p>
+<p><span class="math display">\[
+(0.30,\;0.25,\;0.25,\;0.20)
+\]</span></p>
+<p>for black, clear, blue, and pink cases.</p>
+<p>A sample of <span class="math inline">\(n=150\)</span> recent purchases gives:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Colour</th>
+<th style="text-align: right;">Black</th>
+<th style="text-align: right;">Clear</th>
+<th style="text-align: right;">Blue</th>
+<th style="text-align: right;">Pink</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed count</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">23</td>
+</tr>
+</tbody>
+</table>
+<p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
+</div>
+<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<p><span class="label">Calculation</span></p>
+<p>Expected counts:</p>
+<p><span class="math display">\[
+150(0.30,0.25,0.25,0.20)
+=
+(45,37.5,37.5,30)
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=
+\frac{(63-45)^2}{45}
++
+\frac{(28-37.5)^2}{37.5}
++
+\frac{(36-37.5)^2}{37.5}
++
+\frac{(23-30)^2}{30}
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=11.30,\qquad df=3
+\]</span></p>
+<p><span class="math display">\[
+p\text{-value}\approx0.0102
+\]</span></p>
+</div>
+<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
+<p><span class="label">Interpretation setup</span></p>
+<p>One term of the statistic is especially large:</p>
+<p><span class="math display">\[
+\frac{(63-45)^2}{45}=7.20
+\]</span></p>
+<p>This shows that black case purchases are far above what the model expected.</p>
+</div>
+<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<p>Since <span class="math inline">\(0.0102&lt;0.05\)</span>, we reject <span class="math inline">\(H_0\)</span>. The colour demand pattern does not fit the shop’s expected distribution well.</p>
+</div>
+</div>
+</section>
+<section id="check-in-r-goodness-of-fit-tests" class="slide level2 gof-r-check">
+<h2>Check in R: Goodness-of-Fit Tests</h2>
+<div class="two-col-wide" style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;">
+<div class="col">
+<div class="notebox" style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;">
+<p><span class="label">Campus food pickup example</span></p>
+</div>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-3" class="exercise-cell">
+
+</div>
+<script type="webr-3-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxueCA8LSBjKFwiMTEtMTJcIiA9IDI0LCBcIjEyLTFcIiA9IDgyLFxuICAgICAgIFwiMS0yXCIgPSA1NCwgXCIyLTNcIiA9IDQwKVxuXG5wMCA8LSBjKDAuMTUsIDAuMzUsIDAuMzAsIDAuMjApXG5cbnR0IDwtIGNoaXNxLnRlc3QoeCwgcCA9IHAwKVxuXG5vdXQgPC0gZGF0YS5mcmFtZShcbiAgWDIgPSB1bm5hbWUodHQkc3RhdGlzdGljKSxcbiAgZGYgPSB1bm5hbWUodHQkcGFyYW1ldGVyKSxcbiAgcF92YWx1ZSA9IHR0JHAudmFsdWVcbilcblxucHJpbnQocm91bmQob3V0LCA0KSwgcm93Lm5hbWVzID0gRkFMU0UpXG5yb3VuZCh0dCRleHBlY3RlZCwgMSkifQ==
+</script>
+</div>
+</div>
+</div>
+<div class="col">
+<div class="notebox" style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;">
+<p><span class="label">Phone case colour example</span></p>
+</div>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-4" class="exercise-cell">
+
+</div>
+<script type="webr-4-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxueCA8LSBjKEJsYWNrID0gNjMsIENsZWFyID0gMjgsXG4gICAgICAgQmx1ZSA9IDM2LCBQaW5rID0gMjMpXG5cbnAwIDwtIGMoMC4zMCwgMC4yNSwgMC4yNSwgMC4yMClcblxudHQgPC0gY2hpc3EudGVzdCh4LCBwID0gcDApXG5cbm91dCA8LSBkYXRhLmZyYW1lKFxuICBYMiA9IHVubmFtZSh0dCRzdGF0aXN0aWMpLFxuICBkZiA9IHVubmFtZSh0dCRwYXJhbWV0ZXIpLFxuICBwX3ZhbHVlID0gdHQkcC52YWx1ZVxuKVxuXG5wcmludChyb3VuZChvdXQsIDQpLCByb3cubmFtZXMgPSBGQUxTRSlcbnJvdW5kKHR0JGV4cGVjdGVkLCAxKSJ9
+</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-the-chi-square-statistic" class="slide level2">
+<h2>Reading the Chi-square Statistic</h2>
+<div class="two-col">
+<div class="defbox">
+<p>Each category contributes one term:</p>
+<p><span class="math display">\[
+\frac{(O_i-E_i)^2}{E_i}
+\]</span></p>
+<p>The total <span class="math inline">\(\chi^2\)</span> statistic is the sum of these terms.</p>
+</div>
+<div class="notebox fragment">
+<p><span class="label">How to read the terms</span></p>
+<p>A category contributes more when the observed count is far from the expected count.</p>
+<p>This helps explain why the final statistic is small or large.</p>
+</div>
+</div>
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-5" class="exercise-cell">
+
+</div>
+<script type="webr-5-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxub2JzZXJ2ZWQgPC0gYyhCbGFjayA9IDYzLCBDbGVhciA9IDI4LFxuICAgICAgICAgICAgICBCbHVlID0gMzYsIFBpbmsgPSAyMylcblxuZXhwZWN0ZWQgPC0gYyg0NSwgMzcuNSwgMzcuNSwgMzApXG5cbmNvbnRyaWIgPC0gKG9ic2VydmVkIC0gZXhwZWN0ZWQpXjIgLyBleHBlY3RlZFxuXG5yb3VuZChkYXRhLmZyYW1lKFxuICBvYnNlcnZlZCA9IG9ic2VydmVkLFxuICBleHBlY3RlZCA9IGV4cGVjdGVkLFxuICBjb250cmlidXRpb24gPSBjb250cmliXG4pLCAzKSJ9
+</script>
+</div>
+</div>
+</section>
+<section id="sample-size-assumption" class="slide level2">
+<h2>10.3 Sample Size Assumption</h2>
+<div class="defbox">
+<p>The chi-square approximation works well only when the expected counts are large enough.</p>
+<p>A common course rule is:</p>
+<p><span class="math display">\[
+E_i=np_i\ge 5
+\quad
+\text{for every category}
+\]</span></p>
+</div>
+<div class="two-col">
+<div class="notebox fragment">
+<p><span class="label">Good situation</span></p>
+<p>Expected counts:</p>
+<p><span class="math display">\[
+(30,70,60,40)
+\]</span></p>
+<p>Every expected count is at least 5, so the chi-square approximation is reasonable.</p>
+</div>
+<div class="warnbox fragment">
+<p><span class="label">Problem situation</span></p>
+<p>Expected counts:</p>
+<p><span class="math display">\[
+(2.5,4.5,18,25)
+\]</span></p>
+<p>Some expected counts are below 5, so the chi-square approximation may be unreliable.</p>
+</div>
+</div>
+</section>
+<section id="assumptions-for-chi-square-goodness-of-fit" class="slide level2">
+<h2>Assumptions for Chi-square Goodness of Fit</h2>
+<div class="notebox" style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;">
+<p><span class="label">Assumptions</span></p>
+<ul class="assumption-list" style="gap: 10px;">
+<li>
+<strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.
+</li>
+<li>
+<strong>One category per trial:</strong> Each observation should fall into exactly one of the possible categories.
+</li>
+<li>
+<strong>Independent trials:</strong> The trials or observations should be independent.
+</li>
+<li>
+<strong>Expected cell frequency:</strong> Each expected count should usually be at least 5.
+</li>
+</ul>
+</div>
+<div class="thinkbox" style="font-size: 0.70em; line-height: 1.22; padding: 13px 16px; margin-top: 14px;">
+<p><span class="label">Course reminder</span></p>
+<p>Check expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied.</p>
+</div>
+</section>
+<section id="section" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>A goodness-of-fit test has five categories. Under <span class="math inline">\(H_0\)</span>, the expected counts are:</p>
+<p><span class="math display">\[
+(8,\;12,\;20,\;4,\;16)
+\]</span></p>
+<p>Which statement is best?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The test is fine because the total sample size is large</li>
+<li>The test is fine because most observed counts are above 5</li>
+<li><span class="correct" data-explanation="The expected cell frequency condition checks expected counts, and here one expected count is 4, which is below 5.">The chi-square approximation is questionable because one expected count is below 5</span></li>
+<li>The degrees of freedom should be 5</li>
+</ul>
+</section>
+<section id="practice-food-delivery-app-share" class="slide level2">
+<h2>Practice: Food Delivery App Share</h2>
+<div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
+<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
+<p>A student group claims food delivery app choices on campus follow:</p>
+<p><span class="math display">\[
+(0.10,\;0.20,\;0.30,\;0.20,\;0.20)
+\]</span></p>
+<p>A random sample of <span class="math inline">\(n=150\)</span> students gives:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>App</th>
+<th style="text-align: right;">A</th>
+<th style="text-align: right;">B</th>
+<th style="text-align: right;">C</th>
+<th style="text-align: right;">D</th>
+<th style="text-align: right;">E</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Observed count</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">28</td>
+</tr>
+</tbody>
+</table>
+<p>Test the model at the 1% significance level.</p>
+</div>
+<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<p><span class="label">Calculation</span></p>
+<p>Expected counts:</p>
+<p><span class="math display">\[
+150(0.10,0.20,0.30,0.20,0.20)
+=
+(15,30,45,30,30)
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=
+\frac{(12-15)^2}{15}
++
+\frac{(32-30)^2}{30}
++
+\frac{(42-45)^2}{45}
++
+\frac{(36-30)^2}{30}
++
+\frac{(28-30)^2}{30}
+\]</span></p>
+<p><span class="math display">\[
+\chi^2=2.27,\qquad df=5-1=4
+\]</span></p>
+<p><span class="math display">\[
+p\text{-value}\approx0.687
+\]</span></p>
+</div>
+<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
+<p><span class="label">Decision rule</span></p>
+<p>At the 1% level, reject <span class="math inline">\(H_0\)</span> only if the P-value is less than <span class="math inline">\(0.01\)</span>.</p>
+</div>
+<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<p>Since <span class="math inline">\(0.687&gt;0.01\)</span>, we do not reject <span class="math inline">\(H_0\)</span>. The observed app choices are consistent with the claimed distribution.</p>
+</div>
+</div>
+</section>
+<section id="check-in-r-practice-test" class="slide level2 gof-r-check">
+<h2>Check in R: Practice Test</h2>
+<div class="two-col-wide" style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;">
+<div class="col">
+<div class="notebox" style="font-size: 0.66em; line-height: 1.20; padding: 13px 16px; margin-top: 8px;">
+<p><span class="label">Food delivery app share</span></p>
+<p>We test:</p>
+<p><span class="math display">\[
+H_0:(p_1,p_2,p_3,p_4,p_5)
+=
+(0.10,0.20,0.30,0.20,0.20)
+\]</span></p>
+<p>The expected counts should be:</p>
+<p><span class="math display">\[
+(15,30,45,30,30)
+\]</span></p>
+</div>
+<div class="examplebox" style="font-size: 0.63em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;">
+<p>At <span class="math inline">\(\alpha=0.01\)</span>, the large P-value means we do not reject the model.</p>
+</div>
+</div>
+<div class="col">
+<div class="cell" data-autorun="false">
+<div>
+<div id="webr-6" class="exercise-cell">
+
+</div>
+<script type="webr-6-contents">
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxueCA8LSBjKEEgPSAxMiwgQiA9IDMyLCBDID0gNDIsXG4gICAgICAgRCA9IDM2LCBFID0gMjgpXG5cbnAwIDwtIGMoMC4xMCwgMC4yMCwgMC4zMCwgMC4yMCwgMC4yMClcblxudHQgPC0gY2hpc3EudGVzdCh4LCBwID0gcDApXG5cbm91dCA8LSBkYXRhLmZyYW1lKFxuICBYMiA9IHVubmFtZSh0dCRzdGF0aXN0aWMpLFxuICBkZiA9IHVubmFtZSh0dCRwYXJhbWV0ZXIpLFxuICBwX3ZhbHVlID0gdHQkcC52YWx1ZVxuKVxuXG5wcmludChyb3VuZChvdXQsIDQpLCByb3cubmFtZXMgPSBGQUxTRSlcbnR0JGV4cGVjdGVkIn0=
+</script>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="chapter-summary" class="slide level2">
+<h2>Chapter Summary</h2>
+<div class="three-col">
+<div class="card">
+<p><span class="label">1. Model the counts</span> Use a multinomial model when each trial falls into exactly one of <span class="math inline">\(k\)</span> categories.</p>
+</div>
+<div class="card">
+<p><span class="label">2. Build expected counts</span> Under the null model:</p>
+<p><span class="math display">\[
+E_i=np_i
+\]</span></p>
+<p>These are the counts we would expect if <span class="math inline">\(H_0\)</span> were true.</p>
+</div>
+<div class="card">
+<p><span class="label">3. Compare with <span class="math inline">\(\chi^2\)</span></span> Use:</p>
+<p><span class="math display">\[
+\chi^2=\sum\frac{(O_i-E_i)^2}{E_i}
+\]</span></p>
+<p>Large values give evidence against <span class="math inline">\(H_0\)</span>.</p>
+</div>
+</div>
+<p><br></p>
+<div class="three-col">
+<div class="stat-card">
+<p><span class="label">Degrees of freedom</span></p>
+<p><span class="math display">\[
+df=k-1
+\]</span></p>
+</div>
+<div class="stat-card">
+<p><span class="label">P-value</span> Use the right-tail area under the chi-square distribution.</p>
+</div>
+<div class="stat-card">
+<p><span class="label">Assumption check</span> Each expected count should usually be at least 5.</p>
+</div>
+</div>
+</section>
+<section id="end-of-chapter-10" class="slide level2">
+<h2>End of Chapter 10</h2>
+<div class="three-col">
+<div class="card">
+<p><span class="label">You can now…</span> Recognize categorical count data and connect it to a multinomial model.</p>
+</div>
+<div class="card">
+<p><span class="label">You can now…</span> Compute expected counts and a chi-square goodness-of-fit statistic.</p>
+</div>
+<div class="card">
+<p><span class="label">You can now…</span> Use <code>chisq.test()</code> to check the statistic, degrees of freedom, P-value, and expected counts.</p>
+</div>
+</div>
+<div class="thinkbox" style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;">
+<p><span class="label">Final takeaway</span></p>
+<p>Goodness-of-fit tests ask whether the observed category counts are close enough to what the null model predicted, allowing for natural sampling variation.</p>
+</div>
+<div class="home-button-row">
+<p><a href="../index.html" class="home-button">Back to Course Home</a></p>
+</div>
+
+
+<script type="webr-data">
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsImdncGxvdDIiLCJkcGx5ciIsInBsb3RseSJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
+</script>
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC02IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV82O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzYgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici02LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItNi1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV82ID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl82LCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfNTtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl81ID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItNS1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTUtY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfNSA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfNSwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKHsgaWQ6IGB3ZWJyLTItY29udGVudHNgIH0sIGJsb2NrLmF0dHIpO1xuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuXG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxuX3dlYnJfdmFsdWVfMiA9IHdlYlJPanMucHJvY2Vzcyhfd2Vicl9lZGl0b3JfMiwge30pO1xuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTEiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzE7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfMSA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTEtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici0xLWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzEgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzEsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXByZWx1ZGUiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ3ZWJST2pzID0ge1xuICBjb25zdCB7IFdlYlIsIENoYW5uZWxUeXBlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lLldlYlI7XG4gIGNvbnN0IHtcbiAgICBXZWJSRXZhbHVhdG9yLFxuICAgIFdlYlJFbnZpcm9ubWVudE1hbmFnZXIsXG4gICAgc2V0dXBSLFxuICAgIGI2NERlY29kZSxcbiAgICBjb2xsYXBzZVBhdGhcbiAgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG5cbiAgY29uc3Qgc3RhdHVzQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLXN0YXR1c1wiKTtcbiAgY29uc3QgaW5kaWNhdG9yQ29udGFpbmVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJleGVyY2lzZS1sb2FkaW5nLWluZGljYXRvclwiKTtcbiAgaW5kaWNhdG9yQ29udGFpbmVyLmNsYXNzTGlzdC5yZW1vdmUoXCJkLW5vbmVcIik7XG5cbiAgbGV0IHN0YXR1c1RleHQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpXG4gIHN0YXR1c1RleHQuY2xhc3NMaXN0ID0gXCJleGVyY2lzZS1sb2FkaW5nLWRldGFpbHNcIjtcbiAgc3RhdHVzVGV4dCA9IHN0YXR1c0NvbnRhaW5lci5hcHBlbmRDaGlsZChzdGF0dXNUZXh0KTtcbiAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBJbml0aWFsaXNlYDtcblxuICAvLyBIb2lzdCBpbmRpY2F0b3Igb3V0IGZyb20gZmluYWwgc2xpZGUgd2hlbiBydW5uaW5nIHVuZGVyIHJldmVhbFxuICBjb25zdCByZXZlYWxTdGF0dXMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiLnJldmVhbCAuZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGlmIChyZXZlYWxTdGF0dXMpIHtcbiAgICByZXZlYWxTdGF0dXMucmVtb3ZlKCk7XG4gICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgPiAuc2xpZGVzXCIpLmFwcGVuZENoaWxkKHJldmVhbFN0YXR1cyk7XG4gIH1cblxuICAvLyBNYWtlIGFueSByZXZlYWwgc2xpZGVzIHdpdGggbGl2ZSBjZWxscyBzY3JvbGxhYmxlXG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoXCIucmV2ZWFsIC5leGVyY2lzZS1jZWxsXCIpLmZvckVhY2goKGVsKSA9PiB7XG4gICAgZWwuY2xvc2VzdCgnc2VjdGlvbi5zbGlkZScpLmNsYXNzTGlzdC5hZGQoXCJzY3JvbGxhYmxlXCIpO1xuICB9KVxuXG4gIC8vIHdlYlIgc3VwcGxlbWVudGFsIGRhdGEgYW5kIG9wdGlvbnNcbiAgY29uc3QgZGF0YUNvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici1kYXRhXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgZGF0YSA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGRhdGFDb250ZW50KSk7XG5cbiAgLy8gR3JhYiBsaXN0IG9mIHJlc291cmNlcyB0byBiZSBkb3dubG9hZGVkXG4gIGNvbnN0IGZpbGVzQ29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ2ZnMtZmlsZVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGZpbGVzID0gSlNPTi5wYXJzZShiNjREZWNvZGUoZmlsZXNDb250ZW50KSk7XG5cbiAgLy8gSW5pdGlhbGlzZSB3ZWJSIGFuZCBzZXR1cCBmb3IgUiBjb2RlIGV2YWx1YXRpb25cbiAgbGV0IHdlYlJQcm9taXNlID0gKGFzeW5jICh3ZWJSKSA9PiB7XG4gICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyB3ZWJSYDtcbiAgICBhd2FpdCB3ZWJSLmluaXQoKTtcblxuICAgIC8vIEluc3RhbGwgcHJvdmlkZWQgbGlzdCBvZiBwYWNrYWdlc1xuICAgIC8vIEVuc3VyZSB3ZWJSIGRlZmF1bHQgcmVwbyBpcyBpbmNsdWRlZFxuICAgIGRhdGEucGFja2FnZXMucmVwb3MucHVzaChcImh0dHBzOi8vcmVwby5yLXdhc20ub3JnXCIpXG4gICAgYXdhaXQgZGF0YS5wYWNrYWdlcy5wa2dzLm1hcCgocGtnKSA9PiAoKSA9PiB7XG4gICAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYERvd25sb2FkaW5nIHBhY2thZ2U6ICR7cGtnfWA7XG4gICAgICByZXR1cm4gd2ViUi5ldmFsUlZvaWQoYFxuICAgICAgICB3ZWJyOjppbnN0YWxsKHBrZywgcmVwb3MgPSByZXBvcylcbiAgICAgICAgbGlicmFyeShwa2csIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSlcbiAgICAgIGAsIHsgZW52OiB7XG4gICAgICAgIHBrZzogcGtnLFxuICAgICAgICByZXBvczogZGF0YS5wYWNrYWdlcy5yZXBvcyxcbiAgICAgIH19KTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIC8vIERvd25sb2FkIGFuZCBpbnN0YWxsIHJlc291cmNlc1xuICAgIGF3YWl0IGZpbGVzLm1hcCgoZmlsZSkgPT4gYXN5bmMgKCkgPT4ge1xuICAgICAgY29uc3QgbmFtZSA9IGZpbGUuc3Vic3RyaW5nKGZpbGUubGFzdEluZGV4T2YoJy8nKSArIDEpO1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyByZXNvdXJjZTogJHtuYW1lfWA7XG4gICAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGZpbGUpO1xuICAgICAgaWYgKCFyZXNwb25zZS5vaykge1xuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoYENhbid0IGRvd25sb2FkIFxcYCR7ZmlsZX1cXGAuIEVycm9yICR7cmVzcG9uc2Uuc3RhdHVzfTogXCIke3Jlc3BvbnNlLnN0YXR1c1RleHR9XCIuYCk7XG4gICAgICB9XG4gICAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuYXJyYXlCdWZmZXIoKTtcblxuICAgICAgLy8gU3RvcmUgVVJMcyBpbiB0aGUgY3dkIHdpdGhvdXQgYW55IHN1YmRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGlmIChmaWxlLmluY2x1ZGVzKFwiOi8vXCIpKSB7XG4gICAgICAgIGZpbGUgPSBuYW1lO1xuICAgICAgfVxuXG4gICAgICAvLyBDb2xsYXBzZSBoaWdoZXIgZGlyZWN0b3J5IHN0cnVjdHVyZVxuICAgICAgZmlsZSA9IGNvbGxhcHNlUGF0aChmaWxlKTtcblxuICAgICAgLy8gQ3JlYXRlIGRpcmVjdG9yeSB0cmVlLCBpZ25vcmluZyBcImRpcmVjdG9yeSBleGlzdHNcIiBWRlMgZXJyb3JzXG4gICAgICBjb25zdCBwYXJ0cyA9IGZpbGUuc3BsaXQoJy8nKS5zbGljZSgwLCAtMSk7XG4gICAgICBsZXQgcGF0aCA9ICcnO1xuICAgICAgd2hpbGUgKHBhcnRzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgcGF0aCArPSBwYXJ0cy5zaGlmdCgpICsgJy8nO1xuICAgICAgICBjb25zdCBhbmFseXNpcyA9IGF3YWl0IHdlYlIuRlMuYW5hbHl6ZVBhdGgocGF0aCk7XG4gICAgICAgIGlmICghYW5hbHlzaXMuZXhpc3RzKSB7XG4gICAgICAgICAgdHJ5IHtcbiAgICAgICAgICAgIGF3YWl0IHdlYlIuRlMubWtkaXIocGF0aCk7XG4gICAgICAgICAgfSBjYXRjaCAoZSkge1xuICAgICAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBGaWxlc3lzdGVtIEVycm9yOiBcIiR7ZS5tZXNzYWdlfVwiLmApO1xuICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgfVxuXG4gICAgICAvLyBXcml0ZSB0aGlzIGZpbGUgdG8gdGhlIFZGU1xuICAgICAgcmV0dXJuIGF3YWl0IHdlYlIuRlMud3JpdGVGaWxlKGZpbGUsIG5ldyBVaW50OEFycmF5KGRhdGEpKTtcbiAgICB9KS5yZWR1Y2UoKGN1ciwgbmV4dCkgPT4gY3VyLnRoZW4obmV4dCksIFByb21pc2UucmVzb2x2ZSgpKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5zdGFsbGluZyB3ZWJSIHNoaW1zYDtcbiAgICBhd2FpdCB3ZWJSLmV2YWxSVm9pZChgd2Vicjo6c2hpbV9pbnN0YWxsKClgKTtcblxuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgV2ViUiBlbnZpcm9ubWVudCBzZXR1cGA7XG4gICAgYXdhaXQgc2V0dXBSKHdlYlIsIGRhdGEpO1xuXG4gICAgc3RhdHVzVGV4dC5yZW1vdmUoKTtcbiAgICBpZiAoc3RhdHVzQ29udGFpbmVyLmNoaWxkcmVuLmxlbmd0aCA9PSAwKSB7XG4gICAgICBzdGF0dXNDb250YWluZXIucGFyZW50Tm9kZS5yZW1vdmUoKTtcbiAgICB9XG4gICAgcmV0dXJuIHdlYlI7XG4gIH0pKG5ldyBXZWJSKGRhdGEub3B0aW9ucykpO1xuXG4gIC8vIEtlZXAgdHJhY2sgb2YgaW5pdGlhbCBPSlMgYmxvY2sgcmVuZGVyXG4gIGNvbnN0IHJlbmRlcmVkT2pzID0ge307XG5cbiAgY29uc3QgcHJvY2VzcyA9IGFzeW5jIChjb250ZXh0LCBpbnB1dHMpID0+IHtcbiAgICBjb25zdCB3ZWJSID0gYXdhaXQgd2ViUlByb21pc2U7XG4gICAgY29uc3QgZXZhbHVhdG9yID0gbmV3IFdlYlJFdmFsdWF0b3Iod2ViUiwgY29udGV4dClcbiAgICBhd2FpdCBldmFsdWF0b3IucHJvY2VzcyhpbnB1dHMpO1xuICAgIHJldHVybiBldmFsdWF0b3IuY29udGFpbmVyO1xuICB9XG5cbiAgcmV0dXJuIHtcbiAgICBwcm9jZXNzLFxuICAgIHdlYlJQcm9taXNlLFxuICAgIHJlbmRlcmVkT2pzLFxuICB9O1xufVxuIn1dfQ==
+</script>
+<div id="exercise-loading-indicator" class="exercise-loading-indicator d-none d-flex align-items-center gap-2">
+<div id="exercise-loading-status" class="d-flex gap-2">
+
+</div>
+<div class="spinner-grow spinner-grow-sm">
+
+</div>
+</div>
+<script type="vfs-file">
+W10=
+</script>
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>STA258 | Chapter 10</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"","defaultIncorrect":"","includeScore":false,"disableReset":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 720,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 5.5e-2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealQuiz, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W119
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../Chapter Slides";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "..";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/nishanmudalige\.github\.io\/STA258_Slides");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

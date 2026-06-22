@@ -753,6 +753,29 @@ window.exampleUpdate = function () {
   <div class="warning">
     <p><strong>Never manually edit files inside <code>docs/</code>.</strong> Any manual edits may be overwritten the next time Quarto renders the website.</p>
   </div>
+  
+  <h3>Refreshing the Quarto Cache</h3>
+
+<p>If a rendered slide deck looks outdated, or if plots/code output are not updating after changes, refresh the Quarto execution cache while rendering.</p>
+
+<pre><code>quarto render --cache-refresh</code></pre>
+
+<p>To refresh the cache for only one chapter slide deck:</p>
+
+<pre><code>quarto render "Chapter Slides/chapterN-slides.qmd" --cache-refresh</code></pre>
+
+<div class="note">
+  <p><strong>Note:</strong> This refreshes Quarto's render cache. After rendering, still commit and push the updated source files and rendered files in <code>docs/</code> if GitHub Pages serves the site from <code>docs/</code>.</p>
+</div>
+<h3>Previewing the Website Locally</h3>
+
+<p>Use <code>quarto preview</code> to open a local preview of the website while editing. This is useful for checking layout, links, images, WebR blocks, quizzes, and interactive widgets before pushing to GitHub.</p>
+
+<pre><code>quarto preview</code></pre>
+
+<p>To preview one specific slide deck:</p>
+
+<pre><code>quarto preview "Chapter Slides/chapterN-slides.qmd"</code></pre>
 
   <h2 id="github">13. GitHub Workflow and Common Commands</h2>
 
@@ -780,9 +803,8 @@ git push</code></pre>
 
   <h3>Other useful commands</h3>
 
-  <pre><code>quarto preview
+  <pre><code>
 quarto render
-quarto render "Chapter Slides/chapterN-slides.qmd"
 quarto clean
 quarto clean --all</code></pre>
 

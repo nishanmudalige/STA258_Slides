@@ -1878,7 +1878,30 @@ strength/stretch routine.
 
 ---
 
-## Check in R: Pooled Two-Sample t Intervals
+## Check in R: Pooled Two-Sample t Intervals {.pooled-r-check}
+
+<style>
+.reveal section.pooled-r-check .cm-editor,
+.reveal section.pooled-r-check .cm-content,
+.reveal section.pooled-r-check .cm-line,
+.reveal section.pooled-r-check pre,
+.reveal section.pooled-r-check code {
+  font-size: 0.78em !important;
+  line-height: 1.05 !important;
+}
+
+.reveal section.pooled-r-check .cell-output,
+.reveal section.pooled-r-check .cell-output-stdout,
+.reveal section.pooled-r-check .cell-output pre {
+  font-size: 0.68em !important;
+  line-height: 1.02 !important;
+  white-space: pre !important;
+}
+
+.reveal section.pooled-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
@@ -1890,19 +1913,23 @@ strength/stretch routine.
 ```{webr}
 #| autorun: false
 
-n1 <- 12; x1 <- 52.4; s1 <- 6.1
-n2 <- 10; x2 <- 47.8; s2 <- 5.4
+samp <- function(n, m, s) m + s * as.numeric(scale(1:n))
 
-df <- n1 + n2 - 2
-sp <- sqrt(((n1-1)*s1^2 + (n2-1)*s2^2) / df)
-se <- sp * sqrt(1/n1 + 1/n2)
-tstar <- qt(0.975, df)
+brand_A <- samp(12, 52.4, 6.1)
+brand_B <- samp(10, 47.8, 5.4)
 
-ci <- (x1 - x2) + c(-1, 1) * tstar * se
+tt <- t.test(brand_A, brand_B,
+             var.equal = TRUE,
+             conf.level = 0.95)
 
-round(c(diff = x1-x2, sp = sp, SE = se,
-        df = df, tstar = tstar,
-        lower = ci[1], upper = ci[2]), 3)
+out <- data.frame(
+  diff = unname(tt$estimate[1] - tt$estimate[2]),
+  df = unname(tt$parameter),
+  lower = tt$conf.int[1],
+  upper = tt$conf.int[2]
+)
+
+print(round(out, 3), row.names = FALSE)
 ```
 :::
 
@@ -1914,19 +1941,23 @@ round(c(diff = x1-x2, sp = sp, SE = se,
 ```{webr}
 #| autorun: false
 
-n1 <- 15; x1 <- 84.2; s1 <- 7.5
-n2 <- 14; x2 <- 78.6; s2 <- 6.8
+samp <- function(n, m, s) m + s * as.numeric(scale(1:n))
 
-df <- n1 + n2 - 2
-sp <- sqrt(((n1-1)*s1^2 + (n2-1)*s2^2) / df)
-se <- sp * sqrt(1/n1 + 1/n2)
-tstar <- qt(0.95, df)
+high_intensity <- samp(15, 84.2, 7.5)
+guided_routine <- samp(14, 78.6, 6.8)
 
-ci <- (x1 - x2) + c(-1, 1) * tstar * se
+tt <- t.test(high_intensity, guided_routine,
+             var.equal = TRUE,
+             conf.level = 0.90)
 
-round(c(diff = x1-x2, sp = sp, SE = se,
-        df = df, tstar = tstar,
-        lower = ci[1], upper = ci[2]), 3)
+out <- data.frame(
+  diff = unname(tt$estimate[1] - tt$estimate[2]),
+  df = unname(tt$parameter),
+  lower = tt$conf.int[1],
+  upper = tt$conf.int[2]
+)
+
+print(round(out, 3), row.names = FALSE)
 ```
 :::
 
@@ -2171,30 +2202,58 @@ users.
 
 ---
 
-## Check in R: Welch Two-Sample t Intervals
+## Check in R: Welch Two-Sample t Intervals {.welch-r-check}
+
+<style>
+.reveal section.welch-r-check .cm-editor,
+.reveal section.welch-r-check .cm-content,
+.reveal section.welch-r-check .cm-line,
+.reveal section.welch-r-check pre,
+.reveal section.welch-r-check code {
+  font-size: 0.78em !important;
+  line-height: 1.05 !important;
+}
+
+.reveal section.welch-r-check .cell-output,
+.reveal section.welch-r-check .cell-output-stdout,
+.reveal section.welch-r-check .cell-output pre {
+  font-size: 0.68em !important;
+  line-height: 1.02 !important;
+  white-space: pre !important;
+}
+
+.reveal section.welch-r-check .notebox {
+  margin-bottom: 5px !important;
+}
+</style>
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Food-delivery wait-time example</span>
+<span class="label">Food delivery vs meal prep example</span>
 :::
 
 ```{webr}
 #| autorun: false
 
-n1 <- 25; x1 <- 42; s1 <- 14
-n2 <- 30; x2 <- 35; s2 <- 9
+samp <- function(n, m, s) m + s * as.numeric(scale(1:n))
 
-df <- min(n1 - 1, n2 - 1)
-se <- sqrt(s1^2/n1 + s2^2/n2)
-tstar <- qt(0.975, df)
+delivery <- samp(18, 96, 22)
+meal_prep <- samp(22, 82, 16)
 
-ci <- (x1 - x2) + c(-1, 1) * tstar * se
+tt <- t.test(delivery, meal_prep,
+             var.equal = FALSE,
+             conf.level = 0.90)
 
-round(c(diff = x1-x2, SE = se,
-        df = df, tstar = tstar,
-        lower = ci[1], upper = ci[2]), 3)
+out <- data.frame(
+  diff = unname(tt$estimate[1] - tt$estimate[2]),
+  df = unname(tt$parameter),
+  lower = tt$conf.int[1],
+  upper = tt$conf.int[2]
+)
+
+print(round(out, 3), row.names = FALSE)
 ```
 :::
 
@@ -2206,18 +2265,23 @@ round(c(diff = x1-x2, SE = se,
 ```{webr}
 #| autorun: false
 
-n1 <- 24; x1 <- 9.8; s1 <- 3.1
-n2 <- 20; x2 <- 12.6; s2 <- 5.8
+samp <- function(n, m, s) m + s * as.numeric(scale(1:n))
 
-df <- min(n1 - 1, n2 - 1)
-se <- sqrt(s1^2/n1 + s2^2/n2)
-tstar <- qt(0.975, df)
+khabib <- samp(24, 9.8, 3.1)
+jon_jones <- samp(20, 12.6, 5.8)
 
-ci <- (x1 - x2) + c(-1, 1) * tstar * se
+tt <- t.test(khabib, jon_jones,
+             var.equal = FALSE,
+             conf.level = 0.95)
 
-round(c(diff = x1-x2, SE = se,
-        df = df, tstar = tstar,
-        lower = ci[1], upper = ci[2]), 3)
+out <- data.frame(
+  diff = unname(tt$estimate[1] - tt$estimate[2]),
+  df = unname(tt$parameter),
+  lower = tt$conf.int[1],
+  upper = tt$conf.int[2]
+)
+
+print(round(out, 3), row.names = FALSE)
 ```
 :::
 
@@ -3232,15 +3296,15 @@ people like those in this paired study.
 .reveal section.paired-r-check .cm-line,
 .reveal section.paired-r-check pre,
 .reveal section.paired-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.78em !important;
+  line-height: 1.05 !important;
 }
 
 .reveal section.paired-r-check .cell-output,
 .reveal section.paired-r-check .cell-output-stdout,
 .reveal section.paired-r-check .cell-output pre {
-  font-size: 0.70em !important;
-  line-height: 1.05 !important;
+  font-size: 0.68em !important;
+  line-height: 1.02 !important;
   white-space: pre !important;
 }
 
@@ -3261,22 +3325,17 @@ people like those in this paired study.
 
 d <- c(2, 1, 3, 0, 2, 4, 1, 2, 3, 1, 0, 2)
 
-mean_d <- mean(d)
-sd_d <- sd(d)
-n <- length(d)
-df <- n - 1
-SE <- sd_d / sqrt(n)
-tstar <- qt(0.975, df)
+tt <- t.test(d, conf.level = 0.95)
 
-ci <- mean_d + c(-1, 1) * tstar * SE
+out <- data.frame(
+  mean_d = mean(d),
+  sd_d = sd(d),
+  df = as.numeric(tt$parameter),
+  lower = tt$conf.int[1],
+  upper = tt$conf.int[2]
+)
 
-out <- round(data.frame(
-  mean_d = mean_d, sd_d = sd_d, SE = SE,
-  df = df, tstar = tstar,
-  lower = ci[1], upper = ci[2]
-), 3)
-
-print(out, row.names = FALSE)
+print(round(out, 3), row.names = FALSE)
 ```
 :::
 
@@ -3290,22 +3349,17 @@ print(out, row.names = FALSE)
 
 d <- c(18, 12, 24, 9, 30, 15, 21, 6, 27, 12, 18, 24)
 
-mean_d <- mean(d)
-sd_d <- sd(d)
-n <- length(d)
-df <- n - 1
-SE <- sd_d / sqrt(n)
-tstar <- qt(0.95, df)
+tt <- t.test(d, conf.level = 0.90)
 
-ci <- mean_d + c(-1, 1) * tstar * SE
+out <- data.frame(
+  mean_d = mean(d),
+  sd_d = sd(d),
+  df = as.numeric(tt$parameter),
+  lower = tt$conf.int[1],
+  upper = tt$conf.int[2]
+)
 
-out <- round(data.frame(
-  mean_d = mean_d, sd_d = sd_d, SE = SE,
-  df = df, tstar = tstar,
-  lower = ci[1], upper = ci[2]
-), 3)
-
-print(out, row.names = FALSE)
+print(round(out, 3), row.names = FALSE)
 ```
 :::
 

@@ -495,7 +495,7 @@ A plausible range of values for a population parameter, built from sample data a
 ## The CI Skeleton
 
 ::: {.defbox}
-All confidence intervals in this chapter are variations of:
+**Most** confidence intervals (means, proportions, and their differences) follow the symmetric form:
 
 $$
 \text{estimate} \pm
@@ -503,14 +503,26 @@ $$
 $$
 :::
 
+::: {.warnbox}
+Intervals for a **variance** $\sigma^2$ follow their own skeleton — an asymmetric one built directly from the $\chi^2$ distribution:
+
+$$
+\left(
+\frac{\text{estimate}}{\text{upper critical value}},\
+\frac{\text{estimate}}{\text{lower critical value}}
+\right)
+\quad\text{where estimate} = (n-1)s^2
+$$
+:::
+
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">Estimate</span>
-$\bar{x}$, $\hat p$, $\bar{x}_1-\bar{x}_2$, $\hat p_1-\hat p_2$, $s^2$, or $s_1^2/s_2^2$.
+$\bar{x}$, $\hat p$, $\bar{x}_1-\bar{x}_2$, or $\hat p_1-\hat p_2$.
 :::
 ::: {.stat-card .fragment}
 <span class="label">Critical value</span>
-From $Z$, $t$, $\chi^2$, or $F$, depending on the sampling distribution.
+From $Z$ or $t$, depending on the sampling distribution.
 :::
 ::: {.stat-card .fragment}
 <span class="label">Standard error</span>

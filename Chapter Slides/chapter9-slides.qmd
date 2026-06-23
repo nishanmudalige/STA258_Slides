@@ -1223,29 +1223,91 @@ groups that watch more highlight clips tend to share more clips.
 
 ---
 
+## Example: Late-Night TikTok Scrolling and Quiz Scores
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
+A student group collects fictional data on late-night TikTok scrolling
+before a morning quiz.
+
+| TikTok minutes after midnight $(x)$ | Quiz score $(y)$ |
+|---:|---:|
+| 15 | 88 |
+| 30 | 84 |
+| 45 | 76 |
+| 60 | 71 |
+| 75 | 63 |
+| 90 | 58 |
+
+Compute and interpret the sample correlation.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+\bar{x}=52.500,
+\qquad
+\bar{y}=73.333
+$$
+
+$$
+s_x=28.062,
+\qquad
+s_y=11.690
+$$
+
+$$
+s_{xy}
+=
+\frac{1}{6-1}
+\sum(x_i-\bar{x})(y_i-\bar{y})
+=
+-327.000
+$$
+
+$$
+r=
+\frac{s_{xy}}{s_xs_y}
+=
+\frac{-327.000}{(28.062)(11.690)}
+=
+-0.997
+$$
+
+$$
+r^2=0.994
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target relationship</span>
+
+We compare late-night TikTok scrolling time and morning quiz score.
+
+The sign of $r$ tells us direction. The size of $r$ tells us strength.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+The correlation is **-0.997**, so the relationship is strongly negative:
+students who scrolled longer after midnight tended to have lower quiz
+scores.
+:::
+
+::::
+
+------------------------------------------------------------------------
+
 ## Check in R: Covariance and Correlation {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;"}
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
-::: {.notebox style="font-size: 0.66em; line-height: 1.20; padding: 13px 16px; margin-top: 8px;"}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
 <span class="label">Caitlin Clark highlight example</span>
-
-The R check computes:
-
-$$
-s_{xy},
-\qquad
-r,
-\qquad
-r^2.
-$$
-
-For simple linear regression with an intercept, $r^2$ equals $R^2$.
-:::
 :::
 
-::: {.col}
 ```{webr}
 #| autorun: false
 
@@ -1268,6 +1330,35 @@ out <- round(data.frame(
 print(out, row.names = FALSE)
 ```
 :::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">TikTok scrolling example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(15, 30, 45, 60, 75, 90)
+y <- c(88, 84, 76, 71, 63, 58)
+
+model <- lm(y ~ x)
+
+out <- round(data.frame(
+  xbar = mean(x),
+  ybar = mean(y),
+  sx = sd(x),
+  sy = sd(y),
+  sxy = cov(x, y),
+  r = cor(x, y),
+  r2 = cor(x, y)^2,
+  R2 = summary(model)$r.squared
+), 3)
+
+print(out, row.names = FALSE)
+```
+:::
+
 ::::
 
 ------------------------------------------------------------------------
@@ -1661,34 +1752,137 @@ practice laps through the fitted linear model.
 
 ---
 
+## Example: TTC Delays and Commute Time
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.90fr 1.10fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.08; padding: 10px 14px; margin-bottom: 0;"}
+A student tracks fictional TTC trips during a week with random delays.
+
+For each trip:
+
+- $x=$ number of stations travelled
+- $y=$ commute time in minutes
+
+The fitted line is:
+
+$$
+\hat{y}=1.310+3.357x.
+$$
+
+**Question.** Calculate $SSE$, $SSR$, $SST$, and $R^2$.
+
+| $x$ | $y$ | $\hat y$ | $(y-\hat y)^2$ | $(\hat y-\bar y)^2$ |
+|---:|---:|---:|---:|---:|
+| 3 | 12 | 11.381 | 0.383 | 281.760 |
+| 5 | 22 | 18.095 | 15.247 | 101.434 |
+| 7 | 18 | 24.810 | 46.370 | 11.270 |
+| 9 | 36 | 31.524 | 20.036 | 11.270 |
+| 11 | 31 | 38.238 | 52.390 | 101.434 |
+| 13 | 50 | 44.952 | 25.478 | 281.760 |
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+The sample mean response is:
+
+$$
+\bar{y}=28.167
+$$
+
+Unexplained variation:
+
+$$
+SSE=\sum(y_i-\hat{y}_i)^2=159.905
+$$
+
+Explained variation:
+
+$$
+SSR=\sum(\hat{y}_i-\bar{y})^2=788.929
+$$
+
+Total variation:
+
+$$
+SST=\sum(y_i-\bar{y})^2=948.833
+$$
+
+Check:
+
+$$
+SSR+SSE=788.929+159.905=948.833=SST
+$$
+
+$$
+R^2=\frac{788.929}{948.833}=0.831
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target relationship</span>
+
+We model commute time using the number of TTC stations travelled.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+About **83.1%** of the variation in commute time is explained by stations
+travelled. The leftover variation is the messy part: delays, crowding,
+and waiting time.
+:::
+
+::::
+
+------------------------------------------------------------------------
+
 ## Check in R: SSE, SSR, SST, and R² {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;"}
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
-::: {.notebox style="font-size: 0.66em; line-height: 1.20; padding: 13px 16px; margin-top: 8px;"}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
 <span class="label">F1 Monaco simulator example</span>
-
-This checks the same quantities from the worked example:
-
-$$
-SSE,\quad SSR,\quad SST,\quad R^2.
-$$
-
-The important identity is:
-
-$$
-SST=SSR+SSE.
-$$
-:::
 :::
 
-::: {.col}
 ```{webr}
 #| autorun: false
 
 x <- c(5, 8, 10, 12, 15, 18)
 y <- c(0.6, 1.0, 1.4, 1.5, 2.1, 2.4)
+
+model <- lm(y ~ x)
+
+yhat <- fitted(model)
+ybar <- mean(y)
+
+SSE <- sum((y - yhat)^2)
+SSR <- sum((yhat - ybar)^2)
+SST <- sum((y - ybar)^2)
+
+out <- round(data.frame(
+  SSE = SSE,
+  SSR = SSR,
+  SST = SST,
+  Check = SSR + SSE,
+  R2 = SSR / SST,
+  lm_R2 = summary(model)$r.squared
+), 3)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">TTC commute example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(3, 5, 7, 9, 11, 13)
+y <- c(12, 22, 18, 36, 31, 50)
 
 model <- lm(y ~ x)
 
@@ -2369,32 +2563,150 @@ related to live viewers in this fictional example.
 
 ---
 
+## Example: ANOVA for Viral Rap Beef Reaction Clips
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
+A music analytics account studies fictional daily data during a viral
+Kendrick vs Drake reaction week.
+
+For each day:
+
+- $x=$ reaction clips posted
+- $y=$ stream increase in thousands
+
+The fitted line is:
+
+$$
+\hat{y}=12.400+5.886x.
+$$
+
+The variation quantities are:
+
+$$
+SST=610.000,
+\qquad
+SSR=606.229,
+\qquad
+SSE=3.771.
+$$
+
+**Question.** Construct the ANOVA table and test whether reaction clips
+explain a meaningful amount of variation in stream increases.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+There are $n=6$ days, so:
+
+$$
+df_{\text{Reg}}=1,
+\qquad
+df_{\text{Error}}=6-2=4,
+\qquad
+df_{\text{Total}}=5.
+$$
+
+| Source | SS | df | MS | F |
+|---|---:|---:|---:|---:|
+| Regression | 606.229 | 1 | 606.229 | 642.970 |
+| Error | 3.771 | 4 | 0.943 |  |
+| Total | 610.000 | 5 |  |  |
+
+$$
+F=
+\frac{MSR}{MSE}
+=
+\frac{606.229}{0.943}
+=
+642.970
+$$
+
+The p-value is less than 0.001.
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:\beta_1=0
+\qquad
+H_A:\beta_1\ne0
+$$
+
+The ANOVA $F$-test checks whether the regression model explains meaningful
+variation compared with the leftover residual variation.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+Since the p-value is very small, we reject $H_0$. There is strong
+evidence that reaction clips are linearly related to stream increases in
+this fictional dataset.
+:::
+
+::::
+
+------------------------------------------------------------------------
+
 ## Check in R: ANOVA Table {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;"}
+<style>
+.compact-r h2 {
+  font-size: 1.42em;
+  margin-bottom: 0.18em;
+}
+
+.compact-r .two-col-wide {
+  gap: 14px !important;
+  align-items: start;
+}
+
+.compact-r .notebox {
+  font-size: 0.54em !important;
+  line-height: 1.05 !important;
+  padding: 6px 10px !important;
+  margin-bottom: 5px !important;
+}
+
+.compact-r .label {
+  font-size: 0.92em;
+}
+
+.compact-r pre,
+.compact-r code {
+  font-size: 0.72em !important;
+  line-height: 1.05 !important;
+}
+
+.compact-r .cell,
+.compact-r .webr-cell,
+.compact-r .qwebr-cell {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.compact-r .cm-editor,
+.compact-r .cm-content,
+.compact-r .cm-line {
+  font-size: 10.5px !important;
+  line-height: 1.05 !important;
+}
+
+.compact-r .qwebr-editor,
+.compact-r .webr-editor {
+  max-height: 355px !important;
+}
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 14px; align-items: start;"}
 
 ::: {.col}
-::: {.notebox style="font-size: 0.66em; line-height: 1.20; padding: 13px 16px; margin-top: 8px;"}
+::: {.notebox}
 <span class="label">IShowSpeed teaser example</span>
-
-For simple linear regression:
-
-$$
-F=t^2.
-$$
-
-From the slope test:
-
-$$
-3.656^2\approx13.36.
-$$
-
-So the ANOVA \(F\)-test and the two-sided slope \(t\)-test lead to the
-same conclusion.
-:::
 :::
 
-::: {.col}
 ```{webr}
 #| autorun: false
 
@@ -2402,16 +2714,12 @@ x <- c(1, 2, 3, 4, 5)
 y <- c(1, 1, 2, 2, 4)
 
 model <- lm(y ~ x)
-
 a <- anova(model)
+s <- summary(model)
 
 SS_reg <- a$`Sum Sq`[1]
 SS_err <- a$`Sum Sq`[2]
 SS_tot <- SS_reg + SS_err
-
-df_reg <- a$Df[1]
-df_err <- a$Df[2]
-df_tot <- df_reg + df_err
 
 MS_reg <- a$`Mean Sq`[1]
 MS_err <- a$`Mean Sq`[2]
@@ -2422,15 +2730,62 @@ p_val <- a$`Pr(>F)`[1]
 out <- data.frame(
   Source = c("Reg", "Error", "Total"),
   SS = c(round(SS_reg, 3), round(SS_err, 3), round(SS_tot, 3)),
-  df = c(df_reg, df_err, df_tot),
+  df = c(1, length(x) - 2, length(x) - 1),
   MS = c(round(MS_reg, 3), round(MS_err, 3), ""),
   F = c(round(F_val, 3), "", ""),
-  p = c(round(p_val, 4), "", "")
+  p = c(format.pval(p_val, digits = 4), "", "")
 )
 
 print(out, row.names = FALSE)
 
-t_val <- summary(model)$coefficients[2, "t value"]
+t_val <- s$coefficients["x", "t value"]
+
+check <- round(data.frame(
+  F = F_val,
+  t_squared = t_val^2
+), 3)
+
+print(check, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox}
+<span class="label">Rap beef reaction example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(1, 2, 3, 4, 5, 6)
+y <- c(18, 24, 31, 35, 43, 47)
+
+model <- lm(y ~ x)
+a <- anova(model)
+s <- summary(model)
+
+SS_reg <- a$`Sum Sq`[1]
+SS_err <- a$`Sum Sq`[2]
+SS_tot <- SS_reg + SS_err
+
+MS_reg <- a$`Mean Sq`[1]
+MS_err <- a$`Mean Sq`[2]
+
+F_val <- a$`F value`[1]
+p_val <- a$`Pr(>F)`[1]
+
+out <- data.frame(
+  Source = c("Reg", "Error", "Total"),
+  SS = c(round(SS_reg, 3), round(SS_err, 3), round(SS_tot, 3)),
+  df = c(1, length(x) - 2, length(x) - 1),
+  MS = c(round(MS_reg, 3), round(MS_err, 3), ""),
+  F = c(round(F_val, 3), "", ""),
+  p = c(format.pval(p_val, digits = 4), "", "")
+)
+
+print(out, row.names = FALSE)
+
+t_val <- s$coefficients["x", "t value"]
 
 check <- round(data.frame(
   F = F_val,
@@ -2552,25 +2907,99 @@ used to fit the model.
 
 ---
 
+## Example: The Weeknd Concert Resale Prices
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
+A student tracks fictional resale ticket prices for a Weeknd concert as
+the show gets closer.
+
+The fitted line is:
+
+$$
+\hat{y}=453.381-12.714x
+$$
+
+where:
+
+- $x=$ days before the concert
+- $y=$ resale ticket price in dollars
+
+Predict the resale price for:
+
+$$
+x=8
+$$
+
+and compare it with predicting at:
+
+$$
+x=30.
+$$
+
+Observed $x$ values range from 3 to 13 days before the concert.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+For 8 days before the concert:
+
+$$
+\hat{y}
+=
+453.381-12.714(8)
+=
+351.67
+$$
+
+This is **interpolation** because $x=8$ is inside the observed range.
+
+For 30 days before the concert:
+
+$$
+\hat{y}
+=
+453.381-12.714(30)
+=
+71.95
+$$
+
+This is **extrapolation** because $x=30$ is outside the observed range.
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Prediction target</span>
+
+The observed data only cover the final stretch before the concert:
+
+$$
+3 \le x \le 13.
+$$
+
+Predictions inside this range are safer than predictions far outside it.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+The 8-day prediction is reasonable if the line fits well. The 30-day
+prediction should be treated carefully because resale markets can behave
+very differently far away from show day.
+:::
+
+::::
+
+------------------------------------------------------------------------
+
 ## Check in R: Prediction {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;"}
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
-::: {.notebox style="font-size: 0.66em; line-height: 1.20; padding: 13px 16px; margin-top: 8px;"}
-<span class="label">Interpolation and extrapolation</span>
-
-The model predicts monthly rent from unit size.
-
-The calculation is still based on:
-
-$$
-\hat{y}=1090.476+220.238x.
-$$
-:::
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Toronto condo example</span>
 :::
 
-::: {.col}
 ```{webr}
 #| autorun: false
 
@@ -2583,10 +3012,48 @@ model <- lm(y ~ x)
 new_units <- data.frame(x = c(8, 20))
 predicted <- predict(model, newdata = new_units)
 
+type <- ifelse(
+  new_units$x >= min(x) & new_units$x <= max(x),
+  "interpolation",
+  "extrapolation"
+)
+
 out <- data.frame(
   sqft = c(800, 2000),
-  type = c("interpolation", "extrapolation"),
-  rent = round(predicted, 2)
+  type = type,
+  predicted_rent = round(predicted, 2)
+)
+
+print(out, row.names = FALSE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">The Weeknd resale example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+x <- c(3, 5, 7, 9, 11, 13)
+y <- c(420, 390, 360, 335, 310, 295)
+
+model <- lm(y ~ x)
+
+new_days <- data.frame(x = c(8, 30))
+predicted <- predict(model, newdata = new_days)
+
+type <- ifelse(
+  new_days$x >= min(x) & new_days$x <= max(x),
+  "interpolation",
+  "extrapolation"
+)
+
+out <- data.frame(
+  days_before_concert = new_days$x,
+  type = type,
+  predicted_price = round(predicted, 2)
 )
 
 print(out, row.names = FALSE)

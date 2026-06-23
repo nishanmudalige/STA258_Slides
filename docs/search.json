@@ -3245,7 +3245,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-covariance-and-correlation",
     "title": "STA258",
     "section": "Check in R: Covariance and Correlation",
-    "text": "Check in R: Covariance and Correlation\n\n\n\nCaitlin Clark highlight example\nThe R check computes:\n\\[\ns_{xy},\n\\qquad\nr,\n\\qquad\nr^2.\n\\]\nFor simple linear regression with an intercept, \\(r^2\\) equals \\(R^2\\)."
+    "text": "Check in R: Covariance and Correlation\n\n\n\nCaitlin Clark highlight example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-unexplained-variation",
@@ -3259,7 +3259,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-sse-ssr-sst-and-r²",
     "title": "STA258",
     "section": "Check in R: SSE, SSR, SST, and R²",
-    "text": "Check in R: SSE, SSR, SST, and R²\n\n\n\nF1 Monaco simulator example\nThis checks the same quantities from the worked example:\n\\[\nSSE,\\quad SSR,\\quad SST,\\quad R^2.\n\\]\nThe important identity is:\n\\[\nSST=SSR+SSE.\n\\]"
+    "text": "Check in R: SSE, SSR, SST, and R²\n\n\n\nF1 Monaco simulator example\n\n\n\n\n\n\n\n\n\n\n\n\nTTC commute example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-short-form-video-length-and-completion-rate",
@@ -3301,7 +3301,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-prediction",
     "title": "STA258",
     "section": "Check in R: Prediction",
-    "text": "Check in R: Prediction\n\n\n\nInterpolation and extrapolation\nThe model predicts monthly rent from unit size.\nThe calculation is still based on:\n\\[\n\\hat{y}=1090.476+220.238x.\n\\]"
+    "text": "Check in R: Prediction\n\n\n\nToronto condo example\n\n\n\n\n\n\n\n\n\n\n\n\nThe Weeknd resale example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#assumptions-for-simple-linear-regression",
@@ -3581,7 +3581,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-anova-table",
     "title": "STA258",
     "section": "Check in R: ANOVA Table",
-    "text": "Check in R: ANOVA Table\n\n\n\nIShowSpeed teaser example\nFor simple linear regression:\n\\[\nF=t^2.\n\\]\nFrom the slope test:\n\\[\n3.656^2\\approx13.36.\n\\]\nSo the ANOVA (F)-test and the two-sided slope (t)-test lead to the same conclusion."
+    "text": "Check in R: ANOVA Table\n\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nRap beef reaction example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
@@ -3939,5 +3939,33 @@
     "title": "STA258",
     "section": "Check in R: Multinomial Equal-Preference Tests",
     "text": "Check in R: Multinomial Equal-Preference Tests\n\n\n\n\nStreaming app example\n\n\n\n\n\n\n\n\n\n\n\n\nCampus café drink example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-late-night-tiktok-scrolling-and-quiz-scores",
+    "href": "Chapter Slides/chapter9-slides.html#example-late-night-tiktok-scrolling-and-quiz-scores",
+    "title": "STA258",
+    "section": "Example: Late-Night TikTok Scrolling and Quiz Scores",
+    "text": "Example: Late-Night TikTok Scrolling and Quiz Scores\n\n\nA student group collects fictional data on late-night TikTok scrolling before a morning quiz.\n\n\n\nTikTok minutes after midnight \\((x)\\)\nQuiz score \\((y)\\)\n\n\n\n\n15\n88\n\n\n30\n84\n\n\n45\n76\n\n\n60\n71\n\n\n75\n63\n\n\n90\n58\n\n\n\nCompute and interpret the sample correlation.\n\n\nCalculation\n\\[\n\\bar{x}=52.500,\n\\qquad\n\\bar{y}=73.333\n\\]\n\\[\ns_x=28.062,\n\\qquad\ns_y=11.690\n\\]\n\\[\ns_{xy}\n=\n\\frac{1}{6-1}\n\\sum(x_i-\\bar{x})(y_i-\\bar{y})\n=\n-327.000\n\\]\n\\[\nr=\n\\frac{s_{xy}}{s_xs_y}\n=\n\\frac{-327.000}{(28.062)(11.690)}\n=\n-0.997\n\\]\n\\[\nr^2=0.994\n\\]\n\n\nTarget relationship\nWe compare late-night TikTok scrolling time and morning quiz score.\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\nThe correlation is -0.997, so the relationship is strongly negative: students who scrolled longer after midnight tended to have lower quiz scores."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-delays-and-commute-time",
+    "href": "Chapter Slides/chapter9-slides.html#example-ttc-delays-and-commute-time",
+    "title": "STA258",
+    "section": "Example: TTC Delays and Commute Time",
+    "text": "Example: TTC Delays and Commute Time\n\n\nA student tracks fictional TTC trips during a week with random delays.\nFor each trip:\n\n\\(x=\\) number of stations travelled\n\\(y=\\) commute time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=1.310+3.357x.\n\\]\nQuestion. Calculate \\(SSE\\), \\(SSR\\), \\(SST\\), and \\(R^2\\).\n\n\n\n\\(x\\)\n\\(y\\)\n\\(\\hat y\\)\n\\((y-\\hat y)^2\\)\n\\((\\hat y-\\bar y)^2\\)\n\n\n\n\n3\n12\n11.381\n0.383\n281.760\n\n\n5\n22\n18.095\n15.247\n101.434\n\n\n7\n18\n24.810\n46.370\n11.270\n\n\n9\n36\n31.524\n20.036\n11.270\n\n\n11\n31\n38.238\n52.390\n101.434\n\n\n13\n50\n44.952\n25.478\n281.760\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=28.167\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum(y_i-\\hat{y}_i)^2=159.905\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=788.929\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=948.833\n\\]\nCheck:\n\\[\nSSR+SSE=788.929+159.905=948.833=SST\n\\]\n\\[\nR^2=\\frac{788.929}{948.833}=0.831\n\\]\n\n\nTarget relationship\nWe model commute time using the number of TTC stations travelled.\n\n\nAbout 83.1% of the variation in commute time is explained by stations travelled. The leftover variation is the messy part: delays, crowding, and waiting time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-viral-rap-beef-reaction-clips",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-viral-rap-beef-reaction-clips",
+    "title": "STA258",
+    "section": "Example: ANOVA for Viral Rap Beef Reaction Clips",
+    "text": "Example: ANOVA for Viral Rap Beef Reaction Clips\n\n\nA music analytics account studies fictional daily data during a viral Kendrick vs Drake reaction week.\nFor each day:\n\n\\(x=\\) reaction clips posted\n\\(y=\\) stream increase in thousands\n\nThe fitted line is:\n\\[\n\\hat{y}=12.400+5.886x.\n\\]\nThe variation quantities are:\n\\[\nSST=610.000,\n\\qquad\nSSR=606.229,\n\\qquad\nSSE=3.771.\n\\]\nQuestion. Construct the ANOVA table and test whether reaction clips explain a meaningful amount of variation in stream increases.\n\n\nCalculation\nThere are \\(n=6\\) days, so:\n\\[\ndf_{\\text{Reg}}=1,\n\\qquad\ndf_{\\text{Error}}=6-2=4,\n\\qquad\ndf_{\\text{Total}}=5.\n\\]\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n606.229\n1\n606.229\n642.970\n\n\nError\n3.771\n4\n0.943\n\n\n\nTotal\n610.000\n5\n\n\n\n\n\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{606.229}{0.943}\n=\n642.970\n\\]\nThe p-value is less than 0.001.\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe ANOVA \\(F\\)-test checks whether the regression model explains meaningful variation compared with the leftover residual variation.\n\n\nSince the p-value is very small, we reject \\(H_0\\). There is strong evidence that reaction clips are linearly related to stream increases in this fictional dataset."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-the-weeknd-concert-resale-prices",
+    "href": "Chapter Slides/chapter9-slides.html#example-the-weeknd-concert-resale-prices",
+    "title": "STA258",
+    "section": "Example: The Weeknd Concert Resale Prices",
+    "text": "Example: The Weeknd Concert Resale Prices\n\n\nA student tracks fictional resale ticket prices for a Weeknd concert as the show gets closer.\nThe fitted line is:\n\\[\n\\hat{y}=453.381-12.714x\n\\]\nwhere:\n\n\\(x=\\) days before the concert\n\\(y=\\) resale ticket price in dollars\n\nPredict the resale price for:\n\\[\nx=8\n\\]\nand compare it with predicting at:\n\\[\nx=30.\n\\]\nObserved \\(x\\) values range from 3 to 13 days before the concert.\n\n\nCalculation\nFor 8 days before the concert:\n\\[\n\\hat{y}\n=\n453.381-12.714(8)\n=\n351.67\n\\]\nThis is interpolation because \\(x=8\\) is inside the observed range.\nFor 30 days before the concert:\n\\[\n\\hat{y}\n=\n453.381-12.714(30)\n=\n71.95\n\\]\nThis is extrapolation because \\(x=30\\) is outside the observed range.\n\n\nPrediction target\nThe observed data only cover the final stretch before the concert:\n\\[\n3 \\le x \\le 13.\n\\]\nPredictions inside this range are safer than predictions far outside it.\n\n\nThe 8-day prediction is reasonable if the line fits well. The 30-day prediction should be treated carefully because resale markets can behave very differently far away from show day."
   }
 ]

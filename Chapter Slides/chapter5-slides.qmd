@@ -662,7 +662,7 @@ plot_ly(width = 430, height = 320) |>
 
 ---
 
-## Quick Critical Values
+## Quick Critical Z-Values
 
 :::: {.two-col}
 ::: {.col}
@@ -694,7 +694,7 @@ qf(c(0.025, 0.975), df1 = 9, df2 = 11)
 
 ---
 
-## 5.3.1 Interactive One-Mean Calculator
+## 5.3.1 Interactive One Sample Mean Calculator
 
 :::: {.two-col-lean}
 ::: {.col}
@@ -797,32 +797,32 @@ If the problem gives a population standard deviation, use $z$. If it gives a sam
 
 ---
 
-## Example: Known Sigma - Magazine Readers {.scrollable}
+## Example: Known Sigma - Daily Listening Time {.scrollable}
 
 ::: {.taskbox}
-Playbill magazine reports $\bar{x}=119{,}155$ dollars from $n=80$ households. Assume $\sigma=30{,}000$ dollars.
+**Spotify** reports a mean daily listening time of $\bar{x}=92$ minutes from a random sample of $n=80$ users. From years of logged data, the standard deviation is known to be $\sigma=25$ minutes.
 
-Construct 90%, 95%, and 99% confidence intervals for the population mean household income of readers.
+Construct 90%, 95%, and 99% confidence intervals for the population mean daily listening time.
 :::
 
 | Level | Critical value | Margin of error | Confidence interval |
 |:--:|:--:|:--:|:--:|
-| 90% | 1.645 | $1.645(30000/\sqrt{80})=5517.38$ | $(113637.62, 124672.38)$ |
-| 95% | 1.960 | $1.960(30000/\sqrt{80})=6573.04$ | $(112581.96, 125728.04)$ |
-| 99% | 2.576 | $2.576(30000/\sqrt{80})=8640.41$ | $(110514.59, 127795.41)$ |
+| 90% | 1.645 | $1.645(25/\sqrt{80})=4.60$ | $(87.40, 96.60)$ |
+| 95% | 1.960 | $1.960(25/\sqrt{80})=5.48$ | $(86.52, 97.48)$ |
+| 99% | 2.576 | $2.576(25/\sqrt{80})=7.20$ | $(84.80, 99.20)$ |
 
 ::: {.examplebox}
-We are 95% confident that the mean household income of Playbill readers is between about 112,582 dollars and 125,728 dollars.
+We are 95% confident that the mean daily listening time is between about 86.5 and 97.5 minutes.
 :::
 
 ---
 
-## Example: Known Sigma - Car Sales {.scrollable}
+## Example: Known Sigma - Active Minutes {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-Annual car sales are normally distributed with known $\sigma=15$. For a random sample of 15 salespeople:
+A smartwatch logs **daily active minutes** (time spent moving) for a random sample of 15 people. Active minutes are normally distributed with known $\sigma=15$ minutes:
 
 $$79,43,58,66,101,63,79,33,58,71,60,101,74,55,88$$
 
@@ -834,9 +834,9 @@ Construct a 95% CI for $\mu$.
 ```{webr}
 #| autorun: false
 
-cars <- c(79,43,58,66,101,63,79,33,58,71,60,101,74,55,88)
-xbar <- mean(cars)
-n <- length(cars)
+minutes <- c(79,43,58,66,101,63,79,33,58,71,60,101,74,55,88)
+xbar <- mean(minutes)
+n <- length(minutes)
 sigma <- 15
 zstar <- qnorm(0.975)
 ci <- xbar + c(-1, 1) * zstar * sigma / sqrt(n)
@@ -848,7 +848,7 @@ ci
 ::::
 
 ::: {.examplebox}
-$\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% confident that the population mean number of cars sold annually is between about 61 and 76.
+$\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% confident that the population mean number of daily active minutes is between about 61 and 76.
 :::
 
 ---
@@ -892,16 +892,16 @@ For small $n$, check that the population is reasonably normal or that the sample
 
 ---
 
-## Example: Unknown Sigma - Ancient Air {.scrollable}
+## Example: Unknown Sigma - Hours of Sleep {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-Nitrogen percentages from air bubbles trapped in ancient amber:
+Total **hours of sleep** logged over one week by a random sample of 9 students:
 
 $$63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0$$
 
-Construct a 90% CI for the mean nitrogen percentage.
+Construct a 90% CI for the mean weekly sleep.
 :::
 
 ::: {.examplebox}
@@ -915,24 +915,24 @@ $$59.5889\pm1.8595\frac{6.2553}{3}=(55.71,63.47).$$
 ```{webr}
 #| autorun: false
 
-nitrogen <- c(63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0)
-t.test(nitrogen, conf.level = 0.90)
+sleep_hours <- c(63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0)
+t.test(sleep_hours, conf.level = 0.90)
 ```
 :::
 ::::
 
 ---
 
-## Example: Unknown Sigma - Camera Photos {.scrollable}
+## Example: Unknown Sigma - Books Read {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-A random sample of 10 digital camera owners has stored photo counts:
+A random sample of 10 readers reports how many books they finished this year:
 
 $$25,6,22,26,31,18,13,20,14,2$$
 
-Construct a 95% CI for the population mean number of stored photos.
+Construct a 95% CI for the population mean number of books read.
 :::
 :::
 
@@ -940,16 +940,16 @@ Construct a 95% CI for the population mean number of stored photos.
 ```{webr}
 #| autorun: false
 
-photos <- c(25,6,22,26,31,18,13,20,14,2)
-mean(photos)
-sd(photos)
-t.test(photos, conf.level = 0.95)
+books <- c(25,6,22,26,31,18,13,20,14,2)
+mean(books)
+sd(books)
+t.test(books, conf.level = 0.95)
 ```
 :::
 ::::
 
 ::: {.examplebox}
-$\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately $(11.20,24.20)$ photos.
+$\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately $(11.20,24.20)$ books.
 :::
 
 ---
@@ -971,7 +971,7 @@ $$
 <ul class="assumption-list">
   <li class="fragment">Random sample.</li>
   <li class="fragment">Independent Bernoulli trials.</li>
-  <li class="fragment">Large counts: $n\hat p \ge 10$ and $n(1-\hat p)\ge 10$.</li>
+  <li class="fragment">Sufficiently large counts: $n\hat p \ge 10$ and $n(1-\hat p)\ge 10$.</li>
 </ul>
 :::
 ::: {.thinkbox .fragment}
@@ -985,9 +985,9 @@ The final interval should make sense for a proportion. Values below 0 or above 1
 ## Example: One Proportion - Transit Use {.scrollable}
 
 ::: {.taskbox}
-A university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.
+A UTM survey asks 1200 students whether they commute on **MiWay** transit. Among them, 738 say yes.
 
-Construct a 95% CI for the true proportion of students who use public transportation.
+Construct a 95% CI for the true proportion of students who commute on MiWay.
 :::
 
 $$
@@ -1003,17 +1003,17 @@ $$
 $$
 
 ::: {.examplebox}
-We are 95% confident that between 58.75% and 64.25% of students use public transportation.
+We are 95% confident that between 58.75% and 64.25% of UTM students commute on MiWay.
 :::
 
 ---
 
-## Example: One Proportion - Work From Home {.scrollable}
+## Example: One Proportion - All-Nighters {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-In a survey of 650 employees, 286 prefer working from home at least three days per week.
+In a survey of 650 UTM students, 286 admit to **pulling an all-nighter** to finish an assignment this term.
 
 Construct a 90% CI for the population proportion.
 :::
@@ -1073,10 +1073,10 @@ This interval is asymmetric. Normality matters here much more than it does for l
 
 ---
 
-## Example: One Variance - Bottle Filling {.scrollable}
+## Example: One Variance - Gym Hours {.scrollable}
 
 ::: {.taskbox}
-A random sample of 25 bottles has sample variance $s^2=12.5$. Assume filling amounts are normally distributed.
+Exercise is proven to improve focus. The UTM gym logs the **weekly workout hours** of 25 students, with sample variance $s^2=12.5$ (hours$^2$). Assume weekly hours are normally distributed.
 
 Construct a 95% CI for $\sigma^2$.
 :::
@@ -1094,12 +1094,12 @@ The 95% CI for the population variance is approximately $(7.62,24.19)$.
 
 ---
 
-## Example: One Variance - Reaction Times {.scrollable}
+## Example: One Variance - Water Intake {.scrollable}
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-A random sample of 16 drivers has sample variance $s^2=0.36$. Assume reaction times are normally distributed.
+Staying hydrated is linked to sharper concentration. A study records the **daily water intake** of 16 students, with sample variance $s^2=0.36$ (litres$^2$). Assume daily intake is normally distributed.
 
 Construct a 90% CI for $\sigma^2$.
 :::

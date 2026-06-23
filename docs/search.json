@@ -830,21 +830,21 @@
     "href": "Chapter Slides/chapter5-slides.html#one-proportion",
     "title": "STA258",
     "section": "5.3.2 One Proportion",
-    "text": "5.3.2 One Proportion\n\nFor a population proportion \\(p\\), with \\(\\hat p=x/n\\):\n\\[\n\\hat p \\pm z_{\\alpha/2}\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n\\]\n\n\n\nConditions\n\n\nRandom sample.\n\n\nIndependent Bernoulli trials.\n\n\nLarge counts: \\(n\\hat p \\ge 10\\) and \\(n(1-\\hat p)\\ge 10\\).\n\n\n\n\nBoundary check The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling."
+    "text": "5.3.2 One Proportion\n\nFor a population proportion \\(p\\), with \\(\\hat p=x/n\\):\n\\[\n\\hat p \\pm z_{\\alpha/2}\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n\\]\n\n\n\nConditions\n\n\nRandom sample.\n\n\nIndependent Bernoulli trials.\n\n\nSufficiently large counts: \\(n\\hat p \\ge 10\\) and \\(n(1-\\hat p)\\ge 10\\).\n\n\n\n\nBoundary check The final interval should make sense for a proportion. Values below 0 or above 1 need careful handling."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-one-proportion---transit-use",
     "href": "Chapter Slides/chapter5-slides.html#example-one-proportion---transit-use",
     "title": "STA258",
     "section": "Example: One Proportion - Transit Use",
-    "text": "Example: One Proportion - Transit Use\n\nA university survey asks 1200 students whether they use public transportation. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who use public transportation.\n\n\\[\n\\hat p=\\frac{738}{1200}=0.6150\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\n\\]\n\\[\n0.6150\\pm1.96(0.01405)=(0.5875,0.6425)\n\\]\n\nWe are 95% confident that between 58.75% and 64.25% of students use public transportation."
+    "text": "Example: One Proportion - Transit Use\n\nA UTM survey asks 1200 students whether they commute on MiWay transit. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who commute on MiWay.\n\n\\[\n\\hat p=\\frac{738}{1200}=0.6150\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\n\\]\n\\[\n0.6150\\pm1.96(0.01405)=(0.5875,0.6425)\n\\]\n\nWe are 95% confident that between 58.75% and 64.25% of UTM students commute on MiWay."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-one-proportion---work-from-home",
     "href": "Chapter Slides/chapter5-slides.html#example-one-proportion---work-from-home",
     "title": "STA258",
     "section": "Example: One Proportion - Work From Home",
-    "text": "Example: One Proportion - Work From Home\n\n\n\nIn a survey of 650 employees, 286 prefer working from home at least three days per week.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
+    "text": "Example: One Proportion - Work From Home\n\n\n\nAt the software firm Northwind, a survey of 650 employees finds 286 prefer working from home at least three days per week.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#section-1",
@@ -865,14 +865,14 @@
     "href": "Chapter Slides/chapter5-slides.html#example-one-variance---bottle-filling",
     "title": "STA258",
     "section": "Example: One Variance - Bottle Filling",
-    "text": "Example: One Variance - Bottle Filling\n\nA random sample of 25 bottles has sample variance \\(s^2=12.5\\). Assume filling amounts are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+    "text": "Example: One Variance - Bottle Filling\n\nA random sample of 25 bottles from the kombucha brand Fizz has sample variance \\(s^2=12.5\\) (mL\\(^2\\)). Consistency matters here: customers notice when fill levels vary. Assume filling amounts are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---reaction-times",
     "href": "Chapter Slides/chapter5-slides.html#example-one-variance---reaction-times",
     "title": "STA258",
     "section": "Example: One Variance - Reaction Times",
-    "text": "Example: One Variance - Reaction Times\n\n\n\nA random sample of 16 drivers has sample variance \\(s^2=0.36\\). Assume reaction times are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+    "text": "Example: One Variance - Reaction Times\n\n\n\nHuman reaction time to a visual signal averages about a quarter of a second — a well-established result in psychology. A random sample of 16 drivers tested in a driving simulator has sample variance \\(s^2=0.36\\) (seconds\\(^2\\)). Assume reaction times are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#two-means-known-sigma_1sigma_2",
@@ -3967,5 +3967,131 @@
     "title": "STA258",
     "section": "Example: The Weeknd Concert Resale Prices",
     "text": "Example: The Weeknd Concert Resale Prices\n\n\nA student tracks fictional resale ticket prices for a Weeknd concert as the show gets closer.\nThe fitted line is:\n\\[\n\\hat{y}=453.381-12.714x\n\\]\nwhere:\n\n\\(x=\\) days before the concert\n\\(y=\\) resale ticket price in dollars\n\nPredict the resale price for:\n\\[\nx=8\n\\]\nand compare it with predicting at:\n\\[\nx=30.\n\\]\nObserved \\(x\\) values range from 3 to 13 days before the concert.\n\n\nCalculation\nFor 8 days before the concert:\n\\[\n\\hat{y}\n=\n453.381-12.714(8)\n=\n351.67\n\\]\nThis is interpolation because \\(x=8\\) is inside the observed range.\nFor 30 days before the concert:\n\\[\n\\hat{y}\n=\n453.381-12.714(30)\n=\n71.95\n\\]\nThis is extrapolation because \\(x=30\\) is outside the observed range.\n\n\nPrediction target\nThe observed data only cover the final stretch before the concert:\n\\[\n3 \\le x \\le 13.\n\\]\nPredictions inside this range are safer than predictions far outside it.\n\n\nThe 8-day prediction is reasonable if the line fits well. The 30-day prediction should be treated carefully because resale markets can behave very differently far away from show day."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma---daily-listening-time",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma---daily-listening-time",
+    "title": "STA258",
+    "section": "Example: Known Sigma - Daily Listening Time",
+    "text": "Example: Known Sigma - Daily Listening Time\n\nSpotify reports a mean daily listening time of \\(\\bar{x}=92\\) minutes from a random sample of \\(n=80\\) users. From years of logged data, the standard deviation is known to be \\(\\sigma=25\\) minutes.\nConstruct 90%, 95%, and 99% confidence intervals for the population mean daily listening time.\n\n\n\n\nLevel\nCritical value\nMargin of error\nConfidence interval\n\n\n\n\n90%\n1.645\n\\(1.645(25/\\sqrt{80})=4.60\\)\n\\((87.40, 96.60)\\)\n\n\n95%\n1.960\n\\(1.960(25/\\sqrt{80})=5.48\\)\n\\((86.52, 97.48)\\)\n\n\n99%\n2.576\n\\(2.576(25/\\sqrt{80})=7.20\\)\n\\((84.80, 99.20)\\)\n\n\n\n\nWe are 95% confident that the mean daily listening time is between about 86.5 and 97.5 minutes."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma---fitness-app-minutes",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma---fitness-app-minutes",
+    "title": "STA258",
+    "section": "Example: Known Sigma - Fitness App Minutes",
+    "text": "Example: Known Sigma - Fitness App Minutes\n\n\n\nDaily active minutes on the fitness app PulseFit are normally distributed with known \\(\\sigma=15\\) minutes. For a random sample of 15 users:\n\\[79,43,58,66,101,63,79,33,58,71,60,101,74,55,88\\]\nConstruct a 95% CI for \\(\\mu\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=68.6\\), so the interval is approximately \\((61.01, 76.19)\\). We are 95% confident that the population mean number of daily active minutes is between about 61 and 76."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---weekly-screen-time",
+    "href": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---weekly-screen-time",
+    "title": "STA258",
+    "section": "Example: Unknown Sigma - Weekly Screen Time",
+    "text": "Example: Unknown Sigma - Weekly Screen Time\n\n\n\nWeekly screen-time hours, pulled from the phone Screen Time dashboard, for a random sample of 9 students:\n\\[63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0\\]\nConstruct a 90% CI for the mean weekly screen time.\n\n\nUsing \\(n=9\\), \\(\\bar{x}=59.5889\\), \\(s=6.2553\\), and \\(t^*=1.8595\\):\n\\[59.5889\\pm1.8595\\frac{6.2553}{3}=(55.71,63.47).\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---photos-posted",
+    "href": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---photos-posted",
+    "title": "STA258",
+    "section": "Example: Unknown Sigma - Photos Posted",
+    "text": "Example: Unknown Sigma - Photos Posted\n\n\n\nA random sample of 10 Instagram users reports how many photos they posted this month:\n\\[25,6,22,26,31,18,13,20,14,2\\]\nConstruct a 95% CI for the population mean number of photos posted.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=17.7\\), \\(s=9.0805\\), \\(df=9\\), and \\(t^*=2.262\\). The 95% CI is approximately \\((11.20,24.20)\\) photos."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#interactive-one-sample-mean-calculator",
+    "href": "Chapter Slides/chapter5-slides.html#interactive-one-sample-mean-calculator",
+    "title": "STA258",
+    "section": "5.3.1 Interactive One Sample Mean Calculator",
+    "text": "5.3.1 Interactive One Sample Mean Calculator\n\n\n\nInterval type  Known sigma: z interval Unknown sigma: t interval  Sample mean  Sigma or sample sd  Sample size  Confidence level  90% 95% 99% \n\n\n\n\n\n\n\nTry changing the confidence level. The estimate stays fixed, but the critical value and margin of error change.\n\n\nCalculator note The \\(t\\) option uses a small built-in table for common confidence levels and degrees of freedom. Use R for exact values."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#quickzvalues",
+    "href": "Chapter Slides/chapter5-slides.html#quickzvalues",
+    "title": "STA258",
+    "section": "QuickZValues",
+    "text": "QuickZValues\n\n\n\n\n\nConfidence level\n\\(z^*\\)\n\n\n\n\n90%\n1.645\n\n\n95%\n1.960\n\n\n99%\n2.576\n\n\n\n\nR check qnorm(0.95), qnorm(0.975), and qnorm(0.995) give these values."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#quick-critical-z-values",
+    "href": "Chapter Slides/chapter5-slides.html#quick-critical-z-values",
+    "title": "STA258",
+    "section": "Quick Critical Z-Values",
+    "text": "Quick Critical Z-Values\n\n\n\n\n\nConfidence level\n\\(z^*\\)\n\n\n\n\n90%\n1.645\n\n\n95%\n1.960\n\n\n99%\n2.576\n\n\n\n\nR check qnorm(0.95), qnorm(0.975), and qnorm(0.995) give these values."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-known-sigma---active-minutes",
+    "href": "Chapter Slides/chapter5-slides.html#example-known-sigma---active-minutes",
+    "title": "STA258",
+    "section": "Example: Known Sigma - Active Minutes",
+    "text": "Example: Known Sigma - Active Minutes\n\n\n\nA smartwatch logs daily active minutes (time spent moving) for a random sample of 15 people. Active minutes are normally distributed with known \\(\\sigma=15\\) minutes:\n\\[79,43,58,66,101,63,79,33,58,71,60,101,74,55,88\\]\nConstruct a 95% CI for \\(\\mu\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=68.6\\), so the interval is approximately \\((61.01, 76.19)\\). We are 95% confident that the population mean number of daily active minutes is between about 61 and 76."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---books-read",
+    "href": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---books-read",
+    "title": "STA258",
+    "section": "Example: Unknown Sigma - Books Read",
+    "text": "Example: Unknown Sigma - Books Read\n\n\n\nA random sample of 10 readers reports how many books they finished this year:\n\\[25,6,22,26,31,18,13,20,14,2\\]\nConstruct a 95% CI for the population mean number of books read.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=17.7\\), \\(s=9.0805\\), \\(df=9\\), and \\(t^*=2.262\\). The 95% CI is approximately \\((11.20,24.20)\\) books."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-proportion---password-sharing",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-proportion---password-sharing",
+    "title": "STA258",
+    "section": "Example: One Proportion - Password Sharing",
+    "text": "Example: One Proportion - Password Sharing\n\n\n\nIn a survey of 650 streaming subscribers, 286 admit to sharing their password with someone outside their household.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---espresso-shots",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---espresso-shots",
+    "title": "STA258",
+    "section": "Example: One Variance - Espresso Shots",
+    "text": "Example: One Variance - Espresso Shots\n\nA café records the extraction time of 25 espresso shots, with sample variance \\(s^2=12.5\\) (seconds\\(^2\\)). Baristas chase a steady shot, so consistency is the whole game. Assume shot times are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---3d-printing",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---3d-printing",
+    "title": "STA258",
+    "section": "Example: One Variance - 3D Printing",
+    "text": "Example: One Variance - 3D Printing\n\n\n\nA maker prints 16 copies of the same part on a 3D printer. The measured lengths have sample variance \\(s^2=0.36\\) (mm\\(^2\\)). Low variance is what lets the parts actually snap together. Assume lengths are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---hours-of-sleep",
+    "href": "Chapter Slides/chapter5-slides.html#example-unknown-sigma---hours-of-sleep",
+    "title": "STA258",
+    "section": "Example: Unknown Sigma - Hours of Sleep",
+    "text": "Example: Unknown Sigma - Hours of Sleep\n\n\n\nTotal hours of sleep logged over one week by a random sample of 9 students:\n\\[63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0\\]\nConstruct a 90% CI for the mean weekly sleep.\n\n\nUsing \\(n=9\\), \\(\\bar{x}=59.5889\\), \\(s=6.2553\\), and \\(t^*=1.8595\\):\n\\[59.5889\\pm1.8595\\frac{6.2553}{3}=(55.71,63.47).\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-proportion---all-nighters",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-proportion---all-nighters",
+    "title": "STA258",
+    "section": "Example: One Proportion - All-Nighters",
+    "text": "Example: One Proportion - All-Nighters\n\n\n\nIn a survey of 650 UTM students, 286 admit to pulling an all-nighter to finish an assignment this term.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---speedcubing",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---speedcubing",
+    "title": "STA258",
+    "section": "Example: One Variance - Speedcubing",
+    "text": "Example: One Variance - Speedcubing\n\nA speedcuber records the solve times of 25 Rubik’s cube solves, with sample variance \\(s^2=12.5\\) (seconds\\(^2\\)). Fast is good, but consistency is what wins competitions. Assume solve times are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---aim-trainer",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---aim-trainer",
+    "title": "STA258",
+    "section": "Example: One Variance - Aim Trainer",
+    "text": "Example: One Variance - Aim Trainer\n\n\n\nA gamer logs their reaction time on an aim trainer across 16 rounds, with sample variance \\(s^2=0.36\\) (seconds\\(^2\\)). Consistent reactions matter more than the occasional lucky flick. Assume reaction times are normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---gym-hours",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---gym-hours",
+    "title": "STA258",
+    "section": "Example: One Variance - Gym Hours",
+    "text": "Example: One Variance - Gym Hours\n\nExercise is proven to improve focus. The UTM gym logs the weekly workout hours of 25 students, with sample variance \\(s^2=12.5\\) (hours\\(^2\\)). Assume weekly hours are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---water-intake",
+    "href": "Chapter Slides/chapter5-slides.html#example-one-variance---water-intake",
+    "title": "STA258",
+    "section": "Example: One Variance - Water Intake",
+    "text": "Example: One Variance - Water Intake\n\n\n\nStaying hydrated is linked to sharper concentration. A study records the daily water intake of 16 students, with sample variance \\(s^2=0.36\\) (litres\\(^2\\)). Assume daily intake is normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
   }
 ]

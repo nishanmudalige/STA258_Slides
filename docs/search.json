@@ -4093,5 +4093,61 @@
     "title": "STA258",
     "section": "Example: One Variance - Water Intake",
     "text": "Example: One Variance - Water Intake\n\n\n\nStaying hydrated is linked to sharper concentration. A study records the daily water intake of 16 students, with sample variance \\(s^2=0.36\\) (litres\\(^2\\)). Assume daily intake is normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-daily-listening-time",
+    "href": "Chapter Slides/chapter5-slides.html#example-daily-listening-time",
+    "title": "STA258",
+    "section": "Example: Daily Listening Time",
+    "text": "Example: Daily Listening Time\n\nSpotify reports a mean daily listening time of \\(\\bar{x}=92\\) minutes from a random sample of \\(n=80\\) users. From years of logged data, the standard deviation is known to be \\(\\sigma=25\\) minutes.\nConstruct 90%, 95%, and 99% confidence intervals for the population mean daily listening time.\n\n\n\n\nLevel\nCritical value\nMargin of error\nConfidence interval\n\n\n\n\n90%\n1.645\n\\(1.645(25/\\sqrt{80})=4.60\\)\n\\((87.40, 96.60)\\)\n\n\n95%\n1.960\n\\(1.960(25/\\sqrt{80})=5.48\\)\n\\((86.52, 97.48)\\)\n\n\n99%\n2.576\n\\(2.576(25/\\sqrt{80})=7.20\\)\n\\((84.80, 99.20)\\)\n\n\n\n\nWe are 95% confident that the mean daily listening time is between about 86.5 and 97.5 minutes."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-active-minutes",
+    "href": "Chapter Slides/chapter5-slides.html#example-active-minutes",
+    "title": "STA258",
+    "section": "Example: Active Minutes",
+    "text": "Example: Active Minutes\n\n\n\nA smartwatch logs daily active minutes (time spent moving) for a random sample of 15 people. Active minutes are normally distributed with known \\(\\sigma=15\\) minutes:\n\\[79,43,58,66,101,63,79,33,58,71,60,101,74,55,88\\]\nConstruct a 95% CI for \\(\\mu\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=68.6\\), so the interval is approximately \\((61.01, 76.19)\\). We are 95% confident that the population mean number of daily active minutes is between about 61 and 76."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-hours-of-sleep",
+    "href": "Chapter Slides/chapter5-slides.html#example-hours-of-sleep",
+    "title": "STA258",
+    "section": "Example: Hours of Sleep",
+    "text": "Example: Hours of Sleep\n\n\n\nTotal hours of sleep logged over one week by a random sample of 9 students:\n\\[63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0\\]\nConstruct a 90% CI for the mean weekly sleep.\n\n\nUsing \\(n=9\\), \\(\\bar{x}=59.5889\\), \\(s=6.2553\\), and \\(t^*=1.8595\\):\n\\[59.5889\\pm1.8595\\frac{6.2553}{3}=(55.71,63.47).\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-books-read",
+    "href": "Chapter Slides/chapter5-slides.html#example-books-read",
+    "title": "STA258",
+    "section": "Example: Books Read",
+    "text": "Example: Books Read\n\n\n\nA random sample of 10 readers reports how many books they finished this year:\n\\[25,6,22,26,31,18,13,20,14,2\\]\nConstruct a 95% CI for the population mean number of books read.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\bar{x}=17.7\\), \\(s=9.0805\\), \\(df=9\\), and \\(t^*=2.262\\). The 95% CI is approximately \\((11.20,24.20)\\) books."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-transit-use",
+    "href": "Chapter Slides/chapter5-slides.html#example-transit-use",
+    "title": "STA258",
+    "section": "Example: Transit Use",
+    "text": "Example: Transit Use\n\nA UTM survey asks 1200 students whether they commute on MiWay transit. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who commute on MiWay.\n\n\n\n\\[\\hat p=\\frac{738}{1200}=0.6150\\]\n\\[SE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\\]\n\n\n\\[\\hat p \\pm z_{\\alpha/2}\\,SE\\]\n\\[=0.6150\\pm1.96(0.01405)\\]\n\\[=(0.5875,\\,0.6425)\\]\n\n\n\nWe are 95% confident that between 58.75% and 64.25% of UTM students commute on MiWay."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-all-nighters",
+    "href": "Chapter Slides/chapter5-slides.html#example-all-nighters",
+    "title": "STA258",
+    "section": "Example: All-Nighters",
+    "text": "Example: All-Nighters\n\n\n\nIn a survey of 650 UTM students, 286 admit to pulling an all-nighter to finish an assignment this term.\nConstruct a 90% CI for the population proportion.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(\\hat p=0.44\\), so the 90% CI is approximately \\((0.4079,0.4721)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-gym-hours",
+    "href": "Chapter Slides/chapter5-slides.html#example-gym-hours",
+    "title": "STA258",
+    "section": "Example: Gym Hours",
+    "text": "Example: Gym Hours\n\nExercise is proven to improve focus. The UTM gym logs the weekly workout hours of 25 students, with sample variance \\(s^2=12.5\\) (hours\\(^2\\)). Assume weekly hours are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\n\n\\[df=n-1=24\\]\n\\[\\chi^2_{0.975,24}=39.364\\]\n\\[\\chi^2_{0.025,24}=12.401\\]\n\n\n\\[\\left(\\frac{(n-1)s^2}{\\chi^2_{0.975,24}},\\ \\frac{(n-1)s^2}{\\chi^2_{0.025,24}}\\right)\\]\n\\[=\\left(\\frac{24(12.5)}{39.364},\\ \\frac{24(12.5)}{12.401}\\right)\\]\n\\[=(7.62,\\,24.19)\\]\n\n\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-water-intake",
+    "href": "Chapter Slides/chapter5-slides.html#example-water-intake",
+    "title": "STA258",
+    "section": "Example: Water Intake",
+    "text": "Example: Water Intake\n\n\n\nStaying hydrated is linked to sharper concentration. A study records the daily water intake of 16 students, with sample variance \\(s^2=0.36\\) (litres\\(^2\\)). Assume daily intake is normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
   }
 ]

@@ -837,7 +837,7 @@
     "href": "Chapter Slides/chapter5-slides.html#example-one-proportion---transit-use",
     "title": "STA258",
     "section": "Example: One Proportion - Transit Use",
-    "text": "Example: One Proportion - Transit Use\n\nA UTM survey asks 1200 students whether they commute on MiWay transit. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who commute on MiWay.\n\n\\[\n\\hat p=\\frac{738}{1200}=0.6150\n\\]\n\\[\nSE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\n\\]\n\\[\n0.6150\\pm1.96(0.01405)=(0.5875,0.6425)\n\\]\n\nWe are 95% confident that between 58.75% and 64.25% of UTM students commute on MiWay."
+    "text": "Example: One Proportion - Transit Use\n\nA UTM survey asks 1200 students whether they commute on MiWay transit. Among them, 738 say yes.\nConstruct a 95% CI for the true proportion of students who commute on MiWay.\n\n\n\n\\[\\hat p=\\frac{738}{1200}=0.6150\\]\n\\[SE=\\sqrt{\\frac{0.6150(0.3850)}{1200}}=0.01405\\]\n\n\n\\[\\hat p \\pm z_{\\alpha/2}\\,SE\\]\n\\[=0.6150\\pm1.96(0.01405)\\]\n\\[=(0.5875,\\,0.6425)\\]\n\n\n\nWe are 95% confident that between 58.75% and 64.25% of UTM students commute on MiWay."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-one-proportion---work-from-home",
@@ -3112,7 +3112,7 @@
     "href": "Chapter Slides/chapter5-slides.html#check-in-r-hockey-shot-speed-comparison",
     "title": "STA258",
     "section": "Check in R: Hockey Shot-Speed Comparison",
-    "text": "Check in R: Hockey Shot-Speed Comparison\n\n\n\nUSA-Canada hockey example\nWe check the 95% confidence interval for the difference in population mean slapshot speeds:\n\\[\n\\mu_1-\\mu_2\n=\n\\text{Canada} - \\text{USA}\n\\]\nBecause \\(\\sigma_1\\) and \\(\\sigma_2\\) are known, the interval uses:\n\\[\n(\\bar{x}_1-\\bar{x}_2)\n\\pm\nz^*\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n}\n\\]\n\n\nThe R code should return the same interval as the worked example:\n\\[\n(0.72,\\;5.68)\n\\]"
+    "text": "Check in R: Hockey Shot-Speed Comparison\n\n\n\nUSA-Canada hockey\nWe check the 95% confidence interval for the difference in population mean slapshot speeds:\n\\[\n\\mu_1-\\mu_2\n=\n\\text{Canada} - \\text{USA}\n\\]\nBecause \\(\\sigma_1\\) and \\(\\sigma_2\\) are known, the interval uses:\n\\[\n(\\bar{x}_1-\\bar{x}_2)\n\\pm\nz^*\n\\sqrt{\n\\frac{\\sigma_1^2}{n_1}\n+\n\\frac{\\sigma_2^2}{n_2}\n}\n\\]\n\n\nThe R code should return the same interval as the worked example:\n\\[\n(0.72,\\;5.68)\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-pooled-two-sample-t-intervals",
@@ -4085,7 +4085,7 @@
     "href": "Chapter Slides/chapter5-slides.html#example-one-variance---gym-hours",
     "title": "STA258",
     "section": "Example: One Variance - Gym Hours",
-    "text": "Example: One Variance - Gym Hours\n\nExercise is proven to improve focus. The UTM gym logs the weekly workout hours of 25 students, with sample variance \\(s^2=12.5\\) (hours\\(^2\\)). Assume weekly hours are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\\[df=24,\\quad \\chi^2_{0.975,24}=39.364,\\quad \\chi^2_{0.025,24}=12.401\\]\n\\[\n\\text{Lower}=\\frac{24(12.5)}{39.364}=7.62,\\qquad\n\\text{Upper}=\\frac{24(12.5)}{12.401}=24.19\n\\]\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
+    "text": "Example: One Variance - Gym Hours\n\nExercise is proven to improve focus. The UTM gym logs the weekly workout hours of 25 students, with sample variance \\(s^2=12.5\\) (hours\\(^2\\)). Assume weekly hours are normally distributed.\nConstruct a 95% CI for \\(\\sigma^2\\).\n\n\n\n\\[df=n-1=24\\]\n\\[\\chi^2_{0.975,24}=39.364\\]\n\\[\\chi^2_{0.025,24}=12.401\\]\n\n\n\\[\\left(\\frac{(n-1)s^2}{\\chi^2_{0.975,24}},\\ \\frac{(n-1)s^2}{\\chi^2_{0.025,24}}\\right)\\]\n\\[=\\left(\\frac{24(12.5)}{39.364},\\ \\frac{24(12.5)}{12.401}\\right)\\]\n\\[=(7.62,\\,24.19)\\]\n\n\n\nThe 95% CI for the population variance is approximately \\((7.62,24.19)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-one-variance---water-intake",

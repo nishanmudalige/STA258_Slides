@@ -1852,14 +1852,14 @@
     "href": "Chapter Slides/chapter6-slides.html#what-a-hypothesis-test-does",
     "title": "STA258",
     "section": "What a Hypothesis Test Does",
-    "text": "What a Hypothesis Test Does\n\nTextbook idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
+    "text": "What a Hypothesis Test Does\n\nHigh Level Idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
     "href": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
     "title": "STA258",
     "section": "The Five-Step Procedure",
-    "text": "The Five-Step Procedure\n\n\n\n1. Choose \\(\\alpha\\). Set the significance level before making the decision.\n\n\n2. State hypotheses. Use the correct population parameter.\n\n\n3. Compute statistic. Standardize the estimate with the correct standard error.\n\n\n4. Find the p-value. Use the tail area that matches \\(H_a\\).\n\n\n5. Conclude. Compare to \\(\\alpha\\) and write the conclusion in context.\n\n\n\n\n\n\n\n\n\n\n\nStep 4 and Step 5 are separate: first calculate evidence, then make the decision."
+    "text": "The Five-Step Procedure\n\n\n\n1. Choose \\(\\alpha\\). Set the significance level before making the decision.\n\n\n2. State hypotheses. Use the correct population parameter.\n\n\n3. Compute statistic. Standardize the estimate with the correct standard error.\n\n\n4. Find the p-value. Use the tail area that matches \\(H_a\\).\n\n\n5. Conclude. Compare to \\(\\alpha\\) and write the conclusion in context.\n\n\n\n\n\n\n\n\n\n\n\nStep 4 vs Step 5: the orange p-value is the evidence (area beyond \\(z^*\\)). The critical value (dashed line) is the decision boundary, and the teal area beyond it is \\(\\alpha\\). Here \\(z^*\\) is past the critical value, so the p-value area sits inside \\(\\alpha\\) — that is, p-value \\(&lt;\\alpha\\) — and we reject \\(H_0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#choosing-the-alternative",
@@ -1873,7 +1873,7 @@
     "href": "Chapter Slides/chapter6-slides.html#p-value-areas",
     "title": "STA258",
     "section": "P-Value Areas",
-    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\nUse the dropdown to see how the shaded p-value area moves with the alternative hypothesis."
+    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\n\n\nUse the dropdown at the top-right of the plot to switch the shaded p-value area between the three alternative hypotheses."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#decision-rule",
@@ -4219,5 +4219,47 @@
     "title": "STA258",
     "section": "Check in R: Ratio of Variances",
     "text": "Check in R: Ratio of Variances\n\n\n\n\n\n\n\n\n\nvar.test reports \\(F^*\\), the two degrees of freedom, and the p-value. An \\(F^*\\) well above 1 is evidence that Player A’s scoring is more variable."
+  },
+  {
+    "objectID": "index.html#what-youll-learn",
+    "href": "index.html#what-youll-learn",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 9 you’ll be able to:\n\nDescribe the simple linear regression model and identify the response, predictor, intercept, slope, and error term.\nInterpret fitted values and residuals in context.\nExplain how least squares chooses the regression line by minimizing the sum of squared errors.\nCompute and interpret the estimated regression equation.\nUse covariance, correlation, and \\(R^2\\) to describe the strength of a linear relationship.\nDecompose variation using \\(SST\\), \\(SSR\\), and \\(SSE\\).\nTest whether the regression slope is significantly different from zero.\nConstruct and interpret confidence intervals for the slope.\nUse residual plots to check whether a straight-line model is reasonable.\nUse lm() in R to fit, summarize, diagnose, and make predictions from a regression model."
+  },
+  {
+    "objectID": "index.html#key-ideas",
+    "href": "index.html#key-ideas",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nSimple Linear Regression Model\nSimple linear regression models the relationship between one quantitative response variable \\(Y\\) and one quantitative predictor \\(x\\) using a straight line. The model is written as\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i.\n\\]\n\n\nLeast Squares\nThe least-squares method chooses the line that makes the residuals as small as possible overall. It does this by minimizing\n\\[\nSSE = \\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\n\n\nInterpreting the Slope\nThe slope is usually the most important part of the regression equation. It tells us the predicted change in the response variable for a one-unit increase in the predictor.\n\n\nCorrelation and \\(R^2\\)\nCorrelation describes the strength and direction of a linear relationship. The coefficient of determination, \\(R^2\\), tells us the proportion of variation in the response explained by the fitted linear model.\n\n\nInference for the Slope\nRegression inference allows us to test whether the predictor has a statistically meaningful linear relationship with the response. A common test is\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1\\ne 0.\n\\]\n\n\nPrediction and Diagnostics\nA fitted regression line can be used for prediction, but only after checking whether the model is reasonable. Residual plots help us detect curvature, changing spread, outliers, and other model issues."
+  },
+  {
+    "objectID": "index.html#how-to-use-this-chapter",
+    "href": "index.html#how-to-use-this-chapter",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough of simple linear regression.\nUse the PDF button for an offline-friendly version.\nWork through the electricity cost example to see the full regression workflow.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to check calculations using lm().\nUse the final summary as a study guide for interpreting slope, residuals, \\(R^2\\), confidence intervals, hypothesis tests, and predictions.\n\n\n\nSlides PDF"
+  },
+  {
+    "objectID": "index.html#what-youll-learn-1",
+    "href": "index.html#what-youll-learn-1",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 10 you’ll be able to:\n\nRecognize when data are categorical rather than quantitative.\nDescribe the multinomial response model for counts across several categories.\nSet up hypotheses for a chi-square goodness-of-fit test.\nCompute expected counts using the hypothesized category probabilities.\nCalculate and interpret the chi-square test statistic.\nFind a P-value using the chi-square distribution with the correct degrees of freedom.\nCheck the expected cell frequency condition before applying the test.\nUse chisq.test() in R to check goodness-of-fit calculations."
+  },
+  {
+    "objectID": "index.html#key-ideas-1",
+    "href": "index.html#key-ideas-1",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nCategorical Data\nCategorical data record which group, class, brand, color, outcome, or category each observation belongs to. Instead of analyzing means, we usually analyze counts or proportions in each category.\n\n\nMultinomial Response Model\nWhen each trial results in exactly one of \\(k\\) possible categories, the counts follow a multinomial model. If the category probabilities are \\[\np_1, p_2, \\ldots, p_k,\n\\] then they must satisfy \\[\np_1+p_2+\\cdots+p_k=1.\n\\] The binomial model is the special case where \\(k=2\\).\n\n\nExpected Counts\nUnder the null hypothesis, each category has a hypothesized probability. The expected count in category \\(i\\) is \\[\nE_i = np_i.\n\\] These expected counts describe what we would expect to see if the null hypothesis were true.\n\n\nChi-square Goodness-of-Fit Statistic\nThe goodness-of-fit test compares observed counts to expected counts: \\[\n\\chi^2 =\n\\sum\n\\frac{(\\text{observed count} - \\text{expected count})^2}\n{\\text{expected count}}.\n\\] Large values of \\(\\chi^2\\) mean the observed counts are far from what the null hypothesis predicts.\n\n\nDegrees of Freedom and P-value\nFor a goodness-of-fit test with \\(k\\) categories, the test statistic is compared to a chi-square distribution with \\[\nk-1\n\\] degrees of freedom. The P-value is the area to the right of the observed test statistic.\n\n\nSample Size Assumption\nThe chi-square approximation works well when the expected counts are large enough. A common rule is that every expected cell count should be at least 5."
+  },
+  {
+    "objectID": "index.html#how-to-use-this-chapter-1",
+    "href": "index.html#how-to-use-this-chapter-1",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough.\nUse the PDF button for an offline-friendly version.\nFollow the worked examples to practice setting up observed and expected counts.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples using chisq.test().\nRevisit the examples later as templates for homework and exam practice."
   }
 ]

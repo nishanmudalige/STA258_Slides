@@ -1852,7 +1852,7 @@
     "href": "Chapter Slides/chapter6-slides.html#what-a-hypothesis-test-does",
     "title": "STA258",
     "section": "What a Hypothesis Test Does",
-    "text": "What a Hypothesis Test Does\n\nTextbook idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
+    "text": "What a Hypothesis Test Does\n\nHigh Level Idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
@@ -1873,7 +1873,7 @@
     "href": "Chapter Slides/chapter6-slides.html#p-value-areas",
     "title": "STA258",
     "section": "P-Value Areas",
-    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\nUse the dropdown to see how the shaded p-value area moves with the alternative hypothesis."
+    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\n\n\nUse the dropdown at the top-right of the plot to switch the shaded p-value area between the three alternative hypotheses."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#decision-rule",
@@ -1908,14 +1908,14 @@
     "href": "Chapter Slides/chapter6-slides.html#example-coffee-fill-volume",
     "title": "STA258",
     "section": "Example: Coffee Fill Volume",
-    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Steeped advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\\[\nH_0:\\mu=7.2\n\\qquad\nH_a:\\mu&lt;7.2\n\\]"
+    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Second Cup advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\n\nWhat we are given\n\nTarget mean: \\(\\mu_0 = 7.2\\) oz\nKnown SD: \\(\\sigma = 1.1\\) oz\nSample: \\(n = 40\\), \\(\\bar{x} = 6.7\\) oz\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? \\(\\sigma\\) is known, so this is a one-sample \\(z\\) test with reference distribution \\(N(0,1)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "href": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "title": "STA258",
     "section": "Coffee Example: Calculation",
-    "text": "Coffee Example: Calculation\n\n\\[\nz^*=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\n\\]\n\\[\n\\text{p-value}=P(Z\\le -2.8748)=0.00202\n\\]\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean large-coffee fill volume is below 7.2 oz."
+    "text": "Coffee Example: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=7.2 \\qquad H_a:\\mu&lt;7.2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\\]\np-value \\[\\text{p-value}=P(Z\\le -2.8748)=0.00202\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean fill volume is below 7.2 oz."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-coffee-z-test",
@@ -2104,7 +2104,7 @@
     "href": "Chapter Slides/chapter6-slides.html#assumptions-difference-of-proportions",
     "title": "STA258",
     "section": "Assumptions: Difference of Proportions",
-    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\nFor each group, check successes and failures:\n\n\n\\[\nx_i\\ge 10\n\\qquad\\text{and}\\qquad\nn_i-x_i\\ge 10\n\\]"
+    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\n\nCheck successes and failures in each group.\n\n\nAt least 10 successes: \\(x_i \\ge 10\\).\n\n\nAt least 10 failures: \\(n_i - x_i \\ge 10\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#assumptions-ratio-of-variances",
@@ -4155,7 +4155,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
     "title": "STA258",
     "section": "Example: Food Delivery ETA",
-    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app DashEats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
@@ -4176,21 +4176,21 @@
     "href": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "title": "STA258",
     "section": "Example: Active Recall vs Rereading",
-    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90 Rereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
+    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90\nRereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "href": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "title": "STA258",
     "section": "Example: Push Notifications",
-    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users No notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
+    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users\nNo notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "href": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "title": "STA258",
     "section": "Example: Pomodoro Focus Timer",
-    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32 After: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
+    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
@@ -4464,5 +4464,59 @@
     "title": "Chapter 7: Statistical Power",
     "section": "How to use this chapter",
     "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough with power curves and error-region diagrams.\nUse the PDF button for an offline-friendly version.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to recompute power and sample sizes in your browser.\nUse the final cheat sheet as a study guide for power and sample-size formulas."
+    "objectID": "index.html#what-youll-learn",
+    "href": "index.html#what-youll-learn",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 9 you’ll be able to:\n\nDescribe the simple linear regression model and identify the response, predictor, intercept, slope, and error term.\nInterpret fitted values and residuals in context.\nExplain how least squares chooses the regression line by minimizing the sum of squared errors.\nCompute and interpret the estimated regression equation.\nUse covariance, correlation, and \\(R^2\\) to describe the strength of a linear relationship.\nDecompose variation using \\(SST\\), \\(SSR\\), and \\(SSE\\).\nTest whether the regression slope is significantly different from zero.\nConstruct and interpret confidence intervals for the slope.\nUse residual plots to check whether a straight-line model is reasonable.\nUse lm() in R to fit, summarize, diagnose, and make predictions from a regression model."
+  },
+  {
+    "objectID": "index.html#key-ideas",
+    "href": "index.html#key-ideas",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nSimple Linear Regression Model\nSimple linear regression models the relationship between one quantitative response variable \\(Y\\) and one quantitative predictor \\(x\\) using a straight line. The model is written as\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i.\n\\]\n\n\nLeast Squares\nThe least-squares method chooses the line that makes the residuals as small as possible overall. It does this by minimizing\n\\[\nSSE = \\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\n\n\nInterpreting the Slope\nThe slope is usually the most important part of the regression equation. It tells us the predicted change in the response variable for a one-unit increase in the predictor.\n\n\nCorrelation and \\(R^2\\)\nCorrelation describes the strength and direction of a linear relationship. The coefficient of determination, \\(R^2\\), tells us the proportion of variation in the response explained by the fitted linear model.\n\n\nInference for the Slope\nRegression inference allows us to test whether the predictor has a statistically meaningful linear relationship with the response. A common test is\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1\\ne 0.\n\\]\n\n\nPrediction and Diagnostics\nA fitted regression line can be used for prediction, but only after checking whether the model is reasonable. Residual plots help us detect curvature, changing spread, outliers, and other model issues."
+  },
+  {
+    "objectID": "index.html#how-to-use-this-chapter",
+    "href": "index.html#how-to-use-this-chapter",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough of simple linear regression.\nUse the PDF button for an offline-friendly version.\nWork through the electricity cost example to see the full regression workflow.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to check calculations using lm().\nUse the final summary as a study guide for interpreting slope, residuals, \\(R^2\\), confidence intervals, hypothesis tests, and predictions.\n\n\n\nSlides PDF"
+  },
+  {
+    "objectID": "index.html#what-youll-learn-1",
+    "href": "index.html#what-youll-learn-1",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 10 you’ll be able to:\n\nRecognize when data are categorical rather than quantitative.\nDescribe the multinomial response model for counts across several categories.\nSet up hypotheses for a chi-square goodness-of-fit test.\nCompute expected counts using the hypothesized category probabilities.\nCalculate and interpret the chi-square test statistic.\nFind a P-value using the chi-square distribution with the correct degrees of freedom.\nCheck the expected cell frequency condition before applying the test.\nUse chisq.test() in R to check goodness-of-fit calculations."
+  },
+  {
+    "objectID": "index.html#key-ideas-1",
+    "href": "index.html#key-ideas-1",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nCategorical Data\nCategorical data record which group, class, brand, color, outcome, or category each observation belongs to. Instead of analyzing means, we usually analyze counts or proportions in each category.\n\n\nMultinomial Response Model\nWhen each trial results in exactly one of \\(k\\) possible categories, the counts follow a multinomial model. If the category probabilities are \\[\np_1, p_2, \\ldots, p_k,\n\\] then they must satisfy \\[\np_1+p_2+\\cdots+p_k=1.\n\\] The binomial model is the special case where \\(k=2\\).\n\n\nExpected Counts\nUnder the null hypothesis, each category has a hypothesized probability. The expected count in category \\(i\\) is \\[\nE_i = np_i.\n\\] These expected counts describe what we would expect to see if the null hypothesis were true.\n\n\nChi-square Goodness-of-Fit Statistic\nThe goodness-of-fit test compares observed counts to expected counts: \\[\n\\chi^2 =\n\\sum\n\\frac{(\\text{observed count} - \\text{expected count})^2}\n{\\text{expected count}}.\n\\] Large values of \\(\\chi^2\\) mean the observed counts are far from what the null hypothesis predicts.\n\n\nDegrees of Freedom and P-value\nFor a goodness-of-fit test with \\(k\\) categories, the test statistic is compared to a chi-square distribution with \\[\nk-1\n\\] degrees of freedom. The P-value is the area to the right of the observed test statistic.\n\n\nSample Size Assumption\nThe chi-square approximation works well when the expected counts are large enough. A common rule is that every expected cell count should be at least 5."
+  },
+  {
+    "objectID": "index.html#how-to-use-this-chapter-1",
+    "href": "index.html#how-to-use-this-chapter-1",
+    "title": "Chapter 10: Analysis of Categorical Data",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough.\nUse the PDF button for an offline-friendly version.\nFollow the worked examples to practice setting up observed and expected counts.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples using chisq.test().\nRevisit the examples later as templates for homework and exam practice."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
+    "title": "STA258",
+    "section": "Check in R: Food Delivery ETA",
+    "text": "Check in R: Food Delivery ETA\n\n\n\n\n\n\n\n\n\nThe output gives \\(t=2.682\\), \\(df=11\\), and p-value \\(0.0107\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
+    "href": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
+    "title": "STA258",
+    "section": "Example: Scoring Consistency",
+    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
   }
 ]

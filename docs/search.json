@@ -2104,7 +2104,7 @@
     "href": "Chapter Slides/chapter6-slides.html#assumptions-difference-of-proportions",
     "title": "STA258",
     "section": "Assumptions: Difference of Proportions",
-    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\nFor each group, check successes and failures:\n\n\n\\[\nx_i\\ge 10\n\\qquad\\text{and}\\qquad\nn_i-x_i\\ge 10\n\\]"
+    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\n\nCheck successes and failures in each group.\n\n\nAt least 10 successes: \\(x_i \\ge 10\\).\n\n\nAt least 10 failures: \\(n_i - x_i \\ge 10\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#assumptions-ratio-of-variances",
@@ -4176,21 +4176,21 @@
     "href": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "title": "STA258",
     "section": "Example: Active Recall vs Rereading",
-    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90 Rereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
+    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90\nRereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "href": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "title": "STA258",
     "section": "Example: Push Notifications",
-    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users No notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
+    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users\nNo notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "href": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "title": "STA258",
     "section": "Example: Pomodoro Focus Timer",
-    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32 After: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
+    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
@@ -4268,5 +4268,12 @@
     "title": "STA258",
     "section": "Check in R: Food Delivery ETA",
     "text": "Check in R: Food Delivery ETA\n\n\n\n\n\n\n\n\n\nThe output gives \\(t=2.682\\), \\(df=11\\), and p-value \\(0.0107\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
+    "href": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
+    "title": "STA258",
+    "section": "Example: Scoring Consistency",
+    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
   }
 ]

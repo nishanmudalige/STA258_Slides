@@ -1161,6 +1161,7 @@ Software uses the Welch-Satterthwaite approximation.
 Decades of memory research suggest **active recall** (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.
 
 Active recall: `88 91 85 94 89 90 87 92 86 93 89 90`
+
 Rereading: `84 86 82 88 85 83 81 87 84 86`
 
 Does active recall produce a higher mean quiz score?
@@ -1206,6 +1207,7 @@ $$
 A habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.
 
 Push notification: $142$ check-ins out of $360$ users
+
 No notification: $118$ check-ins out of $370$ users
 
 Test whether the daily push notification increases the check-in rate.
@@ -1260,14 +1262,15 @@ Extreme ratios in either direction count as evidence against equal variances.
 
 ---
 
-## Example: Streaky Scorer
+## Example: Scoring Consistency
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-Two basketball players average about the same points per game, but a scout suspects **Player A is streakier** — more variable game to game.
+Two basketball players average about the same points per game, but a scout suspects **Player A is less consistent** — more variable game to game.
 
 Player A: `78 85 72 91 68 88 75 82 95 70 84 77`
+
 Player B: `82 84 79 85 81 83 80 86 82 84`
 
 Test whether Player A has the larger scoring variance at $\alpha=0.05$.
@@ -1287,11 +1290,11 @@ fx <- seq(0, 6, length.out = 500)
 plot_ly(width = 620, height = 230) |>
   add_lines(x = fx, y = df(fx, 11, 9),
             line = list(color = "#1f4e79", width = 4), name = "F(11, 9)") |>
-  add_trace(x = fx[fx >= 3.1], y = df(fx[fx >= 3.1], 11, 9),
+  add_trace(x = fx[fx >= 2.0], y = df(fx[fx >= 2.0], 11, 9),
             type = "scatter", mode = "lines", fill = "tozeroy",
-            fillcolor = "rgba(249,168,37,0.32)",
-            line = list(color = "rgba(249,168,37,0.9)", width = 1)) |>
-  layout(title = list(text = "Right-tailed F test, df = 11, 9",
+            fillcolor = "rgba(249,168,37,0.55)",
+            line = list(color = "rgba(249,168,37,0.95)", width = 1)) |>
+  layout(title = list(text = "Right-tailed F test (df = 11, 9)",
                       x = 0.02, font = list(size = 15)),
          xaxis = list(title = "", fixedrange = TRUE, zeroline = TRUE,
                       zerolinecolor = "#222"),
@@ -1352,6 +1355,7 @@ $t$ with $n-1$ degrees of freedom for the differences.
 Each of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the **Pomodoro** technique (25-minute focus blocks). Scores are paired within each student.
 
 Before: `34 29 41 38 36 33 40 31 37 35 39 32`
+
 After: `36 31 43 39 38 35 39 34 40 37 41 33`
 
 Can we conclude the technique improves scores?
@@ -1426,15 +1430,11 @@ In the Pomodoro example, why is a paired $t$ test appropriate?
 
 ::: {.card .fragment}
 <span class="label">Large-count condition</span>
-<p class="fragment">For each group, check successes and failures:</p>
-
-::: {.fragment}
-$$
-x_i\ge 10
-\qquad\text{and}\qquad
-n_i-x_i\ge 10
-$$
-:::
+<ul class="assumption-list">
+  <li class="fragment">Check successes and failures in <em>each</em> group.</li>
+  <li class="fragment">At least 10 successes: $x_i \ge 10$.</li>
+  <li class="fragment">At least 10 failures: $n_i - x_i \ge 10$.</li>
+</ul>
 :::
 ::::
 

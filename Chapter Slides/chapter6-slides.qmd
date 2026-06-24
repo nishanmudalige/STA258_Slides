@@ -67,6 +67,82 @@ tail_plot <- function(stat = 1.8, dist = "z", df = 12, alternative = "greater",
     config(displayModeBar = FALSE, responsive = TRUE)
   p
 }
+
+# Chi-square reference distribution with a shaded tail (for variance tests)
+chisq_tail_plot <- function(stat, df, alternative = "greater",
+                            title = "Chi-square reference") {
+  x <- seq(0, qchisq(0.999, df), length.out = 500)
+  y <- dchisq(x, df)
+  shade <- if (alternative == "less") x <= stat else x >= stat
+  plot_ly(width = 620, height = 230) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
+              name = paste0("chi^2(", df, ")")) |>
+    add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.32)",
+              line = list(color = "rgba(249,168,37,0.9)", width = 1),
+              name = "p-value area") |>
+    layout(
+      title = list(text = title, x = 0.02, font = list(size = 15)),
+      xaxis = list(title = "", zeroline = TRUE, zerolinecolor = "#222",
+                   rangemode = "tozero", fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
+      margin = list(l = 42, r = 12, t = 36, b = 28),
+      showlegend = FALSE
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+}
+
+# Interactive dropdown: switch the shaded p-value area between the three alternatives
+pvalue_dropdown <- function(stat = 1.6) {
+  x <- seq(-4, 4, length.out = 600)
+  y <- dnorm(x)
+  left_idx  <- x <= -abs(stat)
+  right_idx <- x >=  abs(stat)
+  two_idx   <- abs(x) >= abs(stat)
+  fill_col <- "rgba(249,168,37,0.32)"
+  line_col <- "rgba(249,168,37,0.9)"
+  ttl <- function(t) list(text = t, x = 0.02, font = list(size = 15))
+  plot_ly(width = 760, height = 300) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
+              name = "N(0,1)", hoverinfo = "skip") |>
+    add_trace(x = x[left_idx], y = y[left_idx], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_col,
+              line = list(color = line_col, width = 1),
+              name = "left tail", visible = FALSE, hoverinfo = "skip") |>
+    add_trace(x = x[right_idx], y = y[right_idx], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_col,
+              line = list(color = line_col, width = 1),
+              name = "right tail", visible = TRUE, hoverinfo = "skip") |>
+    add_trace(x = x[two_idx], y = y[two_idx], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_col,
+              line = list(color = line_col, width = 1),
+              name = "two tails", visible = FALSE, hoverinfo = "skip") |>
+    layout(
+      title = ttl("Right-tailed p-value  (Ha: θ > θ₀)"),
+      xaxis = list(title = "test statistic", range = c(-4, 4), zeroline = TRUE,
+                   zerolinecolor = "#222", fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
+      margin = list(l = 42, r = 12, t = 64, b = 34),
+      showlegend = FALSE,
+      updatemenus = list(list(
+        type = "dropdown", direction = "down",
+        x = 0.99, xanchor = "right", y = 1.22, yanchor = "top",
+        bgcolor = "#ffffff", bordercolor = "#00695c",
+        buttons = list(
+          list(method = "update", label = "Right-tailed  (Ha: >)",
+               args = list(list(visible = c(TRUE, FALSE, TRUE, FALSE)),
+                           list(title = ttl("Right-tailed p-value  (Ha: θ > θ₀)")))),
+          list(method = "update", label = "Left-tailed  (Ha: <)",
+               args = list(list(visible = c(TRUE, TRUE, FALSE, FALSE)),
+                           list(title = ttl("Left-tailed p-value  (Ha: θ < θ₀)")))),
+          list(method = "update", label = "Two-tailed  (Ha: ≠)",
+               args = list(list(visible = c(TRUE, FALSE, FALSE, TRUE)),
+                           list(title = ttl("Two-tailed p-value  (Ha: θ ≠ θ₀)"))))
+        )
+      ))
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+}
 ```
 
 # Chapter 6: Hypothesis Tests {.title-slide}
@@ -323,6 +399,20 @@ tail_plot <- function(stat = 1.8, dist = "z", df = 12, alternative = "greater",
   overflow: hidden !important;
   margin: 0 auto !important;
 }
+.dropdown-plot,
+.dropdown-plot .cell,
+.dropdown-plot .cell-output-display,
+.dropdown-plot .html-widget,
+.dropdown-plot .plotly,
+.dropdown-plot .plot-container,
+.dropdown-plot .svg-container {
+  width: 100% !important;
+  max-width: 780px !important;
+  height: 320px !important;
+  max-height: 320px !important;
+  overflow: visible !important;
+  margin: 0 auto !important;
+}
 .home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
   display: inline-block !important;
@@ -456,24 +546,27 @@ Use when the research question asks whether the parameter changed in either dire
 
 ## P-Value Areas
 
-::: {.slide-stack}
+:::: {.two-col-wide}
+::: {.col}
 <ol class="step-list compact-steps">
   <li class="fragment"><strong>Left-tailed:</strong> $P(T \le t^*)$ or $P(Z \le z^*)$.</li>
   <li class="fragment"><strong>Right-tailed:</strong> $P(T \ge t^*)$ or $P(Z \ge z^*)$.</li>
   <li class="fragment"><strong>Two-sided:</strong> double the matching one-tail area.</li>
 </ol>
 
-::: {.mini-plot .fragment}
-```{r}
-tail_plot(stat = 1.8, alternative = "greater",
-          title = "Right-tailed p-value")
-```
+::: {.thinkbox .fragment}
+Use the **dropdown** to see how the shaded p-value area moves with the alternative hypothesis.
+:::
 :::
 
-::: {.thinkbox .fragment}
-For a two-sided test, the p-value includes evidence at least as extreme in **both** tails.
+::: {.col}
+::: {.dropdown-plot}
+```{r}
+pvalue_dropdown(stat = 1.8)
+```
 :::
 :::
+::::
 
 ---
 
@@ -572,13 +665,11 @@ Testing a population mean with known $\sigma$ and an appropriate random/normal-o
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-A cafe chain checks whether its large coffee cups are being underfilled.
+The cafe chain **Steeped** advertises that a large iced latte is filled to a target of $\mu_0=7.2$ oz of base. Customers complain the cups feel light, so quality control pulls a random sample of $n=40$ cups.
 
-From past calibration records, $\sigma=1.1$ oz. A random sample of $n=40$ cups has
+From years of calibration records, the filling machine's standard deviation is known: $\sigma=1.1$ oz. The sample mean is $\bar{x}=6.7$ oz.
 
-$$\bar{x}=6.7,\quad \mu_0=7.2.$$
-
-Test whether the mean fill volume has **decreased** at $\alpha=0.05$.
+Test whether the true mean fill volume has **dropped below** 7.2 oz at $\alpha=0.05$.
 :::
 
 ::: {.defbox .fragment}
@@ -684,23 +775,31 @@ Random/independent observations; population normal or sample large enough for th
 
 ---
 
-## Example: Clinic Wait Times
+## Example: Food Delivery ETA
 
+:::: {.two-col-wide}
+::: {.col}
 ::: {.examplebox}
-A clinic advertises an average wait time of 16.5 minutes. A patient group records 12 waits:
+The delivery app **DashEats** promises an average drop-off time of $16.5$ minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:
 
 `16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8`
 
-Test whether the mean wait time is **greater** than advertised.
+Test whether the true mean delivery time is **greater** than the advertised 16.5 minutes.
 :::
 
-:::: {.two-col}
 ::: {.defbox .fragment}
 $$H_0:\mu=16.5,\qquad H_a:\mu>16.5$$
+$\sigma$ is unknown, so use a one-sample $t$ test.
+:::
 :::
 
-::: {.thinkbox .fragment}
-Use a one-sample $t$ test because $\sigma$ is not known.
+::: {.col}
+::: {.mini-plot .fragment}
+```{r}
+tail_plot(stat = 2.682, dist = "t", df = 11, alternative = "greater",
+          title = "Right-tailed t test, df = 11")
+```
+:::
 :::
 ::::
 
@@ -745,25 +844,30 @@ Under $H_0$, both $np_0$ and $n(1-p_0)$ should be at least 10.
 
 ---
 
-## Example: Recycling Participation
+## Example: Reusable Cup Discount
 
+:::: {.two-col-wide}
+::: {.col}
 ::: {.examplebox}
-A campus office believes that $10\%$ of students join a voluntary recycling program. A new survey finds $x=68$ participants out of $n=520$ students.
+Last year only $10\%$ of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds $x=68$ of $n=520$ students bringing their own cup.
 
-Is this evidence that the participation rate has increased?
-:::
-
-:::: {.two-col}
-::: {.defbox .fragment}
-$$
-H_0:p=0.10,\qquad H_a:p>0.10
-$$
+Is this evidence that the participation rate has **increased** above $10\%$?
 :::
 
 ::: {.defbox .fragment}
-$$
-\hat p=\frac{68}{520}=0.1308
-$$
+$$H_0:p=0.10,\qquad H_a:p>0.10$$
+
+$$\hat p=\frac{68}{520}=0.1308$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot .fragment}
+```{r}
+tail_plot(stat = 2.34, alternative = "greater",
+          title = "Right-tailed z test for a proportion")
+```
+:::
 :::
 ::::
 
@@ -828,27 +932,36 @@ The population should be approximately normal. Variance tests are sensitive to n
 
 ---
 
-## Example: Sauce Jar Consistency
+## Example: Protein Scoop Consistency
 
+:::: {.two-col-wide}
+::: {.col}
 ::: {.examplebox}
-A food lab claims its sauce jar fill weights have standard deviation at most $2.8$ g. A quality audit samples $n=28$ jars and finds $s=3.4$ g.
+A fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most $2.8$ g. A reviewer weighs a random sample of $n=28$ scoops and finds $s=3.4$ g.
 
-Does this undermine the claim? Use $\alpha=0.05$ and assume normality.
+Does this **undermine** the consistency claim? Use $\alpha=0.05$ and assume scoop weights are normal.
 :::
 
-:::: {.two-col}
 ::: {.defbox .fragment}
 $$H_0:\sigma^2=2.8^2,\qquad H_a:\sigma^2>2.8^2$$
+
+A larger sample spread is evidence against the "at most 2.8 g" claim.
+:::
 :::
 
-::: {.thinkbox .fragment}
-Large sample variation gives evidence against the "at most 2.8 g" claim.
+::: {.col}
+::: {.mini-plot .fragment}
+```{r}
+chisq_tail_plot(stat = 39.81, df = 27, alternative = "greater",
+                title = "Right-tailed chi-square test, df = 27")
+```
+:::
 :::
 ::::
 
 ---
 
-## Check in R: Jar Variance Test
+## Check in R: Scoop Variance Test
 
 ```{webr}
 n <- 28
@@ -929,19 +1042,19 @@ Software uses the Welch-Satterthwaite approximation.
 
 ---
 
-## Example: Workshop Quiz Scores
+## Example: Active Recall vs Rereading
 
 ::: {.examplebox}
-Two independent tutorial sections try different workshop formats before the same quiz.
+Decades of memory research suggest **active recall** (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.
 
-Active workshop: `88 91 85 94 89 90 87 92 86 93 89 90`  
-Review workshop: `84 86 82 88 85 83 81 87 84 86`
+Active recall: `88 91 85 94 89 90 87 92 86 93 89 90`
+Rereading: `84 86 82 88 85 83 81 87 84 86`
 
-Does the active workshop produce a higher mean quiz score?
+Does active recall produce a higher mean quiz score?
 :::
 
 ::: {.defbox .fragment}
-Let $\mu_1$ be the active workshop mean and $\mu_2$ the review workshop mean. Test $H_0:\mu_1-\mu_2=0$ against $H_a:\mu_1-\mu_2>0$.
+Let $\mu_1$ be the active-recall mean and $\mu_2$ the rereading mean. Test $H_0:\mu_1-\mu_2=0$ against $H_a:\mu_1-\mu_2>0$.
 :::
 
 ---
@@ -974,15 +1087,15 @@ $$
 
 ---
 
-## Example: Reminder Texts
+## Example: Push Notifications
 
 ::: {.examplebox}
-A student services office compares sign-up rates with and without reminder texts.
+A habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.
 
-Reminder text: $142$ sign-ups out of $360$  
-No reminder: $118$ sign-ups out of $370$
+Push notification: $142$ check-ins out of $360$ users
+No notification: $118$ check-ins out of $370$ users
 
-Test whether reminder texts increase the sign-up rate.
+Test whether the daily push notification increases the check-in rate.
 :::
 
 ::: {.defbox .fragment}
@@ -1034,6 +1147,66 @@ Extreme ratios in either direction count as evidence against equal variances.
 
 ---
 
+## Example: Streaky Scorer
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+Two basketball players average about the same points per game, but a scout suspects **Player A is streakier** — more variable game to game.
+
+Player A: `78 85 72 91 68 88 75 82 95 70 84 77`
+Player B: `82 84 79 85 81 83 80 86 82 84`
+
+Test whether Player A has the larger scoring variance at $\alpha=0.05$.
+:::
+
+::: {.defbox .fragment}
+$$H_0:\sigma_A^2=\sigma_B^2,\qquad H_a:\sigma_A^2>\sigma_B^2$$
+
+$$F^*=\frac{s_A^2}{s_B^2}\sim F_{n_A-1,\,n_B-1}$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot .fragment}
+```{r}
+fx <- seq(0, 6, length.out = 500)
+plot_ly(width = 620, height = 230) |>
+  add_lines(x = fx, y = df(fx, 11, 9),
+            line = list(color = "#1f4e79", width = 4), name = "F(11, 9)") |>
+  add_trace(x = fx[fx >= 3.1], y = df(fx[fx >= 3.1], 11, 9),
+            type = "scatter", mode = "lines", fill = "tozeroy",
+            fillcolor = "rgba(249,168,37,0.32)",
+            line = list(color = "rgba(249,168,37,0.9)", width = 1)) |>
+  layout(title = list(text = "Right-tailed F test, df = 11, 9",
+                      x = 0.02, font = list(size = 15)),
+         xaxis = list(title = "", fixedrange = TRUE, zeroline = TRUE,
+                      zerolinecolor = "#222"),
+         yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
+         margin = list(l = 42, r = 12, t = 36, b = 28), showlegend = FALSE) |>
+  config(displayModeBar = FALSE, responsive = TRUE)
+```
+:::
+:::
+::::
+
+---
+
+## Check in R: Ratio of Variances
+
+```{webr}
+player_a <- c(78, 85, 72, 91, 68, 88, 75, 82, 95, 70, 84, 77)
+player_b <- c(82, 84, 79, 85, 81, 83, 80, 86, 82, 84)
+
+var.test(player_a, player_b, alternative = "greater")
+```
+
+::: {.thinkbox .fragment}
+`var.test` reports $F^*$, the two degrees of freedom, and the p-value. An $F^*$ well above 1 is evidence that Player A's scoring is more variable.
+:::
+
+---
+
 ## Paired Data
 
 ::: {.defbox}
@@ -1060,15 +1233,15 @@ $t$ with $n-1$ degrees of freedom for the differences.
 
 ---
 
-## Example: Paired Study Plan Test
+## Example: Pomodoro Focus Timer
 
 ::: {.examplebox}
-Each of 12 students completes a practice set before and after using a new study plan.
+Each of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the **Pomodoro** technique (25-minute focus blocks). Scores are paired within each student.
 
-Before: `34 29 41 38 36 33 40 31 37 35 39 32`  
+Before: `34 29 41 38 36 33 40 31 37 35 39 32`
 After: `36 31 43 39 38 35 39 34 40 37 41 33`
 
-Can we conclude the study plan improves scores?
+Can we conclude the technique improves scores?
 :::
 
 ::: {.defbox .fragment}
@@ -1077,7 +1250,7 @@ Use paired differences $d_i=\text{after}_i-\text{before}_i$ and test $H_0:\mu_d=
 
 ---
 
-## Check in R: Paired Study Plan Test
+## Check in R: Paired Pomodoro Test
 
 ```{webr}
 before <- c(34, 29, 41, 38, 36, 33, 40, 31, 37, 35, 39, 32)
@@ -1093,12 +1266,12 @@ t.test(after, before, paired = TRUE, alternative = "greater")
 :::: {.callout-note icon="false"}
 ## Question
 
-In the study plan example, why is a paired $t$ test appropriate?
+In the Pomodoro example, why is a paired $t$ test appropriate?
 ::::
 
 - The two samples have the same mean
 - The sample size is less than 30
-- [Each student has both before and after scores, so observations are matched within student]{.correct data-explanation="The student creates a natural pair: before-plan score and after-plan score on the same person."}
+- [Each student has both before and after scores, so observations are matched within student]{.correct data-explanation="The student creates a natural pair: the before score and after score come from the same person."}
 - Proportion tests cannot use score data
 
 ---

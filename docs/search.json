@@ -1873,7 +1873,7 @@
     "href": "Chapter Slides/chapter6-slides.html#p-value-areas",
     "title": "STA258",
     "section": "P-Value Areas",
-    "text": "P-Value Areas\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\n\n\n\n\n\n\n\n\nFor a two-sided test, the p-value includes evidence at least as extreme in both tails."
+    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\nUse the dropdown to see how the shaded p-value area moves with the alternative hypothesis."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#decision-rule",
@@ -1908,7 +1908,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-coffee-fill-volume",
     "title": "STA258",
     "section": "Example: Coffee Fill Volume",
-    "text": "Example: Coffee Fill Volume\n\n\n\nA cafe chain checks whether its large coffee cups are being underfilled.\nFrom past calibration records, \\(\\sigma=1.1\\) oz. A random sample of \\(n=40\\) cups has\n\\[\\bar{x}=6.7,\\quad \\mu_0=7.2.\\]\nTest whether the mean fill volume has decreased at \\(\\alpha=0.05\\).\n\n\n\\[\nH_0:\\mu=7.2\n\\qquad\nH_a:\\mu&lt;7.2\n\\]"
+    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Steeped advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\\[\nH_0:\\mu=7.2\n\\qquad\nH_a:\\mu&lt;7.2\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
@@ -2090,7 +2090,7 @@
     "href": "Chapter Slides/chapter6-slides.html#section-3",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nIn the study plan example, why is a paired \\(t\\) test appropriate?\n\n\n\n\nThe two samples have the same mean\nThe sample size is less than 30\nEach student has both before and after scores, so observations are matched within student\nProportion tests cannot use score data"
+    "text": "Question\n\n\nIn the Pomodoro example, why is a paired \\(t\\) test appropriate?\n\n\n\n\nThe two samples have the same mean\nThe sample size is less than 30\nEach student has both before and after scores, so observations are matched within student\nProportion tests cannot use score data"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#assumptions-two-independent-means",
@@ -4149,5 +4149,75 @@
     "title": "STA258",
     "section": "Example: Water Intake",
     "text": "Example: Water Intake\n\n\n\nStaying hydrated is linked to sharper concentration. A study records the daily water intake of 16 students, with sample variance \\(s^2=0.36\\) (litres\\(^2\\)). Assume daily intake is normally distributed.\nConstruct a 90% CI for \\(\\sigma^2\\).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe 90% CI is approximately \\((0.2160,0.7437)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
+    "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
+    "title": "STA258",
+    "section": "Example: Food Delivery ETA",
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app DashEats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
+    "href": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
+    "title": "STA258",
+    "section": "Example: Reusable Cup Discount",
+    "text": "Example: Reusable Cup Discount\n\n\n\nLast year only \\(10\\%\\) of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds \\(x=68\\) of \\(n=520\\) students bringing their own cup.\nIs this evidence that the participation rate has increased above \\(10\\%\\)?\n\n\n\\[H_0:p=0.10,\\qquad H_a:p&gt;0.10\\]\n\\[\\hat p=\\frac{68}{520}=0.1308\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
+    "href": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
+    "title": "STA258",
+    "section": "Example: Protein Scoop Consistency",
+    "text": "Example: Protein Scoop Consistency\n\n\n\nA fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most \\(2.8\\) g. A reviewer weighs a random sample of \\(n=28\\) scoops and finds \\(s=3.4\\) g.\nDoes this undermine the consistency claim? Use \\(\\alpha=0.05\\) and assume scoop weights are normal.\n\n\n\\[H_0:\\sigma^2=2.8^2,\\qquad H_a:\\sigma^2&gt;2.8^2\\]\nA larger sample spread is evidence against the “at most 2.8 g” claim."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
+    "href": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
+    "title": "STA258",
+    "section": "Example: Active Recall vs Rereading",
+    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90 Rereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-push-notifications",
+    "href": "Chapter Slides/chapter6-slides.html#example-push-notifications",
+    "title": "STA258",
+    "section": "Example: Push Notifications",
+    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users No notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
+    "href": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
+    "title": "STA258",
+    "section": "Example: Pomodoro Focus Timer",
+    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32 After: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
+    "title": "STA258",
+    "section": "Check in R: Scoop Variance Test",
+    "text": "Check in R: Scoop Variance Test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-paired-pomodoro-test",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-paired-pomodoro-test",
+    "title": "STA258",
+    "section": "Check in R: Paired Pomodoro Test",
+    "text": "Check in R: Paired Pomodoro Test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-streaky-scorer",
+    "href": "Chapter Slides/chapter6-slides.html#example-streaky-scorer",
+    "title": "STA258",
+    "section": "Example: Streaky Scorer",
+    "text": "Example: Streaky Scorer\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is streakier — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77 Player B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-ratio-of-variances",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-ratio-of-variances",
+    "title": "STA258",
+    "section": "Check in R: Ratio of Variances",
+    "text": "Check in R: Ratio of Variances\n\n\n\n\n\n\n\n\n\nvar.test reports \\(F^*\\), the two degrees of freedom, and the p-value. An \\(F^*\\) well above 1 is evidence that Player A’s scoring is more variable."
   }
 ]

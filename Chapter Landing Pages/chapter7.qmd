@@ -1,0 +1,79 @@
+---
+title: "Chapter 7: Statistical Power"
+subtitle: "STA258 - University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter7-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter7-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 7 you'll be able to:
+
+- Define the power of a test and explain what makes power high or low.
+- Distinguish Type I ($\alpha$) and Type II ($\beta$) errors and connect them through power $=1-\beta$.
+- Compute the power of a $z$ test against a specific alternative mean or proportion.
+- Read and sketch a power curve and the overlapping null/alternative distributions.
+- Invert a power calculation to find the smallest sample size that reaches a target power.
+- Identify the three ingredients ($\sigma$, $\alpha$, effect size) you must know before planning a study.
+
+## Key ideas
+
+::: {.summary-card}
+### What Power Means
+The power of a test is the probability of correctly rejecting $H_0$ when a particular alternative is true: $\text{Power}=P(\text{reject }H_0\mid H_0\text{ false})$. High power means the test reliably detects real effects.
+:::
+
+::: {.summary-card}
+### Two Kinds of Error
+A Type I error rejects a true $H_0$ (probability $\alpha$); a Type II error fails to reject a false $H_0$ (probability $\beta$). Power is exactly $1-\beta$, so shrinking $\beta$ raises power.
+:::
+
+::: {.summary-card}
+### What Drives Power
+Power increases with the effect size, the sample size $n$, and the significance level $\alpha$, and decreases with variability $\sigma$. Since $n$ and $\alpha$ are under your control, sample size is the main planning lever.
+:::
+
+::: {.summary-card}
+### Computing Power
+Translate the rejection rule into a cutoff on the data scale using the null distribution, then assume the alternative is true and find the probability of landing in the rejection region. That area is the power.
+:::
+
+::: {.summary-card}
+### Planning the Sample Size
+Setting a cutoff under $H_0$ equal to a cutoff under the desired power gives $n=\big((z_\alpha+z_\beta)\sigma/(\mu_0-\mu_a)\big)^2$. Smaller effects and lower variability tolerance demand larger samples; always round $n$ up.
+:::
+
+## How to use this chapter
+
+- Open the **slides** for an interactive walkthrough with power curves and error-region diagrams.
+- Use the **PDF** button for an offline-friendly version.
+- Try the embedded quiz questions before revealing the answer.
+- Run and edit the WebR examples to recompute power and sample sizes in your browser.
+- Use the final cheat sheet as a study guide for power and sample-size formulas.

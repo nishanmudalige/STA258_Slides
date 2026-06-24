@@ -4221,6 +4221,249 @@
     "text": "Check in R: Ratio of Variances\n\n\n\n\n\n\n\n\n\nvar.test reports \\(F^*\\), the two degrees of freedom, and the p-value. An \\(F^*\\) well above 1 is evidence that Player A’s scoring is more variable."
   },
   {
+    "objectID": "Chapter Slides/chapter7-slides.html#chapter-roadmap",
+    "href": "Chapter Slides/chapter7-slides.html#chapter-roadmap",
+    "title": "STA258",
+    "section": "Chapter Roadmap",
+    "text": "Chapter Roadmap\n\n\nPower What power means, and the four things that push it up or down.\n\n\nErrors Type I (\\(\\alpha\\)) and Type II (\\(\\beta\\)), and how power \\(=1-\\beta\\).\n\n\nPlanning Using a target power to choose the smallest sample size.\n\n\n\n\nBig theme A test is only useful if it can actually detect a real effect. Power measures that ability.\n\n\nOutput skill Compute power for a given alternative, and invert the calculation to find the sample size that hits a desired power."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#what-is-statistical-power",
+    "href": "Chapter Slides/chapter7-slides.html#what-is-statistical-power",
+    "title": "STA258",
+    "section": "What Is Statistical Power?",
+    "text": "What Is Statistical Power?\n\nDefinition 7.1 The probability that a fixed-level significance test will reject \\(H_0\\) when a particular alternative value of the parameter is true is called the power of the test against that alternative.\n\\[\\text{Power}=P(\\text{reject } H_0 \\mid H_0 \\text{ false}), \\qquad 0&lt;\\text{power}&lt;1\\]\n\n\n\nHigh power (near 1) The test is good at detecting effects that are really there.\n\n\nLow power (near 0) The test is unreliable — it usually fails to reject even when \\(H_0\\) is false."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#what-affects-power",
+    "href": "Chapter Slides/chapter7-slides.html#what-affects-power",
+    "title": "STA258",
+    "section": "What Affects Power?",
+    "text": "What Affects Power?\n\n\nEffect size Larger gaps between reality and \\(H_0\\) are easier to detect \\(\\Rightarrow\\) more power.\n\n\nSample size \\(n\\) Larger samples shrink the standard error \\(\\Rightarrow\\) more power.\n\n\nSignificance level \\(\\alpha\\) A larger \\(\\alpha\\) makes \\(H_0\\) easier to reject \\(\\Rightarrow\\) more power (but more Type I risk).\n\n\nVariability \\(\\sigma\\) Less spread in the data \\(\\Rightarrow\\) narrower sampling distribution \\(\\Rightarrow\\) more power.\n\n\n\nYou control \\(n\\) and \\(\\alpha\\). The effect size and \\(\\sigma\\) are set by the world — so sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
+    "href": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
+    "title": "STA258",
+    "section": "Type I and Type II Errors",
+    "text": "Type I and Type II Errors\n\n\n\nA hypothesis test can reach the wrong conclusion in two ways.\n\n\nType I error (\\(\\alpha\\)) Reject \\(H_0\\) when \\(H_0\\) is true.\n\n\nType II error (\\(\\beta\\)) Fail to reject \\(H_0\\) when \\(H_0\\) is false.\n\n\n\n\n\n\n\n\\(H_0\\) True\n\\(H_0\\) False\n\n\n\n\nReject \\(H_0\\)\nType I (\\(\\alpha\\))\nCorrect (power)\n\n\nFail to reject \\(H_0\\)\nCorrect\nType II (\\(\\beta\\))\n\n\n\n\nA Type I error is usually treated as the more serious mistake, which is why we fix \\(\\alpha\\) in advance (often \\(0.05\\))."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#power-connects-to-the-errors",
+    "href": "Chapter Slides/chapter7-slides.html#power-connects-to-the-errors",
+    "title": "STA258",
+    "section": "Power Connects to the Errors",
+    "text": "Power Connects to the Errors\n\nThe power of a test against an alternative is 1 minus the Type II error probability for that alternative:\n\\[\\text{Power}=1-\\beta = 1 - P(\\text{Type II})\\]\n\n\n\n\nReading the picture The orange tail under \\(H_0\\) is \\(\\alpha\\). The red region under \\(H_a\\) is \\(\\beta\\). Everything else under \\(H_a\\) is the power."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#section",
+    "href": "Chapter Slides/chapter7-slides.html#section",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nA test fails to reject \\(H_0\\), but in reality \\(H_0\\) is false. Which error has occurred?\n\n\n\n\nType I error\nType II error\nNo error — we were cautious\nBoth Type I and Type II"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#computing-power-the-recipe",
+    "href": "Chapter Slides/chapter7-slides.html#computing-power-the-recipe",
+    "title": "STA258",
+    "section": "Computing Power: The Recipe",
+    "text": "Computing Power: The Recipe\n\n\n\n1. Rejection rule in terms of the estimate. Convert the critical \\(z\\) (or \\(z_\\alpha\\)) into a cutoff \\(\\bar{x}_*\\) on the data scale using the null distribution.\n\n\n2. Switch to the alternative. Assume the alternative value of the parameter is true.\n\n\n3. Compute the rejection probability. Standardize the cutoff under the alternative and read off the area — that area is the power."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-detecting-a-sweeter-reformulation",
+    "href": "Chapter Slides/chapter7-slides.html#example-detecting-a-sweeter-reformulation",
+    "title": "STA258",
+    "section": "Example: Detecting a Sweeter Reformulation",
+    "text": "Example: Detecting a Sweeter Reformulation\n\n\n\nA meal-kit company quietly reformulates a sauce and asks a trained tasting panel to score the change in sweetness (positive = sweeter). If the true mean change is \\(\\mu=1.1\\) points, will a 5% test reliably catch it?\nA panel of \\(n=10\\) tasters scores each batch; from calibration the scores have \\(\\sigma=1\\).\n\n\n\n\nSet-up\n\\[H_0:\\mu = 0 \\qquad H_a:\\mu&gt;0\\]\n\n\\(n = 10,\\quad \\sigma = 1,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 1.1\\)\n\n\n\n\\(\\sigma\\) is known \\(\\Rightarrow\\) one-sample \\(z\\) test, reference \\(N(0,1)\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#sweetness-step-1-rejection-region",
+    "href": "Chapter Slides/chapter7-slides.html#sweetness-step-1-rejection-region",
+    "title": "STA258",
+    "section": "Sweetness: Step 1 — Rejection Region",
+    "text": "Sweetness: Step 1 — Rejection Region\n\n\n\nOne-sided test with \\(\\alpha=0.05\\): \\[z_{\\text{crit}} = 1.645 \\quad\\Rightarrow\\quad \\text{reject if } Z^* &gt; 1.645\\]\nConvert to the \\(\\bar{x}\\) scale (since \\(\\sigma\\) is known): \\[1.645=\\frac{\\bar{x}_{\\text{crit}}-0}{1/\\sqrt{10}} \\;\\Rightarrow\\; \\bar{x}_{\\text{crit}}\\approx 0.520\\]\nSo we reject \\(H_0\\) when \\(\\bar{x}&gt;0.520\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#sweetness-steps-23-the-power",
+    "href": "Chapter Slides/chapter7-slides.html#sweetness-steps-23-the-power",
+    "title": "STA258",
+    "section": "Sweetness: Steps 2–3 — The Power",
+    "text": "Sweetness: Steps 2–3 — The Power\n\n\n\nNow assume the alternative \\(\\mu=1.1\\) is true and find the probability that \\(\\bar{x}\\) lands in the rejection region:\n\\[\n\\text{power}=P\\!\\left(Z&gt;\\frac{0.520-1.1}{1/\\sqrt{10}}\\right)\n\\] \\[\n= P(Z&gt;-1.83)=1-0.0336=\\mathbf{0.9664}\n\\]\n\n\nThere is a 96.6% chance the test correctly detects a true mean change of \\(\\mu=1.1\\). Equivalently \\(\\beta = 0.034\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-sweetness-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-sweetness-power",
+    "title": "STA258",
+    "section": "Check in R: Sweetness Power",
+    "text": "Check in R: Sweetness Power\n\n\n\n\n\n\n\n\n\nxcrit \\(\\approx 0.520\\) and power \\(\\approx 0.966\\), matching the hand calculation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#visualizing-power-the-power-curve",
+    "href": "Chapter Slides/chapter7-slides.html#visualizing-power-the-power-curve",
+    "title": "STA258",
+    "section": "Visualizing Power: The Power Curve",
+    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number — it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=0.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=1.1\\) (power \\(\\approx 0.97\\))."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-underfilled-bottling-line",
+    "href": "Chapter Slides/chapter7-slides.html#example-underfilled-bottling-line",
+    "title": "STA258",
+    "section": "Example: Underfilled Bottling Line",
+    "text": "Example: Underfilled Bottling Line\n\n\n\nA craft-soda line is supposed to fill bottles to \\(\\mu_0=300\\) ml. The machine is not perfect, with known \\(\\sigma=3\\) ml. Inspecting only \\(n=6\\) bottles, will the test catch a true mean of \\(\\mu=299\\) ml?\n\\[H_0:\\mu = 300 \\qquad H_a:\\mu&lt;300\\]\nA 5% test rejects when \\(z_*=\\dfrac{\\bar{x}-300}{3/\\sqrt6}\\le -1.645\\).\n\n\n\n\nStep 1 — cutoff \\[\\bar{x}&lt;300-1.645\\cdot\\tfrac{3}{\\sqrt6}\\Rightarrow \\bar{x}&lt;297.985\\]\nSteps 2–3 — power at \\(\\mu=299\\) \\[P\\!\\left(Z&lt;\\frac{297.985-299}{3/\\sqrt6}\\right)=P(Z&lt;-0.83)=\\mathbf{0.2033}\\]\n\n\n\n\nOnly 20% power. With just 6 bottles this test will usually miss a 1 ml shortfall — the sample is too small."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#bottling-line-power-picture",
+    "href": "Chapter Slides/chapter7-slides.html#bottling-line-power-picture",
+    "title": "STA258",
+    "section": "Bottling Line: Power Picture",
+    "text": "Bottling Line: Power Picture\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe huge red (\\(\\beta\\)) region is the problem. The fix is a bigger sample, which narrows both curves and shrinks \\(\\beta\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-bottling-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-bottling-power",
+    "title": "STA258",
+    "section": "Check in R: Bottling Power",
+    "text": "Check in R: Bottling Power\n\n\n\n\n\n\n\n\n\nTry bumping n to 30 or 60 and re-run — watch the power climb as the standard error shrinks."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#section-1",
+    "href": "Chapter Slides/chapter7-slides.html#section-1",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nThe bottling test has only 20% power against \\(\\mu=299\\). Which single change raises power the most without touching \\(\\alpha\\) or the true process?\n\n\n\n\nUse a smaller sample to save money\nIncrease the sample size \\(n\\)\nRe-label the hypotheses\nHope the next sample looks different"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#why-plan-the-sample-size",
+    "href": "Chapter Slides/chapter7-slides.html#why-plan-the-sample-size",
+    "title": "STA258",
+    "section": "Why Plan the Sample Size?",
+    "text": "Why Plan the Sample Size?\n\n\nToo small Low power — real, meaningful effects slip through undetected. The study is wasted.\n\n\nToo large Wasteful — extra time, cost, and participants for precision you did not need.\n\n\n\nPower analysis finds the minimum \\(n\\) that detects an effect of a given size with a specified probability (power), while holding the Type I rate at \\(\\alpha\\).\n\n\nTo run it you must supply three ingredients: the standard deviation \\(\\sigma\\), the significance level \\(\\alpha\\), and the effect size \\(\\mu_0-\\mu_a\\) you want to detect."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#the-sample-size-idea",
+    "href": "Chapter Slides/chapter7-slides.html#the-sample-size-idea",
+    "title": "STA258",
+    "section": "The Sample-Size Idea",
+    "text": "The Sample-Size Idea\n\n\n\n1. Cutoff from \\(H_0\\). Write \\(\\bar{x}_*\\) using the null mean and \\(z_\\alpha\\).\n\n\n2. Cutoff from the target power. Write the same \\(\\bar{x}_*\\) using the alternative mean and \\(z_\\beta\\) (the \\(z\\) giving the desired power).\n\n\n3. Set the two expressions equal and solve for \\(n\\). Round up to the next whole observation.\n\n\n\nOne-sided sample-size formula \\[n=\\left(\\frac{(z_\\alpha+z_\\beta)\\,\\sigma}{\\mu_0-\\mu_a}\\right)^{2}\\] where \\(z_\\beta\\) is the standard-normal value matching the target power."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-detecting-a-lift-in-daily-active-minutes",
+    "href": "Chapter Slides/chapter7-slides.html#example-detecting-a-lift-in-daily-active-minutes",
+    "title": "STA258",
+    "section": "Example: Detecting a Lift in Daily Active Minutes",
+    "text": "Example: Detecting a Lift in Daily Active Minutes\n\n\n\nA product team’s app currently averages \\(\\mu_0=100\\) daily active minutes. A new onboarding flow is believed to lift engagement. They will test \\[H_0:\\mu=100 \\qquad H_a:\\mu&gt;100\\] at \\(\\alpha=0.05\\), with \\(\\sigma=14\\). They want power \\(0.60\\) to detect a true mean of \\(\\mu=103\\). What is the smallest \\(n\\)?\n\n\n\n\nStep 1 — cutoff under \\(H_0\\) \\[\\bar{x}_*=100+1.645\\cdot\\tfrac{14}{\\sqrt n}\\]\nStep 2 — cutoff for power 0.60 \\(P(Z&gt;-0.25)\\approx 0.60\\), so \\[\\bar{x}_*=103-0.25\\cdot\\tfrac{14}{\\sqrt n}\\]\n\n\n\n\nStep 3 — equate and solve \\[100+1.645\\cdot\\tfrac{14}{\\sqrt n}=103-0.25\\cdot\\tfrac{14}{\\sqrt n}\n\\;\\Rightarrow\\; n=\\left(\\frac{(1.645+0.25)\\cdot 14}{103-100}\\right)^2\\approx 78.2 \\;\\Rightarrow\\; \\boxed{n=79}\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-sample-size-for-the-lift",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-sample-size-for-the-lift",
+    "title": "STA258",
+    "section": "Check in R: Sample Size for the Lift",
+    "text": "Check in R: Sample Size for the Lift\n\n\n\n\n\n\n\n\n\n\\(n\\approx 78.2\\), so a minimum of 79 observations guarantees power of at least 0.60. (Using the rounded \\(z_\\beta=0.25\\) from the table gives the same answer.)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-vending-machine-coffee",
+    "href": "Chapter Slides/chapter7-slides.html#example-vending-machine-coffee",
+    "title": "STA258",
+    "section": "Example: Vending-Machine Coffee",
+    "text": "Example: Vending-Machine Coffee\n\n\n\nA campus vending machine advertises \\(225\\) ml cups (\\(\\sigma=7\\) ml). You suspect it pours less and will test \\[H_0:\\mu=225 \\qquad H_a:\\mu&lt;225\\] at \\(\\alpha=0.05\\). How many cups must you sample to reach power \\(0.80\\) against a true mean of \\(\\mu=223\\) ml?\n\n\n\\(P(Z&lt;0.84)\\approx 0.80\\), so the target gives \\(z_\\beta=0.84\\).\n\n\n\n\nEquate the two cutoffs \\[225-1.645\\tfrac{7}{\\sqrt n}=223+0.84\\tfrac{7}{\\sqrt n}\\]\nSolve for \\(n\\) \\[n=\\left(\\frac{(1.645+0.84)\\cdot 7}{225-223}\\right)^2\\approx 75.6 \\;\\Rightarrow\\; \\boxed{n=76}\\]\n\n\n\n\nA minimum of 76 cups delivers the desired 0.80 power against a 2 ml shortfall."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-coffee-sample-size",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-coffee-sample-size",
+    "title": "STA258",
+    "section": "Check in R: Coffee Sample Size",
+    "text": "Check in R: Coffee Sample Size\n\n\n\n\n\n\n\n\n\npower.t.test and power.prop.test automate these calculations once you know \\(\\sigma\\), \\(\\alpha\\), the effect size, and the target power."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#power-for-a-proportion-same-logic",
+    "href": "Chapter Slides/chapter7-slides.html#power-for-a-proportion-same-logic",
+    "title": "STA258",
+    "section": "Power for a Proportion: Same Logic",
+    "text": "Power for a Proportion: Same Logic\n\nFor a one-sided test of \\(p\\), the rejection cutoff uses the null standard error, but power is computed with the alternative standard error:\n\\[\\hat p^{\\,*}=p_0 \\mp z_\\alpha\\sqrt{\\tfrac{p_0(1-p_0)}{n}}, \\qquad\n\\text{power}=P\\!\\left(\\hat p \\text{ in reject region}\\;\\middle|\\; p=p_a\\right)\\]\n\n\n\nSetup for the next example A streaming platform claims \\(90\\%\\) of viewers finish episode 1. Researchers suspect fewer do, and test \\(H_0:p=0.90\\) vs \\(H_a:p&lt;0.90\\) at \\(\\alpha=0.05\\). The truth is \\(p=0.85\\).\n\n\nThe question How does the power to detect this 5-point drop change as the sample grows from \\(n=50\\) to \\(n=200\\)?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",
+    "href": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",
+    "title": "STA258",
+    "section": "Streaming Example: Power Grows with \\(n\\)",
+    "text": "Streaming Example: Power Grows with \\(n\\)\n\n\n\n\n\n\\(n\\)\ncutoff \\(\\hat p^{\\,*}\\)\n\\(z\\) under \\(p=0.85\\)\nPower\n\n\n\n\n50\n0.8507\n\\(-0.39\\)\n0.347\n\n\n100\n0.8507\n\\(0.02\\)\n0.507\n\n\n200\n0.8651\n\\(0.60\\)\n0.725\n\n\n\n\nSame effect (a drop from 0.90 to 0.85), same \\(\\alpha\\) — only \\(n\\) changes. Power climbs from 35% to 73%."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-proportion-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-proportion-power",
+    "title": "STA258",
+    "section": "Check in R: Proportion Power",
+    "text": "Check in R: Proportion Power\n\n\n\n\n\n\n\n\n\nReturns about \\(0.347,\\ 0.507,\\ 0.725\\) — exactly the textbook values for \\(n=50,100,200\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#how-many-viewers-for-power-0.80",
+    "href": "Chapter Slides/chapter7-slides.html#how-many-viewers-for-power-0.80",
+    "title": "STA258",
+    "section": "How Many Viewers for Power 0.80?",
+    "text": "How Many Viewers for Power 0.80?\n\n\n\nKeep \\(H_0:p=0.90\\), \\(H_a:p&lt;0.90\\), true \\(p=0.85\\), \\(\\alpha=0.05\\). Set power \\(=0.80\\) (\\(z_\\beta=0.8416\\)) and equate the two cutoff expressions:\n\\[0.90-1.645\\sqrt{\\tfrac{0.90(0.10)}{n}}=0.85+0.8416\\sqrt{\\tfrac{0.85(0.15)}{n}}\\]\n\n\n\n\nSolve for \\(n\\) \\[\\sqrt n=\\frac{1.645\\sqrt{0.09}+0.8416\\sqrt{0.1275}}{0.05}=\\frac{0.4935+0.3005}{0.05}\\approx 15.88\\] \\[n\\approx 252.2 \\;\\Rightarrow\\; \\boxed{n=253}\\]\n\n\n\n\nDetecting a modest 5-point drop with 80% power takes 253 viewers — far more than the 50–200 above. Smaller effects always demand larger samples."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#general-power-formulas",
+    "href": "Chapter Slides/chapter7-slides.html#general-power-formulas",
+    "title": "STA258",
+    "section": "General Power Formulas",
+    "text": "General Power Formulas\n\n\nRight-tailed, \\(H_a:\\mu&gt;\\mu_0\\) \\[\\text{Power}(\\mu_a)=\\pi(\\mu_a)=P\\!\\left[\\,Z\\ge z_\\alpha+\\frac{\\sqrt n\\,(\\mu_0-\\mu_a)}{\\sigma}\\right]\\]\n\n\nLeft-tailed, \\(H_a:\\mu&lt;\\mu_0\\) \\[\\text{Power}(\\mu_a)=\\pi(\\mu_a)=P\\!\\left[\\,Z\\le -z_\\alpha+\\frac{\\sqrt n\\,(\\mu_0-\\mu_a)}{\\sigma}\\right]\\]\n\n\nTwo-sided, \\(H_a:\\mu\\ne\\mu_0\\) \\[\\text{Power}(\\mu_a)=1-P\\!\\left[-z_{\\alpha/2}+\\frac{\\sqrt n\\,(\\mu_0-\\mu_a)}{\\sigma}\\le Z\\le z_{\\alpha/2}+\\frac{\\sqrt n\\,(\\mu_0-\\mu_a)}{\\sigma}\\right]\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#what-you-need-to-know",
+    "href": "Chapter Slides/chapter7-slides.html#what-you-need-to-know",
+    "title": "STA258",
+    "section": "What You Need to Know",
+    "text": "What You Need to Know\n\n\nStandard deviation \\(\\sigma\\) — the spread of the variable being measured.\n\n\nSignificance level \\(\\alpha\\) — the fixed Type I error rate you are willing to tolerate.\n\n\nEffect size \\(\\mu_0-\\mu_a\\) — the smallest difference worth detecting.\n\n\n\nWith data in hand it is more common to report a p-value than a fixed reject/not-reject decision: it measures the strength of evidence against \\(H_0\\) and leaves the action up to each reader."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#section-2",
+    "href": "Chapter Slides/chapter7-slides.html#section-2",
+    "title": "STA258",
+    "section": "",
+    "text": "Question\n\n\nYou want to detect a smaller effect than originally planned, keeping \\(\\alpha\\), \\(\\sigma\\), and power the same. What happens to the required sample size?\n\n\n\n\nIt decreases\nIt stays the same\nIt increases\nIt becomes undefined"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#chapter-7-cheat-sheet",
+    "href": "Chapter Slides/chapter7-slides.html#chapter-7-cheat-sheet",
+    "title": "STA258",
+    "section": "Chapter 7 Cheat Sheet",
+    "text": "Chapter 7 Cheat Sheet\n\n\n\n\n\n\n\nQuantity\nFormula / idea\n\n\n\n\nPower\n\\(1-\\beta=P(\\text{reject } H_0\\mid H_0 \\text{ false})\\)\n\n\nType I error\n\\(\\alpha=P(\\text{reject } H_0\\mid H_0 \\text{ true})\\)\n\n\nType II error\n\\(\\beta=P(\\text{fail to reject}\\mid H_0 \\text{ false})\\)\n\n\nCutoff (right-tailed)\n\\(\\bar{x}_*=\\mu_0+z_\\alpha\\,\\sigma/\\sqrt n\\)\n\n\nPower (right-tailed)\n\\(P\\!\\big(Z\\ge z_\\alpha+\\sqrt n(\\mu_0-\\mu_a)/\\sigma\\big)\\)\n\n\nSample size (one-sided)\n\\(n=\\big((z_\\alpha+z_\\beta)\\sigma/(\\mu_0-\\mu_a)\\big)^2\\)\n\n\n\n\nAlways round a computed sample size up to the next whole observation so the achieved power is at least the target."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#up-next",
+    "href": "Chapter Slides/chapter7-slides.html#up-next",
+    "title": "STA258",
+    "section": "Up Next",
+    "text": "Up Next\n\nChapter 8 — Analysis of Variance\nWe extend hypothesis testing from one or two groups to several group means at once, using the \\(F\\)-distribution to ask whether any of the group means differ.\n\n\nOne-slide takeaway. Power \\(=1-\\beta\\) is a test’s ability to detect a real effect. It rises with effect size, sample size, and \\(\\alpha\\), and falls with variability — so planning \\(n\\) in advance is how we guarantee a study can succeed.\n\n\nBack to Homepage"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter7.html",
+    "href": "Chapter Landing Pages/chapter7.html",
+    "title": "Chapter 7: Statistical Power",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter7.html#what-youll-learn",
+    "href": "Chapter Landing Pages/chapter7.html#what-youll-learn",
+    "title": "Chapter 7: Statistical Power",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 7 you’ll be able to:\n\nDefine the power of a test and explain what makes power high or low.\nDistinguish Type I (\\(\\alpha\\)) and Type II (\\(\\beta\\)) errors and connect them through power \\(=1-\\beta\\).\nCompute the power of a \\(z\\) test against a specific alternative mean or proportion.\nRead and sketch a power curve and the overlapping null/alternative distributions.\nInvert a power calculation to find the smallest sample size that reaches a target power.\nIdentify the three ingredients (\\(\\sigma\\), \\(\\alpha\\), effect size) you must know before planning a study."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter7.html#key-ideas",
+    "href": "Chapter Landing Pages/chapter7.html#key-ideas",
+    "title": "Chapter 7: Statistical Power",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nWhat Power Means\nThe power of a test is the probability of correctly rejecting \\(H_0\\) when a particular alternative is true: \\(\\text{Power}=P(\\text{reject }H_0\\mid H_0\\text{ false})\\). High power means the test reliably detects real effects.\n\n\nTwo Kinds of Error\nA Type I error rejects a true \\(H_0\\) (probability \\(\\alpha\\)); a Type II error fails to reject a false \\(H_0\\) (probability \\(\\beta\\)). Power is exactly \\(1-\\beta\\), so shrinking \\(\\beta\\) raises power.\n\n\nWhat Drives Power\nPower increases with the effect size, the sample size \\(n\\), and the significance level \\(\\alpha\\), and decreases with variability \\(\\sigma\\). Since \\(n\\) and \\(\\alpha\\) are under your control, sample size is the main planning lever.\n\n\nComputing Power\nTranslate the rejection rule into a cutoff on the data scale using the null distribution, then assume the alternative is true and find the probability of landing in the rejection region. That area is the power.\n\n\nPlanning the Sample Size\nSetting a cutoff under \\(H_0\\) equal to a cutoff under the desired power gives \\(n=\\big((z_\\alpha+z_\\beta)\\sigma/(\\mu_0-\\mu_a)\\big)^2\\). Smaller effects and lower variability tolerance demand larger samples; always round \\(n\\) up."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter7.html#how-to-use-this-chapter",
+    "href": "Chapter Landing Pages/chapter7.html#how-to-use-this-chapter",
+    "title": "Chapter 7: Statistical Power",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough with power curves and error-region diagrams.\nUse the PDF button for an offline-friendly version.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to recompute power and sample sizes in your browser.\nUse the final cheat sheet as a study guide for power and sample-size formulas."
     "objectID": "index.html#what-youll-learn",
     "href": "index.html#what-youll-learn",
     "title": "Chapter 10: Analysis of Categorical Data",

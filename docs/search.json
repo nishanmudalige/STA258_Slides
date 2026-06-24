@@ -1908,14 +1908,14 @@
     "href": "Chapter Slides/chapter6-slides.html#example-coffee-fill-volume",
     "title": "STA258",
     "section": "Example: Coffee Fill Volume",
-    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Steeped advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\\[\nH_0:\\mu=7.2\n\\qquad\nH_a:\\mu&lt;7.2\n\\]"
+    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Second Cup advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\n\nWhat we are given\n\nTarget mean: \\(\\mu_0 = 7.2\\) oz\nKnown SD: \\(\\sigma = 1.1\\) oz\nSample: \\(n = 40\\), \\(\\bar{x} = 6.7\\) oz\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? \\(\\sigma\\) is known, so this is a one-sample \\(z\\) test with reference distribution \\(N(0,1)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "href": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "title": "STA258",
     "section": "Coffee Example: Calculation",
-    "text": "Coffee Example: Calculation\n\n\\[\nz^*=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\n\\]\n\\[\n\\text{p-value}=P(Z\\le -2.8748)=0.00202\n\\]\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean large-coffee fill volume is below 7.2 oz."
+    "text": "Coffee Example: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=7.2 \\qquad H_a:\\mu&lt;7.2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\\]\np-value \\[\\text{p-value}=P(Z\\le -2.8748)=0.00202\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean fill volume is below 7.2 oz."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-coffee-z-test",
@@ -4155,7 +4155,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
     "title": "STA258",
     "section": "Example: Food Delivery ETA",
-    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app DashEats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
@@ -4261,5 +4261,12 @@
     "title": "Chapter 10: Analysis of Categorical Data",
     "section": "How to use this chapter",
     "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough.\nUse the PDF button for an offline-friendly version.\nFollow the worked examples to practice setting up observed and expected counts.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples using chisq.test().\nRevisit the examples later as templates for homework and exam practice."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
+    "title": "STA258",
+    "section": "Check in R: Food Delivery ETA",
+    "text": "Check in R: Food Delivery ETA\n\n\n\n\n\n\n\n\n\nThe output gives \\(t=2.682\\), \\(df=11\\), and p-value \\(0.0107\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
   }
 ]

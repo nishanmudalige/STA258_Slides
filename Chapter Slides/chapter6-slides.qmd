@@ -57,8 +57,7 @@ tail_plot <- function(stat = 1.8, dist = "z", df = 12, alternative = "greater",
               name = "p-value area") |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 15)),
-      xaxis = list(title = "", zeroline = TRUE,
-                   zerolinecolor = "#222", zerolinewidth = 1,
+      xaxis = list(title = "", zeroline = FALSE,
                    range = c(-4, 4), fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
       margin = list(l = 42, r = 12, t = 36, b = 28),
@@ -135,6 +134,99 @@ pvalue_dropdown <- function(stat = 1.3) {
                            list(title = ttl("Two-tailed p-value  (Ha: θ ≠ θ₀)"))))
         )
       ))
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+}
+
+# Complete decision diagram: p-value area + critical value (alpha cutoff) + z*
+decision_plot <- function(zstar, zalpha = 1.645, title = "") {
+  x <- seq(-4, 4, length.out = 500)
+  y <- dnorm(x)
+  pval_idx <- x >= zstar
+  ymax <- max(y)
+  plot_ly(width = 560, height = 250) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
+              name = "N(0,1)", hoverinfo = "skip") |>
+    add_trace(x = x[pval_idx], y = y[pval_idx], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.55)",
+              line = list(color = "rgba(249,168,37,0.95)", width = 1),
+              name = "p-value", hoverinfo = "skip") |>
+    layout(
+      title = list(text = title, x = 0.02, font = list(size = 14)),
+      xaxis = list(title = "test statistic", range = c(-4, 4),
+                   zeroline = FALSE, fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero",
+                   range = c(0, ymax * 1.3), fixedrange = TRUE),
+      margin = list(l = 30, r = 10, t = 38, b = 30),
+      showlegend = FALSE,
+      shapes = list(
+        list(type = "line", x0 = zalpha, x1 = zalpha, y0 = 0, y1 = ymax * 1.06,
+             line = list(color = "#00695c", width = 2, dash = "dash")),
+        list(type = "line", x0 = zstar, x1 = zstar, y0 = 0, y1 = dnorm(zstar),
+             line = list(color = "#333", width = 2))
+      ),
+      annotations = list(
+        list(x = zalpha, y = ymax * 1.17, text = "crit. value (α = 0.05)",
+             showarrow = FALSE, xanchor = "center",
+             font = list(color = "#00695c", size = 11)),
+        list(x = zstar, y = dnorm(zstar) + 0.04, text = "z*", showarrow = FALSE,
+             xanchor = "center", font = list(color = "#333", size = 13))
+      )
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+}
+
+# Worked one-sided z-test diagram: marks z* (visible even far in the tail),
+# shades the p-value, and draws the alpha critical value.
+ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
+                       title = "", pval = NULL, shade = "pvalue") {
+  x <- seq(-4, 4, length.out = 500)
+  y <- dnorm(x)
+  shade_at <- if (shade == "reject" && !is.null(zcrit)) zcrit else zstar
+  shade_keep <- if (alternative == "less") x <= shade_at else x >= shade_at
+  ymax <- max(y)
+  zmark <- max(dnorm(zstar), 0.14)   # floor keeps z* visible out in the tail
+  shapes <- list(
+    list(type = "line", x0 = zstar, x1 = zstar, y0 = 0, y1 = zmark,
+         line = list(color = "#333", width = 2.5))
+  )
+  anns <- list(
+    list(x = zstar, y = zmark + 0.04,
+         text = paste0("z* = ", formatC(zstar, format = "f", digits = 2)),
+         showarrow = FALSE, xanchor = "center",
+         font = list(color = "#333", size = 13))
+  )
+  if (!is.null(zcrit)) {
+    shapes <- c(shapes, list(
+      list(type = "line", x0 = zcrit, x1 = zcrit, y0 = 0, y1 = ymax * 1.05,
+           line = list(color = "#00695c", width = 2, dash = "dash"))))
+    anns <- c(anns, list(
+      list(x = zcrit, y = ymax * 1.17, text = "crit. value (α = 0.05)",
+           showarrow = FALSE, xanchor = "center",
+           font = list(color = "#00695c", size = 11))))
+  }
+  if (!is.null(pval)) {
+    side <- if (alternative == "less") -3.05 else 3.05
+    anns <- c(anns, list(
+      list(x = side, y = 0.085, text = paste0("p-value ≈ ", pval),
+           showarrow = TRUE, ax = if (alternative == "less") -10 else 10, ay = -28,
+           arrowcolor = "#b26a00", font = list(color = "#b26a00", size = 12))))
+  }
+  plot_ly(width = 620, height = 260) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
+              name = "N(0,1)", hoverinfo = "skip") |>
+    add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.6)",
+              line = list(color = "rgba(249,168,37,0.95)", width = 1),
+              name = "shaded region", hoverinfo = "skip") |>
+    layout(
+      title = list(text = title, x = 0.02, font = list(size = 14)),
+      xaxis = list(title = "test statistic", range = c(-4, 4),
+                   zeroline = FALSE, fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero",
+                   range = c(0, ymax * 1.3), fixedrange = TRUE),
+      margin = list(l = 34, r = 12, t = 38, b = 30),
+      showlegend = FALSE, shapes = shapes, annotations = anns
     ) |>
     config(displayModeBar = FALSE, responsive = TRUE)
 }
@@ -586,12 +678,23 @@ Fail to reject $H_0$.
 Failing to reject $H_0$ does **not** prove $H_0$. It only means the sample does not provide enough evidence against it at the chosen significance level.
 :::
 
-::: {.mini-plot .fragment}
+:::: {.two-col .fragment}
+::: {.col}
+::: {.mini-plot}
 ```{r}
-tail_plot(stat = 2.05, alternative = "greater",
-          title = "Small p-value: evidence against H0")
+decision_plot(zstar = 2.05, title = "Small p-value: z* past cutoff → reject H0")
 ```
 :::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+decision_plot(zstar = 0.6, title = "Large p-value: z* before cutoff → fail to reject")
+```
+:::
+:::
+::::
 :::
 
 ---
@@ -661,28 +764,27 @@ Testing a population mean with known $\sigma$ and an appropriate random/normal-o
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-The cafe chain **Steeped** advertises that a large iced latte is filled to a target of $\mu_0=7.2$ oz of base. Customers complain the cups feel light, so quality control pulls a random sample of $n=40$ cups.
+The cafe chain **Second Cup** advertises that a large iced latte is filled to a target of $\mu_0=7.2$ oz of base. Customers complain the cups feel light, so quality control pulls a random sample of $n=40$ cups.
 
 From years of calibration records, the filling machine's standard deviation is known: $\sigma=1.1$ oz. The sample mean is $\bar{x}=6.7$ oz.
 
 Test whether the true mean fill volume has **dropped below** 7.2 oz at $\alpha=0.05$.
 :::
-
-::: {.defbox .fragment}
-$$
-H_0:\mu=7.2
-\qquad
-H_a:\mu<7.2
-$$
-:::
 :::
 
 ::: {.col}
-::: {.mini-plot}
-```{r}
-tail_plot(stat = -2.8748, alternative = "less",
-          title = "Coffee example: left-tailed z test")
-```
+::: {.card}
+<span class="label">What we are given</span>
+
+- Target mean: $\mu_0 = 7.2$ oz
+- Known SD: $\sigma = 1.1$ oz
+- Sample: $n = 40$, $\bar{x} = 6.7$ oz
+- Significance level: $\alpha = 0.05$
+:::
+
+::: {.notebox .fragment}
+<span class="label">Which test?</span>
+$\sigma$ is **known**, so this is a one-sample $z$ test with reference distribution $N(0,1)$.
 :::
 :::
 ::::
@@ -691,15 +793,30 @@ tail_plot(stat = -2.8748, alternative = "less",
 
 ## Coffee Example: Calculation
 
+:::: {.two-col-wide}
+::: {.col}
 ::: {.examplebox}
-$$
-z^*=\frac{6.7-7.2}{1.1/\sqrt{40}}=-2.8748
-$$
+<span class="label">Hypotheses</span>
+$$H_0:\mu=7.2 \qquad H_a:\mu<7.2 \quad (\alpha=0.05)$$
 
-$$
-\text{p-value}=P(Z\le -2.8748)=0.00202
-$$
+<span class="label">Test statistic</span>
+$$z^*=\frac{\bar{x}-\mu_0}{\sigma/\sqrt n}=\frac{6.7-7.2}{1.1/\sqrt{40}}=-2.8748$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(Z\le -2.8748)=0.00202$$
 :::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ztest_plot(zstar = -2.8748, zcrit = -1.645, alternative = "less",
+           shade = "reject",
+           title = "z* falls in the rejection region (α = 0.05)")
+```
+:::
+:::
+::::
 
 :::: {.two-col}
 ::: {.thinkbox .fragment}
@@ -709,7 +826,7 @@ $0.00202 \le 0.05$, so reject $H_0$.
 
 ::: {.thinkbox .fragment}
 <span class="label">Conclusion</span>
-There is sufficient evidence that the mean large-coffee fill volume is below 7.2 oz.
+There is sufficient evidence that the mean fill volume is below 7.2 oz.
 :::
 ::::
 
@@ -776,7 +893,7 @@ Random/independent observations; population normal or sample large enough for th
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-The delivery app **DashEats** promises an average drop-off time of $16.5$ minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:
+The delivery app **Uber Eats** promises an average drop-off time of $16.5$ minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:
 
 `16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8`
 
@@ -792,8 +909,8 @@ $\sigma$ is unknown, so use a one-sample $t$ test.
 ::: {.col}
 ::: {.mini-plot .fragment}
 ```{r}
-tail_plot(stat = 2.682, dist = "t", df = 11, alternative = "greater",
-          title = "Right-tailed t test, df = 11")
+tail_plot(stat = 1.3, dist = "t", df = 11, alternative = "greater",
+          title = "Right-tailed t test (df = 11)")
 ```
 :::
 :::
@@ -801,7 +918,7 @@ tail_plot(stat = 2.682, dist = "t", df = 11, alternative = "greater",
 
 ---
 
-## Check in R: Wait-Time t Test
+## Check in R: Food Delivery ETA
 
 ```{webr}
 waits <- c(16.2, 18.4, 15.7, 19.1, 17.3, 16.9,
@@ -860,7 +977,7 @@ $$\hat p=\frac{68}{520}=0.1308$$
 ::: {.col}
 ::: {.mini-plot .fragment}
 ```{r}
-tail_plot(stat = 2.34, alternative = "greater",
+tail_plot(stat = 1.3, alternative = "greater",
           title = "Right-tailed z test for a proportion")
 ```
 :::
@@ -948,8 +1065,8 @@ A larger sample spread is evidence against the "at most 2.8 g" claim.
 ::: {.col}
 ::: {.mini-plot .fragment}
 ```{r}
-chisq_tail_plot(stat = 39.81, df = 27, alternative = "greater",
-                title = "Right-tailed chi-square test, df = 27")
+chisq_tail_plot(stat = 34, df = 27, alternative = "greater",
+                title = "Right-tailed chi-square test (df = 27)")
 ```
 :::
 :::

@@ -4506,5 +4506,47 @@
     "title": "STA258",
     "section": "7.3 Using Power to Determine Sample Size",
     "text": "7.3 Using Power to Determine Sample Size\n\n\nToo small Low power - real, meaningful effects slip through undetected. The study is wasted.\n\n\nToo large Wasteful - extra time, cost, and participants for precision you did not need.\n\n\n\nPower analysis finds the minimum \\(n\\) that detects an effect of a given size with a specified probability (power), while holding the Type I rate at \\(\\alpha\\).\n\n\nTo run it you must supply three ingredients: the standard deviation \\(\\sigma\\), the significance level \\(\\alpha\\), and the effect size \\(\\mu_0-\\mu_a\\) you want to detect."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#chapter-roadmap",
+    "href": "Chapter Slides/chapter8-slides.html#chapter-roadmap",
+    "title": "STA258",
+    "section": "Chapter Roadmap",
+    "text": "Chapter Roadmap\n\n\nModel Partition the total variation into between-group and within-group pieces.\n\n\nF-Test Build the ANOVA table and test whether all group means are equal.\n\n\nComparisons If the means differ, find which ones with Fisher’s LSD and Bonferroni.\n\n\n\n\n\nCore skill Fill in the ANOVA table and compute the \\(F\\) statistic.\n\n\nCore tool Use aov() / oneway.test() and PostHocTest() for follow-up tests.\n\n\nCore habit After a significant \\(F\\), run pairwise comparisons to locate the difference."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#up-next",
+    "href": "Chapter Slides/chapter8-slides.html#up-next",
+    "title": "STA258",
+    "section": "Up Next",
+    "text": "Up Next\n\nMore slides coming soon.\nThis deck currently holds the title and roadmap. The model, ANOVA table, \\(F\\)-test, assumptions, and multiple-comparison sections will be added here.\n\n\nBack to Homepage"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter8.html",
+    "href": "Chapter Landing Pages/chapter8.html",
+    "title": "Chapter 8: Analysis of Variance",
+    "section": "",
+    "text": "Slides PDF"
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter8.html#what-youll-learn",
+    "href": "Chapter Landing Pages/chapter8.html#what-youll-learn",
+    "title": "Chapter 8: Analysis of Variance",
+    "section": "What you’ll learn",
+    "text": "What you’ll learn\nBy the end of Chapter 8 you’ll be able to:\n\nState the one-way ANOVA model and explain what each term represents.\nPartition the total variation into between-group (treatment) and within-group (error) sums of squares.\nBuild an ANOVA table and compute the \\(F\\) statistic.\nRun the one-way ANOVA \\(F\\)-test and state a conclusion in context.\nCheck the ANOVA assumptions (independence, normality, equal variance).\nIdentify which group means differ using Fisher’s LSD and the Bonferroni adjustment."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter8.html#key-ideas",
+    "href": "Chapter Landing Pages/chapter8.html#key-ideas",
+    "title": "Chapter 8: Analysis of Variance",
+    "section": "Key ideas",
+    "text": "Key ideas\n\nComparing Several Means\nANOVA extends hypothesis testing to three or more group means at once. The null hypothesis is that all group means are equal; the alternative is that at least one differs.\n\n\nPartitioning Variation\nThe total variation \\(\\text{SSTotal}\\) splits into the variation between groups (SSTr, the treatment effect) and the variation within groups (SSE, the error): \\(\\text{SSTotal}=\\text{SSTr}+\\text{SSE}\\).\n\n\nThe F-Statistic\nDividing each sum of squares by its degrees of freedom gives mean squares, and \\(F=\\text{MSTr}/\\text{MSE}\\) compares between-group to within-group variation. A large \\(F\\) is evidence against equal means.\n\n\nMultiple Comparisons\nA significant \\(F\\) says the means are not all equal, but not which ones. Pairwise methods such as Fisher’s LSD (higher power) and the Bonferroni adjustment (controls the experiment-wise error rate) locate the differences."
+  },
+  {
+    "objectID": "Chapter Landing Pages/chapter8.html#how-to-use-this-chapter",
+    "href": "Chapter Landing Pages/chapter8.html#how-to-use-this-chapter",
+    "title": "Chapter 8: Analysis of Variance",
+    "section": "How to use this chapter",
+    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough (more sections are being added).\nUse the PDF button for an offline-friendly version.\nRun and edit the WebR examples to reproduce the ANOVA tables in your browser."
   }
 ]

@@ -1,0 +1,72 @@
+---
+title: "Chapter 8: Analysis of Variance"
+subtitle: "STA258 - University of Toronto Mississauga"
+---
+
+<style>
+.lecture-actions {
+  display: flex;
+  gap: 12px;
+  margin: 24px 0 36px 0;
+}
+.lecture-actions .btn {
+  font-size: 1em;
+  padding: 10px 22px;
+  border-radius: 8px;
+}
+.summary-card {
+  background: #f7f9fa;
+  border-left: 6px solid #00695c;
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 18px 0;
+}
+.summary-card h3 {
+  margin-top: 0;
+  color: #00695c;
+}
+</style>
+
+<div class="lecture-actions">
+<a href="../Chapter Slides/chapter8-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a>
+<a href="../Chapter Slides/chapter8-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a>
+</div>
+
+## What you'll learn
+
+By the end of Chapter 8 you'll be able to:
+
+- State the one-way ANOVA model and explain what each term represents.
+- Partition the total variation into between-group (treatment) and within-group (error) sums of squares.
+- Build an ANOVA table and compute the $F$ statistic.
+- Run the one-way ANOVA $F$-test and state a conclusion in context.
+- Check the ANOVA assumptions (independence, normality, equal variance).
+- Identify which group means differ using Fisher's LSD and the Bonferroni adjustment.
+
+## Key ideas
+
+::: {.summary-card}
+### Comparing Several Means
+ANOVA extends hypothesis testing to **three or more** group means at once. The null hypothesis is that all group means are equal; the alternative is that at least one differs.
+:::
+
+::: {.summary-card}
+### Partitioning Variation
+The total variation $\text{SSTotal}$ splits into the variation **between** groups (SSTr, the treatment effect) and the variation **within** groups (SSE, the error): $\text{SSTotal}=\text{SSTr}+\text{SSE}$.
+:::
+
+::: {.summary-card}
+### The F-Statistic
+Dividing each sum of squares by its degrees of freedom gives mean squares, and $F=\text{MSTr}/\text{MSE}$ compares between-group to within-group variation. A large $F$ is evidence against equal means.
+:::
+
+::: {.summary-card}
+### Multiple Comparisons
+A significant $F$ says the means are not all equal, but not which ones. Pairwise methods such as Fisher's LSD (higher power) and the Bonferroni adjustment (controls the experiment-wise error rate) locate the differences.
+:::
+
+## How to use this chapter
+
+- Open the **slides** for an interactive walkthrough (more sections are being added).
+- Use the **PDF** button for an offline-friendly version.
+- Run and edit the WebR examples to reproduce the ANOVA tables in your browser.

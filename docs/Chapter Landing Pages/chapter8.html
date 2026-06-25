@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chapter 2: An Introduction to R – STA258</title>
+<title>Chapter 8: Analysis of Variance – STA258</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -55,6 +55,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -143,8 +172,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chapter 2: An Introduction to R</h1>
-<p class="subtitle lead">STA258 — University of Toronto Mississauga</p>
+<h1 class="title">Chapter 8: Analysis of Variance</h1>
+<p class="subtitle lead">STA258 - University of Toronto Mississauga</p>
 </div>
 
 
@@ -185,55 +214,45 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 <div class="lecture-actions">
-<p><a href="../Chapter Slides/chapter2-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a> <a href="../Chapter Slides/chapter2-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a></p>
+<p><a href="../Chapter Slides/chapter8-slides.html" class="btn btn-outline-secondary" target="_blank">Slides</a> <a href="../Chapter Slides/chapter8-slides.html?print-pdf" class="btn btn-outline-secondary" target="_blank">PDF</a></p>
 </div>
 <section id="what-youll-learn" class="level2">
 <h2 class="anchored" data-anchor-id="what-youll-learn">What you’ll learn</h2>
-<p>By the end of Chapter 2 you’ll be able to:</p>
+<p>By the end of Chapter 8 you’ll be able to:</p>
 <ul>
-<li>Explain why we use <strong>R</strong> rather than point-and-click software, and tell <strong>R</strong> apart from <strong>RStudio</strong>.</li>
-<li>Install R and RStudio and navigate the four main panes of the IDE.</li>
-<li>Use R as a <strong>calculator</strong> — arithmetic, exponents, logs, and built-in math functions.</li>
-<li>Create and work with the core R <strong>data structures</strong>: vectors, lists, matrices, arrays, factors, and data frames.</li>
-<li>Call built-in <strong>functions</strong> like <code>mean()</code>, <code>sd()</code>, <code>hist()</code> and read their output.</li>
-<li>Install and load <strong>packages</strong> with <code>install.packages()</code> and <code>library()</code>.</li>
+<li>State the one-way ANOVA model and explain what each term represents.</li>
+<li>Partition the total variation into between-group (treatment) and within-group (error) sums of squares.</li>
+<li>Build an ANOVA table and compute the <span class="math inline">\(F\)</span> statistic.</li>
+<li>Run the one-way ANOVA <span class="math inline">\(F\)</span>-test and state a conclusion in context.</li>
+<li>Check the ANOVA assumptions (independence, normality, equal variance).</li>
+<li>Identify which group means differ using Fisher’s LSD and the Bonferroni adjustment.</li>
 </ul>
 </section>
 <section id="key-ideas" class="level2">
 <h2 class="anchored" data-anchor-id="key-ideas">Key ideas</h2>
-<section id="r-vs-rstudio" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="r-vs-rstudio">R vs RStudio</h3>
-<p><strong>R</strong> is the engine that runs the calculations. <strong>RStudio</strong> is the dashboard you use to drive it. You install R first, then RStudio on top of it.</p>
+<section id="comparing-several-means" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="comparing-several-means">Comparing Several Means</h3>
+<p>ANOVA extends hypothesis testing to <strong>three or more</strong> group means at once. The null hypothesis is that all group means are equal; the alternative is that at least one differs.</p>
 </section>
-<section id="scripts-beat-point-and-click" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="scripts-beat-point-and-click">Scripts beat point-and-click</h3>
-<p>Writing analysis as code makes it <strong>reproducible</strong>, easy to share, and easy to re-run when the data changes. This is the single biggest reason statisticians use R.</p>
+<section id="partitioning-variation" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="partitioning-variation">Partitioning Variation</h3>
+<p>The total variation <span class="math inline">\(\text{SSTotal}\)</span> splits into the variation <strong>between</strong> groups (SSTr, the treatment effect) and the variation <strong>within</strong> groups (SSE, the error): <span class="math inline">\(\text{SSTotal}=\text{SSTr}+\text{SSE}\)</span>.</p>
 </section>
-<section id="r-as-a-calculator" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="r-as-a-calculator">R as a calculator</h3>
-<p>R handles <code>+ - * /</code>, exponentiation <code>^</code>, modulo <code>%%</code>, integer division <code>%/%</code>, and a full set of math functions (<code>sqrt</code>, <code>log</code>, <code>exp</code>, <code>abs</code>, <code>round</code>) and trig functions out of the box.</p>
+<section id="the-f-statistic" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="the-f-statistic">The F-Statistic</h3>
+<p>Dividing each sum of squares by its degrees of freedom gives mean squares, and <span class="math inline">\(F=\text{MSTr}/\text{MSE}\)</span> compares between-group to within-group variation. A large <span class="math inline">\(F\)</span> is evidence against equal means.</p>
 </section>
-<section id="data-structures" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="data-structures">Data structures</h3>
-<ul>
-<li><strong>Vectors</strong> — same-type values in one dimension</li>
-<li><strong>Lists</strong> — mixed types, any structure</li>
-<li><strong>Matrices / Arrays</strong> — same type, 2+ dimensions</li>
-<li><strong>Factors</strong> — categorical variables with named levels</li>
-<li><strong>Data frames</strong> — table of variables (columns) and observations (rows)</li>
-</ul>
-</section>
-<section id="functions-and-packages" class="level3 summary-card">
-<h3 class="anchored" data-anchor-id="functions-and-packages">Functions and packages</h3>
-<p>Most R commands look like <code>function_name(input)</code>. <strong>Packages</strong> extend R with new functions — install once with <code>install.packages()</code>, load each session with <code>library()</code>.</p>
+<section id="multiple-comparisons" class="level3 summary-card">
+<h3 class="anchored" data-anchor-id="multiple-comparisons">Multiple Comparisons</h3>
+<p>A significant <span class="math inline">\(F\)</span> says the means are not all equal, but not which ones. Pairwise methods such as Fisher’s LSD (higher power) and the Bonferroni adjustment (controls the experiment-wise error rate) locate the differences.</p>
 </section>
 </section>
 <section id="how-to-use-this-chapter" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-use-this-chapter">How to use this chapter</h2>
 <ul>
-<li>Open the <strong>slides</strong> for an interactive walkthrough — every code block in the deck is editable and runs in your browser.</li>
+<li>Open the <strong>slides</strong> for an interactive walkthrough (more sections are being added).</li>
 <li>Use the <strong>PDF</strong> button for an offline-friendly version.</li>
-<li>Try the in-slide exercises (mean, histogram). Change values, re-run, and check the output.</li>
+<li>Run and edit the WebR examples to reproduce the ANOVA tables in your browser.</li>
 </ul>
 
 

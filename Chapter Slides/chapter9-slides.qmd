@@ -1364,22 +1364,7 @@ print(out, row.names = FALSE)
 ------------------------------------------------------------------------
 
 
-## Visual: Positive, Negative, and Weak Correlation {.corr-visual-slide}
-
-```{=html}
-<style>
-.reveal section.corr-visual-slide h2 {
-  font-size: 1.22em !important;
-  line-height: 1.05 !important;
-  margin-bottom: 6px !important;
-  padding-bottom: 5px !important;
-}
-
-.reveal section.corr-visual-slide {
-  padding-top: 12px !important;
-}
-</style>
-```
+## Visual: Positive, Negative, and Weak Correlation
 
 ```{r}
 #| echo: false
@@ -1401,30 +1386,26 @@ x_weak <- rnorm(n)
 y_weak <- rnorm(n)
 
 make_corr_panel <- function(x, y, colour) {
-  plotly::plot_ly(
+  plot_ly(
     x = x,
     y = y,
     type = "scatter",
     mode = "markers",
     showlegend = FALSE,
-    hovertemplate = paste0(
-      "<b>x</b>: %{x:.2f}<br>",
-      "<b>y</b>: %{y:.2f}",
-      "<extra></extra>"
-    ),
+    hovertemplate = "x = %{x:.2f}<br>y = %{y:.2f}<extra></extra>",
     marker = list(
       color = colour,
-      size = 8.5,
-      opacity = 0.86,
+      size = 8,
+      opacity = 0.82,
       line = list(color = "white", width = 0.8)
     )
   ) |>
-    plotly::layout(
+    layout(
+      margin = list(l = 30, r = 20, t = 20, b = 45),
       paper_bgcolor = "rgba(0,0,0,0)",
-      plot_bgcolor = "white",
-      margin = list(l = 10, r = 10, t = 10, b = 10)
+      plot_bgcolor = "white"
     ) |>
-    plotly::config(
+    config(
       displayModeBar = FALSE,
       displaylogo = FALSE,
       scrollZoom = FALSE,
@@ -1432,104 +1413,133 @@ make_corr_panel <- function(x, y, colour) {
     )
 }
 
-axis_style_x <- list(
-  title = list(
-    text = "<b>x</b>",
-    standoff = 8,
-    font = list(size = 15, color = plot_cols$text)
-  ),
-  range = c(-3.2, 3.2),
-  fixedrange = TRUE,
-  showgrid = FALSE,
-  zeroline = FALSE,
-  showline = TRUE,
-  linecolor = "#64748b",
-  linewidth = 2,
-  mirror = FALSE,
-  ticks = "outside",
-  ticklen = 6,
-  tickwidth = 1.4,
-  tickcolor = "#64748b",
-  tickfont = list(size = 12, color = "#475569"),
-  automargin = TRUE
-)
-
-axis_style_y <- list(
-  title = list(
-    text = "<b>y</b>",
-    standoff = 8,
-    font = list(size = 15, color = plot_cols$text)
-  ),
-  range = c(-4.2, 4.2),
-  fixedrange = TRUE,
-  showgrid = TRUE,
-  gridcolor = "#e5e7eb",
-  gridwidth = 0.8,
-  zeroline = FALSE,
-  showline = TRUE,
-  linecolor = "#64748b",
-  linewidth = 2,
-  mirror = FALSE,
-  ticks = "outside",
-  ticklen = 6,
-  tickwidth = 1.4,
-  tickcolor = "#64748b",
-  tickfont = list(size = 12, color = "#475569"),
-  automargin = TRUE
-)
-
 p1 <- make_corr_panel(x_pos,  y_pos,  plot_cols$green)
 p2 <- make_corr_panel(x_neg,  y_neg,  plot_cols$red)
 p3 <- make_corr_panel(x_weak, y_weak, plot_cols$purple)
 
-plotly::subplot(
+subplot(
   p1, p2, p3,
   nrows = 1,
   shareX = FALSE,
   shareY = FALSE,
   widths = c(0.333, 0.333, 0.334),
-  margin = 0.045,
+  margin = 0.04,
   titleX = FALSE,
   titleY = FALSE
 ) |>
-  plotly::layout(
-    height = 505,
-    autosize = TRUE,
+  layout(
+    height = 470,
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "white",
-    margin = list(l = 24, r = 24, t = 72, b = 6),
+    margin = list(l = 40, r = 30, t = 92, b = 35),
 
-    xaxis = axis_style_x,
-    yaxis = axis_style_y,
+    xaxis = list(
+      title = list(text = "<b>x</b>", standoff = 8, font = list(size = 14)),
+      domain = c(0.00, 0.29),
+      range = c(-3.2, 3.2),
+      fixedrange = TRUE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linewidth = 2,
+      linecolor = plot_cols$slate,
+      ticks = "outside",
+      ticklen = 6,
+      tickwidth = 1.4,
+      tickcolor = plot_cols$slate,
+      tickfont = list(size = 11, color = plot_cols$text)
+    ),
+    yaxis = list(
+      title = list(text = "<b>y</b>", standoff = 8, font = list(size = 14)),
+      domain = c(0, 1),
+      range = c(-4.2, 4.2),
+      fixedrange = TRUE,
+      showgrid = TRUE,
+      gridcolor = "#d1d5db",
+      zeroline = FALSE,
+      showline = TRUE,
+      linewidth = 2,
+      linecolor = plot_cols$slate,
+      ticks = "outside",
+      ticklen = 6,
+      tickwidth = 1.4,
+      tickcolor = plot_cols$slate,
+      tickfont = list(size = 11, color = plot_cols$text)
+    ),
 
-    xaxis2 = axis_style_x,
-    yaxis2 = axis_style_y,
+    xaxis2 = list(
+      title = list(text = "<b>x</b>", standoff = 8, font = list(size = 14)),
+      domain = c(0.355, 0.645),
+      range = c(-3.2, 3.2),
+      fixedrange = TRUE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linewidth = 2,
+      linecolor = plot_cols$slate,
+      ticks = "outside",
+      ticklen = 6,
+      tickwidth = 1.4,
+      tickcolor = plot_cols$slate,
+      tickfont = list(size = 11, color = plot_cols$text)
+    ),
+    yaxis2 = list(
+      title = list(text = "<b>y</b>", standoff = 8, font = list(size = 14)),
+      domain = c(0, 1),
+      range = c(-4.2, 4.2),
+      fixedrange = TRUE,
+      showgrid = TRUE,
+      gridcolor = "#d1d5db",
+      zeroline = FALSE,
+      showline = TRUE,
+      linewidth = 2,
+      linecolor = plot_cols$slate,
+      ticks = "outside",
+      ticklen = 6,
+      tickwidth = 1.4,
+      tickcolor = plot_cols$slate,
+      tickfont = list(size = 11, color = plot_cols$text)
+    ),
 
-    xaxis3 = axis_style_x,
-    yaxis3 = axis_style_y,
-
-    hoverlabel = list(
-      bgcolor = "white",
-      bordercolor = "#64748b",
-      font = list(
-        size = 13,
-        color = plot_cols$text,
-        family = "Arial, sans-serif"
-      )
+    xaxis3 = list(
+      title = list(text = "<b>x</b>", standoff = 8, font = list(size = 14)),
+      domain = c(0.71, 1.00),
+      range = c(-3.2, 3.2),
+      fixedrange = TRUE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linewidth = 2,
+      linecolor = plot_cols$slate,
+      ticks = "outside",
+      ticklen = 6,
+      tickwidth = 1.4,
+      tickcolor = plot_cols$slate,
+      tickfont = list(size = 11, color = plot_cols$text)
+    ),
+    yaxis3 = list(
+      title = list(text = "<b>y</b>", standoff = 8, font = list(size = 14)),
+      domain = c(0, 1),
+      range = c(-4.2, 4.2),
+      fixedrange = TRUE,
+      showgrid = TRUE,
+      gridcolor = "#d1d5db",
+      zeroline = FALSE,
+      showline = TRUE,
+      linewidth = 2,
+      linecolor = plot_cols$slate,
+      ticks = "outside",
+      ticklen = 6,
+      tickwidth = 1.4,
+      tickcolor = plot_cols$slate,
+      tickfont = list(size = 11, color = plot_cols$text)
     ),
 
     annotations = list(
       list(
-        x = 0.16,
-        y = 1.10,
-        xref = "paper",
-        yref = "paper",
-        text = paste0(
-          "<b>Positive relationship</b>",
-          "<br><span style='font-size:12px; color:#64748b;'><i>r</i> = ",
-          round(cor(x_pos, y_pos), 2),
-          "</span>"
-        ),
+        x = 0.145, y = 1.13,
+        xref = "paper", yref = "paper",
+        text = "<b>Positive</b>",
         showarrow = FALSE,
         xanchor = "center",
         yanchor = "bottom",
@@ -1537,16 +1547,23 @@ plotly::subplot(
         font = list(size = 17, color = plot_cols$text)
       ),
       list(
-        x = 0.50,
-        y = 1.10,
-        xref = "paper",
-        yref = "paper",
+        x = 0.145, y = 1.065,
+        xref = "paper", yref = "paper",
         text = paste0(
-          "<b>Negative relationship</b>",
-          "<br><span style='font-size:12px; color:#64748b;'><i>r</i> = ",
-          round(cor(x_neg, y_neg), 2),
+          "<span style='font-size:13px; color:", plot_cols$muted, ";'>",
+          "<i>r = ", round(cor(x_pos, y_pos), 2), "</i>",
           "</span>"
         ),
+        showarrow = FALSE,
+        xanchor = "center",
+        yanchor = "bottom",
+        align = "center"
+      ),
+
+      list(
+        x = 0.500, y = 1.13,
+        xref = "paper", yref = "paper",
+        text = "<b>Negative</b>",
         showarrow = FALSE,
         xanchor = "center",
         yanchor = "bottom",
@@ -1554,25 +1571,45 @@ plotly::subplot(
         font = list(size = 17, color = plot_cols$text)
       ),
       list(
-        x = 0.84,
-        y = 1.10,
-        xref = "paper",
-        yref = "paper",
+        x = 0.500, y = 1.065,
+        xref = "paper", yref = "paper",
         text = paste0(
-          "<b>Weak relationship</b>",
-          "<br><span style='font-size:12px; color:#64748b;'><i>r</i> = ",
-          round(cor(x_weak, y_weak), 2),
+          "<span style='font-size:13px; color:", plot_cols$muted, ";'>",
+          "<i>r = ", round(cor(x_neg, y_neg), 2), "</i>",
           "</span>"
         ),
         showarrow = FALSE,
         xanchor = "center",
         yanchor = "bottom",
+        align = "center"
+      ),
+
+      list(
+        x = 0.855, y = 1.13,
+        xref = "paper", yref = "paper",
+        text = "<b>Weak</b>",
+        showarrow = FALSE,
+        xanchor = "center",
+        yanchor = "bottom",
         align = "center",
         font = list(size = 17, color = plot_cols$text)
+      ),
+      list(
+        x = 0.855, y = 1.065,
+        xref = "paper", yref = "paper",
+        text = paste0(
+          "<span style='font-size:13px; color:", plot_cols$muted, ";'>",
+          "<i>r = ", round(cor(x_weak, y_weak), 2), "</i>",
+          "</span>"
+        ),
+        showarrow = FALSE,
+        xanchor = "center",
+        yanchor = "bottom",
+        align = "center"
       )
     )
   ) |>
-  plotly::config(
+  config(
     displayModeBar = FALSE,
     displaylogo = FALSE,
     scrollZoom = FALSE,

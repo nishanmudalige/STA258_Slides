@@ -1852,7 +1852,7 @@
     "href": "Chapter Slides/chapter6-slides.html#what-a-hypothesis-test-does",
     "title": "STA258",
     "section": "What a Hypothesis Test Does",
-    "text": "What a Hypothesis Test Does\n\nHigh Level Idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
+    "text": "What a Hypothesis Test Does\n\nTextbook idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
@@ -1873,7 +1873,7 @@
     "href": "Chapter Slides/chapter6-slides.html#p-value-areas",
     "title": "STA258",
     "section": "P-Value Areas",
-    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\n\n\nUse the dropdown at the top-right of the plot to switch the shaded p-value area between the three alternative hypotheses."
+    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\nUse the dropdown to see how the shaded p-value area moves with the alternative hypothesis."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#decision-rule",
@@ -1908,14 +1908,14 @@
     "href": "Chapter Slides/chapter6-slides.html#example-coffee-fill-volume",
     "title": "STA258",
     "section": "Example: Coffee Fill Volume",
-    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Second Cup advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\n\nWhat we are given\n\nTarget mean: \\(\\mu_0 = 7.2\\) oz\nKnown SD: \\(\\sigma = 1.1\\) oz\nSample: \\(n = 40\\), \\(\\bar{x} = 6.7\\) oz\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? \\(\\sigma\\) is known, so this is a one-sample \\(z\\) test with reference distribution \\(N(0,1)\\)."
+    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Steeped advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\\[\nH_0:\\mu=7.2\n\\qquad\nH_a:\\mu&lt;7.2\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "href": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "title": "STA258",
     "section": "Coffee Example: Calculation",
-    "text": "Coffee Example: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=7.2 \\qquad H_a:\\mu&lt;7.2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\\]\np-value \\[\\text{p-value}=P(Z\\le -2.8748)=0.00202\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean fill volume is below 7.2 oz."
+    "text": "Coffee Example: Calculation\n\n\\[\nz^*=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\n\\]\n\\[\n\\text{p-value}=P(Z\\le -2.8748)=0.00202\n\\]\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean large-coffee fill volume is below 7.2 oz."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-coffee-z-test",
@@ -2104,7 +2104,7 @@
     "href": "Chapter Slides/chapter6-slides.html#assumptions-difference-of-proportions",
     "title": "STA258",
     "section": "Assumptions: Difference of Proportions",
-    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\n\nCheck successes and failures in each group.\n\n\nAt least 10 successes: \\(x_i \\ge 10\\).\n\n\nAt least 10 failures: \\(n_i - x_i \\ge 10\\)."
+    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\nFor each group, check successes and failures:\n\n\n\\[\nx_i\\ge 10\n\\qquad\\text{and}\\qquad\nn_i-x_i\\ge 10\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#assumptions-ratio-of-variances",
@@ -4155,7 +4155,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
     "title": "STA258",
     "section": "Example: Food Delivery ETA",
-    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app DashEats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
@@ -4176,21 +4176,21 @@
     "href": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "title": "STA258",
     "section": "Example: Active Recall vs Rereading",
-    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90\nRereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
+    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90 Rereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "href": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "title": "STA258",
     "section": "Example: Push Notifications",
-    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users\nNo notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
+    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users No notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "href": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "title": "STA258",
     "section": "Example: Pomodoro Focus Timer",
-    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
+    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32 After: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
@@ -4232,14 +4232,14 @@
     "href": "Chapter Slides/chapter7-slides.html#what-is-statistical-power",
     "title": "STA258",
     "section": "What Is Statistical Power?",
-    "text": "What Is Statistical Power?\n\nDefinition 7.1 The probability that a fixed-level significance test will reject \\(H_0\\) when a particular alternative value of the parameter is true is called the power of the test against that alternative.\n\\[\\text{Power}=P(\\text{reject } H_0 \\mid H_0 \\text{ false}), \\qquad 0&lt;\\text{power}&lt;1\\]\n\n\n\nHigh power (near 1) The test is good at detecting effects that are really there.\n\n\nLow power (near 0) The test is unreliable — it usually fails to reject even when \\(H_0\\) is false."
+    "text": "What Is Statistical Power?\n\nDefinition 7.1 The probability that a fixed-level significance test will reject \\(H_0\\) when a particular alternative value of the parameter is true is called the power of the test against that alternative.\n\\[\\text{Power}=P(\\text{reject } H_0 \\mid H_0 \\text{ false}), \\qquad 0&lt;\\text{power}&lt;1\\]\n\n\n\nHigh power (near 1) The test is good at detecting effects that are really there.\n\n\nLow power (near 0) The test is unreliable, it usually fails to reject even when \\(H_0\\) is false."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#what-affects-power",
     "href": "Chapter Slides/chapter7-slides.html#what-affects-power",
     "title": "STA258",
     "section": "What Affects Power?",
-    "text": "What Affects Power?\n\n\nEffect size Larger gaps between reality and \\(H_0\\) are easier to detect \\(\\Rightarrow\\) more power.\n\n\nSample size \\(n\\) Larger samples shrink the standard error \\(\\Rightarrow\\) more power.\n\n\nSignificance level \\(\\alpha\\) A larger \\(\\alpha\\) makes \\(H_0\\) easier to reject \\(\\Rightarrow\\) more power (but more Type I risk).\n\n\nVariability \\(\\sigma\\) Less spread in the data \\(\\Rightarrow\\) narrower sampling distribution \\(\\Rightarrow\\) more power.\n\n\n\nYou control \\(n\\) and \\(\\alpha\\). The effect size and \\(\\sigma\\) are set by the world — so sample size is your main planning lever."
+    "text": "What Affects Power?\n\n\nEffect size  -  Larger gaps between reality and \\(H_0\\) are easier to detect \\(\\Rightarrow\\) more power.\n\n\nSample size \\(n\\)  -  Larger samples shrink the standard error \\(\\Rightarrow\\) more power.\n\n\nSignificance level \\(\\alpha\\)  -  A larger \\(\\alpha\\) makes \\(H_0\\) easier to reject \\(\\Rightarrow\\) more power (but more Type I risk).\n\n\nVariability \\(\\sigma\\)  -  Less spread in the data \\(\\Rightarrow\\) narrower sampling distribution \\(\\Rightarrow\\) more power.\n\n\n\nYou control \\(n\\) and \\(\\alpha\\). The effect size and \\(\\sigma\\) are set by the world, so sample size is your main planning lever."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
@@ -4260,21 +4260,21 @@
     "href": "Chapter Slides/chapter7-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nA test fails to reject \\(H_0\\), but in reality \\(H_0\\) is false. Which error has occurred?\n\n\n\n\nType I error\nType II error\nNo error — we were cautious\nBoth Type I and Type II"
+    "text": "Question\n\n\nA test fails to reject \\(H_0\\), but in reality \\(H_0\\) is false. Which error has occurred?\n\n\n\n\nType I error\nType II error\nNo error, we were cautious\nBoth Type I and Type II"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#computing-power-the-recipe",
     "href": "Chapter Slides/chapter7-slides.html#computing-power-the-recipe",
     "title": "STA258",
     "section": "Computing Power: The Recipe",
-    "text": "Computing Power: The Recipe\n\n\n\n1. Rejection rule in terms of the estimate. Convert the critical \\(z\\) (or \\(z_\\alpha\\)) into a cutoff \\(\\bar{x}_*\\) on the data scale using the null distribution.\n\n\n2. Switch to the alternative. Assume the alternative value of the parameter is true.\n\n\n3. Compute the rejection probability. Standardize the cutoff under the alternative and read off the area — that area is the power."
+    "text": "Computing Power: The Recipe\n\n\n\n1. Rejection rule in terms of the estimate. Convert the critical \\(z\\) (or \\(z_\\alpha\\)) into a cutoff \\(\\bar{x}_*\\) on the data scale using the null distribution.\n\n\n2. Switch to the alternative. Assume the alternative value of the parameter is true.\n\n\n3. Compute the rejection probability. Standardize the cutoff under the alternative and read off the area, which is the power."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-detecting-a-sweeter-reformulation",
     "href": "Chapter Slides/chapter7-slides.html#example-detecting-a-sweeter-reformulation",
     "title": "STA258",
     "section": "Example: Detecting a Sweeter Reformulation",
-    "text": "Example: Detecting a Sweeter Reformulation\n\n\n\nA meal-kit company quietly reformulates a sauce and asks a trained tasting panel to score the change in sweetness (positive = sweeter). If the true mean change is \\(\\mu=1.1\\) points, will a 5% test reliably catch it?\nA panel of \\(n=10\\) tasters scores each batch; from calibration the scores have \\(\\sigma=1\\).\n\n\n\n\nSet-up\n\\[H_0:\\mu = 0 \\qquad H_a:\\mu&gt;0\\]\n\n\\(n = 10,\\quad \\sigma = 1,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 1.1\\)\n\n\n\n\\(\\sigma\\) is known \\(\\Rightarrow\\) one-sample \\(z\\) test, reference \\(N(0,1)\\)."
+    "text": "Example: Detecting a Sweeter Reformulation\n\n\n\nA meal-kit company quietly reformulates a sauce and asks a trained tasting panel to score the change in sweetness (positive = sweeter). If the true mean change is \\(\\mu=1.1\\) points, will a 5% test reliably catch it?\nA panel of \\(n=10\\) tasters scores each batch; from calibration the scores have \\(\\sigma=1\\).\n\n\n\\(\\sigma\\) is known \\(\\Rightarrow\\) one-sample \\(z\\) test, reference \\(N(0,1)\\).\n\n\n\n\nSet-up\n\\[H_0:\\mu = 0 \\qquad H_a:\\mu&gt;0\\]\n\n\\(n = 10,\\quad \\sigma = 1,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 1.1\\)"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#sweetness-step-1-rejection-region",
@@ -4295,21 +4295,21 @@
     "href": "Chapter Slides/chapter7-slides.html#check-in-r-sweetness-power",
     "title": "STA258",
     "section": "Check in R: Sweetness Power",
-    "text": "Check in R: Sweetness Power\n\n\n\n\n\n\n\n\n\nxcrit \\(\\approx 0.520\\) and power \\(\\approx 0.966\\), matching the hand calculation."
+    "text": "Check in R: Sweetness Power"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#visualizing-power-the-power-curve",
     "href": "Chapter Slides/chapter7-slides.html#visualizing-power-the-power-curve",
     "title": "STA258",
     "section": "Visualizing Power: The Power Curve",
-    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number — it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=0.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=1.1\\) (power \\(\\approx 0.97\\))."
+    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number, it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=0.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=1.1\\) (power \\(\\approx 0.97\\))."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-underfilled-bottling-line",
     "href": "Chapter Slides/chapter7-slides.html#example-underfilled-bottling-line",
     "title": "STA258",
     "section": "Example: Underfilled Bottling Line",
-    "text": "Example: Underfilled Bottling Line\n\n\n\nA craft-soda line is supposed to fill bottles to \\(\\mu_0=300\\) ml. The machine is not perfect, with known \\(\\sigma=3\\) ml. Inspecting only \\(n=6\\) bottles, will the test catch a true mean of \\(\\mu=299\\) ml?\n\\[H_0:\\mu = 300 \\qquad H_a:\\mu&lt;300\\]\nA 5% test rejects when \\(z_*=\\dfrac{\\bar{x}-300}{3/\\sqrt6}\\le -1.645\\).\n\n\n\n\nStep 1 — cutoff \\[\\bar{x}&lt;300-1.645\\cdot\\tfrac{3}{\\sqrt6}\\Rightarrow \\bar{x}&lt;297.985\\]\nSteps 2–3 — power at \\(\\mu=299\\) \\[P\\!\\left(Z&lt;\\frac{297.985-299}{3/\\sqrt6}\\right)=P(Z&lt;-0.83)=\\mathbf{0.2033}\\]\n\n\n\n\nOnly 20% power. With just 6 bottles this test will usually miss a 1 ml shortfall — the sample is too small."
+    "text": "Example: Underfilled Bottling Line\n\n\nA craft-soda line should fill bottles to \\(\\mu_0=300\\) ml, with known \\(\\sigma=3\\) ml. Inspecting only \\(n=6\\) bottles, will a 5% test catch a true mean of \\(\\mu=299\\) ml? \\[H_0:\\mu = 300 \\qquad H_a:\\mu&lt;300 \\qquad (\\alpha=0.05)\\]\n\n\n\\[\\bar{x}_*=300-1.645\\cdot\\tfrac{3}{\\sqrt6}=297.985 \\quad(\\text{reject if } \\bar{x}&lt;297.985)\\] \\[\\text{power}=P\\!\\left(Z&lt;\\frac{297.985-299}{3/\\sqrt6}\\right)=P(Z&lt;-0.83)=\\mathbf{0.2033}\\]\n\n\nOnly 20% power. With just 6 bottles this test will usually miss a 1 ml shortfall, the sample is too small."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#bottling-line-power-picture",
@@ -4323,7 +4323,7 @@
     "href": "Chapter Slides/chapter7-slides.html#check-in-r-bottling-power",
     "title": "STA258",
     "section": "Check in R: Bottling Power",
-    "text": "Check in R: Bottling Power\n\n\n\n\n\n\n\n\n\nTry bumping n to 30 or 60 and re-run — watch the power climb as the standard error shrinks."
+    "text": "Check in R: Bottling Power\n\n\n\n\n\n\n\n\n\nTry bumping n to 30 or 60 and re-run, then watch the power climb as the standard error shrinks."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#section-1",
@@ -4337,7 +4337,7 @@
     "href": "Chapter Slides/chapter7-slides.html#why-plan-the-sample-size",
     "title": "STA258",
     "section": "Why Plan the Sample Size?",
-    "text": "Why Plan the Sample Size?\n\n\nToo small Low power — real, meaningful effects slip through undetected. The study is wasted.\n\n\nToo large Wasteful — extra time, cost, and participants for precision you did not need.\n\n\n\nPower analysis finds the minimum \\(n\\) that detects an effect of a given size with a specified probability (power), while holding the Type I rate at \\(\\alpha\\).\n\n\nTo run it you must supply three ingredients: the standard deviation \\(\\sigma\\), the significance level \\(\\alpha\\), and the effect size \\(\\mu_0-\\mu_a\\) you want to detect."
+    "text": "Why Plan the Sample Size?\n\n\nToo small Low power - real, meaningful effects slip through undetected. The study is wasted.\n\n\nToo large Wasteful - extra time, cost, and participants for precision you did not need.\n\n\n\nPower analysis finds the minimum \\(n\\) that detects an effect of a given size with a specified probability (power), while holding the Type I rate at \\(\\alpha\\).\n\n\nTo run it you must supply three ingredients: the standard deviation \\(\\sigma\\), the significance level \\(\\alpha\\), and the effect size \\(\\mu_0-\\mu_a\\) you want to detect."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#the-sample-size-idea",
@@ -4351,7 +4351,7 @@
     "href": "Chapter Slides/chapter7-slides.html#example-detecting-a-lift-in-daily-active-minutes",
     "title": "STA258",
     "section": "Example: Detecting a Lift in Daily Active Minutes",
-    "text": "Example: Detecting a Lift in Daily Active Minutes\n\n\n\nA product team’s app currently averages \\(\\mu_0=100\\) daily active minutes. A new onboarding flow is believed to lift engagement. They will test \\[H_0:\\mu=100 \\qquad H_a:\\mu&gt;100\\] at \\(\\alpha=0.05\\), with \\(\\sigma=14\\). They want power \\(0.60\\) to detect a true mean of \\(\\mu=103\\). What is the smallest \\(n\\)?\n\n\n\n\nStep 1 — cutoff under \\(H_0\\) \\[\\bar{x}_*=100+1.645\\cdot\\tfrac{14}{\\sqrt n}\\]\nStep 2 — cutoff for power 0.60 \\(P(Z&gt;-0.25)\\approx 0.60\\), so \\[\\bar{x}_*=103-0.25\\cdot\\tfrac{14}{\\sqrt n}\\]\n\n\n\n\nStep 3 — equate and solve \\[100+1.645\\cdot\\tfrac{14}{\\sqrt n}=103-0.25\\cdot\\tfrac{14}{\\sqrt n}\n\\;\\Rightarrow\\; n=\\left(\\frac{(1.645+0.25)\\cdot 14}{103-100}\\right)^2\\approx 78.2 \\;\\Rightarrow\\; \\boxed{n=79}\\]"
+    "text": "Example: Detecting a Lift in Daily Active Minutes\n\n\nA product team’s app currently averages \\(\\mu_0=100\\) daily active minutes. A new onboarding flow is believed to lift engagement. With \\(\\sigma=14\\), they want power \\(0.60\\) to detect a true mean of \\(\\mu=103\\). What is the smallest \\(n\\)? \\[H_0:\\mu=100 \\qquad H_a:\\mu&gt;100 \\qquad (\\alpha=0.05)\\]\n\n\nCutoff under \\(H_0\\) \\(\\;\\bar{x}_*=100+1.645\\cdot\\tfrac{14}{\\sqrt n}\\)\nCutoff for power 0.60 \\(\\;P(Z&gt;-0.25)\\approx 0.60 \\;\\Rightarrow\\; \\bar{x}_*=103-0.25\\cdot\\tfrac{14}{\\sqrt n}\\)\nEquate and solve \\[100+1.645\\cdot\\tfrac{14}{\\sqrt n}=103-0.25\\cdot\\tfrac{14}{\\sqrt n}\n\\;\\Rightarrow\\; n=\\left(\\frac{(1.645+0.25)\\cdot 14}{103-100}\\right)^2\\approx 78.2 \\;\\Rightarrow\\; \\boxed{n=79}\\]"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-sample-size-for-the-lift",
@@ -4365,7 +4365,7 @@
     "href": "Chapter Slides/chapter7-slides.html#example-vending-machine-coffee",
     "title": "STA258",
     "section": "Example: Vending-Machine Coffee",
-    "text": "Example: Vending-Machine Coffee\n\n\n\nA campus vending machine advertises \\(225\\) ml cups (\\(\\sigma=7\\) ml). You suspect it pours less and will test \\[H_0:\\mu=225 \\qquad H_a:\\mu&lt;225\\] at \\(\\alpha=0.05\\). How many cups must you sample to reach power \\(0.80\\) against a true mean of \\(\\mu=223\\) ml?\n\n\n\\(P(Z&lt;0.84)\\approx 0.80\\), so the target gives \\(z_\\beta=0.84\\).\n\n\n\n\nEquate the two cutoffs \\[225-1.645\\tfrac{7}{\\sqrt n}=223+0.84\\tfrac{7}{\\sqrt n}\\]\nSolve for \\(n\\) \\[n=\\left(\\frac{(1.645+0.84)\\cdot 7}{225-223}\\right)^2\\approx 75.6 \\;\\Rightarrow\\; \\boxed{n=76}\\]\n\n\n\n\nA minimum of 76 cups delivers the desired 0.80 power against a 2 ml shortfall."
+    "text": "Example: Vending-Machine Coffee\n\n\nA campus vending machine advertises \\(225\\) ml cups (\\(\\sigma=7\\) ml). You suspect it pours less. How many cups must you sample to reach power \\(0.80\\) against a true mean of \\(\\mu=223\\) ml? (Target: \\(P(Z&lt;0.84)\\approx0.80\\), so \\(z_\\beta=0.84\\).) \\[H_0:\\mu=225 \\qquad H_a:\\mu&lt;225 \\qquad (\\alpha=0.05)\\]\n\n\nEquate the two cutoffs \\(\\;225-1.645\\tfrac{7}{\\sqrt n}=223+0.84\\tfrac{7}{\\sqrt n}\\)\nSolve for \\(n\\) \\[n=\\left(\\frac{(1.645+0.84)\\cdot 7}{225-223}\\right)^2\\approx 75.6 \\;\\Rightarrow\\; \\boxed{n=76}\\]\n\n\nA minimum of 76 cups delivers the desired 0.80 power against a 2 ml shortfall."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-coffee-sample-size",
@@ -4379,28 +4379,28 @@
     "href": "Chapter Slides/chapter7-slides.html#power-for-a-proportion-same-logic",
     "title": "STA258",
     "section": "Power for a Proportion: Same Logic",
-    "text": "Power for a Proportion: Same Logic\n\nFor a one-sided test of \\(p\\), the rejection cutoff uses the null standard error, but power is computed with the alternative standard error:\n\\[\\hat p^{\\,*}=p_0 \\mp z_\\alpha\\sqrt{\\tfrac{p_0(1-p_0)}{n}}, \\qquad\n\\text{power}=P\\!\\left(\\hat p \\text{ in reject region}\\;\\middle|\\; p=p_a\\right)\\]\n\n\n\nSetup for the next example A streaming platform claims \\(90\\%\\) of viewers finish episode 1. Researchers suspect fewer do, and test \\(H_0:p=0.90\\) vs \\(H_a:p&lt;0.90\\) at \\(\\alpha=0.05\\). The truth is \\(p=0.85\\).\n\n\nThe question How does the power to detect this 5-point drop change as the sample grows from \\(n=50\\) to \\(n=200\\)?"
+    "text": "Power for a Proportion: Same Logic\n\nFor a one-sided test of \\(p\\), the rejection cutoff uses the null standard error, but power is computed with the alternative standard error:\n\\[\\hat p^{\\,*}=p_0 \\mp z_\\alpha\\sqrt{\\tfrac{p_0(1-p_0)}{n}}, \\qquad\n\\text{power}=P\\!\\left(\\hat p \\text{ in reject region}\\;\\middle|\\; p=p_a\\right)\\]"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",
     "href": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",
     "title": "STA258",
     "section": "Streaming Example: Power Grows with \\(n\\)",
-    "text": "Streaming Example: Power Grows with \\(n\\)\n\n\n\n\n\n\\(n\\)\ncutoff \\(\\hat p^{\\,*}\\)\n\\(z\\) under \\(p=0.85\\)\nPower\n\n\n\n\n50\n0.8507\n\\(-0.39\\)\n0.347\n\n\n100\n0.8507\n\\(0.02\\)\n0.507\n\n\n200\n0.8651\n\\(0.60\\)\n0.725\n\n\n\n\nSame effect (a drop from 0.90 to 0.85), same \\(\\alpha\\) — only \\(n\\) changes. Power climbs from 35% to 73%."
+    "text": "Streaming Example: Power Grows with \\(n\\)\n\n\n\n\n\n\\(n\\)\ncutoff \\(\\hat p^{\\,*}\\)\n\\(z\\) under \\(p=0.85\\)\nPower\n\n\n\n\n50\n0.8507\n\\(-0.39\\)\n0.347\n\n\n100\n0.8507\n\\(0.02\\)\n0.507\n\n\n200\n0.8651\n\\(0.60\\)\n0.725\n\n\n\n\nSame effect (a drop from 0.90 to 0.85), same \\(\\alpha\\), only \\(n\\) changes. Power climbs from 35% to 73%."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-proportion-power",
     "href": "Chapter Slides/chapter7-slides.html#check-in-r-proportion-power",
     "title": "STA258",
     "section": "Check in R: Proportion Power",
-    "text": "Check in R: Proportion Power\n\n\n\n\n\n\n\n\n\nReturns about \\(0.347,\\ 0.507,\\ 0.725\\) — exactly the textbook values for \\(n=50,100,200\\)."
+    "text": "Check in R: Proportion Power"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#how-many-viewers-for-power-0.80",
     "href": "Chapter Slides/chapter7-slides.html#how-many-viewers-for-power-0.80",
     "title": "STA258",
     "section": "How Many Viewers for Power 0.80?",
-    "text": "How Many Viewers for Power 0.80?\n\n\n\nKeep \\(H_0:p=0.90\\), \\(H_a:p&lt;0.90\\), true \\(p=0.85\\), \\(\\alpha=0.05\\). Set power \\(=0.80\\) (\\(z_\\beta=0.8416\\)) and equate the two cutoff expressions:\n\\[0.90-1.645\\sqrt{\\tfrac{0.90(0.10)}{n}}=0.85+0.8416\\sqrt{\\tfrac{0.85(0.15)}{n}}\\]\n\n\n\n\nSolve for \\(n\\) \\[\\sqrt n=\\frac{1.645\\sqrt{0.09}+0.8416\\sqrt{0.1275}}{0.05}=\\frac{0.4935+0.3005}{0.05}\\approx 15.88\\] \\[n\\approx 252.2 \\;\\Rightarrow\\; \\boxed{n=253}\\]\n\n\n\n\nDetecting a modest 5-point drop with 80% power takes 253 viewers — far more than the 50–200 above. Smaller effects always demand larger samples."
+    "text": "How Many Viewers for Power 0.80?\n\n\nKeep \\(H_0:p=0.90\\), \\(H_a:p&lt;0.90\\), true \\(p=0.85\\), \\(\\alpha=0.05\\). Set power \\(=0.80\\) (\\(z_\\beta=0.8416\\)) and equate the two cutoff expressions: \\[0.90-1.645\\sqrt{\\tfrac{0.90(0.10)}{n}}=0.85+0.8416\\sqrt{\\tfrac{0.85(0.15)}{n}}\\]\n\n\n\\[\\sqrt n=\\frac{1.645\\sqrt{0.09}+0.8416\\sqrt{0.1275}}{0.05}=\\frac{0.4935+0.3005}{0.05}\\approx 15.88\\] \\[n\\approx 252.2 \\;\\Rightarrow\\; \\boxed{n=253}\\]\n\n\nDetecting a modest 5-point drop with 80% power takes 253 viewers, far more than the 50-200 above. Smaller effects always demand larger samples."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#general-power-formulas",
@@ -4414,7 +4414,7 @@
     "href": "Chapter Slides/chapter7-slides.html#what-you-need-to-know",
     "title": "STA258",
     "section": "What You Need to Know",
-    "text": "What You Need to Know\n\n\nStandard deviation \\(\\sigma\\) — the spread of the variable being measured.\n\n\nSignificance level \\(\\alpha\\) — the fixed Type I error rate you are willing to tolerate.\n\n\nEffect size \\(\\mu_0-\\mu_a\\) — the smallest difference worth detecting.\n\n\n\nWith data in hand it is more common to report a p-value than a fixed reject/not-reject decision: it measures the strength of evidence against \\(H_0\\) and leaves the action up to each reader."
+    "text": "What You Need to Know\n\n\nStandard deviation \\(\\sigma\\) - the spread of the variable being measured.\n\n\nSignificance level \\(\\alpha\\) - the fixed Type I error rate you are willing to tolerate.\n\n\nEffect size \\(\\mu_0-\\mu_a\\) - the smallest difference worth detecting.\n\n\n\nWith data in hand it is more common to report a p-value than a fixed reject/not-reject decision: it measures the strength of evidence against \\(H_0\\) and leaves the action up to each reader."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#section-2",
@@ -4435,7 +4435,7 @@
     "href": "Chapter Slides/chapter7-slides.html#up-next",
     "title": "STA258",
     "section": "Up Next",
-    "text": "Up Next\n\nChapter 8 — Analysis of Variance\nWe extend hypothesis testing from one or two groups to several group means at once, using the \\(F\\)-distribution to ask whether any of the group means differ.\n\n\nOne-slide takeaway. Power \\(=1-\\beta\\) is a test’s ability to detect a real effect. It rises with effect size, sample size, and \\(\\alpha\\), and falls with variability — so planning \\(n\\) in advance is how we guarantee a study can succeed.\n\n\nBack to Homepage"
+    "text": "Up Next\n\nChapter 8 - Analysis of Variance\nWe extend hypothesis testing from one or two groups to several group means at once, using the \\(F\\)-distribution to ask whether any of the group means differ.\n\n\nOne-slide takeaway. Power \\(=1-\\beta\\) is a test’s ability to detect a real effect. It rises with effect size, sample size, and \\(\\alpha\\), and falls with variability, so planning \\(n\\) in advance is how we guarantee a study can succeed.\n\n\nBack to Homepage"
   },
   {
     "objectID": "Chapter Landing Pages/chapter7.html",
@@ -4464,59 +4464,26 @@
     "title": "Chapter 7: Statistical Power",
     "section": "How to use this chapter",
     "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough with power curves and error-region diagrams.\nUse the PDF button for an offline-friendly version.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to recompute power and sample sizes in your browser.\nUse the final cheat sheet as a study guide for power and sample-size formulas."
-    "objectID": "index.html#what-youll-learn",
-    "href": "index.html#what-youll-learn",
-    "title": "Chapter 10: Analysis of Categorical Data",
-    "section": "What you’ll learn",
-    "text": "What you’ll learn\nBy the end of Chapter 9 you’ll be able to:\n\nDescribe the simple linear regression model and identify the response, predictor, intercept, slope, and error term.\nInterpret fitted values and residuals in context.\nExplain how least squares chooses the regression line by minimizing the sum of squared errors.\nCompute and interpret the estimated regression equation.\nUse covariance, correlation, and \\(R^2\\) to describe the strength of a linear relationship.\nDecompose variation using \\(SST\\), \\(SSR\\), and \\(SSE\\).\nTest whether the regression slope is significantly different from zero.\nConstruct and interpret confidence intervals for the slope.\nUse residual plots to check whether a straight-line model is reasonable.\nUse lm() in R to fit, summarize, diagnose, and make predictions from a regression model."
   },
   {
-    "objectID": "index.html#key-ideas",
-    "href": "index.html#key-ideas",
-    "title": "Chapter 10: Analysis of Categorical Data",
-    "section": "Key ideas",
-    "text": "Key ideas\n\nSimple Linear Regression Model\nSimple linear regression models the relationship between one quantitative response variable \\(Y\\) and one quantitative predictor \\(x\\) using a straight line. The model is written as\n\\[\nY_i = \\beta_0 + \\beta_1x_i + \\varepsilon_i.\n\\]\n\n\nLeast Squares\nThe least-squares method chooses the line that makes the residuals as small as possible overall. It does this by minimizing\n\\[\nSSE = \\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\n\n\nInterpreting the Slope\nThe slope is usually the most important part of the regression equation. It tells us the predicted change in the response variable for a one-unit increase in the predictor.\n\n\nCorrelation and \\(R^2\\)\nCorrelation describes the strength and direction of a linear relationship. The coefficient of determination, \\(R^2\\), tells us the proportion of variation in the response explained by the fitted linear model.\n\n\nInference for the Slope\nRegression inference allows us to test whether the predictor has a statistically meaningful linear relationship with the response. A common test is\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1\\ne 0.\n\\]\n\n\nPrediction and Diagnostics\nA fitted regression line can be used for prediction, but only after checking whether the model is reasonable. Residual plots help us detect curvature, changing spread, outliers, and other model issues."
-  },
-  {
-    "objectID": "index.html#how-to-use-this-chapter",
-    "href": "index.html#how-to-use-this-chapter",
-    "title": "Chapter 10: Analysis of Categorical Data",
-    "section": "How to use this chapter",
-    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough of simple linear regression.\nUse the PDF button for an offline-friendly version.\nWork through the electricity cost example to see the full regression workflow.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples to check calculations using lm().\nUse the final summary as a study guide for interpreting slope, residuals, \\(R^2\\), confidence intervals, hypothesis tests, and predictions.\n\n\n\nSlides PDF"
-  },
-  {
-    "objectID": "index.html#what-youll-learn-1",
-    "href": "index.html#what-youll-learn-1",
-    "title": "Chapter 10: Analysis of Categorical Data",
-    "section": "What you’ll learn",
-    "text": "What you’ll learn\nBy the end of Chapter 10 you’ll be able to:\n\nRecognize when data are categorical rather than quantitative.\nDescribe the multinomial response model for counts across several categories.\nSet up hypotheses for a chi-square goodness-of-fit test.\nCompute expected counts using the hypothesized category probabilities.\nCalculate and interpret the chi-square test statistic.\nFind a P-value using the chi-square distribution with the correct degrees of freedom.\nCheck the expected cell frequency condition before applying the test.\nUse chisq.test() in R to check goodness-of-fit calculations."
-  },
-  {
-    "objectID": "index.html#key-ideas-1",
-    "href": "index.html#key-ideas-1",
-    "title": "Chapter 10: Analysis of Categorical Data",
-    "section": "Key ideas",
-    "text": "Key ideas\n\nCategorical Data\nCategorical data record which group, class, brand, color, outcome, or category each observation belongs to. Instead of analyzing means, we usually analyze counts or proportions in each category.\n\n\nMultinomial Response Model\nWhen each trial results in exactly one of \\(k\\) possible categories, the counts follow a multinomial model. If the category probabilities are \\[\np_1, p_2, \\ldots, p_k,\n\\] then they must satisfy \\[\np_1+p_2+\\cdots+p_k=1.\n\\] The binomial model is the special case where \\(k=2\\).\n\n\nExpected Counts\nUnder the null hypothesis, each category has a hypothesized probability. The expected count in category \\(i\\) is \\[\nE_i = np_i.\n\\] These expected counts describe what we would expect to see if the null hypothesis were true.\n\n\nChi-square Goodness-of-Fit Statistic\nThe goodness-of-fit test compares observed counts to expected counts: \\[\n\\chi^2 =\n\\sum\n\\frac{(\\text{observed count} - \\text{expected count})^2}\n{\\text{expected count}}.\n\\] Large values of \\(\\chi^2\\) mean the observed counts are far from what the null hypothesis predicts.\n\n\nDegrees of Freedom and P-value\nFor a goodness-of-fit test with \\(k\\) categories, the test statistic is compared to a chi-square distribution with \\[\nk-1\n\\] degrees of freedom. The P-value is the area to the right of the observed test statistic.\n\n\nSample Size Assumption\nThe chi-square approximation works well when the expected counts are large enough. A common rule is that every expected cell count should be at least 5."
-  },
-  {
-    "objectID": "index.html#how-to-use-this-chapter-1",
-    "href": "index.html#how-to-use-this-chapter-1",
-    "title": "Chapter 10: Analysis of Categorical Data",
-    "section": "How to use this chapter",
-    "text": "How to use this chapter\n\nOpen the slides for an interactive walkthrough.\nUse the PDF button for an offline-friendly version.\nFollow the worked examples to practice setting up observed and expected counts.\nTry the embedded quiz questions before revealing the answer.\nRun and edit the WebR examples using chisq.test().\nRevisit the examples later as templates for homework and exam practice."
-  },
-  {
-    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
-    "href": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
+    "objectID": "Chapter Slides/chapter7-slides.html#sweetness-cutoff-to-power",
+    "href": "Chapter Slides/chapter7-slides.html#sweetness-cutoff-to-power",
     "title": "STA258",
-    "section": "Check in R: Food Delivery ETA",
-    "text": "Check in R: Food Delivery ETA\n\n\n\n\n\n\n\n\n\nThe output gives \\(t=2.682\\), \\(df=11\\), and p-value \\(0.0107\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+    "section": "Sweetness: Cutoff to Power",
+    "text": "Sweetness: Cutoff to Power\n\n\n\nRejection Rule One-sided \\(\\alpha=0.05\\) gives \\(z_{\\text{crit}}=1.645\\). On the \\(\\bar{x}\\) scale (since \\(\\sigma\\) is known): \\[\\bar{x}_*=0+1.645\\cdot\\tfrac{1}{\\sqrt{10}}\\approx 0.520 \\;\\Rightarrow\\; \\text{reject if } \\bar{x}&gt;0.520\\]\n\n\nFind the Power Assume \\(\\mu=1.1\\) is true and find \\(P(\\bar{x}&gt;0.520)\\): \\[\\text{power}=P\\!\\left(Z&gt;\\tfrac{0.520-1.1}{1/\\sqrt{10}}\\right)=P(Z&gt;-1.83)=\\mathbf{0.9664}\\]\n\n\n\n\n\n\n\n\n\n\n\n\nA 96.6% chance of correctly detecting \\(\\mu=1.1\\). Since power \\(=1-\\beta\\), the green and red areas add to 1: \\[\\text{power}=1-\\beta=1-0.034=0.966\\]"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
-    "href": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
+    "objectID": "Chapter Slides/chapter7-slides.html#using-power-to-choose-a-sample-size",
+    "href": "Chapter Slides/chapter7-slides.html#using-power-to-choose-a-sample-size",
     "title": "STA258",
-    "section": "Example: Scoring Consistency",
-    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
+    "section": "Using Power to Choose a Sample Size",
+    "text": "Using Power to Choose a Sample Size\n\nPower calculations are done before collecting data — they tell you how big a sample you need."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#a-streaming-proportion-test",
+    "href": "Chapter Slides/chapter7-slides.html#a-streaming-proportion-test",
+    "title": "STA258",
+    "section": "A Streaming Proportion Test",
+    "text": "A Streaming Proportion Test\n\n\nA streaming platform claims \\(90\\%\\) of viewers finish episode 1. Researchers suspect fewer do, and test \\(H_0:p=0.90\\) vs \\(H_a:p&lt;0.90\\) at \\(\\alpha=0.05\\). The truth is \\(p=0.85\\).\n\n\nThe question How does the power to detect this 5-point drop change as the sample grows from \\(n=50\\) to \\(n=200\\)?"
   }
 ]

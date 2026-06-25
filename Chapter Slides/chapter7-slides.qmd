@@ -48,9 +48,12 @@ line_b    <- "rgba(198,40,40,0.6)"
 power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
                           alternative = "greater", title = "",
                           xlab = "sample mean", show_beta = FALSE,
+                          cutoff_label = NULL, power_label = NULL,
+                          beta_label = NULL,
                           width = 640, height = 255) {
   zc    <- qnorm(1 - alpha)
   xcrit <- if (alternative == "less") mu0 - zc * se0 else mu0 + zc * se0
+  s     <- if (alternative == "less") -1 else 1
   lo <- min(mu0 - 4 * se0, mua - 4 * sea)
   hi <- max(mu0 + 4 * se0, mua + 4 * sea)
   x  <- seq(lo, hi, length.out = 600)
@@ -75,23 +78,39 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
                 line = list(color = line_b, width = 1),
                 name = "beta", hoverinfo = "skip")
   }
+  has_lab <- !is.null(power_label) || !is.null(beta_label)
+  bmar <- if (has_lab) 100 else 34
   p |> layout(
     title = list(text = title, x = 0.02, font = list(size = 14)),
-    xaxis = list(title = xlab, zeroline = FALSE, fixedrange = TRUE),
+    xaxis = list(title = list(text = xlab, standoff = if (has_lab) 48 else 0),
+                 zeroline = FALSE, fixedrange = TRUE),
     yaxis = list(title = "", rangemode = "tozero",
                  range = c(0, ymax * 1.28), fixedrange = TRUE),
-    margin = list(l = 28, r = 12, t = 38, b = 34),
+    margin = list(l = 28, r = 12, t = 38, b = bmar),
     showlegend = FALSE,
     shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
-                       y0 = 0, y1 = ymax * 1.06,
+                       y0 = 0, y1 = ymax * 1.16,
                        line = list(color = "#333", width = 2, dash = "dash"))),
-    annotations = list(
-      list(x = mu0, y = max(y0) * 1.07, text = "H₀",
-           showarrow = FALSE, font = list(color = col_null, size = 14)),
-      list(x = mua, y = max(ya) * 1.07, text = "Hₐ",
-           showarrow = FALSE, font = list(color = col_alt, size = 14)),
-      list(x = xcrit, y = ymax * 1.20, text = "critical value",
-           showarrow = FALSE, font = list(color = "#333", size = 10)))
+    annotations = c(
+      list(
+        list(x = mu0, y = max(y0) * 1.07, text = "H₀",
+             showarrow = FALSE, font = list(color = col_null, size = 14)),
+        list(x = mua, y = max(ya) * 1.07, text = "Hₐ",
+             showarrow = FALSE, font = list(color = col_alt, size = 14)),
+        list(x = xcrit, y = ymax * 1.16,
+             text = if (!is.null(cutoff_label)) cutoff_label else "cutoff",
+             showarrow = FALSE, yanchor = "bottom",
+             font = list(color = "#333", size = 11))),
+      # power & β labels sit BELOW the plot with arrows pointing up
+      if (!is.null(beta_label)) list(list(
+        x = xcrit - s * 0.5 * se0, y = 0.05, text = beta_label,
+        showarrow = TRUE, ax = 0, ay = 40, arrowhead = 2, arrowwidth = 1.3,
+        arrowcolor = "#c62828", font = list(color = "#c62828", size = 12))),
+      if (!is.null(power_label)) list(list(
+        x = mua, y = 0.06, text = power_label,
+        showarrow = TRUE, ax = 0, ay = 40, arrowhead = 2, arrowwidth = 1.3,
+        arrowcolor = line_pow, font = list(color = "#1b5e20", size = 12)))
+    )
   ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
 
@@ -108,13 +127,19 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
   ya <- dnorm(x, mua, se)
   rej  <- if (alternative == "less") x <= xcrit else x >= xcrit
   ymax <- max(c(y0, ya))
-  ashift <- if (alternative == "less") -0.7 * se else 0.95 * se
-  bshift <- if (alternative == "less")  0.5 * se else -1.0 * se
+  s <- if (alternative == "less") -1 else 1
+  hy <- 0.06                             # arrow-head height inside each sliver
+  ax_x <- xcrit + s * 0.40 * se          # α: null sliver on the reject side
+  bx_x <- xcrit - s * 0.45 * se          # β: alt sliver on the keep side
+  pw_x <- mua                            # power: deep in the green region
   plot_ly(width = width, height = height) |>
     add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
               hoverinfo = "skip") |>
     add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
               hoverinfo = "skip") |>
+    add_trace(x = x[rej], y = ya[rej], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_pow,
+              line = list(color = line_pow, width = 1), hoverinfo = "skip") |>
     add_trace(x = x[rej], y = y0[rej], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_a,
               line = list(color = line_a, width = 1), hoverinfo = "skip") |>
@@ -123,10 +148,10 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
               line = list(color = line_b, width = 1), hoverinfo = "skip") |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 14)),
-      xaxis = list(title = "sample statistic", zeroline = FALSE, fixedrange = TRUE),
+      xaxis = list(title = "", zeroline = FALSE, fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero",
                    range = c(0, ymax * 1.28), fixedrange = TRUE),
-      margin = list(l = 28, r = 12, t = 38, b = 34),
+      margin = list(l = 28, r = 12, t = 38, b = 76),
       showlegend = FALSE,
       shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
                          y0 = 0, y1 = ymax * 1.06,
@@ -136,10 +161,19 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
              showarrow = FALSE, font = list(color = col_null, size = 11)),
         list(x = mua, y = max(ya) * 1.07, text = "Hₐ true",
              showarrow = FALSE, font = list(color = col_alt, size = 11)),
-        list(x = xcrit + ashift, y = ymax * 0.42, text = "α",
-             showarrow = FALSE, font = list(color = "#b26a00", size = 16)),
-        list(x = mua + bshift, y = ymax * 0.30, text = "β",
-             showarrow = FALSE, font = list(color = "#c62828", size = 16)))
+        # labels sit BELOW the curves; arrows point up into each region
+        list(x = bx_x, y = hy, text = "β (Type II)",
+             showarrow = TRUE, ax = -24, ay = 40,
+             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#c62828",
+             font = list(color = "#c62828", size = 13)),
+        list(x = ax_x, y = hy, text = "α (Type I)",
+             showarrow = TRUE, ax = 22, ay = 64,
+             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#b26a00",
+             font = list(color = "#b26a00", size = 13)),
+        list(x = pw_x, y = hy, text = "power",
+             showarrow = TRUE, ax = 0, ay = 40,
+             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#2e7d32",
+             font = list(color = "#1b5e20", size = 13)))
     ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
 
@@ -267,6 +301,7 @@ tail_plot <- function(stat = 1.645, alternative = "greater",
 .reveal p, .reveal li { font-size: 0.74em; line-height: 1.3; }
 .title-slide { text-align: center !important; }
 .title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
+.title-slide h2 { font-size: 1.6em !important; border-bottom: none !important; margin-top: 0.6em; text-align: center; }
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
 .two-col, .two-col-wide, .three-col, .four-grid, .procedure-grid, .decision-grid, .slide-stack {
   display: grid;
@@ -382,6 +417,7 @@ tail_plot <- function(stat = 1.645, alternative = "greater",
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.reveal .nw { white-space: nowrap; }
 .reveal pre { width: 100%; margin-top: 0.3em; margin-bottom: 0.3em; border-radius: 8px; }
 .reveal pre code { font-size: 0.7em; max-height: 300px; }
 .reveal code { background: var(--sta-code); border-radius: 4px; padding: 1px 4px; }
@@ -528,7 +564,7 @@ The test is good at detecting effects that are really there.
 
 ::: {.warnbox .fragment}
 <span class="label">Low power (near 0)</span>
-The test is unreliable — it usually fails to reject even when $H_0$ is false.
+The test is unreliable, it usually fails to reject even when $H_0$ is false.
 :::
 ::::
 
@@ -536,30 +572,26 @@ The test is unreliable — it usually fails to reject even when $H_0$ is false.
 
 ## What Affects Power?
 
-:::: {.four-grid}
+:::: {.slide-stack}
 ::: {.stat-card .fragment}
-<span class="label">Effect size</span>
-Larger gaps between reality and $H_0$ are easier to detect $\Rightarrow$ more power.
+<span class="label" style="display:inline">Effect size</span> &nbsp;-&nbsp; Larger gaps between reality and $H_0$ are easier to detect $\Rightarrow$ more power.
 :::
 
 ::: {.stat-card .fragment}
-<span class="label">Sample size $n$</span>
-Larger samples shrink the standard error $\Rightarrow$ more power.
+<span class="label" style="display:inline">Sample size $n$</span> &nbsp;-&nbsp; Larger samples shrink the standard error $\Rightarrow$ more power.
 :::
 
 ::: {.stat-card .fragment}
-<span class="label">Significance level $\alpha$</span>
-A larger $\alpha$ makes $H_0$ easier to reject $\Rightarrow$ more power (but more Type I risk).
+<span class="label" style="display:inline">Significance level $\alpha$</span> &nbsp;-&nbsp; A larger $\alpha$ makes $H_0$ easier to reject $\Rightarrow$ more power (but more Type I risk).
 :::
 
 ::: {.stat-card .fragment}
-<span class="label">Variability $\sigma$</span>
-Less spread in the data $\Rightarrow$ narrower sampling distribution $\Rightarrow$ more power.
+<span class="label" style="display:inline">Variability $\sigma$</span> &nbsp;-&nbsp; Less spread in the data $\Rightarrow$ narrower sampling distribution $\Rightarrow$ more power.
 :::
 ::::
 
 ::: {.thinkbox .fragment}
-You control $n$ and $\alpha$. The effect size and $\sigma$ are set by the world — so sample size is your main planning lever.
+You control $n$ and $\alpha$. The effect size and $\sigma$ are set by the world, so sample size is your main planning lever.
 :::
 
 ---
@@ -586,8 +618,8 @@ Fail to reject $H_0$ when $H_0$ is **false**.
 ::: {.col}
 | | $H_0$ True | $H_0$ False |
 |---|---|---|
-| **Reject $H_0$** | Type I ($\alpha$) | Correct (power) |
-| **Fail to reject $H_0$** | Correct | Type II ($\beta$) |
+| **Reject $H_0$** | [Type I ($\alpha$)]{.nw} | [Correct (power)]{.nw} |
+| **Fail to reject $H_0$** | Correct | [Type II ($\beta$)]{.nw} |
 
 ::: {.thinkbox .fragment .table-note}
 A Type I error is usually treated as the more serious mistake, which is why we fix $\alpha$ in advance (often $0.05$).
@@ -618,7 +650,7 @@ The orange tail under $H_0$ is $\alpha$. The red region under $H_a$ is $\beta$. 
 ```{r}
 error_plot(mu0 = 0, mua = 1.1, se = 1 / sqrt(10),
            alpha = 0.05, alternative = "greater",
-           title = "α lives under H₀, β lives under Hₐ")
+           title = "α under H₀; β + power under Hₐ")
 ```
 :::
 :::
@@ -636,7 +668,7 @@ A test fails to reject $H_0$, but in reality $H_0$ is false. Which error has occ
 
 - Type I error
 - [Type II error]{.correct data-explanation="Failing to reject a false H0 is a Type II error (probability β). Power = 1 − β is the chance we would have correctly rejected."}
-- No error — we were cautious
+- No error, we were cautious
 - Both Type I and Type II
 
 ---
@@ -647,7 +679,7 @@ A test fails to reject $H_0$, but in reality $H_0$ is false. Which error has occ
 <ol class="step-list">
   <li class="fragment"><strong>1. Rejection rule in terms of the estimate.</strong> Convert the critical $z$ (or $z_\alpha$) into a cutoff $\bar{x}_*$ on the data scale using the null distribution.</li>
   <li class="fragment"><strong>2. Switch to the alternative.</strong> Assume the alternative value of the parameter is true.</li>
-  <li class="fragment"><strong>3. Compute the rejection probability.</strong> Standardize the cutoff under the alternative and read off the area — that area is the power.</li>
+  <li class="fragment"><strong>3. Compute the rejection probability.</strong> Standardize the cutoff under the alternative and read off the area, which is the power.</li>
 </ol>
 
 ::: {.mini-plot .fragment}
@@ -670,6 +702,10 @@ A meal-kit company quietly reformulates a sauce and asks a trained tasting panel
 
 A panel of $n=10$ tasters scores each batch; from calibration the scores have $\sigma=1$.
 :::
+
+::: {.notebox .fragment}
+$\sigma$ is known $\Rightarrow$ one-sample $z$ test, reference [$N(0,1)$.]{.nw}
+:::
 :::
 
 ::: {.col}
@@ -681,59 +717,25 @@ $$H_0:\mu = 0 \qquad H_a:\mu>0$$
 - $n = 10,\quad \sigma = 1,\quad \alpha = 0.05$
 - Detect the alternative $\mu = 1.1$
 :::
-
-::: {.notebox .fragment}
-$\sigma$ is known $\Rightarrow$ one-sample $z$ test, reference $N(0,1)$.
-:::
 :::
 ::::
 
 ---
 
-## Sweetness: Step 1 — Rejection Region
+## Sweetness: Cutoff to Power
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-One-sided test with $\alpha=0.05$:
-$$z_{\text{crit}} = 1.645 \quad\Rightarrow\quad \text{reject if } Z^* > 1.645$$
-
-Convert to the $\bar{x}$ scale (since $\sigma$ is known):
-$$1.645=\frac{\bar{x}_{\text{crit}}-0}{1/\sqrt{10}} \;\Rightarrow\; \bar{x}_{\text{crit}}\approx 0.520$$
-
-So we **reject $H_0$ when $\bar{x}>0.520$.**
-:::
+<span class="label">Rejection Rule</span>
+One-sided $\alpha=0.05$ gives $z_{\text{crit}}=1.645$. On the $\bar{x}$ scale (since $\sigma$ is known):
+$$\bar{x}_*=0+1.645\cdot\tfrac{1}{\sqrt{10}}\approx 0.520 \;\Rightarrow\; \text{reject if } \bar{x}>0.520$$
 :::
 
-::: {.col}
-::: {.mini-plot}
-```{r}
-tail_plot(stat = 1.645, alternative = "greater",
-          title = "Reject region for Z (α = 0.05)")
-```
-:::
-:::
-::::
-
----
-
-## Sweetness: Steps 2–3 — The Power
-
-:::: {.two-col-wide}
-::: {.col}
-::: {.examplebox}
-Now assume the alternative $\mu=1.1$ is true and find the probability that $\bar{x}$ lands in the rejection region:
-
-$$
-\text{power}=P\!\left(Z>\frac{0.520-1.1}{1/\sqrt{10}}\right)
-$$
-$$
-= P(Z>-1.83)=1-0.0336=\mathbf{0.9664}
-$$
-:::
-
-::: {.thinkbox .fragment}
-There is a **96.6%** chance the test correctly detects a true mean change of $\mu=1.1$. Equivalently $\beta = 0.034$.
+::: {.examplebox .fragment}
+<span class="label">Find the Power</span>
+Assume $\mu=1.1$ is true and find $P(\bar{x}>0.520)$:
+$$\text{power}=P\!\left(Z>\tfrac{0.520-1.1}{1/\sqrt{10}}\right)=P(Z>-1.83)=\mathbf{0.9664}$$
 :::
 :::
 
@@ -742,9 +744,16 @@ There is a **96.6%** chance the test correctly detects a true mean change of $\m
 ```{r}
 power_overlap(mu0 = 0, mua = 1.1, se0 = 1 / sqrt(10),
               alpha = 0.05, alternative = "greater", show_beta = TRUE,
-              xlab = "mean sweetness change",
-              title = "Power 0.966 (green), β = 0.034 (red)")
+              xlab = "mean sweetness change  x̄",
+              cutoff_label = "cutoff = 0.52",
+              power_label = "power = 0.966",
+              beta_label = "β = 0.034")
 ```
+:::
+
+::: {.thinkbox .fragment}
+A **96.6%** chance of correctly detecting $\mu=1.1$. Since power $=1-\beta$, the green and red areas add to 1:
+$$\text{power}=1-\beta=1-0.034=0.966$$
 :::
 :::
 ::::
@@ -770,10 +779,6 @@ xcrit
 power
 ```
 
-::: {.thinkbox .fragment}
-`xcrit` $\approx 0.520$ and `power` $\approx 0.966$, matching the hand calculation.
-:::
-
 ---
 
 ## Visualizing Power: The Power Curve
@@ -781,7 +786,7 @@ power
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.notebox}
-Power is not a single number — it is a **function** of the true mean. Plotting power against $\mu$ gives the **power curve**.
+Power is not a single number, it is a **function** of the true mean. Plotting power against $\mu$ gives the **power curve**.
 :::
 
 ::: {.card .fragment}
@@ -809,62 +814,20 @@ power_curve(mu0 = 0, se = 1 / sqrt(10), alpha = 0.05,
 
 ## Example: Underfilled Bottling Line
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.examplebox}
-A craft-soda line is supposed to fill bottles to $\mu_0=300$ ml. The machine is not perfect, with **known** $\sigma=3$ ml. Inspecting only $n=6$ bottles, will the test catch a true mean of $\mu=299$ ml?
-
-$$H_0:\mu = 300 \qquad H_a:\mu<300$$
-
-A 5% test rejects when $z_*=\dfrac{\bar{x}-300}{3/\sqrt6}\le -1.645$.
-:::
+::: {.slide-stack}
+::: {.card}
+A craft-soda line should fill bottles to $\mu_0=300$ ml, with **known** $\sigma=3$ ml. Inspecting only $n=6$ bottles, will a 5% test catch a true mean of $\mu=299$ ml?
+$$H_0:\mu = 300 \qquad H_a:\mu<300 \qquad (\alpha=0.05)$$
 :::
 
-::: {.col}
 ::: {.examplebox .fragment}
-<span class="label">Step 1 — cutoff</span>
-$$\bar{x}<300-1.645\cdot\tfrac{3}{\sqrt6}\Rightarrow \bar{x}<297.985$$
-
-<span class="label">Steps 2–3 — power at $\mu=299$</span>
-$$P\!\left(Z<\frac{297.985-299}{3/\sqrt6}\right)=P(Z<-0.83)=\mathbf{0.2033}$$
+$$\bar{x}_*=300-1.645\cdot\tfrac{3}{\sqrt6}=297.985 \quad(\text{reject if } \bar{x}<297.985)$$
+$$\text{power}=P\!\left(Z<\frac{297.985-299}{3/\sqrt6}\right)=P(Z<-0.83)=\mathbf{0.2033}$$
 :::
-:::
-::::
 
 ::: {.warnbox .fragment}
-Only **20%** power. With just 6 bottles this test will usually miss a 1 ml shortfall — the sample is too small.
+Only **20%** power. With just 6 bottles this test will usually miss a 1 ml shortfall, the sample is too small.
 :::
-
----
-
-## Bottling Line: Power Picture
-
-:::: {.two-col}
-::: {.col}
-::: {.mini-plot}
-```{r}
-power_overlap(mu0 = 300, mua = 299, se0 = 3 / sqrt(6),
-              alpha = 0.05, alternative = "less", show_beta = TRUE,
-              xlab = "mean fill (ml)",
-              title = "n = 6: power only 0.203 (green)")
-```
-:::
-:::
-
-::: {.col}
-::: {.mini-plot}
-```{r}
-power_curve(mu0 = 300, se = 3 / sqrt(6), alpha = 0.05,
-            alternative = "less", mu_lo = 294, mu_hi = 300,
-            marks = c(299),
-            title = "Low power for small shortfalls")
-```
-:::
-:::
-::::
-
-::: {.thinkbox .fragment}
-The huge red ($\beta$) region is the problem. The fix is a **bigger sample**, which narrows both curves and shrinks $\beta$.
 :::
 
 ---
@@ -881,7 +844,7 @@ c(xcrit = xcrit, power = power)
 ```
 
 ::: {.notebox .fragment}
-Try bumping `n` to 30 or 60 and re-run — watch the power climb as the standard error shrinks.
+Try bumping `n` to 30 or 60 and re-run, then watch the power climb as the standard error shrinks.
 :::
 
 ---
@@ -901,25 +864,17 @@ The bottling test has only 20% power against $\mu=299$. Which single change rais
 
 ---
 
-# Using Power to Choose a Sample Size {.title-slide}
-
-::: {.notebox}
-Power calculations are done **before** collecting data — they tell you how big a sample you need.
-:::
-
----
-
 ## Why Plan the Sample Size?
 
 :::: {.two-col}
 ::: {.warnbox .fragment}
 <span class="label">Too small</span>
-Low power — real, meaningful effects slip through undetected. The study is wasted.
+Low power - real, meaningful effects slip through undetected. The study is wasted.
 :::
 
 ::: {.warnbox .fragment}
 <span class="label">Too large</span>
-Wasteful — extra time, cost, and participants for precision you did not need.
+Wasteful - extra time, cost, and participants for precision you did not need.
 :::
 ::::
 
@@ -953,31 +908,21 @@ where $z_\beta$ is the standard-normal value matching the target power.
 
 ## Example: Detecting a Lift in Daily Active Minutes
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.examplebox}
-A product team's app currently averages $\mu_0=100$ daily active minutes. A new onboarding flow is believed to lift engagement. They will test
-$$H_0:\mu=100 \qquad H_a:\mu>100$$
-at $\alpha=0.05$, with $\sigma=14$. They want **power $0.60$** to detect a true mean of $\mu=103$. What is the smallest $n$?
+::: {.slide-stack}
+::: {.card}
+A product team's app currently averages $\mu_0=100$ daily active minutes. A new onboarding flow is believed to lift engagement. With $\sigma=14$, they want **power $0.60$** to detect a true mean of $\mu=103$. What is the smallest $n$?
+$$H_0:\mu=100 \qquad H_a:\mu>100 \qquad (\alpha=0.05)$$
 :::
-:::
-
-::: {.col}
-::: {.examplebox .fragment}
-<span class="label">Step 1 — cutoff under $H_0$</span>
-$$\bar{x}_*=100+1.645\cdot\tfrac{14}{\sqrt n}$$
-
-<span class="label">Step 2 — cutoff for power 0.60</span>
-$P(Z>-0.25)\approx 0.60$, so
-$$\bar{x}_*=103-0.25\cdot\tfrac{14}{\sqrt n}$$
-:::
-:::
-::::
 
 ::: {.examplebox .fragment}
-<span class="label">Step 3 — equate and solve</span>
+<span class="label">Cutoff under $H_0$</span> $\;\bar{x}_*=100+1.645\cdot\tfrac{14}{\sqrt n}$
+
+<span class="label">Cutoff for power 0.60</span> $\;P(Z>-0.25)\approx 0.60 \;\Rightarrow\; \bar{x}_*=103-0.25\cdot\tfrac{14}{\sqrt n}$
+
+<span class="label">Equate and solve</span>
 $$100+1.645\cdot\tfrac{14}{\sqrt n}=103-0.25\cdot\tfrac{14}{\sqrt n}
 \;\Rightarrow\; n=\left(\frac{(1.645+0.25)\cdot 14}{103-100}\right)^2\approx 78.2 \;\Rightarrow\; \boxed{n=79}$$
+:::
 :::
 
 ---
@@ -987,8 +932,8 @@ $$100+1.645\cdot\tfrac{14}{\sqrt n}=103-0.25\cdot\tfrac{14}{\sqrt n}
 ```{webr}
 mu0 <- 100; mua <- 103; sigma <- 14; alpha <- 0.05; power <- 0.60
 
-z_alpha <- qnorm(1 - alpha)   # 1.645
-z_beta  <- qnorm(power)       # 0.2533  (matches the 0.25 in the text)
+z_alpha <- qnorm(1 - alpha)
+z_beta  <- qnorm(power)
 
 n <- ((z_alpha + z_beta) * sigma / (mua - mu0))^2
 ceiling(n)
@@ -1002,32 +947,22 @@ $n\approx 78.2$, so a minimum of **79** observations guarantees power of at leas
 
 ## Example: Vending-Machine Coffee
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.examplebox}
-A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less** and will test
-$$H_0:\mu=225 \qquad H_a:\mu<225$$
-at $\alpha=0.05$. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml?
+::: {.slide-stack}
+::: {.card}
+A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less**. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml? (Target: $P(Z<0.84)\approx0.80$, so $z_\beta=0.84$.)
+$$H_0:\mu=225 \qquad H_a:\mu<225 \qquad (\alpha=0.05)$$
 :::
 
-::: {.notebox .fragment}
-$P(Z<0.84)\approx 0.80$, so the target gives $z_\beta=0.84$.
-:::
-:::
-
-::: {.col}
 ::: {.examplebox .fragment}
-<span class="label">Equate the two cutoffs</span>
-$$225-1.645\tfrac{7}{\sqrt n}=223+0.84\tfrac{7}{\sqrt n}$$
+<span class="label">Equate the two cutoffs</span> $\;225-1.645\tfrac{7}{\sqrt n}=223+0.84\tfrac{7}{\sqrt n}$
 
 <span class="label">Solve for $n$</span>
 $$n=\left(\frac{(1.645+0.84)\cdot 7}{225-223}\right)^2\approx 75.6 \;\Rightarrow\; \boxed{n=76}$$
 :::
-:::
-::::
 
 ::: {.thinkbox .fragment}
 A minimum of **76 cups** delivers the desired 0.80 power against a 2 ml shortfall.
+:::
 :::
 
 ---
@@ -1037,8 +972,8 @@ A minimum of **76 cups** delivers the desired 0.80 power against a 2 ml shortfal
 ```{webr}
 mu0 <- 225; mua <- 223; sigma <- 7; alpha <- 0.05; power <- 0.80
 
-z_alpha <- qnorm(1 - alpha)   # 1.645
-z_beta  <- qnorm(power)       # 0.8416
+z_alpha <- qnorm(1 - alpha)
+z_beta  <- qnorm(power)
 
 n <- ((z_alpha + z_beta) * sigma / (mu0 - mua))^2
 ceiling(n)
@@ -1059,9 +994,12 @@ $$\hat p^{\,*}=p_0 \mp z_\alpha\sqrt{\tfrac{p_0(1-p_0)}{n}}, \qquad
 \text{power}=P\!\left(\hat p \text{ in reject region}\;\middle|\; p=p_a\right)$$
 :::
 
-:::: {.two-col}
-::: {.notebox .fragment}
-<span class="label">Setup for the next example</span>
+---
+
+## A Streaming Proportion Test
+
+::: {.slide-stack}
+::: {.card}
 A streaming platform claims $90\%$ of viewers finish episode 1. Researchers suspect **fewer** do, and test $H_0:p=0.90$ vs $H_a:p<0.90$ at $\alpha=0.05$. The truth is $p=0.85$.
 :::
 
@@ -1069,7 +1007,7 @@ A streaming platform claims $90\%$ of viewers finish episode 1. Researchers susp
 <span class="label">The question</span>
 How does the power to detect this 5-point drop change as the sample grows from $n=50$ to $n=200$?
 :::
-::::
+:::
 
 ---
 
@@ -1084,7 +1022,7 @@ How does the power to detect this 5-point drop change as the sample grows from $
 | 200 | 0.8651 | $0.60$ | 0.725 |
 
 ::: {.thinkbox .table-note}
-Same effect (a drop from 0.90 to 0.85), same $\alpha$ — only $n$ changes. Power climbs from 35% to 73%.
+Same effect (a drop from 0.90 to 0.85), same $\alpha$, only $n$ changes. Power climbs from 35% to 73%.
 :::
 :::
 
@@ -1116,34 +1054,24 @@ prop_power <- function(n) {
 sapply(c(50, 100, 200), prop_power)
 ```
 
-::: {.thinkbox .fragment}
-Returns about $0.347,\ 0.507,\ 0.725$ — exactly the textbook values for $n=50,100,200$.
-:::
-
 ---
 
 ## How Many Viewers for Power 0.80?
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.examplebox}
+::: {.slide-stack}
+::: {.card}
 Keep $H_0:p=0.90$, $H_a:p<0.90$, true $p=0.85$, $\alpha=0.05$. Set power $=0.80$ ($z_\beta=0.8416$) and equate the two cutoff expressions:
-
 $$0.90-1.645\sqrt{\tfrac{0.90(0.10)}{n}}=0.85+0.8416\sqrt{\tfrac{0.85(0.15)}{n}}$$
 :::
-:::
 
-::: {.col}
 ::: {.examplebox .fragment}
-<span class="label">Solve for $n$</span>
 $$\sqrt n=\frac{1.645\sqrt{0.09}+0.8416\sqrt{0.1275}}{0.05}=\frac{0.4935+0.3005}{0.05}\approx 15.88$$
 $$n\approx 252.2 \;\Rightarrow\; \boxed{n=253}$$
 :::
-:::
-::::
 
 ::: {.thinkbox .fragment}
-Detecting a modest 5-point drop with 80% power takes **253 viewers** — far more than the 50–200 above. Smaller effects always demand larger samples.
+Detecting a modest 5-point drop with 80% power takes **253 viewers**, far more than the 50-200 above. Smaller effects always demand larger samples.
+:::
 :::
 
 ---
@@ -1174,17 +1102,17 @@ $$\text{Power}(\mu_a)=1-P\!\left[-z_{\alpha/2}+\frac{\sqrt n\,(\mu_0-\mu_a)}{\si
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">Standard deviation</span>
-$\sigma$ — the spread of the variable being measured.
+$\sigma$ - the spread of the variable being measured.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">Significance level</span>
-$\alpha$ — the fixed Type I error rate you are willing to tolerate.
+$\alpha$ - the fixed Type I error rate you are willing to tolerate.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">Effect size</span>
-$\mu_0-\mu_a$ — the smallest difference worth detecting.
+$\mu_0-\mu_a$ - the smallest difference worth detecting.
 :::
 ::::
 
@@ -1204,7 +1132,7 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 - It decreases
 - It stays the same
-- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / (μ0−μa))², the effect size μ0−μa is in the denominator. A smaller effect means a smaller denominator, so n grows — smaller effects need larger samples."}
+- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / (μ0−μa))², the effect size μ0−μa is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
 - It becomes undefined
 
 ---
@@ -1229,13 +1157,13 @@ Always round a computed sample size **up** to the next whole observation so the 
 ## Up Next
 
 ::: {.examplebox}
-**Chapter 8 — Analysis of Variance**
+**Chapter 8 - Analysis of Variance**
 
 We extend hypothesis testing from one or two groups to **several** group means at once, using the $F$-distribution to ask whether any of the group means differ.
 :::
 
 ::: {.thinkbox .fragment}
-**One-slide takeaway.** Power $=1-\beta$ is a test's ability to detect a real effect. It rises with effect size, sample size, and $\alpha$, and falls with variability — so planning $n$ in advance is how we guarantee a study can succeed.
+**One-slide takeaway.** Power $=1-\beta$ is a test's ability to detect a real effect. It rises with effect size, sample size, and $\alpha$, and falls with variability, so planning $n$ in advance is how we guarantee a study can succeed.
 :::
 
 ::: {.home-button-row}

@@ -1445,30 +1445,33 @@ sample_size_t_iter <- function(s, E, conf = 0.95, max_iter = 20) {
 }
 ```
 
-::: {.defbox .fragment}
-A **two-sample confidence interval** estimates a population quantity that
-compares two groups.
+::: {.defbox style="font-size: 0.64em; line-height: 1.16; padding: 10px 14px; margin-bottom: 8px;"}
+A **two-sample confidence interval** estimates a population quantity that compares two groups.
 
-The groups must be clearly labelled, because the order matters.
+The groups must be clearly labelled, because the order matters. Changing the order changes the interpretation.
 
-For mean and proportion differences, the comparison is written as:
+:::: {.two-col style="grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; margin-top: 6px;"}
+::: {.notebox style="font-size: 0.82em; line-height: 1.12; padding: 8px 11px; margin-bottom: 0;"}
+<span class="label">Mean and proportion differences</span>
 
 $$
-\text{Group 1} - \text{Group 2}
+\text{Group 1}-\text{Group 2}
 $$
+:::
 
-For variance ratios, the comparison is written as:
+::: {.notebox style="font-size: 0.82em; line-height: 1.12; padding: 8px 11px; margin-bottom: 0;"}
+<span class="label">Variance ratios</span>
 
 $$
 \frac{\text{Group 1}}{\text{Group 2}}
 $$
-
-Changing the order changes the interpretation.
+:::
+::::
 :::
 
-:::::: three-col
-::: {.stat-card .fragment}
-[Difference of means]{.label}
+:::: {.three-col style="gap: 14px; align-items: stretch;"}
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+<span class="label">Difference of means</span>
 
 $$
 \mu_1-\mu_2
@@ -1477,8 +1480,8 @@ $$
 Compares two population averages.
 :::
 
-::: {.stat-card .fragment}
-[Difference of proportions]{.label}
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+<span class="label">Difference of proportions</span>
 
 $$
 p_1-p_2
@@ -1487,8 +1490,8 @@ $$
 Compares two population percentages.
 :::
 
-::: {.stat-card .fragment}
-[Ratio of variances]{.label}
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+<span class="label">Ratio of variances</span>
 
 $$
 \frac{\sigma_1^2}{\sigma_2^2}
@@ -1496,7 +1499,7 @@ $$
 
 Compares two population variances.
 :::
-::::::
+::::
 
 ------------------------------------------------------------------------
 
@@ -3854,81 +3857,73 @@ mean GOAT-debate video rating within **4 points** at 95% confidence.
 
 ## Example: Grocery-Delivery Fee Estimate
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
 A consumer app wants to estimate the average extra cost from grocery
 delivery fees, service charges, and tips.
 
 A pilot sample gives an estimated standard deviation of:
 
 $$
-s=18\text{ dollars}
+s=16\text{ dollars}
 $$
 
-The app wants a 90% confidence interval with margin of error at most:
+The app wants a 95% confidence interval with margin of error at most:
 
 $$
-E=4\text{ dollars}
+E=10\text{ dollars}
 $$
 
 Since $\sigma$ is unknown, use the iterative $t$ approach.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.61em; line-height: 1.05; padding: 10px 15px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
+
+Start with the $z$ approximation:
 
 $$
 n_0=
 \left\lceil
-\left(\frac{1.645(18)}{4}\right)^2
+\left(\frac{1.960(16)}{10}\right)^2
 \right\rceil
 =
-55
+10
 $$
 
-$$
-n=55:
-\quad
-t^*_{54}=1.674
-$$
+Then update using $t$ critical values:
 
 $$
-\left\lceil
-\left(\frac{1.674(18)}{4}\right)^2
-\right\rceil
-=
-57
+\begin{array}{c|c|c|c}
+\text{Use } n & df & t^* & \text{New } n \\ \hline
+10 & 9  & 2.262 & 13.10 \Rightarrow 14 \\
+14 & 13 & 2.160 & 11.94 \Rightarrow 12 \\
+12 & 11 & 2.201 & 12.40 \Rightarrow 13 \\
+13 & 12 & 2.179 & 12.16 \Rightarrow 13
+\end{array}
 $$
 
-$$
-n=57:
-\quad
-t^*_{56}=1.673
-$$
+So the sample size stabilizes at:
 
 $$
-\left\lceil
-\left(\frac{1.673(18)}{4}\right)^2
-\right\rceil
-=
-57
+n=13
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a 90% confidence interval for the
+Find the sample size needed for a 95% confidence interval for the
 population mean extra grocery-delivery cost.
 
-Because $\sigma$ is unknown, the pilot estimate $s=18$ is used.
+Because $\sigma$ is unknown, the pilot estimate $s=16$ is used.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The iteration stabilizes at **57**, so the app should sample at least
-**57 grocery-delivery orders** to keep the margin of error at most
-4 dollars.
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+The iteration stabilizes at **13**, so the app should sample at least
+**13 grocery-delivery orders** to keep the margin of error at most
+10 dollars.
 :::
 
 ::::
@@ -3979,7 +3974,9 @@ n2 <- ceiling((qt(0.975, n1 - 1) * s / E)^2)
 n3 <- ceiling((qt(0.975, n2 - 1) * s / E)^2)
 
 out <- data.frame(
-  start = n0, iter1 = n1, iter2 = n2, final = n3
+  step = c("Start with z", "t update 1", "t update 2", "t update 3"),
+  use_n = c(NA, n0, n1, n2),
+  new_n = c(n0, n1, n2, n3)
 )
 
 print(out, row.names = FALSE)
@@ -3994,16 +3991,19 @@ print(out, row.names = FALSE)
 ```{webr}
 #| autorun: false
 
-s <- 18
-E <- 4
+s <- 16
+E <- 10
 
-n0 <- ceiling((qnorm(0.95) * s / E)^2)
-n1 <- ceiling((qt(0.95, n0 - 1) * s / E)^2)
-n2 <- ceiling((qt(0.95, n1 - 1) * s / E)^2)
-n3 <- ceiling((qt(0.95, n2 - 1) * s / E)^2)
+n0 <- ceiling((qnorm(0.975) * s / E)^2)
+n1 <- ceiling((qt(0.975, n0 - 1) * s / E)^2)
+n2 <- ceiling((qt(0.975, n1 - 1) * s / E)^2)
+n3 <- ceiling((qt(0.975, n2 - 1) * s / E)^2)
+n4 <- ceiling((qt(0.975, n3 - 1) * s / E)^2)
 
 out <- data.frame(
-  start = n0, iter1 = n1, iter2 = n2, final = n3
+  step = c("Start with z", "t update 1", "t update 2", "t update 3", "t update 4"),
+  use_n = c(NA, n0, n1, n2, n3),
+  new_n = c(n0, n1, n2, n3, n4)
 )
 
 print(out, row.names = FALSE)

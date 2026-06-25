@@ -26,13 +26,77 @@ webr:
     - plotly
 live:
   show-solutions: true
+editor:
+  markdown:
+    wrap: 72
 ---
 
 ```{r setup}
 #| include: false
 library(dplyr)
 library(plotly)
+
 set.seed(258)
+
+plot_cols <- list(
+  teal       = "#00695c",
+  teal_dark  = "#004d40",
+  teal_light = "#e0f2f1",
+  blue       = "#c8e6f3",
+  blue_soft  = "#eef8fb",
+  grey       = "#f5f6f7",
+  yellow     = "#fff8e1",
+  orange     = "#f9a825",
+  red        = "#c62828",
+  text       = "#2f3437",
+  muted      = "#667174",
+  border     = "#d8dee2",
+  code       = "#f3f4f5",
+  white      = "#ffffff"
+)
+
+plotly_anova_layout <- function(
+  p,
+  title = NULL,
+  x_title = NULL,
+  y_title = NULL,
+  height = 345,
+  margin = list(l = 62, r = 20, t = 54, b = 58)
+) {
+  p |>
+    layout(
+      title = list(text = title, font = list(size = 16), x = 0.02),
+      height = height,
+      margin = margin,
+      xaxis = list(
+        title = x_title,
+        zeroline = FALSE,
+        showline = TRUE,
+        fixedrange = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      yaxis = list(
+        title = y_title,
+        zeroline = FALSE,
+        showline = TRUE,
+        fixedrange = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      dragmode = FALSE,
+      paper_bgcolor = "rgba(0,0,0,0)",
+      plot_bgcolor = "white",
+      showlegend = FALSE
+    ) |>
+    config(
+      displayModeBar = FALSE,
+      displaylogo = FALSE,
+      scrollZoom = FALSE,
+      doubleClick = FALSE,
+      responsive = FALSE
+    )
+}
 ```
 
 # Chapter 8: Analysis of Variance {.title-slide}
@@ -52,38 +116,42 @@ set.seed(258)
   --sta-border: #d8dee2;
   --sta-code: #f3f4f5;
 }
+
 .reveal { font-family: Arial, sans-serif; color: var(--sta-text); }
 .reveal .slides section { text-align: left; padding: 18px 30px; box-sizing: border-box; }
 .reveal h1, .reveal h2, .reveal h3 { color: var(--sta-text); line-height: 1.08; }
 .reveal h1 { font-size: 1.72em !important; }
+
 .reveal h2 {
   font-size: 1.48em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
+
 .reveal h3 { font-size: 1.02em !important; margin-bottom: 0.2em; }
 .reveal p, .reveal li { font-size: 0.74em; line-height: 1.3; }
+
 .title-slide { text-align: center !important; }
 .title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
 .title-slide h2 { font-size: 1.6em !important; border-bottom: none !important; margin-top: 0.6em; text-align: center; }
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
-.two-col, .two-col-wide, .three-col, .four-grid, .procedure-grid, .decision-grid, .slide-stack {
+
+.two-col, .two-col-wide, .three-col, .four-grid, .slide-stack {
   display: grid;
   gap: 24px;
   align-items: start;
 }
+
 .two-col { grid-template-columns: 1fr 1fr; }
 .two-col-wide { grid-template-columns: 1.12fr 0.88fr; }
 .three-col { grid-template-columns: repeat(3, 1fr); }
 .four-grid { grid-template-columns: repeat(2, 1fr); }
-.procedure-grid { grid-template-columns: 0.78fr 1.22fr; }
-.decision-grid { grid-template-columns: 0.9fr 1.1fr; align-items: center; }
 .slide-stack { grid-template-columns: minmax(0, 1fr); gap: 14px; }
-.decision-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
-.decision-cards .defbox { margin-bottom: 0; }
+
 .col { min-width: 0; }
-.defbox, .examplebox, .thinkbox, .card, .warnbox, .notebox, .mini-card, .stat-card {
+
+.defbox, .examplebox, .thinkbox, .card, .warnbox, .notebox, .mini-card, .stat-card, .taskbox {
   padding: 14px 16px;
   border-radius: 10px;
   font-size: 0.72em;
@@ -91,53 +159,42 @@ set.seed(258)
   box-sizing: border-box;
   margin-bottom: 8px;
 }
+
 .defbox, .card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
+
 .examplebox, .notebox, .mini-card {
   background: var(--sta-grey);
   border: 1px solid var(--sta-border);
 }
-.thinkbox {
+
+.thinkbox, .taskbox {
   background: var(--sta-yellow);
   border-left: 7px solid var(--sta-orange);
 }
+
 .warnbox { background: #fff3e0; border-left: 7px solid #ef6c00; }
+
 .stat-card {
   background: white;
   border: 1px solid var(--sta-border);
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
+
 .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
   margin-bottom: 5px;
 }
+
 .big { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
 .center { text-align: center; }
 .small-text { font-size: 0.62em; }
 .tight li { margin-bottom: 0.16em; }
-.step-list {
-  display: grid;
-  gap: 12px;
-  margin: 0 !important;
-  padding-left: 0 !important;
-  list-style: none !important;
-}
-.step-list li {
-  background: white;
-  border: 1px solid var(--sta-border);
-  border-left: 6px solid var(--sta-teal);
-  border-radius: 8px;
-  padding: 8px 11px;
-  font-size: 0.52em !important;
-  line-height: 1.18;
-  margin: 0 0 12px 0 !important;
-}
-.step-list li:last-child { margin-bottom: 0 !important; }
-.step-list li + li { margin-top: 0 !important; }
+
 .formula {
   display: block;
   background: white;
@@ -147,27 +204,101 @@ set.seed(258)
   text-align: center;
   font-size: 1.02em;
 }
+
 .reveal table {
   width: 100%;
   border-collapse: collapse;
   border: 1.25px solid #4d5659;
   font-size: 0.6em;
 }
+
 .reveal th, .reveal td {
   border: 1.25px solid #4d5659;
   padding: 6px 8px;
   vertical-align: top;
 }
+
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
 .reveal .nw { white-space: nowrap; }
-.reveal pre { width: 100%; margin-top: 0.3em; margin-bottom: 0.3em; border-radius: 8px; }
+
+.reveal pre {
+  width: 100%;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  border-radius: 8px;
+}
+
 .reveal pre code { font-size: 0.7em; max-height: 300px; }
 .reveal code { background: var(--sta-code); border-radius: 4px; padding: 1px 4px; }
 .reveal .modebar { display: none !important; }
-.reveal .slides section.scrollable { overflow-y: auto !important; overflow-x: hidden !important; max-height: 700px; }
+
+.reveal .slides section.scrollable {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 700px;
+}
+
 .reveal section.compact h2 { font-size: 1.08em !important; }
 .reveal section.compact p, .reveal section.compact li { font-size: 0.7em; }
+
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 { font-size: 1.1em !important; margin-bottom: 10px; text-align: center; }
+.reveal .quiz-question ul { margin: 4px 0 !important; padding-left: 0 !important; list-style: none !important; }
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+
+.reveal .action-buttons { margin: 10px 0 0 0 !important; font-size: 0.85em !important; text-align: right; }
+
+.assumption-list {
+  list-style: none !important;
+  margin: 8px 0 0 0 !important;
+  padding-left: 0 !important;
+  display: grid;
+  gap: 8px;
+}
+
+.assumption-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92em !important;
+  line-height: 1.2;
+  margin-bottom: 0 !important;
+}
+
+.assumption-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sta-teal);
+}
+
+.reveal .html-widget, .reveal .plotly, .reveal .js-plotly-plot {
+  margin: 0 auto !important;
+  max-width: 100% !important;
+}
+
 .home-button-row { text-align: center; margin-top: 32px; }
+
 .reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
   display: inline-block !important;
   background: var(--sta-teal) !important;
@@ -180,11 +311,40 @@ set.seed(258)
   border: 2px solid var(--sta-teal-dark) !important;
   margin-top: 24px !important;
 }
+
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  color: white !important;
+}
 </style>
+
+<script>
+function resizePlotlyOnSlides() {
+  if (!window.Plotly) return;
+  document.querySelectorAll(".js-plotly-plot").forEach(function(plot) {
+    Plotly.Plots.resize(plot);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(resizePlotlyOnSlides, 250);
+  setTimeout(resizePlotlyOnSlides, 750);
+  setTimeout(resizePlotlyOnSlides, 1500);
+
+  if (window.Reveal) {
+    Reveal.on("ready", function () { setTimeout(resizePlotlyOnSlides, 300); });
+    Reveal.on("slidechanged", function () { setTimeout(resizePlotlyOnSlides, 300); });
+    Reveal.on("fragmentshown", function () { setTimeout(resizePlotlyOnSlides, 300); });
+    Reveal.on("fragmenthidden", function () { setTimeout(resizePlotlyOnSlides, 300); });
+  }
+
+  window.addEventListener("resize", resizePlotlyOnSlides);
+});
+</script>
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-STA258: Statistics with Applied Probability
+STA258: Statistics with Applied Probability  
 University of Toronto Mississauga
 
 ![](../images/cat.png){width="245" fig-alt="Course mascot"}
@@ -195,16 +355,18 @@ University of Toronto Mississauga
 
 :::: {.three-col}
 ::: {.card .fragment}
-<span class="label">Model</span>
-Partition the total variation into between-group and within-group pieces.
+<span class="label">8.1 - ANOVA idea</span>
+Use one test to compare several population means.
 :::
+
 ::: {.card .fragment}
-<span class="label">F-Test</span>
-Build the ANOVA table and test whether all group means are equal.
+<span class="label">8.2 - Variation split</span>
+Separate total variation into treatment variation and error variation.
 :::
+
 ::: {.card .fragment}
-<span class="label">Comparisons</span>
-If the means differ, find which ones with Fisher's LSD and Bonferroni.
+<span class="label">8.3 - F-test</span>
+Build the ANOVA table and use a right-tailed F distribution.
 :::
 ::::
 
@@ -212,29 +374,1352 @@ If the means differ, find which ones with Fisher's LSD and Bonferroni.
 
 :::: {.three-col}
 ::: {.stat-card .fragment}
-<span class="label">Core skill</span>
-Fill in the ANOVA table and compute the $F$ statistic.
+<span class="label">8.4 - Assumptions</span>
+Normal residuals, equal population variance, and independent observations.
 :::
+
 ::: {.stat-card .fragment}
-<span class="label">Core tool</span>
-Use `aov()` / `oneway.test()` and `PostHocTest()` for follow-up tests.
+<span class="label">8.5 - Comparisons</span>
+After a significant ANOVA, use Fisher's LSD or Bonferroni.
 :::
+
 ::: {.stat-card .fragment}
-<span class="label">Core habit</span>
-After a significant $F$, run pairwise comparisons to locate the difference.
+<span class="label">8.6 - R workflow</span>
+Use `oneway.test()`, `aov()`, and `pairwise.t.test()`.
 :::
 ::::
+
+---
+
+## Why ANOVA?
+
+::: {.defbox}
+**Analysis of Variance**, or **ANOVA**, is used to compare several population means.
+
+Suppose there are $k$ groups, usually with $k \ge 3$.
+:::
+
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Bad habit</span>
+Run many separate two-sample tests.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">ANOVA habit</span>
+Start with one global test:
+
+$$H_0:\mu_1=\mu_2=\cdots=\mu_k$$
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Interpretation</span>
+If the global test rejects, then at least one population mean differs.
+:::
+::::
+
+::: {.thinkbox .fragment}
+ANOVA does **not** immediately tell us which mean is different. That comes later with pairwise comparisons.
+:::
+
+---
+
+## One-Factor ANOVA Model
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.defbox}
+The textbook model is:
+
+$$
+Y_{ij}=\mu+\tau_i+\epsilon_{ij},
+\qquad
+\epsilon_{ij}\sim N(0,\sigma^2)
+$$
+
+where $Y_{ij}$ is observation $j$ in group $i$.
+:::
+
+::: {.notebox .fragment}
+<span class="label">Meaning of the pieces</span>
+
+- $\mu$: overall mean
+- $\tau_i$: treatment effect for group $i$
+- $\epsilon_{ij}$: random error
+- $\mu+\tau_i$: mean of group $i$
+:::
+:::
+
+::: {.col}
+::: {.defbox .fragment}
+Equivalent form:
+
+$$
+Y_{ij}=\mu_i+\epsilon_{ij},
+\qquad
+\epsilon_{ij}\sim N(0,\sigma^2)
+$$
+
+where $\mu_i$ is the population mean of group $i$.
+:::
+
+::: {.thinkbox .fragment}
+Each observation in the same group is modeled as having the same population group mean, plus random error.
+:::
+:::
+::::
+
+---
+
+## Data Structure and Notation
+
+:::: {.two-col}
+::: {.col}
+| Group 1 | Group 2 | $\cdots$ | Group $k$ |
+|---:|---:|:---:|---:|
+| $X_{11}$ | $X_{21}$ | $\cdots$ | $X_{k1}$ |
+| $X_{12}$ | $X_{22}$ | $\cdots$ | $X_{k2}$ |
+| $\vdots$ | $\vdots$ | $\ddots$ | $\vdots$ |
+| $X_{1n_1}$ | $X_{2n_2}$ | $\cdots$ | $X_{kn_k}$ |
+| $\bar X_1$ | $\bar X_2$ | $\cdots$ | $\bar X_k$ |
+| $S_1^2$ | $S_2^2$ | $\cdots$ | $S_k^2$ |
+| $n_1$ | $n_2$ | $\cdots$ | $n_k$ |
+:::
+
+::: {.col}
+::: {.notebox}
+<span class="label">Notation</span>
+
+- $\bar X_i$: sample mean of group $i$
+- $S_i^2$: sample variance of group $i$
+- $n_i$: sample size of group $i$
+:::
+
+::: {.defbox .fragment}
+Total sample size:
+
+$$n=n_1+n_2+\cdots+n_k$$
+
+Overall sample mean:
+
+$$
+\bar X=
+\frac{1}{n}\sum_{i=1}^{k}\sum_{j=1}^{n_i}X_{ij}
+=
+\frac{1}{n}\sum_{i=1}^{k}n_i\bar X_i
+$$
+:::
+:::
+::::
+
+---
+
+## Sources of Variation
+
+::: {.defbox}
+ANOVA works by splitting the total variation into two pieces.
+:::
+
+:::: {.two-col}
+::: {.stat-card .fragment}
+<span class="label">Within groups: error variation</span>
+
+$$
+SSE=\sum_{i=1}^{k}(n_i-1)S_i^2
+$$
+
+This measures residual variation inside the groups.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Between groups: treatment variation</span>
+
+$$
+SSTr=\sum_{i=1}^{k}n_i(\bar X_i-\bar X)^2
+$$
+
+This measures how far group means are from the overall mean.
+:::
+::::
+
+::: {.thinkbox .fragment}
+If group means are far apart compared with the within-group noise, the ANOVA F statistic becomes large.
+:::
+
+---
+
+## Total Variation and Decomposition
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.defbox}
+Total variation:
+
+$$
+SSTotal=\sum_{i=1}^{k}\sum_{j=1}^{n_i}(X_{ij}-\bar X)^2
+$$
+:::
+
+::: {.notebox .fragment}
+<span class="label">Decomposition identity</span>
+
+$$
+SSTotal=SSTr+SSE
+$$
+:::
+:::
+
+::: {.col}
+::: {.thinkbox}
+ANOVA asks whether the **between-group variation** is large relative to the **within-group variation**.
+:::
+
+::: {.examplebox .fragment}
+If all group means are similar, $SSTr$ should be small.
+
+If at least one group mean is far away, $SSTr$ gets larger.
+:::
+:::
+::::
+
+---
+
+## The ANOVA Table
+
+| Source | df | SS | MS | F-statistic |
+|---|---:|---:|---:|---:|
+| Treatment | $k-1$ | $SSTr$ | $MSTr=\dfrac{SSTr}{k-1}$ | $F^*=\dfrac{MSTr}{MSE}$ |
+| Error | $n-k$ | $SSE$ | $MSE=\dfrac{SSE}{n-k}$ |  |
+| Total | $n-1$ | $SSTotal$ |  |  |
+
+::: {.notebox .fragment}
+<span class="label">Mean square rule</span>
+
+$$
+MS=\frac{SS}{df}
+$$
+:::
+
+::: {.thinkbox .fragment}
+The F statistic compares treatment variation per degree of freedom with error variation per degree of freedom.
+:::
+
+---
+
+## Hypothesis Test and Reference Distribution
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.defbox}
+Hypotheses:
+
+$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+$$
+
+$$
+H_a:\text{at least one }\mu_j\text{ is different}
+$$
+:::
+
+::: {.notebox .fragment}
+<span class="label">Test statistic</span>
+
+$$
+F^*=\frac{MSTr}{MSE}
+=
+\frac{SSTr/(k-1)}{SSE/(n-k)}
+$$
+
+Under $H_0$:
+
+$$
+F^*\sim F_{k-1,n-k}
+$$
+:::
+:::
+
+::: {.col}
+::: {.thinkbox}
+The ANOVA p-value is always a **right-tail** probability.
+:::
+
+::: {.warnbox .fragment}
+Large $F^*$ means the treatment variation is large compared with error variation.
+:::
+:::
+::::
+
+---
+
+## ANOVA P-value Visual
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.notebox}
+<span class="label">Example reference distribution</span>
+
+For $k=3$ groups and $n=18$ observations:
+
+$$
+df_1=k-1=2,
+\qquad
+df_2=n-k=15
+$$
+
+The shaded region is the p-value:
+
+$$
+P(F_{2,15}\ge F^*)
+$$
+:::
+:::
+
+::: {.col}
+```{r}
+#| echo: false
+x <- seq(0, 8, length.out = 500)
+fstar <- 1.70
+
+f_df <- data.frame(
+  x = x,
+  density = stats::df(x, df1 = 2, df2 = 15)
+)
+
+shade_df <- f_df |> filter(x >= fstar)
+
+plot_ly() |>
+  add_trace(
+    data = f_df,
+    x = ~x,
+    y = ~density,
+    type = "scatter",
+    mode = "lines",
+    line = list(color = plot_cols$text, width = 2.5),
+    hovertemplate = "F = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>"
+  ) |>
+  add_trace(
+    data = shade_df,
+    x = ~x,
+    y = ~density,
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = "rgba(249,168,37,0.35)",
+    line = list(color = "rgba(249,168,37,0.85)", width = 1.5),
+    hovertemplate = "Right-tail p-value<extra></extra>"
+  ) |>
+  layout(
+    shapes = list(list(
+      type = "line",
+      x0 = fstar,
+      x1 = fstar,
+      y0 = 0,
+      y1 = max(f_df$density) * 0.92,
+      line = list(color = plot_cols$teal_dark, width = 2.4, dash = "dash")
+    )),
+    annotations = list(list(
+      x = fstar + 0.55,
+      y = max(f_df$density) * 0.55,
+      text = "p-value",
+      showarrow = FALSE,
+      font = list(size = 13, color = plot_cols$text)
+    ))
+  ) |>
+  plotly_anova_layout(
+    title = "Right-tail p-value for ANOVA",
+    x_title = "F",
+    y_title = "Density",
+    height = 345
+  )
+```
+:::
+::::
+
+---
+
+## Example: Margarine Container Fill Amounts
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
+A consumer group compares three margarine brands.
+
+The values below are the amount above or below the advertised 500 ml label.
+
+<br>
+
+| Brand 1 | Brand 2 | Brand 3 |
+|---:|---:|---:|
+| 1 | 2 | 1 |
+| 3 | 2 | 2 |
+| 3 | 4 | 4 |
+| 0 | 3 | 2 |
+| 1 | 0 | 3 |
+| 0 | 4 | 4 |
+
+Summary:
+
+| Brand | $\bar x_i$ | $s_i^2$ |
+|---|---:|---:|
+| 1 | 1.33 | 1.87 |
+| 2 | 2.50 | 2.30 |
+| 3 | 2.67 | 1.47 |
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.77em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+\bar x=\frac{6(1.33)+6(2.50)+6(2.67)}{18}=2.17
+$$
+
+$$
+SSE=(6-1)(1.87)+(6-1)(2.30)+(6-1)(1.47)=28.20
+$$
+
+$$
+SSTr=6(1.33-2.17)^2+6(2.50-2.17)^2+6(2.67-2.17)^2=6.39
+$$
+
+$$
+MSTr=\frac{6.39}{2}=3.20,
+\qquad
+MSE=\frac{28.20}{15}=1.88
+$$
+
+$$
+F^*=\frac{3.20}{1.88}=1.70
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">ANOVA table</span>
+
+| Source | df | SS | MS | F |
+|---|---:|---:|---:|---:|
+| Treatment | 2 | 6.39 | 3.20 | 1.70 |
+| Error | 15 | 28.20 | 1.88 |  |
+| Total | 17 | 34.59 |  |  |
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 11px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+With $df_1=2$ and $df_2=15$, $p\approx0.216$.
+
+Since $p>0.05$, do not reject $H_0$. These data do not give strong evidence that the three brands have different mean fill differences from 500 ml.
+:::
+
+::::
+
+---
+
+## Example: Campus Café Pickup Systems
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A campus café wants to compare mean pickup wait time across three ordering systems.
+
+The data are summarized by group.
+
+<br>
+
+| System | $n_i$ | $\bar x_i$ | $s_i^2$ |
+|---|---:|---:|---:|
+| Mobile order | 6 | 7.0 | 2.0 |
+| Kiosk order | 6 | 8.5 | 2.8 |
+| Counter order | 6 | 10.2 | 3.1 |
+
+Use ANOVA at the 5% level.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.77em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
+
+$$
+\bar x=\frac{6(7.0)+6(8.5)+6(10.2)}{18}=8.57
+$$
+
+$$
+SSTr=6(7.0-8.57)^2+6(8.5-8.57)^2+6(10.2-8.57)^2=30.76
+$$
+
+$$
+SSE=(5)(2.0)+(5)(2.8)+(5)(3.1)=39.50
+$$
+
+$$
+MSTr=\frac{30.76}{2}=15.38,
+\qquad
+MSE=\frac{39.50}{15}=2.63
+$$
+
+$$
+F^*=\frac{15.38}{2.63}=5.84
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:\mu_1=\mu_2=\mu_3
+$$
+
+$$
+H_a:\text{at least one system mean wait time differs}
+$$
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 11px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+With $df_1=2$ and $df_2=15$, $p\approx0.013$.
+
+Since $p<0.05$, reject $H_0$. There is evidence that not all ordering systems have the same population mean wait time.
+:::
+
+::::
+
+---
+
+## Check in R: Summary-Statistic ANOVA {.summary-r-check}
+
+<style>
+.reveal section.summary-r-check .cm-editor,
+.reveal section.summary-r-check .cm-content,
+.reveal section.summary-r-check .cm-line,
+.reveal section.summary-r-check pre,
+.reveal section.summary-r-check code {
+  font-size: 0.76em !important;
+  line-height: 1.02 !important;
+}
+
+.reveal section.summary-r-check .cell-output,
+.reveal section.summary-r-check .cell-output-stdout,
+.reveal section.summary-r-check .cell-output pre {
+  font-size: 0.65em !important;
+  line-height: 1.00 !important;
+  white-space: pre !important;
+}
+
+.reveal section.summary-r-check .notebox { margin-bottom: 5px !important; }
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Margarine example</span>
+:::
+
+```{webr}
+#| autorun: false
+anova_summary <- function(n, xbar, s2) {
+  k <- length(n)
+  N <- sum(n)
+
+  grand <- sum(n * xbar) / N
+  SSTR <- sum(n * (xbar - grand)^2)
+  SSE <- sum((n - 1) * s2)
+
+  df1 <- k - 1
+  df2 <- N - k
+
+  MSTR <- SSTR / df1
+  MSE <- SSE / df2
+  Fstar <- MSTR / MSE
+  pval <- pf(Fstar, df1, df2, lower.tail = FALSE)
+
+  data.frame(grand, SSTR, SSE, MSTR, MSE, Fstar, pval)
+}
+
+out <- anova_summary(
+  n = c(6, 6, 6),
+  xbar = c(1.33, 2.50, 2.67),
+  s2 = c(1.87, 2.30, 1.47)
+)
+
+round(out, 3)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Campus café example</span>
+:::
+
+```{webr}
+#| autorun: false
+anova_summary <- function(n, xbar, s2) {
+  k <- length(n)
+  N <- sum(n)
+
+  grand <- sum(n * xbar) / N
+  SSTR <- sum(n * (xbar - grand)^2)
+  SSE <- sum((n - 1) * s2)
+
+  df1 <- k - 1
+  df2 <- N - k
+
+  MSTR <- SSTR / df1
+  MSE <- SSE / df2
+  Fstar <- MSTR / MSE
+  pval <- pf(Fstar, df1, df2, lower.tail = FALSE)
+
+  data.frame(grand, SSTR, SSE, MSTR, MSE, Fstar, pval)
+}
+
+out <- anova_summary(
+  n = c(6, 6, 6),
+  xbar = c(7.0, 8.5, 10.2),
+  s2 = c(2.0, 2.8, 3.1)
+)
+
+round(out, 3)
+```
+:::
+
+::::
+
+---
+
+## Example: Basketball Drill Scores
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A coach tests three practice formats and records shooting-drill scores.
+
+<br>
+
+| Classic | Streak challenge | Leaderboard |
+|---:|---:|---:|
+| 18 | 23 | 30 |
+| 20 | 25 | 29 |
+| 19 | 26 | 31 |
+| 22 | 24 | 28 |
+| 21 | 27 | 32 |
+| 20 | 25 | 30 |
+
+Test whether the three population mean scores are equal.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.77em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Manual ANOVA pieces</span>
+
+$$
+\bar x_1=20,
+\qquad
+\bar x_2=25,
+\qquad
+\bar x_3=30,
+\qquad
+\bar x=25
+$$
+
+$$
+SSTr=6(20-25)^2+6(25-25)^2+6(30-25)^2=300
+$$
+
+$$
+SSE=(5)(2)+(5)(2)+(5)(2)=30
+$$
+
+$$
+MSTr=150,
+\qquad
+MSE=2,
+\qquad
+F^*=75
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Decision</span>
+
+$$F^*\sim F_{2,15}$$
+
+The p-value is extremely small.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 11px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+Reject $H_0$. There is strong evidence that at least one practice format has a different population mean shooting-drill score.
+:::
+
+::::
+
+---
+
+## Visual: Basketball Drill Scores
+
+```{r}
+#| echo: false
+basketball <- data.frame(
+  score = c(
+    18, 20, 19, 22, 21, 20,
+    23, 25, 26, 24, 27, 25,
+    30, 29, 31, 28, 32, 30
+  ),
+  format = rep(c("Classic", "Streak challenge", "Leaderboard"), each = 6)
+)
+
+means_b <- basketball |>
+  group_by(format) |>
+  summarise(mean_score = mean(score), .groups = "drop")
+
+plot_ly() |>
+  add_markers(
+    data = basketball,
+    x = ~format,
+    y = ~score,
+    marker = list(
+      size = 9,
+      color = "rgba(0,105,92,0.62)",
+      line = list(color = "white", width = 1)
+    ),
+    hovertemplate = "%{x}<br>Score: %{y}<extra></extra>"
+  ) |>
+  add_markers(
+    data = means_b,
+    x = ~format,
+    y = ~mean_score,
+    marker = list(
+      size = 17,
+      color = plot_cols$orange,
+      symbol = "diamond",
+      line = list(color = plot_cols$teal_dark, width = 1.5)
+    ),
+    hovertemplate = "%{x}<br>Group mean: %{y:.1f}<extra></extra>"
+  ) |>
+  plotly_anova_layout(
+    title = "Group means are far apart relative to within-group noise",
+    x_title = "Practice format",
+    y_title = "Score",
+    height = 390
+  )
+```
+
+::: {.thinkbox}
+This is the ANOVA story visually: the group means move a lot, while the points inside each group are fairly tight.
+:::
+
+---
+
+## Example: Study Playlist Focus Scores
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+A study app compares focus scores after three playlist styles.
+
+<br>
+
+| Lo-fi | Classical | Ambient |
+|---:|---:|---:|
+| 41 | 43 | 44 |
+| 44 | 45 | 43 |
+| 43 | 44 | 46 |
+| 42 | 46 | 45 |
+| 46 | 47 | 48 |
+| 45 | 42 | 47 |
+
+Test whether the population mean focus scores are equal.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.77em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Manual ANOVA pieces</span>
+
+$$
+\bar x_1=43.5,
+\qquad
+\bar x_2=44.5,
+\qquad
+\bar x_3=45.5,
+\qquad
+\bar x=44.5
+$$
+
+$$
+SSTr=6(43.5-44.5)^2+6(44.5-44.5)^2+6(45.5-44.5)^2=12
+$$
+
+$$
+SSE=52.5
+$$
+
+$$
+MSTr=6,
+\qquad
+MSE=3.5,
+\qquad
+F^*=1.71
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Decision</span>
+
+$$F^*\sim F_{2,15}$$
+
+The p-value is about $0.214$.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 11px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+Do not reject $H_0$. These data do not give enough evidence that the playlist styles have different population mean focus scores.
+:::
+
+::::
+
+---
+
+## Check in R: One-Way ANOVA F Tests {.anova-r-check}
+
+<style>
+.reveal section.anova-r-check .cm-editor,
+.reveal section.anova-r-check .cm-content,
+.reveal section.anova-r-check .cm-line,
+.reveal section.anova-r-check pre,
+.reveal section.anova-r-check code {
+  font-size: 0.70em !important;
+  line-height: 1.00 !important;
+}
+
+.reveal section.anova-r-check .cell-output,
+.reveal section.anova-r-check .cell-output-stdout,
+.reveal section.anova-r-check .cell-output pre {
+  font-size: 0.60em !important;
+  line-height: 0.98 !important;
+  white-space: pre !important;
+}
+
+.reveal section.anova-r-check .notebox { margin-bottom: 5px !important; }
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Basketball drill example</span>
+:::
+
+```{webr}
+#| autorun: false
+classic <- c(18,20,19,22,21,20)
+streak <- c(23,25,26,24,27,25)
+leaderboard <- c(30,29,31,28,32,30)
+
+score <- c(classic, streak, leaderboard)
+format <- factor(rep(c("Classic", "Streak", "Leaderboard"), each = 6))
+
+oneway.test(score ~ format, var.equal = TRUE)
+anova(aov(score ~ format))
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Study playlist example</span>
+:::
+
+```{webr}
+#| autorun: false
+lofi <- c(41,44,43,42,46,45)
+classical <- c(43,45,44,46,47,42)
+ambient <- c(44,43,46,45,48,47)
+
+score <- c(lofi, classical, ambient)
+style <- factor(rep(c("Lo-fi", "Classical", "Ambient"), each = 6))
+
+oneway.test(score ~ style, var.equal = TRUE)
+anova(aov(score ~ style))
+```
+:::
+
+::::
+
+---
+
+## Assumptions of ANOVA
+
+::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
+<span class="label">Assumptions</span>
+
+<ul class="assumption-list" style="gap: 10px;">
+  <li>Observations are independent.</li>
+  <li>Error terms, or residuals, are Normal.</li>
+  <li>All groups have the same population variance: $\sigma_1^2=\sigma_2^2=\cdots=\sigma_k^2=\sigma^2$.</li>
+</ul>
+:::
+
+::: {.defbox .fragment}
+The common variance is estimated using the Mean Squared Error from ANOVA:
+
+$$
+\hat\sigma^2=MSE
+$$
+:::
+
+::: {.thinkbox .fragment}
+This is why the denominator of the F statistic is $MSE$: it estimates the shared within-group variance.
+:::
+
+---
+
+## What If ANOVA Rejects?
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.defbox}
+ANOVA's alternative is broad:
+
+$$
+H_a:\text{at least one mean is different}
+$$
+
+So after rejecting $H_0$, we still need to ask:
+
+**Which mean or means are different?**
+:::
+:::
+
+::: {.col}
+::: {.notebox .fragment}
+<span class="label">Pairwise comparisons</span>
+
+Compare the means in pairs.
+
+For three groups:
+
+- $\mu_1$ vs. $\mu_2$
+- $\mu_1$ vs. $\mu_3$
+- $\mu_2$ vs. $\mu_3$
+:::
+
+::: {.thinkbox .fragment}
+Number of comparisons:
+
+$$
+\binom{k}{2}
+$$
+:::
+:::
+::::
+
+---
+
+## Pairwise Confidence Intervals
+
+::: {.defbox}
+For comparing two group means after ANOVA, use intervals for:
+
+$$
+\mu_i-\mu_j
+$$
+:::
+
+:::: {.two-col}
+::: {.stat-card .fragment}
+<span class="label">Fisher's LSD</span>
+
+$$
+(\bar x_i-\bar x_j)\pm
+t_{1-\alpha/2,n-k}
+\sqrt{MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)}
+$$
+
+More power, but does not control experiment-wise Type I error.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Bonferroni</span>
+
+$$
+(\bar x_i-\bar x_j)\pm
+t_{1-\alpha/(2m),n-k}
+\sqrt{MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)}
+$$
+
+where $m=\binom{k}{2}$. Controls experiment-wise Type I error.
+:::
+::::
+
+---
+
+## Fisher LSD vs. Bonferroni
+
+| Method | Main idea | Tradeoff |
+|---|---|---|
+| Fisher LSD | Uses ordinary pairwise confidence intervals after ANOVA | Higher power, but does not control experiment-wise Type I error |
+| Bonferroni | Makes each pairwise interval wider by adjusting for $m$ comparisons | Controls experiment-wise Type I error, but has lower power |
+
+::: {.notebox .fragment}
+<span class="label">Least significant difference</span>
+
+$$
+LSD=t_{1-\alpha/2,v}
+\sqrt{MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)}
+$$
+
+Conclude two means differ if:
+
+$$
+|\bar x_i-\bar x_j|>LSD
+$$
+:::
+
+---
+
+## Example: Which Basketball Drills Differ?
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+The basketball ANOVA rejected $H_0$.
+
+Group means:
+
+$$
+\bar x_1=20,
+\qquad
+\bar x_2=25,
+\qquad
+\bar x_3=30
+$$
+
+ANOVA gave:
+
+$$
+MSE=2,
+\qquad
+v=n-k=15
+$$
+
+Use pairwise confidence intervals to compare the drills.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.75em; line-height: 1.10; padding: 12px 16px; margin-bottom: 0;"}
+<span class="label">Fisher LSD intervals</span>
+
+$$
+SE=\sqrt{2\left(\frac{1}{6}+\frac{1}{6}\right)}=0.8165
+$$
+
+$$
+t_{0.975,15}=2.131
+$$
+
+$$
+LSD=2.131(0.8165)=1.74
+$$
+
+| Pair | Difference | Fisher LSD CI |
+|---|---:|---:|
+| Classic - Streak | -5 | $(-6.74,-3.26)$ |
+| Classic - Leaderboard | -10 | $(-11.74,-8.26)$ |
+| Streak - Leaderboard | -5 | $(-6.74,-3.26)$ |
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Number of comparisons</span>
+
+There are:
+
+$$
+\binom{3}{2}=3
+$$
+
+pairwise comparisons.
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 11px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+All three Fisher LSD intervals avoid 0, so each pair of practice formats has different population mean shooting-drill scores.
+:::
+
+::::
+
+---
+
+## Example: Phone Case Drop-Test Costs
+
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
+A device lab tests four phone case designs.
+
+ANOVA rejects the equal-means hypothesis:
+
+$$
+F^*=112.06,
+\qquad
+p<0.001
+$$
+
+Group means:
+
+| Case | Mean repair cost |
+|---|---:|
+| Slim | 87.50 |
+| Rugged | 113.00 |
+| Wallet | 98.50 |
+| Clear | 75.88 |
+
+$MSE=17.89$ and $v=28$.
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.10; padding: 12px 16px; margin-bottom: 0;"}
+<span class="label">Bonferroni setup</span>
+
+There are:
+
+$$
+m=\binom{4}{2}=6
+$$
+
+comparisons.
+
+Bonferroni uses:
+
+$$
+t_{1-\alpha/(2m),28}
+=
+t_{1-0.05/(12),28}
+=2.839
+$$
+
+For equal sample sizes $n_i=8$:
+
+$$
+SE=\sqrt{17.89\left(\frac18+\frac18\right)}=2.115
+$$
+
+Bonferroni margin:
+
+$$
+2.839(2.115)=6.00
+$$
+:::
+
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Question</span>
+
+Which phone case designs have different population mean repair costs?
+:::
+
+::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.60em; line-height: 1.10; padding: 10px 13px; margin-bottom: 0;"}
+| Pair | Difference | Bonferroni CI |
+|---|---:|---:|
+| Slim - Rugged | -25.50 | $(-31.50,-19.50)$ |
+| Slim - Wallet | -11.00 | $(-17.00,-5.00)$ |
+| Slim - Clear | 11.63 | $(5.62,17.63)$ |
+| Rugged - Wallet | 14.50 | $(8.50,20.50)$ |
+| Rugged - Clear | 37.13 | $(31.12,43.13)$ |
+| Wallet - Clear | 22.63 | $(16.62,28.63)$ |
+
+All intervals avoid 0, so all pairs differ here.
+:::
+
+::::
+
+---
+
+## Check in R: Pairwise Comparisons {.pairwise-r-check}
+
+<style>
+.reveal section.pairwise-r-check .cm-editor,
+.reveal section.pairwise-r-check .cm-content,
+.reveal section.pairwise-r-check .cm-line,
+.reveal section.pairwise-r-check pre,
+.reveal section.pairwise-r-check code {
+  font-size: 0.66em !important;
+  line-height: 0.98 !important;
+}
+
+.reveal section.pairwise-r-check .cell-output,
+.reveal section.pairwise-r-check .cell-output-stdout,
+.reveal section.pairwise-r-check .cell-output pre {
+  font-size: 0.56em !important;
+  line-height: 0.96 !important;
+  white-space: pre !important;
+}
+
+.reveal section.pairwise-r-check .notebox { margin-bottom: 5px !important; }
+</style>
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Basketball Fisher / Bonferroni intervals</span>
+:::
+
+```{webr}
+#| autorun: false
+means <- c(Classic = 20, Streak = 25, Leaderboard = 30)
+n <- c(6, 6, 6)
+names(n) <- names(means)
+
+MSE <- 2
+v <- 15
+alpha <- 0.05
+m <- choose(length(means), 2)
+
+pairs <- combn(names(means), 2)
+
+out <- lapply(seq_len(ncol(pairs)), function(a) {
+  i <- pairs[1, a]
+  j <- pairs[2, a]
+
+  diff <- means[i] - means[j]
+  se <- sqrt(MSE * (1/n[i] + 1/n[j]))
+
+  data.frame(
+    pair = paste(i, "-", j),
+    diff = diff,
+    LSD_low = diff - qt(1 - alpha/2, v) * se,
+    LSD_up = diff + qt(1 - alpha/2, v) * se,
+    Bonf_low = diff - qt(1 - alpha/(2*m), v) * se,
+    Bonf_up = diff + qt(1 - alpha/(2*m), v) * se
+  )
+})
+
+round(do.call(rbind, out), 2)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Phone case Bonferroni intervals</span>
+:::
+
+```{webr}
+#| autorun: false
+means <- c(Slim = 87.5, Rugged = 113.0, Wallet = 98.5, Clear = 75.875)
+n <- rep(8, 4)
+names(n) <- names(means)
+
+MSE <- 17.8884
+v <- 28
+alpha <- 0.05
+m <- choose(length(means), 2)
+
+pairs <- combn(names(means), 2)
+
+out <- lapply(seq_len(ncol(pairs)), function(a) {
+  i <- pairs[1, a]
+  j <- pairs[2, a]
+
+  diff <- means[i] - means[j]
+  se <- sqrt(MSE * (1/n[i] + 1/n[j]))
+
+  data.frame(
+    pair = paste(i, "-", j),
+    diff = diff,
+    bonf_low = diff - qt(1 - alpha/(2*m), v) * se,
+    bonf_up = diff + qt(1 - alpha/(2*m), v) * se
+  )
+})
+
+round(do.call(rbind, out), 2)
+```
+:::
+
+::::
+
+---
+
+## Bonferroni vs. Fisher: Decision Guide
+
+:::: {.two-col}
+::: {.card .fragment}
+<span class="label">Use Fisher LSD when...</span>
+
+- You want a simpler post-ANOVA comparison.
+- You accept higher experiment-wise Type I error risk.
+- Power is the priority.
+:::
+
+::: {.card .fragment}
+<span class="label">Use Bonferroni when...</span>
+
+- You want stronger control of experiment-wise Type I error.
+- You have many pairwise comparisons.
+- You are okay with wider intervals and lower power.
+:::
+::::
+
+::: {.thinkbox .fragment}
+Textbook takeaway: Bonferroni corrects the multiple-comparisons problem; Fisher LSD is easier and more powerful but does not maintain the same experiment-wise error control.
+:::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A one-way ANOVA with $k=4$ groups has a significant p-value. How many pairwise mean comparisons are possible?
+::::
+
+- 3
+- [6]{.correct data-explanation="The number of pairwise comparisons is choose(k, 2). With k = 4, choose(4, 2) = 6."}
+- 8
+- 16
+
+---
+
+## Final Checklist
+
+:::: {.two-col}
+::: {.card .fragment}
+<span class="label">Before calculating ANOVA</span>
+
+- Identify the response variable.
+- Identify the grouping variable.
+- State $H_0:\mu_1=\cdots=\mu_k$.
+- Check independence, Normal errors, and equal variance.
+:::
+
+::: {.card .fragment}
+<span class="label">After calculating ANOVA</span>
+
+- Fill in df, SS, MS, and $F^*$.
+- Use the right-tail F p-value.
+- Reject only when the p-value is small.
+- If ANOVA rejects, use pairwise comparisons to find which means differ.
+:::
+::::
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** ANOVA compares several means by asking whether between-group variation is large compared with within-group error variation.
+:::
 
 ---
 
 ## Up Next
 
 ::: {.examplebox}
-**More slides coming soon.**
+**Chapter 9 - Simple Linear Regression**
 
-This deck currently holds the title and roadmap. The model, ANOVA table, $F$-test, assumptions, and multiple-comparison sections will be added here.
+ANOVA compares several group means. Regression studies how a quantitative response changes with a quantitative predictor.
 :::
 
-::: {.home-button-row}
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">From groups</span>
+ANOVA: one categorical predictor.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">To lines</span>
+Regression: one quantitative predictor.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Same habit</span>
+Model, estimate, test, and interpret in context.
+:::
+::::
+
+<div class="home-button-row">
 <a href="../index.html" class="home-button">Back to Homepage</a>
-:::
+</div>

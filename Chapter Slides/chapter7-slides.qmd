@@ -518,30 +518,33 @@ University of Toronto Mississauga
 
 :::: {.three-col}
 ::: {.card .fragment}
-<span class="label">Power</span>
+<span class="label">7.1 - Power</span>
 What power means, and the four things that push it up or down.
 :::
-
 ::: {.card .fragment}
-<span class="label">Errors</span>
+<span class="label">7.2 - Errors</span>
 Type I ($\alpha$) and Type II ($\beta$), and how power $=1-\beta$.
 :::
-
 ::: {.card .fragment}
-<span class="label">Planning</span>
-Using a target power to choose the smallest sample size.
+<span class="label">7.3 - Planning</span>
+Use a target power to choose the smallest sample size.
 :::
 ::::
 
-:::: {.two-col}
-::: {.thinkbox .fragment}
-<span class="label">Big theme</span>
-A test is only useful if it can actually **detect a real effect**. Power measures that ability.
-:::
+<br>
 
-::: {.notebox .fragment}
-<span class="label">Output skill</span>
-Compute power for a given alternative, and invert the calculation to find the sample size that hits a desired power.
+:::: {.three-col}
+::: {.stat-card .fragment}
+<span class="label">Core skill</span>
+Compute power against a specific alternative value.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core tool</span>
+Use `pnorm()` and `qnorm()` for cutoffs, power, and sample size.
+:::
+::: {.stat-card .fragment}
+<span class="label">Core habit</span>
+A test is only useful if it can detect a real effect.
 :::
 ::::
 

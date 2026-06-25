@@ -1845,14 +1845,14 @@
     "href": "Chapter Slides/chapter6-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\nLogic Null and alternative hypotheses, test statistics, p-values, and decisions.\n\n\nOne sample Tests for one mean, one proportion, and one variance.\n\n\nTwo sample Tests for differences, ratios, and paired data.\n\n\n\n\nBig theme A hypothesis test asks whether the observed statistic would be surprising if the null hypothesis were true.\n\n\nOutput skill State the conclusion in context: reject or fail to reject, then translate that decision back to the population parameter."
+    "text": "Chapter Roadmap\n\n\nLogic Null and alternative hypotheses, test statistics, p-values, and decisions.\n\n\nOne Sample Tests for one mean, one proportion, and one variance.\n\n\nTwo Sample Tests for differences, ratios, and paired data.\n\n\n\n\n\nCore skill Identify the parameter, then state \\(H_0\\) and \\(H_a\\) correctly.\n\n\nCore tool Use \\(Z\\), \\(t\\), \\(\\chi^2\\), and \\(F\\) reference distributions for p-values.\n\n\nCore habit State the conclusion in context, without overclaiming a p-value."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#what-a-hypothesis-test-does",
     "href": "Chapter Slides/chapter6-slides.html#what-a-hypothesis-test-does",
     "title": "STA258",
     "section": "What a Hypothesis Test Does",
-    "text": "What a Hypothesis Test Does\n\nTextbook idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
+    "text": "What a Hypothesis Test Does\n\nHigh Level Idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
@@ -1873,7 +1873,7 @@
     "href": "Chapter Slides/chapter6-slides.html#p-value-areas",
     "title": "STA258",
     "section": "P-Value Areas",
-    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\nUse the dropdown to see how the shaded p-value area moves with the alternative hypothesis."
+    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\n\n\nUse the dropdown at the top-right of the plot to switch the shaded p-value area between the three alternative hypotheses."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#decision-rule",
@@ -1908,14 +1908,14 @@
     "href": "Chapter Slides/chapter6-slides.html#example-coffee-fill-volume",
     "title": "STA258",
     "section": "Example: Coffee Fill Volume",
-    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Steeped advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\\[\nH_0:\\mu=7.2\n\\qquad\nH_a:\\mu&lt;7.2\n\\]"
+    "text": "Example: Coffee Fill Volume\n\n\n\nThe cafe chain Second Cup advertises that a large iced latte is filled to a target of \\(\\mu_0=7.2\\) oz of base. Customers complain the cups feel light, so quality control pulls a random sample of \\(n=40\\) cups.\nFrom years of calibration records, the filling machine’s standard deviation is known: \\(\\sigma=1.1\\) oz. The sample mean is \\(\\bar{x}=6.7\\) oz.\nTest whether the true mean fill volume has dropped below 7.2 oz at \\(\\alpha=0.05\\).\n\n\n\n\nWhat we are given\n\nTarget mean: \\(\\mu_0 = 7.2\\) oz\nKnown SD: \\(\\sigma = 1.1\\) oz\nSample: \\(n = 40\\), \\(\\bar{x} = 6.7\\) oz\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? \\(\\sigma\\) is known, so this is a one-sample \\(z\\) test with reference distribution \\(N(0,1)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "href": "Chapter Slides/chapter6-slides.html#coffee-example-calculation",
     "title": "STA258",
     "section": "Coffee Example: Calculation",
-    "text": "Coffee Example: Calculation\n\n\\[\nz^*=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\n\\]\n\\[\n\\text{p-value}=P(Z\\le -2.8748)=0.00202\n\\]\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean large-coffee fill volume is below 7.2 oz."
+    "text": "Coffee Example: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=7.2 \\qquad H_a:\\mu&lt;7.2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}=\\frac{6.7-7.2}{1.1/\\sqrt{40}}=-2.8748\\]\np-value \\[\\text{p-value}=P(Z\\le -2.8748)=0.00202\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.00202 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is sufficient evidence that the mean fill volume is below 7.2 oz."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-coffee-z-test",
@@ -2104,7 +2104,7 @@
     "href": "Chapter Slides/chapter6-slides.html#assumptions-difference-of-proportions",
     "title": "STA258",
     "section": "Assumptions: Difference of Proportions",
-    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\nFor each group, check successes and failures:\n\n\n\\[\nx_i\\ge 10\n\\qquad\\text{and}\\qquad\nn_i-x_i\\ge 10\n\\]"
+    "text": "Assumptions: Difference of Proportions\n\n\nSampling structure\n\n\nThe two groups are independent.\n\n\nEach sample is random, or the data come from a randomized design.\n\n\nIf sampling without replacement, each sample should be less than 10% of its population.\n\n\n\n\nLarge-count condition\n\n\nCheck successes and failures in each group.\n\n\nAt least 10 successes: \\(x_i \\ge 10\\).\n\n\nAt least 10 failures: \\(n_i - x_i \\ge 10\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#assumptions-ratio-of-variances",
@@ -4155,7 +4155,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
     "title": "STA258",
     "section": "Example: Food Delivery ETA",
-    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app DashEats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
@@ -4176,21 +4176,21 @@
     "href": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "title": "STA258",
     "section": "Example: Active Recall vs Rereading",
-    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90 Rereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
+    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90\nRereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "href": "Chapter Slides/chapter6-slides.html#example-push-notifications",
     "title": "STA258",
     "section": "Example: Push Notifications",
-    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users No notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
+    "text": "Example: Push Notifications\n\nA habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.\nPush notification: \\(142\\) check-ins out of \\(360\\) users\nNo notification: \\(118\\) check-ins out of \\(370\\) users\nTest whether the daily push notification increases the check-in rate.\n\n\n\\[\nH_0:p_1-p_2=0,\\qquad H_a:p_1-p_2&gt;0\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "href": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "title": "STA258",
     "section": "Example: Pomodoro Focus Timer",
-    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32 After: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
+    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
@@ -4225,7 +4225,7 @@
     "href": "Chapter Slides/chapter7-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\nPower What power means, and the four things that push it up or down.\n\n\nErrors Type I (\\(\\alpha\\)) and Type II (\\(\\beta\\)), and how power \\(=1-\\beta\\).\n\n\nPlanning Using a target power to choose the smallest sample size.\n\n\n\n\nBig theme A test is only useful if it can actually detect a real effect. Power measures that ability.\n\n\nOutput skill Compute power for a given alternative, and invert the calculation to find the sample size that hits a desired power."
+    "text": "Chapter Roadmap\n\n\n7.1 - Power What power means, and the four things that push it up or down.\n\n\n7.2 - Errors Type I (\\(\\alpha\\)) and Type II (\\(\\beta\\)), and how power \\(=1-\\beta\\).\n\n\n7.3 - Planning Use a target power to choose the smallest sample size.\n\n\n\n\n\nCore skill Compute power against a specific alternative value.\n\n\nCore tool Use pnorm() and qnorm() for cutoffs, power, and sample size.\n\n\nCore habit A test is only useful if it can detect a real effect."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#what-is-statistical-power",
@@ -4485,5 +4485,19 @@
     "title": "STA258",
     "section": "A Streaming Proportion Test",
     "text": "A Streaming Proportion Test\n\n\nA streaming platform claims \\(90\\%\\) of viewers finish episode 1. Researchers suspect fewer do, and test \\(H_0:p=0.90\\) vs \\(H_a:p&lt;0.90\\) at \\(\\alpha=0.05\\). The truth is \\(p=0.85\\).\n\n\nThe question How does the power to detect this 5-point drop change as the sample grows from \\(n=50\\) to \\(n=200\\)?"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-food-delivery-eta",
+    "title": "STA258",
+    "section": "Check in R: Food Delivery ETA",
+    "text": "Check in R: Food Delivery ETA\n\n\n\n\n\n\n\n\n\nThe output gives \\(t=2.682\\), \\(df=11\\), and p-value \\(0.0107\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
+    "href": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
+    "title": "STA258",
+    "section": "Example: Scoring Consistency",
+    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
   }
 ]

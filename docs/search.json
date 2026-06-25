@@ -1851,8 +1851,8 @@
     "objectID": "Chapter Slides/chapter6-slides.html#what-a-hypothesis-test-does",
     "href": "Chapter Slides/chapter6-slides.html#what-a-hypothesis-test-does",
     "title": "STA258",
-    "section": "What a Hypothesis Test Does",
-    "text": "What a Hypothesis Test Does\n\nHigh Level Idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
+    "section": "6.1 What a Hypothesis Test Does",
+    "text": "6.1 What a Hypothesis Test Does\n\nHigh Level Idea A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.\n\n\n\nNull hypothesis, \\(H_0\\) The status quo, no-effect, or no-difference claim.\n\n\nAlternative hypothesis, \\(H_a\\) The direction of evidence we are trying to detect.\n\n\n\nThe test is performed assuming \\(H_0\\) is true. The p-value measures how unusual the data are under that assumption."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
@@ -1900,8 +1900,8 @@
     "objectID": "Chapter Slides/chapter6-slides.html#one-mean-known-sigma",
     "href": "Chapter Slides/chapter6-slides.html#one-mean-known-sigma",
     "title": "STA258",
-    "section": "One Mean, Known \\(\\sigma\\)",
-    "text": "One Mean, Known \\(\\sigma\\)\n\nWhen the population standard deviation is known, use a standard normal reference distribution:\n\\[\nz^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\n\\]\n\n\n\nReference distribution \\(Z\\sim N(0,1)\\).\n\n\nUse when Testing a population mean with known \\(\\sigma\\) and an appropriate random/normal-or-large-sample setup."
+    "section": "6.2.1.1 One Mean, Known \\(\\sigma\\)",
+    "text": "6.2.1.1 One Mean, Known \\(\\sigma\\)\n\nWhen the population standard deviation is known, use a standard normal reference distribution:\n\\[\nz^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\n\\]\n\n\n\nReference distribution \\(Z\\sim N(0,1)\\).\n\n\nUse when Testing a population mean with known \\(\\sigma\\) and an appropriate random/normal-or-large-sample setup."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-coffee-fill-volume",
@@ -1935,8 +1935,8 @@
     "objectID": "Chapter Slides/chapter6-slides.html#one-mean-unknown-sigma",
     "href": "Chapter Slides/chapter6-slides.html#one-mean-unknown-sigma",
     "title": "STA258",
-    "section": "One Mean, Unknown \\(\\sigma\\)",
-    "text": "One Mean, Unknown \\(\\sigma\\)\n\nWhen \\(\\sigma\\) is unknown, replace it with \\(s\\) and use the Student \\(t\\) distribution:\n\\[\nt^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}\n\\]\n\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom.\n\n\nAssumptions Random/independent observations; population normal or sample large enough for the \\(t\\) approximation."
+    "section": "6.2.1.2 One Mean, Unknown \\(\\sigma\\)",
+    "text": "6.2.1.2 One Mean, Unknown \\(\\sigma\\)\n\nWhen \\(\\sigma\\) is unknown, replace it with \\(s\\) and use the Student \\(t\\) distribution:\n\\[\nt^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}\n\\]\n\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom.\n\n\nAssumptions Random/independent observations; population normal or sample large enough for the \\(t\\) approximation."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-clinic-wait-times",
@@ -1956,8 +1956,8 @@
     "objectID": "Chapter Slides/chapter6-slides.html#one-proportion-test",
     "href": "Chapter Slides/chapter6-slides.html#one-proportion-test",
     "title": "STA258",
-    "section": "One Proportion Test",
-    "text": "One Proportion Test\n\nFor a test about one population proportion \\(p\\):\n\\[\nz^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}\n\\]\n\n\n\nUse the null value The standard error uses \\(p_0\\), not \\(\\hat p\\).\n\n\nLarge-count check Under \\(H_0\\), both \\(np_0\\) and \\(n(1-p_0)\\) should be at least 10."
+    "section": "6.2.2 One Proportion Test",
+    "text": "6.2.2 One Proportion Test\n\nFor a test about one population proportion \\(p\\):\n\\[\nz^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}\n\\]\n\n\n\nUse the null value The standard error uses \\(p_0\\), not \\(\\hat p\\).\n\n\nLarge-count check Under \\(H_0\\), both \\(np_0\\) and \\(n(1-p_0)\\) should be at least 10."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-recycling-participation",
@@ -1984,8 +1984,8 @@
     "objectID": "Chapter Slides/chapter6-slides.html#one-variance-test",
     "href": "Chapter Slides/chapter6-slides.html#one-variance-test",
     "title": "STA258",
-    "section": "One Variance Test",
-    "text": "One Variance Test\n\nFor one normal population, test a variance using the chi-square statistic:\n\\[\n\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\n\\]\n\n\n\nReference distribution \\(\\chi^2\\) with \\(n-1\\) degrees of freedom.\n\n\nImportant condition The population should be approximately normal. Variance tests are sensitive to non-normality."
+    "section": "6.2.3 One Variance Test",
+    "text": "6.2.3 One Variance Test\n\nFor one normal population, test a variance using the chi-square statistic:\n\\[\n\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\n\\]\n\n\n\nReference distribution \\(\\chi^2\\) with \\(n-1\\) degrees of freedom.\n\n\nImportant condition The population should be approximately normal. Variance tests are sensitive to non-normality."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-sauce-jar-consistency",
@@ -2005,22 +2005,22 @@
     "objectID": "Chapter Slides/chapter6-slides.html#two-sample-test-targets",
     "href": "Chapter Slides/chapter6-slides.html#two-sample-test-targets",
     "title": "STA258",
-    "section": "Two-Sample Test Targets",
-    "text": "Two-Sample Test Targets\n\n\n\n\n\n\n\n\nTarget parameter\nTypical question\nReference distribution\n\n\n\n\n\\(\\mu_1-\\mu_2\\)\nAre two population means different?\n\\(Z\\) or \\(t\\)\n\n\n\\(p_1-p_2\\)\nAre two population proportions different?\n\\(Z\\)\n\n\n\\(\\sigma_1^2/\\sigma_2^2\\)\nAre two population variances different?\n\\(F\\)\n\n\n\\(\\mu_d\\)\nIs the mean paired difference nonzero?\n\\(t\\)\n\n\n\n\nStart by deciding whether the samples are independent or paired. That choice changes the whole test."
+    "section": "6.3 Two-Sample Test Targets",
+    "text": "6.3 Two-Sample Test Targets\n\n\n\n\n\n\n\n\nTarget parameter\nTypical question\nReference distribution\n\n\n\n\n\\(\\mu_1-\\mu_2\\)\nAre two population means different?\n\\(Z\\) or \\(t\\)\n\n\n\\(p_1-p_2\\)\nAre two population proportions different?\n\\(Z\\)\n\n\n\\(\\sigma_1^2/\\sigma_2^2\\)\nAre two population variances different?\n\\(F\\)\n\n\n\\(\\mu_d\\)\nIs the mean paired difference nonzero?\n\\(t\\)\n\n\n\n\nStart by deciding whether the samples are independent or paired. That choice changes the whole test."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#two-means-known-sigma_1sigma_2",
     "href": "Chapter Slides/chapter6-slides.html#two-means-known-sigma_1sigma_2",
     "title": "STA258",
-    "section": "Two Means: Known \\(\\sigma_1,\\sigma_2\\)",
-    "text": "Two Means: Known \\(\\sigma_1,\\sigma_2\\)\n\nWhen both population standard deviations are known:\n\\[\nz^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\n\n\n\nUsually \\(D_0=0\\) when testing whether the population means are equal.\n\n\nUse \\(Z\\) because the population standard deviations are known."
+    "section": "6.3.1.1 Two Means: Known \\(\\sigma_1,\\sigma_2\\)",
+    "text": "6.3.1.1 Two Means: Known \\(\\sigma_1,\\sigma_2\\)\n\nWhen both population standard deviations are known:\n\\[\nz^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\n\n\n\nUsually \\(D_0=0\\) when testing whether the population means are equal.\n\n\nUse \\(Z\\) because the population standard deviations are known."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#two-means-unknown-variances",
     "href": "Chapter Slides/chapter6-slides.html#two-means-unknown-variances",
     "title": "STA258",
-    "section": "Two Means: Unknown Variances",
-    "text": "Two Means: Unknown Variances\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test:\n\\[\nt^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\n\n\n\nDefault Welch is a good default when equal variances are not clearly justified.\n\n\nDegrees of freedom Software uses the Welch-Satterthwaite approximation."
+    "section": "6.3.1.2 Two Means: Unknown Variances",
+    "text": "6.3.1.2 Two Means: Unknown Variances\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test:\n\\[\nt^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\n\n\n\nDefault Welch is a good default when equal variances are not clearly justified.\n\n\nDegrees of freedom Software uses the Welch-Satterthwaite approximation."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-workshop-quiz-scores",
@@ -2040,8 +2040,8 @@
     "objectID": "Chapter Slides/chapter6-slides.html#difference-of-proportions",
     "href": "Chapter Slides/chapter6-slides.html#difference-of-proportions",
     "title": "STA258",
-    "section": "Difference of Proportions",
-    "text": "Difference of Proportions\n\nWhen testing \\(H_0:p_1-p_2=0\\), pool the sample proportions under the null:\n\\[\n\\hat p=\\frac{x_1+x_2}{n_1+n_2}\n\\]\n\\[\nz^*=\\frac{\\hat p_1-\\hat p_2}\n{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\n\\]"
+    "section": "6.3.2 Difference of Proportions",
+    "text": "6.3.2 Difference of Proportions\n\nWhen testing \\(H_0:p_1-p_2=0\\), pool the sample proportions under the null:\n\\[\n\\hat p=\\frac{x_1+x_2}{n_1+n_2}\n\\]\n\\[\nz^*=\\frac{\\hat p_1-\\hat p_2}\n{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reminder-texts",
@@ -2061,15 +2061,15 @@
     "objectID": "Chapter Slides/chapter6-slides.html#ratio-of-variances",
     "href": "Chapter Slides/chapter6-slides.html#ratio-of-variances",
     "title": "STA258",
-    "section": "Ratio of Variances",
-    "text": "Ratio of Variances\n\nFor two normal populations, test a ratio of variances with\n\\[\nF^*=\\frac{s_1^2}{s_2^2}\n\\]\nusing an \\(F\\) reference distribution with \\(n_1-1\\) and \\(n_2-1\\) degrees of freedom.\n\n\n\nNormality matters The \\(F\\) test for variances is sensitive to non-normality.\n\n\nTwo-sided idea Extreme ratios in either direction count as evidence against equal variances."
+    "section": "6.3.3 Ratio of Variances",
+    "text": "6.3.3 Ratio of Variances\n\nFor two normal populations, test a ratio of variances with\n\\[\nF^*=\\frac{s_1^2}{s_2^2}\n\\]\nusing an \\(F\\) reference distribution with \\(n_1-1\\) and \\(n_2-1\\) degrees of freedom.\n\n\n\nNormality matters The \\(F\\) test for variances is sensitive to non-normality.\n\n\nTwo-sided idea Extreme ratios in either direction count as evidence against equal variances."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#paired-data",
     "href": "Chapter Slides/chapter6-slides.html#paired-data",
     "title": "STA258",
-    "section": "Paired Data",
-    "text": "Paired Data\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+    "section": "6.4 Paired Data",
+    "text": "6.4 Paired Data\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-paired-study-plan-test",

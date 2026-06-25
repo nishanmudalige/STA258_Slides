@@ -330,6 +330,38 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
   margin-bottom: 5px;
 }
 
+/* ---- Compact "Example" 2x2 grid slides so nothing is cut off ----
+   The calculation cards stack many $$display$$ equations whose default
+   MathJax margins (~1em each) push the bottom row off the slide. Tighten
+   that spacing, the inter-line paragraphs, gaps, padding, and table rows
+   so the full grid fits within one screen. */
+.reveal section .example-grid {
+  gap: 6px 16px !important;
+  align-content: start;
+}
+.reveal section .example-grid .taskbox,
+.reveal section .example-grid .stat-card,
+.reveal section .example-grid .notebox,
+.reveal section .example-grid .examplebox {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+.reveal section .example-grid mjx-container[display="true"],
+.reveal section .example-grid .MathJax_Display {
+  margin: 0.16em 0 !important;
+}
+.reveal section .example-grid p {
+  margin-top: 0.22em !important;
+  margin-bottom: 0.22em !important;
+}
+.reveal section .example-grid .label {
+  margin-bottom: 2px !important;
+}
+.reveal section .example-grid th,
+.reveal section .example-grid td {
+  padding: 2px 7px !important;
+}
+
 .big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
 .center     { text-align: center; }
 .small-text { font-size: 0.64em; }

@@ -63,20 +63,20 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
   ymax <- max(c(y0, ya))
   p <- plot_ly(width = width, height = height) |>
     add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
-              name = "Null", hoverinfo = "skip") |>
+              name = "H₀", hoverinfo = "x+y") |>
     add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
-              name = "Alt", hoverinfo = "skip") |>
+              name = "Hₐ", hoverinfo = "x+y") |>
     add_trace(x = x[keep], y = ya[keep], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_pow,
               line = list(color = line_pow, width = 1),
-              name = "Power", hoverinfo = "skip")
+              name = "Power", hoverinfo = "x+y")
   if (show_beta) {
     bk <- !keep
     p <- p |>
       add_trace(x = x[bk], y = ya[bk], type = "scatter", mode = "lines",
                 fill = "tozeroy", fillcolor = fill_b,
                 line = list(color = line_b, width = 1),
-                name = "beta", hoverinfo = "skip")
+                name = "β", hoverinfo = "x+y")
   }
   has_lab <- !is.null(power_label) || !is.null(beta_label)
   bmar <- if (has_lab) 100 else 34
@@ -87,7 +87,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
     yaxis = list(title = "", rangemode = "tozero",
                  range = c(0, ymax * 1.28), fixedrange = TRUE),
     margin = list(l = 28, r = 12, t = 38, b = bmar),
-    showlegend = FALSE,
+    showlegend = FALSE, hovermode = "x unified",
     shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
                        y0 = 0, y1 = ymax * 1.16,
                        line = list(color = "#333", width = 2, dash = "dash"))),
@@ -134,25 +134,28 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
   pw_x <- mua                            # power: deep in the green region
   plot_ly(width = width, height = height) |>
     add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
-              hoverinfo = "skip") |>
+              name = "H₀", hoverinfo = "x+y") |>
     add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
-              hoverinfo = "skip") |>
+              name = "Hₐ", hoverinfo = "x+y") |>
     add_trace(x = x[rej], y = ya[rej], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_pow,
-              line = list(color = line_pow, width = 1), hoverinfo = "skip") |>
+              line = list(color = line_pow, width = 1),
+              name = "power", hoverinfo = "x+y") |>
     add_trace(x = x[rej], y = y0[rej], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_a,
-              line = list(color = line_a, width = 1), hoverinfo = "skip") |>
+              line = list(color = line_a, width = 1),
+              name = "α (Type I)", hoverinfo = "x+y") |>
     add_trace(x = x[!rej], y = ya[!rej], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_b,
-              line = list(color = line_b, width = 1), hoverinfo = "skip") |>
+              line = list(color = line_b, width = 1),
+              name = "β (Type II)", hoverinfo = "x+y") |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 14)),
       xaxis = list(title = "", zeroline = FALSE, fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero",
                    range = c(0, ymax * 1.28), fixedrange = TRUE),
       margin = list(l = 28, r = 12, t = 38, b = 76),
-      showlegend = FALSE,
+      showlegend = FALSE, hovermode = "x unified",
       shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
                          y0 = 0, y1 = ymax * 1.06,
                          line = list(color = "#333", width = 2, dash = "dash"))),
@@ -206,7 +209,8 @@ power_curve <- function(mu0, se, alpha = 0.05, alternative = "greater",
     title = list(text = title, x = 0.02, font = list(size = 14)),
     xaxis = list(title = "true mean μ", fixedrange = TRUE),
     yaxis = list(title = "power", range = c(0, 1.03), fixedrange = TRUE),
-    margin = list(l = 46, r = 12, t = 38, b = 40), showlegend = FALSE
+    margin = list(l = 46, r = 12, t = 38, b = 40), showlegend = FALSE,
+    hovermode = "closest"
   ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
 
@@ -240,7 +244,8 @@ prop_power_n <- function(p0, pa, alpha = 0.05, alternative = "less",
     title = list(text = title, x = 0.02, font = list(size = 14)),
     xaxis = list(title = "sample size n", fixedrange = TRUE),
     yaxis = list(title = "power", range = c(0, 1.03), fixedrange = TRUE),
-    margin = list(l = 46, r = 12, t = 38, b = 40), showlegend = FALSE
+    margin = list(l = 46, r = 12, t = 38, b = 40), showlegend = FALSE,
+    hovermode = "closest"
   ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
 
@@ -252,17 +257,17 @@ tail_plot <- function(stat = 1.645, alternative = "greater",
   keep <- if (alternative == "less") x <= stat else x >= stat
   plot_ly(width = width, height = height) |>
     add_lines(x = x, y = y, line = list(color = col_null, width = 4),
-              name = "N(0,1)", hoverinfo = "skip") |>
+              name = "N(0,1)", hoverinfo = "x+y") |>
     add_trace(x = x[keep], y = y[keep], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_a,
               line = list(color = line_a, width = 1),
-              name = "reject", hoverinfo = "skip") |>
+              name = "reject", hoverinfo = "x+y") |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 15)),
       xaxis = list(title = "", zeroline = FALSE, range = c(-4, 4), fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
       margin = list(l = 30, r = 12, t = 36, b = 28),
-      showlegend = FALSE,
+      showlegend = FALSE, hovermode = "x unified",
       annotations = list(list(x = stat, y = dnorm(stat) + 0.05,
         text = paste0("z = ", formatC(stat, format = "f", digits = 3)),
         showarrow = FALSE, font = list(color = "#333", size = 11)))

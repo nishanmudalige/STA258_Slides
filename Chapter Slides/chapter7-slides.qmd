@@ -578,6 +578,21 @@ The test is unreliable, it usually fails to reject even when $H_0$ is false.
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+The **power** of a hypothesis test is the probability that the test will:
+::::
+
+- Reject $H_0$ when $H_0$ is actually true
+- [Reject $H_0$ when $H_a$ is actually true]{.correct data-explanation="Power is the probability of correctly rejecting H₀ when the alternative is true: Power = 1 − β. Rejecting H₀ when it is true is the Type I error, with probability α."}
+- Fail to reject $H_0$ when $H_a$ is true
+- Fail to reject $H_0$ when $H_0$ is true
+
+---
+
 ## What Affects Power?
 
 :::: {.slide-stack}
@@ -601,6 +616,21 @@ The test is unreliable, it usually fails to reject even when $H_0$ is false.
 ::: {.thinkbox .fragment}
 You control $n$ and $\alpha$. The effect size and $\sigma$ are set by the world, so sample size is your main planning lever.
 :::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Holding the effect size, $\sigma$, and $n$ fixed, you raise the significance level from $\alpha=0.01$ to $\alpha=0.05$. What happens to the power?
+::::
+
+- Power decreases
+- [Power increases]{.correct data-explanation="A larger α enlarges the rejection region, so the test rejects H₀ more readily — including when Hₐ is true — which raises power. The trade-off is a higher Type I error rate."}
+- Power is unchanged
+- Power always becomes exactly 1
 
 ---
 
@@ -817,6 +847,21 @@ power_curve(mu0 = 0, se = 1 / sqrt(10), alpha = 0.05,
 :::
 :::
 ::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+On the power curve for a one-sided test, what happens to the power as the true mean moves farther away from the null value (in the direction of $H_a$)?
+::::
+
+- It decreases toward $0$
+- [It increases toward $1$]{.correct data-explanation="The farther the truth lies from H₀, the larger the effect and the easier it is to detect, so power rises toward 1. When the true mean sits right at the null value, the power is only about α."}
+- It stays constant at $\alpha$
+- It is always equal to $\beta$
 
 ---
 

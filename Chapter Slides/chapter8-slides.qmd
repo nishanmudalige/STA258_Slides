@@ -439,6 +439,15 @@ plotly_anova_layout <- function(
   line-height: 1.08 !important;
 }
 
+/* Keep the line-number gutter in sync with the code lines so the
+   numbers line up one-per-row instead of bunching together. */
+.reveal section.compact-r .cm-gutters,
+.reveal section.compact-r .cm-lineNumbers,
+.reveal section.compact-r .cm-gutterElement {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
+
 .reveal section.compact-r .cell-output,
 .reveal section.compact-r .cell-output-stdout,
 .reveal section.compact-r .cell-output pre {
@@ -749,9 +758,11 @@ $$
 ANOVA compares:
 
 $$
-\text{between-group variation}
-\quad \text{vs.} \quad
-\text{within-group variation}
+\begin{aligned}
+&\text{between-group variation}\\[2pt]
+&\qquad\quad \text{vs.}\\[2pt]
+&\text{within-group variation}
+\end{aligned}
 $$
 :::
 

@@ -777,6 +777,15 @@ Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café dr
   line-height: 1.05 !important;
 }
 
+/* Keep the line-number gutter in sync with the code lines so the
+   numbers line up one-per-row instead of bunching together. */
+.reveal section.gof-r-check .cm-gutters,
+.reveal section.gof-r-check .cm-lineNumbers,
+.reveal section.gof-r-check .cm-gutterElement {
+  font-size: 0.78em !important;
+  line-height: 1.05 !important;
+}
+
 .reveal section.gof-r-check .cell-output,
 .reveal section.gof-r-check .cell-output-stdout,
 .reveal section.gof-r-check .cell-output pre {

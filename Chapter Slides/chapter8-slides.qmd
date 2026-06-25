@@ -776,6 +776,21 @@ If at least one group mean is far away, $SSTr$ becomes larger.
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+In one-way ANOVA, the total variation decomposes into which two pieces?
+::::
+
+- $SSTotal = SSTr - SSE$
+- [$SSTotal = SSTr + SSE$]{.correct data-explanation="Total variation splits into the between-group (treatment) sum of squares plus the within-group (error) sum of squares: SSTotal = SSTr + SSE."}
+- $SSTotal = MSTr + MSE$
+- $SSTotal = SSTr \times SSE$
+
+---
+
 ## The ANOVA Table
 
 | Source | df | SS | MS | F-statistic |
@@ -844,6 +859,21 @@ The ANOVA p-value is the area to the **right** of $F^*$, because large F values 
 :::
 :::
 ::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+In one-way ANOVA, what is the null hypothesis $H_0$?
+::::
+
+- At least one group mean differs from the others
+- [All group means are equal: $\mu_1=\mu_2=\dots=\mu_k$]{.correct data-explanation="ANOVA tests H₀: all population means are equal against Hₐ: at least one mean differs. (Equal variances is an assumption of the test, not the null hypothesis.)"}
+- All group variances are equal
+- All group means are equal to zero
 
 ---
 
@@ -927,6 +957,21 @@ plot_ly() |>
 ```
 :::
 ::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+The ANOVA $F$-statistic ($F = MSTr / MSE$) tends to be **large** when:
+::::
+
+- within-group variation is large relative to between-group variation
+- [between-group variation is large relative to within-group variation]{.correct data-explanation="F compares between-group variation (MSTr) to within-group variation (MSE). A large F means the group means are spread far apart relative to the noise within groups — evidence against equal means."}
+- the group means are all equal
+- the sample size in each group is small
 
 ---
 
@@ -1466,6 +1511,21 @@ $$
 ::: {.thinkbox .fragment}
 This is why the denominator of the F statistic is $MSE$: it estimates the shared within-group variance.
 :::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Which of the following is an assumption of one-way ANOVA?
+::::
+
+- The group sample sizes must all be equal
+- [Independent samples from normal populations with equal variances]{.correct data-explanation="One-way ANOVA assumes independent samples drawn from normal populations that share a common variance. Equal sample sizes are not required."}
+- The response variable must be categorical
+- Each expected cell count is at least 5
 
 ---
 

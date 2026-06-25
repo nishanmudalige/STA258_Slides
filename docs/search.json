@@ -4231,8 +4231,8 @@
     "objectID": "Chapter Slides/chapter7-slides.html#what-is-statistical-power",
     "href": "Chapter Slides/chapter7-slides.html#what-is-statistical-power",
     "title": "STA258",
-    "section": "What Is Statistical Power?",
-    "text": "What Is Statistical Power?\n\nDefinition 7.1 The probability that a fixed-level significance test will reject \\(H_0\\) when a particular alternative value of the parameter is true is called the power of the test against that alternative.\n\\[\\text{Power}=P(\\text{reject } H_0 \\mid H_0 \\text{ false}), \\qquad 0&lt;\\text{power}&lt;1\\]\n\n\n\nHigh power (near 1) The test is good at detecting effects that are really there.\n\n\nLow power (near 0) The test is unreliable, it usually fails to reject even when \\(H_0\\) is false."
+    "section": "7.1 What Is Statistical Power?",
+    "text": "7.1 What Is Statistical Power?\n\nDefinition 7.1 The probability that a fixed-level significance test will reject \\(H_0\\) when a particular alternative value of the parameter is true is called the power of the test against that alternative.\n\\[\\text{Power}=P(\\text{reject } H_0 \\mid H_0 \\text{ false}), \\qquad 0&lt;\\text{power}&lt;1\\]\n\n\n\nHigh power (near 1) The test is good at detecting effects that are really there.\n\n\nLow power (near 0) The test is unreliable, it usually fails to reject even when \\(H_0\\) is false."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#what-affects-power",
@@ -4245,8 +4245,8 @@
     "objectID": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
     "href": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
     "title": "STA258",
-    "section": "Type I and Type II Errors",
-    "text": "Type I and Type II Errors\n\n\n\nA hypothesis test can reach the wrong conclusion in two ways.\n\n\nType I error (\\(\\alpha\\)) Reject \\(H_0\\) when \\(H_0\\) is true.\n\n\nType II error (\\(\\beta\\)) Fail to reject \\(H_0\\) when \\(H_0\\) is false.\n\n\n\n\n\n\n\n\\(H_0\\) True\n\\(H_0\\) False\n\n\n\n\nReject \\(H_0\\)\nType I (\\(\\alpha\\))\nCorrect (power)\n\n\nFail to reject \\(H_0\\)\nCorrect\nType II (\\(\\beta\\))\n\n\n\n\nA Type I error is usually treated as the more serious mistake, which is why we fix \\(\\alpha\\) in advance (often \\(0.05\\))."
+    "section": "7.2 Type I and Type II Errors",
+    "text": "7.2 Type I and Type II Errors\n\n\n\nA hypothesis test can reach the wrong conclusion in two ways.\n\n\nType I error (\\(\\alpha\\)) Reject \\(H_0\\) when \\(H_0\\) is true.\n\n\nType II error (\\(\\beta\\)) Fail to reject \\(H_0\\) when \\(H_0\\) is false.\n\n\n\n\n\n\n\n\\(H_0\\) True\n\\(H_0\\) False\n\n\n\n\nReject \\(H_0\\)\nType I (\\(\\alpha\\))\nCorrect (power)\n\n\nFail to reject \\(H_0\\)\nCorrect\nType II (\\(\\beta\\))\n\n\n\n\nA Type I error is usually treated as the more serious mistake, which is why we fix \\(\\alpha\\) in advance (often \\(0.05\\))."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#power-connects-to-the-errors",
@@ -4499,5 +4499,12 @@
     "title": "STA258",
     "section": "Example: Scoring Consistency",
     "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#using-power-to-determine-sample-size",
+    "href": "Chapter Slides/chapter7-slides.html#using-power-to-determine-sample-size",
+    "title": "STA258",
+    "section": "7.3 Using Power to Determine Sample Size",
+    "text": "7.3 Using Power to Determine Sample Size\n\n\nToo small Low power - real, meaningful effects slip through undetected. The study is wasted.\n\n\nToo large Wasteful - extra time, cost, and participants for precision you did not need.\n\n\n\nPower analysis finds the minimum \\(n\\) that detects an effect of a given size with a specified probability (power), while holding the Type I rate at \\(\\alpha\\).\n\n\nTo run it you must supply three ingredients: the standard deviation \\(\\sigma\\), the significance level \\(\\alpha\\), and the effect size \\(\\mu_0-\\mu_a\\) you want to detect."
   }
 ]

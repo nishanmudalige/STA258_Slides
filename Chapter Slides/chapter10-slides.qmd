@@ -206,6 +206,38 @@ plotly_slide_layout <- function(
   margin-bottom: 5px;
 }
 
+/* ---- Compact "Example" 2x2 grid slides so nothing is cut off ----
+   The calculation cards stack many $$display$$ equations whose default
+   MathJax margins (~1em each) push the bottom row off the slide. Tighten
+   that spacing, the inter-line paragraphs, gaps, padding, and table rows
+   so the full grid fits within one screen. */
+.reveal section .example-grid {
+  gap: 6px 16px !important;
+  align-content: start;
+}
+.reveal section .example-grid .taskbox,
+.reveal section .example-grid .stat-card,
+.reveal section .example-grid .notebox,
+.reveal section .example-grid .examplebox {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+.reveal section .example-grid mjx-container[display="true"],
+.reveal section .example-grid .MathJax_Display {
+  margin: 0.16em 0 !important;
+}
+.reveal section .example-grid p {
+  margin-top: 0.22em !important;
+  margin-bottom: 0.22em !important;
+}
+.reveal section .example-grid .label {
+  margin-bottom: 2px !important;
+}
+.reveal section .example-grid th,
+.reveal section .example-grid td {
+  padding: 2px 7px !important;
+}
+
 .big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
 .center     { text-align: center; }
 .small-text { font-size: 0.64em; }
@@ -1333,12 +1365,12 @@ tt$expected
 ## Chapter Summary
 
 :::: {.three-col}
-::: {.card}
+::: {.card .fragment}
 <span class="label">1. Model the counts</span>
 Use a multinomial model when each trial falls into exactly one of $k$ categories.
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">2. Build expected counts</span>
 Under the null model:
 
@@ -1349,7 +1381,7 @@ $$
 These are the counts we would expect if $H_0$ were true.
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">3. Compare with $\chi^2$</span>
 Use:
 
@@ -1364,7 +1396,7 @@ Large values give evidence against $H_0$.
 <br>
 
 :::: {.three-col}
-::: {.stat-card}
+::: {.stat-card .fragment}
 <span class="label">Degrees of freedom</span>
 
 $$
@@ -1372,12 +1404,12 @@ df=k-1
 $$
 :::
 
-::: {.stat-card}
+::: {.stat-card .fragment}
 <span class="label">P-value</span>
 Use the right-tail area under the chi-square distribution.
 :::
 
-::: {.stat-card}
+::: {.stat-card .fragment}
 <span class="label">Assumption check</span>
 Each expected count should usually be at least 5.
 :::
@@ -1388,23 +1420,23 @@ Each expected count should usually be at least 5.
 ## End of Chapter 10
 
 :::: {.three-col}
-::: {.card}
+::: {.card .fragment}
 <span class="label">You can now...</span>
 Recognize categorical count data and connect it to a multinomial model.
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">You can now...</span>
 Compute expected counts and a chi-square goodness-of-fit statistic.
 :::
 
-::: {.card}
+::: {.card .fragment}
 <span class="label">You can now...</span>
 Use `chisq.test()` to check the statistic, degrees of freedom, P-value, and expected counts.
 :::
 ::::
 
-::: {.thinkbox style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;"}
+::: {.thinkbox .fragment style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;"}
 <span class="label">Final takeaway</span>
 
 Goodness-of-fit tests ask whether the observed category counts are close enough to what the null model predicted, allowing for natural sampling variation.

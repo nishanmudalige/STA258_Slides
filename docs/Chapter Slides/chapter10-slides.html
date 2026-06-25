@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+  <meta name="generator" content="quarto-1.9.37">
 
   <title>STA258 – Chapter 10: Analysis of Categorical Data - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -30,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -231,6 +234,38 @@
   color: var(--sta-teal-dark);
   font-weight: 700;
   margin-bottom: 5px;
+}
+
+/* ---- Compact "Example" 2x2 grid slides so nothing is cut off ----
+   The calculation cards stack many $$display$$ equations whose default
+   MathJax margins (~1em each) push the bottom row off the slide. Tighten
+   that spacing, the inter-line paragraphs, gaps, padding, and table rows
+   so the full grid fits within one screen. */
+.reveal section .example-grid {
+  gap: 6px 16px !important;
+  align-content: start;
+}
+.reveal section .example-grid .taskbox,
+.reveal section .example-grid .stat-card,
+.reveal section .example-grid .notebox,
+.reveal section .example-grid .examplebox {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+.reveal section .example-grid mjx-container[display="true"],
+.reveal section .example-grid .MathJax_Display {
+  margin: 0.16em 0 !important;
+}
+.reveal section .example-grid p {
+  margin-top: 0.22em !important;
+  margin-bottom: 0.22em !important;
+}
+.reveal section .example-grid .label {
+  margin-bottom: 2px !important;
+}
+.reveal section .example-grid th,
+.reveal section .example-grid td {
+  padding: 2px 7px !important;
 }
 
 .big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
@@ -1186,17 +1221,17 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <section id="chapter-summary" class="slide level2">
 <h2>Chapter Summary</h2>
 <div class="three-col">
-<div class="card">
+<div class="card fragment">
 <p><span class="label">1. Model the counts</span> Use a multinomial model when each trial falls into exactly one of <span class="math inline">\(k\)</span> categories.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">2. Build expected counts</span> Under the null model:</p>
 <p><span class="math display">\[
 E_i=np_i
 \]</span></p>
 <p>These are the counts we would expect if <span class="math inline">\(H_0\)</span> were true.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">3. Compare with <span class="math inline">\(\chi^2\)</span></span> Use:</p>
 <p><span class="math display">\[
 \chi^2=\sum\frac{(O_i-E_i)^2}{E_i}
@@ -1206,16 +1241,16 @@ E_i=np_i
 </div>
 <p><br></p>
 <div class="three-col">
-<div class="stat-card">
+<div class="stat-card fragment">
 <p><span class="label">Degrees of freedom</span></p>
 <p><span class="math display">\[
 df=k-1
 \]</span></p>
 </div>
-<div class="stat-card">
+<div class="stat-card fragment">
 <p><span class="label">P-value</span> Use the right-tail area under the chi-square distribution.</p>
 </div>
-<div class="stat-card">
+<div class="stat-card fragment">
 <p><span class="label">Assumption check</span> Each expected count should usually be at least 5.</p>
 </div>
 </div>
@@ -1223,17 +1258,17 @@ df=k-1
 <section id="end-of-chapter-10" class="slide level2">
 <h2>End of Chapter 10</h2>
 <div class="three-col">
-<div class="card">
+<div class="card fragment">
 <p><span class="label">You can now…</span> Recognize categorical count data and connect it to a multinomial model.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">You can now…</span> Compute expected counts and a chi-square goodness-of-fit statistic.</p>
 </div>
-<div class="card">
+<div class="card fragment">
 <p><span class="label">You can now…</span> Use <code>chisq.test()</code> to check the statistic, degrees of freedom, P-value, and expected counts.</p>
 </div>
 </div>
-<div class="thinkbox" style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;">
+<div class="thinkbox fragment" style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;">
 <p><span class="label">Final takeaway</span></p>
 <p>Goodness-of-fit tests ask whether the observed category counts are close enough to what the null model predicted, allowing for natural sampling variation.</p>
 </div>

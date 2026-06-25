@@ -471,6 +471,15 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
   line-height: 1.08 !important;
 }
 
+/* Keep the line-number gutter in sync with the code lines so the
+   numbers line up one-per-row instead of bunching together. */
+.reveal section.compact-r .cm-gutters,
+.reveal section.compact-r .cm-lineNumbers,
+.reveal section.compact-r .cm-gutterElement {
+  font-size: 0.82em !important;
+  line-height: 1.08 !important;
+}
+
 .reveal section.compact-r .cell-output,
 .reveal section.compact-r .cell-output-stdout,
 .reveal section.compact-r .cell-output pre {
@@ -2377,24 +2386,11 @@ minutes** of expected pickup wait time.
   font-size: 0.92em;
 }
 
-.compact-r pre,
-.compact-r code {
-  font-size: 0.72em !important;
-  line-height: 1.05 !important;
-}
-
 .compact-r .cell,
 .compact-r .webr-cell,
 .compact-r .qwebr-cell {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-}
-
-.compact-r .cm-editor,
-.compact-r .cm-content,
-.compact-r .cm-line {
-  font-size: 10.5px !important;
-  line-height: 1.05 !important;
 }
 
 .compact-r .qwebr-editor,
@@ -2714,54 +2710,6 @@ this fictional dataset.
 ------------------------------------------------------------------------
 
 ## Check in R: ANOVA Table {.compact-r}
-
-<style>
-.compact-r h2 {
-  font-size: 1.42em;
-  margin-bottom: 0.18em;
-}
-
-.compact-r .two-col-wide {
-  gap: 14px !important;
-  align-items: start;
-}
-
-.compact-r .notebox {
-  font-size: 0.54em !important;
-  line-height: 1.05 !important;
-  padding: 6px 10px !important;
-  margin-bottom: 5px !important;
-}
-
-.compact-r .label {
-  font-size: 0.92em;
-}
-
-.compact-r pre,
-.compact-r code {
-  font-size: 0.72em !important;
-  line-height: 1.05 !important;
-}
-
-.compact-r .cell,
-.compact-r .webr-cell,
-.compact-r .qwebr-cell {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.compact-r .cm-editor,
-.compact-r .cm-content,
-.compact-r .cm-line {
-  font-size: 10.5px !important;
-  line-height: 1.05 !important;
-}
-
-.compact-r .qwebr-editor,
-.compact-r .webr-editor {
-  max-height: 355px !important;
-}
-</style>
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 14px; align-items: start;"}
 

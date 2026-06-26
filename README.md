@@ -3,6 +3,12 @@ Slides for STA258
 
 # Things to do
 
+## For July 2
+
+- Fix Chapters 6 and 9 based on feedback
+- Work on Chapters 7 and 8 (Priority)
+- Make examples more timeless and relatable
+  
 ## For June 25 
 
 - Update all examples in CH5 to make it more interesting (or classical)

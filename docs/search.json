@@ -3357,7 +3357,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-least-squares-equations",
     "title": "STA258",
     "section": "Check in R: Least-Squares Equations",
-    "text": "Check in R: Least-Squares Equations\n\n\n\nRonaldo vs Messi example\n\n\n\n\n\n\n\n\n\n\n\n\nArgentina vs France example"
+    "text": "Check in R: Least-Squares Equations\n\n\n\nPractice problems example\n\n\n\n\n\n\n\n\n\n\n\n\nStudy hours example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-least-squares-lines",
@@ -3700,7 +3700,7 @@
     "href": "Chapter Slides/chapter9-slides.html#example-starbucks-mobile-order-queue",
     "title": "STA258",
     "section": "Example: Starbucks Mobile-Order Queue",
-    "text": "Example: Starbucks Mobile-Order Queue\n\n\nA Starbucks location studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n\\[\ns^2=\n\\frac{1.328}{8-2}\n=\n0.221\n\\]\n\\[\ns=\\sqrt{0.221}=0.470\n\\]\n\\[\nSE(\\hat{\\beta}_1)=\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\n\\]\n\\[\nt=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\]\n\\[\n95\\%\\ CI:\n\\quad\n1.038\\pm2.447(0.043)\n=\n(0.932,\\;1.144)\n\\]\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
+    "text": "Example: Starbucks Mobile-Order Queue\n\n\nA Starbucks location studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n$$ \\[\\begin{align}\ns^2 &=\n\\frac{1.328}{8-2}\n=\n0.221\\\\\n\ns &=\\sqrt{0.221}=0.470\nSE(\\hat{\\beta}_1) =\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\\\\\n\nt &=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\end{align}\\]\n95% CI: (0.043) = (0.932,;1.144) $$\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
@@ -4835,5 +4835,19 @@
     "title": "STA258",
     "section": "",
     "text": "Question\n\n\nA one-way ANOVA with \\(k=4\\) groups has a significant p-value. How many pairwise mean comparisons are possible?\n\n\n\n\n3\n6\n8\n16"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-practice-problems-and-quiz-score",
+    "href": "Chapter Slides/chapter9-slides.html#example-practice-problems-and-quiz-score",
+    "title": "STA258",
+    "section": "Example: Practice Problems and Quiz Score",
+    "text": "Example: Practice Problems and Quiz Score\n\n\nA class collects fictional data on how many practice problem sets students completed before a quiz.\n\n\n\nPractice sets completed \\((x)\\)\nQuiz score \\((y)\\)\n\n\n\n\n2\n41\n\n\n3\n47\n\n\n4\n50\n\n\n5\n56\n\n\n6\n61\n\n\n7\n65\n\n\n8\n70\n\n\n9\n75\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=5.500,\n\\qquad\n\\bar{y}=58.125\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=201.500\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{S_{xy}}{S_{xx}}\n=\n\\frac{201.500}{42.000}\n=\n4.798\n\\]\n\\[\n\\hat{\\beta}_0=\n58.125-4.798(5.500)\n=\n31.738\n\\]\n\\[\n\\hat{y}=31.738+4.798x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{quiz score}\n\\]\nusing:\n\\[\nx=\\text{practice sets completed}\n\\]\n\n\nFor each additional practice set completed, the predicted quiz score increases by about 4.80 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-study-hours-and-assignment-score",
+    "href": "Chapter Slides/chapter9-slides.html#example-study-hours-and-assignment-score",
+    "title": "STA258",
+    "section": "Example: Study Hours and Assignment Score",
+    "text": "Example: Study Hours and Assignment Score\n\n\nA student support team collects fictional data on how many hours students spent studying for an assignment.\n\n\n\nStudy hours \\((x)\\)\nAssignment score \\((y)\\)\n\n\n\n\n3\n52\n\n\n4\n57\n\n\n5\n61\n\n\n6\n63\n\n\n7\n70\n\n\n8\n73\n\n\n9\n78\n\n\n10\n82\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=6.500,\n\\qquad\n\\bar{y}=67.000\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=179.000\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{179.000}{42.000}\n=\n4.262\n\\]\n\\[\n\\hat{\\beta}_0=\n67.000-4.262(6.500)\n=\n39.298\n\\]\n\\[\n\\hat{y}=39.298+4.262x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{assignment score}\n\\]\nusing:\n\\[\nx=\\text{study hours}\n\\]\n\n\nFor each additional hour studied, the predicted assignment score increases by about 4.26 points."
   }
 ]

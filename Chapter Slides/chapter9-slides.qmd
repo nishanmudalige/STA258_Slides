@@ -866,15 +866,15 @@ the predictor and response.
 
 ------------------------------------------------------------------------
 
-## Example: Ronaldo vs Messi GOAT Debate Clips
+## Example: Practice Problems and Quiz Score
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-A sports media page studies fictional engagement with Ronaldo vs Messi
-GOAT debate clips.
+A class collects fictional data on how many practice problem sets students
+completed before a quiz.
 
-| Clips watched $(x)$ | Engagement score $(y)$ |
+| Practice sets completed $(x)$ | Quiz score $(y)$ |
 |---:|---:|
 | 2 | 41 |
 | 3 | 47 |
@@ -932,18 +932,18 @@ $$
 We model:
 
 $$
-y=\text{engagement score}
+y=\text{quiz score}
 $$
 
 using:
 
 $$
-x=\text{debate clips watched}
+x=\text{practice sets completed}
 $$
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-For each additional debate clip watched, the predicted engagement score
+For each additional practice set completed, the predicted quiz score
 increases by about **4.80 points**.
 :::
 
@@ -951,15 +951,15 @@ increases by about **4.80 points**.
 
 ------------------------------------------------------------------------
 
-## Example: Argentina vs France World Cup
+## Example: Study Hours and Assignment Score
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A football media account studies fictional replay interest after viewers
-watch Argentina vs France World Cup Final highlight packages.
+A student support team collects fictional data on how many hours students
+spent studying for an assignment.
 
-| Highlight minutes $(x)$ | Replay interest $(y)$ |
+| Study hours $(x)$ | Assignment score $(y)$ |
 |---:|---:|
 | 3 | 52 |
 | 4 | 57 |
@@ -1015,19 +1015,19 @@ $$
 We model:
 
 $$
-y=\text{replay interest score}
+y=\text{assignment score}
 $$
 
 using:
 
 $$
-x=\text{highlight minutes watched}
+x=\text{study hours}
 $$
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-For each additional minute of highlights watched, the predicted replay
-interest score increases by about **4.26 points**.
+For each additional hour studied, the predicted assignment score increases
+by about **4.26 points**.
 :::
 
 ::::
@@ -1040,7 +1040,7 @@ interest score increases by about **4.26 points**.
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Ronaldo vs Messi example</span>
+<span class="label">Practice problems example</span>
 :::
 
 ```{webr}
@@ -1069,7 +1069,7 @@ print(out, row.names = FALSE)
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Argentina vs France example</span>
+<span class="label">Study hours example</span>
 :::
 
 ```{webr}
@@ -2337,33 +2337,27 @@ n=8
 $$
 
 $$
-s^2=
+\begin{align}
+s^2 &=
 \frac{1.328}{8-2}
 =
-0.221
-$$
+0.221\\
 
-$$
-s=\sqrt{0.221}=0.470
-$$
-
-$$
-SE(\hat{\beta}_1)=
+s &=\sqrt{0.221}=0.470
+SE(\hat{\beta}_1) =
 \frac{0.470}{\sqrt{117.500}}
 =
-0.043
-$$
+0.043\\
 
-$$
-t=
+t &=
 \frac{1.038}{0.043}
 =
 23.926,
 \qquad
 df=6
-$$
+\end{align}
 
-$$
+
 95\%\ CI:
 \quad
 1.038\pm2.447(0.043)

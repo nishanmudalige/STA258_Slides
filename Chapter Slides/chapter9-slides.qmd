@@ -647,17 +647,15 @@ Use residual logic to judge whether regression assumptions are reasonable.
 A **linear model** has the form:
 
 $$
-y_i =
-\beta_0+\beta_1z_{i1}+\beta_2z_{i2}+\cdots+\beta_pz_{ip}
-+\varepsilon_i,
+y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\cdots+\beta_p x_{ip}+\varepsilon_i,
 \qquad
-\varepsilon_i\sim N(0,\sigma^2).
+\varepsilon_i \sim N(0,\sigma^2).
 $$
 
 Here:
 
 - $y_i$ is the **response** variable.
-- $z_{i1},\ldots,z_{ip}$ are the **predictors**.
+- $x_{i1},\ldots,x_{ip}$ are the **predictors**.
 - $\varepsilon_i$ is random error.
 :::
 

@@ -3245,7 +3245,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-covariance-and-correlation",
     "title": "STA258",
     "section": "Check in R: Covariance and Correlation",
-    "text": "Check in R: Covariance and Correlation\n\n\n\nCaitlin Clark highlight example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
+    "text": "Check in R: Covariance and Correlation\n\n\n\nSunlight and plant growth example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-unexplained-variation",
@@ -3581,7 +3581,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-anova-table",
     "title": "STA258",
     "section": "Check in R: ANOVA Table",
-    "text": "Check in R: ANOVA Table\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nRap beef reaction example"
+    "text": "Check in R: ANOVA Table\n\n\n\nEvent flyers example\n\n\n\n\n\n\n\n\n\n\n\n\nCharging time example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
@@ -3707,7 +3707,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
     "title": "STA258",
     "section": "Check in R: Slope Test and Confidence Interval",
-    "text": "Check in R: Slope Test and Confidence Interval\n\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nStarbucks queue example"
+    "text": "Check in R: Slope Test and Confidence Interval\n\n\n\n\nEvent flyers example\n\n\n\n\n\n\n\n\n\n\n\n\nCoffee shop queue example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-ishowspeed-teaser-clips",
@@ -4849,5 +4849,40 @@
     "title": "STA258",
     "section": "Example: Study Hours and Assignment Score",
     "text": "Example: Study Hours and Assignment Score\n\n\nA student support team collects fictional data on how many hours students spent studying for an assignment.\n\n\n\nStudy hours \\((x)\\)\nAssignment score \\((y)\\)\n\n\n\n\n3\n52\n\n\n4\n57\n\n\n5\n61\n\n\n6\n63\n\n\n7\n70\n\n\n8\n73\n\n\n9\n78\n\n\n10\n82\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=6.500,\n\\qquad\n\\bar{y}=67.000\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=179.000\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{179.000}{42.000}\n=\n4.262\n\\]\n\\[\n\\hat{\\beta}_0=\n67.000-4.262(6.500)\n=\n39.298\n\\]\n\\[\n\\hat{y}=39.298+4.262x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{assignment score}\n\\]\nusing:\n\\[\nx=\\text{study hours}\n\\]\n\n\nFor each additional hour studied, the predicted assignment score increases by about 4.26 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth",
+    "href": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth",
+    "title": "STA258",
+    "section": "Example: Sunlight and Plant Growth",
+    "text": "Example: Sunlight and Plant Growth\n\n\nA greenhouse records fictional data on how much sunlight different plants receive and how tall they are after several weeks.\n\n\n\nSunlight hours per day \\((x)\\)\nPlant height in cm \\((y)\\)\n\n\n\n\n1\n18\n\n\n2\n21\n\n\n4\n34\n\n\n6\n43\n\n\n7\n48\n\n\n\nCompute and interpret the sample correlation.\n\n\nCalculation\n\\[\n\\bar{x}=4.000,\n\\qquad\n\\bar{y}=32.800\n\\]\n\\[\ns_x=2.550,\n\\qquad\ns_y=13.180\n\\]\n\\[\ns_{xy}\n=\n\\frac{1}{5-1}\n\\sum(x_i-\\bar{x})(y_i-\\bar{y})\n=\n33.500\n\\]\n\\[\nr=\n\\frac{s_{xy}}{s_xs_y}\n=\n\\frac{33.500}{(2.550)(13.180)}\n=\n0.997\n\\]\n\\[\nr^2=0.994\n\\]\n\n\nTarget relationship\nWe compare sunlight hours per day and plant height.\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\nThe correlation is 0.997, so the relationship is strongly positive: plants that received more sunlight tended to be taller."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-event-flyers-and-sign-ups",
+    "href": "Chapter Slides/chapter9-slides.html#example-event-flyers-and-sign-ups",
+    "title": "STA258",
+    "section": "Example: Event Flyers and Sign-Ups",
+    "text": "Example: Event Flyers and Sign-Ups\n\n\nA student club studies fictional data from a community event promotion.\nFor each day:\n\n\\(x=\\) flyers posted around campus\n\\(y=\\) new sign-ups in tens\n\nData:\n\\[\nx: 1,\\;2,\\;3,\\;4,\\;5\n\\]\n\\[\ny: 1,\\;1,\\;2,\\;2,\\;4\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nFrom least squares:\n\\[\n\\hat{y}=-0.100+0.700x\n\\]\n\\[\nSSE=1.100,\n\\qquad\nS_{xx}=10.000,\n\\qquad\nn=5\n\\]\n\\[\ns^2=\n\\frac{SSE}{n-2}\n=\n\\frac{1.100}{3}\n=\n0.3667\n\\]\n\\[\ns=\\sqrt{0.3667}=0.6055\n\\]\n\\[\nSE(\\hat{\\beta}_1)=\n\\frac{0.6055}{\\sqrt{10}}\n=\n0.1915\n\\]\n\\[\nt=\n\\frac{0.700}{0.1915}\n=\n3.656,\n\\qquad\ndf=3\n\\]\n\\[\n95\\%\\ CI:\n\\quad\n0.700\\pm3.182(0.1915)\n=\n(0.091,\\;1.309)\n\\]\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_3\\).\n\n\nSince the p-value is about 0.035, we reject \\(H_0\\) at the 5% level. There is evidence of a positive linear relationship between flyers posted and new sign-ups."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-coffee-shop-mobile-order-queue",
+    "href": "Chapter Slides/chapter9-slides.html#example-coffee-shop-mobile-order-queue",
+    "title": "STA258",
+    "section": "Example: Coffee Shop Mobile-Order Queue",
+    "text": "Example: Coffee Shop Mobile-Order Queue\n\n\nA coffee shop studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n$$ \\[\\begin{align}\ns^2 &=\n\\frac{1.328}{8-2}\n=\n0.221\\\\\n\ns &=\\sqrt{0.221}=0.470\nSE(\\hat{\\beta}_1) =\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\\\\\n\nt &=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\end{align}\\]\n95% CI: (0.043) = (0.932,;1.144) $$\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-event-flyers-and-sign-ups",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-event-flyers-and-sign-ups",
+    "title": "STA258",
+    "section": "Example: ANOVA for Event Flyers and Sign-Ups",
+    "text": "Example: ANOVA for Event Flyers and Sign-Ups\n\n\nReturn to the event flyers and sign-ups example.\nThe fitted line is:\n\\[\n\\hat{y}=-0.100+0.700x.\n\\]\nThe variation quantities are:\n\\[\nSST=6.000,\n\\qquad\nSSR=4.900,\n\\qquad\nSSE=1.100.\n\\]\nQuestion. Construct the ANOVA table and test whether the regression model explains a meaningful amount of variation in new sign-ups.\n\n\nANOVA calculations\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n4.900\n1\n4.900\n13.364\n\n\nError\n1.100\n3\n0.367\n\n\n\nTotal\n6.000\n4\n\n\n\n\n\n\\[\nMSR=\\frac{SSR}{1}=4.900\n\\]\n\\[\nMSE=\\frac{SSE}{n-2}\n=\n\\frac{1.100}{3}\n=\n0.3667\n\\]\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{4.900}{0.3667}\n=\n13.364\n\\]\nSince (p=0.0354&lt;0.05), reject (H_0:_1=0).\n\n\nTarget question\nDoes the number of flyers posted explain a statistically meaningful amount of variation in new sign-ups?\n\n\nThe ANOVA test gives evidence that flyers posted are linearly related to new sign-ups in this fictional example."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-charging-time-and-battery-level",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-charging-time-and-battery-level",
+    "title": "STA258",
+    "section": "Example: ANOVA for Charging Time and Battery Level",
+    "text": "Example: ANOVA for Charging Time and Battery Level\n\n\nA device lab studies fictional data on battery charging.\nFor each device:\n\n\\(x=\\) charging time in hours\n\\(y=\\) battery level increase in percentage points\n\nThe fitted line is:\n\\[\n\\hat{y}=12.400+5.886x.\n\\]\nThe variation quantities are:\n\\[\nSST=610.000,\n\\qquad\nSSR=606.229,\n\\qquad\nSSE=3.771.\n\\]\nQuestion. Construct the ANOVA table and test whether charging time explains a meaningful amount of variation in battery level increase.\n\n\nCalculation\nThere are \\(n=6\\) devices, so:\n\\[\ndf_{\\text{Reg}}=1,\n\\qquad\ndf_{\\text{Error}}=6-2=4,\n\\qquad\ndf_{\\text{Total}}=5.\n\\]\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n606.229\n1\n606.229\n642.970\n\n\nError\n3.771\n4\n0.943\n\n\n\nTotal\n610.000\n5\n\n\n\n\n\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{606.229}{0.943}\n=\n642.970\n\\]\nThe p-value is less than 0.001.\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe ANOVA \\(F\\)-test checks whether the regression model explains meaningful variation compared with the leftover residual variation.\n\n\nSince the p-value is very small, we reject \\(H_0\\). There is strong evidence that charging time is linearly related to battery level increase in this fictional dataset."
   }
 ]

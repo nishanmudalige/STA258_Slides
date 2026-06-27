@@ -743,6 +743,177 @@ The model overpredicted the response.
 
 ------------------------------------------------------------------------
 
+## Visual: What Residuals Look Like
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+# Clean teaching example for residuals
+resid_demo <- data.frame(
+  x = c(1.0, 2.0, 3.5, 5.0, 6.5, 8.0),
+  y = c(35.0, 55.0, 46.0, 64.0, 72.5, 66.0)
+)
+
+resid_fit <- lm(y ~ x, data = resid_demo)
+
+resid_demo$fitted   <- fitted(resid_fit)
+resid_demo$residual <- resid(resid_fit)
+resid_demo$sign     <- ifelse(resid_demo$residual >= 0, "Positive residual", "Negative residual")
+
+pos_df <- subset(resid_demo, residual >= 0)
+neg_df <- subset(resid_demo, residual < 0)
+
+line_df <- data.frame(
+  x = seq(0.5, 8.5, length.out = 300)
+)
+line_df$y <- predict(resid_fit, newdata = line_df)
+
+resid_annotations <- list(
+  list(
+    x = 2.0, y = 55.0,
+    xref = "x", yref = "y",
+    text = "positive residual<br><span style='font-size:12px;'>point above line</span>",
+    showarrow = TRUE,
+    arrowhead = 2,
+    arrowsize = 1,
+    arrowwidth = 1.6,
+    arrowcolor = plot_cols$green,
+    ax = 95,
+    ay = -55,
+    bgcolor = "rgba(255,255,255,0.96)",
+    bordercolor = plot_cols$border,
+    borderwidth = 1,
+    borderpad = 5,
+    font = list(size = 14, color = plot_cols$text)
+  ),
+  list(
+    x = 3.5, y = 46.0,
+    xref = "x", yref = "y",
+    text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
+    showarrow = TRUE,
+    arrowhead = 2,
+    arrowsize = 1,
+    arrowwidth = 1.6,
+    arrowcolor = plot_cols$red,
+    ax = 95,
+    ay = 55,
+    bgcolor = "rgba(255,255,255,0.96)",
+    bordercolor = plot_cols$border,
+    borderwidth = 1,
+    borderpad = 5,
+    font = list(size = 14, color = plot_cols$text)
+  )
+)
+
+plot_ly() |>
+  add_lines(
+    data = line_df,
+    x = ~x,
+    y = ~y,
+    name = "Line of best fit",
+    hoverinfo = "skip",
+    line = list(
+      color = plot_cols$secondary,
+      width = 4.5
+    )
+  ) |>
+  add_segments(
+    data = pos_df,
+    x = ~x,
+    xend = ~x,
+    y = ~fitted,
+    yend = ~y,
+    name = "Positive residual",
+    showlegend = TRUE,
+    hovertemplate = paste(
+      "<b>Positive residual</b><br>",
+      "x: %{x:.1f}<br>",
+      "Observed y: %{yend:.1f}<br>",
+      "Fitted y: %{y:.1f}<br>",
+      "Residual: %{customdata:.2f}",
+      "<extra></extra>"
+    ),
+    customdata = ~residual,
+    line = list(
+      color = plot_cols$green,
+      width = 4
+    )
+  ) |>
+  add_segments(
+    data = neg_df,
+    x = ~x,
+    xend = ~x,
+    y = ~fitted,
+    yend = ~y,
+    name = "Negative residual",
+    showlegend = TRUE,
+    hovertemplate = paste(
+      "<b>Negative residual</b><br>",
+      "x: %{x:.1f}<br>",
+      "Observed y: %{yend:.1f}<br>",
+      "Fitted y: %{y:.1f}<br>",
+      "Residual: %{customdata:.2f}",
+      "<extra></extra>"
+    ),
+    customdata = ~residual,
+    line = list(
+      color = plot_cols$red,
+      width = 4
+    )
+  ) |>
+  add_markers(
+    data = resid_demo,
+    x = ~x,
+    y = ~y,
+    name = "Observed value",
+    hovertemplate = paste(
+      "<b>Observed value</b><br>",
+      "x: %{x:.1f}<br>",
+      "y: %{y:.1f}",
+      "<extra></extra>"
+    ),
+    marker = list(
+      color = "#111827",
+      size = 14,
+      line = list(color = "white", width = 1.5)
+    )
+  ) |>
+  add_markers(
+    data = resid_demo,
+    x = ~x,
+    y = ~fitted,
+    name = "Fitted value",
+    hovertemplate = paste(
+      "<b>Fitted value</b><br>",
+      "x: %{x:.1f}<br>",
+      "y-hat: %{y:.1f}",
+      "<extra></extra>"
+    ),
+    marker = list(
+      color = "white",
+      size = 13,
+      line = list(color = plot_cols$main_dark, width = 2.5)
+    )
+  ) |>
+  plotly_slide_layout(
+    title = "Residuals are vertical distances from the fitted line",
+    x_title = "Predictor, x",
+    y_title = "Response, y",
+    height = 500,
+    x_range = c(0.4, 8.7),
+    y_range = c(34, 82),
+    showlegend = TRUE,
+    legend_y = -0.15,
+    margin = list(l = 78, r = 32, t = 64, b = 76),
+    annotations = resid_annotations
+  )
+```
+
+------------------------------------------------------------------------
+
 ## Sum of Squared Errors
 
 ::: {.defbox .fragment}

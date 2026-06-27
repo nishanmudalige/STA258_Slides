@@ -1190,15 +1190,15 @@ linear relationship between two variables.
 
 ------------------------------------------------------------------------
 
-## Example: Caitlin Clark Highlight Clips and Shares
+## Example: Sunlight and Plant Growth
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A sports social-media team studies fictional viewer groups watching
-Caitlin Clark (WNBA Star) highlight clips.
+A greenhouse records fictional data on how much sunlight different plants
+receive and how tall they are after several weeks.
 
-| Highlight clips watched $(x)$ | Group-chat shares $(y)$ |
+| Sunlight hours per day $(x)$ | Plant height in cm $(y)$ |
 |---:|---:|
 | 1 | 18 |
 | 2 | 21 |
@@ -1250,14 +1250,14 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target relationship</span>
 
-We compare highlight clips watched and group-chat shares.
+We compare sunlight hours per day and plant height.
 
 The sign of $r$ tells us direction. The size of $r$ tells us strength.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 The correlation is **0.997**, so the relationship is strongly positive:
-groups that watch more highlight clips tend to share more clips.
+plants that received more sunlight tended to be taller.
 :::
 
 ::::
@@ -1346,7 +1346,7 @@ scores.
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Caitlin Clark highlight example</span>
+<span class="label">Sunlight and plant growth example</span>
 :::
 
 ```{webr}
@@ -2200,17 +2200,17 @@ $y$.
 
 ------------------------------------------------------------------------
 
-## Example: IShowSpeed Charity Stream Teasers
+## Example: Event Flyers and Sign-Ups
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A streaming team studies a fictional IShowSpeed charity stream campaign.
+A student club studies fictional data from a community event promotion.
 
 For each day:
 
-- $x=$ teaser clips posted
-- $y=$ live viewers in ten-thousands
+- $x=$ flyers posted around campus
+- $y=$ new sign-ups in tens
 
 Data:
 
@@ -2294,20 +2294,20 @@ The reference distribution is $t_3$.
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
 Since the p-value is about **0.035**, we reject $H_0$ at the 5% level.
-There is evidence of a positive linear relationship between teaser clips
-posted and live viewers.
+There is evidence of a positive linear relationship between flyers posted
+and new sign-ups.
 :::
 
 ::::
 
 ------------------------------------------------------------------------
 
-## Example: Starbucks Mobile-Order Queue
+## Example: Coffee Shop Mobile-Order Queue
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A Starbucks location studies a fictional mobile-order queue.
+A coffee shop studies a fictional mobile-order queue.
 
 For each time window:
 
@@ -2429,7 +2429,7 @@ minutes** of expected pickup wait time.
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">IShowSpeed teaser example</span>
+<span class="label">Event flyers example</span>
 :::
 
 ```{webr}
@@ -2455,7 +2455,7 @@ round(data.frame(
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">Starbucks queue example</span>
+<span class="label">Coffee shop queue example</span>
 :::
 
 ```{webr}
@@ -2572,12 +2572,12 @@ For simple linear regression, this tests whether the slope is zero.
 
 ------------------------------------------------------------------------
 
-## Example: ANOVA for IShowSpeed Teaser Clips
+## Example: ANOVA for Event Flyers and Sign-Ups
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-Return to the IShowSpeed charity stream teaser example.
+Return to the event flyers and sign-ups example.
 
 The fitted line is:
 
@@ -2596,7 +2596,7 @@ SSE=1.100.
 $$
 
 **Question.** Construct the ANOVA table and test whether the regression
-model explains a meaningful amount of variation in live viewers.
+model explains a meaningful amount of variation in new sign-ups.
 :::
 
 ::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.67em; line-height: 1.06; padding: 11px 15px; margin-bottom: 0;"}
@@ -2635,31 +2635,30 @@ Since \(p=0.0354<0.05\), reject \(H_0:\beta_1=0\).
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target question</span>
 
-Does the number of teaser clips explain a statistically meaningful amount
-of variation in live viewers?
+Does the number of flyers posted explain a statistically meaningful amount
+of variation in new sign-ups?
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The ANOVA test gives evidence that teaser clips posted are linearly
-related to live viewers in this fictional example.
+The ANOVA test gives evidence that flyers posted are linearly related to
+new sign-ups in this fictional example.
 :::
 
 ::::
 
 ---
 
-## Example: ANOVA for Viral Rap Beef Reaction Clips
+## Example: ANOVA for Charging Time and Battery Level
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-A music analytics account studies fictional daily data during a viral
-Kendrick vs Drake reaction week.
+A device lab studies fictional data on battery charging.
 
-For each day:
+For each device:
 
-- $x=$ reaction clips posted
-- $y=$ stream increase in thousands
+- $x=$ charging time in hours
+- $y=$ battery level increase in percentage points
 
 The fitted line is:
 
@@ -2677,14 +2676,14 @@ SSR=606.229,
 SSE=3.771.
 $$
 
-**Question.** Construct the ANOVA table and test whether reaction clips
-explain a meaningful amount of variation in stream increases.
+**Question.** Construct the ANOVA table and test whether charging time
+explains a meaningful amount of variation in battery level increase.
 :::
 
 ::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
-There are $n=6$ days, so:
+There are $n=6$ devices, so:
 
 $$
 df_{\text{Reg}}=1,
@@ -2726,9 +2725,9 @@ variation compared with the leftover residual variation.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-Since the p-value is very small, we reject $H_0$. There is strong
-evidence that reaction clips are linearly related to stream increases in
-this fictional dataset.
+Since the p-value is very small, we reject $H_0$. There is strong evidence
+that charging time is linearly related to battery level increase in this
+fictional dataset.
 :::
 
 ::::
@@ -2741,7 +2740,7 @@ this fictional dataset.
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">IShowSpeed teaser example</span>
+<span class="label">Event flyers example</span>
 :::
 
 ```{webr}
@@ -2788,7 +2787,7 @@ print(check, row.names = FALSE)
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">Rap beef reaction example</span>
+<span class="label">Charging time example</span>
 :::
 
 ```{webr}

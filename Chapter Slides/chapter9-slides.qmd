@@ -716,34 +716,20 @@ The part of $y_i$ not explained by the line.
 
 ## 9.1.1 Least Squares Method
 
-::: {.defbox .fragment}
+::: {.defbox .fragment style="margin-bottom: 10px;"}
 A **residual** is the difference between an observed data point and a
 fitted value from the regression model:
 
 $$
-e_i=y_i-\hat{y}_i.
+e_i = y_i - \hat{y}_i.
 $$
 
 It is the vertical distance from the observed value to the fitted line.
 :::
 
-::::: two-col
-::: {.examplebox .fragment}
-If $e_i>0$, the point is **above** the fitted line.
+:::: {.two-col-wide style="grid-template-columns: 1.08fr 0.92fr; gap: 18px; align-items: start;"}
 
-The model underpredicted the response.
-:::
-
-::: {.examplebox .fragment}
-If $e_i<0$, the point is **below** the fitted line.
-
-The model overpredicted the response.
-:::
-:::::
-
-------------------------------------------------------------------------
-
-## Visual: What Residuals Look Like
+::: {.col}
 
 ```{r}
 #| echo: false
@@ -751,7 +737,6 @@ The model overpredicted the response.
 #| message: false
 #| out-width: "100%"
 
-# Clean teaching example for residuals
 resid_demo <- data.frame(
   x = c(1.0, 2.0, 3.5, 5.0, 6.5, 8.0),
   y = c(35.0, 55.0, 46.0, 64.0, 72.5, 66.0)
@@ -761,7 +746,6 @@ resid_fit <- lm(y ~ x, data = resid_demo)
 
 resid_demo$fitted   <- fitted(resid_fit)
 resid_demo$residual <- resid(resid_fit)
-resid_demo$sign     <- ifelse(resid_demo$residual >= 0, "Positive residual", "Negative residual")
 
 pos_df <- subset(resid_demo, residual >= 0)
 neg_df <- subset(resid_demo, residual < 0)
@@ -769,55 +753,19 @@ neg_df <- subset(resid_demo, residual < 0)
 line_df <- data.frame(
   x = seq(0.5, 8.5, length.out = 300)
 )
-line_df$y <- predict(resid_fit, newdata = line_df)
 
-resid_annotations <- list(
-  list(
-    x = 2.0, y = 55.0,
-    xref = "x", yref = "y",
-    text = "positive residual<br><span style='font-size:12px;'>point above line</span>",
-    showarrow = TRUE,
-    arrowhead = 2,
-    arrowsize = 1,
-    arrowwidth = 1.6,
-    arrowcolor = plot_cols$green,
-    ax = 95,
-    ay = -55,
-    bgcolor = "rgba(255,255,255,0.96)",
-    bordercolor = plot_cols$border,
-    borderwidth = 1,
-    borderpad = 5,
-    font = list(size = 14, color = plot_cols$text)
-  ),
-  list(
-    x = 3.5, y = 46.0,
-    xref = "x", yref = "y",
-    text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
-    showarrow = TRUE,
-    arrowhead = 2,
-    arrowsize = 1,
-    arrowwidth = 1.6,
-    arrowcolor = plot_cols$red,
-    ax = 95,
-    ay = 55,
-    bgcolor = "rgba(255,255,255,0.96)",
-    bordercolor = plot_cols$border,
-    borderwidth = 1,
-    borderpad = 5,
-    font = list(size = 14, color = plot_cols$text)
-  )
-)
+line_df$y <- predict(resid_fit, newdata = line_df)
 
 plot_ly() |>
   add_lines(
     data = line_df,
     x = ~x,
     y = ~y,
-    name = "Line of best fit",
     hoverinfo = "skip",
+    showlegend = FALSE,
     line = list(
       color = plot_cols$secondary,
-      width = 4.5
+      width = 4
     )
   ) |>
   add_segments(
@@ -826,17 +774,16 @@ plot_ly() |>
     xend = ~x,
     y = ~fitted,
     yend = ~y,
-    name = "Positive residual",
-    showlegend = TRUE,
+    customdata = ~cbind(y, fitted, residual),
     hovertemplate = paste(
       "<b>Positive residual</b><br>",
       "x: %{x:.1f}<br>",
-      "Observed y: %{yend:.1f}<br>",
-      "Fitted y: %{y:.1f}<br>",
-      "Residual: %{customdata:.2f}",
+      "Observed y: %{customdata[0]:.1f}<br>",
+      "Fitted y: %{customdata[1]:.1f}<br>",
+      "Residual: %{customdata[2]:.2f}",
       "<extra></extra>"
     ),
-    customdata = ~residual,
+    showlegend = FALSE,
     line = list(
       color = plot_cols$green,
       width = 4
@@ -848,17 +795,16 @@ plot_ly() |>
     xend = ~x,
     y = ~fitted,
     yend = ~y,
-    name = "Negative residual",
-    showlegend = TRUE,
+    customdata = ~cbind(y, fitted, residual),
     hovertemplate = paste(
       "<b>Negative residual</b><br>",
       "x: %{x:.1f}<br>",
-      "Observed y: %{yend:.1f}<br>",
-      "Fitted y: %{y:.1f}<br>",
-      "Residual: %{customdata:.2f}",
+      "Observed y: %{customdata[0]:.1f}<br>",
+      "Fitted y: %{customdata[1]:.1f}<br>",
+      "Residual: %{customdata[2]:.2f}",
       "<extra></extra>"
     ),
-    customdata = ~residual,
+    showlegend = FALSE,
     line = list(
       color = plot_cols$red,
       width = 4
@@ -868,49 +814,107 @@ plot_ly() |>
     data = resid_demo,
     x = ~x,
     y = ~y,
-    name = "Observed value",
     hovertemplate = paste(
       "<b>Observed value</b><br>",
       "x: %{x:.1f}<br>",
       "y: %{y:.1f}",
       "<extra></extra>"
     ),
+    showlegend = FALSE,
     marker = list(
       color = "#111827",
-      size = 14,
-      line = list(color = "white", width = 1.5)
+      size = 11,
+      line = list(color = "white", width = 1.2)
     )
   ) |>
   add_markers(
     data = resid_demo,
     x = ~x,
     y = ~fitted,
-    name = "Fitted value",
     hovertemplate = paste(
       "<b>Fitted value</b><br>",
       "x: %{x:.1f}<br>",
-      "y-hat: %{y:.1f}",
+      "ŷ: %{y:.1f}",
       "<extra></extra>"
     ),
+    showlegend = FALSE,
     marker = list(
       color = "white",
-      size = 13,
-      line = list(color = plot_cols$main_dark, width = 2.5)
+      size = 11,
+      line = list(color = plot_cols$main_dark, width = 2.2)
     )
   ) |>
   plotly_slide_layout(
     title = "Residuals are vertical distances from the fitted line",
     x_title = "Predictor, x",
     y_title = "Response, y",
-    height = 500,
+    height = 345,
     x_range = c(0.4, 8.7),
     y_range = c(34, 82),
-    showlegend = TRUE,
-    legend_y = -0.15,
-    margin = list(l = 78, r = 32, t = 64, b = 76),
-    annotations = resid_annotations
+    showlegend = FALSE,
+    margin = list(l = 66, r = 18, t = 54, b = 56),
+    annotations = list(
+      list(
+        x = 2.0,
+        y = 55.0,
+        xref = "x",
+        yref = "y",
+        text = "positive residual<br><span style='font-size:12px;'>point above line</span>",
+        showarrow = TRUE,
+        arrowhead = 2,
+        arrowsize = 1,
+        arrowwidth = 1.5,
+        arrowcolor = plot_cols$green,
+        ax = 70,
+        ay = -48,
+        bgcolor = "rgba(255,255,255,0.96)",
+        bordercolor = plot_cols$border,
+        borderwidth = 1,
+        borderpad = 5,
+        font = list(size = 13, color = plot_cols$text)
+      ),
+      list(
+        x = 3.5,
+        y = 46.0,
+        xref = "x",
+        yref = "y",
+        text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
+        showarrow = TRUE,
+        arrowhead = 2,
+        arrowsize = 1,
+        arrowwidth = 1.5,
+        arrowcolor = plot_cols$red,
+        ax = 72,
+        ay = 55,
+        bgcolor = "rgba(255,255,255,0.96)",
+        bordercolor = plot_cols$border,
+        borderwidth = 1,
+        borderpad = 5,
+        font = list(size = 13, color = plot_cols$text)
+      )
+    )
   )
 ```
+
+:::
+
+::: {.col}
+
+::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 12px;"}
+If $e_i > 0$, the point is **above** the fitted line.
+
+The model underpredicted the response.
+:::
+
+::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 0;"}
+If $e_i < 0$, the point is **below** the fitted line.
+
+The model overpredicted the response.
+:::
+
+:::
+
+::::
 
 ------------------------------------------------------------------------
 
@@ -3295,6 +3299,123 @@ print(out, row.names = FALSE)
 Residual plots are used to judge whether the regression assumptions are
 reasonable before trusting inference.
 :::
+
+------------------------------------------------------------------------
+
+## Visual: A Good Residual Plot
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+set.seed(258)
+
+resid_check_df <- data.frame(
+  fitted = c(
+    runif(45, 17, 28),
+    runif(25, 28, 36),
+    runif(15, 36, 45)
+  )
+)
+
+resid_check_df$residual <- c(
+  rnorm(45, mean = 0.2, sd = 3.4),
+  rnorm(25, mean = 0.0, sd = 3.2),
+  rnorm(15, mean = -0.1, sd = 3.1)
+)
+
+resid_check_df$residual <- pmax(pmin(resid_check_df$residual, 9.5), -6.8)
+
+plot_ly() |>
+  add_markers(
+    data = resid_check_df,
+    x = ~fitted,
+    y = ~residual,
+    showlegend = FALSE,
+    hovertemplate = paste(
+      "<b>Residual point</b><br>",
+      "Fitted value: %{x:.1f}<br>",
+      "Residual: %{y:.1f}",
+      "<extra></extra>"
+    ),
+    marker = list(
+      color = "#ef3b2c",
+      size = 9,
+      opacity = 0.95,
+      line = list(color = "#ef3b2c", width = 0.5)
+    )
+  ) |>
+  plotly_slide_layout(
+    title = "",
+    x_title = "Fitted Value",
+    y_title = "Residual",
+    height = 470,
+    x_range = c(16.5, 45.5),
+    y_range = c(-7.5, 10.5),
+    shapes = list(
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+        x0 = 16.5,
+        x1 = 45.5,
+        y0 = 0,
+        y1 = 0,
+        line = list(color = "#222222", width = 2),
+        layer = "below"
+      )
+    ),
+    margin = list(l = 78, r = 24, t = 20, b = 70)
+  ) |>
+  layout(
+    xaxis = list(
+      title = list(
+        text = "<b>Fitted Value</b>",
+        standoff = 14,
+        font = list(size = 15, color = plot_cols$text)
+      ),
+      range = c(16.5, 45.5),
+      fixedrange = TRUE,
+      tickmode = "array",
+      tickvals = c(20, 25, 30, 35, 40, 45),
+      tickfont = list(size = 13, color = plot_cols$muted),
+      showline = TRUE,
+      linewidth = 1.5,
+      linecolor = "#222222",
+      zeroline = FALSE,
+      showgrid = FALSE,
+      ticks = "outside",
+      ticklen = 5,
+      tickcolor = "#222222",
+      automargin = TRUE
+    ),
+    yaxis = list(
+      title = list(
+        text = "<b>Residual</b>",
+        standoff = 14,
+        font = list(size = 15, color = plot_cols$text)
+      ),
+      range = c(-7.5, 10.5),
+      fixedrange = TRUE,
+      tickmode = "array",
+      tickvals = c(-5, -2.5, 0, 2.5, 5, 7.5, 10),
+      tickfont = list(size = 13, color = plot_cols$muted),
+      showline = TRUE,
+      linewidth = 1.5,
+      linecolor = "#222222",
+      zeroline = FALSE,
+      showgrid = TRUE,
+      gridcolor = "rgba(203,213,225,0.35)",
+      gridwidth = 1,
+      ticks = "outside",
+      ticklen = 5,
+      tickcolor = "#222222",
+      automargin = TRUE
+    )
+  )
+```
 
 ------------------------------------------------------------------------
 

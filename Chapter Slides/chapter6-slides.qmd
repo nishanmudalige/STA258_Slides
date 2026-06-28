@@ -805,20 +805,22 @@ A test gives p-value $0.032$ and uses $\alpha=0.05$. What should we do?
 
 ---
 
-## 6.2.1.1 One Mean, Known $\sigma$
+## 6.2.1.1 Hypothesis Tests on the Mean, $\sigma$ Known
 
 ::: {.defbox}
-When the population standard deviation is known, use a standard normal reference distribution:
+For testing $H_0:\mu=\mu_0$ when $\sigma$ is **known**, use the test statistic
 
 $$
 z^*=\frac{\bar{x}-\mu_0}{\sigma/\sqrt n}
 $$
+
+which, under $H_0$, follows the standard normal reference distribution $Z\sim N(0,1)$.
 :::
 
 :::: {.two-col}
 ::: {.notebox .fragment}
 <span class="label">Reference distribution</span>
-$Z\sim N(0,1)$.
+$Z^*\sim N(0,1)$.
 :::
 
 ::: {.notebox .fragment}

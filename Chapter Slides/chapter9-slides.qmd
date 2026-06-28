@@ -1806,159 +1806,422 @@ About **99.4%** of the variation in plant height lines up with the linear trend 
 
 ------------------------------------------------------------------------
 
-## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-corr-example}
+## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-seq}
 
 ```{=html}
 <style>
-.reveal section.late-scroll-corr-example .scroll-grid {
+.reveal section.late-scroll-seq .scroll-intro-grid {
   display: grid;
-  grid-template-columns: 0.87fr 1.13fr;
-  grid-template-rows: auto auto;
-  gap: 10px 18px;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 16px;
   align-items: stretch;
 }
 
-.reveal section.late-scroll-corr-example .scroll-calc-card {
-  grid-column: 2;
-  grid-row: 1;
-  font-size: 0.68em;
-  line-height: 1.13;
-  padding: 13px 17px;
+.reveal section.late-scroll-seq .scroll-intro-bottom {
+  margin-top: 14px;
+}
+
+.reveal section.late-scroll-seq .scroll-obs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin-top: 8px;
+  font-size: 0.80em;
+  line-height: 1.15;
+}
+
+.reveal section.late-scroll-seq .scroll-obs-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.reveal section.late-scroll-seq .scroll-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.reveal section.late-scroll-seq mjx-container[display="true"],
+.reveal section.late-scroll-seq .MathJax_Display {
+  margin: 0.16em 0 !important;
+}
+
+.reveal section.late-scroll-seq .scroll-goal-grid {
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.reveal section.late-scroll-seq .scroll-goal-text p {
+  margin: 0 0 9px 0;
+  line-height: 1.22;
+}
+
+.reveal section.late-scroll-seq .scroll-goal-text p:last-child {
   margin-bottom: 0;
 }
 
-.reveal section.late-scroll-corr-example .scroll-calc-layout {
+.reveal section.late-scroll-seq .scroll-formula-stack {
   display: grid;
-  grid-template-columns: 0.92fr 1.08fr;
-  gap: 20px;
-  align-items: start;
-  margin-top: 4px;
+  gap: 10px;
 }
 
-.reveal section.late-scroll-corr-example .scroll-work-left,
-.reveal section.late-scroll-corr-example .scroll-work-right {
-  min-width: 0;
+.reveal section.late-scroll-seq .scroll-formula-pill {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 5px solid var(--sta-teal);
+  border-radius: 9px;
+  padding: 9px 14px 10px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  text-align: center;
 }
 
-.reveal section.late-scroll-corr-example .scroll-step-title {
-  color: var(--sta-text);
-  font-weight: 800;
-  font-size: 0.88em;
-  line-height: 1.05;
-  margin: 0 0 3px 0;
+.reveal section.late-scroll-seq .scroll-formula-pill .scroll-pill-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--sta-muted);
+  margin-bottom: 3px;
 }
 
-.reveal section.late-scroll-corr-example .scroll-eq {
-  font-size: 0.90em;
-  line-height: 1.18;
-  margin-bottom: 7px;
-  padding-left: 8px;
-}
-
-.reveal section.late-scroll-corr-example .scroll-eq p {
-  margin: 0 0 3px 0 !important;
-}
-
-.reveal section.late-scroll-corr-example .scroll-eq mjx-container {
-  margin: 0 !important;
-}
-
-.reveal section.late-scroll-corr-example .scroll-calc-card mjx-container[display="true"],
-.reveal section.late-scroll-corr-example .scroll-calc-card .MathJax_Display {
-  text-align: left !important;
-  margin: 0.08em 0 0.18em 0 !important;
-}
-
-.reveal section.late-scroll-corr-example .scroll-calc-card mjx-container[display="true"] > svg {
-  margin-left: 0 !important;
-  margin-right: auto !important;
-}
-
-.reveal section.late-scroll-corr-example .scroll-result {
-  margin-top: 2px;
-  padding-left: 8px;
-  color: var(--sta-teal-dark);
-  font-weight: 800;
+.reveal section.late-scroll-seq .scroll-formula-pill mjx-container {
+  font-size: 1.04em !important;
 }
 </style>
 ```
 
-:::: {.scroll-grid}
+:::: {.scroll-intro-grid}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A student group collects fictional data on late-night scrolling before a
-morning quiz.
+::: {.taskbox style="font-size: 0.68em; line-height: 1.2; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Context and question</span>
 
-| Minutes after midnight $(x)$ | Quiz score $(y)$ |
-|---:|---:|
-| 15 | 88 |
-| 30 | 84 |
-| 45 | 76 |
-| 60 | 71 |
-| 75 | 63 |
-| 90 | 58 |
+A student group collects fictional data on late-night scrolling before a morning quiz.
+
+We use **minutes after midnight** to study its relationship with **quiz score**.
+
+$$
+x=\text{minutes after midnight},
+\qquad
+y=\text{quiz score}
+$$
 
 Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.stat-card .scroll-calc-card}
-<span class="label">Calculation</span>
+::: {.examplebox style="font-size: 0.68em; line-height: 1.13; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
-:::: {.scroll-calc-layout}
-
-::: {.scroll-work-left}
-::: {.scroll-step-title}
-Summary work
+<table class="scroll-obs-table">
+  <thead>
+    <tr>
+      <th>Minutes after midnight, \(x\)</th>
+      <th>Quiz score, \(y\)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>15</td><td>88</td></tr>
+    <tr><td>30</td><td>84</td></tr>
+    <tr><td>45</td><td>76</td></tr>
+    <tr><td>60</td><td>71</td></tr>
+    <tr><td>75</td><td>63</td></tr>
+    <tr><td>90</td><td>58</td></tr>
+  </tbody>
+</table>
 :::
 
-::: {.scroll-eq}
-$15+30+45+60+75+90=315$
+::::
 
-$\bar{x}=\dfrac{315}{6}=52.500$
+::: {.notebox .scroll-intro-bottom style="font-size: 0.66em; line-height: 1.18; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Goal of the example</span>
 
-$88+84+76+71+63+58=440$
+:::: {.scroll-goal-grid}
 
-$\bar{y}=\dfrac{440}{6}=73.333$
+::: {.scroll-goal-text}
+<p>We want to measure the strength and direction of the linear relationship between late-night scrolling time and quiz score.</p>
+<p>The sign of $r$ tells us direction. The size of $r$ tells us strength.</p>
 :::
 
-::: {.scroll-step-title}
-Deviation sums
+::: {.scroll-formula-stack}
+<div class="scroll-formula-pill">
+<span class="scroll-pill-label">Covariance</span>
+$$
+s_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+$$
+</div>
+
+<div class="scroll-formula-pill">
+<span class="scroll-pill-label">Correlation</span>
+$$
+r=\frac{s_{xy}}{s_xs_y}
+$$
+</div>
 :::
 
-::: {.scroll-eq}
-$\sum (x_i-\bar{x})^2=3937.500$
+::::
 
-$\sum (y_i-\bar{y})^2=683.333$
+:::
 
-$\sum (x_i-\bar{x})(y_i-\bar{y})=-1635.000$
+------------------------------------------------------------------------
+
+## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-r2-fixed}
+
+```{=html}
+<style>
+.reveal section.late-scroll-r2-fixed {
+  font-size: 0.79em;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-r2-layout {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 11px;
+  align-items: start;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card,
+.reveal section.late-scroll-r2-fixed .scroll-calc-card,
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card {
+  padding: 12px 15px 10px 15px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-card-note {
+  font-size: 15px;
+  line-height: 1.22;
+  color: var(--sta-muted);
+  margin: 0 0 8px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-data-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-data-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 7px 6px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 1.08;
+  white-space: normal;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-data-table td {
+  border: 1px solid var(--sta-border);
+  padding: 6px 7px;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 15px;
+  line-height: 1.10;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-data-table td:first-child,
+.reveal section.late-scroll-r2-fixed .scroll-data-table td:nth-child(2) {
+  text-align: center;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-data-table th:nth-child(1) { width: 8%; }
+.reveal section.late-scroll-r2-fixed .scroll-data-table th:nth-child(2) { width: 8%; }
+.reveal section.late-scroll-r2-fixed .scroll-data-table th:nth-child(3) { width: 11%; }
+.reveal section.late-scroll-r2-fixed .scroll-data-table th:nth-child(4) { width: 11%; }
+.reveal section.late-scroll-r2-fixed .scroll-data-table th:nth-child(5) { width: 22%; }
+.reveal section.late-scroll-r2-fixed .scroll-data-table th:nth-child(6) { width: 20%; }
+.reveal section.late-scroll-r2-fixed .scroll-data-table th:nth-child(7) { width: 20%; }
+
+.reveal section.late-scroll-r2-fixed .scroll-total-row td {
+  background: #eef8fb;
+  font-weight: 800;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-bottom-row {
+  display: grid;
+  grid-template-columns: 1.34fr 0.66fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-calc-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 7px solid var(--sta-teal);
+  padding: 13px 16px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+  padding: 13px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px 14px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-metric {
+  background: #fbfdfe;
+  border: 1px solid #d7e4e7;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 58px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-metric-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--sta-text);
+  line-height: 1.08;
+  margin-bottom: 5px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-metric-eq {
+  font-size: 17px;
+  line-height: 1.18;
+  color: var(--sta-text);
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-metric-eq mjx-container {
+  margin: 0 !important;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-result-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.35);
+  border-radius: 9px;
+  padding: 9px 10px;
+  margin: 2px 0 11px 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  text-align: center;
+  line-height: 1.15;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card p {
+  font-size: 16px;
+  line-height: 1.24;
+  margin: 0 0 9px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card p:last-child {
+  margin-bottom: 0;
+}
+</style>
+```
+
+:::: {.scroll-r2-layout}
+
+::: {.examplebox .scroll-table-card}
+
+::: {.scroll-card-title}
+Step-by-step deviations and products
+:::
+
+::: {.scroll-card-note}
+Here $\bar{x}=52.500$ and $\bar{y}=73.333$. Each row shows the building blocks for covariance and correlation.
+:::
+
+<table class="scroll-data-table">
+  <thead>
+    <tr>
+      <th>x<sub>i</sub></th>
+      <th>y<sub>i</sub></th>
+      <th>x<sub>i</sub> − x&#772;</th>
+      <th>y<sub>i</sub> − y&#772;</th>
+      <th>(x<sub>i</sub> − x&#772;)(y<sub>i</sub> − y&#772;)</th>
+      <th>(x<sub>i</sub> − x&#772;)<sup>2</sup></th>
+      <th>(y<sub>i</sub> − y&#772;)<sup>2</sup></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>15</td><td>88</td><td>−37.500</td><td>14.667</td><td>−550.000</td><td>1406.250</td><td>215.111</td></tr>
+    <tr><td>30</td><td>84</td><td>−22.500</td><td>10.667</td><td>−240.000</td><td>506.250</td><td>113.778</td></tr>
+    <tr><td>45</td><td>76</td><td>−7.500</td><td>2.667</td><td>−20.000</td><td>56.250</td><td>7.111</td></tr>
+    <tr><td>60</td><td>71</td><td>7.500</td><td>−2.333</td><td>−17.500</td><td>56.250</td><td>5.444</td></tr>
+    <tr><td>75</td><td>63</td><td>22.500</td><td>−10.333</td><td>−232.500</td><td>506.250</td><td>106.778</td></tr>
+    <tr><td>90</td><td>58</td><td>37.500</td><td>−15.333</td><td>−575.000</td><td>1406.250</td><td>235.111</td></tr>
+    <tr class="scroll-total-row"><td>Totals</td><td></td><td></td><td></td><td>−1635.000</td><td>3937.500</td><td>683.333</td></tr>
+  </tbody>
+</table>
+
+:::
+
+:::: {.scroll-bottom-row}
+
+::: {.scroll-calc-card}
+
+::: {.scroll-card-title}
+Calculation
+:::
+
+:::: {.scroll-metric-grid}
+
+::: {.scroll-metric}
+::: {.scroll-metric-title}
+Standard deviation of $x$
+:::
+::: {.scroll-metric-eq}
+$s_x=\sqrt{3937.500/5}=28.062$
 :::
 :::
 
-::: {.scroll-work-right}
-::: {.scroll-step-title}
-Standard deviations
+::: {.scroll-metric}
+::: {.scroll-metric-title}
+Covariance
+:::
+::: {.scroll-metric-eq}
+$s_{xy}=-1635.000/5=-327.000$
+:::
 :::
 
-::: {.scroll-eq}
-$s_x=\sqrt{\dfrac{3937.500}{6-1}}=28.062$
-
-$s_y=\sqrt{\dfrac{683.333}{6-1}}=11.690$
+::: {.scroll-metric}
+::: {.scroll-metric-title}
+Standard deviation of $y$
+:::
+::: {.scroll-metric-eq}
+$s_y=\sqrt{683.333/5}=11.690$
+:::
 :::
 
-::: {.scroll-step-title}
-Covariance and correlation
+::: {.scroll-metric}
+::: {.scroll-metric-title}
+Correlation
 :::
-
-::: {.scroll-eq}
-$s_{xy}=\dfrac{-1635.000}{6-1}=-327.000$
-
-$r=\dfrac{s_{xy}}{s_xs_y}
-=\dfrac{-327.000}{(28.062)(11.690)}
-=-0.997$
-:::
-
-::: {.scroll-result}
-$r^2=(-0.997)^2=0.994$
+::: {.scroll-metric-eq}
+$r=\dfrac{-327.000}{(28.062)(11.690)}=-0.997$
 :::
 :::
 
@@ -1966,19 +2229,23 @@ $r^2=(-0.997)^2=0.994$
 
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target relationship</span>
+::: {.scroll-conclusion-card}
 
-We compare late-night scrolling time and morning quiz score.
-
-The sign of $r$ tells us direction. The size of $r$ tells us strength.
+::: {.scroll-card-title}
+Conclusion
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The correlation is **-0.997**, so the relationship is strongly negative:
-students who scrolled longer after midnight tended to have lower quiz
-scores.
+::: {.scroll-result-pill}
+$r=-0.997 \quad \text{and} \quad r^2=0.994$
 :::
+
+The correlation is **-0.997**, which is strongly negative: students who scrolled longer after midnight tended to have lower quiz scores.
+
+About **99.4%** of the variation in quiz scores lines up with the linear trend in late-night scrolling time.
+
+:::
+
+::::
 
 ::::
 
@@ -3046,270 +3313,196 @@ This is a strong linear association in the sample, but it does not prove that pr
 
 ---
 
-## Example: TTC Stops and Commute Time {.ttc-stops-seq}
+## Example: TTC Stops and Commute Time {.ttc-stops-3a}
 
 ```{=html}
 <style>
-.reveal section.ttc-stops-seq .ttc-seq-intro-grid {
+.reveal section.ttc-stops-3a {
+  font-size: 0.82em;
+}
+
+.reveal section.ttc-stops-3a .ttc-intro-grid {
   display: grid;
-  grid-template-columns: 0.94fr 1.06fr;
-  gap: 16px;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 14px;
   align-items: stretch;
 }
 
-.reveal section.ttc-stops-seq .ttc-seq-intro-bottom {
-  margin-top: 14px;
+.reveal section.ttc-stops-3a .ttc-context-card,
+.reveal section.ttc-stops-3a .ttc-data-card,
+.reveal section.ttc-stops-3a .ttc-goal-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
 }
 
-.reveal section.ttc-stops-seq .ttc-seq-table {
+.reveal section.ttc-stops-3a .ttc-context-card {
+  padding: 18px 20px;
+}
+
+.reveal section.ttc-stops-3a .ttc-data-card {
+  padding: 16px 18px;
+}
+
+.reveal section.ttc-stops-3a .ttc-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 10px 0;
+}
+
+.reveal section.ttc-stops-3a .ttc-context-card p,
+.reveal section.ttc-stops-3a .ttc-goal-card p,
+.reveal section.ttc-stops-3a .ttc-goal-card li {
+  font-size: 17px;
+  line-height: 1.24;
+  margin: 0 0 12px 0;
+}
+
+.reveal section.ttc-stops-3a .ttc-variable-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 10px 12px;
+  margin: 12px 0 14px 0;
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--sta-text);
+}
+
+.reveal section.ttc-stops-3a .ttc-fit-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.35);
+  border-radius: 9px;
+  padding: 11px 12px;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  line-height: 1.15;
+}
+
+.reveal section.ttc-stops-3a .ttc-obs-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   background: white;
   color: var(--sta-text);
-  margin-top: 6px;
+  margin: 0;
+  font-size: 16px;
 }
 
-.reveal section.ttc-stops-seq .ttc-seq-table th {
+.reveal section.ttc-stops-3a .ttc-obs-table th {
   background: var(--sta-teal-light);
   border: 1px solid var(--sta-border);
-  padding: 5px 7px;
-  font-weight: 700;
+  padding: 8px 10px;
+  font-weight: 800;
   text-align: center;
   vertical-align: middle;
-  white-space: nowrap;
-}
-
-.reveal section.ttc-stops-seq .ttc-seq-table td {
-  border: 1px solid var(--sta-border);
-  padding: 5px 7px;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-align: center;
-}
-
-.reveal section.ttc-stops-seq .ttc-seq-observed-table {
-  font-size: 0.67em;
   line-height: 1.08;
 }
 
-.reveal section.ttc-stops-seq mjx-container[display="true"],
-.reveal section.ttc-stops-seq .MathJax_Display {
-  margin: 0.12em 0 !important;
+.reveal section.ttc-stops-3a .ttc-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.08;
 }
 
-/* ---------- TTC calculation slide ---------- */
-
-.reveal section.ttc-stops-r2-fixed {
-  font-size: 0.72em;
+.reveal section.ttc-stops-3a .ttc-goal-card {
+  margin-top: 14px;
+  padding: 18px 20px;
 }
 
-.reveal section.ttc-stops-r2-fixed .ttc-slide-grid {
+.reveal section.ttc-stops-3a .ttc-goal-layout {
   display: grid;
-  grid-template-rows: auto auto;
-  gap: 9px;
+  grid-template-columns: 1.06fr 0.94fr;
+  gap: 22px;
+  align-items: center;
 }
 
-.reveal section.ttc-stops-r2-fixed .ttc-top-row {
+.reveal section.ttc-stops-3a .ttc-goal-list {
+  margin: 8px 0 0 0;
+  padding-left: 21px;
+}
+
+.reveal section.ttc-stops-3a .ttc-goal-list li {
+  margin-bottom: 5px;
+}
+
+.reveal section.ttc-stops-3a .ttc-formula-stack {
   display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
+  grid-template-columns: 1fr;
   gap: 12px;
-  align-items: start;
 }
 
-.reveal section.ttc-stops-r2-fixed .ttc-bottom-row {
-  display: grid;
-  grid-template-columns: 1.16fr 0.84fr;
-  gap: 12px;
-  align-items: start;
-}
-
-.reveal section.ttc-stops-r2-fixed .examplebox,
-.reveal section.ttc-stops-r2-fixed .stat-card {
-  margin: 0;
-  padding: 8px 10px;
-  border-radius: 10px;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-calc-card {
+.reveal section.ttc-stops-3a .ttc-formula-card {
   background: white;
   border: 1px solid var(--sta-border);
-  border-left: 7px solid var(--sta-teal);
-  border-radius: 10px;
-  padding: 9px 12px;
-  box-sizing: border-box;
+  border-left: 5px solid var(--sta-teal);
+  border-radius: 9px;
+  padding: 11px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.reveal section.ttc-stops-r2-fixed .ttc-conclusion-card {
-  background: var(--sta-yellow);
-  border-left: 7px solid var(--sta-orange);
-  border-radius: 10px;
-  padding: 10px 13px;
-  box-sizing: border-box;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-card-title {
-  color: var(--sta-teal-dark);
-  font-weight: 800;
-  font-size: 17px;
-  line-height: 1.05;
-  margin: 0 0 5px 0;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-card-note {
+.reveal section.ttc-stops-3a .ttc-formula-label {
   font-size: 13px;
-  line-height: 1.14;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: var(--sta-muted);
-  margin: 0 0 5px 0;
+  margin-bottom: 5px;
 }
 
-.reveal section.ttc-stops-r2-fixed table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  color: var(--sta-text);
-  margin: 0;
-}
-
-.reveal section.ttc-stops-r2-fixed th {
-  background: var(--sta-teal-light);
-  border: 1px solid var(--sta-border);
-  padding: 3px 5px;
-  font-weight: 800;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.reveal section.ttc-stops-r2-fixed td {
-  border: 1px solid var(--sta-border);
-  padding: 3px 5px;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-pred-card table {
-  font-size: 12.5px;
-  line-height: 1.02;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-var-card table {
-  font-size: 11.3px;
-  line-height: 1.00;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-pred-card td,
-.reveal section.ttc-stops-r2-fixed .ttc-var-card td {
-  text-align: center;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-pred-card td:nth-child(2) {
-  text-align: left;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-var-card tbody tr:last-child td {
-  background: #eef8fb;
-  font-weight: 800;
-  border-top: 2px solid var(--sta-teal-dark);
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-calc-title {
-  color: var(--sta-teal-dark);
+.reveal section.ttc-stops-3a .ttc-formula-eq {
   font-size: 19px;
-  font-weight: 800;
-  line-height: 1.05;
-  margin: 0 0 6px 0;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-calc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 11px;
-  align-items: start;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-step {
-  margin: 0 0 6px 0;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-step:last-child {
-  margin-bottom: 0;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-step-label {
-  font-size: 12.8px;
-  font-weight: 800;
-  line-height: 1.05;
-  color: var(--sta-text);
-  margin: 0 0 1px 0;
-  text-align: left;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-eq {
-  font-size: 16.5px;
-  line-height: 1.15;
-  text-align: left;
-  padding-left: 10px;
-  color: var(--sta-text);
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-calc-note {
-  font-size: 12px;
-  line-height: 1.14;
-  color: var(--sta-muted);
-  margin-top: 2px;
-  padding-left: 10px;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-conclusion-card p {
-  font-size: 14.8px;
-  line-height: 1.16;
-  margin: 0 0 7px 0;
-}
-
-.reveal section.ttc-stops-r2-fixed .ttc-result-pill {
-  background: white;
-  border: 1px solid rgba(0, 105, 92, 0.28);
-  border-radius: 8px;
-  padding: 6px 8px;
-  margin: 5px 0 8px 0;
-  font-size: 16.5px;
-  font-weight: 800;
+  font-weight: 850;
   color: var(--sta-teal-dark);
+  line-height: 1.15;
   text-align: center;
 }
 </style>
 ```
 
-:::: {.ttc-seq-intro-grid}
+:::: {.ttc-intro-grid}
 
-::: {.taskbox style="font-size: 0.66em; line-height: 1.17; padding: 14px 17px; margin-bottom: 0;"}
-<span class="label">Context and question</span>
+::: {.taskbox .ttc-context-card}
+
+::: {.ttc-card-title}
+Context and question
+:::
 
 A student tracks fictional TTC trips during a week with random delays.
 
 We use the number of **stations travelled** to predict **commute time**, measured in minutes.
 
-$$
-x=\text{stations travelled},
-\qquad
-y=\text{commute time}
-$$
+::: {.ttc-variable-pill}
+<strong>x</strong> = stations travelled<br>
+<strong>y</strong> = commute time in minutes
+:::
 
 The fitted regression line is:
 
-$$
-\hat{y}=1.310+3.357x
-$$
+::: {.ttc-fit-pill}
+ŷ = 1.310 + 3.357x
 :::
 
-::: {.examplebox style="font-size: 0.66em; line-height: 1.13; padding: 14px 17px; margin-bottom: 0;"}
-<span class="label">Observed data</span>
+:::
 
-<table class="ttc-seq-table ttc-seq-observed-table">
+::: {.examplebox .ttc-data-card}
+
+::: {.ttc-card-title}
+Observed data
+:::
+
+<table class="ttc-obs-table">
   <thead>
     <tr>
-      <th>Stations travelled, \(x\)</th>
-      <th>Commute time, \(y\)</th>
+      <th>Stations travelled, x</th>
+      <th>Commute time, y</th>
     </tr>
   </thead>
   <tbody>
@@ -3321,171 +3514,437 @@ $$
     <tr><td>13</td><td>50</td></tr>
   </tbody>
 </table>
+
 :::
 
 ::::
 
-::: {.notebox .ttc-seq-intro-bottom style="font-size: 0.65em; line-height: 1.15; padding: 13px 16px; margin-bottom: 0;"}
-<span class="label">Goal of the example</span>
+::: {.notebox .ttc-goal-card}
 
+::: {.ttc-card-title}
+Goal of the example
+:::
+
+:::: {.ttc-goal-layout}
+
+::: {.ttc-goal-text}
 We want to split the total variation in commute time into:
 
-$$
+<ul class="ttc-goal-list">
+  <li><strong>SSE</strong>: unexplained variation left in the residuals</li>
+  <li><strong>SSR</strong>: variation explained by the fitted regression line</li>
+  <li><strong>SST</strong>: total variation in the observed commute times</li>
+</ul>
+
+Then we compute R², the proportion of total variation explained by stations travelled through the fitted linear model.
+:::
+
+::: {.ttc-formula-stack}
+
+::: {.ttc-formula-card}
+::: {.ttc-formula-label}
+Variance decomposition
+:::
+::: {.ttc-formula-eq}
 SST = SSR + SSE
-$$
+:::
+:::
 
-Then we compute:
+::: {.ttc-formula-card}
+::: {.ttc-formula-label}
+Coefficient of determination
+:::
+::: {.ttc-formula-eq}
+R² = SSR / SST
+:::
+:::
 
-$$
-R^2=\frac{SSR}{SST}
-$$
+:::
 
-to measure how much of the variation in commute time is explained by stations travelled through the fitted linear model.
+::::
+
 :::
 
 ------------------------------------------------------------------------
 
-## Example: TTC Stops and Commute Time {.ttc-stops-r2-fixed}
+## Example: TTC Stops and Commute Time {.ttc-stops-3b}
 
-:::: {.ttc-slide-grid}
+```{=html}
+<style>
+.reveal section.ttc-stops-3b {
+  font-size: 0.80em;
+}
 
-:::: {.ttc-top-row}
+.reveal section.ttc-stops-3b .ttc-stack-pro {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  align-items: stretch;
+}
 
-::: {.examplebox .ttc-pred-card}
-::: {.ttc-card-title}
-Predicted values
+.reveal section.ttc-stops-3b .ttc-stack-card {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
+
+.reveal section.ttc-stops-3b .ttc-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.ttc-stops-3b .ttc-card-note {
+  font-size: 15px;
+  line-height: 1.20;
+  color: var(--sta-muted);
+  margin: 0 0 8px 0;
+}
+
+.reveal section.ttc-stops-3b .ttc-fit-eq {
+  font-weight: 800;
+  color: var(--sta-text);
+  background: #fbfdfe;
+  border: 1px solid #d7e4e7;
+  border-radius: 7px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.reveal section.ttc-stops-3b .ttc-clean-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+}
+
+.reveal section.ttc-stops-3b .ttc-clean-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 7px 7px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.06;
+  white-space: normal;
+}
+
+.reveal section.ttc-stops-3b .ttc-clean-table td {
+  border: 1px solid var(--sta-border);
+  padding: 6px 8px;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.ttc-stops-3b .ttc-pred-table {
+  font-size: 15.5px;
+}
+
+.reveal section.ttc-stops-3b .ttc-pred-table th:nth-child(1) { width: 13%; }
+.reveal section.ttc-stops-3b .ttc-pred-table th:nth-child(2) { width: 65%; }
+.reveal section.ttc-stops-3b .ttc-pred-table th:nth-child(3) { width: 22%; }
+
+.reveal section.ttc-stops-3b .ttc-pred-table td:nth-child(1),
+.reveal section.ttc-stops-3b .ttc-pred-table td:nth-child(3) {
+  text-align: center;
+  font-weight: 650;
+}
+
+.reveal section.ttc-stops-3b .ttc-pred-table td:nth-child(2) {
+  text-align: left;
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table {
+  font-size: 14.5px;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table th {
+  padding: 7px 6px;
+  font-size: 14px;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table td {
+  text-align: center;
+  padding: 6px 6px;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(1) { width: 9%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(2) { width: 9%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(3) { width: 11%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(4) { width: 24%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(5) { width: 24%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(6) { width: 23%; }
+
+.reveal section.ttc-stops-3b .ttc-total-row td {
+  background: #eef8fb;
+  font-weight: 800;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+.reveal section.ttc-stops-3b .ttc-total-row td:nth-child(4),
+.reveal section.ttc-stops-3b .ttc-total-row td:nth-child(5),
+.reveal section.ttc-stops-3b .ttc-total-row td:nth-child(6) {
+  color: var(--sta-teal-dark);
+}
+</style>
+```
+
+:::: {.ttc-stack-pro}
+
+::: {.examplebox .ttc-stack-card}
+<div class="ttc-card-title">Predicted values</div>
+
+<div class="ttc-card-note">
+Use the fitted line: <span class="ttc-fit-eq">ŷ = 1.310 + 3.357x</span>.
+</div>
+
+<table class="ttc-clean-table ttc-pred-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>Plug into fitted line</th>
+      <th>ŷ<sub>i</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>3</td><td>1.310 + 3.357(3)</td><td>11.381</td></tr>
+    <tr><td>5</td><td>1.310 + 3.357(5)</td><td>18.095</td></tr>
+    <tr><td>7</td><td>1.310 + 3.357(7)</td><td>24.810</td></tr>
+    <tr><td>9</td><td>1.310 + 3.357(9)</td><td>31.524</td></tr>
+    <tr><td>11</td><td>1.310 + 3.357(11)</td><td>38.238</td></tr>
+    <tr><td>13</td><td>1.310 + 3.357(13)</td><td>44.952</td></tr>
+  </tbody>
+</table>
 :::
 
-::: {.ttc-card-note}
-Use the fitted line: **ŷ = 1.310 + 3.357x**.
-:::
+::: {.stat-card .ttc-stack-card}
+<div class="ttc-card-title">Variation table</div>
 
-| x | Plug into fitted line | ŷ |
-|---:|:----------------------|------:|
-| 3  | 1.310 + 3.357(3)      | 11.381 |
-| 5  | 1.310 + 3.357(5)      | 18.095 |
-| 7  | 1.310 + 3.357(7)      | 24.810 |
-| 9  | 1.310 + 3.357(9)      | 31.524 |
-| 11 | 1.310 + 3.357(11)     | 38.238 |
-| 13 | 1.310 + 3.357(13)     | 44.952 |
-:::
+<div class="ttc-card-note">
+Here <strong>ȳ = 28.167</strong>. The three right-hand columns correspond to <strong>SSE</strong>, <strong>SSR</strong>, and <strong>SST</strong>.
+</div>
 
-::: {.stat-card .ttc-var-card}
-::: {.ttc-card-title}
-Variation table
-:::
-
-::: {.ttc-card-note}
-Here **ȳ = 28.167**. The three variation columns correspond to SSE, SSR, and SST.
-:::
-
-| x | y | ŷ | Residual part | Regression part | Total part |
-|---:|---:|------:|--------------:|----------------:|-----------:|
-| 3  | 12 | 11.381 | 0.383 | 281.760 | 261.361 |
-| 5  | 22 | 18.095 | 15.247 | 101.434 | 38.028 |
-| 7  | 18 | 24.810 | 46.370 | 11.270 | 103.361 |
-| 9  | 36 | 31.524 | 20.036 | 11.270 | 61.361 |
-| 11 | 31 | 38.238 | 52.390 | 101.434 | 8.028 |
-| 13 | 50 | 44.952 | 25.478 | 281.760 | 476.694 |
-| **Totals** |  |  | **SSE = 159.905** | **SSR = 788.929** | **SST = 948.833** |
+<table class="ttc-clean-table ttc-var-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+      <th>ŷ<sub>i</sub></th>
+      <th>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup></th>
+      <th>(ŷ<sub>i</sub> − ȳ)<sup>2</sup></th>
+      <th>(y<sub>i</sub> − ȳ)<sup>2</sup></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>3</td><td>12</td><td>11.381</td><td>0.383</td><td>281.760</td><td>261.361</td></tr>
+    <tr><td>5</td><td>22</td><td>18.095</td><td>15.247</td><td>101.434</td><td>38.028</td></tr>
+    <tr><td>7</td><td>18</td><td>24.810</td><td>46.370</td><td>11.270</td><td>103.361</td></tr>
+    <tr><td>9</td><td>36</td><td>31.524</td><td>20.036</td><td>11.270</td><td>61.361</td></tr>
+    <tr><td>11</td><td>31</td><td>38.238</td><td>52.390</td><td>101.434</td><td>8.028</td></tr>
+    <tr><td>13</td><td>50</td><td>44.952</td><td>25.478</td><td>281.760</td><td>476.694</td></tr>
+    <tr class="ttc-total-row">
+      <td>Totals</td>
+      <td></td>
+      <td></td>
+      <td>SSE = 159.905</td>
+      <td>SSR = 788.929</td>
+      <td>SST = 948.833</td>
+    </tr>
+  </tbody>
+</table>
 :::
 
 ::::
 
-:::: {.ttc-bottom-row}
+------------------------------------------------------------------------
 
-::: {.ttc-calc-card}
-::: {.ttc-calc-title}
-Calculation
+## Example: TTC Stops and Commute Time {.ttc-stops-3c}
+
+```{=html}
+<style>
+.reveal section.ttc-stops-3c {
+  font-size: 0.84em;
+}
+
+.reveal section.ttc-stops-3c .ttc-final-clean-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-card,
+.reveal section.ttc-stops-3c .ttc-clean-conclusion {
+  border-radius: 11px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 7px solid var(--sta-teal);
+  padding: 19px 21px;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-conclusion {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+  padding: 20px 22px;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 21px;
+  line-height: 1.08;
+  margin: 0 0 14px 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.16;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  vertical-align: middle;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td:nth-child(1) {
+  width: 20%;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td:nth-child(2) {
+  width: 23%;
+  font-weight: 800;
+  text-align: right;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td:nth-child(3) {
+  width: 57%;
+}
+
+.reveal section.ttc-stops-3c .ttc-r2-line {
+  background: #fbfdfe;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 13px 15px;
+  text-align: center;
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 20px;
+  line-height: 1.20;
+}
+
+.reveal section.ttc-stops-3c .ttc-conclusion-main {
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 21px;
+  line-height: 1.22;
+  margin: 0 0 16px 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-conclusion p {
+  font-size: 17px;
+  line-height: 1.30;
+  margin: 0 0 13px 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-conclusion p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-caution {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(0, 105, 92, 0.20);
+  color: var(--sta-muted);
+}
+</style>
+```
+
+:::: {.ttc-final-clean-grid}
+
+::: {.ttc-clean-card}
+
+::: {.ttc-clean-title}
+Calculation summary
 :::
 
-:::: {.ttc-calc-grid}
+<table class="ttc-summary-table">
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SSE</td>
+      <td>159.905</td>
+      <td>variation left unexplained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SSR</td>
+      <td>788.929</td>
+      <td>variation explained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SST</td>
+      <td>948.833</td>
+      <td>total variation in commute time</td>
+    </tr>
+  </tbody>
+</table>
 
-::: {.ttc-calc-left}
-::: {.ttc-step}
-::: {.ttc-step-label}
-Mean response
+::: {.ttc-r2-line}
+R<sup>2</sup> = SSR / SST = 788.929 / 948.833 = 0.831
 :::
-::: {.ttc-eq}
-ȳ = 28.167
-:::
-:::
-
-::: {.ttc-step}
-::: {.ttc-step-label}
-Unexplained variation
-:::
-::: {.ttc-eq}
-SSE = Σ(yᵢ − ŷᵢ)² = 159.905
-:::
-:::
-
-::: {.ttc-step}
-::: {.ttc-step-label}
-Explained variation
-:::
-::: {.ttc-eq}
-SSR = Σ(ŷᵢ − ȳ)² = 788.929
-:::
-:::
-
-::: {.ttc-step}
-::: {.ttc-step-label}
-Total variation
-:::
-::: {.ttc-eq}
-SST = Σ(yᵢ − ȳ)² = 948.833
-:::
-:::
-:::
-
-::: {.ttc-calc-right}
-::: {.ttc-step}
-::: {.ttc-step-label}
-Check
-:::
-::: {.ttc-eq}
-SSR + SSE = 788.929 + 159.905 = 948.833
-:::
-::: {.ttc-calc-note}
-This matches SST, up to rounding.
-:::
-:::
-
-::: {.ttc-step}
-::: {.ttc-step-label}
-Coefficient of determination
-:::
-::: {.ttc-eq}
-R² = SSR / SST
-:::
-::: {.ttc-eq}
-R² = 788.929 / 948.833 = 0.831
-:::
-:::
-:::
-
-::::
 
 :::
 
-::: {.ttc-conclusion-card}
-::: {.ttc-card-title}
+::: {.ttc-clean-conclusion}
+
+::: {.ttc-clean-title}
 Conclusion
 :::
 
-::: {.ttc-result-pill}
-R² = 0.831, so about 83.1% is explained.
+::: {.ttc-conclusion-main}
+About 83.1% of the variation in commute time is explained by stations travelled.
 :::
 
-About **83.1%** of the variation in commute time is explained by stations travelled through the fitted linear model.
+The fitted line explains a large part of the variation, but the unexplained variation is still noticeable.
 
-The unexplained variation is still noticeable: **SSE = 159.905**.
+That makes sense because commute time can also be affected by delays, crowding, waiting time, and transfer timing.
 
-This makes sense because commute time can also be affected by delays, crowding, and waiting time.
+::: {.ttc-caution}
+This is a strong linear association in the sample, but it does not prove that the number of stations alone caused the commute time.
 :::
 
-::::
+:::
 
 ::::
 

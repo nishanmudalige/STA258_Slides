@@ -2002,14 +2002,9 @@ y <- c(18, 21, 34, 43, 48)
 model <- lm(y ~ x)
 
 out <- round(data.frame(
-  xbar = mean(x),
-  ybar = mean(y),
-  sx = sd(x),
-  sy = sd(y),
-  sxy = cov(x, y),
-  r = cor(x, y),
-  r2 = cor(x, y)^2,
-  R2 = summary(model)$r.squared
+  covariance = cov(x, y),
+  correlation = cor(x, y),
+  r_squared = summary(model)$r.squared
 ), 3)
 
 print(out, row.names = FALSE)
@@ -2030,14 +2025,9 @@ y <- c(88, 84, 76, 71, 63, 58)
 model <- lm(y ~ x)
 
 out <- round(data.frame(
-  xbar = mean(x),
-  ybar = mean(y),
-  sx = sd(x),
-  sy = sd(y),
-  sxy = cov(x, y),
-  r = cor(x, y),
-  r2 = cor(x, y)^2,
-  R2 = summary(model)$r.squared
+  covariance = cov(x, y),
+  correlation = cor(x, y),
+  r_squared = summary(model)$r.squared
 ), 3)
 
 print(out, row.names = FALSE)
@@ -3517,24 +3507,12 @@ x <- c(5, 8, 10, 12, 15, 18)
 y <- c(0.6, 1.0, 1.4, 1.5, 2.1, 2.4)
 
 model <- lm(y ~ x)
+a <- anova(model)
 
-yhat <- fitted(model)
-ybar <- mean(y)
+round(a, 3)
 
-SSE <- sum((y - yhat)^2)
-SSR <- sum((yhat - ybar)^2)
-SST <- sum((y - ybar)^2)
-
-out <- round(data.frame(
-  SSE = SSE,
-  SSR = SSR,
-  SST = SST,
-  Check = SSR + SSE,
-  R2 = SSR / SST,
-  lm_R2 = summary(model)$r.squared
-), 3)
-
-print(out, row.names = FALSE)
+cat("\nSST =", round(sum(a$`Sum Sq`), 3))
+cat("\nR-squared =", round(summary(model)$r.squared, 3), "\n")
 ```
 :::
 
@@ -3550,24 +3528,12 @@ x <- c(3, 5, 7, 9, 11, 13)
 y <- c(12, 22, 18, 36, 31, 50)
 
 model <- lm(y ~ x)
+a <- anova(model)
 
-yhat <- fitted(model)
-ybar <- mean(y)
+round(a, 3)
 
-SSE <- sum((y - yhat)^2)
-SSR <- sum((yhat - ybar)^2)
-SST <- sum((y - ybar)^2)
-
-out <- round(data.frame(
-  SSE = SSE,
-  SSR = SSR,
-  SST = SST,
-  Check = SSR + SSE,
-  R2 = SSR / SST,
-  lm_R2 = summary(model)$r.squared
-), 3)
-
-print(out, row.names = FALSE)
+cat("\nSST =", round(sum(a$`Sum Sq`), 3))
+cat("\nR-squared =", round(summary(model)$r.squared, 3), "\n")
 ```
 :::
 
@@ -4000,17 +3966,9 @@ x <- c(1, 2, 3, 4, 5)
 y <- c(1, 1, 2, 2, 4)
 
 model <- lm(y ~ x)
-s <- summary(model)
-ci <- confint(model, "x")
 
-round(data.frame(
-  b1 = coef(model)["x"],
-  SE = s$coefficients["x", "Std. Error"],
-  t = s$coefficients["x", "t value"],
-  p = s$coefficients["x", "Pr(>|t|)"],
-  lower = ci[1],
-  upper = ci[2]
-), 4)
+round(summary(model)$coefficients, 4)
+round(confint(model), 4)
 ```
 :::
 
@@ -4026,17 +3984,9 @@ x <- c(2, 4, 5, 7, 8, 10, 12, 14)
 y <- c(5, 7, 8, 10, 12, 13, 16, 17)
 
 model <- lm(y ~ x)
-s <- summary(model)
-ci <- confint(model, "x")
 
-round(data.frame(
-  b1 = coef(model)["x"],
-  SE = s$coefficients["x", "Std. Error"],
-  t = s$coefficients["x", "t value"],
-  p = s$coefficients["x", "Pr(>|t|)"],
-  lower = ci[1],
-  upper = ci[2]
-), 4)
+round(summary(model)$coefficients, 4)
+round(confint(model), 4)
 ```
 :::
 
@@ -4312,37 +4262,10 @@ y <- c(1, 1, 2, 2, 4)
 
 model <- lm(y ~ x)
 a <- anova(model)
-s <- summary(model)
 
-SS_reg <- a$`Sum Sq`[1]
-SS_err <- a$`Sum Sq`[2]
-SS_tot <- SS_reg + SS_err
+round(a, 4)
 
-MS_reg <- a$`Mean Sq`[1]
-MS_err <- a$`Mean Sq`[2]
-
-F_val <- a$`F value`[1]
-p_val <- a$`Pr(>F)`[1]
-
-out <- data.frame(
-  Source = c("Reg", "Error", "Total"),
-  SS = c(round(SS_reg, 3), round(SS_err, 3), round(SS_tot, 3)),
-  df = c(1, length(x) - 2, length(x) - 1),
-  MS = c(round(MS_reg, 3), round(MS_err, 3), ""),
-  F = c(round(F_val, 3), "", ""),
-  p = c(format.pval(p_val, digits = 4), "", "")
-)
-
-print(out, row.names = FALSE)
-
-t_val <- s$coefficients["x", "t value"]
-
-check <- round(data.frame(
-  F = F_val,
-  t_squared = t_val^2
-), 3)
-
-print(check, row.names = FALSE)
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
 ```
 :::
 
@@ -4359,37 +4282,10 @@ y <- c(18, 24, 31, 35, 43, 47)
 
 model <- lm(y ~ x)
 a <- anova(model)
-s <- summary(model)
 
-SS_reg <- a$`Sum Sq`[1]
-SS_err <- a$`Sum Sq`[2]
-SS_tot <- SS_reg + SS_err
+round(a, 4)
 
-MS_reg <- a$`Mean Sq`[1]
-MS_err <- a$`Mean Sq`[2]
-
-F_val <- a$`F value`[1]
-p_val <- a$`Pr(>F)`[1]
-
-out <- data.frame(
-  Source = c("Reg", "Error", "Total"),
-  SS = c(round(SS_reg, 3), round(SS_err, 3), round(SS_tot, 3)),
-  df = c(1, length(x) - 2, length(x) - 1),
-  MS = c(round(MS_reg, 3), round(MS_err, 3), ""),
-  F = c(round(F_val, 3), "", ""),
-  p = c(format.pval(p_val, digits = 4), "", "")
-)
-
-print(out, row.names = FALSE)
-
-t_val <- s$coefficients["x", "t value"]
-
-check <- round(data.frame(
-  F = F_val,
-  t_squared = t_val^2
-), 3)
-
-print(check, row.names = FALSE)
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
 ```
 :::
 
@@ -4607,18 +4503,15 @@ y <- c(2200, 2450, 2600, 2850,
 model <- lm(y ~ x)
 
 new_units <- data.frame(x = c(8, 20))
-predicted <- predict(model, newdata = new_units)
-
-type <- ifelse(
-  new_units$x >= min(x) & new_units$x <= max(x),
-  "interpolation",
-  "extrapolation"
-)
 
 out <- data.frame(
-  sqft = c(800, 2000),
-  type = type,
-  predicted_rent = round(predicted, 2)
+  sqft = new_units$x * 100,
+  type = ifelse(
+    new_units$x >= min(x) & new_units$x <= max(x),
+    "interpolation",
+    "extrapolation"
+  ),
+  predicted_rent = round(predict(model, new_units), 2)
 )
 
 print(out, row.names = FALSE)
@@ -4639,18 +4532,15 @@ y <- c(420, 390, 360, 335, 310, 295)
 model <- lm(y ~ x)
 
 new_days <- data.frame(x = c(8, 30))
-predicted <- predict(model, newdata = new_days)
-
-type <- ifelse(
-  new_days$x >= min(x) & new_days$x <= max(x),
-  "interpolation",
-  "extrapolation"
-)
 
 out <- data.frame(
   days_before_concert = new_days$x,
-  type = type,
-  predicted_price = round(predicted, 2)
+  type = ifelse(
+    new_days$x >= min(x) & new_days$x <= max(x),
+    "interpolation",
+    "extrapolation"
+  ),
+  predicted_price = round(predict(model, new_days), 2)
 )
 
 print(out, row.names = FALSE)

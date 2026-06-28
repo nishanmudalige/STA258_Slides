@@ -2566,85 +2566,446 @@ So the fitted line describes this fictional Monaco simulator data very well.
 
 ---
 
-## Example: TTC Stops and Commute Time
+## Example: TTC Stops and Commute Time {.ttc-stops-seq}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.90fr 1.10fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.ttc-stops-seq .ttc-seq-intro-grid {
+  display: grid;
+  grid-template-columns: 0.94fr 1.06fr;
+  gap: 16px;
+  align-items: stretch;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.08; padding: 10px 14px; margin-bottom: 0;"}
+.reveal section.ttc-stops-seq .ttc-seq-intro-bottom {
+  margin-top: 14px;
+}
+
+.reveal section.ttc-stops-seq .ttc-seq-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin-top: 6px;
+}
+
+.reveal section.ttc-stops-seq .ttc-seq-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 5px 7px;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.reveal section.ttc-stops-seq .ttc-seq-table td {
+  border: 1px solid var(--sta-border);
+  padding: 5px 7px;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.reveal section.ttc-stops-seq .ttc-seq-observed-table {
+  font-size: 0.67em;
+  line-height: 1.08;
+}
+
+.reveal section.ttc-stops-seq mjx-container[display="true"],
+.reveal section.ttc-stops-seq .MathJax_Display {
+  margin: 0.12em 0 !important;
+}
+
+/* ---------- TTC calculation slide ---------- */
+
+.reveal section.ttc-stops-r2-fixed {
+  font-size: 0.72em;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-slide-grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 9px;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-top-row {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-bottom-row {
+  display: grid;
+  grid-template-columns: 1.16fr 0.84fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.reveal section.ttc-stops-r2-fixed .examplebox,
+.reveal section.ttc-stops-r2-fixed .stat-card {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-calc-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 7px solid var(--sta-teal);
+  border-radius: 10px;
+  padding: 9px 12px;
+  box-sizing: border-box;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-conclusion-card {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+  border-radius: 10px;
+  padding: 10px 13px;
+  box-sizing: border-box;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 1.05;
+  margin: 0 0 5px 0;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-card-note {
+  font-size: 13px;
+  line-height: 1.14;
+  color: var(--sta-muted);
+  margin: 0 0 5px 0;
+}
+
+.reveal section.ttc-stops-r2-fixed table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+}
+
+.reveal section.ttc-stops-r2-fixed th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 3px 5px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.reveal section.ttc-stops-r2-fixed td {
+  border: 1px solid var(--sta-border);
+  padding: 3px 5px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-pred-card table {
+  font-size: 12.5px;
+  line-height: 1.02;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-var-card table {
+  font-size: 11.3px;
+  line-height: 1.00;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-pred-card td,
+.reveal section.ttc-stops-r2-fixed .ttc-var-card td {
+  text-align: center;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-pred-card td:nth-child(2) {
+  text-align: left;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-var-card tbody tr:last-child td {
+  background: #eef8fb;
+  font-weight: 800;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-calc-title {
+  color: var(--sta-teal-dark);
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-calc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 11px;
+  align-items: start;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-step {
+  margin: 0 0 6px 0;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-step:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-step-label {
+  font-size: 12.8px;
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--sta-text);
+  margin: 0 0 1px 0;
+  text-align: left;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-eq {
+  font-size: 16.5px;
+  line-height: 1.15;
+  text-align: left;
+  padding-left: 10px;
+  color: var(--sta-text);
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-calc-note {
+  font-size: 12px;
+  line-height: 1.14;
+  color: var(--sta-muted);
+  margin-top: 2px;
+  padding-left: 10px;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-conclusion-card p {
+  font-size: 14.8px;
+  line-height: 1.16;
+  margin: 0 0 7px 0;
+}
+
+.reveal section.ttc-stops-r2-fixed .ttc-result-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 8px;
+  padding: 6px 8px;
+  margin: 5px 0 8px 0;
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  text-align: center;
+}
+</style>
+```
+
+:::: {.ttc-seq-intro-grid}
+
+::: {.taskbox style="font-size: 0.66em; line-height: 1.17; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Context and question</span>
+
 A student tracks fictional TTC trips during a week with random delays.
 
-For each trip:
-
-- $x=$ number of stations travelled
-- $y=$ commute time in minutes
-
-The fitted line is:
+We use the number of **stations travelled** to predict **commute time**, measured in minutes.
 
 $$
-\hat{y}=1.310+3.357x.
+x=\text{stations travelled},
+\qquad
+y=\text{commute time}
 $$
 
-**Question.** Calculate $SSE$, $SSR$, $SST$, and $R^2$.
-
-| $x$ | $y$ | $\hat y$ | $(y-\hat y)^2$ | $(\hat y-\bar y)^2$ |
-|---:|---:|---:|---:|---:|
-| 3 | 12 | 11.381 | 0.383 | 281.760 |
-| 5 | 22 | 18.095 | 15.247 | 101.434 |
-| 7 | 18 | 24.810 | 46.370 | 11.270 |
-| 9 | 36 | 31.524 | 20.036 | 11.270 |
-| 11 | 31 | 38.238 | 52.390 | 101.434 |
-| 13 | 50 | 44.952 | 25.478 | 281.760 |
-:::
-
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
-
-The sample mean response is:
+The fitted regression line is:
 
 $$
-\bar{y}=28.167
-$$
-
-Unexplained variation:
-
-$$
-SSE=\sum(y_i-\hat{y}_i)^2=159.905
-$$
-
-Explained variation:
-
-$$
-SSR=\sum(\hat{y}_i-\bar{y})^2=788.929
-$$
-
-Total variation:
-
-$$
-SST=\sum(y_i-\bar{y})^2=948.833
-$$
-
-Check:
-
-$$
-SSR+SSE=788.929+159.905=948.833=SST
-$$
-
-$$
-R^2=\frac{788.929}{948.833}=0.831
+\hat{y}=1.310+3.357x
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target relationship</span>
+::: {.examplebox style="font-size: 0.66em; line-height: 1.13; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
-We model commute time using the number of TTC stations travelled.
+<table class="ttc-seq-table ttc-seq-observed-table">
+  <thead>
+    <tr>
+      <th>Stations travelled, \(x\)</th>
+      <th>Commute time, \(y\)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>3</td><td>12</td></tr>
+    <tr><td>5</td><td>22</td></tr>
+    <tr><td>7</td><td>18</td></tr>
+    <tr><td>9</td><td>36</td></tr>
+    <tr><td>11</td><td>31</td></tr>
+    <tr><td>13</td><td>50</td></tr>
+  </tbody>
+</table>
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-About **83.1%** of the variation in commute time is explained by stations
-travelled. The leftover variation is the messy part: delays, crowding,
-and waiting time.
+::::
+
+::: {.notebox .ttc-seq-intro-bottom style="font-size: 0.65em; line-height: 1.15; padding: 13px 16px; margin-bottom: 0;"}
+<span class="label">Goal of the example</span>
+
+We want to split the total variation in commute time into:
+
+$$
+SST = SSR + SSE
+$$
+
+Then we compute:
+
+$$
+R^2=\frac{SSR}{SST}
+$$
+
+to measure how much of the variation in commute time is explained by stations travelled through the fitted linear model.
 :::
+
+------------------------------------------------------------------------
+
+## Example: TTC Stops and Commute Time {.ttc-stops-r2-fixed}
+
+:::: {.ttc-slide-grid}
+
+:::: {.ttc-top-row}
+
+::: {.examplebox .ttc-pred-card}
+::: {.ttc-card-title}
+Predicted values
+:::
+
+::: {.ttc-card-note}
+Use the fitted line: **ŷ = 1.310 + 3.357x**.
+:::
+
+| x | Plug into fitted line | ŷ |
+|---:|:----------------------|------:|
+| 3  | 1.310 + 3.357(3)      | 11.381 |
+| 5  | 1.310 + 3.357(5)      | 18.095 |
+| 7  | 1.310 + 3.357(7)      | 24.810 |
+| 9  | 1.310 + 3.357(9)      | 31.524 |
+| 11 | 1.310 + 3.357(11)     | 38.238 |
+| 13 | 1.310 + 3.357(13)     | 44.952 |
+:::
+
+::: {.stat-card .ttc-var-card}
+::: {.ttc-card-title}
+Variation table
+:::
+
+::: {.ttc-card-note}
+Here **ȳ = 28.167**. The three variation columns correspond to SSE, SSR, and SST.
+:::
+
+| x | y | ŷ | Residual part | Regression part | Total part |
+|---:|---:|------:|--------------:|----------------:|-----------:|
+| 3  | 12 | 11.381 | 0.383 | 281.760 | 261.361 |
+| 5  | 22 | 18.095 | 15.247 | 101.434 | 38.028 |
+| 7  | 18 | 24.810 | 46.370 | 11.270 | 103.361 |
+| 9  | 36 | 31.524 | 20.036 | 11.270 | 61.361 |
+| 11 | 31 | 38.238 | 52.390 | 101.434 | 8.028 |
+| 13 | 50 | 44.952 | 25.478 | 281.760 | 476.694 |
+| **Totals** |  |  | **SSE = 159.905** | **SSR = 788.929** | **SST = 948.833** |
+:::
+
+::::
+
+:::: {.ttc-bottom-row}
+
+::: {.ttc-calc-card}
+::: {.ttc-calc-title}
+Calculation
+:::
+
+:::: {.ttc-calc-grid}
+
+::: {.ttc-calc-left}
+::: {.ttc-step}
+::: {.ttc-step-label}
+Mean response
+:::
+::: {.ttc-eq}
+ȳ = 28.167
+:::
+:::
+
+::: {.ttc-step}
+::: {.ttc-step-label}
+Unexplained variation
+:::
+::: {.ttc-eq}
+SSE = Σ(yᵢ − ŷᵢ)² = 159.905
+:::
+:::
+
+::: {.ttc-step}
+::: {.ttc-step-label}
+Explained variation
+:::
+::: {.ttc-eq}
+SSR = Σ(ŷᵢ − ȳ)² = 788.929
+:::
+:::
+
+::: {.ttc-step}
+::: {.ttc-step-label}
+Total variation
+:::
+::: {.ttc-eq}
+SST = Σ(yᵢ − ȳ)² = 948.833
+:::
+:::
+:::
+
+::: {.ttc-calc-right}
+::: {.ttc-step}
+::: {.ttc-step-label}
+Check
+:::
+::: {.ttc-eq}
+SSR + SSE = 788.929 + 159.905 = 948.833
+:::
+::: {.ttc-calc-note}
+This matches SST, up to rounding.
+:::
+:::
+
+::: {.ttc-step}
+::: {.ttc-step-label}
+Coefficient of determination
+:::
+::: {.ttc-eq}
+R² = SSR / SST
+:::
+::: {.ttc-eq}
+R² = 788.929 / 948.833 = 0.831
+:::
+:::
+:::
+
+::::
+
+:::
+
+::: {.ttc-conclusion-card}
+::: {.ttc-card-title}
+Conclusion
+:::
+
+::: {.ttc-result-pill}
+R² = 0.831, so about 83.1% is explained.
+:::
+
+About **83.1%** of the variation in commute time is explained by stations travelled through the fitted linear model.
+
+The unexplained variation is still noticeable: **SSE = 159.905**.
+
+This makes sense because commute time can also be affected by delays, crowding, and waiting time.
+:::
+
+::::
 
 ::::
 

@@ -1363,89 +1363,533 @@ linear relationship between two variables.
 
 ------------------------------------------------------------------------
 
-## Example: Sunlight and Plant Growth
+## Example: Sunlight and Plant Growth {.sunlight-seq}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.sunlight-seq .sunlight-intro-grid {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 16px;
+  align-items: stretch;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A greenhouse records fictional data on how much sunlight different plants
-receive and how tall they are after several weeks.
+.reveal section.sunlight-seq .sunlight-intro-bottom {
+  margin-top: 14px;
+}
 
-| Sunlight hours per day $(x)$ | Plant height in cm $(y)$ |
-|---:|---:|
-| 1 | 18 |
-| 2 | 21 |
-| 4 | 34 |
-| 6 | 43 |
-| 7 | 48 |
+.reveal section.sunlight-seq .sunlight-obs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin-top: 8px;
+  font-size: 0.80em;
+  line-height: 1.15;
+}
 
-Compute and interpret the sample correlation.
-:::
+.reveal section.sunlight-seq .sunlight-obs-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
+.reveal section.sunlight-seq .sunlight-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.reveal section.sunlight-seq mjx-container[display="true"],
+.reveal section.sunlight-seq .MathJax_Display {
+  margin: 0.16em 0 !important;
+}
+
+.reveal section.sunlight-seq .sunlight-goal-grid {
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.reveal section.sunlight-seq .sunlight-goal-text p {
+  margin: 0 0 9px 0;
+  line-height: 1.22;
+}
+
+.reveal section.sunlight-seq .sunlight-goal-text p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-pill {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 5px solid var(--sta-teal);
+  border-radius: 9px;
+  padding: 9px 14px 10px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-pill .sunlight-pill-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--sta-muted);
+  margin-bottom: 3px;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-pill mjx-container {
+  font-size: 1.04em !important;
+}
+</style>
+```
+
+:::: {.sunlight-intro-grid}
+
+::: {.taskbox style="font-size: 0.68em; line-height: 1.2; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Context and question</span>
+
+A greenhouse records fictional data on how much sunlight different plants receive and how tall they are after several weeks.
+
+We use **sunlight hours per day** to study its relationship with **plant height**.
 
 $$
-\bar{x}=4.000,
+x=\text{sunlight hours per day},
 \qquad
-\bar{y}=32.800
+y=\text{plant height in cm}
 $$
 
-$$
-s_x=2.550,
-\qquad
-s_y=13.180
-$$
-
-$$
-s_{xy}
-=
-\frac{1}{5-1}
-\sum(x_i-\bar{x})(y_i-\bar{y})
-=
-33.500
-$$
-
-$$
-r=
-\frac{s_{xy}}{s_xs_y}
-=
-\frac{33.500}{(2.550)(13.180)}
-=
-0.997
-$$
-
-$$
-r^2=0.994
-$$
+Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target relationship</span>
+::: {.examplebox style="font-size: 0.68em; line-height: 1.13; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
-We compare sunlight hours per day and plant height.
-
-The sign of $r$ tells us direction. The size of $r$ tells us strength.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The correlation is **0.997**, so the relationship is strongly positive:
-plants that received more sunlight tended to be taller.
+<table class="sunlight-obs-table">
+  <thead>
+    <tr>
+      <th>Sunlight hours per day, \(x\)</th>
+      <th>Plant height in cm, \(y\)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>18</td></tr>
+    <tr><td>2</td><td>21</td></tr>
+    <tr><td>4</td><td>34</td></tr>
+    <tr><td>6</td><td>43</td></tr>
+    <tr><td>7</td><td>48</td></tr>
+  </tbody>
+</table>
 :::
 
 ::::
 
----
+::: {.notebox .sunlight-intro-bottom style="font-size: 0.66em; line-height: 1.18; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Goal of the example</span>
 
-## Example: Late-Night TikTok Scrolling and Quiz Scores
+:::: {.sunlight-goal-grid}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+::: {.sunlight-goal-text}
+<p>We want to measure the strength and direction of the linear relationship between sunlight and plant height. This means computing the covariance, then standardizing it into a correlation.</p>
+<p>The sign of $r$ tells us direction. The size of $r$ tells us strength.</p>
+:::
+
+::: {.sunlight-formula-stack}
+<div class="sunlight-formula-pill">
+<span class="sunlight-pill-label">Covariance</span>
+$$
+s_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+$$
+</div>
+
+<div class="sunlight-formula-pill">
+<span class="sunlight-pill-label">Correlation</span>
+$$
+r=\frac{s_{xy}}{s_xs_y}
+$$
+</div>
+:::
+
+::::
+
+:::
+
+------------------------------------------------------------------------
+
+## Example: Sunlight and Plant Growth {.sunlight-r2-fixed}
+
+```{=html}
+<style>
+.reveal section.sunlight-r2-fixed {
+  font-size: 0.79em;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-r2-layout {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 11px;
+  align-items: start;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-table-card,
+.reveal section.sunlight-r2-fixed .sunlight-calc-card,
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-table-card {
+  padding: 12px 15px 10px 15px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-card-note {
+  font-size: 15px;
+  line-height: 1.22;
+  color: var(--sta-muted);
+  margin: 0 0 8px 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-data-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-data-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 7px 6px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  line-height: 1.08;
+  white-space: normal;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-data-table td {
+  border: 1px solid var(--sta-border);
+  padding: 6px 7px;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 15px;
+  line-height: 1.10;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-data-table td:first-child,
+.reveal section.sunlight-r2-fixed .sunlight-data-table td:nth-child(2) {
+  text-align: center;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-data-table th:nth-child(1) { width: 8%; }
+.reveal section.sunlight-r2-fixed .sunlight-data-table th:nth-child(2) { width: 8%; }
+.reveal section.sunlight-r2-fixed .sunlight-data-table th:nth-child(3) { width: 11%; }
+.reveal section.sunlight-r2-fixed .sunlight-data-table th:nth-child(4) { width: 11%; }
+.reveal section.sunlight-r2-fixed .sunlight-data-table th:nth-child(5) { width: 22%; }
+.reveal section.sunlight-r2-fixed .sunlight-data-table th:nth-child(6) { width: 20%; }
+.reveal section.sunlight-r2-fixed .sunlight-data-table th:nth-child(7) { width: 20%; }
+
+.reveal section.sunlight-r2-fixed .sunlight-total-row td {
+  background: #eef8fb;
+  font-weight: 800;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-bottom-row {
+  display: grid;
+  grid-template-columns: 1.34fr 0.66fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-calc-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 7px solid var(--sta-teal);
+  padding: 13px 16px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+  padding: 13px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px 14px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-metric {
+  background: #fbfdfe;
+  border: 1px solid #d7e4e7;
+  border-radius: 8px;
+  padding: 8px 10px;
+  min-height: 58px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-metric-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--sta-text);
+  line-height: 1.08;
+  margin-bottom: 5px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-metric-eq {
+  font-size: 17px;
+  line-height: 1.18;
+  color: var(--sta-text);
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-metric-eq mjx-container {
+  margin: 0 !important;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-result-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.35);
+  border-radius: 9px;
+  padding: 9px 10px;
+  margin: 2px 0 11px 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  text-align: center;
+  line-height: 1.15;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card p {
+  font-size: 16px;
+  line-height: 1.24;
+  margin: 0 0 9px 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card p:last-child {
+  margin-bottom: 0;
+}
+</style>
+```
+
+:::: {.sunlight-r2-layout}
+
+::: {.examplebox .sunlight-table-card}
+
+::: {.sunlight-card-title}
+Step-by-step deviations and products
+:::
+
+::: {.sunlight-card-note}
+Here $\bar{x}=4.000$ and $\bar{y}=32.800$. Each row shows the building blocks for covariance and correlation.
+:::
+
+<table class="sunlight-data-table">
+  <thead>
+    <tr>
+      <th>x<sub>i</sub></th>
+      <th>y<sub>i</sub></th>
+      <th>x<sub>i</sub> − x&#772;</th>
+      <th>y<sub>i</sub> − y&#772;</th>
+      <th>(x<sub>i</sub> − x&#772;)(y<sub>i</sub> − y&#772;)</th>
+      <th>(x<sub>i</sub> − x&#772;)<sup>2</sup></th>
+      <th>(y<sub>i</sub> − y&#772;)<sup>2</sup></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>18</td><td>−3.000</td><td>−14.800</td><td>44.400</td><td>9.000</td><td>219.040</td></tr>
+    <tr><td>2</td><td>21</td><td>−2.000</td><td>−11.800</td><td>23.600</td><td>4.000</td><td>139.240</td></tr>
+    <tr><td>4</td><td>34</td><td>0.000</td><td>1.200</td><td>0.000</td><td>0.000</td><td>1.440</td></tr>
+    <tr><td>6</td><td>43</td><td>2.000</td><td>10.200</td><td>20.400</td><td>4.000</td><td>104.040</td></tr>
+    <tr><td>7</td><td>48</td><td>3.000</td><td>15.200</td><td>45.600</td><td>9.000</td><td>231.040</td></tr>
+    <tr class="sunlight-total-row"><td>Totals</td><td></td><td></td><td></td><td>134.000</td><td>26.000</td><td>694.800</td></tr>
+  </tbody>
+</table>
+
+:::
+
+:::: {.sunlight-bottom-row}
+
+::: {.sunlight-calc-card}
+
+::: {.sunlight-card-title}
+Calculation
+:::
+
+:::: {.sunlight-metric-grid}
+
+::: {.sunlight-metric}
+::: {.sunlight-metric-title}
+Standard deviation of $x$
+:::
+::: {.sunlight-metric-eq}
+$s_x=\sqrt{26.000/4}=2.550$
+:::
+:::
+
+::: {.sunlight-metric}
+::: {.sunlight-metric-title}
+Covariance
+:::
+::: {.sunlight-metric-eq}
+$s_{xy}=134.000/4=33.500$
+:::
+:::
+
+::: {.sunlight-metric}
+::: {.sunlight-metric-title}
+Standard deviation of $y$
+:::
+::: {.sunlight-metric-eq}
+$s_y=\sqrt{694.800/4}=13.180$
+:::
+:::
+
+::: {.sunlight-metric}
+::: {.sunlight-metric-title}
+Correlation
+:::
+::: {.sunlight-metric-eq}
+$r=\dfrac{33.500}{(2.550)(13.180)}=0.997$
+:::
+:::
+
+::::
+
+:::
+
+::: {.sunlight-conclusion-card}
+
+::: {.sunlight-card-title}
+Conclusion
+:::
+
+::: {.sunlight-result-pill}
+$r=0.997 \quad \text{and} \quad r^2=0.994$
+:::
+
+The correlation is **0.997**, which is strongly positive: plants that received more sunlight tended to be taller.
+
+About **99.4%** of the variation in plant height lines up with the linear trend in sunlight hours.
+
+:::
+
+::::
+
+::::
+
+------------------------------------------------------------------------
+
+## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-corr-example}
+
+```{=html}
+<style>
+.reveal section.late-scroll-corr-example .scroll-grid {
+  display: grid;
+  grid-template-columns: 0.87fr 1.13fr;
+  grid-template-rows: auto auto;
+  gap: 10px 18px;
+  align-items: stretch;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-card {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.68em;
+  line-height: 1.13;
+  padding: 13px 17px;
+  margin-bottom: 0;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-layout {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 20px;
+  align-items: start;
+  margin-top: 4px;
+}
+
+.reveal section.late-scroll-corr-example .scroll-work-left,
+.reveal section.late-scroll-corr-example .scroll-work-right {
+  min-width: 0;
+}
+
+.reveal section.late-scroll-corr-example .scroll-step-title {
+  color: var(--sta-text);
+  font-weight: 800;
+  font-size: 0.88em;
+  line-height: 1.05;
+  margin: 0 0 3px 0;
+}
+
+.reveal section.late-scroll-corr-example .scroll-eq {
+  font-size: 0.90em;
+  line-height: 1.18;
+  margin-bottom: 7px;
+  padding-left: 8px;
+}
+
+.reveal section.late-scroll-corr-example .scroll-eq p {
+  margin: 0 0 3px 0 !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-eq mjx-container {
+  margin: 0 !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-card mjx-container[display="true"],
+.reveal section.late-scroll-corr-example .scroll-calc-card .MathJax_Display {
+  text-align: left !important;
+  margin: 0.08em 0 0.18em 0 !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-card mjx-container[display="true"] > svg {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-result {
+  margin-top: 2px;
+  padding-left: 8px;
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+}
+</style>
+```
+
+:::: {.scroll-grid}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A student group collects fictional data on late-night TikTok scrolling
-before a morning quiz.
+A student group collects fictional data on late-night scrolling before a
+morning quiz.
 
-| TikTok minutes after midnight $(x)$ | Quiz score $(y)$ |
+| Minutes after midnight $(x)$ | Quiz score $(y)$ |
 |---:|---:|
 | 15 | 88 |
 | 30 | 84 |
@@ -1454,51 +1898,78 @@ before a morning quiz.
 | 75 | 63 |
 | 90 | 58 |
 
-Compute and interpret the sample correlation.
+Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .scroll-calc-card}
 <span class="label">Calculation</span>
 
-$$
-\bar{x}=52.500,
-\qquad
-\bar{y}=73.333
-$$
+:::: {.scroll-calc-layout}
 
-$$
-s_x=28.062,
-\qquad
-s_y=11.690
-$$
+::: {.scroll-work-left}
+::: {.scroll-step-title}
+Summary work
+:::
 
-$$
-s_{xy}
-=
-\frac{1}{6-1}
-\sum(x_i-\bar{x})(y_i-\bar{y})
-=
--327.000
-$$
+::: {.scroll-eq}
+$15+30+45+60+75+90=315$
 
-$$
-r=
-\frac{s_{xy}}{s_xs_y}
-=
-\frac{-327.000}{(28.062)(11.690)}
-=
--0.997
-$$
+$\bar{x}=\dfrac{315}{6}=52.500$
 
-$$
-r^2=0.994
-$$
+$88+84+76+71+63+58=440$
+
+$\bar{y}=\dfrac{440}{6}=73.333$
+:::
+
+::: {.scroll-step-title}
+Deviation sums
+:::
+
+::: {.scroll-eq}
+$\sum (x_i-\bar{x})^2=3937.500$
+
+$\sum (y_i-\bar{y})^2=683.333$
+
+$\sum (x_i-\bar{x})(y_i-\bar{y})=-1635.000$
+:::
+:::
+
+::: {.scroll-work-right}
+::: {.scroll-step-title}
+Standard deviations
+:::
+
+::: {.scroll-eq}
+$s_x=\sqrt{\dfrac{3937.500}{6-1}}=28.062$
+
+$s_y=\sqrt{\dfrac{683.333}{6-1}}=11.690$
+:::
+
+::: {.scroll-step-title}
+Covariance and correlation
+:::
+
+::: {.scroll-eq}
+$s_{xy}=\dfrac{-1635.000}{6-1}=-327.000$
+
+$r=\dfrac{s_{xy}}{s_xs_y}
+=\dfrac{-327.000}{(28.062)(11.690)}
+=-0.997$
+:::
+
+::: {.scroll-result}
+$r^2=(-0.997)^2=0.994$
+:::
+:::
+
+::::
+
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target relationship</span>
 
-We compare late-night TikTok scrolling time and morning quiz score.
+We compare late-night scrolling time and morning quiz score.
 
 The sign of $r$ tells us direction. The size of $r$ tells us strength.
 :::
@@ -1935,6 +2406,7 @@ $$
 
 A large $R^2$ does **not** prove causation.
 :::
+
 ::::::
 
 ::: {.thinkbox .fragment}
@@ -1945,224 +2417,196 @@ model.”
 
 ------------------------------------------------------------------------
 
-## Example: F1 Monaco Simulator Practice {.f1-monaco-seq}
+
+## Example: F1 Monaco Simulator Practice {.f1-monaco-3a}
 
 ```{=html}
 <style>
-.reveal section.f1-monaco-seq .f1-seq-intro-grid {
+.reveal section.f1-monaco-3a {
+  font-size: 0.82em;
+}
+
+.reveal section.f1-monaco-3a .f1-intro-grid {
   display: grid;
-  grid-template-columns: 0.94fr 1.06fr;
-  gap: 16px;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 14px;
   align-items: stretch;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-intro-bottom {
-  margin-top: 14px;
+.reveal section.f1-monaco-3a .f1-context-card,
+.reveal section.f1-monaco-3a .f1-data-card,
+.reveal section.f1-monaco-3a .f1-goal-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-work-top {
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
-  gap: 12px;
-  align-items: start;
+.reveal section.f1-monaco-3a .f1-context-card {
+  padding: 18px 20px;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-work-bottom {
-  display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
-  gap: 12px;
-  align-items: stretch;
-  margin-top: 10px;
+.reveal section.f1-monaco-3a .f1-data-card {
+  padding: 16px 18px;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-table {
+.reveal section.f1-monaco-3a .f1-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 10px 0;
+}
+
+.reveal section.f1-monaco-3a .f1-context-card p,
+.reveal section.f1-monaco-3a .f1-goal-card p,
+.reveal section.f1-monaco-3a .f1-goal-card li {
+  font-size: 17px;
+  line-height: 1.24;
+  margin: 0 0 12px 0;
+}
+
+.reveal section.f1-monaco-3a .f1-variable-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 10px 12px;
+  margin: 12px 0 14px 0;
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--sta-text);
+}
+
+.reveal section.f1-monaco-3a .f1-fit-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.35);
+  border-radius: 9px;
+  padding: 11px 12px;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  line-height: 1.15;
+}
+
+.reveal section.f1-monaco-3a .f1-obs-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   background: white;
   color: var(--sta-text);
-  margin-top: 6px;
+  margin: 0;
+  font-size: 16px;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-table th {
+.reveal section.f1-monaco-3a .f1-obs-table th {
   background: var(--sta-teal-light);
   border: 1px solid var(--sta-border);
-  padding: 5px 7px;
-  font-weight: 700;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-table td {
-  border: 1px solid var(--sta-border);
-  padding: 5px 7px;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-observed-table {
-  font-size: 0.67em;
-  line-height: 1.08;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-observed-table td {
-  text-align: center;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-pred-table {
-  font-size: 0.50em;
-  line-height: 1.00;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-pred-table td:nth-child(1),
-.reveal section.f1-monaco-seq .f1-seq-pred-table td:nth-child(3) {
-  text-align: center;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-pred-table td:nth-child(2) {
-  text-align: left;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-var-table {
-  font-size: 0.465em;
-  line-height: 0.98;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-var-table td {
-  text-align: center;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-var-table .f1-seq-total-row td {
-  background: #eef8fb;
+  padding: 8px 10px;
   font-weight: 800;
-  border-top: 2px solid var(--sta-teal-dark);
-}
-
-.reveal section.f1-monaco-seq .f1-seq-mean {
-  font-size: 0.57em;
-  line-height: 1.08;
-  margin: 2px 0 4px 0;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-eq-center {
-  font-size: 0.60em;
   text-align: center;
-  margin: 2px 0 6px 0;
+  vertical-align: middle;
+  line-height: 1.08;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-calc-card {
+.reveal section.f1-monaco-3a .f1-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-card {
+  margin-top: 14px;
+  padding: 18px 20px;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-layout {
+  display: grid;
+  grid-template-columns: 1.06fr 0.94fr;
+  gap: 22px;
+  align-items: center;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-list {
+  margin: 8px 0 0 0;
+  padding-left: 21px;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-list li {
+  margin-bottom: 5px;
+}
+
+.reveal section.f1-monaco-3a .f1-formula-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.reveal section.f1-monaco-3a .f1-formula-card {
   background: white;
-  border: 1px solid var(--sta-border);
-  border-left: 7px solid var(--sta-teal);
+  border: 1px solid #d7e4e7;
+  border-left: 6px solid var(--sta-teal);
   border-radius: 10px;
-  padding: 10px 14px;
-  box-sizing: border-box;
+  padding: 12px 14px;
+  text-align: center;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-calc-title {
-  color: var(--sta-teal-dark);
+.reveal section.f1-monaco-3a .f1-formula-label {
+  font-size: 13px;
   font-weight: 800;
-  font-size: 0.78em;
-  margin: 0 0 8px 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sta-muted);
+  margin-bottom: 6px;
 }
 
-.reveal section.f1-monaco-seq .f1-seq-calc-step {
-  margin-bottom: 8px;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-calc-step:last-child {
-  margin-bottom: 0;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-calc-label {
-  font-size: 0.58em;
-  font-weight: 700;
-  color: var(--sta-text);
-  text-align: left;
-  margin-bottom: 1px;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-calc-eq {
-  font-size: 0.60em;
-  line-height: 1.18;
-  text-align: left;
-  padding-left: 20px;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-calc-eq mjx-container {
-  margin: 0 !important;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-conclusion {
-  background: var(--sta-yellow);
-  border-left: 7px solid var(--sta-orange);
-  border-radius: 10px;
-  padding: 11px 14px;
-  box-sizing: border-box;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-conclusion .label {
-  display: block;
-  color: var(--sta-teal-dark);
+.reveal section.f1-monaco-3a .f1-formula-eq {
+  font-size: 23px;
   font-weight: 800;
-  font-size: 0.71em;
-  margin-bottom: 7px;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-conclusion p {
-  font-size: 0.58em;
-  line-height: 1.16;
-  margin: 0 0 9px 0;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-conclusion .f1-seq-conc-eq {
-  font-size: 0.60em;
-  text-align: left;
-  padding-left: 18px;
-  margin: 2px 0 8px 0;
-}
-
-.reveal section.f1-monaco-seq .f1-seq-conclusion .f1-seq-conc-eq mjx-container {
-  margin: 0 !important;
-}
-
-.reveal section.f1-monaco-seq mjx-container[display="true"],
-.reveal section.f1-monaco-seq .MathJax_Display {
-  margin: 0.12em 0 !important;
+  color: var(--sta-teal-dark);
+  line-height: 1.15;
 }
 </style>
 ```
 
-:::: {.f1-seq-intro-grid}
+:::: {.f1-intro-grid}
 
-::: {.taskbox style="font-size: 0.66em; line-height: 1.17; padding: 14px 17px; margin-bottom: 0;"}
-<span class="label">Context and question</span>
+::: {.taskbox .f1-context-card}
+
+::: {.f1-card-title}
+Context and question
+:::
 
 A Formula 1 team records fictional data from a Monaco simulator session.
 
 We use the number of **simulator practice laps** to predict **lap-time improvement**, measured in seconds.
 
-$$
-x=\text{simulator practice laps},
-\qquad
-y=\text{lap-time improvement}
-$$
+::: {.f1-variable-pill}
+**x = simulator practice laps**  
+**y = lap-time improvement in seconds**
+:::
 
 The fitted regression line is:
 
-$$
-\hat{y}=-0.098+0.141x
-$$
+::: {.f1-fit-pill}
+ŷ = −0.098 + 0.141x
 :::
 
-::: {.examplebox style="font-size: 0.66em; line-height: 1.13; padding: 14px 17px; margin-bottom: 0;"}
-<span class="label">Observed data</span>
+:::
 
-<table class="f1-seq-table f1-seq-observed-table">
+::: {.examplebox .f1-data-card}
+
+::: {.f1-card-title}
+Observed data
+:::
+
+<table class="f1-obs-table">
   <thead>
     <tr>
-      <th>Practice laps, \(x\)</th>
-      <th>Lap-time improvement, \(y\)</th>
+      <th>Practice laps, x</th>
+      <th>Lap-time improvement, y</th>
     </tr>
   </thead>
   <tbody>
@@ -2174,393 +2618,439 @@ $$
     <tr><td>18</td><td>2.4</td></tr>
   </tbody>
 </table>
+
 :::
 
 ::::
 
-::: {.notebox .f1-seq-intro-bottom style="font-size: 0.65em; line-height: 1.15; padding: 13px 16px; margin-bottom: 0;"}
-<span class="label">Goal of the example</span>
+::: {.notebox .f1-goal-card}
 
+::: {.f1-card-title}
+Goal of the example
+:::
+
+:::: {.f1-goal-layout}
+
+::: {.f1-goal-text}
 We want to split the total variation in lap-time improvement into:
 
-$$
-SST = SSR + SSE
-$$
+<ul class="f1-goal-list">
+  <li><strong>SSE</strong>: unexplained variation left in the residuals</li>
+  <li><strong>SSR</strong>: variation explained by the fitted regression line</li>
+  <li><strong>SST</strong>: total variation in the observed response values</li>
+</ul>
 
-Then we compute:
-
-$$
-R^2=\frac{SSR}{SST}
-$$
-
-to measure how much of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model.
+Then we compute R², the proportion of total variation explained by simulator practice laps through the fitted linear model.
 :::
+
+::: {.f1-formula-stack}
+
+::: {.f1-formula-card}
+::: {.f1-formula-label}
+Variance decomposition
+:::
+::: {.f1-formula-eq}
+SST = SSR + SSE
+:::
+:::
+
+::: {.f1-formula-card}
+::: {.f1-formula-label}
+Coefficient of determination
+:::
+::: {.f1-formula-eq}
+R² = SSR / SST
+:::
+:::
+
+:::
+
+::::
+
+:::
+
 
 ------------------------------------------------------------------------
 
-## Example: F1 Monaco Simulator Practice {.f1-monaco-r2-fixed3}
+## Example: F1 Monaco Simulator Practice {.f1-monaco-3b}
 
 ```{=html}
 <style>
-.reveal section.f1-monaco-r2-fixed3 {
-  font-size: 0.72em;
+.reveal section.f1-monaco-3b {
+  font-size: 0.80em;
 }
 
-/* ---------- Overall layout ---------- */
-
-.reveal section.f1-monaco-r2-fixed3 .f1-slide-grid {
+.reveal section.f1-monaco-3b .f1-stack-pro {
   display: grid;
   grid-template-rows: auto auto;
-  gap: 9px;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-top-row {
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
   gap: 12px;
-  align-items: start;
+  align-items: stretch;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-bottom-row {
-  display: grid;
-  grid-template-columns: 1.16fr 0.84fr;
-  gap: 12px;
-  align-items: start;
-}
-
-/* ---------- Cards ---------- */
-
-.reveal section.f1-monaco-r2-fixed3 .examplebox,
-.reveal section.f1-monaco-r2-fixed3 .stat-card {
+.reveal section.f1-monaco-3b .f1-stack-card {
   margin: 0;
-  padding: 8px 10px;
-  border-radius: 10px;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-calc-card {
-  background: white;
-  border: 1px solid var(--sta-border);
-  border-left: 7px solid var(--sta-teal);
-  border-radius: 10px;
-  padding: 9px 12px;
+  padding: 12px 14px;
+  border-radius: 11px;
   box-sizing: border-box;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-conclusion-card {
-  background: var(--sta-yellow);
-  border-left: 7px solid var(--sta-orange);
-  border-radius: 10px;
-  padding: 10px 13px;
-  box-sizing: border-box;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-card-title {
+.reveal section.f1-monaco-3b .f1-card-title {
   color: var(--sta-teal-dark);
   font-weight: 800;
-  font-size: 17px;
+  font-size: 20px;
   line-height: 1.05;
-  margin: 0 0 5px 0;
+  margin: 0 0 6px 0;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-card-title p {
-  margin: 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-card-note {
-  font-size: 13px;
-  line-height: 1.14;
+.reveal section.f1-monaco-3b .f1-card-note {
+  font-size: 15px;
+  line-height: 1.20;
   color: var(--sta-muted);
-  margin: 0 0 5px 0;
+  margin: 0 0 8px 0;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-card-note p {
-  margin: 0;
+.reveal section.f1-monaco-3b .f1-fit-eq {
+  font-weight: 800;
+  color: var(--sta-text);
+  background: #fbfdfe;
+  border: 1px solid #d7e4e7;
+  border-radius: 7px;
+  padding: 2px 8px;
+  white-space: nowrap;
 }
 
-/* ---------- Compact tables ---------- */
-
-.reveal section.f1-monaco-r2-fixed3 table {
+.reveal section.f1-monaco-3b .f1-clean-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
   background: white;
   color: var(--sta-text);
   margin: 0;
 }
 
-.reveal section.f1-monaco-r2-fixed3 th {
+.reveal section.f1-monaco-3b .f1-clean-table th {
   background: var(--sta-teal-light);
   border: 1px solid var(--sta-border);
-  padding: 3px 5px;
+  padding: 7px 7px;
   font-weight: 800;
   text-align: center;
   vertical-align: middle;
-  white-space: nowrap;
+  line-height: 1.06;
+  white-space: normal;
 }
 
-.reveal section.f1-monaco-r2-fixed3 td {
+.reveal section.f1-monaco-3b .f1-clean-table td {
   border: 1px solid var(--sta-border);
-  padding: 3px 5px;
+  padding: 6px 8px;
   vertical-align: middle;
-  white-space: nowrap;
+  line-height: 1.08;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-pred-card table {
-  font-size: 12.5px;
-  line-height: 1.02;
+.reveal section.f1-monaco-3b .f1-pred-table {
+  font-size: 15.5px;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-var-card table {
-  font-size: 11.5px;
-  line-height: 1.00;
-}
+.reveal section.f1-monaco-3b .f1-pred-table th:nth-child(1) { width: 13%; }
+.reveal section.f1-monaco-3b .f1-pred-table th:nth-child(2) { width: 65%; }
+.reveal section.f1-monaco-3b .f1-pred-table th:nth-child(3) { width: 22%; }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-pred-card td,
-.reveal section.f1-monaco-r2-fixed3 .f1-var-card td {
+.reveal section.f1-monaco-3b .f1-pred-table td:nth-child(1),
+.reveal section.f1-monaco-3b .f1-pred-table td:nth-child(3) {
   text-align: center;
+  font-weight: 650;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-pred-card td:nth-child(2) {
+.reveal section.f1-monaco-3b .f1-pred-table td:nth-child(2) {
   text-align: left;
+  font-family: "SFMono-Regular", Consolas, monospace;
 }
 
-.reveal section.f1-monaco-r2-fixed3 .f1-var-card tbody tr:last-child td {
+.reveal section.f1-monaco-3b .f1-var-table {
+  font-size: 14.5px;
+}
+
+.reveal section.f1-monaco-3b .f1-var-table th {
+  padding: 7px 6px;
+  font-size: 14px;
+}
+
+.reveal section.f1-monaco-3b .f1-var-table td {
+  text-align: center;
+  padding: 6px 6px;
+}
+
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(1) { width: 9%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(2) { width: 9%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(3) { width: 11%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(4) { width: 24%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(5) { width: 24%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(6) { width: 23%; }
+
+.reveal section.f1-monaco-3b .f1-total-row td {
   background: #eef8fb;
   font-weight: 800;
   border-top: 2px solid var(--sta-teal-dark);
 }
 
-/* ---------- Calculation card ---------- */
-
-.reveal section.f1-monaco-r2-fixed3 .f1-calc-title {
+.reveal section.f1-monaco-3b .f1-total-row td:nth-child(4),
+.reveal section.f1-monaco-3b .f1-total-row td:nth-child(5),
+.reveal section.f1-monaco-3b .f1-total-row td:nth-child(6) {
   color: var(--sta-teal-dark);
-  font-size: 19px;
-  font-weight: 800;
-  line-height: 1.05;
-  margin: 0 0 6px 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-calc-title p {
-  margin: 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-calc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 11px;
-  align-items: start;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-step {
-  margin: 0 0 6px 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-step:last-child {
-  margin-bottom: 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-step-label {
-  font-size: 12.8px;
-  font-weight: 800;
-  line-height: 1.05;
-  color: var(--sta-text);
-  margin: 0 0 1px 0;
-  text-align: left;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-step-label p {
-  margin: 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-eq {
-  font-size: 16.5px;
-  line-height: 1.15;
-  text-align: left;
-  padding-left: 10px;
-  color: var(--sta-text);
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-eq p {
-  margin: 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-calc-note {
-  font-size: 12px;
-  line-height: 1.14;
-  color: var(--sta-muted);
-  margin-top: 2px;
-  padding-left: 10px;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-calc-note p {
-  margin: 0;
-}
-
-/* ---------- Conclusion ---------- */
-
-.reveal section.f1-monaco-r2-fixed3 .f1-conclusion-card p {
-  font-size: 14.8px;
-  line-height: 1.16;
-  margin: 0 0 7px 0;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-result-pill {
-  background: white;
-  border: 1px solid rgba(0, 105, 92, 0.28);
-  border-radius: 8px;
-  padding: 6px 8px;
-  margin: 5px 0 8px 0;
-  font-size: 16.5px;
-  font-weight: 800;
-  color: var(--sta-teal-dark);
-  text-align: center;
-}
-
-.reveal section.f1-monaco-r2-fixed3 .f1-result-pill p {
-  margin: 0;
-  line-height: 1.08;
 }
 </style>
 ```
 
-:::: {.f1-slide-grid}
+:::: {.f1-stack-pro}
 
-:::: {.f1-top-row}
+::: {.examplebox .f1-stack-card}
+<div class="f1-card-title">Predicted values</div>
 
-::: {.examplebox .f1-pred-card}
-::: {.f1-card-title}
-Predicted values
-:::
+<div class="f1-card-note">
+Use the fitted line: <span class="f1-fit-eq">ŷ = −0.098 + 0.141x</span>.
+</div>
 
-::: {.f1-card-note}
-Use the fitted line: **ŷ = -0.098 + 0.141x**.
-:::
-
-| x | Plug into fitted line | ŷ |
-|---:|:----------------------|------:|
-| 5  | -0.098 + 0.141(5)     | 0.607 |
-| 8  | -0.098 + 0.141(8)     | 1.030 |
-| 10 | -0.098 + 0.141(10)    | 1.312 |
-| 12 | -0.098 + 0.141(12)    | 1.594 |
-| 15 | -0.098 + 0.141(15)    | 2.017 |
-| 18 | -0.098 + 0.141(18)    | 2.440 |
-:::
-
-::: {.stat-card .f1-var-card}
-::: {.f1-card-title}
-Variation table
-:::
-
-::: {.f1-card-note}
-Here **ȳ = 1.500**. The three variation columns correspond to SSE, SSR, and SST.
+<table class="f1-clean-table f1-pred-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>Plug into fitted line</th>
+      <th>ŷ<sub>i</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>5</td><td>−0.098 + 0.141(5)</td><td>0.607</td></tr>
+    <tr><td>8</td><td>−0.098 + 0.141(8)</td><td>1.030</td></tr>
+    <tr><td>10</td><td>−0.098 + 0.141(10)</td><td>1.312</td></tr>
+    <tr><td>12</td><td>−0.098 + 0.141(12)</td><td>1.594</td></tr>
+    <tr><td>15</td><td>−0.098 + 0.141(15)</td><td>2.017</td></tr>
+    <tr><td>18</td><td>−0.098 + 0.141(18)</td><td>2.440</td></tr>
+  </tbody>
+</table>
 :::
 
-| x | y | ŷ | Residual part | Regression part | Total part |
-|---:|---:|------:|--------------:|----------------:|-----------:|
-| 5  | 0.6 | 0.607 | 0.000 | 0.798 | 0.810 |
-| 8  | 1.0 | 1.030 | 0.001 | 0.221 | 0.250 |
-| 10 | 1.4 | 1.312 | 0.008 | 0.035 | 0.010 |
-| 12 | 1.5 | 1.594 | 0.009 | 0.009 | 0.000 |
-| 15 | 2.1 | 2.017 | 0.007 | 0.267 | 0.360 |
-| 18 | 2.4 | 2.440 | 0.002 | 0.884 | 0.810 |
-| **Totals** |  |  | **SSE = 0.026** | **SSR = 2.214** | **SST = 2.240** |
-:::
+::: {.stat-card .f1-stack-card}
+<div class="f1-card-title">Variation table</div>
 
-::::
+<div class="f1-card-note">
+Here <strong>ȳ = 1.500</strong>. The three right-hand columns correspond to <strong>SSE</strong>, <strong>SSR</strong>, and <strong>SST</strong>.
+</div>
 
-:::: {.f1-bottom-row}
-
-::: {.f1-calc-card}
-::: {.f1-calc-title}
-Calculation
-:::
-
-:::: {.f1-calc-grid}
-
-::: {.f1-calc-left}
-::: {.f1-step}
-::: {.f1-step-label}
-Mean response
-:::
-::: {.f1-eq}
-ȳ = 1.500
-:::
-:::
-
-::: {.f1-step}
-::: {.f1-step-label}
-Unexplained variation
-:::
-::: {.f1-eq}
-SSE = Σ(yᵢ − ŷᵢ)² = 0.026
-:::
-:::
-
-::: {.f1-step}
-::: {.f1-step-label}
-Explained variation
-:::
-::: {.f1-eq}
-SSR = Σ(ŷᵢ − ȳ)² = 2.214
-:::
-:::
-
-::: {.f1-step}
-::: {.f1-step-label}
-Total variation
-:::
-::: {.f1-eq}
-SST = Σ(yᵢ − ȳ)² = 2.240
-:::
-:::
-:::
-
-::: {.f1-calc-right}
-::: {.f1-step}
-::: {.f1-step-label}
-Check
-:::
-::: {.f1-eq}
-SSR + SSE = 2.214 + 0.026 = 2.240
-:::
-::: {.f1-calc-note}
-This matches SST, up to rounding.
-:::
-:::
-
-::: {.f1-step}
-::: {.f1-step-label}
-Coefficient of determination
-:::
-::: {.f1-eq}
-R² = SSR / SST
-:::
-::: {.f1-eq}
-R² = 2.214 / 2.240 = 0.988
-:::
-:::
+<table class="f1-clean-table f1-var-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+      <th>ŷ<sub>i</sub></th>
+      <th>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup></th>
+      <th>(ŷ<sub>i</sub> − ȳ)<sup>2</sup></th>
+      <th>(y<sub>i</sub> − ȳ)<sup>2</sup></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>5</td><td>0.6</td><td>0.607</td><td>0.000</td><td>0.798</td><td>0.810</td></tr>
+    <tr><td>8</td><td>1.0</td><td>1.030</td><td>0.001</td><td>0.221</td><td>0.250</td></tr>
+    <tr><td>10</td><td>1.4</td><td>1.312</td><td>0.008</td><td>0.035</td><td>0.010</td></tr>
+    <tr><td>12</td><td>1.5</td><td>1.594</td><td>0.009</td><td>0.009</td><td>0.000</td></tr>
+    <tr><td>15</td><td>2.1</td><td>2.017</td><td>0.007</td><td>0.267</td><td>0.360</td></tr>
+    <tr><td>18</td><td>2.4</td><td>2.440</td><td>0.002</td><td>0.884</td><td>0.810</td></tr>
+    <tr class="f1-total-row">
+      <td>Totals</td>
+      <td></td>
+      <td></td>
+      <td>SSE = 0.026</td>
+      <td>SSR = 2.214</td>
+      <td>SST = 2.240</td>
+    </tr>
+  </tbody>
+</table>
 :::
 
 ::::
 
+
+---
+
+## Example: F1 Monaco Simulator Practice {.f1-monaco-3c}
+
+```{=html}
+<style>
+.reveal section.f1-monaco-3c {
+  font-size: 0.84em;
+}
+
+.reveal section.f1-monaco-3c .f1-final-clean-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-card,
+.reveal section.f1-monaco-3c .f1-clean-conclusion {
+  border-radius: 11px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 7px solid var(--sta-teal);
+  padding: 19px 21px;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-conclusion {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+  padding: 20px 22px;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 21px;
+  line-height: 1.08;
+  margin: 0 0 14px 0;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.16;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  vertical-align: middle;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td:nth-child(1) {
+  width: 20%;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td:nth-child(2) {
+  width: 23%;
+  font-weight: 800;
+  text-align: right;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td:nth-child(3) {
+  width: 57%;
+}
+
+.reveal section.f1-monaco-3c .f1-r2-line {
+  background: #fbfdfe;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 13px 15px;
+  text-align: center;
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 20px;
+  line-height: 1.20;
+}
+
+.reveal section.f1-monaco-3c .f1-conclusion-main {
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 21px;
+  line-height: 1.22;
+  margin: 0 0 16px 0;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-conclusion p {
+  font-size: 17px;
+  line-height: 1.30;
+  margin: 0 0 13px 0;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-conclusion p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.f1-monaco-3c .f1-caution {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(0, 105, 92, 0.20);
+  color: var(--sta-muted);
+}
+</style>
+```
+
+:::: {.f1-final-clean-grid}
+
+::: {.f1-clean-card}
+
+::: {.f1-clean-title}
+Calculation summary
 :::
 
-::: {.f1-conclusion-card}
-::: {.f1-card-title}
+<table class="f1-summary-table">
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SSE</td>
+      <td>0.026</td>
+      <td>variation left unexplained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SSR</td>
+      <td>2.214</td>
+      <td>variation explained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SST</td>
+      <td>2.240</td>
+      <td>total variation in lap-time improvement</td>
+    </tr>
+  </tbody>
+</table>
+
+::: {.f1-r2-line}
+R<sup>2</sup> = SSR / SST = 2.214 / 2.240 = 0.988
+:::
+
+:::
+
+::: {.f1-clean-conclusion}
+
+::: {.f1-clean-title}
 Conclusion
 :::
 
-::: {.f1-result-pill}
-R² = 0.988, so about 98.8% is explained.
+::: {.f1-conclusion-main}
+About 98.8% of the variation in lap-time improvement is explained by simulator practice laps.
 :::
 
-About **98.8%** of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model.
+The explained variation is much larger than the unexplained variation, so the fitted line summarizes this fictional Monaco simulator data very well.
 
-The unexplained variation is very small: **SSE = 0.026**.
+In context, drivers with more simulator practice laps tended to show larger lap-time improvements.
 
-So the fitted line describes this fictional Monaco simulator data very well.
+::: {.f1-caution}
+This is a strong linear association in the sample, but it does not prove that practice laps alone caused the improvement.
 :::
 
-::::
+:::
 
 ::::
 

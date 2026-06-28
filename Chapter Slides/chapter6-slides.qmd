@@ -1074,6 +1074,7 @@ x <- 68
 n <- 520
 p0 <- 0.10
 
+# z test: build the statistic by hand and use the N(0,1) tail
 phat <- x / n
 z_star <- (phat - p0) / sqrt(p0 * (1 - p0) / n)
 p_value <- 1 - pnorm(z_star)
@@ -1081,9 +1082,11 @@ p_value <- 1 - pnorm(z_star)
 phat
 z_star
 p_value
-
-prop.test(x, n, p = p0, alternative = "greater", correct = FALSE)
 ```
+
+::: {.thinkbox .fragment}
+The code above builds $z^*$ by hand and finds the p-value with `pnorm()`. An alternative is using `prop.test()`, but note that it runs the **chi-square** version of the test, so its output reports `X-squared`, not $z^*$, where $\chi^2 = (z^*)^2$.
+:::
 
 ---
 

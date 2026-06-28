@@ -3,6 +3,13 @@ Slides for STA258
 
 # Things to do
 
+## For July 2
+
+- Update CH6 and CH9 based on feedback
+- Make examples in CH9 and CH10 age well
+- Continue working on CH7 & CH8
+- Update help.html as issues arise
+
 ## For June 25 
 
 - Update all examples in CH5 to make it more interesting (or classical)

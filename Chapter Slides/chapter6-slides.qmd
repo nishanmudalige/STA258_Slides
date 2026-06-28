@@ -302,7 +302,7 @@ ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
            showarrow = TRUE, ax = if (alternative == "less") -10 else 10, ay = -28,
            arrowcolor = "#b26a00", font = list(color = "#b26a00", size = 12))))
   }
-  plot_ly(width = 620, height = 260) |>
+  plot_ly(width = 620, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = "N(0,1)", hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -315,7 +315,7 @@ ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
                    zeroline = FALSE, fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero",
                    range = c(0, ymax * 1.3), fixedrange = TRUE),
-      margin = list(l = 34, r = 12, t = 38, b = 30),
+      margin = list(l = 34, r = 12, t = 36, b = 42),
       showlegend = FALSE, shapes = shapes, annotations = anns
     ) |>
     config(displayModeBar = FALSE, responsive = TRUE)

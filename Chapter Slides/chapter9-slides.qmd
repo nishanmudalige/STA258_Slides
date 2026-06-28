@@ -1363,9 +1363,84 @@ linear relationship between two variables.
 
 ------------------------------------------------------------------------
 
-## Example: Sunlight and Plant Growth
+## Example: Sunlight and Plant Growth {.sunlight-corr-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.sunlight-corr-example .sunlight-grid {
+  display: grid;
+  grid-template-columns: 0.87fr 1.13fr;
+  grid-template-rows: auto auto;
+  gap: 10px 18px;
+  align-items: stretch;
+}
+
+.reveal section.sunlight-corr-example .sunlight-calc-card {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.70em;
+  line-height: 1.14;
+  padding: 13px 17px;
+  margin-bottom: 0;
+}
+
+.reveal section.sunlight-corr-example .sunlight-calc-layout {
+  display: grid;
+  grid-template-columns: 0.93fr 1.07fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 4px;
+}
+
+.reveal section.sunlight-corr-example .sunlight-work-left,
+.reveal section.sunlight-corr-example .sunlight-work-right {
+  min-width: 0;
+}
+
+.reveal section.sunlight-corr-example .sunlight-step-title {
+  color: var(--sta-text);
+  font-weight: 800;
+  font-size: 0.88em;
+  line-height: 1.05;
+  margin: 0 0 3px 0;
+}
+
+.reveal section.sunlight-corr-example .sunlight-eq {
+  font-size: 0.92em;
+  line-height: 1.18;
+  margin-bottom: 7px;
+  padding-left: 8px;
+}
+
+.reveal section.sunlight-corr-example .sunlight-eq p {
+  margin: 0 0 3px 0 !important;
+}
+
+.reveal section.sunlight-corr-example .sunlight-eq mjx-container {
+  margin: 0 !important;
+}
+
+.reveal section.sunlight-corr-example .sunlight-calc-card mjx-container[display="true"],
+.reveal section.sunlight-corr-example .sunlight-calc-card .MathJax_Display {
+  text-align: left !important;
+  margin: 0.08em 0 0.18em 0 !important;
+}
+
+.reveal section.sunlight-corr-example .sunlight-calc-card mjx-container[display="true"] > svg {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.reveal section.sunlight-corr-example .sunlight-result {
+  margin-top: 2px;
+  padding-left: 8px;
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+}
+</style>
+```
+
+:::: {.sunlight-grid}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
 A greenhouse records fictional data on how much sunlight different plants
@@ -1379,45 +1454,68 @@ receive and how tall they are after several weeks.
 | 6 | 43 |
 | 7 | 48 |
 
-Compute and interpret the sample correlation.
+Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .sunlight-calc-card}
 <span class="label">Calculation</span>
 
-$$
-\bar{x}=4.000,
-\qquad
-\bar{y}=32.800
-$$
+:::: {.sunlight-calc-layout}
 
-$$
-s_x=2.550,
-\qquad
-s_y=13.180
-$$
+::: {.sunlight-work-left}
+::: {.sunlight-step-title}
+Summary work
+:::
 
-$$
-s_{xy}
-=
-\frac{1}{5-1}
-\sum(x_i-\bar{x})(y_i-\bar{y})
-=
-33.500
-$$
+::: {.sunlight-eq}
+$\bar{x}=\dfrac{1+2+4+6+7}{5}=4.000$
 
-$$
-r=
-\frac{s_{xy}}{s_xs_y}
-=
-\frac{33.500}{(2.550)(13.180)}
-=
-0.997
-$$
+$\bar{y}=\dfrac{18+21+34+43+48}{5}=32.800$
+:::
 
-$$
-r^2=0.994
-$$
+::: {.sunlight-step-title}
+Deviation sums
+:::
+
+::: {.sunlight-eq}
+$\sum (x_i-\bar{x})^2=26.000$
+
+$\sum (y_i-\bar{y})^2=694.800$
+
+$\sum (x_i-\bar{x})(y_i-\bar{y})=134.000$
+:::
+:::
+
+::: {.sunlight-work-right}
+::: {.sunlight-step-title}
+Standard deviations
+:::
+
+::: {.sunlight-eq}
+$s_x=\sqrt{\dfrac{26.000}{5-1}}=2.550$
+
+$s_y=\sqrt{\dfrac{694.800}{5-1}}=13.180$
+:::
+
+::: {.sunlight-step-title}
+Covariance and correlation
+:::
+
+::: {.sunlight-eq}
+$s_{xy}=\dfrac{134.000}{5-1}=33.500$
+
+$r=\dfrac{s_{xy}}{s_xs_y}
+=\dfrac{33.500}{(2.550)(13.180)}
+=0.997$
+:::
+
+::: {.sunlight-result}
+$r^2=(0.997)^2=0.994$
+:::
+:::
+
+::::
+
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}

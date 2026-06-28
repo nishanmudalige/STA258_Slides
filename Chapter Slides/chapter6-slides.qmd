@@ -765,24 +765,6 @@ Fail to reject $H_0$.
 <span class="label">Careful language</span>
 Failing to reject $H_0$ does **not** prove $H_0$. It only means the sample does not provide enough evidence against it at the chosen significance level.
 :::
-
-:::: {.two-col .fragment}
-::: {.col}
-::: {.mini-plot}
-```{r}
-decision_plot(zstar = 2.05, title = "Small p-value: z* past cutoff → reject H0")
-```
-:::
-:::
-
-::: {.col}
-::: {.mini-plot}
-```{r}
-decision_plot(zstar = 0.6, title = "Large p-value: z* before cutoff → fail to reject")
-```
-:::
-:::
-::::
 :::
 
 ---

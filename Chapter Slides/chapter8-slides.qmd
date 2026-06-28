@@ -1116,24 +1116,19 @@ s2 <- c(2.0, 2.8, 3.1)
 
 k <- length(n)
 N <- sum(n)
-grand <- sum(n * xbar) / N
 
-SSTR <- sum(n * (xbar - grand)^2)
+SSTr <- sum(n * (xbar - weighted.mean(xbar, n))^2)
 SSE <- sum((n - 1) * s2)
 
-df1 <- k - 1
-df2 <- N - k
+Fstar <- (SSTr / (k - 1)) / (SSE / (N - k))
+pval <- pf(Fstar, k - 1, N - k, lower.tail = FALSE)
 
-MSTR <- SSTR / df1
-MSE <- SSE / df2
-Fstar <- MSTR / MSE
-pval <- pf(Fstar, df1, df2, lower.tail = FALSE)
-
-out <- round(data.frame(
-  grand, SSTR, SSE, MSTR, MSE, Fstar, pval
-), 3)
-
-print(out, row.names = FALSE)
+round(data.frame(
+  F = Fstar,
+  df1 = k - 1,
+  df2 = N - k,
+  p_value = pval
+), 4)
 ```
 :::
 
@@ -1151,24 +1146,19 @@ s2 <- c(20, 25, 18, 22)
 
 k <- length(n)
 N <- sum(n)
-grand <- sum(n * xbar) / N
 
-SSTR <- sum(n * (xbar - grand)^2)
+SSTr <- sum(n * (xbar - weighted.mean(xbar, n))^2)
 SSE <- sum((n - 1) * s2)
 
-df1 <- k - 1
-df2 <- N - k
+Fstar <- (SSTr / (k - 1)) / (SSE / (N - k))
+pval <- pf(Fstar, k - 1, N - k, lower.tail = FALSE)
 
-MSTR <- SSTR / df1
-MSE <- SSE / df2
-Fstar <- MSTR / MSE
-pval <- pf(Fstar, df1, df2, lower.tail = FALSE)
-
-out <- round(data.frame(
-  grand, SSTR, SSE, MSTR, MSE, Fstar, pval
-), 3)
-
-print(out, row.names = FALSE)
+round(data.frame(
+  F = Fstar,
+  df1 = k - 1,
+  df2 = N - k,
+  p_value = pval
+), 4)
 ```
 :::
 
@@ -1424,29 +1414,16 @@ Here, the group means are close. ANOVA finds that the between-group variation is
 ```{webr}
 #| autorun: false
 
-classic <- c(18, 20, 19, 22, 21, 20)
-streak <- c(23, 25, 26, 24, 27, 25)
-leaderboard <- c(30, 29, 31, 28, 32, 30)
+score <- c(18, 20, 19, 22, 21, 20,
+           23, 25, 26, 24, 27, 25,
+           30, 29, 31, 28, 32, 30)
 
-score <- c(classic, streak, leaderboard)
 format <- factor(rep(
   c("Classic", "Streak", "Leaderboard"),
   each = 6
 ))
 
-test <- oneway.test(score ~ format, var.equal = TRUE)
-fit <- aov(score ~ format)
-tab <- anova(fit)
-
-out <- data.frame(
-  F = unname(test$statistic),
-  df1 = unname(test$parameter[1]),
-  df2 = unname(test$parameter[2]),
-  p_value = test$p.value,
-  MSE = tab$`Mean Sq`[2]
-)
-
-print(round(out, 4), row.names = FALSE)
+summary(aov(score ~ format))
 ```
 :::
 
@@ -1458,29 +1435,16 @@ print(round(out, 4), row.names = FALSE)
 ```{webr}
 #| autorun: false
 
-lofi <- c(41, 44, 43, 42, 46, 45)
-classical <- c(43, 45, 44, 46, 47, 42)
-ambient <- c(44, 43, 46, 45, 48, 47)
+score <- c(41, 44, 43, 42, 46, 45,
+           43, 45, 44, 46, 47, 42,
+           44, 43, 46, 45, 48, 47)
 
-score <- c(lofi, classical, ambient)
 style <- factor(rep(
   c("Lo-fi", "Classical", "Ambient"),
   each = 6
 ))
 
-test <- oneway.test(score ~ style, var.equal = TRUE)
-fit <- aov(score ~ style)
-tab <- anova(fit)
-
-out <- data.frame(
-  F = unname(test$statistic),
-  df1 = unname(test$parameter[1]),
-  df2 = unname(test$parameter[2]),
-  p_value = test$p.value,
-  MSE = tab$`Mean Sq`[2]
-)
-
-print(round(out, 4), row.names = FALSE)
+summary(aov(score ~ style))
 ```
 :::
 
@@ -1901,31 +1865,29 @@ Pairwise intervals compare **differences between means**, not the separate mean 
 ```{webr}
 #| autorun: false
 
-means <- c(Classic = 20, Streak = 25, Leaderboard = 30)
-n <- c(Classic = 6, Streak = 6, Leaderboard = 6)
+means <- c(Classic = 20,
+           Streak = 25,
+           Leaderboard = 30)
+
+n <- c(Classic = 6,
+       Streak = 6,
+       Leaderboard = 6)
 
 MSE <- 2
-v <- 15
-alpha <- 0.05
+df_error <- 15
 
 pairs <- combn(names(means), 2)
 
-out <- lapply(seq_len(ncol(pairs)), function(a) {
-  i <- pairs[1, a]
-  j <- pairs[2, a]
+diff <- means[pairs[1, ]] - means[pairs[2, ]]
+SE <- sqrt(MSE * (1 / n[pairs[1, ]] + 1 / n[pairs[2, ]]))
+tstar <- qt(0.975, df_error)
 
-  diff <- means[i] - means[j]
-  se <- sqrt(MSE * (1/n[i] + 1/n[j]))
-
-  data.frame(
-    pair = paste(i, "-", j),
-    diff = diff,
-    low = diff - qt(1 - alpha/2, v) * se,
-    up = diff + qt(1 - alpha/2, v) * se
-  )
-})
-
-print(round(do.call(rbind, out), 2), row.names = FALSE)
+round(data.frame(
+  pair = paste(pairs[1, ], "-", pairs[2, ]),
+  diff = diff,
+  lower = diff - tstar * SE,
+  upper = diff + tstar * SE
+), 2)
 ```
 :::
 
@@ -1937,34 +1899,30 @@ print(round(do.call(rbind, out), 2), row.names = FALSE)
 ```{webr}
 #| autorun: false
 
-means <- c(Slim = 87.50, Rugged = 113.00,
-           Wallet = 98.50, Clear = 75.875)
+means <- c(Slim = 87.50,
+           Rugged = 113.00,
+           Wallet = 98.50,
+           Clear = 75.875)
+
 n <- rep(8, 4)
 names(n) <- names(means)
 
 MSE <- 17.8884
-v <- 28
-alpha <- 0.05
+df_error <- 28
 m <- choose(length(means), 2)
 
 pairs <- combn(names(means), 2)
 
-out <- lapply(seq_len(ncol(pairs)), function(a) {
-  i <- pairs[1, a]
-  j <- pairs[2, a]
+diff <- means[pairs[1, ]] - means[pairs[2, ]]
+SE <- sqrt(MSE * (1 / n[pairs[1, ]] + 1 / n[pairs[2, ]]))
+tstar <- qt(1 - 0.05 / (2 * m), df_error)
 
-  diff <- means[i] - means[j]
-  se <- sqrt(MSE * (1/n[i] + 1/n[j]))
-
-  data.frame(
-    pair = paste(i, "-", j),
-    diff = diff,
-    low = diff - qt(1 - alpha/(2*m), v) * se,
-    up = diff + qt(1 - alpha/(2*m), v) * se
-  )
-})
-
-print(round(do.call(rbind, out), 2), row.names = FALSE)
+round(data.frame(
+  pair = paste(pairs[1, ], "-", pairs[2, ]),
+  diff = diff,
+  lower = diff - tstar * SE,
+  upper = diff + tstar * SE
+), 2)
 ```
 :::
 

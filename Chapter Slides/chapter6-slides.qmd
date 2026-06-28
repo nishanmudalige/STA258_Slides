@@ -936,20 +936,22 @@ In the coffee example, the alternative is $H_a:\mu<7.2$. Which p-value formula m
 
 ---
 
-## 6.2.1.2 One Mean, Unknown $\sigma$
+## 6.2.1.2 Hypothesis Tests on the Mean, $\sigma$ Unknown
 
 ::: {.defbox}
-When $\sigma$ is unknown, replace it with $s$ and use the Student $t$ distribution:
+For testing $H_0:\mu=\mu_0$ when $\sigma$ is **unknown**, replace it with $s$ and use the test statistic
 
 $$
 t^*=\frac{\bar{x}-\mu_0}{s/\sqrt n}
 $$
+
+which, under $H_0$, follows the Student $t$ distribution with $n-1$ degrees of freedom.
 :::
 
 :::: {.two-col}
 ::: {.notebox .fragment}
 <span class="label">Reference distribution</span>
-$t$ with $n-1$ degrees of freedom.
+$t^*\sim t_{n-1}$.
 :::
 
 ::: {.warnbox .fragment}

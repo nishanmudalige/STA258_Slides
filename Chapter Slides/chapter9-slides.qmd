@@ -1535,15 +1535,90 @@ plants that received more sunlight tended to be taller.
 
 ---
 
-## Example: Late-Night TikTok Scrolling and Quiz Scores
+## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-corr-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.late-scroll-corr-example .scroll-grid {
+  display: grid;
+  grid-template-columns: 0.87fr 1.13fr;
+  grid-template-rows: auto auto;
+  gap: 10px 18px;
+  align-items: stretch;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-card {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.68em;
+  line-height: 1.13;
+  padding: 13px 17px;
+  margin-bottom: 0;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-layout {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 20px;
+  align-items: start;
+  margin-top: 4px;
+}
+
+.reveal section.late-scroll-corr-example .scroll-work-left,
+.reveal section.late-scroll-corr-example .scroll-work-right {
+  min-width: 0;
+}
+
+.reveal section.late-scroll-corr-example .scroll-step-title {
+  color: var(--sta-text);
+  font-weight: 800;
+  font-size: 0.88em;
+  line-height: 1.05;
+  margin: 0 0 3px 0;
+}
+
+.reveal section.late-scroll-corr-example .scroll-eq {
+  font-size: 0.90em;
+  line-height: 1.18;
+  margin-bottom: 7px;
+  padding-left: 8px;
+}
+
+.reveal section.late-scroll-corr-example .scroll-eq p {
+  margin: 0 0 3px 0 !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-eq mjx-container {
+  margin: 0 !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-card mjx-container[display="true"],
+.reveal section.late-scroll-corr-example .scroll-calc-card .MathJax_Display {
+  text-align: left !important;
+  margin: 0.08em 0 0.18em 0 !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-calc-card mjx-container[display="true"] > svg {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.reveal section.late-scroll-corr-example .scroll-result {
+  margin-top: 2px;
+  padding-left: 8px;
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+}
+</style>
+```
+
+:::: {.scroll-grid}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A student group collects fictional data on late-night TikTok scrolling
-before a morning quiz.
+A student group collects fictional data on late-night scrolling before a
+morning quiz.
 
-| TikTok minutes after midnight $(x)$ | Quiz score $(y)$ |
+| Minutes after midnight $(x)$ | Quiz score $(y)$ |
 |---:|---:|
 | 15 | 88 |
 | 30 | 84 |
@@ -1552,51 +1627,78 @@ before a morning quiz.
 | 75 | 63 |
 | 90 | 58 |
 
-Compute and interpret the sample correlation.
+Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .scroll-calc-card}
 <span class="label">Calculation</span>
 
-$$
-\bar{x}=52.500,
-\qquad
-\bar{y}=73.333
-$$
+:::: {.scroll-calc-layout}
 
-$$
-s_x=28.062,
-\qquad
-s_y=11.690
-$$
+::: {.scroll-work-left}
+::: {.scroll-step-title}
+Summary work
+:::
 
-$$
-s_{xy}
-=
-\frac{1}{6-1}
-\sum(x_i-\bar{x})(y_i-\bar{y})
-=
--327.000
-$$
+::: {.scroll-eq}
+$15+30+45+60+75+90=315$
 
-$$
-r=
-\frac{s_{xy}}{s_xs_y}
-=
-\frac{-327.000}{(28.062)(11.690)}
-=
--0.997
-$$
+$\bar{x}=\dfrac{315}{6}=52.500$
 
-$$
-r^2=0.994
-$$
+$88+84+76+71+63+58=440$
+
+$\bar{y}=\dfrac{440}{6}=73.333$
+:::
+
+::: {.scroll-step-title}
+Deviation sums
+:::
+
+::: {.scroll-eq}
+$\sum (x_i-\bar{x})^2=3937.500$
+
+$\sum (y_i-\bar{y})^2=683.333$
+
+$\sum (x_i-\bar{x})(y_i-\bar{y})=-1635.000$
+:::
+:::
+
+::: {.scroll-work-right}
+::: {.scroll-step-title}
+Standard deviations
+:::
+
+::: {.scroll-eq}
+$s_x=\sqrt{\dfrac{3937.500}{6-1}}=28.062$
+
+$s_y=\sqrt{\dfrac{683.333}{6-1}}=11.690$
+:::
+
+::: {.scroll-step-title}
+Covariance and correlation
+:::
+
+::: {.scroll-eq}
+$s_{xy}=\dfrac{-1635.000}{6-1}=-327.000$
+
+$r=\dfrac{s_{xy}}{s_xs_y}
+=\dfrac{-327.000}{(28.062)(11.690)}
+=-0.997$
+:::
+
+::: {.scroll-result}
+$r^2=(-0.997)^2=0.994$
+:::
+:::
+
+::::
+
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target relationship</span>
 
-We compare late-night TikTok scrolling time and morning quiz score.
+We compare late-night scrolling time and morning quiz score.
 
 The sign of $r$ tells us direction. The size of $r$ tells us strength.
 :::

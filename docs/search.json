@@ -4638,7 +4638,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-basketball-drill-scores",
     "title": "STA258",
     "section": "Visual: Basketball Drill Scores",
-    "text": "Visual: Basketball Drill Scores\n\n\n\n\n\n\n\nThis is the ANOVA story visually: the group means move a lot, while the points inside each group are fairly tight."
+    "text": "Visual: Basketball Drill Scores\n\n\n\n\n\n\n\nThis is the ANOVA story visually: the group centers are clearly separated, while the scores within each practice format are still fairly tight.\nThe red dots show the group means, and the boxplots make the within-group spread easier to compare."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-study-playlist-focus-scores",
@@ -4757,7 +4757,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-study-playlist-focus-scores",
     "title": "STA258",
     "section": "Visual: Study Playlist Focus Scores",
-    "text": "Visual: Study Playlist Focus Scores\n\n\n\n\n\n\n\nHere, the group means are close. ANOVA finds that the between-group variation is not large enough relative to error variation."
+    "text": "Visual: Study Playlist Focus Scores\n\n\n\n\n\n\n\nThe red dots show the group means for each playlist style.\nThe three boxplots are close together and overlap, so the visual matches the ANOVA conclusion: the differences between playlist styles are not large enough compared with the within-group variation."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#textbook-r-check-oneway.test",
@@ -4771,7 +4771,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs",
     "title": "STA258",
     "section": "Visual: Phone Case Mean Repair Costs",
-    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nPairwise intervals compare differences between means, not the separate mean intervals shown here."
+    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design.\nThe vertical lines show 95% confidence intervals for the group means. This visual helps compare the estimated mean repair costs before looking at the pairwise Bonferroni intervals."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-confidence-intervals",
@@ -5010,5 +5010,12 @@
     "title": "STA258",
     "section": "Example: Badminton Drill Accuracy Scores",
     "text": "Example: Badminton Drill Accuracy Scores\n\n\nA badminton coach wants to compare three drill programs for improving serve-target accuracy.\nPlayers trained for two months using one of the three drill programs.\nAfter the training period, each player completed the same serve-target accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nUse a one-way ANOVA at the 5% level to test whether the population mean accuracy scores are the same across the three drill programs.\n\n\nCalculation\n\\[\n\\bar x_1=22,\n\\qquad\n\\bar x_2=27,\n\\qquad\n\\bar x_3=28.5,\n\\qquad\n\\bar x=\\frac{22+27+28.5}{3}=25.83\n\\]\n\\[\nSSTr=6(22-25.83)^2+6(27-25.83)^2+6(28.5-25.83)^2=139.00\n\\]\n\\[\nSSE=(5)(5.6)+(5)(5.6)+(5)(3.5)=73.50\n\\]\n\\[\nMSTr=\\frac{139.00}{2}=69.50,\n\\qquad\nMSE=\\frac{73.50}{15}=4.90\n\\]\n\\[\nF^*=\\frac{69.50}{4.90}=14.18\n\\]\n\n\nHypotheses\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{at least one population mean differs}\n\\]\n\n\nWith \\(df_1=2\\) and \\(df_2=15\\), the p-value is about \\(0.00035\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). There is strong evidence that not all three drill programs have the same population mean accuracy score."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs-1",
+    "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs-1",
+    "title": "STA258",
+    "section": "Visual: Phone Case Mean Repair Costs",
+    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design.\nThe vertical lines show 95% confidence intervals for the group means. This visual helps compare the estimated mean repair costs before looking at the pairwise Bonferroni intervals."
   }
 ]

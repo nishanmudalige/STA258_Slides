@@ -1252,8 +1252,15 @@ Reject $H_0$. There is strong evidence that at least one practice format has a d
 ```{r}
 #| echo: false
 basketball <- data.frame(
-  score = c(18,20,19,22,21,20, 23,25,26,24,27,25, 30,29,31,28,32,30),
-  format = rep(c("Classic", "Streak challenge", "Leaderboard"), each = 6)
+  score = c(
+    18, 20, 19, 22, 21, 20,
+    23, 25, 26, 24, 27, 25,
+    30, 29, 31, 28, 32, 30
+  ),
+  format = factor(
+    rep(c("Classic", "Streak challenge", "Leaderboard"), each = 6),
+    levels = c("Classic", "Streak challenge", "Leaderboard")
+  )
 )
 
 means_b <- basketball |>
@@ -1261,39 +1268,59 @@ means_b <- basketball |>
   summarise(mean_score = mean(score), .groups = "drop")
 
 plot_ly() |>
-  add_markers(
+  add_trace(
     data = basketball,
     x = ~format,
     y = ~score,
-    marker = list(
-      size = 9,
-      color = "rgba(0,105,92,0.62)",
-      line = list(color = "white", width = 1)
-    ),
-    hovertemplate = "%{x}<br>Score: %{y}<extra></extra>"
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.40)",
+    hovertemplate = "Practice format: %{x}<br>Score: %{y}<extra></extra>",
+    showlegend = FALSE
   ) |>
   add_markers(
     data = means_b,
     x = ~format,
     y = ~mean_score,
     marker = list(
-      size = 17,
-      color = plot_cols$orange,
-      symbol = "diamond",
-      line = list(color = plot_cols$teal_dark, width = 1.5)
+      size = 9,
+      color = "#c62828",
+      symbol = "circle",
+      line = list(color = "white", width = 1)
     ),
-    hovertemplate = "%{x}<br>Group mean: %{y:.1f}<extra></extra>"
+    hovertemplate = "Practice format: %{x}<br>Mean score: %{y:.1f}<extra></extra>",
+    showlegend = FALSE
   ) |>
   plotly_anova_layout(
-    "Group means are far apart relative to within-group noise",
-    "Practice format",
-    "Score",
-    height = 390
+    title = "Group means are far apart relative to within-group noise",
+    x_title = "Practice format",
+    y_title = "Score",
+    height = 390,
+    margin = list(l = 70, r = 25, t = 60, b = 70)
+  ) |>
+  layout(
+    yaxis = list(
+      title = "Score",
+      zeroline = FALSE,
+      showline = TRUE,
+      fixedrange = TRUE,
+      linecolor = plot_cols$border,
+      gridcolor = "rgba(0,0,0,0.07)",
+      tickmode = "linear",
+      tick0 = 18,
+      dtick = 2,
+      range = c(17, 33)
+    )
   )
 ```
 
-::: {.thinkbox}
-This is the ANOVA story visually: the group means move a lot, while the points inside each group are fairly tight.
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+This is the ANOVA story visually: the **group centers are clearly separated**, while the scores within each practice format are still fairly tight.
+
+The **red dots** show the group means, and the boxplots make the within-group spread easier to compare.
 :::
 
 ---
@@ -1371,8 +1398,15 @@ Do not reject $H_0$. These data do not give enough evidence that the playlist st
 ```{r}
 #| echo: false
 playlist <- data.frame(
-  score = c(41,44,43,42,46,45, 43,45,44,46,47,42, 44,43,46,45,48,47),
-  style = rep(c("Lo-fi", "Classical", "Ambient"), each = 6)
+  score = c(
+    41, 44, 43, 42, 46, 45,
+    43, 45, 44, 46, 47, 42,
+    44, 43, 46, 45, 48, 47
+  ),
+  style = factor(
+    rep(c("Lo-fi", "Classical", "Ambient"), each = 6),
+    levels = c("Lo-fi", "Classical", "Ambient")
+  )
 )
 
 means_p <- playlist |>
@@ -1380,39 +1414,59 @@ means_p <- playlist |>
   summarise(mean_score = mean(score), .groups = "drop")
 
 plot_ly() |>
-  add_markers(
+  add_trace(
     data = playlist,
     x = ~style,
     y = ~score,
-    marker = list(
-      size = 9,
-      color = "rgba(0,105,92,0.62)",
-      line = list(color = "white", width = 1)
-    ),
-    hovertemplate = "%{x}<br>Focus score: %{y}<extra></extra>"
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.40)",
+    hovertemplate = "Playlist style: %{x}<br>Focus score: %{y}<extra></extra>",
+    showlegend = FALSE
   ) |>
   add_markers(
     data = means_p,
     x = ~style,
     y = ~mean_score,
     marker = list(
-      size = 17,
-      color = plot_cols$orange,
-      symbol = "diamond",
-      line = list(color = plot_cols$teal_dark, width = 1.5)
+      size = 9,
+      color = "#c62828",
+      symbol = "circle",
+      line = list(color = "white", width = 1)
     ),
-    hovertemplate = "%{x}<br>Group mean: %{y:.1f}<extra></extra>"
+    hovertemplate = "Playlist style: %{x}<br>Mean score: %{y:.1f}<extra></extra>",
+    showlegend = FALSE
   ) |>
   plotly_anova_layout(
-    "Means are close compared with within-group noise",
-    "Playlist style",
-    "Focus score",
-    height = 390
+    title = "Focus scores after different study playlist styles",
+    x_title = "Playlist style",
+    y_title = "Focus score",
+    height = 390,
+    margin = list(l = 70, r = 25, t = 60, b = 70)
+  ) |>
+  layout(
+    yaxis = list(
+      title = "Focus score",
+      zeroline = FALSE,
+      showline = TRUE,
+      fixedrange = TRUE,
+      linecolor = plot_cols$border,
+      gridcolor = "rgba(0,0,0,0.07)",
+      tickmode = "linear",
+      tick0 = 40,
+      dtick = 2,
+      range = c(40, 49)
+    )
   )
 ```
 
-::: {.thinkbox}
-Here, the group means are close. ANOVA finds that the between-group variation is not large enough relative to error variation.
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+The **red dots** show the group means for each playlist style.
+
+The three boxplots are close together and overlap, so the visual matches the ANOVA conclusion: the differences between playlist styles are not large enough compared with the within-group variation.
 :::
 
 ---
@@ -1899,53 +1953,89 @@ Here, all Bonferroni intervals avoid 0, so all pairs differ.
 #| echo: false
 case_data <- data.frame(
   cost = c(
+    75,70,82,78,76,80,72,74,
     80,92,85,88,90,84,95,86,
-    110,115,105,120,112,118,108,116,
     100,96,102,98,95,101,97,99,
-    75,70,82,78,76,80,72,74
+    110,115,105,120,112,118,108,116
   ),
-  type = rep(c("Slim", "Rugged", "Wallet", "Clear"), each = 8)
+  type = factor(
+    rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8),
+    levels = c("Clear", "Slim", "Wallet", "Rugged")
+  )
 )
 
 case_summary <- case_data |>
   group_by(type) |>
-  summarise(mean_cost = mean(cost), .groups = "drop") |>
+  summarise(
+    mean_cost = mean(cost),
+    .groups = "drop"
+  ) |>
   mutate(
-    lower = mean_cost - 6.00,
-    upper = mean_cost + 6.00
+    n = 8,
+    MSE = 17.8884,
+    df_error = 28,
+    se = sqrt(MSE / n),
+    t_star = qt(0.975, df_error),
+    lower = mean_cost - t_star * se,
+    upper = mean_cost + t_star * se
   )
 
 plot_ly(
-  case_summary,
+  data = case_summary,
   x = ~type,
   y = ~mean_cost,
   type = "scatter",
   mode = "markers",
   marker = list(
-    size = 15,
-    color = plot_cols$teal,
-    line = list(color = plot_cols$teal_dark, width = 1.5)
+    size = 11,
+    color = "#c62828",
+    line = list(color = "white", width = 1)
   ),
   error_y = list(
     type = "data",
+    symmetric = FALSE,
     array = ~upper - mean_cost,
     arrayminus = ~mean_cost - lower,
-    color = "rgba(0,105,92,0.65)",
+    color = "rgba(70, 120, 200, 0.82)",
     thickness = 1.8,
-    width = 8
+    width = 10
   ),
-  hovertemplate = "%{x}<br>Mean cost: %{y:.2f}<extra></extra>"
+  hovertemplate = paste(
+    "Case: %{x}<br>",
+    "Mean repair cost: %{y:.2f}<br>",
+    "95% CI: [%{customdata[0]:.2f}, %{customdata[1]:.2f}]",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
 ) |>
   plotly_anova_layout(
-    "Mean repair cost by phone case design",
-    "Phone case design",
-    "Mean repair cost",
-    height = 390
+    title = "Mean repair cost with 95% confidence intervals",
+    x_title = "Phone case design",
+    y_title = "Mean repair cost",
+    height = 390,
+    margin = list(l = 78, r = 25, t = 60, b = 70)
+  ) |>
+  layout(
+    yaxis = list(
+      title = "Mean repair cost",
+      zeroline = FALSE,
+      showline = TRUE,
+      fixedrange = TRUE,
+      linecolor = plot_cols$border,
+      gridcolor = "rgba(0,0,0,0.07)",
+      tickmode = "linear",
+      tick0 = 70,
+      dtick = 10,
+      range = c(68, 122)
+    )
   )
 ```
 
-::: {.thinkbox}
-Pairwise intervals compare **differences between means**, not the separate mean intervals shown here.
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+The **red dots** show the sample mean repair cost for each phone case design.
+
+The vertical lines show **95% confidence intervals for the group means**. This visual helps compare the estimated mean repair costs before looking at the pairwise Bonferroni intervals.
 :::
 
 ---

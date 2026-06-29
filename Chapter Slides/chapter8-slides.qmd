@@ -1630,74 +1630,155 @@ $$
 
 ---
 
-## Example: Which Basketball Drills Differ?
+## Example: Badminton Drill Accuracy Scores
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-The basketball ANOVA rejected $H_0$.
+A badminton coach wants to compare three drill programs for improving serve-target accuracy.
 
-Group means:
+Players trained for **two months** using one of the three drill programs.  
+After the training period, each player completed the same **serve-target accuracy test out of 40**.
 
-$$
-\bar x_1=20,
-\quad
-\bar x_2=25,
-\quad
-\bar x_3=30
-$$
+| Static targets | Footwork + serve | Coach-fed targets |
+|---:|---:|---:|
+| 19 | 24 | 26 |
+| 20 | 25 | 27 |
+| 21 | 26 | 28 |
+| 23 | 28 | 29 |
+| 24 | 29 | 30 |
+| 25 | 30 | 31 |
 
-ANOVA gave:
-
-$$
-MSE=2,
-\qquad
-v=n-k=15
-$$
-
-Use Fisher's LSD intervals.
+Use a **one-way ANOVA at the 5% level** to test whether the population mean accuracy scores are the same across the three drill programs.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Fisher LSD setup</span>
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.74em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
 
 $$
-SE=
-\sqrt{
-2\left(\frac{1}{6}+\frac{1}{6}\right)
-}
-=
-0.8165
-$$
-
-$$
-t_{0.975,15}=2.131
+\bar x_1=22,
+\qquad
+\bar x_2=27,
+\qquad
+\bar x_3=28.5,
+\qquad
+\bar x=\frac{22+27+28.5}{3}=25.83
 $$
 
 $$
-LSD=2.131(0.8165)=1.74
+SSTr=6(22-25.83)^2+6(27-25.83)^2+6(28.5-25.83)^2=139.00
 $$
 
-| Pair | Difference | Fisher LSD CI |
-|---|---:|---:|
-| Classic - Streak | -5 | $(-6.74,-3.26)$ |
-| Classic - Leaderboard | -10 | $(-11.74,-8.26)$ |
-| Streak - Leaderboard | -5 | $(-6.74,-3.26)$ |
+$$
+SSE=(5)(5.6)+(5)(5.6)+(5)(3.5)=73.50
+$$
+
+$$
+MSTr=\frac{139.00}{2}=69.50,
+\qquad
+MSE=\frac{73.50}{15}=4.90
+$$
+
+$$
+F^*=\frac{69.50}{4.90}=14.18
+$$
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Number of comparisons</span>
+<span class="label">Hypotheses</span>
 
 $$
-\binom{3}{2}=3
+H_0:\mu_1=\mu_2=\mu_3
+$$
+
+$$
+H_a:\text{at least one population mean differs}
 $$
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.15; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-All three Fisher LSD intervals avoid 0, so each pair of practice formats has different population mean shooting-drill scores.
+With $df_1=2$ and $df_2=15$, the p-value is about $0.00035$. Since $p<0.05$, reject $H_0$. There is strong evidence that not all three drill programs have the same population mean accuracy score.
 :::
 
 ::::
+
+---
+
+## Visual: Badminton Drill Accuracy Scores
+
+```{r}
+#| echo: false
+badminton_vis <- data.frame(
+  score = c(
+    19, 20, 21, 23, 24, 25,
+    24, 25, 26, 28, 29, 30,
+    26, 27, 28, 29, 30, 31
+  ),
+  drill = factor(
+    rep(c("Static targets", "Footwork + serve", "Coach-fed targets"), each = 6),
+    levels = c("Static targets", "Footwork + serve", "Coach-fed targets")
+  )
+)
+
+badminton_means <- badminton_vis |>
+  group_by(drill) |>
+  summarise(mean_score = mean(score), .groups = "drop")
+
+plot_ly() |>
+  add_trace(
+    data = badminton_vis,
+    x = ~drill,
+    y = ~score,
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.85)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.38)",
+    hovertemplate = "Drill: %{x}<br>Score: %{y}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_markers(
+    data = badminton_means,
+    x = ~drill,
+    y = ~mean_score,
+    marker = list(
+      size = 9,
+      color = "#c62828",
+      symbol = "circle",
+      line = list(color = "white", width = 1)
+    ),
+    hovertemplate = "Drill: %{x}<br>Mean score: %{y:.1f}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  plotly_anova_layout(
+    title = "Serve-target accuracy after two months of drill training",
+    x_title = "Badminton drill program",
+    y_title = "Accuracy score out of 40",
+    height = 390,
+    margin = list(l = 70, r = 25, t = 60, b = 70)
+  ) |>
+  layout(
+    yaxis = list(
+      title = "Accuracy score out of 40",
+      zeroline = FALSE,
+      showline = TRUE,
+      fixedrange = TRUE,
+      linecolor = plot_cols$border,
+      gridcolor = "rgba(0,0,0,0.07)",
+      tickmode = "linear",
+      tick0 = 20,
+      dtick = 2,
+      range = c(18.5, 31.5)
+    )
+  )
+```
+
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+The **static targets** group is clearly centered lower than the other two drill programs.
+
+The **footwork + serve** and **coach-fed targets** groups are both higher, and their boxplots overlap slightly. The **red dots** show the group means and make the difference in center easy to compare.
+:::
 
 ---
 

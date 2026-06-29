@@ -4989,5 +4989,26 @@
     "title": "STA258",
     "section": "Example: TTC Stops and Commute Time",
     "text": "Example: TTC Stops and Commute Time\n\n\n\n\nCalculation summary\n\n\n\n\n\nQuantity\n\n\nValue\n\n\nMeaning\n\n\n\n\n\n\nSSE\n\n\n159.905\n\n\nvariation left unexplained by the fitted line\n\n\n\n\nSSR\n\n\n788.929\n\n\nvariation explained by the fitted line\n\n\n\n\nSST\n\n\n948.833\n\n\ntotal variation in commute time\n\n\n\n\n\nR2 = SSR / SST = 788.929 / 948.833 = 0.831\n\n\n\n\nConclusion\n\n\nAbout 83.1% of the variation in commute time is explained by stations travelled.\n\nThe fitted line explains a large part of the variation, but the unexplained variation is still noticeable.\nThat makes sense because commute time can also be affected by delays, crowding, waiting time, and transfer timing.\n\nThis is a strong linear association in the sample, but it does not prove that the number of stations alone caused the commute time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-which-badminton-drills-differ",
+    "href": "Chapter Slides/chapter8-slides.html#example-which-badminton-drills-differ",
+    "title": "STA258",
+    "section": "Example: Which Badminton Drills Differ?",
+    "text": "Example: Which Badminton Drills Differ?\n\n\nThe badminton ANOVA rejected \\(H_0\\). This follow-up step asks which training drills differ, instead of only saying that some difference exists.\nPlayers trained for two months using one of three badminton drill programs. After the training period, each player completed a serve-target accuracy test out of 40.\nGroup means:\n\\[\n\\bar x_1=22,\n\\quad\n\\bar x_2=27,\n\\quad\n\\bar x_3=29\n\\]\nANOVA gave:\n\\[\nMSE=5.40,\n\\qquad\nv=n-k=15\n\\]\nUse Fisher’s LSD intervals.\n\n\nFisher LSD setup\n\\[\nSE=\n\\sqrt{\n5.40\\left(\\frac{1}{6}+\\frac{1}{6}\\right)\n}\n=\n1.342\n\\]\n\\[\nt_{0.975,15}=2.131\n\\]\n\\[\nLSD=2.131(1.342)=2.86\n\\]\n\n\n\nPair\nDifference\nFisher LSD CI\n\n\n\n\nStatic targets - Footwork + serve\n-5\n\\((-7.86,-2.14)\\)\n\n\nStatic targets - Coach-fed targets\n-7\n\\((-9.86,-4.14)\\)\n\n\nFootwork + serve - Coach-fed targets\n-2\n\\((-4.86,0.86)\\)\n\n\n\n\n\nNumber of comparisons\n\\[\n\\binom{3}{2}=3\n\\]\n\n\nStatic target practice differs from both footwork + serve and coach-fed targets because those intervals avoid 0. Footwork + serve and coach-fed targets are not clearly different because that interval contains 0."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores",
+    "href": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores",
+    "title": "STA258",
+    "section": "Visual: Badminton Drill Accuracy Scores",
+    "text": "Visual: Badminton Drill Accuracy Scores\n\n\n\n\n\n\n\nThe static targets group is clearly centered lower than the other two drill programs.\nThe footwork + serve and coach-fed targets groups are both higher, and their boxplots overlap slightly. The red dots show the group means and make the difference in center easy to compare."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores",
+    "title": "STA258",
+    "section": "Example: Badminton Drill Accuracy Scores",
+    "text": "Example: Badminton Drill Accuracy Scores\n\n\nA badminton coach wants to compare three drill programs for improving serve-target accuracy.\nPlayers trained for two months using one of the three drill programs.\nAfter the training period, each player completed the same serve-target accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nUse a one-way ANOVA at the 5% level to test whether the population mean accuracy scores are the same across the three drill programs.\n\n\nCalculation\n\\[\n\\bar x_1=22,\n\\qquad\n\\bar x_2=27,\n\\qquad\n\\bar x_3=28.5,\n\\qquad\n\\bar x=\\frac{22+27+28.5}{3}=25.83\n\\]\n\\[\nSSTr=6(22-25.83)^2+6(27-25.83)^2+6(28.5-25.83)^2=139.00\n\\]\n\\[\nSSE=(5)(5.6)+(5)(5.6)+(5)(3.5)=73.50\n\\]\n\\[\nMSTr=\\frac{139.00}{2}=69.50,\n\\qquad\nMSE=\\frac{73.50}{15}=4.90\n\\]\n\\[\nF^*=\\frac{69.50}{4.90}=14.18\n\\]\n\n\nHypotheses\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{at least one population mean differs}\n\\]\n\n\nWith \\(df_1=2\\) and \\(df_2=15\\), the p-value is about \\(0.00035\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). There is strong evidence that not all three drill programs have the same population mean accuracy score."
   }
 ]

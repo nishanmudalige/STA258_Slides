@@ -4512,7 +4512,7 @@
     "href": "Chapter Slides/chapter8-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\n8.1 - ANOVA model Compare \\(k \\ge 3\\) population means using one global model.\n\n\n8.2 - Variation split Break total variation into treatment variation and error variation.\n\n\n8.3 - ANOVA F test Use the ANOVA table and a right-tailed \\(F\\) distribution.\n\n\n\n\n\n8.4 - Assumptions Normal residuals, equal population variance, and independent observations.\n\n\n8.5 - Pairwise comparisons After rejecting ANOVA, compare means in pairs.\n\n\n8.6 - R checks Use oneway.test(), aov(), and pairwise confidence intervals."
+    "text": "Chapter Roadmap\n\n\n8.1 - ANOVA model Compare \\(k \\ge 3\\) population means using one global model.\n\n\n8.2 - Variation split Break total variation into treatment variation and error variation.\n\n\n8.3 - ANOVA F test Use the ANOVA table and a right-tailed \\(F\\) distribution.\n\n\n\n\n\n8.4 - Assumptions Normal residuals, equal population variance, and independent observations.\n\n\n8.5 - Examples + R checks Work through the examples, then verify the ANOVA output in R.\n\n\n8.6 - Pairwise comparisons After rejecting ANOVA, compare means in pairs."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#up-next",
@@ -5017,5 +5017,82 @@
     "title": "STA258",
     "section": "Visual: Phone Case Mean Repair Costs",
     "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design.\nThe vertical lines show 95% confidence intervals for the group means. This visual helps compare the estimated mean repair costs before looking at the pairwise Bonferroni intervals."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#anova-as-a-prediction-problem",
+    "href": "Chapter Slides/chapter8-slides.html#anova-as-a-prediction-problem",
+    "title": "STA258",
+    "section": "ANOVA as a Prediction Problem",
+    "text": "ANOVA as a Prediction Problem\n\n\n\nANOVA can be understood as comparing two prediction rules.\n\n\nIgnore group information\nPredict every observation using the overall mean:\n\\[\n\\bar X\n\\]\n\n\n\n\nUse group information\nPredict observation \\(j\\) in group \\(i\\) using the group mean:\n\\[\n\\bar X_i\n\\]\n\n\nIf group means improve prediction by a lot compared with the within-group noise, the ANOVA \\(F\\) statistic becomes large."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-country-sales-by-region",
+    "href": "Chapter Slides/chapter8-slides.html#example-country-sales-by-region",
+    "title": "STA258",
+    "section": "Example: Country Sales by Region",
+    "text": "Example: Country Sales by Region\n\n\nA small business records last year’s sales in three countries. The response is sales in thousands of dollars.\n\n\n\nCountry A\nCountry B\nCountry C\n\n\n\n\n6\n10\n14\n\n\n10\n8\n13\n\n\n7\n12\n11\n\n\n9\n10\n10\n\n\nMean: 8\nMean: 10\nMean: 12\n\n\n\nUse ANOVA at the 5% level.\n\n\nCalculation\n\\[\n\\bar x=10\n\\]\n\\[\nSSTr=4(8-10)^2+4(10-10)^2+4(12-10)^2=32\n\\]\n\\[\nSSE=10+8+10=28\n\\]\n\\[\nMSTr=\\frac{32}{2}=16,\n\\qquad\nMSE=\\frac{28}{9}=3.111\n\\]\n\\[\nF^*=\\frac{16}{3.111}=5.143\n\\]\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\n\n\n\n\nTreatment\n2\n32\n16.000\n5.143\n\n\nError\n9\n28\n3.111\n\n\n\nTotal\n11\n60\n\n\n\n\n\n\n\nWith \\(df_1=2\\) and \\(df_2=9\\), \\(p=0.0324\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). There is evidence that the country population means are not all equal."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-country-sales-by-region",
+    "href": "Chapter Slides/chapter8-slides.html#visual-country-sales-by-region",
+    "title": "STA258",
+    "section": "Visual: Country Sales by Region",
+    "text": "Visual: Country Sales by Region\n\n\n\n\n\n\n\nThe red dots show the group means. The center of Country C is higher than Country A, and ANOVA checks whether that separation is large relative to the within-country noise."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-margarine-fill-differences",
+    "href": "Chapter Slides/chapter8-slides.html#example-margarine-fill-differences",
+    "title": "STA258",
+    "section": "Example: Margarine Fill Differences",
+    "text": "Example: Margarine Fill Differences\n\n\nA consumer organization compares three margarine brands. The response is the difference from the advertised 500 ml amount.\n\n\n\nBrand 1\nBrand 2\nBrand 3\n\n\n\n\n1\n2\n1\n\n\n3\n2\n2\n\n\n3\n4\n4\n\n\n0\n3\n2\n\n\n1\n0\n3\n\n\n0\n4\n4\n\n\n\nUse ANOVA at \\(\\alpha=0.05\\).\n\n\nCalculation\n\\[\n\\bar x_1=1.33,\n\\qquad\n\\bar x_2=2.50,\n\\qquad\n\\bar x_3=2.67,\n\\qquad\n\\bar x=2.17\n\\]\n\\[\nSSTr=6(1.33-2.17)^2+6(2.50-2.17)^2+6(2.67-2.17)^2\\approx 6.33\n\\]\n\\[\nSSE=(5)(1.87)+(5)(2.30)+(5)(1.47)\\approx 28.17\n\\]\n\\[\nMSTr=3.17,\n\\qquad\nMSE=1.88,\n\\qquad\nF^*\\approx 1.69\n\\]\n\n\nHypotheses\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{at least one brand mean differs}\n\\]\n\n\nWith \\(df_1=2\\) and \\(df_2=15\\), \\(p\\approx 0.218\\). Since \\(p&gt;0.05\\), do not reject \\(H_0\\). These data do not give enough evidence that the brand population means differ."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-margarine-fill-differences",
+    "href": "Chapter Slides/chapter8-slides.html#visual-margarine-fill-differences",
+    "title": "STA258",
+    "section": "Visual: Margarine Fill Differences",
+    "text": "Visual: Margarine Fill Differences\n\n\n\n\n\n\n\nThe red dots show the group means. The boxplots overlap heavily, so the visual matches the ANOVA conclusion: insufficient evidence that the three population means differ."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-bumper-repair-costs",
+    "href": "Chapter Slides/chapter8-slides.html#example-bumper-repair-costs",
+    "title": "STA258",
+    "section": "Example: Bumper Repair Costs",
+    "text": "Example: Bumper Repair Costs\n\n\nA manufacturer tests four bumper types. Ten cars with each bumper are driven into a wall at low speed, and the repair cost is recorded.\nThe one-way ANOVA rejects the equal-means hypothesis.\n\n\n\nBumper\nMean repair cost\n\n\n\n\nBumper 1\n494.40\n\n\nBumper 2\n536.00\n\n\nBumper 3\n492.00\n\n\nBumper 4\n420.20\n\n\n\nUse pairwise intervals to decide which bumper means differ.\n\n\nANOVA result\n\\[\nk=4,\n\\qquad\nn=40,\n\\qquad\nv=n-k=36\n\\]\n\\[\nMSE=4459.56\n\\]\n\\[\nF^*=5.184,\n\\qquad\np=0.0044\n\\]\nSince \\(p&lt;0.05\\), reject \\(H_0\\).\n\n\nPairwise setup\nThere are:\n\\[\nm=\\binom{4}{2}=6\n\\]\npairwise comparisons.\n\n\nThe ANOVA tells us at least one bumper mean repair cost differs. The pairwise intervals tell us which bumper pairs are separated after accounting for the shared ANOVA error estimate."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#bumper-repair-lsd-and-bonferroni",
+    "href": "Chapter Slides/chapter8-slides.html#bumper-repair-lsd-and-bonferroni",
+    "title": "STA258",
+    "section": "Bumper Repair: LSD and Bonferroni",
+    "text": "Bumper Repair: LSD and Bonferroni\n\n\n\nCritical margins\nFor equal sample sizes \\(n_i=10\\):\n\\[\nSE=\\sqrt{4459.56\\left(\\frac{1}{10}+\\frac{1}{10}\\right)}=29.86\n\\]\n\\[\nLSD\\text{ margin}=60.57\n\\]\n\\[\n\\text{Bonferroni margin}=83.38\n\\]\n\n\nA pair is different when the confidence interval does not contain 0.\n\n\n\n\n\n\nPair\nDifference\nFisher LSD CI\nBonferroni CI\n\n\n\n\nB1 - B2\n-41.60\n(-102.17, 18.97)\n(-124.98, 41.78)\n\n\nB1 - B3\n2.40\n(-58.17, 62.97)\n(-80.98, 85.78)\n\n\nB1 - B4\n74.20\n(13.63, 134.77)\n(-9.18, 157.58)\n\n\nB2 - B3\n44.00\n(-16.57, 104.57)\n(-39.38, 127.38)\n\n\nB2 - B4\n115.80\n(55.23, 176.37)\n(32.42, 199.18)\n\n\nB3 - B4\n71.80\n(11.23, 132.37)\n(-11.58, 155.18)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-bumper-mean-repair-costs",
+    "href": "Chapter Slides/chapter8-slides.html#visual-bumper-mean-repair-costs",
+    "title": "STA258",
+    "section": "Visual: Bumper Mean Repair Costs",
+    "text": "Visual: Bumper Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the group means. Bumper 4 is visibly lower, but Bonferroni requires stronger evidence for each individual comparison than Fisher LSD."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-apple-juice-advertising",
+    "href": "Chapter Slides/chapter8-slides.html#example-apple-juice-advertising",
+    "title": "STA258",
+    "section": "Example: Apple Juice Advertising",
+    "text": "Example: Apple Juice Advertising\n\n\nAn apple juice manufacturer compares three advertising strategies for a new concentrate product.\nThe response is weekly packages sold after the campaign begins.\n\n\n\nStrategy\n\\(n_i\\)\n\\(\\bar x_i\\)\n\n\n\n\nConvenience\n20\n577.55\n\n\nQuality\n20\n653.00\n\n\nPrice\n20\n608.65\n\n\n\nAssume ANOVA rejected at the 5% level.\n\n\nANOVA and pairwise setup\n\\[\nk=3,\n\\qquad\nn=60,\n\\qquad\nv=57\n\\]\n\\[\nMSE=3500,\n\\qquad\nm=\\binom{3}{2}=3\n\\]\n\\[\nF^*=8.216,\n\\qquad\np=0.0007\n\\]\n\n\nMargins\n\\[\nSE=\\sqrt{3500\\left(\\frac{1}{20}+\\frac{1}{20}\\right)}=18.71\n\\]\n\\[\n\\text{LSD margin}=37.46\n\\]\n\\[\n\\text{Bonferroni margin}=46.15\n\\]\n\n\nBonferroni intervals are wider. This can change the practical conclusion for borderline pairs, even when the original ANOVA rejects."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#apple-juice-pairwise-results",
+    "href": "Chapter Slides/chapter8-slides.html#apple-juice-pairwise-results",
+    "title": "STA258",
+    "section": "Apple Juice: Pairwise Results",
+    "text": "Apple Juice: Pairwise Results\n\n\n\nHow to read this\nEach interval estimates a difference in population mean weekly sales.\nIf 0 is outside the interval, that pair is statistically different.\n\n\nThe Quality vs Price pair is a useful borderline case: Fisher LSD suggests a difference, but Bonferroni does not.\n\n\n\n\n\n\n\n\n\n\n\n\nPair\nDifference\nFisher LSD CI\nBonferroni CI\n\n\n\n\nConvenience - Quality\n-75.45\n(-112.91, -37.99)\n(-121.60, -29.30)\n\n\nConvenience - Price\n-31.10\n(-68.56, 6.36)\n(-77.25, 15.05)\n\n\nQuality - Price\n44.35\n(6.89, 81.81)\n(-1.80, 90.50)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-intervals",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-intervals",
+    "title": "STA258",
+    "section": "Check in R: Pairwise Intervals",
+    "text": "Check in R: Pairwise Intervals\n\n\n\nBumper example: Bonferroni intervals\n\n\n\n\n\n\n\n\n\n\n\n\nApple juice example: compare LSD vs Bonferroni"
   }
 ]

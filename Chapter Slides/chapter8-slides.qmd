@@ -255,7 +255,7 @@ plotly_anova_layout <- function(
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 1.02em;
 }
-/* Left-align display equations inside calculation/example computation cards. */
+
 .calc-left mjx-container[display="true"],
 .calc-left .MathJax_Display {
   text-align: left !important;
@@ -304,12 +304,6 @@ plotly_anova_layout <- function(
   padding: 1px 4px;
 }
 
-.reveal .slides section.scrollable {
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  max-height: 700px;
-}
-
 .reveal section.compact h2 { font-size: 1.1em !important; }
 
 .reveal section.compact p,
@@ -341,18 +335,6 @@ plotly_anova_layout <- function(
   text-align: left;
 }
 
-.reveal .quiz-question .callout-note .callout-body p,
-.reveal .quiz-question .callout-note p {
-  font-size: 0.76em !important;
-  line-height: 1.28;
-  margin: 4px 0;
-}
-
-.reveal .quiz-question .callout-title {
-  font-size: 0.82em !important;
-  padding: 5px 12px !important;
-}
-
 .reveal .quiz-question ul {
   margin: 4px 0 !important;
   padding-left: 0 !important;
@@ -378,28 +360,11 @@ plotly_anova_layout <- function(
   text-align: right;
 }
 
-.reveal .check-button,
-.reveal .reset-button,
-.reveal .prev-button,
-.reveal .next-button {
-  padding: 7px 16px !important;
-  font-size: 0.78em !important;
-  border-radius: 6px !important;
-  margin: 0 4px !important;
-}
-
 .reveal .feedback,
 .reveal .explanation,
 .reveal .quiz-question .explanation {
   font-size: 0.7em !important;
   margin-top: 8px;
-}
-
-.quiz-hint {
-  font-size: 0.6em;
-  color: var(--sta-muted);
-  font-style: italic;
-  margin: 0 0 6px 0;
 }
 
 .callout { font-size: 0.75em; }
@@ -440,7 +405,6 @@ plotly_anova_layout <- function(
 
 .reveal .plot-container { border-radius: 10px; }
 
-/* WebR check slide formatting copied to match the reference style */
 .reveal section.compact-r .cm-editor,
 .reveal section.compact-r .cm-content,
 .reveal section.compact-r .cm-line,
@@ -450,8 +414,6 @@ plotly_anova_layout <- function(
   line-height: 1.08 !important;
 }
 
-/* Keep the line-number gutter in sync with the code lines so the
-   numbers line up one-per-row instead of bunching together. */
 .reveal section.compact-r .cm-gutters,
 .reveal section.compact-r .cm-lineNumbers,
 .reveal section.compact-r .cm-gutterElement {
@@ -567,13 +529,13 @@ Normal residuals, equal population variance, and independent observations.
 :::
 
 ::: {.stat-card .fragment}
-<span class="label">8.5 - Pairwise comparisons</span>
-After rejecting ANOVA, compare means in pairs.
+<span class="label">8.5 - Examples + R checks</span>
+Work through the examples, then verify the ANOVA output in R.
 :::
 
 ::: {.stat-card .fragment}
-<span class="label">8.6 - R checks</span>
-Use `oneway.test()`, `aov()`, and pairwise confidence intervals.
+<span class="label">8.6 - Pairwise comparisons</span>
+After rejecting ANOVA, compare means in pairs.
 :::
 ::::
 
@@ -709,6 +671,44 @@ $$
 
 ---
 
+## ANOVA as a Prediction Problem
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.defbox}
+ANOVA can be understood as comparing two prediction rules.
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Ignore group information</span>
+
+Predict every observation using the overall mean:
+
+$$
+\bar X
+$$
+:::
+:::
+
+::: {.col}
+::: {.stat-card .fragment}
+<span class="label">Use group information</span>
+
+Predict observation $j$ in group $i$ using the group mean:
+
+$$
+\bar X_i
+$$
+:::
+
+::: {.thinkbox .fragment}
+If group means improve prediction by a lot compared with the within-group noise, the ANOVA $F$ statistic becomes large.
+:::
+:::
+::::
+
+---
+
 ## Sources of Variation
 
 ::: {.defbox}
@@ -796,7 +796,7 @@ In one-way ANOVA, the total variation decomposes into which two pieces?
 ::::
 
 - $SSTotal = SSTr - SSE$
-- [$SSTotal = SSTr + SSE$]{.correct data-explanation="Total variation splits into the between-group (treatment) sum of squares plus the within-group (error) sum of squares: SSTotal = SSTr + SSE."}
+- [$SSTotal = SSTr + SSE$]{.correct data-explanation="Total variation splits into the between-group treatment sum of squares plus the within-group error sum of squares: SSTotal = SSTr + SSE."}
 - $SSTotal = MSTr + MSE$
 - $SSTotal = SSTr \times SSE$
 
@@ -882,7 +882,7 @@ In one-way ANOVA, what is the null hypothesis $H_0$?
 ::::
 
 - At least one group mean differs from the others
-- [All group means are equal: $\mu_1=\mu_2=\dots=\mu_k$]{.correct data-explanation="ANOVA tests H₀: all population means are equal against Hₐ: at least one mean differs. (Equal variances is an assumption of the test, not the null hypothesis.)"}
+- [All group means are equal: $\mu_1=\mu_2=\dots=\mu_k$]{.correct data-explanation="ANOVA tests H₀: all population means are equal against Hₐ: at least one mean differs. Equal variances is an assumption of the test, not the null hypothesis."}
 - All group variances are equal
 - All group means are equal to zero
 
@@ -980,9 +980,50 @@ The ANOVA $F$-statistic ($F = MSTr / MSE$) tends to be **large** when:
 ::::
 
 - within-group variation is large relative to between-group variation
-- [between-group variation is large relative to within-group variation]{.correct data-explanation="F compares between-group variation (MSTr) to within-group variation (MSE). A large F means the group means are spread far apart relative to the noise within groups — evidence against equal means."}
+- [between-group variation is large relative to within-group variation]{.correct data-explanation="F compares between-group variation to within-group variation. A large F means the group means are spread far apart relative to the noise within groups."}
 - the group means are all equal
 - the sample size in each group is small
+
+---
+
+## Assumptions of ANOVA
+
+::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
+<span class="label">Assumptions</span>
+
+<ul class="assumption-list" style="gap: 10px;">
+  <li>Observations are independent.</li>
+  <li>Error terms, or residuals, are Normal.</li>
+  <li>All groups have the same population variance: $\sigma_1^2=\sigma_2^2=\cdots=\sigma_k^2=\sigma^2$.</li>
+</ul>
+:::
+
+::: {.defbox .fragment}
+The common variance is estimated using the Mean Squared Error from ANOVA:
+
+$$
+\hat\sigma^2=MSE
+$$
+:::
+
+::: {.thinkbox .fragment}
+This is why the denominator of the F statistic is $MSE$: it estimates the shared within-group variance.
+:::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Which of the following is an assumption of one-way ANOVA?
+::::
+
+- The group sample sizes must all be equal
+- [Independent samples from normal populations with equal variances]{.correct data-explanation="One-way ANOVA assumes independent samples drawn from normal populations that share a common variance. Equal sample sizes are not required."}
+- The response variable must be categorical
+- Each expected cell count is at least 5
 
 ---
 
@@ -1492,7 +1533,8 @@ format <- factor(rep(
   each = 6
 ))
 
-summary(aov(score ~ format))
+oneway.test(score ~ format, var.equal = TRUE)
+anova(lm(score ~ format))
 ```
 :::
 
@@ -1513,52 +1555,12 @@ style <- factor(rep(
   each = 6
 ))
 
-summary(aov(score ~ style))
+oneway.test(score ~ style, var.equal = TRUE)
+anova(lm(score ~ style))
 ```
 :::
 
 ::::
-
----
-
-## Assumptions of ANOVA
-
-::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
-<span class="label">Assumptions</span>
-
-<ul class="assumption-list" style="gap: 10px;">
-  <li>Observations are independent.</li>
-  <li>Error terms, or residuals, are Normal.</li>
-  <li>All groups have the same population variance: $\sigma_1^2=\sigma_2^2=\cdots=\sigma_k^2=\sigma^2$.</li>
-</ul>
-:::
-
-::: {.defbox .fragment}
-The common variance is estimated using the Mean Squared Error from ANOVA:
-
-$$
-\hat\sigma^2=MSE
-$$
-:::
-
-::: {.thinkbox .fragment}
-This is why the denominator of the F statistic is $MSE$: it estimates the shared within-group variance.
-:::
-
----
-
-##  {.quiz-question}
-
-:::: {.callout-note icon="false"}
-## Question
-
-Which of the following is an assumption of one-way ANOVA?
-::::
-
-- The group sample sizes must all be equal
-- [Independent samples from normal populations with equal variances]{.correct data-explanation="One-way ANOVA assumes independent samples drawn from normal populations that share a common variance. Equal sample sizes are not required."}
-- The response variable must be categorical
-- Each expected cell count is at least 5
 
 ---
 

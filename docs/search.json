@@ -4512,7 +4512,7 @@
     "href": "Chapter Slides/chapter8-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\n8.1 - ANOVA model Compare \\(k \\ge 3\\) population means using one global model.\n\n\n8.2 - Variation split Break total variation into treatment variation and error variation.\n\n\n8.3 - ANOVA F test Use the ANOVA table and a right-tailed \\(F\\) distribution.\n\n\n\n\n\n8.4 - Assumptions Normal residuals, equal population variance, and independent observations.\n\n\n8.5 - Examples + R checks Work through the examples, then verify the ANOVA output in R.\n\n\n8.6 - Pairwise comparisons After rejecting ANOVA, compare means in pairs."
+    "text": "Chapter Roadmap\n\n\nConcept 1 One-way ANOVA F test\nModel, variation split, assumptions, ANOVA table, and p-value.\n\n\nExamples + R Use two raw-data examples, then confirm the ANOVA table in R.\n\n\nConcept 2 Pairwise comparisons\nAfter ANOVA rejects, ask which means differ.\n\n\n\n\n\nBlock 1 examples Campus café pickup systems and short-form video edit styles.\n\n\nBlock 2 examples Badminton drill accuracy scores and phone case drop-test costs."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#up-next",
@@ -4554,7 +4554,7 @@
     "href": "Chapter Slides/chapter8-slides.html#why-anova",
     "title": "STA258",
     "section": "Why ANOVA?",
-    "text": "Why ANOVA?\n\nAnalysis of Variance (ANOVA) is used to compare several population means.\nSuppose we have \\(k\\) groups, where usually \\(k \\ge 3\\).\n\n\n\nQuestion\nDo all groups have the same population mean?\n\n\nNull hypothesis\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\n\nANOVA starts with one global test. If the global test rejects, pairwise comparisons can then ask which means differ."
+    "text": "Why ANOVA?\n\nAnalysis of Variance (ANOVA) is used to compare several population means.\nSuppose we have \\(k\\) groups, usually with \\(k \\ge 3\\).\n\n\n\nQuestion\nDo all groups have the same population mean?\n\n\nNull hypothesis\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\n\nANOVA starts with one global test. If the global test rejects, then pairwise comparisons can ask which means differ."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#one-factor-anova-model",
@@ -4575,7 +4575,7 @@
     "href": "Chapter Slides/chapter8-slides.html#sources-of-variation",
     "title": "STA258",
     "section": "Sources of Variation",
-    "text": "Sources of Variation\n\nANOVA works by splitting variation into two pieces: variation within groups and variation between groups.\n\n\n\nWithin groups: error variation\n\\[\nSSE=\\sum_{i=1}^{k}(n_i-1)S_i^2\n\\]\nThis is residual variation inside the groups.\n\n\nBetween groups: treatment variation\n\\[\nSSTr=\\sum_{i=1}^{k} n_i(\\bar X_i-\\bar X)^2\n\\]\nThis captures how group means differ from the overall mean.\n\n\n\nThe ANOVA F statistic becomes large when between-group variation is large relative to within-group error variation."
+    "text": "Sources of Variation\n\nANOVA works by splitting variation into two pieces: variation within groups and variation between groups.\n\n\n\nWithin groups: error variation\n\\[\nSSE=\\sum_{i=1}^{k}(n_i-1)S_i^2\n\\]\nThis is residual variation inside the groups.\n\n\nBetween groups: treatment variation\n\\[\nSSTr=\\sum_{i=1}^{k} n_i(\\bar X_i-\\bar X)^2\n\\]\nThis captures how group means differ from the overall mean.\n\n\n\nThe ANOVA \\(F\\) statistic becomes large when between-group variation is large relative to within-group error variation."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#total-variation-and-decomposition",
@@ -4589,7 +4589,7 @@
     "href": "Chapter Slides/chapter8-slides.html#the-anova-table",
     "title": "STA258",
     "section": "The ANOVA Table",
-    "text": "The ANOVA Table\n\n\n\n\n\n\n\n\n\n\nSource\ndf\nSS\nMS\nF-statistic\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\\(MSTr=\\dfrac{SSTr}{k-1}\\)\n\\(F^*=\\dfrac{MSTr}{MSE}\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\\(MSE=\\dfrac{SSE}{n-k}\\)\n\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\n\nMean square rule\n\\[\nMS=\\frac{SS}{df}\n\\]\n\n\nThe F statistic compares treatment variation per degree of freedom with error variation per degree of freedom."
+    "text": "The ANOVA Table\n\n\n\n\n\n\n\n\n\n\nSource\ndf\nSS\nMS\nF-statistic\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\\(MSTr=\\dfrac{SSTr}{k-1}\\)\n\\(F^*=\\dfrac{MSTr}{MSE}\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\\(MSE=\\dfrac{SSE}{n-k}\\)\n\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\n\nMean square rule\n\\[\nMS=\\frac{SS}{df}\n\\]\n\n\nThe \\(F\\) statistic compares treatment variation per degree of freedom with error variation per degree of freedom."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#hypothesis-test-and-reference-distribution",
@@ -4617,7 +4617,7 @@
     "href": "Chapter Slides/chapter8-slides.html#example-campus-café-pickup-systems",
     "title": "STA258",
     "section": "Example: Campus Café Pickup Systems",
-    "text": "Example: Campus Café Pickup Systems\n\n\nA campus café compares mean pickup wait time across three ordering systems. Each system is used during the same lunch rush period, and the response is minutes from order confirmation to pickup.\n\n\n\nSystem\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\n\n\n\nMobile order\n6\n7.0\n2.0\n\n\nKiosk order\n6\n8.5\n2.8\n\n\nCounter order\n6\n10.2\n3.1\n\n\n\nUse ANOVA at the 5% level.\n\n\nCalculation\n\\[\n\\bar x=\\frac{6(7.0)+6(8.5)+6(10.2)}{18}=8.57\n\\]\n\\[\nSSTr=6(7.0-8.57)^2+6(8.5-8.57)^2+6(10.2-8.57)^2=30.76\n\\]\n\\[\nSSE=(5)(2.0)+(5)(2.8)+(5)(3.1)=39.50\n\\]\n\\[\nMSTr=\\frac{30.76}{2}=15.38,\n\\quad\nMSE=\\frac{39.50}{15}=2.63\n\\]\n\\[\nF^*=\\frac{15.38}{2.63}=5.84\n\\]\n\n\nHypotheses\n\\[H_0:\\mu_1=\\mu_2=\\mu_3\\]\n\\[H_a:\\text{at least one mean wait time differs}\\]\n\n\nWith \\(df_1=2\\) and \\(df_2=15\\), \\(p=0.0133\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). There is evidence that not all ordering systems have the same population mean wait time."
+    "text": "Example: Campus Café Pickup Systems\n\n\nProblem\nA campus café wants to compare three pickup systems used during the same lunch rush period:\n\nmobile order,\nkiosk order,\ncounter order.\n\nFor each system, the café records the number of minutes from order confirmation to pickup.\nWe want to know whether the population mean pickup time is the same for all three systems.\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{at least one mean pickup time differs}\n\\]\nUse a one-way ANOVA at the 5% level.\n\n\nObserved data\n\n\n\nMobile order\nKiosk order\nCounter order\n\n\n\n\n5.0\n6.5\n7.8\n\n\n6.0\n6.5\n8.8\n\n\n7.0\n8.5\n9.8\n\n\n7.0\n9.5\n10.6\n\n\n8.0\n9.5\n11.8\n\n\n9.0\n10.5\n12.4\n\n\n\n\n\nANOVA setup\nThe explanatory variable is the pickup system.\nThe response variable is pickup wait time.\nThere are \\(k=3\\) groups and \\(n=18\\) observations."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-summary-statistic-anova",
@@ -4659,14 +4659,14 @@
     "href": "Chapter Slides/chapter8-slides.html#assumptions-of-anova",
     "title": "STA258",
     "section": "Assumptions of ANOVA",
-    "text": "Assumptions of ANOVA\n\nAssumptions\n\n\nObservations are independent.\n\n\nError terms, or residuals, are Normal.\n\n\nAll groups have the same population variance: \\(\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2\\).\n\n\n\n\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat\\sigma^2=MSE\n\\]\n\n\nThis is why the denominator of the F statistic is \\(MSE\\): it estimates the shared within-group variance."
+    "text": "Assumptions of ANOVA\n\nAssumptions\n\n\nObservations are independent.\n\n\nError terms, or residuals, are Normal.\n\n\nAll groups have the same population variance: \\(\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2\\).\n\n\n\n\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat\\sigma^2=MSE\n\\]\n\n\nThis is why the denominator of the \\(F\\) statistic is \\(MSE\\): it estimates the shared within-group variance."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#what-if-anova-rejects",
     "href": "Chapter Slides/chapter8-slides.html#what-if-anova-rejects",
     "title": "STA258",
     "section": "What If ANOVA Rejects?",
-    "text": "What If ANOVA Rejects?\n\n\n\nANOVA’s alternative is broad:\n\\[\nH_a:\\text{at least one mean is different}\n\\]\nSo after rejecting \\(H_0\\), we still need to ask:\nWhich mean or means are different?\n\n\n\n\nPairwise comparisons\nCompare the means in pairs.\nFor three groups:\n\n\\(\\mu_1\\) vs. \\(\\mu_2\\)\n\\(\\mu_1\\) vs. \\(\\mu_3\\)\n\\(\\mu_2\\) vs. \\(\\mu_3\\)\n\n\n\nNumber of comparisons:\n\\[\n\\binom{k}{2}\n\\]"
+    "text": "What If ANOVA Rejects?\n\n\n\nANOVA’s alternative is broad:\n\\[\nH_a:\\text{at least one mean is different}\n\\]\nSo after rejecting \\(H_0\\), we still need to ask:\nWhich mean or means are different?\n\n\n\n\nPairwise comparisons\nCompare the means in pairs.\nFor three groups:\n\n\\(\\mu_1\\) vs. \\(\\mu_2\\)\n\\(\\mu_1\\) vs. \\(\\mu_3\\)\n\\(\\mu_2\\) vs. \\(\\mu_3\\)\n\n\n\nNumber of pairwise comparisons:\n\\[\nm=\\binom{k}{2}\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#pairwise-confidence-intervals",
@@ -4694,14 +4694,14 @@
     "href": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs",
     "title": "STA258",
     "section": "Example: Phone Case Drop-Test Costs",
-    "text": "Example: Phone Case Drop-Test Costs\n\n\nA device lab tests four phone case designs. After a standardized drop test, it records repair cost. The same testing setup is used for every design, so differences are interpreted as design-related differences in mean repair cost.\nANOVA rejects the equal-means hypothesis.\n\n\n\nCase\nMean repair cost\n\n\n\n\nSlim\n87.50\n\n\nRugged\n113.00\n\n\nWallet\n98.50\n\n\nClear\n75.88\n\n\n\nThe ANOVA error estimate is \\(MSE=17.89\\), with \\(v=28\\) error degrees of freedom.\n\n\nBonferroni setup\nThere are:\n\\[\nm=\\binom{4}{2}=6\n\\]\npairwise comparisons.\nBonferroni uses:\n\\[\nt_{1-\\alpha/(2m),28}\n=\nt_{1-0.05/12,28}\n=\n2.839\n\\]\nFor equal sample sizes \\(n_i=8\\):\n\\[\nSE=\n\\sqrt{\n17.89\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.115\n\\]\nBonferroni margin:\n\\[\n2.839(2.115)=6.00\n\\]\n\n\nQuestion\nWhich phone case designs have different population mean repair costs?\nA pair differs if its Bonferroni interval for \\(\\mu_i-\\mu_j\\) does not contain 0.\n\n\nThe Bonferroni margin is 6.00. So a pairwise difference must be more than 6 dollars away from 0 to be clearly different at the family-wise 5% level."
+    "text": "Example: Phone Case Drop-Test Costs\n\n\nA device lab tests four phone case designs. After a standardized drop test, it records repair cost.\nANOVA rejects the equal-means hypothesis.\n\n\n\nCase\nMean repair cost\n\n\n\n\nClear\n75.88\n\n\nSlim\n87.50\n\n\nWallet\n98.50\n\n\nRugged\n113.00\n\n\n\nThe ANOVA error estimate is \\(MSE=17.89\\), with \\(v=28\\) error degrees of freedom.\n\n\nBonferroni setup\nThere are \\(m=\\binom{4}{2}=6\\) pairwise comparisons.\nBonferroni uses:\n\\[\nt_{1-\\alpha/(2m),28}\n=\nt_{1-0.05/12,28}\n=\n2.839\n\\]\nFor equal sample sizes \\(n_i=8\\):\n\\[\nSE=\\sqrt{17.89\\left(\\frac18+\\frac18\\right)}=2.115\n\\]\nBonferroni margin: \\(2.839(2.115)=6.00\\).\n\n\nQuestion\nWhich phone case designs have different population mean repair costs?\nA pair differs if its Bonferroni interval does not contain 0.\n\n\nThe Bonferroni margin is 6.00. So a pairwise difference must be more than 6 dollars away from 0 to be clearly different at the family-wise 5% level."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-comparisons",
     "href": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-comparisons",
     "title": "STA258",
     "section": "Check in R: Pairwise Comparisons",
-    "text": "Check in R: Pairwise Comparisons\n\n\n\n\nBasketball Fisher / Bonferroni intervals\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case Bonferroni intervals"
+    "text": "Check in R: Pairwise Comparisons\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#bonferroni-vs.-fisher-decision-guide",
@@ -4715,7 +4715,7 @@
     "href": "Chapter Slides/chapter8-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nIn one-way ANOVA, the total variation decomposes into which two pieces?\n\n\n\n\n\\(SSTotal = SSTr - SSE\\)\n\\(SSTotal = SSTr + SSE\\)\n\\(SSTotal = MSTr + MSE\\)\n\\(SSTotal = SSTr \\times SSE\\)"
+    "text": "Question\n\n\nA one-way ANOVA with \\(k=4\\) groups has a significant p-value. How many pairwise mean comparisons are possible?\n\n\n\n\n3\n6\n8\n16"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#final-checklist",
@@ -4736,14 +4736,14 @@
     "href": "Chapter Slides/chapter8-slides.html#anova-hypothesis-test",
     "title": "STA258",
     "section": "ANOVA Hypothesis Test",
-    "text": "ANOVA Hypothesis Test\n\n\n\nHypotheses:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\nTest statistic\n\\[\nF^*=\n\\frac{MSTr}{MSE}\n=\n\\frac{SSTr/(k-1)}{SSE/(n-k)}\n\\]\n\n\n\n\nUnder \\(H_0\\):\n\\[\nF^* \\sim F_{k-1,n-k}\n\\]\nThe numerator degrees of freedom are \\(k-1\\).\nThe denominator degrees of freedom are \\(n-k\\).\n\n\nThe ANOVA p-value is the area to the right of \\(F^*\\), because large F values mean group means differ more than expected from random error alone."
+    "text": "ANOVA Hypothesis Test\n\n\n\nHypotheses:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\nTest statistic\n\\[\nF^*=\n\\frac{MSTr}{MSE}\n=\n\\frac{SSTr/(k-1)}{SSE/(n-k)}\n\\]\n\n\n\n\nUnder \\(H_0\\):\n\\[\nF^* \\sim F_{k-1,n-k}\n\\]\nThe numerator degrees of freedom are \\(k-1\\).\nThe denominator degrees of freedom are \\(n-k\\).\n\n\nThe ANOVA p-value is the area to the right of \\(F^*\\), because large \\(F\\) values mean group means differ more than expected from random error alone."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-short-form-video-edit-styles",
     "href": "Chapter Slides/chapter8-slides.html#example-short-form-video-edit-styles",
     "title": "STA258",
     "section": "Example: Short-Form Video Edit Styles",
-    "text": "Example: Short-Form Video Edit Styles\n\n\nA creator compares mean viewer watch time across four video edit styles. Each style is tested on comparable short videos from the same account, with watch time measured in seconds.\n\n\n\nStyle\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\n\n\n\nClean cut\n5\n38\n20\n\n\nCaptions-first\n5\n44\n25\n\n\nMeme overlay\n5\n41\n18\n\n\nStory hook\n5\n52\n22\n\n\n\nComplete the ANOVA table and test at the 5% level.\n\n\nCalculation\n\\[\n\\bar x=\\frac{5(38)+5(44)+5(41)+5(52)}{20}=43.75\n\\]\n\\[\n\\begin{aligned}\nSSTr &= 5(38-43.75)^2+5(44-43.75)^2\\\\\n     &\\quad +\\,5(41-43.75)^2+5(52-43.75)^2\\\\\n     &= 543.75\n\\end{aligned}\n\\]\n\\[\nSSE=4(20)+4(25)+4(18)+4(22)=340.00\n\\]\n\\[\nMSTr=\\frac{543.75}{3}=181.25,\n\\quad\nMSE=\\frac{340.00}{16}=21.25\n\\]\n\\[\nF^*=\\frac{181.25}{21.25}=8.53\n\\]\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\n\n\n\n\nTreatment\n3\n543.75\n181.25\n8.53\n\n\nError\n16\n340.00\n21.25\n\n\n\nTotal\n19\n883.75\n\n\n\n\n\n\n\nWith \\(df_1=3\\) and \\(df_2=16\\), \\(p=0.0013\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). At least one edit style has a different population mean watch time."
+    "text": "Example: Short-Form Video Edit Styles\n\n\nA creator compares mean viewer watch time across four video edit styles. Each style is tested on comparable short videos from the same account, with watch time measured in seconds.\n\n\n\nClean cut\nCaptions-first\nMeme overlay\nStory hook\n\n\n\n\n32\n39\n35\n46\n\n\n36\n39\n40\n49\n\n\n38\n44\n41\n52\n\n\n40\n49\n42\n55\n\n\n44\n49\n47\n58\n\n\n\nComplete the ANOVA table and test at the 5% level.\n\n\nCalculation\n\\[\n\\bar x_1=38,\n\\qquad\n\\bar x_2=44,\n\\qquad\n\\bar x_3=41,\n\\qquad\n\\bar x_4=52,\n\\qquad\n\\bar x=43.75\n\\]\n\\[\nSSTr=543.75,\n\\qquad\nSSE=344.00\n\\]\n\\[\nMSTr=181.25,\n\\qquad\nMSE=21.50,\n\\qquad\nF^*=8.43\n\\]\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\n\n\n\n\nTreatment\n3\n543.75\n181.25\n8.43\n\n\nError\n16\n344.00\n21.50\n\n\n\nTotal\n19\n887.75\n\n\n\n\n\n\n\nWith \\(df_1=3\\) and \\(df_2=16\\), \\(p=0.0014\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). At least one edit style has a different population mean watch time."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-anova-from-summary-statistics",
@@ -4771,7 +4771,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs",
     "title": "STA258",
     "section": "Visual: Phone Case Mean Repair Costs",
-    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design.\nThe vertical lines show 95% confidence intervals for the group means. This visual helps compare the estimated mean repair costs before looking at the pairwise Bonferroni intervals."
+    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design. The vertical lines show ordinary 95% intervals for the group means before applying the pairwise Bonferroni comparison."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-confidence-intervals",
@@ -4785,7 +4785,7 @@
     "href": "Chapter Slides/chapter8-slides.html#phone-case-bonferroni-results",
     "title": "STA258",
     "section": "Phone Case: Bonferroni Results",
-    "text": "Phone Case: Bonferroni Results\n\n\n\nHow to read the table\nEach interval estimates a difference in population mean repair cost.\nIf 0 is not in the interval, that pair of phone case designs has different mean repair cost.\n\n\nHere, all Bonferroni intervals avoid 0, so all pairs differ.\n\n\n\n\n\n\nPair\nDifference\nBonferroni CI\n\n\n\n\nSlim - Rugged\n-25.50\n\\((-31.50,\\,-19.50)\\)\n\n\nSlim - Wallet\n-11.00\n\\((-17.00,\\,-5.00)\\)\n\n\nSlim - Clear\n11.63\n\\((5.62,\\;17.63)\\)\n\n\nRugged - Wallet\n14.50\n\\((8.50,\\;20.50)\\)\n\n\nRugged - Clear\n37.13\n\\((31.12,\\;43.13)\\)\n\n\nWallet - Clear\n22.63\n\\((16.62,\\;28.63)\\)"
+    "text": "Phone Case: Bonferroni Results\n\n\n\nHow to read the table\nEach interval estimates a difference in population mean repair cost.\nIf 0 is not in the interval, that pair of phone case designs has different mean repair cost.\n\n\nHere, all Bonferroni intervals avoid 0, so all pairs differ.\n\n\n\n\n\n\nPair\nDifference\nBonferroni CI\n\n\n\n\nClear - Slim\n-11.63\n\\((-17.63,\\,-5.62)\\)\n\n\nClear - Wallet\n-22.63\n\\((-28.63,\\,-16.62)\\)\n\n\nClear - Rugged\n-37.13\n\\((-43.13,\\,-31.12)\\)\n\n\nSlim - Wallet\n-11.00\n\\((-17.00,\\,-5.00)\\)\n\n\nSlim - Rugged\n-25.50\n\\((-31.50,\\,-19.50)\\)\n\n\nWallet - Rugged\n-14.50\n\\((-20.50,\\,-8.50)\\)"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#section-3",
@@ -5002,14 +5002,14 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores",
     "title": "STA258",
     "section": "Visual: Badminton Drill Accuracy Scores",
-    "text": "Visual: Badminton Drill Accuracy Scores\n\n\n\n\n\n\n\nThe static targets group is clearly centered lower than the other two drill programs.\nThe footwork + serve and coach-fed targets groups are both higher, and their boxplots overlap slightly. The red dots show the group means and make the difference in center easy to compare."
+    "text": "Visual: Badminton Drill Accuracy Scores\n\n\n\n\n\n\n\nThe red dots show the group means. Static targets is clearly centered lower, while the two higher drill programs overlap more closely."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores",
     "href": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores",
     "title": "STA258",
     "section": "Example: Badminton Drill Accuracy Scores",
-    "text": "Example: Badminton Drill Accuracy Scores\n\n\nA badminton coach wants to compare three drill programs for improving serve-target accuracy.\nPlayers trained for two months using one of the three drill programs.\nAfter the training period, each player completed the same serve-target accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nUse a one-way ANOVA at the 5% level to test whether the population mean accuracy scores are the same across the three drill programs.\n\n\nCalculation\n\\[\n\\bar x_1=22,\n\\qquad\n\\bar x_2=27,\n\\qquad\n\\bar x_3=28.5,\n\\qquad\n\\bar x=\\frac{22+27+28.5}{3}=25.83\n\\]\n\\[\nSSTr=6(22-25.83)^2+6(27-25.83)^2+6(28.5-25.83)^2=139.00\n\\]\n\\[\nSSE=(5)(5.6)+(5)(5.6)+(5)(3.5)=73.50\n\\]\n\\[\nMSTr=\\frac{139.00}{2}=69.50,\n\\qquad\nMSE=\\frac{73.50}{15}=4.90\n\\]\n\\[\nF^*=\\frac{69.50}{4.90}=14.18\n\\]\n\n\nHypotheses\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{at least one population mean differs}\n\\]\n\n\nWith \\(df_1=2\\) and \\(df_2=15\\), the p-value is about \\(0.00035\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). There is strong evidence that not all three drill programs have the same population mean accuracy score."
+    "text": "Example: Badminton Drill Accuracy Scores\n\n\nA badminton coach compares three drill programs for improving serve-target accuracy. After two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ?\n\n\nANOVA setup\n\\[\n\\bar x_1=22,\n\\qquad\n\\bar x_2=27,\n\\qquad\n\\bar x_3=28.5,\n\\qquad\n\\bar x=25.83\n\\]\n\\[\nSSTr=139.00,\n\\qquad\nSSE=73.50,\n\\qquad\nMSE=4.90\n\\]\n\\[\nF^*=14.18,\n\\qquad\np\\approx0.00035\n\\]\n\n\nBonferroni setup\nThere are \\(m=\\binom{3}{2}=3\\) pairwise comparisons.\nUse Bonferroni intervals for each difference in mean accuracy score.\n\n\nThe ANOVA result says at least one drill mean differs. The pairwise step tells us whether the difference is between Static vs Footwork, Static vs Coach-fed, Footwork vs Coach-fed, or more than one pair."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs-1",
@@ -5094,5 +5094,68 @@
     "title": "STA258",
     "section": "Check in R: Pairwise Intervals",
     "text": "Check in R: Pairwise Intervals\n\n\n\nBumper example: Bonferroni intervals\n\n\n\n\n\n\n\n\n\n\n\n\nApple juice example: compare LSD vs Bonferroni"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-f-test-p-values",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-f-test-p-values",
+    "title": "STA258",
+    "section": "Check in R: Confirm F-test P-values",
+    "text": "Check in R: Confirm F-test P-values\n\n\n\nCampus café pickup example\n\n\n\n\n\n\n\n\n\n\n\n\nShort-form video edit example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-anova-p-values",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-anova-p-values",
+    "title": "STA258",
+    "section": "Check in R: Confirm ANOVA P-values",
+    "text": "Check in R: Confirm ANOVA P-values\n\n\n\nCampus café pickup example\n\n\n\n\n\n\n\n\n\n\nThis checks the right-tail p-value for the ANOVA test statistic.\nThe output should be close to \\(0.0133\\).\n\n\n\n\nShort-form video edit example\n\n\n\n\n\n\n\n\n\n\nThis checks the right-tail p-value for the ANOVA test statistic.\nThe output should be close to \\(0.0013\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-campus-café-pickup-systems",
+    "href": "Chapter Slides/chapter8-slides.html#visual-campus-café-pickup-systems",
+    "title": "STA258",
+    "section": "Visual: Campus Café Pickup Systems",
+    "text": "Visual: Campus Café Pickup Systems\n\n\n\n\n\n\n\nThe red dots show the group means. Counter order is centered higher than the other systems, which is why the ANOVA table gives a small p-value."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-short-form-video-edit-styles",
+    "href": "Chapter Slides/chapter8-slides.html#visual-short-form-video-edit-styles",
+    "title": "STA258",
+    "section": "Visual: Short-Form Video Edit Styles",
+    "text": "Visual: Short-Form Video Edit Styles\n\n\n\n\n\n\n\nThe story hook group is clearly centered higher than the other edit styles. ANOVA confirms that the differences in group centers are large relative to the within-style variation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova-tables",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova-tables",
+    "title": "STA258",
+    "section": "Check in R: One-Way ANOVA Tables",
+    "text": "Check in R: One-Way ANOVA Tables\n\n\n\nCampus café pickup example\n\n\n\n\n\n\n\n\n\n\n\n\nShort-form video edit example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-bonferroni-results",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-bonferroni-results",
+    "title": "STA258",
+    "section": "Badminton: Bonferroni Results",
+    "text": "Badminton: Bonferroni Results\n\n\n\nHow to read the table\nEach interval estimates a difference in population mean accuracy score.\nIf 0 is not in the interval, that pair differs after the Bonferroni correction.\n\n\nStatic targets is lower than the other two programs. Footwork + serve and Coach-fed targets are not clearly different from each other.\n\n\n\n\n\n\nPair\nDifference\nBonferroni CI\n\n\n\n\nStatic - Footwork\n-5.00\n\\((-8.44,\\,-1.56)\\)\n\n\nStatic - Coach-fed\n-6.50\n\\((-9.94,\\,-3.06)\\)\n\n\nFootwork - Coach-fed\n-1.50\n\\((-4.94,\\;1.94)\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#campus-café-anova-table-and-conclusion",
+    "href": "Chapter Slides/chapter8-slides.html#campus-café-anova-table-and-conclusion",
+    "title": "STA258",
+    "section": "Campus Café: ANOVA Table and Conclusion",
+    "text": "Campus Café: ANOVA Table and Conclusion\n\n\nCalculation\n\\[\ndf_{\\text{Tr}}=k-1=3-1=2,\n\\qquad\ndf_E=n-k=18-3=15\n\\]\n\\[\nMSTr=\\frac{30.76}{2}=15.38,\n\\qquad\nMSE=\\frac{39.44}{15}=2.63\n\\]\n\\[\nF^*=\\frac{MSTr}{MSE}\n=\n\\frac{15.38}{2.63}\n=\n5.85\n\\]\n\n\nVisual check\n\n\n\n\n\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n2\n30.76\n15.38\n5.85\n0.0132\n\n\nError\n15\n39.44\n2.63\n\n\n\n\nTotal\n17\n70.20\n\n\n\n\n\n\nSince \\(p=0.0132&lt;0.05\\), reject \\(H_0\\). There is evidence that not all ordering systems have the same population mean pickup wait time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#campus-café-calculation-table",
+    "href": "Chapter Slides/chapter8-slides.html#campus-café-calculation-table",
+    "title": "STA258",
+    "section": "Campus Café: Calculation Table",
+    "text": "Campus Café: Calculation Table\n\nStep-by-step ANOVA building blocks\nHere \\(\\bar x = 8.57\\). The last two columns give the pieces needed for \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\n\nSystem\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(\\bar x_i-\\bar x\\)\n\\(n_i(\\bar x_i-\\bar x)^2\\)\n\n\n\n\nMobile order\n6\n7.00\n2.00\n10.00\n-1.57\n14.73\n\n\nKiosk order\n6\n8.50\n2.80\n14.00\n-0.07\n0.03\n\n\nCounter order\n6\n10.20\n3.09\n15.44\n1.63\n16.01\n\n\nTotals\n18\n\n\n39.44\n\n30.76\n\n\n\n\n\n\nWithin-system variation\n\\[\nSSE=10.00+14.00+15.44=39.44\n\\]\n\n\nBetween-system variation\n\\[\nSSTr=14.73+0.03+16.01=30.76\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#campus-café-anova-result-and-visual",
+    "href": "Chapter Slides/chapter8-slides.html#campus-café-anova-result-and-visual",
+    "title": "STA258",
+    "section": "Campus Café: ANOVA Result and Visual",
+    "text": "Campus Café: ANOVA Result and Visual\n\n\nCalculation table\nHere \\(\\bar x=8.57\\). The final two columns add up to \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\n\nSystem\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(\\bar x_i-\\bar x\\)\n\\(n_i(\\bar x_i-\\bar x)^2\\)\n\n\n\n\nMobile\n6\n7.00\n2.00\n10.00\n-1.57\n14.73\n\n\nKiosk\n6\n8.50\n2.80\n14.00\n-0.07\n0.03\n\n\nCounter\n6\n10.20\n3.09\n15.44\n1.63\n16.01\n\n\nTotals\n18\n\n\n39.44\n\n30.76\n\n\n\n\nTherefore, \\(SSE=39.44\\) and \\(SSTr=30.76\\).\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n2\n30.76\n15.38\n5.85\n0.0132\n\n\nError\n15\n39.44\n2.63\n\n\n\n\nTotal\n17\n70.20\n\n\n\n\n\n\n\\[\nMSTr=\\frac{30.76}{2}=15.38,\n\\qquad\nMSE=\\frac{39.44}{15}=2.63\n\\]\n\\[\nF^*=\\frac{15.38}{2.63}=5.85\n\\]\n\n\nVisual reference\n\n\n\n\n\n\n\n\nConclusion\nSince \\(p=0.0132&lt;0.05\\), reject \\(H_0\\).\nThere is evidence that not all ordering systems have the same population mean pickup wait time.\nThe visual is only a reference: the counter-order system is centered higher than the other two."
   }
 ]

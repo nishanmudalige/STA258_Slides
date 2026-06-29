@@ -255,6 +255,17 @@ plotly_anova_layout <- function(
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 1.02em;
 }
+/* Left-align display equations inside calculation/example computation cards. */
+.calc-left mjx-container[display="true"],
+.calc-left .MathJax_Display {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.calc-left mjx-container[display="true"] {
+  justify-content: flex-start !important;
+}
 
 .reveal table {
   width: 100%;
@@ -981,6 +992,7 @@ The ANOVA $F$-statistic ($F = MSTr / MSE$) tends to be **large** when:
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
 A campus café compares mean pickup wait time across three ordering systems.
+Each system is used during the same lunch rush period, and the response is minutes from order confirmation to pickup.
 
 | System | $n_i$ | $\bar x_i$ | $s_i^2$ |
 |---|---:|---:|---:|
@@ -991,7 +1003,7 @@ A campus café compares mean pickup wait time across three ordering systems.
 Use ANOVA at the 5% level.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1039,6 +1051,7 @@ With $df_1=2$ and $df_2=15$, $p=0.0133$. Since $p<0.05$, reject $H_0$. There is 
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
 A creator compares mean viewer watch time across four video edit styles.
+Each style is tested on comparable short videos from the same account, with watch time measured in seconds.
 
 | Style | $n_i$ | $\bar x_i$ | $s_i^2$ |
 |---|---:|---:|---:|
@@ -1050,7 +1063,7 @@ A creator compares mean viewer watch time across four video edit styles.
 Complete the ANOVA table and test at the 5% level.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1172,6 +1185,7 @@ round(data.frame(
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
 A coach tests three practice formats and records shooting-drill scores.
+Each player completes the same drill after one practice format, and higher scores mean more made shots.
 
 | Classic | Streak challenge | Leaderboard |
 |---:|---:|---:|
@@ -1185,7 +1199,7 @@ A coach tests three practice formats and records shooting-drill scores.
 Test whether the three population mean scores are equal.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Manual ANOVA pieces</span>
 
 $$
@@ -1290,6 +1304,7 @@ This is the ANOVA story visually: the group means move a lot, while the points i
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
 A study app compares focus scores after three playlist styles.
+Each student uses one playlist during the same length study session, then completes the same focus survey.
 
 | Lo-fi | Classical | Ambient |
 |---:|---:|---:|
@@ -1303,7 +1318,7 @@ A study app compares focus scores after three playlist styles.
 Test whether the population mean focus scores are equal.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Manual ANOVA pieces</span>
 
 $$
@@ -1692,6 +1707,7 @@ All three Fisher LSD intervals avoid 0, so each pair of practice formats has dif
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0;"}
 A device lab tests four phone case designs. After a standardized drop test, it records repair cost.
+The same testing setup is used for every design, so differences are interpreted as design-related differences in mean repair cost.
 
 ANOVA rejects the equal-means hypothesis.
 
@@ -1705,7 +1721,7 @@ ANOVA rejects the equal-means hypothesis.
 The ANOVA error estimate is $MSE=17.89$, with $v=28$ error degrees of freedom.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.66em; line-height: 1.10; padding: 11px 15px; margin-bottom: 0;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.66em; line-height: 1.10; padding: 11px 15px; margin-bottom: 0;"}
 <span class="label">Bonferroni setup</span>
 
 There are:

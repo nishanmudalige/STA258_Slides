@@ -1524,6 +1524,361 @@ $$
 
 ---
 
+## Fisher's LSD
+
+:::: {.two-col-wide style="grid-template-columns: 0.92fr 1.08fr; gap: 20px; align-items: stretch;"}
+
+::: {.defbox style="font-size: 0.66em; line-height: 1.16; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Idea</span>
+
+Fisher's LSD is used **after ANOVA rejects**.
+
+It compares two group means using the pooled error estimate from ANOVA:
+
+$$
+MSE
+$$
+
+It is more powerful, but it does **not** control the experiment-wise Type I error rate.
+:::
+
+::: {.stat-card .calc-left style="font-size: 0.64em; line-height: 1.14; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Textbook formula</span>
+
+For each pair:
+
+$$
+(\bar{x}_i-\bar{x}_j)
+\pm
+t_{\alpha/2,v}
+\sqrt{
+MSE
+\left(
+\frac{1}{n_i}+\frac{1}{n_j}
+\right)
+}
+$$
+
+where:
+
+$$
+v=n-k
+$$
+
+A pair differs if its interval **does not contain 0**.
+:::
+
+::::
+
+---
+
+## Badminton: Fisher LSD Comparisons {.badminton-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 280px 210px; gap: 10px 16px; align-items: stretch; height: 502px;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.50em; line-height: 1.04; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
+
+A badminton coach compares three drill programs for improving serve-target accuracy.
+
+After two months, each player completes the same accuracy test out of 40.
+
+| Static targets | Footwork + serve | Coach-fed targets |
+|---:|---:|---:|
+| 19 | 24 | 26 |
+| 20 | 25 | 27 |
+| 21 | 26 | 28 |
+| 23 | 28 | 29 |
+| 24 | 29 | 30 |
+| 25 | 30 | 31 |
+
+ANOVA rejects $H_0$. Which drill programs differ using **Fisher's LSD**?
+:::
+
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.47em; line-height: 1.04; padding: 10px 12px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Setup</span>
+
+From ANOVA:
+
+$$
+MSE=4.90,
+\qquad
+v=n-k=18-3=15
+$$
+
+Sample means:
+
+$$
+\bar{x}_1=22,
+\qquad
+\bar{x}_2=27,
+\qquad
+\bar{x}_3=28.5
+$$
+
+Each group has $n_i=6$.
+:::
+
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.06; padding: 13px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+<span class="label">Fisher LSD calculation</span>
+
+Use the ordinary critical value:
+
+$$
+t^*=t_{0.975,15}=2.131
+$$
+
+Standard error:
+
+$$
+SE=
+\sqrt{
+4.90
+\left(
+\frac16+\frac16
+\right)
+}
+=
+1.28
+$$
+
+Least significant difference:
+
+$$
+LSD=2.131(1.28)=2.72
+$$
+
+So any pair of sample means more than **2.72** apart is declared different.
+
+| Pair | Difference | Compare to LSD |
+|---|---:|---:|
+| Static - Footwork | $|-5.00|=5.00$ | $5.00>2.72$ |
+| Static - Coach-fed | $|-6.50|=6.50$ | $6.50>2.72$ |
+| Footwork - Coach-fed | $|-1.50|=1.50$ | $1.50<2.72$ |
+:::
+
+::::
+
+---
+
+## Badminton: Fisher LSD Results {.badminton-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; gap: 16px; align-items: start;"}
+
+::: {.stat-card style="grid-column: 1; font-size: 0.55em; line-height: 1.08; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Pairwise Fisher LSD intervals</span>
+
+| Pair | Fisher LSD interval | Decision |
+|---|---:|---|
+| Static targets - Footwork + serve | $(-7.72,\,-2.28)$ | Different |
+| Static targets - Coach-fed targets | $(-9.22,\,-3.78)$ | Different |
+| Footwork + serve - Coach-fed targets | $(-4.22,\;1.22)$ | Not different |
+
+<br>
+
+If the interval **contains 0**, the pair is **not clearly different**.
+
+If the interval **does not contain 0**, the pair **differs**.
+:::
+
+::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Conclusion</span>
+
+- **Static vs Footwork**: different  
+- **Static vs Coach-fed**: different  
+- **Footwork vs Coach-fed**: not different  
+
+Using Fisher's LSD, **Static targets** is lower than the other two programs.
+
+**Footwork + serve** and **Coach-fed targets** are not clearly different.
+:::
+
+::::
+
+---
+
+## Phone Case: Fisher LSD Comparisons {.phone-case-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 280px 210px; gap: 10px 16px; align-items: stretch; height: 502px;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.50em; line-height: 1.04; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the lab records the **repair cost** after impact.
+
+ANOVA rejects the equal-means hypothesis.
+
+Which case designs differ using **Fisher's LSD**?
+
+| Case design | Mean repair cost |
+|---|---:|
+| Clear | 75.88 |
+| Slim | 87.50 |
+| Wallet | 98.50 |
+| Rugged | 113.00 |
+:::
+
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.47em; line-height: 1.04; padding: 10px 12px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Setup</span>
+
+From ANOVA:
+
+$$
+MSE=17.89,
+\qquad
+v=n-k=32-4=28
+$$
+
+Each case design has:
+
+$$
+n_i=8
+$$
+
+Use Fisher's LSD intervals.
+:::
+
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.54em; line-height: 1.05; padding: 13px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+<span class="label">Fisher LSD calculation</span>
+
+Use the ordinary critical value:
+
+$$
+t^*=t_{0.975,28}=2.048
+$$
+
+Standard error:
+
+$$
+SE=
+\sqrt{
+17.89
+\left(
+\frac18+\frac18
+\right)
+}
+=
+2.115
+$$
+
+Least significant difference:
+
+$$
+LSD=2.048(2.115)=4.33
+$$
+
+So any pair of sample means more than **4.33** apart is declared different.
+
+| Pair | Difference | Compare to LSD |
+|---|---:|---:|
+| Clear - Slim | $11.63$ | $11.63>4.33$ |
+| Clear - Wallet | $22.63$ | $22.63>4.33$ |
+| Clear - Rugged | $37.13$ | $37.13>4.33$ |
+| Slim - Wallet | $11.00$ | $11.00>4.33$ |
+| Slim - Rugged | $25.50$ | $25.50>4.33$ |
+| Wallet - Rugged | $14.50$ | $14.50>4.33$ |
+:::
+
+::::
+
+---
+
+## Phone Case: Fisher LSD Results {.phone-case-results}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; gap: 16px; align-items: start;"}
+
+::: {.stat-card style="grid-column: 1; font-size: 0.51em; line-height: 1.06; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Pairwise Fisher LSD intervals</span>
+
+| Pair | Fisher LSD interval | Decision |
+|---|---:|---|
+| Clear - Slim | $(-15.96,\,-7.29)$ | Different |
+| Clear - Wallet | $(-26.96,\,-18.29)$ | Different |
+| Clear - Rugged | $(-41.46,\,-32.79)$ | Different |
+| Slim - Wallet | $(-15.33,\,-6.67)$ | Different |
+| Slim - Rugged | $(-29.83,\,-21.17)$ | Different |
+| Wallet - Rugged | $(-18.83,\,-10.17)$ | Different |
+
+<br>
+
+Every interval avoids 0, so every pair differs.
+:::
+
+::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Conclusion</span>
+
+All six Fisher LSD intervals avoid 0.
+
+So every pair of phone case designs has a different population mean repair cost.
+
+The sample means increase in this order:
+
+**Clear < Slim < Wallet < Rugged**
+:::
+
+::::
+
+---
+
+## Check in R: Fisher LSD {.compact-r}
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Badminton drill example</span>
+
+Fisher LSD-style check: no p-value adjustment.
+:::
+
+```{webr}
+#| autorun: false
+
+score <- c(19, 20, 21, 23, 24, 25,
+           24, 25, 26, 28, 29, 30,
+           26, 27, 28, 29, 30, 31)
+
+drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+
+anova(lm(score ~ drill))
+
+pairwise.t.test(score, drill,
+                p.adjust.method = "none",
+                pool.sd = TRUE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Phone case example</span>
+
+Fisher LSD-style check: no p-value adjustment.
+:::
+
+```{webr}
+#| autorun: false
+
+cost <- c(75,70,82,78,76,80,72,74,
+          80,92,85,88,90,84,95,86,
+          100,96,102,98,95,101,97,99,
+          110,115,105,120,112,118,108,116)
+
+case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
+
+anova(lm(cost ~ case))
+
+pairwise.t.test(cost, case,
+                p.adjust.method = "none",
+                pool.sd = TRUE)
+```
+:::
+
+::::
+
+---
+
 ## Example: Badminton Drill Accuracy Scores {.badminton-example}
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.36fr 0.64fr; grid-template-rows: 292px 210px; gap: 10px 16px; align-items: stretch; height: 512px;"}

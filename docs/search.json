@@ -5185,5 +5185,47 @@
     "title": "STA258",
     "section": "Visual: Phone Case Drop-Test Costs",
     "text": "Visual: Phone Case Drop-Test Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design. The group centers increase from Clear to Rugged, matching the Bonferroni results."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#fishers-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#fishers-lsd",
+    "title": "STA258",
+    "section": "Fisher’s LSD",
+    "text": "Fisher’s LSD\n\n\nIdea\nFisher’s LSD is used after ANOVA rejects.\nIt compares two group means using the pooled error estimate from ANOVA:\n\\[\nMSE\n\\]\nIt is more powerful, but it does not control the experiment-wise Type I error rate.\n\n\nTextbook formula\nFor each pair:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\n\\pm\nt_{\\alpha/2,v}\n\\sqrt{\nMSE\n\\left(\n\\frac{1}{n_i}+\\frac{1}{n_j}\n\\right)\n}\n\\]\nwhere:\n\\[\nv=n-k\n\\]\nA pair differs if its interval does not contain 0."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-comparisons",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-comparisons",
+    "title": "STA258",
+    "section": "Badminton: Fisher LSD Comparisons",
+    "text": "Badminton: Fisher LSD Comparisons\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\nSample means:\n\\[\n\\bar{x}_1=22,\n\\qquad\n\\bar{x}_2=27,\n\\qquad\n\\bar{x}_3=28.5\n\\]\nEach group has \\(n_i=6\\).\n\n\nFisher LSD calculation\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,15}=2.131\n\\]\nStandard error:\n\\[\nSE=\n\\sqrt{\n4.90\n\\left(\n\\frac16+\\frac16\n\\right)\n}\n=\n1.28\n\\]\nLeast significant difference:\n\\[\nLSD=2.131(1.28)=2.72\n\\]\nSo any pair of sample means more than 2.72 apart is declared different.\n\n\n\nPair\nDifference\nCompare to LSD\n\n\n\n\nStatic - Footwork\n\\(|-5.00|=5.00\\)\n\\(5.00&gt;2.72\\)\n\n\nStatic - Coach-fed\n\\(|-6.50|=6.50\\)\n\\(6.50&gt;2.72\\)\n\n\nFootwork - Coach-fed\n\\(|-1.50|=1.50\\)\n\\(1.50&lt;2.72\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-results",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-results",
+    "title": "STA258",
+    "section": "Badminton: Fisher LSD Results",
+    "text": "Badminton: Fisher LSD Results\n\n\nPairwise Fisher LSD intervals\n\n\n\n\n\n\n\n\nPair\nFisher LSD interval\nDecision\n\n\n\n\nStatic targets - Footwork + serve\n\\((-7.72,\\,-2.28)\\)\nDifferent\n\n\nStatic targets - Coach-fed targets\n\\((-9.22,\\,-3.78)\\)\nDifferent\n\n\nFootwork + serve - Coach-fed targets\n\\((-4.22,\\;1.22)\\)\nNot different\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\n\nStatic vs Footwork: different\n\nStatic vs Coach-fed: different\n\nFootwork vs Coach-fed: not different\n\nUsing Fisher’s LSD, Static targets is lower than the other two programs.\nFootwork + serve and Coach-fed targets are not clearly different."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-comparisons",
+    "href": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-comparisons",
+    "title": "STA258",
+    "section": "Phone Case: Fisher LSD Comparisons",
+    "text": "Phone Case: Fisher LSD Comparisons\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the lab records the repair cost after impact.\nANOVA rejects the equal-means hypothesis.\nWhich case designs differ using Fisher’s LSD?\n\n\n\nCase design\nMean repair cost\n\n\n\n\nClear\n75.88\n\n\nSlim\n87.50\n\n\nWallet\n98.50\n\n\nRugged\n113.00\n\n\n\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=17.89,\n\\qquad\nv=n-k=32-4=28\n\\]\nEach case design has:\n\\[\nn_i=8\n\\]\nUse Fisher’s LSD intervals.\n\n\nFisher LSD calculation\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,28}=2.048\n\\]\nStandard error:\n\\[\nSE=\n\\sqrt{\n17.89\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.115\n\\]\nLeast significant difference:\n\\[\nLSD=2.048(2.115)=4.33\n\\]\nSo any pair of sample means more than 4.33 apart is declared different.\n\n\n\nPair\nDifference\nCompare to LSD\n\n\n\n\nClear - Slim\n\\(11.63\\)\n\\(11.63&gt;4.33\\)\n\n\nClear - Wallet\n\\(22.63\\)\n\\(22.63&gt;4.33\\)\n\n\nClear - Rugged\n\\(37.13\\)\n\\(37.13&gt;4.33\\)\n\n\nSlim - Wallet\n\\(11.00\\)\n\\(11.00&gt;4.33\\)\n\n\nSlim - Rugged\n\\(25.50\\)\n\\(25.50&gt;4.33\\)\n\n\nWallet - Rugged\n\\(14.50\\)\n\\(14.50&gt;4.33\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-results",
+    "href": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-results",
+    "title": "STA258",
+    "section": "Phone Case: Fisher LSD Results",
+    "text": "Phone Case: Fisher LSD Results\n\n\nPairwise Fisher LSD intervals\n\n\n\nPair\nFisher LSD interval\nDecision\n\n\n\n\nClear - Slim\n\\((-15.96,\\,-7.29)\\)\nDifferent\n\n\nClear - Wallet\n\\((-26.96,\\,-18.29)\\)\nDifferent\n\n\nClear - Rugged\n\\((-41.46,\\,-32.79)\\)\nDifferent\n\n\nSlim - Wallet\n\\((-15.33,\\,-6.67)\\)\nDifferent\n\n\nSlim - Rugged\n\\((-29.83,\\,-21.17)\\)\nDifferent\n\n\nWallet - Rugged\n\\((-18.83,\\,-10.17)\\)\nDifferent\n\n\n\n\nEvery interval avoids 0, so every pair differs.\n\n\nConclusion\nAll six Fisher LSD intervals avoid 0.\nSo every pair of phone case designs has a different population mean repair cost.\nThe sample means increase in this order:\nClear &lt; Slim &lt; Wallet &lt; Rugged"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fisher-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-fisher-lsd",
+    "title": "STA258",
+    "section": "Check in R: Fisher LSD",
+    "text": "Check in R: Fisher LSD\n\n\n\nBadminton drill example\nFisher LSD-style check: no p-value adjustment.\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example\nFisher LSD-style check: no p-value adjustment."
   }
 ]

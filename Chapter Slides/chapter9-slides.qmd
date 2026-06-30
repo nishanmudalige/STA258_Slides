@@ -2674,7 +2674,6 @@ model.”
 
 ------------------------------------------------------------------------
 
-
 ## Example: F1 Monaco Simulator Practice {.f1-monaco-3a}
 
 ```{=html}
@@ -2840,20 +2839,20 @@ A Formula 1 team records fictional data from a Monaco simulator session.
 
 We use the number of **simulator practice laps** to predict **lap-time improvement**, measured in seconds.
 
-::: {.f1-variable-pill}
+::: {.f1-variable-pill .fragment data-fragment-index="1"}
 **x = simulator practice laps**  
 **y = lap-time improvement in seconds**
 :::
 
 The fitted regression line is:
 
-::: {.f1-fit-pill}
+::: {.f1-fit-pill .fragment data-fragment-index="2"}
 ŷ = −0.098 + 0.141x
 :::
 
 :::
 
-::: {.examplebox .f1-data-card}
+::: {.examplebox .f1-data-card .fragment data-fragment-index="3"}
 
 ::: {.f1-card-title}
 Observed data
@@ -2880,7 +2879,7 @@ Observed data
 
 ::::
 
-::: {.notebox .f1-goal-card}
+::: {.notebox .f1-goal-card .fragment data-fragment-index="4"}
 
 ::: {.f1-card-title}
 Goal of the example
@@ -2925,7 +2924,6 @@ R² = SSR / SST
 ::::
 
 :::
-
 
 ------------------------------------------------------------------------
 
@@ -3059,7 +3057,7 @@ R² = SSR / SST
 
 :::: {.f1-stack-pro}
 
-::: {.examplebox .f1-stack-card}
+::: {.examplebox .f1-stack-card .fragment data-fragment-index="1"}
 <div class="f1-card-title">Predicted values</div>
 
 <div class="f1-card-note">
@@ -3085,7 +3083,7 @@ Use the fitted line: <span class="f1-fit-eq">ŷ = −0.098 + 0.141x</span>.
 </table>
 :::
 
-::: {.stat-card .f1-stack-card}
+::: {.stat-card .f1-stack-card .fragment data-fragment-index="2"}
 <div class="f1-card-title">Variation table</div>
 
 <div class="f1-card-note">
@@ -3110,7 +3108,7 @@ Here <strong>ȳ = 1.500</strong>. The three right-hand columns correspond to <st
     <tr><td>12</td><td>1.5</td><td>1.594</td><td>0.009</td><td>0.009</td><td>0.000</td></tr>
     <tr><td>15</td><td>2.1</td><td>2.017</td><td>0.007</td><td>0.267</td><td>0.360</td></tr>
     <tr><td>18</td><td>2.4</td><td>2.440</td><td>0.002</td><td>0.884</td><td>0.810</td></tr>
-    <tr class="f1-total-row">
+    <tr class="f1-total-row fragment" data-fragment-index="3">
       <td>Totals</td>
       <td></td>
       <td></td>
@@ -3123,7 +3121,6 @@ Here <strong>ȳ = 1.500</strong>. The three right-hand columns correspond to <st
 :::
 
 ::::
-
 
 ---
 
@@ -3250,7 +3247,7 @@ Here <strong>ȳ = 1.500</strong>. The three right-hand columns correspond to <st
 
 :::: {.f1-final-clean-grid}
 
-::: {.f1-clean-card}
+::: {.f1-clean-card .fragment data-fragment-index="1"}
 
 ::: {.f1-clean-title}
 Calculation summary
@@ -3283,13 +3280,13 @@ Calculation summary
   </tbody>
 </table>
 
-::: {.f1-r2-line}
+::: {.f1-r2-line .fragment data-fragment-index="2"}
 R<sup>2</sup> = SSR / SST = 2.214 / 2.240 = 0.988
 :::
 
 :::
 
-::: {.f1-clean-conclusion}
+::: {.f1-clean-conclusion .fragment data-fragment-index="3"}
 
 ::: {.f1-clean-title}
 Conclusion
@@ -3479,20 +3476,20 @@ A student tracks fictional TTC trips during a week with random delays.
 
 We use the number of **stations travelled** to predict **commute time**, measured in minutes.
 
-::: {.ttc-variable-pill}
+::: {.ttc-variable-pill .fragment data-fragment-index="1"}
 <strong>x</strong> = stations travelled<br>
 <strong>y</strong> = commute time in minutes
 :::
 
 The fitted regression line is:
 
-::: {.ttc-fit-pill}
+::: {.ttc-fit-pill .fragment data-fragment-index="2"}
 ŷ = 1.310 + 3.357x
 :::
 
 :::
 
-::: {.examplebox .ttc-data-card}
+::: {.examplebox .ttc-data-card .fragment data-fragment-index="3"}
 
 ::: {.ttc-card-title}
 Observed data
@@ -3519,7 +3516,7 @@ Observed data
 
 ::::
 
-::: {.notebox .ttc-goal-card}
+::: {.notebox .ttc-goal-card .fragment data-fragment-index="4"}
 
 ::: {.ttc-card-title}
 Goal of the example
@@ -3697,7 +3694,7 @@ R² = SSR / SST
 
 :::: {.ttc-stack-pro}
 
-::: {.examplebox .ttc-stack-card}
+::: {.examplebox .ttc-stack-card .fragment data-fragment-index="1"}
 <div class="ttc-card-title">Predicted values</div>
 
 <div class="ttc-card-note">
@@ -3723,7 +3720,7 @@ Use the fitted line: <span class="ttc-fit-eq">ŷ = 1.310 + 3.357x</span>.
 </table>
 :::
 
-::: {.stat-card .ttc-stack-card}
+::: {.stat-card .ttc-stack-card .fragment data-fragment-index="2"}
 <div class="ttc-card-title">Variation table</div>
 
 <div class="ttc-card-note">
@@ -3748,7 +3745,7 @@ Here <strong>ȳ = 28.167</strong>. The three right-hand columns correspond to <s
     <tr><td>9</td><td>36</td><td>31.524</td><td>20.036</td><td>11.270</td><td>61.361</td></tr>
     <tr><td>11</td><td>31</td><td>38.238</td><td>52.390</td><td>101.434</td><td>8.028</td></tr>
     <tr><td>13</td><td>50</td><td>44.952</td><td>25.478</td><td>281.760</td><td>476.694</td></tr>
-    <tr class="ttc-total-row">
+    <tr class="ttc-total-row fragment" data-fragment-index="3">
       <td>Totals</td>
       <td></td>
       <td></td>
@@ -3887,7 +3884,7 @@ Here <strong>ȳ = 28.167</strong>. The three right-hand columns correspond to <s
 
 :::: {.ttc-final-clean-grid}
 
-::: {.ttc-clean-card}
+::: {.ttc-clean-card .fragment data-fragment-index="1"}
 
 ::: {.ttc-clean-title}
 Calculation summary
@@ -3920,13 +3917,13 @@ Calculation summary
   </tbody>
 </table>
 
-::: {.ttc-r2-line}
+::: {.ttc-r2-line .fragment data-fragment-index="2"}
 R<sup>2</sup> = SSR / SST = 788.929 / 948.833 = 0.831
 :::
 
 :::
 
-::: {.ttc-clean-conclusion}
+::: {.ttc-clean-conclusion .fragment data-fragment-index="3"}
 
 ::: {.ttc-clean-title}
 Conclusion
@@ -4490,27 +4487,22 @@ round(confint(model), 4)
 
 ## Assumptions for Regression Inference
 
-::: {.notebox style="font-size: 0.69em; line-height: 1.23; padding: 15px 18px; margin-top: 10px;"}
+::: {.examplebox style="font-size: 0.78em; line-height: 1.3; padding: 16px 18px; margin-bottom: 14px;"}
 <span class="label">Assumptions</span>
 
 <ul class="assumption-list">
-  <li><strong>Linearity:</strong> The relationship between the mean response and the predictor should be approximately linear.</li>
-
-  <li><strong>Independence:</strong> Observations and errors should be independent.</li>
-
-  <li><strong>Mean zero errors:</strong> At each value of $x$, the average error should be 0.</li>
-
-  <li><strong>Constant variance:</strong> The error variance should be the same for all values of $x$.</li>
-
-  <li><strong>Normal errors:</strong> The errors should be approximately normally distributed, especially for small samples.</li>
+  <li class="fragment"><strong>Linearity:</strong> The relationship between the mean response and the predictor should be approximately linear.</li>
+  <li class="fragment"><strong>Independence:</strong> Observations and errors should be independent.</li>
+  <li class="fragment"><strong>Mean zero errors:</strong> At each value of \(x\), the average error should be 0.</li>
+  <li class="fragment"><strong>Constant variance:</strong> The error variance should be the same for all values of \(x\).</li>
+  <li class="fragment"><strong>Normal errors:</strong> The errors should be approximately normally distributed, especially for small samples.</li>
 </ul>
 :::
 
-::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
+::: {.thinkbox .fragment style="font-size: 0.78em; line-height: 1.3; padding: 14px 18px;"}
 <span class="label">Practical reminder</span>
 
-These assumptions support the confidence interval and hypothesis test for
-the slope.
+These assumptions support the confidence interval and hypothesis test for the slope.
 :::
 
 ------------------------------------------------------------------------
@@ -4577,17 +4569,43 @@ For simple linear regression, this tests whether the slope is zero.
 
 ------------------------------------------------------------------------
 
-## Example: ANOVA for Event Flyers and Sign-Ups
+## Example: ANOVA for Event Flyers and Sign-Ups {.flyers-anova-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+<style>
+.reveal section.flyers-anova-example .anova-calc mjx-container[display="true"] {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  margin: 0.12em 0 0.18em 0 !important;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
+.reveal section.flyers-anova-example .anova-calc .MathJax_Display {
+  text-align: left !important;
+  margin: 0.12em 0 0.18em 0 !important;
+}
+
+.reveal section.flyers-anova-example .anova-calc table {
+  font-size: 0.78em !important;
+  margin-bottom: 7px !important;
+}
+
+.reveal section.flyers-anova-example .anova-calc th,
+.reveal section.flyers-anova-example .anova-calc td {
+  padding: 3px 6px !important;
+  line-height: 1.03 !important;
+}
+</style>
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.39fr 0.61fr; grid-template-rows: 300px 200px; gap: 10px 16px; align-items: stretch; height: 510px;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
+
 Return to the event flyers and sign-ups example.
 
 The fitted line is:
 
 $$
-\hat{y}=-0.100+0.700x.
+\hat{y}=-0.100+0.700x
 $$
 
 The variation quantities are:
@@ -4597,14 +4615,21 @@ SST=6.000,
 \qquad
 SSR=4.900,
 \qquad
-SSE=1.100.
+SSE=1.100
 $$
 
-**Question.** Construct the ANOVA table and test whether the regression
-model explains a meaningful amount of variation in new sign-ups.
+**Question.** Construct the ANOVA table and test whether the regression model explains a meaningful amount of variation in new sign-ups.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.67em; line-height: 1.06; padding: 11px 15px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.09; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Target question</span>
+
+Does the number of flyers posted explain a statistically meaningful amount of variation in new sign-ups?
+
+The ANOVA test checks whether regression variation is large compared with error variation.
+:::
+
+::: {.stat-card .calc-left .anova-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.51em; line-height: 1.02; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
 <span class="label">ANOVA calculations</span>
 
 | Source | SS | df | MS | F |
@@ -4613,40 +4638,44 @@ model explains a meaningful amount of variation in new sign-ups.
 | Error | 1.100 | 3 | 0.367 |  |
 | Total | 6.000 | 4 |  |  |
 
+Manual work:
+
 $$
-MSR=\frac{SSR}{1}=4.900
+\begin{aligned}
+df_{\text{Reg}}
+&=1,\\
+df_{\text{Error}}
+&=n-2=5-2=3,\\
+df_{\text{Total}}
+&=n-1=5-1=4.
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+MSR
+&=\frac{SSR}{df_{\text{Reg}}}
+=\frac{4.900}{1}
+=4.900,\\[2pt]
+MSE
+&=\frac{SSE}{df_{\text{Error}}}
+=\frac{1.100}{3}
+=0.3667.
+\end{aligned}
 $$
 
 $$
-MSE=\frac{SSE}{n-2}
-=
-\frac{1.100}{3}
-=
-0.3667
+\begin{aligned}
+F
+&=\frac{MSR}{MSE}
+=\frac{4.900}{0.3667}
+=13.364.
+\end{aligned}
 $$
 
-$$
-F=
-\frac{MSR}{MSE}
-=
-\frac{4.900}{0.3667}
-=
-13.364
-$$
+Since $p=0.0354<0.05$, reject $H_0:\beta_1=0$.
 
-Since \(p=0.0354<0.05\), reject \(H_0:\beta_1=0\).
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target question</span>
-
-Does the number of flyers posted explain a statistically meaningful amount
-of variation in new sign-ups?
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The ANOVA test gives evidence that flyers posted are linearly related to
-new sign-ups in this fictional example.
+There is evidence that flyers posted are linearly related to new sign-ups in this fictional example.
 :::
 
 ::::

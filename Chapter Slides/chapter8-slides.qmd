@@ -1526,9 +1526,9 @@ $$
 
 ## Example: Badminton Drill Accuracy Scores {.badminton-example}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.39fr 0.61fr; grid-template-rows: 295px 205px; gap: 10px 16px; align-items: stretch; height: 510px;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.36fr 0.64fr; grid-template-rows: 292px 210px; gap: 10px 16px; align-items: stretch; height: 512px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.50em; line-height: 1.04; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.49em; line-height: 1.03; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
 <span class="label">Problem</span>
 
 A badminton coach compares three drill programs for improving serve-target accuracy.
@@ -1553,43 +1553,41 @@ ANOVA rejects $H_0$. Which drill programs differ?
 From ANOVA:
 
 $$
-MSE=4.90,\qquad v=n-k=18-3=15
+MSE=4.90,
+\qquad
+v=n-k=18-3=15
 $$
 
-Number of pairwise comparisons:
+There are
 
 $$
 m=\binom{3}{2}=3
 $$
 
+pairwise comparisons.
+
 Use Bonferroni intervals for the three mean differences.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.04; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.53em; line-height: 1.03; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
 <span class="label">Calculation</span>
 
-<div style="display:grid; grid-template-columns: 0.23fr 0.77fr; column-gap: 12px; row-gap: 8px; align-items:start;">
-
-<div style="font-weight:700; color:#004d40;">Means</div>
-<div>
+First find the sample means:
 
 $$
 \begin{aligned}
-\bar{x}_1&=\frac{19+20+21+23+24+25}{6}=22,\\
-\bar{x}_2&=\frac{24+25+26+28+29+30}{6}=27,\\
-\bar{x}_3&=\frac{26+27+28+29+30+31}{6}=28.5.
+\bar{x}_1 &= \frac{19+20+21+23+24+25}{6}=22,\\
+\bar{x}_2 &= \frac{24+25+26+28+29+30}{6}=27,\\
+\bar{x}_3 &= \frac{26+27+28+29+30+31}{6}=28.5.
 \end{aligned}
 $$
 
-</div>
-
-<div style="font-weight:700; color:#004d40;">Critical value</div>
-<div>
+Bonferroni critical value:
 
 $$
 t^*
 =
-t_{1-\alpha/(2m),\,v}
+t_{1-\alpha/(2m),\,15}
 =
 t_{1-0.05/(2\cdot3),\,15}
 =
@@ -1598,56 +1596,38 @@ t_{0.99167,\,15}
 2.69
 $$
 
-</div>
-
-<div style="font-weight:700; color:#004d40;">Standard error</div>
-<div>
+Standard error and margin:
 
 $$
 SE
 =
 \sqrt{
-MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)
+4.90
+\left(
+\frac16+\frac16
+\right)
 }
 =
-\sqrt{
-4.90\left(\frac16+\frac16\right)
-}
-=
-1.28
+1.28,
+\qquad
+ME=2.69(1.28)=3.44
 $$
 
-</div>
-
-<div style="font-weight:700; color:#004d40;">Margin</div>
-<div>
-
-$$
-ME=t^*(SE)=2.69(1.28)=3.44
-$$
-
-</div>
-
-<div style="font-weight:700; color:#004d40;">Intervals</div>
-<div>
+Now compute the Bonferroni intervals:
 
 $$
 \begin{aligned}
-\text{Static}-\text{Footwork}
+\text{Static} - \text{Footwork}
 &:\ 22-27=-5.00,\\
-&:\ -5.00\pm3.44=(-8.44,\,-1.56),\\[3pt]
-\text{Static}-\text{Coach-fed}
+&\quad -5.00\pm3.44=(-8.44,\,-1.56),\\[4pt]
+\text{Static} - \text{Coach-fed}
 &:\ 22-28.5=-6.50,\\
-&:\ -6.50\pm3.44=(-9.94,\,-3.06),\\[3pt]
-\text{Footwork}-\text{Coach-fed}
+&\quad -6.50\pm3.44=(-9.94,\,-3.06),\\[4pt]
+\text{Footwork} - \text{Coach-fed}
 &:\ 27-28.5=-1.50,\\
-&:\ -1.50\pm3.44=(-4.94,\,1.94).
+&\quad -1.50\pm3.44=(-4.94,\,1.94).
 \end{aligned}
 $$
-
-</div>
-
-</div>
 :::
 
 ::::
@@ -1656,9 +1636,9 @@ $$
 
 ## Badminton: Bonferroni Results {.badminton-example}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.68fr 0.32fr; grid-template-rows: auto auto; gap: 14px 16px; align-items: start;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.58fr 0.42fr; gap: 16px; align-items: start;"}
 
-::: {.stat-card style="grid-column: 1; grid-row: 1; font-size: 0.58em; line-height: 1.08; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 1; font-size: 0.56em; line-height: 1.08; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">Pairwise Bonferroni intervals</span>
 
 | Pair | Bonferroni interval | Decision |
@@ -1669,51 +1649,19 @@ $$
 
 <br>
 
-A Bonferroni interval that **does not contain 0** gives evidence that the two population means differ.
+If the interval **contains 0**, the pair is **not clearly different**.
 
-A Bonferroni interval that **contains 0** does not give enough evidence to separate those two means.
+If the interval **does not contain 0**, the pair **differs**.
 :::
 
-::: {.notebox .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.53em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
-<span class="label">Calculation summary</span>
-
-From the previous slide:
-
-$$
-t^*=2.69
-$$
-
-$$
-SE=1.28
-$$
-
-$$
-ME=3.44
-$$
-
-Each interval used:
-
-$$
-(\bar{x}_i-\bar{x}_j)\pm3.44
-$$
-
-Decision rule:
-
-$$
-0\notin CI
-\Rightarrow
-\text{different}
-$$
-:::
-
-::: {.thinkbox style="grid-column: 1 / span 2; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 14px 16px; margin-bottom: 0;"}
+::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">Conclusion</span>
 
-The intervals for **Static targets vs Footwork + serve** and **Static targets vs Coach-fed targets** do **not** contain 0, so Static targets differs from both of those drill programs.
+- **Static vs Footwork**: different  
+- **Static vs Coach-fed**: different  
+- **Footwork vs Coach-fed**: not different  
 
-The interval for **Footwork + serve vs Coach-fed targets** does contain 0, so there is not enough evidence to conclude those two drill programs differ.
-
-Therefore, **Static targets is lower than the other two programs**, while **Footwork + serve and Coach-fed targets are not clearly different from each other**.
+Therefore, **Static targets is lower than the other two programs**, while **Footwork + serve** and **Coach-fed targets** are **not clearly different from each other**.
 :::
 
 ::::
@@ -1790,57 +1738,114 @@ The **red dots** show the group means. Static targets is clearly centered lower,
 
 ## Example: Phone Case Drop-Test Costs {.phone-case-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.90fr 1.10fr; grid-template-rows: auto auto; gap: 8px 16px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.36fr 0.64fr; grid-template-rows: 292px 210px; gap: 10px 16px; align-items: stretch; height: 512px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.54em; line-height: 1.07; padding: 9px 12px; margin-bottom: 0;"}
-A device lab tests four phone case designs. After a standardized drop test, it records repair cost.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.49em; line-height: 1.03; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
 
-ANOVA rejects the equal-means hypothesis.
+A device lab compares four phone case designs after a standardized drop test.
 
-| Case | Mean repair cost |
+For each case design, the lab records the **repair cost** after impact.
+
+ANOVA rejects the equal-means hypothesis. Which case designs differ?
+
+| Case design | Mean repair cost |
 |---|---:|
 | Clear | 75.88 |
 | Slim | 87.50 |
 | Wallet | 98.50 |
 | Rugged | 113.00 |
-
-The ANOVA error estimate is $MSE=17.89$, with $v=28$ error degrees of freedom.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.58em; line-height: 1.07; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Bonferroni setup</span>
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.47em; line-height: 1.03; padding: 10px 12px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Setup</span>
 
-There are $m=\binom{4}{2}=6$ pairwise comparisons.
-
-Bonferroni uses:
+From ANOVA:
 
 $$
-t_{1-\alpha/(2m),28}
+MSE=17.89,
+\qquad
+v=n-k=32-4=28
+$$
+
+There are
+
+$$
+m=\binom{4}{2}=6
+$$
+
+pairwise comparisons.
+
+Use Bonferroni intervals for the six mean differences.
+:::
+
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.02; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+<span class="label">Calculation</span>
+
+Sample means:
+
+$$
+\bar{x}_{Clear}=75.88,\quad
+\bar{x}_{Slim}=87.50,\quad
+\bar{x}_{Wallet}=98.50,\quad
+\bar{x}_{Rugged}=113.00
+$$
+
+Bonferroni critical value:
+
+$$
+t^*
 =
-t_{1-0.05/12,28}
+t_{1-\alpha/(2m),\,28}
+=
+t_{1-0.05/(2\cdot6),\,28}
+=
+t_{0.99583,\,28}
 =
 2.839
 $$
 
-For equal sample sizes $n_i=8$:
+Standard error and margin:
 
 $$
-SE=\sqrt{17.89\left(\frac18+\frac18\right)}=2.115
+SE
+=
+\sqrt{
+17.89
+\left(
+\frac18+\frac18
+\right)
+}
+=
+2.115,
+\qquad
+ME=2.839(2.115)=6.00
 $$
 
-Bonferroni margin: $2.839(2.115)=6.00$.
-:::
+Now compute the Bonferroni intervals:
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.53em; line-height: 1.07; padding: 8px 12px; margin-bottom: 0;"}
-<span class="label">Question</span>
-
-Which phone case designs have different population mean repair costs?
-
-A pair differs if its Bonferroni interval does not contain 0.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.53em; line-height: 1.08; padding: 8px 12px; margin-bottom: 0; display: flex; align-items: center;"}
-The Bonferroni margin is 6.00. So a pairwise difference must be more than 6 dollars away from 0 to be clearly different at the family-wise 5% level.
+$$
+\begin{aligned}
+\text{Clear} - \text{Slim}
+&:\ 75.88-87.50=-11.63,\\
+&\quad -11.63\pm6.00=(-17.63,\,-5.62),\\[3pt]
+\text{Clear} - \text{Wallet}
+&:\ 75.88-98.50=-22.63,\\
+&\quad -22.63\pm6.00=(-28.63,\,-16.62),\\[3pt]
+\text{Clear} - \text{Rugged}
+&:\ 75.88-113.00=-37.13,\\
+&\quad -37.13\pm6.00=(-43.13,\,-31.12),\\[3pt]
+\text{Slim} - \text{Wallet}
+&:\ 87.50-98.50=-11.00,\\
+&\quad -11.00\pm6.00=(-17.00,\,-5.00),\\[3pt]
+\text{Slim} - \text{Rugged}
+&:\ 87.50-113.00=-25.50,\\
+&\quad -25.50\pm6.00=(-31.50,\,-19.50),\\[3pt]
+\text{Wallet} - \text{Rugged}
+&:\ 98.50-113.00=-14.50,\\
+&\quad -14.50\pm6.00=(-20.50,\,-8.50).
+\end{aligned}
+$$
 :::
 
 ::::
@@ -1849,38 +1854,46 @@ The Bonferroni margin is 6.00. So a pairwise difference must be more than 6 doll
 
 ## Phone Case: Bonferroni Results {.phone-case-results}
 
-:::: {.two-col-wide style="grid-template-columns: 0.82fr 1.18fr; gap: 20px; align-items: start;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.58fr 0.42fr; gap: 16px; align-items: start;"}
 
-::: {.col}
-::: {.notebox style="font-size: 0.67em; line-height: 1.20; padding: 13px 16px;"}
-<span class="label">How to read the table</span>
+::: {.stat-card style="grid-column: 1; font-size: 0.52em; line-height: 1.06; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Pairwise Bonferroni intervals</span>
 
-Each interval estimates a difference in population mean repair cost.
+| Pair | Bonferroni interval | Decision |
+|---|---:|---|
+| Clear - Slim | $(-17.63,\,-5.62)$ | Different |
+| Clear - Wallet | $(-28.63,\,-16.62)$ | Different |
+| Clear - Rugged | $(-43.13,\,-31.12)$ | Different |
+| Slim - Wallet | $(-17.00,\,-5.00)$ | Different |
+| Slim - Rugged | $(-31.50,\,-19.50)$ | Different |
+| Wallet - Rugged | $(-20.50,\,-8.50)$ | Different |
 
-If 0 is not in the interval, that pair of phone case designs has different mean repair cost.
+<br>
+
+If the interval **contains 0**, the pair is **not clearly different**.
+
+If the interval **does not contain 0**, the pair **differs**.
 :::
 
-::: {.thinkbox style="font-size: 0.65em; line-height: 1.18; padding: 12px 15px;"}
-Here, all Bonferroni intervals avoid 0, so all pairs differ.
-:::
-:::
+::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Conclusion</span>
 
-::: {.col}
-| Pair | Difference | Bonferroni CI |
-|---|---:|---:|
-| Clear - Slim | -11.63 | $(-17.63,\,-5.62)$ |
-| Clear - Wallet | -22.63 | $(-28.63,\,-16.62)$ |
-| Clear - Rugged | -37.13 | $(-43.13,\,-31.12)$ |
-| Slim - Wallet | -11.00 | $(-17.00,\,-5.00)$ |
-| Slim - Rugged | -25.50 | $(-31.50,\,-19.50)$ |
-| Wallet - Rugged | -14.50 | $(-20.50,\,-8.50)$ |
+All six Bonferroni intervals avoid 0.
+
+So every pair of phone case designs has a different population mean repair cost.
+
+The sample means increase in this order:
+
+**Clear < Slim < Wallet < Rugged**
+
+Therefore, Rugged has the highest mean repair cost, while Clear has the lowest.
 :::
 
 ::::
 
 ---
 
-## Visual: Phone Case Mean Repair Costs
+## Visual: Phone Case Drop-Test Costs
 
 ```{r}
 #| echo: false
@@ -1893,55 +1906,43 @@ case_data <- data.frame(
                 levels = c("Clear", "Slim", "Wallet", "Rugged"))
 )
 
-case_summary <- case_data |>
+case_means <- case_data |>
   group_by(type) |>
-  summarise(mean_cost = mean(cost), .groups = "drop") |>
-  mutate(
-    n = 8,
-    MSE = 17.8884,
-    df_error = 28,
-    se = sqrt(MSE / n),
-    t_star = qt(0.975, df_error),
-    lower = mean_cost - t_star * se,
-    upper = mean_cost + t_star * se
-  )
+  summarise(mean_cost = mean(cost), .groups = "drop")
 
-plot_ly(
-  data = case_summary,
-  x = ~type,
-  y = ~mean_cost,
-  type = "scatter",
-  mode = "markers",
-  marker = list(size = 11, color = plot_cols$red,
-                line = list(color = "white", width = 1)),
-  error_y = list(
-    type = "data",
-    symmetric = FALSE,
-    array = ~upper - mean_cost,
-    arrayminus = ~mean_cost - lower,
-    color = "rgba(0,77,64,0.75)",
-    thickness = 1.8,
-    width = 10
-  ),
-  customdata = ~cbind(lower, upper),
-  hovertemplate = paste(
-    "Case: %{x}<br>",
-    "Mean repair cost: %{y:.2f}<br>",
-    "95% CI: [%{customdata[0]:.2f}, %{customdata[1]:.2f}]",
-    "<extra></extra>"
-  ),
-  showlegend = FALSE
-) |>
+plot_ly() |>
+  add_trace(
+    data = case_data,
+    x = ~type,
+    y = ~cost,
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.85)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.38)",
+    hovertemplate = "Case: %{x}<br>Repair cost: %{y}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_markers(
+    data = case_means,
+    x = ~type,
+    y = ~mean_cost,
+    marker = list(size = 9, color = plot_cols$red, symbol = "circle",
+                  line = list(color = "white", width = 1)),
+    hovertemplate = "Case: %{x}<br>Mean repair cost: %{y:.2f}<extra></extra>",
+    showlegend = FALSE
+  ) |>
   plotly_anova_layout(
-    title = "Mean repair cost with 95% confidence intervals",
+    title = "Repair costs after standardized drop test",
     x_title = "Phone case design",
-    y_title = "Mean repair cost",
+    y_title = "Repair cost",
     height = 390,
-    margin = list(l = 78, r = 25, t = 60, b = 70)
+    margin = list(l = 72, r = 25, t = 60, b = 70)
   ) |>
   layout(
     yaxis = list(
-      title = "Mean repair cost",
+      title = "Repair cost",
       zeroline = FALSE,
       showline = TRUE,
       fixedrange = TRUE,
@@ -1956,7 +1957,7 @@ plot_ly(
 ```
 
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the sample mean repair cost for each phone case design. The vertical lines show ordinary 95% intervals for the group means before applying the pairwise Bonferroni comparison.
+The **red dots** show the sample mean repair cost for each phone case design. The group centers increase from Clear to Rugged, matching the Bonferroni results.
 :::
 
 ---

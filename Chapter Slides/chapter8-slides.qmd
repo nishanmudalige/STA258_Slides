@@ -961,9 +961,9 @@ plot_ly() |>
 
 ## Example: Campus Café Pickup Systems {.cafe-example}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.74fr 1.26fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: start;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.43fr 0.57fr; gap: 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1 / span 2; font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+::: {.taskbox style="font-size: 0.62em; line-height: 1.18; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
 A campus café wants to compare **three pickup systems** used during the same lunch rush period:
@@ -976,6 +976,8 @@ For each system, the café records the number of minutes from **order confirmati
 
 We want to know whether the **population mean pickup time** is the same for all three systems.
 
+<div class="calc-left" style="font-size: 0.95em; margin-top: 12px; margin-bottom: 12px;">
+
 $$
 H_0:\mu_1=\mu_2=\mu_3
 $$
@@ -984,10 +986,14 @@ $$
 H_a:\text{at least one mean pickup time differs}
 $$
 
+</div>
+
 Use a **one-way ANOVA at the 5% level**.
 :::
 
-::: {.taskbox style="grid-column: 2; grid-row: 1; font-size: 0.50em; line-height: 1.03; padding: 10px 13px; margin-bottom: 0;"}
+::: {.col style="display:grid; grid-template-rows: auto 1fr; gap: 16px;"}
+
+::: {.stat-card style="font-size: 0.55em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
 <span class="label">Observed data</span>
 
 | Mobile order | Kiosk order | Counter order |
@@ -1000,7 +1006,7 @@ Use a **one-way ANOVA at the 5% level**.
 | 9.0 | 10.5 | 12.4 |
 :::
 
-::: {.taskbox style="grid-column: 2; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 10px 13px; margin-bottom: 0;"}
+::: {.notebox style="font-size: 0.64em; line-height: 1.22; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">ANOVA setup</span>
 
 The explanatory variable is the **pickup system**.
@@ -1008,34 +1014,46 @@ The explanatory variable is the **pickup system**.
 The response variable is **pickup wait time**.
 
 There are $k=3$ groups and $n=18$ observations.
+
+Each system has $n_i=6$ wait-time measurements.
+:::
+
 :::
 
 ::::
 
 ---
 
-## Campus Café: ANOVA Result and Visual {.cafe-example}
+## Campus Café: ANOVA Result {.cafe-example}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.58fr 0.42fr; grid-template-rows: auto auto; gap: 10px 16px; align-items: start;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: start;"}
 
-::: {.stat-card style="grid-column: 1; grid-row: 1; font-size: 0.43em; line-height: 1.02; padding: 10px 12px; margin-bottom: 0; min-width: 0;"}
+::: {.stat-card style="grid-column: 1; grid-row: 1; font-size: 0.54em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
 <span class="label">Calculation table</span>
 
-Here $\bar x=8.57$. The final two columns add up to $SSE$ and $SSTr$.
+The grand mean is $\bar{x}=8.57$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
 
-| System | $n_i$ | $\bar x_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $\bar x_i-\bar x$ | $n_i(\bar x_i-\bar x)^2$ |
-|---|---:|---:|---:|---:|---:|---:|
-| Mobile | 6 | 7.00 | 2.00 | 10.00 | -1.57 | 14.73 |
-| Kiosk | 6 | 8.50 | 2.80 | 14.00 | -0.07 | 0.03 |
-| Counter | 6 | 10.20 | 3.09 | 15.44 | 1.63 | 16.01 |
-| **Totals** | **18** |  |  | **39.44** |  | **30.76** |
+| System | $n_i$ | $\bar{x}_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $n_i(\bar{x}_i-\bar{x})^2$ |
+|---|---:|---:|---:|---:|---:|
+| Mobile | 6 | 7.00 | 2.00 | 10.00 | 14.73 |
+| Kiosk | 6 | 8.50 | 2.80 | 14.00 | 0.03 |
+| Counter | 6 | 10.20 | 3.09 | 15.44 | 16.01 |
+| **Totals** | **18** |  |  | **39.44** | **30.76** |
 
-<div style="font-size: 1.05em; margin-top: 5px;">
-Therefore, $SSE=39.44$ and $SSTr=30.76$.
+<div class="calc-left" style="font-size: 1.08em; margin-top: 12px;">
+
+$$
+SSE=39.44,
+\qquad
+SSTr=30.76,
+\qquad
+SSTotal=70.20
+$$
+
 </div>
 :::
 
-::: {.notebox .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.48em; line-height: 1.04; padding: 10px 12px; margin-bottom: 0; min-width: 0;"}
+::: {.notebox .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
 <span class="label">ANOVA table</span>
 
 | Source | df | SS | MS | F | p-value |
@@ -1045,8 +1063,10 @@ Therefore, $SSE=39.44$ and $SSTr=30.76$.
 | Total | 17 | 70.20 |  |  |  |
 
 $$
-MSTr=\frac{30.76}{2}=15.38,
-\qquad
+MSTr=\frac{30.76}{2}=15.38
+$$
+
+$$
 MSE=\frac{39.44}{15}=2.63
 $$
 
@@ -1055,94 +1075,14 @@ F^*=\frac{15.38}{2.63}=5.85
 $$
 :::
 
-::: {.stat-card style="grid-column: 1; grid-row: 2; font-size: 0.45em; line-height: 1.01; padding: 8px 10px; margin-bottom: 0; min-width: 0; overflow: hidden;"}
-<span class="label">Visual reference</span>
-
-```{r cafe-visual, echo=FALSE}
-cafe <- data.frame(
-  wait_time = c(5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
-                6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
-                7.8, 8.8, 9.8, 10.6, 11.8, 12.4),
-  system = factor(
-    rep(c("Mobile", "Kiosk", "Counter"), each = 6),
-    levels = c("Mobile", "Kiosk", "Counter")
-  )
-)
-
-cafe_means <- cafe |>
-  group_by(system) |>
-  summarise(mean_wait = mean(wait_time), .groups = "drop")
-
-plot_ly() |>
-  add_trace(
-    data = cafe,
-    x = ~system,
-    y = ~wait_time,
-    type = "box",
-    name = "",
-    boxpoints = FALSE,
-    whiskerwidth = 0.55,
-    line = list(color = "rgba(0,77,64,0.88)", width = 1.6),
-    fillcolor = "rgba(200,230,243,0.30)",
-    hovertemplate = "System: %{x}<br>Wait time: %{y:.1f}<extra></extra>",
-    showlegend = FALSE
-  ) |>
-  add_markers(
-    data = cafe_means,
-    x = ~system,
-    y = ~mean_wait,
-    marker = list(
-      size = 5.5,
-      color = plot_cols$red,
-      symbol = "circle",
-      line = list(color = "white", width = 1)
-    ),
-    hovertemplate = "System: %{x}<br>Mean wait: %{y:.1f}<extra></extra>",
-    showlegend = FALSE
-  ) |>
-  plotly_anova_layout(
-    title = "",
-    x_title = "",
-    y_title = "Wait",
-    height = 145,
-    margin = list(l = 34, r = 4, t = 4, b = 22)
-  ) |>
-  layout(
-    xaxis = list(
-      title = "",
-      zeroline = FALSE,
-      showline = TRUE,
-      fixedrange = TRUE,
-      linecolor = plot_cols$border,
-      gridcolor = "rgba(0,0,0,0.04)",
-      tickfont = list(size = 8)
-    ),
-    yaxis = list(
-      title = "Wait",
-      zeroline = FALSE,
-      showline = TRUE,
-      fixedrange = TRUE,
-      linecolor = plot_cols$border,
-      gridcolor = "rgba(0,0,0,0.04)",
-      tickmode = "linear",
-      tick0 = 5,
-      dtick = 2,
-      range = c(4.5, 12.8),
-      tickfont = list(size = 8),
-      titlefont = list(size = 9)
-    )
-  )
-```
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.54em; line-height: 1.10; padding: 12px 14px; margin-bottom: 0; min-width: 0;"}
+::: {.examplebox style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">Conclusion</span>
 
 Since $p=0.0132<0.05$, reject $H_0$.
 
-There is evidence that **not all ordering systems** have the same population mean pickup wait time.
+There is evidence that **not all pickup systems** have the same population mean pickup wait time.
 
-The visual is only a reference: the counter-order system is centered higher than the other two.
+The ANOVA test tells us that at least one system has a different mean. It does **not** tell us which systems differ.
 :::
 
 ::::
@@ -1219,11 +1159,41 @@ The **red dots** show the group means. Counter order is centered higher than the
 
 ## Example: Short-Form Video Edit Styles {.video-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.43fr 0.57fr; gap: 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0;"}
-A creator compares mean viewer watch time across four video edit styles.
-Each style is tested on comparable short videos from the same account, with watch time measured in seconds.
+::: {.taskbox style="font-size: 0.62em; line-height: 1.18; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A creator wants to compare **four video edit styles** used on comparable short videos from the same account:
+
+- clean cut,
+- captions-first,
+- meme overlay,
+- story hook.
+
+For each video, the creator records the **viewer watch time** in seconds.
+
+We want to know whether the **population mean watch time** is the same for all four edit styles.
+
+<div class="calc-left" style="font-size: 0.95em; margin-top: 12px; margin-bottom: 12px;">
+
+$$
+H_0:\mu_1=\mu_2=\mu_3=\mu_4
+$$
+
+$$
+H_a:\text{at least one mean watch time differs}
+$$
+
+</div>
+
+Use a **one-way ANOVA at the 5% level**.
+:::
+
+::: {.col style="display:grid; grid-template-rows: auto 1fr; gap: 16px;"}
+
+::: {.stat-card style="font-size: 0.53em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
 | Clean cut | Captions-first | Meme overlay | Story hook |
 |---:|---:|---:|---:|
@@ -1232,52 +1202,86 @@ Each style is tested on comparable short videos from the same account, with watc
 | 38 | 44 | 41 | 52 |
 | 40 | 49 | 42 | 55 |
 | 44 | 49 | 47 | 58 |
-
-Complete the ANOVA table and test at the 5% level.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.10; padding: 12px 16px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
+::: {.notebox style="font-size: 0.64em; line-height: 1.22; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">ANOVA setup</span>
+
+The explanatory variable is the **edit style**.
+
+The response variable is **viewer watch time**.
+
+There are $k=4$ groups and $n=20$ observations.
+
+Each edit style has $n_i=5$ watch-time measurements.
+:::
+
+:::
+
+::::
+
+---
+
+## Short-Form Video: ANOVA Result {.video-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: start;"}
+
+::: {.stat-card style="grid-column: 1; grid-row: 1; font-size: 0.52em; line-height: 1.09; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Calculation table</span>
+
+The grand mean is $\bar{x}=43.75$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
+
+| Edit style | $n_i$ | $\bar{x}_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $n_i(\bar{x}_i-\bar{x})^2$ |
+|---|---:|---:|---:|---:|---:|
+| Clean cut | 5 | 38.00 | 20.00 | 80.00 | 165.31 |
+| Captions-first | 5 | 44.00 | 25.00 | 100.00 | 0.31 |
+| Meme overlay | 5 | 41.00 | 18.50 | 74.00 | 37.81 |
+| Story hook | 5 | 52.00 | 22.50 | 90.00 | 340.31 |
+| **Totals** | **20** |  |  | **344.00** | **543.75** |
+
+<div class="calc-left" style="font-size: 1.08em; margin-top: 12px;">
 
 $$
-\bar x_1=38,
+SSE=344.00,
 \qquad
-\bar x_2=44,
-\qquad
-\bar x_3=41,
-\qquad
-\bar x_4=52,
-\qquad
-\bar x=43.75
-$$
-
-$$
 SSTr=543.75,
 \qquad
-SSE=344.00
+SSTotal=887.75
 $$
 
-$$
-MSTr=181.25,
-\qquad
-MSE=21.50,
-\qquad
-F^*=8.43
-$$
+</div>
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.59em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
+::: {.notebox .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
 <span class="label">ANOVA table</span>
 
-| Source | df | SS | MS | F |
-|---|---:|---:|---:|---:|
-| Treatment | 3 | 543.75 | 181.25 | 8.43 |
-| Error | 16 | 344.00 | 21.50 |  |
-| Total | 19 | 887.75 |  |  |
+| Source | df | SS | MS | F | p-value |
+|---|---:|---:|---:|---:|---:|
+| Treatment | 3 | 543.75 | 181.25 | 8.43 | 0.0014 |
+| Error | 16 | 344.00 | 21.50 |  |  |
+| Total | 19 | 887.75 |  |  |  |
+
+$$
+MSTr=\frac{543.75}{3}=181.25
+$$
+
+$$
+MSE=\frac{344.00}{16}=21.50
+$$
+
+$$
+F^*=\frac{181.25}{21.50}=8.43
+$$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-With $df_1=3$ and $df_2=16$, $p=0.0014$. Since $p<0.05$, reject $H_0$. At least one edit style has a different population mean watch time.
+::: {.examplebox style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">Conclusion</span>
+
+Since $p=0.0014<0.05$, reject $H_0$.
+
+There is evidence that **not all edit styles** have the same population mean viewer watch time.
+
+The ANOVA test tells us that at least one edit style has a different mean. It does **not** tell us which styles differ.
 :::
 
 ::::
@@ -1522,10 +1526,13 @@ $$
 
 ## Example: Badminton Drill Accuracy Scores {.badminton-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.82fr 1.18fr; grid-template-rows: auto auto; gap: 8px 16px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.42fr 0.58fr; grid-template-rows: auto auto; gap: 12px 16px; align-items: start;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.53em; line-height: 1.06; padding: 9px 12px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.52em; line-height: 1.06; padding: 12px 14px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
 A badminton coach compares three drill programs for improving serve-target accuracy.
+
 After two months, each player completes the same accuracy test out of 40.
 
 | Static targets | Footwork + serve | Coach-fed targets |
@@ -1540,74 +1547,234 @@ After two months, each player completes the same accuracy test out of 40.
 ANOVA rejects $H_0$. Which drill programs differ?
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.56em; line-height: 1.05; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">ANOVA setup</span>
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.46em; line-height: 1.02; padding: 12px 14px; margin-bottom: 0;"}
+<span class="label">Calculations</span>
 
 $$
-\bar x_1=22,
+\bar{x}_1=22,
 \qquad
-\bar x_2=27,
+\bar{x}_2=27,
 \qquad
-\bar x_3=28.5,
+\bar{x}_3=28.5,
 \qquad
-\bar x=25.83
+\bar{x}=25.83
 $$
 
+| Drill program | $n_i$ | $\bar{x}_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $n_i(\bar{x}_i-\bar{x})^2$ |
+|---|---:|---:|---:|---:|---:|
+| Static targets | 6 | 22.00 | 5.60 | 28.00 | 88.17 |
+| Footwork + serve | 6 | 27.00 | 5.60 | 28.00 | 8.17 |
+| Coach-fed targets | 6 | 28.50 | 3.50 | 17.50 | 42.67 |
+| **Totals** | **18** |  |  | **73.50** | **139.00** |
+
 $$
-SSTr=139.00,
-\qquad
 SSE=73.50,
 \qquad
-MSE=4.90
+SSTr=139.00
 $$
 
 $$
-F^*=14.18,
-\qquad
+MSE=\frac{SSE}{n-k}
+=
+\frac{73.50}{18-3}
+=
+4.90
+$$
+
+$$
+MSTr=\frac{SSTr}{k-1}
+=
+\frac{139.00}{3-1}
+=
+69.50
+$$
+
+$$
+F^*
+=
+\frac{MSTr}{MSE}
+=
+\frac{69.50}{4.90}
+=
+14.18
+$$
+
+$$
 p\approx0.00035
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.54em; line-height: 1.08; padding: 8px 12px; margin-bottom: 0;"}
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.52em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0;"}
 <span class="label">Bonferroni setup</span>
 
-There are $m=\binom{3}{2}=3$ pairwise comparisons.
+There are
 
-Use Bonferroni intervals for each difference in mean accuracy score.
-:::
+$$
+m=\binom{3}{2}=3
+$$
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.56em; line-height: 1.10; padding: 9px 13px; margin-bottom: 0; display: flex; align-items: center;"}
-The ANOVA result says at least one drill mean differs. The pairwise step tells us whether the difference is between Static vs Footwork, Static vs Coach-fed, Footwork vs Coach-fed, or more than one pair.
+pairwise comparisons.
+
+Compare:
+
+<span style="font-size: 0.94em;">
+Static vs Footwork, Static vs Coach-fed, and Footwork vs Coach-fed.
+</span>
+
+Use the pooled ANOVA estimate $MSE=4.90$ for the pairwise intervals.
 :::
 
 ::::
 
 ---
 
-## Badminton: Bonferroni Results
+## Example: Badminton Drill Accuracy Scores {.badminton-example}
 
-:::: {.two-col-wide style="grid-template-columns: 0.80fr 1.20fr; gap: 20px; align-items: start;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.42fr 0.58fr; grid-template-rows: auto auto; gap: 12px 16px; align-items: start;"}
 
-::: {.col}
-::: {.notebox style="font-size: 0.66em; line-height: 1.18; padding: 12px 15px;"}
-<span class="label">How to read the table</span>
+::: {.taskbox style="grid-column: 1; grid-row: 1 / span 2; font-size: 0.52em; line-height: 1.06; padding: 12px 14px; margin-bottom: 0;"}
+<span class="label">Problem</span>
 
-Each interval estimates a difference in population mean accuracy score.
+A badminton coach compares three drill programs for improving serve-target accuracy.
 
-If 0 is not in the interval, that pair differs after the Bonferroni correction.
+After two months, each player completes the same accuracy test out of 40.
+
+| Static targets | Footwork + serve | Coach-fed targets |
+|---:|---:|---:|
+| 19 | 24 | 26 |
+| 20 | 25 | 27 |
+| 21 | 26 | 28 |
+| 23 | 28 | 29 |
+| 24 | 29 | 30 |
+| 25 | 30 | 31 |
+
+ANOVA rejects $H_0$. Which drill programs differ?
 :::
 
-::: {.thinkbox style="font-size: 0.64em; line-height: 1.16; padding: 12px 15px;"}
-Static targets is lower than the other two programs. Footwork + serve and Coach-fed targets are not clearly different from each other.
-:::
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.58em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Given from ANOVA</span>
+
+Since ANOVA rejects $H_0$, we continue to pairwise comparisons.
+
+Use the ANOVA error estimate:
+
+$$
+MSE=4.90,
+\qquad
+v=n-k=18-3=15
+$$
+
+The group means are:
+
+$$
+\bar{x}_{Static}=22,
+\qquad
+\bar{x}_{Footwork}=27,
+\qquad
+\bar{x}_{Coach}=28.5
+$$
 :::
 
-::: {.col}
-| Pair | Difference | Bonferroni CI |
-|---|---:|---:|
-| Static - Footwork | -5.00 | $(-8.44,\,-1.56)$ |
-| Static - Coach-fed | -6.50 | $(-9.94,\,-3.06)$ |
-| Footwork - Coach-fed | -1.50 | $(-4.94,\;1.94)$ |
+::: {.notebox .calc-left style="grid-column: 2; grid-row: 2; font-size: 0.58em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Bonferroni setup</span>
+
+There are
+
+$$
+m=\binom{3}{2}=3
+$$
+
+pairwise comparisons:
+
+- Static vs Footwork
+- Static vs Coach-fed
+- Footwork vs Coach-fed
+
+For a family-wise $5\%$ level, use
+
+$$
+t^*=t_{1-\alpha/(2m),15}
+=
+t_{0.99167,15}
+=
+2.69
+$$
+:::
+
+::::
+
+---
+
+## Badminton: Bonferroni Results {.badminton-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.56fr 0.44fr; grid-template-rows: auto auto; gap: 16px 16px; align-items: start;"}
+
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 1; font-size: 0.56em; line-height: 1.08; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Bonferroni calculation</span>
+
+Because each group has $n_i=6$:
+
+$$
+SE
+=
+\sqrt{
+MSE
+\left(
+\frac{1}{n_i}+\frac{1}{n_j}
+\right)
+}
+$$
+
+$$
+SE
+=
+\sqrt{
+4.90
+\left(
+\frac{1}{6}+\frac{1}{6}
+\right)
+}
+=
+1.28
+$$
+
+The Bonferroni margin is:
+
+$$
+t^*SE
+=
+2.69(1.28)
+=
+3.44
+$$
+
+So each interval is:
+
+$$
+(\bar{x}_i-\bar{x}_j)\pm3.44
+$$
+:::
+
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.53em; line-height: 1.06; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Pairwise Bonferroni intervals</span>
+
+| Pair | Bonferroni CI | Decision |
+|---|---:|---|
+| Static - Footwork | $-5.00\pm3.44=(-8.44,\,-1.56)$ | Different |
+| Static - Coach-fed | $-6.50\pm3.44=(-9.94,\,-3.06)$ | Different |
+| Footwork - Coach-fed | $-1.50\pm3.44=(-4.94,\;1.94)$ | Not different |
+
+<br>
+
+An interval that does **not** contain 0 gives evidence that the two population means differ.
+:::
+
+::: {.thinkbox style="grid-column: 1 / span 2; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Conclusion</span>
+
+Static targets is lower than both Footwork + serve and Coach-fed targets.
+
+Footwork + serve and Coach-fed targets are **not** clearly different because their interval contains 0.
 :::
 
 ::::

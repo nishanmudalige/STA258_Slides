@@ -4188,9 +4188,11 @@ $y$.
 
 ## Example: Event Flyers and Sign-Ups
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 310px 190px; gap: 10px 16px; align-items: stretch; height: 512px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.53em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
+
 A student club studies fictional data from a community event promotion.
 
 For each day:
@@ -4211,77 +4213,63 @@ $$
 Test whether the slope differs from 0.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.73em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
-
-From least squares:
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Hypotheses and conclusion</span>
 
 $$
-\hat{y}=-0.100+0.700x
-$$
-
-$$
-SSE=1.100,
-\qquad
-S_{xx}=10.000,
-\qquad
-n=5
-$$
-
-$$
-s^2=
-\frac{SSE}{n-2}
-=
-\frac{1.100}{3}
-=
-0.3667
-$$
-
-$$
-s=\sqrt{0.3667}=0.6055
-$$
-
-$$
-SE(\hat{\beta}_1)=
-\frac{0.6055}{\sqrt{10}}
-=
-0.1915
-$$
-
-$$
-t=
-\frac{0.700}{0.1915}
-=
-3.656,
-\qquad
-df=3
-$$
-
-$$
-95\%\ CI:
-\quad
-0.700\pm3.182(0.1915)
-=
-(0.091,\;1.309)
-$$
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Hypotheses</span>
-
-$$
-H_0:\beta_1=0
+H_0:\beta_1=0,
 \qquad
 H_A:\beta_1\ne0
 $$
 
 The reference distribution is $t_3$.
+
+Since the p-value is about **0.035**, reject $H_0$ at the 5% level.
+
+There is evidence of a positive linear relationship.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-Since the p-value is about **0.035**, we reject $H_0$ at the 5% level.
-There is evidence of a positive linear relationship between flyers posted
-and new sign-ups.
+::: {.stat-card style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.58em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+<span class="label">Calculation</span>
+
+From least squares:  
+$\hat y=-0.100+0.700x$,  $SSE=1.100$,  $S_{xx}=10.000$,  $n=5$.
+
+<br>
+
+**1. Estimate the error variance**
+
+$s^2=\dfrac{SSE}{n-2}=\dfrac{1.100}{5-2}=\dfrac{1.100}{3}=0.3667$
+
+$s=\sqrt{0.3667}=0.6055$
+
+<br>
+
+**2. Standard error of the slope**
+
+$SE(\hat\beta_1)=\dfrac{s}{\sqrt{S_{xx}}}
+=\dfrac{0.6055}{\sqrt{10}}
+=0.1915$
+
+<br>
+
+**3. Test statistic**
+
+$t=\dfrac{\hat\beta_1-0}{SE(\hat\beta_1)}
+=\dfrac{0.700}{0.1915}
+=3.656$
+
+$df=n-2=5-2=3$
+
+<br>
+
+**4. Confidence interval for the slope**
+
+$95\%\ CI:\ \hat\beta_1\pm t_{0.975,3}SE(\hat\beta_1)$
+
+$=0.700\pm3.182(0.1915)$
+
+$=(0.091,\;1.309)$
 :::
 
 ::::

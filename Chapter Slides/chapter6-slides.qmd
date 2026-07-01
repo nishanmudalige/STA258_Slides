@@ -1529,10 +1529,36 @@ Use $Z$ because the population standard deviations are known.
 
 ---
 
-## 6.3.1.2 Two Means: Unknown Variances
+## 6.3.1.2 Two Means: Equal Variances (Pooled $t$)
 
 ::: {.defbox}
-For unequal or unspecified population variances, use Welch's two-sample $t$ test:
+When the population variances are unknown but can be assumed **equal**, pool the two sample variances into one estimate:
+
+$$
+s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2},
+\qquad
+t^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{s_p\sqrt{\dfrac{1}{n_1}+\dfrac{1}{n_2}}}
+$$
+:::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Degrees of freedom</span>
+$df=n_1+n_2-2$ — exact, and larger than Welch's.
+:::
+
+::: {.notebox .fragment}
+<span class="label">When to pool</span>
+Reasonable when the sample spreads are similar — e.g. the fold rule $\dfrac{\max(s_1,s_2)}{\min(s_1,s_2)}<\sqrt{2}$.
+:::
+::::
+
+---
+
+## 6.3.1.3 Two Means: Unequal Variances (Welch $t$)
+
+::: {.defbox}
+For unequal or unspecified population variances, use Welch's two-sample $t$ test (no pooling):
 
 $$
 t^*=

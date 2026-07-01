@@ -4379,7 +4379,7 @@
     "href": "Chapter Slides/chapter7-slides.html#power-for-a-proportion-same-logic",
     "title": "STA258",
     "section": "Power for a Proportion: Same Logic",
-    "text": "Power for a Proportion: Same Logic\n\nFor a one-sided test of \\(p\\), the rejection cutoff uses the null standard error, but power is computed with the alternative standard error:\n\\[\\hat p^{\\,*}=p_0 \\mp z_\\alpha\\sqrt{\\tfrac{p_0(1-p_0)}{n}}, \\qquad\n\\text{power}=P\\!\\left(\\hat p \\text{ in reject region}\\;\\middle|\\; p=p_a\\right)\\]"
+    "text": "Power for a Proportion: Same Logic\n\nFor a one-sided test of \\(p\\), the rejection cutoff uses the null standard error, but power is computed with the alternative standard error:\n\\[\\hat p^{\\,*}=p_0 \\mathbin{\\substack{+\\\\[-4pt]-}} z_\\alpha\\sqrt{\\tfrac{p_0(1-p_0)}{n}}, \\qquad\n\\text{power}=P\\!\\left(\\hat p \\text{ in reject region}\\;\\middle|\\; p=p_a\\right)\\]\n\n\nWhich sign on \\(z_\\alpha\\)?\n\n\n\n\n\n\n\n\nTest\nCutoff \\(\\hat p^{\\,*}\\)\nReject when\n\n\n\n\n\\(H_a:p&lt;p_0\\)\n\\(p_0-z_\\alpha\\sqrt{p_0(1-p_0)/n}\\)\n\\(\\hat p&lt;\\hat p^{\\,*}\\)\n\n\n\\(H_a:p&gt;p_0\\)\n\\(p_0+z_\\alpha\\sqrt{p_0(1-p_0)/n}\\)\n\\(\\hat p&gt;\\hat p^{\\,*}\\)\n\n\n\n\n\nThree steps, same as the mean\n\nFind the cutoff \\(\\hat p^{\\,*}\\) from \\(p_0\\) and \\(z_\\alpha\\).\nStandardize that cutoff under \\(p=p_a\\) using \\(\\text{SE}_a\\).\nThe tail area past it is the power."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",

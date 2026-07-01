@@ -1125,8 +1125,25 @@ ceiling(n)
 ::: {.defbox}
 For a one-sided test of $p$, the rejection cutoff uses the **null** standard error, but power is computed with the **alternative** standard error:
 
-$$\hat p^{\,*}=p_0 \mp z_\alpha\sqrt{\tfrac{p_0(1-p_0)}{n}}, \qquad
+$$\hat p^{\,*}=p_0 \mathbin{\substack{+\\[-4pt]-}} z_\alpha\sqrt{\tfrac{p_0(1-p_0)}{n}}, \qquad
 \text{power}=P\!\left(\hat p \text{ in reject region}\;\middle|\; p=p_a\right)$$
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Which sign on $z_\alpha$?</span>
+
+| Test | Cutoff $\hat p^{\,*}$ | Reject when |
+|---|---|---|
+| $H_a:p<p_0$ | $p_0-z_\alpha\sqrt{p_0(1-p_0)/n}$ | $\hat p<\hat p^{\,*}$ |
+| $H_a:p>p_0$ | $p_0+z_\alpha\sqrt{p_0(1-p_0)/n}$ | $\hat p>\hat p^{\,*}$ |
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Three steps, same as the mean</span>
+
+- Find the cutoff $\hat p^{\,*}$ from $p_0$ and $z_\alpha$.
+- Standardize that cutoff under $p=p_a$ using $\text{SE}_a$.
+- The tail area past it is the power.
 :::
 
 ---

@@ -660,6 +660,8 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .reveal .slides section.scrollable { overflow-y: auto !important; overflow-x: hidden !important; max-height: 700px; }
 .reveal section.compact h2 { font-size: 1.08em !important; }
 .reveal section.compact p, .reveal section.compact li { font-size: 0.7em; }
+.reveal section.cheat-sheet table { font-size: 0.5em; }
+.reveal section.cheat-sheet th, .reveal section.cheat-sheet td { padding: 2px 8px; }
 .reveal section.quiz-question {
   display: flex !important;
   flex-direction: column !important;
@@ -2120,7 +2122,7 @@ A problem gives raw before-and-after blood pressure measurements on the same 12 
 
 ---
 
-## Test Statistic Cheat Sheet
+## Test Statistic Cheat Sheet {.cheat-sheet}
 
 | Situation | Test statistic |
 |---|---|
@@ -2128,7 +2130,10 @@ A problem gives raw before-and-after blood pressure measurements on the same 12 
 | One mean, $\sigma$ unknown | $\displaystyle t^*=\frac{\bar{x}-\mu_0}{s/\sqrt n}$ |
 | One proportion | $\displaystyle z^*=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}$ |
 | One variance | $\displaystyle \chi^{2*}=\frac{(n-1)s^2}{\sigma_0^2}$ |
+| Difference of means | $\displaystyle t^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{\sqrt{s_1^2/n_1+s_2^2/n_2}}$ |
 | Difference of proportions | $\displaystyle z^*=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}$ |
+| Ratio of variances | $\displaystyle F^*=\frac{s_1^2}{s_2^2}$ |
+| Paired differences | $\displaystyle t^*=\frac{\bar{d}-\mu_{d0}}{s_d/\sqrt n}$ |
 
 ---
 

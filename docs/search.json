@@ -4155,7 +4155,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
     "title": "STA258",
     "section": "Example: Food Delivery ETA",
-    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test.\n\n\n\n\nWhat we are given\n\nAdvertised mean: \\(\\mu_0 = 16.5\\) min\nSample: \\(n = 12\\)\nSample mean: \\(\\bar{x} = 17.68\\) min\nSample SD: \\(s = 1.53\\) min\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? \\(\\sigma\\) is unknown and estimated by \\(s\\), so use a one-sample \\(t\\) test with reference distribution \\(t_{11}\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
@@ -4856,5 +4856,12 @@
     "title": "STA258",
     "section": "6.2.2 Hypothesis Tests on a Proportion",
     "text": "6.2.2 Hypothesis Tests on a Proportion\n\nFor testing \\(H_0:p=p_0\\), use the test statistic\n\\[\nz^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse the null value The standard error uses \\(p_0\\), not \\(\\hat p\\).\n\n\nLarge-count check Under \\(H_0\\), both \\(np_0\\) and \\(n(1-p_0)\\) should be at least 10."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#food-delivery-eta-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#food-delivery-eta-calculation",
+    "title": "STA258",
+    "section": "Food Delivery ETA: Calculation",
+    "text": "Food Delivery ETA: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=16.5 \\qquad H_a:\\mu&gt;16.5 \\quad (\\alpha=0.05)\\]\nTest statistic \\[t^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}=\\frac{17.68-16.5}{1.53/\\sqrt{12}}=2.682\\]\np-value \\[\\text{p-value}=P(T_{11}\\ge 2.682)=0.0107\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0107 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the true mean delivery time exceeds the advertised \\(16.5\\) minutes."
   }
 ]

@@ -321,6 +321,62 @@ ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
     config(displayModeBar = FALSE, responsive = TRUE)
 }
 
+ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
+                       title = "", pval = NULL, shade = "pvalue") {
+  # extra room on the tail side so t* and its centered label sit in open space (not clipped)
+  xr <- if (alternative == "less") c(-5.5, 4) else c(-4, 5.5)
+  x <- seq(xr[1], xr[2], length.out = 500)
+  y <- dt(x, df)
+  shade_at <- if (shade == "reject" && !is.null(tcrit)) tcrit else tstar
+  shade_keep <- if (alternative == "less") x <= shade_at else x >= shade_at
+  ymax <- max(y)
+  tmark <- max(dt(tstar, df), 0.14)   # floor keeps t* visible out in the tail
+  shapes <- list(
+    list(type = "line", x0 = tstar, x1 = tstar, y0 = 0, y1 = tmark,
+         line = list(color = "#333", width = 2.5))
+  )
+  # label sits centered directly above the t* line; extended x-range keeps it inside the view
+  anns <- list(
+    list(x = tstar, y = tmark + 0.07,
+         text = paste0("t* = ", formatC(tstar, format = "f", digits = 2)),
+         showarrow = FALSE, xanchor = "center",
+         font = list(color = "#333", size = 13))
+  )
+  if (!is.null(tcrit)) {
+    shapes <- c(shapes, list(
+      list(type = "line", x0 = tcrit, x1 = tcrit, y0 = 0, y1 = ymax * 1.05,
+           line = list(color = "#00695c", width = 2, dash = "dash"))))
+    anns <- c(anns, list(
+      list(x = tcrit, y = ymax * 1.17, text = "crit. value (α = 0.05)",
+           showarrow = FALSE, xanchor = "center",
+           font = list(color = "#00695c", size = 11))))
+  }
+  if (!is.null(pval)) {
+    side <- if (alternative == "less") -3.05 else 3.05
+    anns <- c(anns, list(
+      list(x = side, y = 0.085, text = paste0("p-value ≈ ", pval),
+           showarrow = TRUE, ax = if (alternative == "less") -10 else 10, ay = -28,
+           arrowcolor = "#b26a00", font = list(color = "#b26a00", size = 12))))
+  }
+  plot_ly(width = 620, height = 230) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
+              name = paste0("t(", df, ")"), hoverinfo = "skip") |>
+    add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.6)",
+              line = list(color = "rgba(249,168,37,0.95)", width = 1),
+              name = "shaded region", hoverinfo = "skip") |>
+    layout(
+      title = list(text = title, x = 0.02, font = list(size = 14)),
+      xaxis = list(title = "test statistic", range = xr,
+                   zeroline = FALSE, fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero",
+                   range = c(0, ymax * 1.3), fixedrange = TRUE),
+      margin = list(l = 34, r = 12, t = 36, b = 42),
+      showlegend = FALSE, shapes = shapes, annotations = anns
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+}
+
 ```
 
 # Chapter 6: Hypothesis Tests {.title-slide}
@@ -981,12 +1037,61 @@ $\sigma$ is unknown, so use a one-sample $t$ test.
 :::
 
 ::: {.col}
-::: {.mini-plot .fragment}
+::: {.card}
+<span class="label">What we are given</span>
+
+- Advertised mean: $\mu_0 = 16.5$ min
+- Sample: $n = 12$
+- Sample mean: $\bar{x} = 17.68$ min
+- Sample SD: $s = 1.53$ min
+- Significance level: $\alpha = 0.05$
+:::
+
+::: {.notebox .fragment}
+<span class="label">Which test?</span>
+$\sigma$ is **unknown** and estimated by $s$, so use a one-sample $t$ test with reference distribution $t_{11}$.
+:::
+:::
+::::
+
+---
+
+## Food Delivery ETA: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\mu=16.5 \qquad H_a:\mu>16.5 \quad (\alpha=0.05)$$
+
+<span class="label">Test statistic</span>
+$$t^*=\frac{\bar{x}-\mu_0}{s/\sqrt n}=\frac{17.68-16.5}{1.53/\sqrt{12}}=2.682$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(T_{11}\ge 2.682)=0.0107$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
 ```{r}
-tail_plot(stat = 1.3, dist = "t", df = 11, alternative = "greater",
-          title = "Right-tailed t test (df = 11)")
+ttest_plot(tstar = 2.682, tcrit = 1.796, df = 11, alternative = "greater",
+           shade = "reject",
+           title = "t* falls in the rejection region (α = 0.05)")
 ```
 :::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0107 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is evidence the true mean delivery time exceeds the advertised $16.5$ minutes.
 :::
 ::::
 

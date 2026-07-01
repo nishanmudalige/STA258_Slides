@@ -48,7 +48,7 @@ tail_plot <- function(stat = 1.8, dist = "z", df = 12, alternative = "greater",
     less = x <= stat,
     two = abs(x) >= stat_abs
   )
-  p <- plot_ly(width = 620, height = 230) |>
+  p <- plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
               name = if (dist == "z") "N(0,1)" else paste0("t(", df, ")")) |>
     add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
@@ -73,7 +73,7 @@ chisq_tail_plot <- function(stat, df, alternative = "greater",
   x <- seq(0, qchisq(0.999, df), length.out = 500)
   y <- dchisq(x, df)
   shade <- if (alternative == "less") x <= stat else x >= stat
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
               name = paste0("chi^2(", df, ")")) |>
     add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
@@ -131,7 +131,7 @@ chisq_test_plot <- function(chistar, chicrit = NULL, df = 27, alternative = "gre
            showarrow = FALSE, xanchor = "center",
            font = list(color = "#00695c", size = 12))))
   }
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("chi^2(", df, ")"), hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -184,7 +184,7 @@ ftest_plot <- function(fstar, fcrit = NULL, df1 = 11, df2 = 9, alternative = "gr
            showarrow = FALSE, xanchor = "left",
            font = list(color = "#00695c", size = 11))))
   }
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("F(", df1, ", ", df2, ")"), hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -419,7 +419,7 @@ ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
            showarrow = TRUE, ax = if (alternative == "less") -10 else 10, ay = -28,
            arrowcolor = "#b26a00", font = list(color = "#b26a00", size = 12))))
   }
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = "N(0,1)", hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -492,7 +492,7 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
       fillcolor = "rgba(249,168,37,0.6)",
       line = list(color = "rgba(249,168,37,0.95)", width = 1),
       name = "shaded region", hoverinfo = "skip")
-  p <- plot_ly(width = 620, height = 230) |>
+  p <- plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("t(", df, ")"), hoverinfo = "skip")
   p <- if (alternative == "two.sided") add_shade(add_shade(p, x <= -cut), x >= cut) else add_shade(p, shade_keep)
@@ -671,6 +671,11 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .reveal section.compact-table table { font-size: 0.52em; }
 .reveal section.compact-table th, .reveal section.compact-table td { padding: 4px 8px; }
 .reveal section.compact-table > p { font-size: 0.72em; }
+.reveal section.tight-calc .examplebox { font-size: 0.6em; padding: 9px 13px; margin-bottom: 6px; }
+.reveal section.tight-calc .examplebox .label { margin-bottom: 1px; }
+.reveal section.tight-calc .two-col-wide { gap: 16px; }
+.reveal section.tight-calc .two-col { gap: 16px; margin-top: 4px; }
+.reveal section.tight-calc .thinkbox { font-size: 0.66em; padding: 9px 14px; margin-bottom: 0; }
 .reveal .intro-note, .reveal .intro-note p { font-size: 0.74em; margin-bottom: 6px; }
 .reveal section.quiz-question {
   display: flex !important;
@@ -1709,7 +1714,7 @@ Variances are unknown but the spreads look similar, so use a pooled two-sample $
 
 ---
 
-## Two Fertilizers: Calculation
+## Two Fertilizers: Calculation {.tight-calc}
 
 :::: {.two-col-wide}
 ::: {.col}
@@ -1941,7 +1946,7 @@ $$
 
 ---
 
-## Push Notifications: Calculation
+## Push Notifications: Calculation {.tight-calc}
 
 :::: {.two-col-wide}
 ::: {.col}

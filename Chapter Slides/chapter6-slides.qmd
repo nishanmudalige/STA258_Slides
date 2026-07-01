@@ -668,6 +668,10 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .reveal section.compact p, .reveal section.compact li { font-size: 0.7em; }
 .reveal section.cheat-sheet table { font-size: 0.5em; }
 .reveal section.cheat-sheet th, .reveal section.cheat-sheet td { padding: 2px 8px; }
+.reveal section.compact-table table { font-size: 0.52em; }
+.reveal section.compact-table th, .reveal section.compact-table td { padding: 4px 8px; }
+.reveal section.compact-table > p { font-size: 0.72em; }
+.reveal .intro-note, .reveal .intro-note p { font-size: 0.74em; margin-bottom: 6px; }
 .reveal section.quiz-question {
   display: flex !important;
   flex-direction: column !important;
@@ -2060,11 +2064,13 @@ Use paired differences $d_i=\text{after}_i-\text{before}_i$ and test $H_0:\mu_d=
 
 ---
 
-## Pomodoro: Difference Table
+## Pomodoro: Difference Table {.compact-table}
 
-Reduce each pair ($M_1$ = before, $M_2$ = after) to a single difference $d_i = M_2 - M_1$:
+::: {.intro-note}
+Reduce each pair ($M_1$ = before, $M_2$ = after) to $d_i = M_2 - M_1$, then analyze the 12 differences as one sample.
+:::
 
-:::: {.two-col}
+:::: {.two-col-wide}
 ::: {.col}
 | Person | $M_1$ | $M_2$ | $d_i = M_2-M_1$ |
 |:-:|:-:|:-:|:-:|
@@ -2074,11 +2080,6 @@ Reduce each pair ($M_1$ = before, $M_2$ = after) to a single difference $d_i = M
 | 4 | 38 | 39 | 1 |
 | 5 | 36 | 38 | 2 |
 | 6 | 33 | 33 | 0 |
-:::
-
-::: {.col}
-| Person | $M_1$ | $M_2$ | $d_i = M_2-M_1$ |
-|:-:|:-:|:-:|:-:|
 | 7 | 40 | 38 | −2 |
 | 8 | 31 | 34 | 3 |
 | 9 | 37 | 38 | 1 |
@@ -2086,12 +2087,20 @@ Reduce each pair ($M_1$ = before, $M_2$ = after) to a single difference $d_i = M
 | 11 | 39 | 41 | 2 |
 | 12 | 32 | 33 | 1 |
 :::
-::::
 
-::: {.defbox .fragment}
-Now treat the 12 differences as one sample:
-$$\bar d = \frac{\sum d_i}{n} = \frac{18}{12} = 1.5, \qquad s_d = 1.88, \qquad t^* = \frac{\bar d}{s_d/\sqrt n} = \frac{1.5}{1.88/\sqrt{12}} = 2.76$$
+::: {.col}
+::: {.defbox}
+<span class="label">Mean difference</span>
+$$\bar d = \frac{\sum d_i}{n} = \frac{18}{12} = 1.5$$
+
+<span class="label">SD of differences</span>
+$$s_d = \sqrt{\frac{\sum (d_i-\bar d)^2}{n-1}} = \sqrt{\frac{39}{11}} = 1.88$$
+
+<span class="label">Test statistic</span>
+$$t^* = \frac{\bar d}{s_d/\sqrt n} = \frac{1.5}{1.88/\sqrt{12}} = 2.76$$
 :::
+:::
+::::
 
 ---
 

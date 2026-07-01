@@ -1499,12 +1499,11 @@ Base R has no one-sample variance test, so the code builds $\chi^{2*}$ by hand f
 | Target parameter | Typical question | Reference distribution |
 |---|---|---|
 | $\mu_1-\mu_2$ | Are two population means different? | $Z$ or $t$ |
-| $p_1-p_2$ | Are two population proportions different? | $Z$ |
+| $p_1-p_2$ | Are two population proportions different? | $Z$ or $\chi^2$|
 | $\sigma_1^2/\sigma_2^2$ | Are two population variances different? | $F$ |
-| $\mu_d$ | Is the mean paired difference nonzero? | $t$ |
 
 ::: {.thinkbox .fragment .spaced-note}
-Start by deciding whether the samples are independent or paired. That choice changes the whole test.
+These tests all compare **two independent samples**.
 :::
 
 ---

@@ -562,50 +562,74 @@ Use ANOVA to decide whether several means differ, then use pairwise methods to i
 
 ---
 
-## Why ANOVA?
+## Why ANOVA? {.compact .why-anova}
 
-::: {.defbox}
-**Analysis of Variance (ANOVA)** is used to compare several population means.
+:::: {.why-anova-flow style="display:grid; grid-template-rows: auto auto auto; gap: 14px; align-items: stretch;"}
 
-Suppose we have $k$ groups, usually with $k \ge 3$.
+::: {.defbox .fragment style="font-size: 0.66em; line-height: 1.17; padding: 16px 20px; margin-bottom: 0;"}
+<span class="label">Purpose</span>
+
+**Analysis of Variance (ANOVA)** is used to compare several population means at once.
+
+Instead of running many separate two-sample tests, ANOVA begins with one **global test**.
 :::
 
-:::: {.three-col}
-::: {.stat-card .fragment}
+:::: {.three-col style="display:grid; grid-template-columns: 0.95fr 1.05fr 1.05fr; gap: 16px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.62em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Question</span>
 
 Do all groups have the same population mean?
+
+$$
+k \ge 3
+$$
+
+groups are being compared.
 :::
 
-::: {.stat-card .fragment}
+::: {.stat-card .fragment style="font-size: 0.62em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Null hypothesis</span>
+
+The population means are all equal:
 
 $$
 H_0:\mu_1=\mu_2=\cdots=\mu_k
 $$
 :::
 
-::: {.stat-card .fragment}
-<span class="label">Alternative</span>
+::: {.stat-card .fragment style="font-size: 0.62em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Alternative hypothesis</span>
+
+At least one population mean is different:
 
 $$
-H_a:\text{at least one }\mu_j\text{ is different}
+H_a:\text{not all }\mu_i\text{ are equal}
 $$
 :::
+
 ::::
 
-::: {.thinkbox .fragment}
-ANOVA starts with one global test. If the global test rejects, then pairwise comparisons can ask which means differ.
+::: {.thinkbox .fragment style="font-size: 0.65em; line-height: 1.17; padding: 15px 20px; margin-bottom: 0;"}
+<span class="label">Key idea</span>
+
+ANOVA tells us whether there is evidence that **at least one mean differs**.
+
+If ANOVA rejects \(H_0\), then pairwise comparisons can ask **which means differ**.
 :::
+
+::::
 
 ---
 
-## One-Factor ANOVA Model
+## One-Factor ANOVA Model {.compact .anova-model}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-The textbook model is:
+:::: {.anova-model-grid style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
+
+::: {.defbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Textbook model</span>
+
+For observation $j$ in group $i$:
 
 $$
 Y_{ij}=\mu+\tau_i+\epsilon_{ij},
@@ -613,46 +637,73 @@ Y_{ij}=\mu+\tau_i+\epsilon_{ij},
 \epsilon_{ij}\sim N(0,\sigma^2)
 $$
 
-where $Y_{ij}$ is observation $j$ in group $i$.
+Here, $Y_{ij}$ is the response value for observation $j$ in group $i$.
 :::
 
-::: {.notebox .fragment}
-<span class="label">Meaning</span>
+::: {.defbox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Equivalent form</span>
 
-- $\mu$: overall mean
-- $\tau_i$: treatment-specific effect
-- $\epsilon_{ij}$: random error term
-- $\mu+\tau_i$: group mean
-:::
-:::
+Since the population mean for group $i$ is
 
-::: {.col}
-::: {.defbox .fragment}
-Equivalent form:
+$$
+\mu_i=\mu+\tau_i,
+$$
+
+the same model can be written as
 
 $$
 Y_{ij}=\mu_i+\epsilon_{ij},
 \qquad
 \epsilon_{ij}\sim N(0,\sigma^2)
 $$
-
-where $\mu_i$ is the population mean for group $i$.
 :::
 
-::: {.thinkbox .fragment}
-Every observation in the same group is assigned the same group mean, plus random error.
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.18; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Meaning of the notation</span>
+
+- $\mu$: overall population mean
+- $\tau_i$: treatment effect for group $i$
+- $\epsilon_{ij}$: random error for observation $j$ in group $i$
+- $\mu_i=\mu+\tau_i$: population mean of group $i$
 :::
+
+::: {.thinkbox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.16; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Intuition</span>
+
+Each observation is modeled as
+
+$$
+\text{response}
+=
+\text{group mean}
++
+\text{random error}.
+$$
+
+So ANOVA asks whether all group means are equal:
+
+$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+$$
+
+or whether at least one group mean differs.
 :::
+
 ::::
 
 ---
 
-## Data Structure and Notation
+## Data Structure and Notation {.compact .data-notation}
 
-:::: {.two-col}
-::: {.col}
+:::: {.data-notation-grid style="display:grid; grid-template-columns: 0.52fr 0.48fr; gap: 18px; align-items: start;"}
+
+::: {.col style="display:grid; grid-template-rows: auto auto; gap: 14px;"}
+
+::: {.stat-card style="font-size: 0.50em; line-height: 1.04; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Data layout</span>
+
 | Group 1 | Group 2 | $\cdots$ | Group $k$ |
-|---:|---:|:---:|---:|
+|---:|---:|---:|---:|
 | $X_{11}$ | $X_{21}$ | $\cdots$ | $X_{k1}$ |
 | $X_{12}$ | $X_{22}$ | $\cdots$ | $X_{k2}$ |
 | $\vdots$ | $\vdots$ | $\ddots$ | $\vdots$ |
@@ -662,8 +713,7 @@ Every observation in the same group is assigned the same group mean, plus random
 | $n_1$ | $n_2$ | $\cdots$ | $n_k$ |
 :::
 
-::: {.col}
-::: {.notebox}
+::: {.notebox .fragment style="font-size: 0.62em; line-height: 1.16; padding: 15px 18px; margin-bottom: 0;"}
 <span class="label">Notation</span>
 
 - $\bar X_i$: sample mean of group $i$
@@ -671,7 +721,11 @@ Every observation in the same group is assigned the same group mean, plus random
 - $n_i$: sample size of group $i$
 :::
 
-::: {.defbox .fragment}
+:::
+
+::: {.defbox .fragment style="font-size: 0.61em; line-height: 1.16; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Overall summaries</span>
+
 Total sample size:
 
 $$
@@ -681,26 +735,33 @@ $$
 Overall sample mean:
 
 $$
-\bar X=
-\frac{1}{n}\sum_{i=1}^{k}\sum_{j=1}^{n_i}X_{ij}
+\bar X
 =
-\frac{1}{n}\sum_{i=1}^{k} n_i\bar X_i
+\frac{1}{n}
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}X_{ij}
+=
+\frac{1}{n}
+\sum_{i=1}^{k}n_i\bar X_i
 $$
 :::
-:::
+
 ::::
 
 ---
 
-## ANOVA as a Prediction Problem
+## ANOVA as a Prediction Problem {.compact .anova-prediction}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-ANOVA can be understood as comparing two prediction rules.
+:::: {.prediction-flow style="display:grid; grid-template-rows: auto auto auto; gap: 15px; align-items: stretch;"}
+
+::: {.defbox style="font-size: 0.65em; line-height: 1.16; padding: 15px 19px; margin-bottom: 0;"}
+<span class="label">Main idea</span>
+
+ANOVA can be understood as comparing **two prediction rules**.
 :::
 
-::: {.stat-card .fragment}
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.64em; line-height: 1.16; padding: 17px 20px; margin-bottom: 0;"}
 <span class="label">Ignore group information</span>
 
 Predict every observation using the overall mean:
@@ -708,24 +769,30 @@ Predict every observation using the overall mean:
 $$
 \bar X
 $$
-:::
+
+This treats all observations as coming from one common center.
 :::
 
-::: {.col}
-::: {.stat-card .fragment}
+::: {.stat-card .fragment style="font-size: 0.64em; line-height: 1.16; padding: 17px 20px; margin-bottom: 0;"}
 <span class="label">Use group information</span>
 
-Predict observation $j$ in group $i$ using the group mean:
+Predict observation $j$ in group $i$ using its group mean:
 
 $$
 \bar X_i
 $$
+
+This allows each group to have its own center.
 :::
 
-::: {.thinkbox .fragment}
-If group means improve prediction by a lot compared with the within-group noise, the ANOVA $F$ statistic becomes large.
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.66em; line-height: 1.18; padding: 16px 20px; margin-bottom: 0;"}
+<span class="label">ANOVA question</span>
+
+If using group means improves prediction by a lot compared with the within-group noise, the ANOVA \(F\) statistic becomes large.
 :::
-:::
+
 ::::
 
 ---
@@ -820,108 +887,173 @@ ANOVA asks whether the **between-group variation** is large compared with the **
 
 ---
 
-## The ANOVA Table
+## The ANOVA Table {.compact .anova-table-slide}
 
-| Source | df | SS | MS | F-statistic |
-|---|---:|---:|---:|---:|
-| Treatment | $k-1$ | $SSTr$ | $MSTr=\dfrac{SSTr}{k-1}$ | $F^*=\dfrac{MSTr}{MSE}$ |
-| Error | $n-k$ | $SSE$ | $MSE=\dfrac{SSE}{n-k}$ |  |
-| Total | $n-1$ | $SSTotal$ |  |  |
+:::: {.anova-table-grid style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
 
-::: {.notebox .fragment}
+::: {.stat-card style="font-size: 0.55em; line-height: 1.09; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">ANOVA table structure</span>
+
+| Source | df | SS |
+|---|---:|---:|
+| Treatment | $k-1$ | $SSTr$ |
+| Error | $n-k$ | $SSE$ |
+| Total | $n-1$ | $SSTotal$ |
+:::
+
+::: {.notebox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 15px 18px; margin-bottom: 0;"}
 <span class="label">Mean square rule</span>
+
+A mean square is a sum of squares divided by its degrees of freedom:
 
 $$
 MS=\frac{SS}{df}
 $$
 :::
 
-::: {.thinkbox .fragment}
-The $F$ statistic compares treatment variation per degree of freedom with error variation per degree of freedom.
+::: {.defbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Mean squares in ANOVA</span>
+
+$$
+MSTr=\frac{SSTr}{k-1}
+$$
+
+$$
+MSE=\frac{SSE}{n-k}
+$$
 :::
+
+::: {.thinkbox .fragment style="font-size: 0.63em; line-height: 1.16; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Test statistic</span>
+
+$$
+F^*=\frac{MSTr}{MSE}
+$$
+
+A large $F^*$ means the group means are far apart relative to the within-group noise.
+:::
+
+::::
 
 ---
 
-## ANOVA Hypothesis Test
+## ANOVA Hypothesis Test {.compact .anova-hyp-test}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-Hypotheses:
+:::: {.anova-test-grid style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
+
+::: {.defbox style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
+
+The null hypothesis says all population means are equal:
 
 $$
 H_0:\mu_1=\mu_2=\cdots=\mu_k
 $$
 
+The alternative says at least one population mean differs:
+
 $$
-H_a:\text{at least one }\mu_j\text{ is different}
+H_a:\text{not all }\mu_i\text{ are equal}
 $$
 :::
 
-::: {.notebox .fragment}
-<span class="label">Test statistic</span>
+::: {.defbox .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Reference distribution</span>
+
+Under $H_0$, the test statistic follows an $F$ distribution:
 
 $$
-F^*=
+F^* \sim F_{k-1,\;n-k}
+$$
+
+Numerator df:
+
+$$
+k-1
+$$
+
+Denominator df:
+
+$$
+n-k
+$$
+:::
+
+::: {.stat-card .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Test statistic</span>
+
+The ANOVA test statistic is
+
+$$
+F^*
+=
 \frac{MSTr}{MSE}
 =
 \frac{SSTr/(k-1)}{SSE/(n-k)}
 $$
-:::
+
+It compares between-group variation to within-group error variation.
 :::
 
-::: {.col}
-::: {.defbox .fragment}
-Under $H_0$:
+::: {.thinkbox .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">P-value</span>
+
+The ANOVA p-value is the area to the **right** of $F^*$.
 
 $$
-F^* \sim F_{k-1,n-k}
+p\text{-value}=P(F_{k-1,\;n-k}\ge F^*)
 $$
 
-The numerator degrees of freedom are $k-1$.
-
-The denominator degrees of freedom are $n-k$.
+Large $F^*$ values give evidence that the group means differ more than expected from random error alone.
 :::
 
-::: {.thinkbox .fragment}
-The ANOVA p-value is the area to the **right** of $F^*$, because large $F$ values mean group means differ more than expected from random error alone.
-:::
-:::
 ::::
 
 ---
 
-## Assumptions of ANOVA
+## Assumptions of ANOVA {.compact .anova-assumptions}
 
-::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
+:::: {.assumptions-flow style="display:grid; grid-template-rows: auto auto; gap: 14px; align-items: stretch;"}
+
+::: {.stat-card style="font-size: 0.66em; line-height: 1.22; padding: 18px 22px; margin-bottom: 0;"}
 <span class="label">Assumptions</span>
 
-<ul class="assumption-list" style="gap: 10px;">
-  <li>Observations are independent.</li>
-  <li>Error terms, or residuals, are Normal.</li>
-  <li>All groups have the same population variance: $\sigma_1^2=\sigma_2^2=\cdots=\sigma_k^2=\sigma^2$.</li>
-</ul>
+::: {.fragment}
+- Observations are independent.
 :::
 
-::: {.defbox .fragment}
+::: {.fragment}
+- Error terms, or residuals, are Normal.
+:::
+
+::: {.fragment}
+- All groups have the same population variance:
+
+$$
+\sigma_1^2=\sigma_2^2=\cdots=\sigma_k^2=\sigma^2.
+$$
+:::
+:::
+
+::: {.defbox style="font-size: 0.66em; line-height: 1.20; padding: 17px 22px; margin-bottom: 0;"}
+<span class="label">Common variance estimate</span>
+
 The common variance is estimated using the Mean Squared Error from ANOVA:
 
 $$
-\hat\sigma^2=MSE
+\hat{\sigma}^2=MSE
 $$
 :::
 
-::: {.thinkbox .fragment}
-This is why the denominator of the $F$ statistic is $MSE$: it estimates the shared within-group variance.
-:::
+::::
 
 ---
 
-## ANOVA P-value Visual
+## ANOVA P-value Visual {.compact .anova-pvalue-visual}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.notebox}
+:::: {.two-col-wide style="display:grid; grid-template-columns: 0.46fr 0.54fr; gap: 18px; align-items: start;"}
+
+::: {.stat-card .fragment style="font-size: 0.66em; line-height: 1.18; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Right-tail reference distribution</span>
 
 For $k=3$ groups and $n=18$ observations:
@@ -940,71 +1072,171 @@ $$
 
 In R, this is calculated with `lower.tail = FALSE`.
 :::
-:::
 
-::: {.col}
+::: {.stat-card .fragment style="font-size: 0.60em; line-height: 1.12; padding: 13px 15px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Interactive right-tail area</span>
+
 ```{r}
 #| echo: false
-x <- seq(0, 8, length.out = 500)
-fstar <- 5.85
-f_df <- data.frame(x = x, density = stats::df(x, df1 = 2, df2 = 15))
-shade_df <- f_df |> filter(x >= fstar)
+#| warning: false
+#| message: false
+#| fig-width: 5.2
+#| fig-height: 3.0
+#| out-width: "100%"
 
-plot_ly() |>
+library(plotly)
+
+df1 <- 2
+df2 <- 15
+
+p_levels <- c(0.10, 0.05, 0.01)
+p_labels <- c("0.10", "0.05", "0.01")
+F_values <- qf(1 - p_levels, df1 = df1, df2 = df2)
+
+x_max <- 6.5
+x <- seq(0.001, x_max, length.out = 700)
+y <- df(x, df1 = df1, df2 = df2)
+
+plot_df <- data.frame(x = x, y = y)
+
+p <- plot_ly(width = 520, height = 300)
+
+p <- p |>
   add_trace(
-    data = f_df,
+    data = plot_df,
     x = ~x,
-    y = ~density,
+    y = ~y,
     type = "scatter",
     mode = "lines",
-    line = list(color = plot_cols$text, width = 2.6),
-    hovertemplate = "F = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>"
-  ) |>
-  add_trace(
-    data = shade_df,
-    x = ~x,
-    y = ~density,
-    type = "scatter",
-    mode = "lines",
-    fill = "tozeroy",
-    fillcolor = "rgba(249,168,37,0.38)",
-    line = list(color = "rgba(249,168,37,0.90)", width = 1.5),
-    hovertemplate = "p-value tail<extra></extra>"
-  ) |>
-  layout(
-    shapes = list(list(
-      type = "line",
-      x0 = fstar,
-      x1 = fstar,
-      y0 = 0,
-      y1 = max(f_df$density) * 0.92,
-      line = list(color = plot_cols$teal_dark, width = 2.4, dash = "dash")
-    )),
-    annotations = list(list(
-      x = fstar + 0.55,
-      y = max(f_df$density) * 0.55,
-      text = "p-value",
-      showarrow = FALSE,
-      font = list(size = 13, color = plot_cols$text)
-    ))
-  ) |>
-  plotly_anova_layout(
-    title = "Right-tail p-value for ANOVA",
-    x_title = "F",
-    y_title = "Density",
-    height = 345
+    line = list(color = "#263238", width = 3),
+    hovertemplate = "F = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>",
+    showlegend = FALSE
   )
+
+for (i in seq_along(p_levels)) {
+  F_star <- F_values[i]
+
+  tail_x <- seq(F_star, x_max, length.out = 250)
+  tail_y <- df(tail_x, df1 = df1, df2 = df2)
+
+  shade_x <- c(F_star, tail_x, x_max)
+  shade_y <- c(0, tail_y, 0)
+
+  visible_now <- i == 2
+
+  p <- p |>
+    add_trace(
+      x = shade_x,
+      y = shade_y,
+      type = "scatter",
+      mode = "lines",
+      fill = "toself",
+      fillcolor = "rgba(245, 124, 0, 0.48)",
+      line = list(color = "rgba(245, 124, 0, 0)", width = 0),
+      hoverinfo = "skip",
+      visible = visible_now,
+      showlegend = FALSE
+    ) |>
+    add_trace(
+      x = c(F_star, F_star),
+      y = c(0, df(F_star, df1 = df1, df2 = df2)),
+      type = "scatter",
+      mode = "lines",
+      line = list(color = "#00695c", width = 3, dash = "dash"),
+      hovertemplate = paste0(
+        "F* = ", round(F_star, 2),
+        "<br>p-value = ", p_labels[i],
+        "<extra></extra>"
+      ),
+      visible = visible_now,
+      showlegend = FALSE
+    ) |>
+    add_trace(
+      x = min(F_star + 0.45, x_max - 1.0),
+      y = max(y) * 0.46,
+      type = "scatter",
+      mode = "text",
+      text = paste0("p-value = ", p_labels[i]),
+      textfont = list(color = "#263238", size = 13),
+      hoverinfo = "skip",
+      visible = visible_now,
+      showlegend = FALSE
+    )
+}
+
+buttons <- lapply(seq_along(p_levels), function(i) {
+  visible <- rep(FALSE, 1 + 3 * length(p_levels))
+  visible[1] <- TRUE
+
+  start <- 2 + 3 * (i - 1)
+  visible[start:(start + 2)] <- TRUE
+
+  list(
+    method = "update",
+    label = paste0("p-value = ", p_labels[i]),
+    args = list(
+      list(visible = visible),
+      list(
+        title = paste0(
+          "Right-tail area: P(F<sub>2,15</sub> ≥ ",
+          round(F_values[i], 2),
+          ") = ",
+          p_labels[i]
+        )
+      )
+    )
+  )
+})
+
+p |>
+  layout(
+    title = paste0(
+      "Right-tail area: P(F<sub>2,15</sub> ≥ ",
+      round(F_values[2], 2),
+      ") = ",
+      p_labels[2]
+    ),
+    xaxis = list(
+      title = "F",
+      range = c(0, x_max),
+      zeroline = FALSE,
+      gridcolor = "rgba(0,0,0,0.08)"
+    ),
+    yaxis = list(
+      title = "Density",
+      range = c(0, max(y) * 1.05),
+      zeroline = FALSE,
+      gridcolor = "rgba(0,0,0,0.08)"
+    ),
+    margin = list(l = 45, r = 12, t = 54, b = 42),
+    paper_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "rgba(0,0,0,0)",
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        active = 1,
+        x = 0.02,
+        y = 1.14,
+        xanchor = "left",
+        yanchor = "top",
+        buttons = buttons
+      )
+    )
+  ) |>
+  config(displayModeBar = FALSE, responsive = FALSE)
 ```
 :::
+
 ::::
 
 ---
 
-## Example: Campus Café Pickup Systems {.cafe-example}
+## Example: Campus Café Pickup Systems {.compact .cafe-example}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.43fr 0.57fr; gap: 18px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.42fr 0.58fr; grid-template-rows: auto auto; gap: 14px 18px; align-items: stretch;"}
 
-::: {.taskbox style="font-size: 0.62em; line-height: 1.18; padding: 17px 19px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1 / span 2; font-size: 0.60em; line-height: 1.13; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
 A campus café wants to compare **three pickup systems** used during the same lunch rush period:
@@ -1013,28 +1245,22 @@ A campus café wants to compare **three pickup systems** used during the same lu
 - kiosk order,
 - counter order.
 
-For each system, the café records the number of minutes from **order confirmation to pickup**.
+For each system, the café records the number of minutes from **order confirmation** to **pickup**.
 
-We want to know whether the **population mean pickup time** is the same for all three systems.
-
-<div class="calc-left" style="font-size: 0.95em; margin-top: 12px; margin-bottom: 12px;">
+We want to know whether the population mean **pickup time** is the same for all three systems.
 
 $$
 H_0:\mu_1=\mu_2=\mu_3
 $$
 
 $$
-H_a:\text{at least one mean pickup time differs}
+H_a:\text{ at least one mean pickup time differs}
 $$
-
-</div>
 
 Use a **one-way ANOVA at the 5% level**.
 :::
 
-::: {.col style="display:grid; grid-template-rows: auto 1fr; gap: 16px;"}
-
-::: {.stat-card style="font-size: 0.55em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="grid-column: 2; grid-row: 1; font-size: 0.50em; line-height: 1.06; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">Observed data</span>
 
 | Mobile order | Kiosk order | Counter order |
@@ -1047,7 +1273,7 @@ Use a **one-way ANOVA at the 5% level**.
 | 9.0 | 10.5 | 12.4 |
 :::
 
-::: {.notebox style="font-size: 0.64em; line-height: 1.22; padding: 17px 19px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.16; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">ANOVA setup</span>
 
 The explanatory variable is the **pickup system**.
@@ -1057,8 +1283,6 @@ The response variable is **pickup wait time**.
 There are $k=3$ groups and $n=18$ observations.
 
 Each system has $n_i=6$ wait-time measurements.
-:::
-
 :::
 
 ::::
@@ -1233,7 +1457,7 @@ Use a **one-way ANOVA at the 5% level**.
 
 ::: {.col style="display:grid; grid-template-rows: auto 1fr; gap: 16px;"}
 
-::: {.stat-card style="font-size: 0.53em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.53em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
 <span class="label">Observed data</span>
 
 | Clean cut | Captions-first | Meme overlay | Story hook |
@@ -1245,7 +1469,7 @@ Use a **one-way ANOVA at the 5% level**.
 | 44 | 49 | 47 | 58 |
 :::
 
-::: {.notebox style="font-size: 0.64em; line-height: 1.22; padding: 17px 19px; margin-bottom: 0;"}
+::: {.notebox .fragment style="font-size: 0.64em; line-height: 1.22; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">ANOVA setup</span>
 
 The explanatory variable is the **edit style**.
@@ -1267,7 +1491,7 @@ Each edit style has $n_i=5$ watch-time measurements.
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: start;"}
 
-::: {.stat-card style="grid-column: 1; grid-row: 1; font-size: 0.52em; line-height: 1.09; padding: 15px 17px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 1; font-size: 0.52em; line-height: 1.09; padding: 15px 17px; margin-bottom: 0;"}
 <span class="label">Calculation table</span>
 
 The grand mean is $\bar{x}=43.75$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
@@ -1293,7 +1517,7 @@ $$
 </div>
 :::
 
-::: {.notebox .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
+::: {.notebox .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
 <span class="label">ANOVA table</span>
 
 | Source | df | SS | MS | F | p-value |
@@ -1315,7 +1539,7 @@ F^*=\frac{181.25}{21.50}=8.43
 $$
 :::
 
-::: {.examplebox style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;"}
+::: {.examplebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">Conclusion</span>
 
 Since $p=0.0014<0.05$, reject $H_0$.

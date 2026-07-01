@@ -4554,21 +4554,21 @@
     "href": "Chapter Slides/chapter8-slides.html#why-anova",
     "title": "STA258",
     "section": "Why ANOVA?",
-    "text": "Why ANOVA?\n\nAnalysis of Variance (ANOVA) is used to compare several population means.\nSuppose we have \\(k\\) groups, usually with \\(k \\ge 3\\).\n\n\n\nQuestion\nDo all groups have the same population mean?\n\n\nNull hypothesis\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\n\nANOVA starts with one global test. If the global test rejects, then pairwise comparisons can ask which means differ."
+    "text": "Why ANOVA?\n\n\nPurpose\nAnalysis of Variance (ANOVA) is used to compare several population means at once.\nInstead of running many separate two-sample tests, ANOVA begins with one global test.\n\n\n\nQuestion\nDo all groups have the same population mean?\n\\[\nk \\ge 3\n\\]\ngroups are being compared.\n\n\nNull hypothesis\nThe population means are all equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative hypothesis\nAt least one population mean is different:\n\\[\nH_a:\\text{not all }\\mu_i\\text{ are equal}\n\\]\n\n\n\nKey idea\nANOVA tells us whether there is evidence that at least one mean differs.\nIf ANOVA rejects (H_0), then pairwise comparisons can ask which means differ."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#one-factor-anova-model",
     "href": "Chapter Slides/chapter8-slides.html#one-factor-anova-model",
     "title": "STA258",
     "section": "One-Factor ANOVA Model",
-    "text": "One-Factor ANOVA Model\n\n\n\nThe textbook model is:\n\\[\nY_{ij}=\\mu+\\tau_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\nwhere \\(Y_{ij}\\) is observation \\(j\\) in group \\(i\\).\n\n\nMeaning\n\n\\(\\mu\\): overall mean\n\\(\\tau_i\\): treatment-specific effect\n\\(\\epsilon_{ij}\\): random error term\n\\(\\mu+\\tau_i\\): group mean\n\n\n\n\n\nEquivalent form:\n\\[\nY_{ij}=\\mu_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\nwhere \\(\\mu_i\\) is the population mean for group \\(i\\).\n\n\nEvery observation in the same group is assigned the same group mean, plus random error."
+    "text": "One-Factor ANOVA Model\n\n\nTextbook model\nFor observation \\(j\\) in group \\(i\\):\n\\[\nY_{ij}=\\mu+\\tau_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\nHere, \\(Y_{ij}\\) is the response value for observation \\(j\\) in group \\(i\\).\n\n\nEquivalent form\nSince the population mean for group \\(i\\) is\n\\[\n\\mu_i=\\mu+\\tau_i,\n\\]\nthe same model can be written as\n\\[\nY_{ij}=\\mu_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\n\n\nMeaning of the notation\n\n\\(\\mu\\): overall population mean\n\\(\\tau_i\\): treatment effect for group \\(i\\)\n\\(\\epsilon_{ij}\\): random error for observation \\(j\\) in group \\(i\\)\n\\(\\mu_i=\\mu+\\tau_i\\): population mean of group \\(i\\)\n\n\n\nIntuition\nEach observation is modeled as\n\\[\n\\text{response}\n=\n\\text{group mean}\n+\n\\text{random error}.\n\\]\nSo ANOVA asks whether all group means are equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\nor whether at least one group mean differs."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#data-structure-and-notation",
     "href": "Chapter Slides/chapter8-slides.html#data-structure-and-notation",
     "title": "STA258",
     "section": "Data Structure and Notation",
-    "text": "Data Structure and Notation\n\n\n\n\n\nGroup 1\nGroup 2\n\\(\\cdots\\)\nGroup \\(k\\)\n\n\n\n\n\\(X_{11}\\)\n\\(X_{21}\\)\n\\(\\cdots\\)\n\\(X_{k1}\\)\n\n\n\\(X_{12}\\)\n\\(X_{22}\\)\n\\(\\cdots\\)\n\\(X_{k2}\\)\n\n\n\\(\\vdots\\)\n\\(\\vdots\\)\n\\(\\ddots\\)\n\\(\\vdots\\)\n\n\n\\(X_{1n_1}\\)\n\\(X_{2n_2}\\)\n\\(\\cdots\\)\n\\(X_{kn_k}\\)\n\n\n\\(\\bar X_1\\)\n\\(\\bar X_2\\)\n\\(\\cdots\\)\n\\(\\bar X_k\\)\n\n\n\\(S_1^2\\)\n\\(S_2^2\\)\n\\(\\cdots\\)\n\\(S_k^2\\)\n\n\n\\(n_1\\)\n\\(n_2\\)\n\\(\\cdots\\)\n\\(n_k\\)\n\n\n\n\n\n\nNotation\n\n\\(\\bar X_i\\): sample mean of group \\(i\\)\n\\(S_i^2\\): sample variance of group \\(i\\)\n\\(n_i\\): sample size of group \\(i\\)\n\n\n\nTotal sample size:\n\\[\nn=n_1+n_2+\\cdots+n_k\n\\]\nOverall sample mean:\n\\[\n\\bar X=\n\\frac{1}{n}\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}X_{ij}\n=\n\\frac{1}{n}\\sum_{i=1}^{k} n_i\\bar X_i\n\\]"
+    "text": "Data Structure and Notation\n\n\n\nData layout\n\n\n\nGroup 1\nGroup 2\n\\(\\cdots\\)\nGroup \\(k\\)\n\n\n\n\n\\(X_{11}\\)\n\\(X_{21}\\)\n\\(\\cdots\\)\n\\(X_{k1}\\)\n\n\n\\(X_{12}\\)\n\\(X_{22}\\)\n\\(\\cdots\\)\n\\(X_{k2}\\)\n\n\n\\(\\vdots\\)\n\\(\\vdots\\)\n\\(\\ddots\\)\n\\(\\vdots\\)\n\n\n\\(X_{1n_1}\\)\n\\(X_{2n_2}\\)\n\\(\\cdots\\)\n\\(X_{kn_k}\\)\n\n\n\\(\\bar X_1\\)\n\\(\\bar X_2\\)\n\\(\\cdots\\)\n\\(\\bar X_k\\)\n\n\n\\(S_1^2\\)\n\\(S_2^2\\)\n\\(\\cdots\\)\n\\(S_k^2\\)\n\n\n\\(n_1\\)\n\\(n_2\\)\n\\(\\cdots\\)\n\\(n_k\\)\n\n\n\n\n\nNotation\n\n\\(\\bar X_i\\): sample mean of group \\(i\\)\n\\(S_i^2\\): sample variance of group \\(i\\)\n\\(n_i\\): sample size of group \\(i\\)\n\n\n\n\nOverall summaries\nTotal sample size:\n\\[\nn=n_1+n_2+\\cdots+n_k\n\\]\nOverall sample mean:\n\\[\n\\bar X\n=\n\\frac{1}{n}\n\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}X_{ij}\n=\n\\frac{1}{n}\n\\sum_{i=1}^{k}n_i\\bar X_i\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#sources-of-variation",
@@ -4589,7 +4589,7 @@
     "href": "Chapter Slides/chapter8-slides.html#the-anova-table",
     "title": "STA258",
     "section": "The ANOVA Table",
-    "text": "The ANOVA Table\n\n\n\n\n\n\n\n\n\n\nSource\ndf\nSS\nMS\nF-statistic\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\\(MSTr=\\dfrac{SSTr}{k-1}\\)\n\\(F^*=\\dfrac{MSTr}{MSE}\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\\(MSE=\\dfrac{SSE}{n-k}\\)\n\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\n\nMean square rule\n\\[\nMS=\\frac{SS}{df}\n\\]\n\n\nThe \\(F\\) statistic compares treatment variation per degree of freedom with error variation per degree of freedom."
+    "text": "The ANOVA Table\n\n\nANOVA table structure\n\n\n\nSource\ndf\nSS\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\nMean square rule\nA mean square is a sum of squares divided by its degrees of freedom:\n\\[\nMS=\\frac{SS}{df}\n\\]\n\n\nMean squares in ANOVA\n\\[\nMSTr=\\frac{SSTr}{k-1}\n\\]\n\\[\nMSE=\\frac{SSE}{n-k}\n\\]\n\n\nTest statistic\n\\[\nF^*=\\frac{MSTr}{MSE}\n\\]\nA large \\(F^*\\) means the group means are far apart relative to the within-group noise."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#hypothesis-test-and-reference-distribution",
@@ -4603,7 +4603,7 @@
     "href": "Chapter Slides/chapter8-slides.html#anova-p-value-visual",
     "title": "STA258",
     "section": "ANOVA P-value Visual",
-    "text": "ANOVA P-value Visual\n\n\n\nRight-tail reference distribution\nFor \\(k=3\\) groups and \\(n=18\\) observations:\n\\[\ndf_1=k-1=2,\n\\qquad\ndf_2=n-k=15\n\\]\nThe shaded region is:\n\\[\nP(F_{2,15}\\ge F^*)\n\\]\nIn R, this is calculated with lower.tail = FALSE."
+    "text": "ANOVA P-value Visual\n\n\nRight-tail reference distribution\nFor \\(k=3\\) groups and \\(n=18\\) observations:\n\\[\ndf_1=k-1=2,\n\\qquad\ndf_2=n-k=15\n\\]\nThe shaded region is:\n\\[\nP(F_{2,15}\\ge F^*)\n\\]\nIn R, this is calculated with lower.tail = FALSE.\n\n\nInteractive right-tail area"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-margarine-container-fill-amounts",
@@ -4617,7 +4617,7 @@
     "href": "Chapter Slides/chapter8-slides.html#example-campus-café-pickup-systems",
     "title": "STA258",
     "section": "Example: Campus Café Pickup Systems",
-    "text": "Example: Campus Café Pickup Systems\n\n\nProblem\nA campus café wants to compare three pickup systems used during the same lunch rush period:\n\nmobile order,\nkiosk order,\ncounter order.\n\nFor each system, the café records the number of minutes from order confirmation to pickup.\nWe want to know whether the population mean pickup time is the same for all three systems.\n\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{at least one mean pickup time differs}\n\\]\n\nUse a one-way ANOVA at the 5% level.\n\n\n\nObserved data\n\n\n\nMobile order\nKiosk order\nCounter order\n\n\n\n\n5.0\n6.5\n7.8\n\n\n6.0\n6.5\n8.8\n\n\n7.0\n8.5\n9.8\n\n\n7.0\n9.5\n10.6\n\n\n8.0\n9.5\n11.8\n\n\n9.0\n10.5\n12.4\n\n\n\n\n\nANOVA setup\nThe explanatory variable is the pickup system.\nThe response variable is pickup wait time.\nThere are \\(k=3\\) groups and \\(n=18\\) observations.\nEach system has \\(n_i=6\\) wait-time measurements."
+    "text": "Example: Campus Café Pickup Systems\n\n\nProblem\nA campus café wants to compare three pickup systems used during the same lunch rush period:\n\nmobile order,\nkiosk order,\ncounter order.\n\nFor each system, the café records the number of minutes from order confirmation to pickup.\nWe want to know whether the population mean pickup time is the same for all three systems.\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{ at least one mean pickup time differs}\n\\]\nUse a one-way ANOVA at the 5% level.\n\n\nObserved data\n\n\n\nMobile order\nKiosk order\nCounter order\n\n\n\n\n5.0\n6.5\n7.8\n\n\n6.0\n6.5\n8.8\n\n\n7.0\n8.5\n9.8\n\n\n7.0\n9.5\n10.6\n\n\n8.0\n9.5\n11.8\n\n\n9.0\n10.5\n12.4\n\n\n\n\n\nANOVA setup\nThe explanatory variable is the pickup system.\nThe response variable is pickup wait time.\nThere are \\(k=3\\) groups and \\(n=18\\) observations.\nEach system has \\(n_i=6\\) wait-time measurements."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-summary-statistic-anova",
@@ -4659,7 +4659,7 @@
     "href": "Chapter Slides/chapter8-slides.html#assumptions-of-anova",
     "title": "STA258",
     "section": "Assumptions of ANOVA",
-    "text": "Assumptions of ANOVA\n\nAssumptions\n\n\nObservations are independent.\n\n\nError terms, or residuals, are Normal.\n\n\nAll groups have the same population variance: \\(\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2\\).\n\n\n\n\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat\\sigma^2=MSE\n\\]\n\n\nThis is why the denominator of the \\(F\\) statistic is \\(MSE\\): it estimates the shared within-group variance."
+    "text": "Assumptions of ANOVA\n\n\nAssumptions\n\n\nObservations are independent.\n\n\n\n\nError terms, or residuals, are Normal.\n\n\n\n\nAll groups have the same population variance:\n\n\\[\n\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2.\n\\]\n\n\n\nCommon variance estimate\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat{\\sigma}^2=MSE\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#what-if-anova-rejects",
@@ -4736,7 +4736,7 @@
     "href": "Chapter Slides/chapter8-slides.html#anova-hypothesis-test",
     "title": "STA258",
     "section": "ANOVA Hypothesis Test",
-    "text": "ANOVA Hypothesis Test\n\n\n\nHypotheses:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\nTest statistic\n\\[\nF^*=\n\\frac{MSTr}{MSE}\n=\n\\frac{SSTr/(k-1)}{SSE/(n-k)}\n\\]\n\n\n\n\nUnder \\(H_0\\):\n\\[\nF^* \\sim F_{k-1,n-k}\n\\]\nThe numerator degrees of freedom are \\(k-1\\).\nThe denominator degrees of freedom are \\(n-k\\).\n\n\nThe ANOVA p-value is the area to the right of \\(F^*\\), because large \\(F\\) values mean group means differ more than expected from random error alone."
+    "text": "ANOVA Hypothesis Test\n\n\nHypotheses\nThe null hypothesis says all population means are equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\nThe alternative says at least one population mean differs:\n\\[\nH_a:\\text{not all }\\mu_i\\text{ are equal}\n\\]\n\n\nReference distribution\nUnder \\(H_0\\), the test statistic follows an \\(F\\) distribution:\n\\[\nF^* \\sim F_{k-1,\\;n-k}\n\\]\nNumerator df:\n\\[\nk-1\n\\]\nDenominator df:\n\\[\nn-k\n\\]\n\n\nTest statistic\nThe ANOVA test statistic is\n\\[\nF^*\n=\n\\frac{MSTr}{MSE}\n=\n\\frac{SSTr/(k-1)}{SSE/(n-k)}\n\\]\nIt compares between-group variation to within-group error variation.\n\n\nP-value\nThe ANOVA p-value is the area to the right of \\(F^*\\).\n\\[\np\\text{-value}=P(F_{k-1,\\;n-k}\\ge F^*)\n\\]\nLarge \\(F^*\\) values give evidence that the group means differ more than expected from random error alone."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-short-form-video-edit-styles",
@@ -5023,7 +5023,7 @@
     "href": "Chapter Slides/chapter8-slides.html#anova-as-a-prediction-problem",
     "title": "STA258",
     "section": "ANOVA as a Prediction Problem",
-    "text": "ANOVA as a Prediction Problem\n\n\n\nANOVA can be understood as comparing two prediction rules.\n\n\nIgnore group information\nPredict every observation using the overall mean:\n\\[\n\\bar X\n\\]\n\n\n\n\nUse group information\nPredict observation \\(j\\) in group \\(i\\) using the group mean:\n\\[\n\\bar X_i\n\\]\n\n\nIf group means improve prediction by a lot compared with the within-group noise, the ANOVA \\(F\\) statistic becomes large."
+    "text": "ANOVA as a Prediction Problem\n\n\nMain idea\nANOVA can be understood as comparing two prediction rules.\n\n\n\nIgnore group information\nPredict every observation using the overall mean:\n\\[\n\\bar X\n\\]\nThis treats all observations as coming from one common center.\n\n\nUse group information\nPredict observation \\(j\\) in group \\(i\\) using its group mean:\n\\[\n\\bar X_i\n\\]\nThis allows each group to have its own center.\n\n\n\nANOVA question\nIf using group means improves prediction by a lot compared with the within-group noise, the ANOVA (F) statistic becomes large."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-country-sales-by-region",

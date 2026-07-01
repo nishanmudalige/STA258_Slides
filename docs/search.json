@@ -4898,5 +4898,33 @@
     "title": "STA258",
     "section": "6.3.1.3 Two Means: Unequal Variances (Welch \\(t\\))",
     "text": "6.3.1.3 Two Means: Unequal Variances (Welch \\(t\\))\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling):\n\\[\nt^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\n\n\n\nDefault Welch is a good default when equal variances are not clearly justified.\n\n\nDegrees of freedom Software uses the Welch-Satterthwaite approximation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-comparing-download-speeds",
+    "href": "Chapter Slides/chapter6-slides.html#example-comparing-download-speeds",
+    "title": "STA258",
+    "section": "Example: Comparing Download Speeds",
+    "text": "Example: Comparing Download Speeds\n\nTwo campus internet providers both advertise fast service. From years of monitoring, download speeds (Mbps) are known to have \\(\\sigma_A=12\\) for Provider A and \\(\\sigma_B=15\\) for Provider B.\nA student runs independent speed tests and records:\n\nProvider A: \\(n_A=40\\), \\(\\bar{x}_A=86\\) Mbps\nProvider B: \\(n_B=45\\), \\(\\bar{x}_B=79\\) Mbps\n\nIs Provider A’s mean download speed higher than Provider B’s?\n\n\nLet \\(\\mu_A,\\mu_B\\) be the true mean speeds. Test \\(H_0:\\mu_A-\\mu_B=0\\) against \\(H_a:\\mu_A-\\mu_B&gt;0\\).\nBoth population SDs are known, so use a two-sample \\(z\\) test."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-two-fertilizers-similar-spread",
+    "href": "Chapter Slides/chapter6-slides.html#example-two-fertilizers-similar-spread",
+    "title": "STA258",
+    "section": "Example: Two Fertilizers, Similar Spread",
+    "text": "Example: Two Fertilizers, Similar Spread\n\nA gardener compares two organic fertilizers on tomato plants and expects the two groups to have similar variability. Yields (kg per plant) from independent plots:\nFertilizer A: 4.2 3.8 4.5 4.0 3.9 4.3 4.1 3.7 4.4\nFertilizer B: 3.6 3.9 3.4 3.8 3.5 3.7 3.3 4.0 3.6 3.5\nDo the two fertilizers give different mean yields at \\(\\alpha=0.05\\)?\n\n\nLet \\(\\mu_A,\\mu_B\\) be the true mean yields. Test \\(H_0:\\mu_A-\\mu_B=0\\) against \\(H_a:\\mu_A-\\mu_B\\neq 0\\).\nVariances are unknown but the spreads look similar, so use a pooled two-sample \\(t\\) test."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-download-speeds",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-download-speeds",
+    "title": "STA258",
+    "section": "Check in R: Download Speeds",
+    "text": "Check in R: Download Speeds"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
+    "title": "STA258",
+    "section": "Check in R: Two Fertilizers",
+    "text": "Check in R: Two Fertilizers"
   }
 ]

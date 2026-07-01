@@ -2776,7 +2776,7 @@
     "href": "Chapter Slides/chapter9-slides.html#introduction-to-the-linear-model",
     "title": "STA258",
     "section": "9.1 Introduction to the Linear Model",
-    "text": "9.1 Introduction to the Linear Model\n\nA linear model has the form:\n\\[\ny_i =\n\\beta_0+\\beta_1z_{i1}+\\beta_2z_{i2}+\\cdots+\\beta_pz_{ip}\n+\\varepsilon_i,\n\\qquad\n\\varepsilon_i\\sim N(0,\\sigma^2).\n\\]\nHere:\n\n\\(y_i\\) is the response variable.\n\\(z_{i1},\\ldots,z_{ip}\\) are the predictors.\n\\(\\varepsilon_i\\) is random error.\n\n\n\nThe textbook model assumes predictors are fixed, errors are independent, and the errors have constant variance \\(\\sigma^2\\)."
+    "text": "9.1 Introduction to the Linear Model\n\nA linear model has the form:\n\\[\ny_i=\\beta_0+\\beta_1 x_{i1}+\\beta_2 x_{i2}+\\cdots+\\beta_p x_{ip}+\\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\nHere:\n\n\\(y_i\\) is the response variable.\n\\(x_{i1},\\ldots,x_{ip}\\) are the predictors.\n\\(\\varepsilon_i\\) is random error.\n\n\n\nThe textbook model assumes predictors are fixed, errors are independent, and the errors have constant variance \\(\\sigma^2\\)."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#simple-linear-regression",
@@ -2797,7 +2797,7 @@
     "href": "Chapter Slides/chapter9-slides.html#least-squares-method",
     "title": "STA258",
     "section": "9.1.1 Least Squares Method",
-    "text": "9.1.1 Least Squares Method\n\nA residual is the difference between an observed data point and a fitted value from the regression model:\n\\[\ne_i=y_i-\\hat{y}_i.\n\\]\nIt is the vertical distance from the observed value to the fitted line.\n\n\n\nIf \\(e_i&gt;0\\), the point is above the fitted line.\nThe model underpredicted the response.\n\n\nIf \\(e_i&lt;0\\), the point is below the fitted line.\nThe model overpredicted the response."
+    "text": "9.1.1 Least Squares Method\n\nA residual is the difference between an observed data point and a fitted value from the regression model:\n\\[\ne_i = y_i - \\hat{y}_i.\n\\]\nIt is the vertical distance from the observed value to the fitted line.\n\n\n\n\n\n\n\n\n\n\n\n\nIf \\(e_i &gt; 0\\), the point is above the fitted line.\nThe model underpredicted the response.\n\n\nIf \\(e_i &lt; 0\\), the point is below the fitted line.\nThe model overpredicted the response."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#residuals-on-a-regression-plot",
@@ -3245,7 +3245,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-covariance-and-correlation",
     "title": "STA258",
     "section": "Check in R: Covariance and Correlation",
-    "text": "Check in R: Covariance and Correlation\n\n\n\nCaitlin Clark highlight example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
+    "text": "Check in R: Covariance and Correlation\n\n\n\nSunlight and plant growth example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-unexplained-variation",
@@ -3357,7 +3357,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-least-squares-equations",
     "title": "STA258",
     "section": "Check in R: Least-Squares Equations",
-    "text": "Check in R: Least-Squares Equations\n\n\n\nRonaldo vs Messi example\n\n\n\n\n\n\n\n\n\n\n\n\nArgentina vs France example"
+    "text": "Check in R: Least-Squares Equations\n\n\n\nPractice problems example\n\n\n\n\n\n\n\n\n\n\n\n\nStudy hours example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-least-squares-lines",
@@ -3483,7 +3483,7 @@
     "href": "Chapter Slides/chapter9-slides.html#section-4",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nWhich residual plot pattern would be most concerning for simple linear regression?\n\n\n\n\nRandom scatter around zero\nResiduals with no clear pattern\nA clear curve or funnel shape in the residuals\nResiduals that include both positive and negative values"
+    "text": "Question\n\n\nFor testing whether a simple linear regression slope is zero, what is the usual reference distribution?\n\n\n\n\nStandard normal distribution\nChi-square distribution with \\(n-1\\) degrees of freedom\nt distribution with \\(n-2\\) degrees of freedom\nF distribution with \\(n\\) degrees of freedom only"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-residuals-on-a-regression-line",
@@ -3581,7 +3581,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-anova-table",
     "title": "STA258",
     "section": "Check in R: ANOVA Table",
-    "text": "Check in R: ANOVA Table\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nRap beef reaction example"
+    "text": "Check in R: ANOVA Table\n\n\n\nEvent flyers example\n\n\n\n\n\n\n\n\n\n\n\n\nCharging time example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
@@ -3686,7 +3686,7 @@
     "href": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice",
     "title": "STA258",
     "section": "Example: F1 Monaco Simulator Practice",
-    "text": "Example: F1 Monaco Simulator Practice\n\n\nAn F1 analytics page studies a fictional Monaco simulator practice session.\nFor each player:\n\n\\(x=\\) simulator practice laps\n\\(y=\\) lap-time improvement in seconds\n\nThe fitted line is:\n\\[\n\\hat{y}=-0.098+0.141x.\n\\]\nQuestion. Calculate \\(SSE\\), \\(SSR\\), \\(SST\\), and \\(R^2\\).\n\n\n\n\\(x\\)\n\\(y\\)\n\\(\\hat y\\)\n\\((y-\\hat y)^2\\)\n\\((\\hat y-\\bar y)^2\\)\n\n\n\n\n5\n0.6\n0.607\n0.000\n0.798\n\n\n8\n1.0\n1.030\n0.001\n0.221\n\n\n10\n1.4\n1.312\n0.008\n0.035\n\n\n12\n1.5\n1.594\n0.009\n0.009\n\n\n15\n2.1\n2.017\n0.007\n0.267\n\n\n18\n2.4\n2.440\n0.002\n0.884\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=1.500\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum(y_i-\\hat{y}_i)^2=0.026\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=2.214\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=2.240\n\\]\nCheck:\n\\[\nSSR+SSE=2.214+0.026=2.240=SST\n\\]\n\\[\nR^2=\\frac{2.214}{2.240}=0.988\n\\]\n\n\nTarget relationship\nWe model lap-time improvement using simulator practice laps.\n\n\nAbout 98.8% of the variation in lap-time improvement is explained by practice laps through the fitted linear model."
+    "text": "Example: F1 Monaco Simulator Practice\n\n\n\n\nContext and question\n\nA Formula 1 team records fictional data from a Monaco simulator session.\nWe use the number of simulator practice laps to predict lap-time improvement, measured in seconds.\n\nx = simulator practice laps\ny = lap-time improvement in seconds\n\nThe fitted regression line is:\n\nŷ = −0.098 + 0.141x\n\n\n\n\nObserved data\n\n\n\n\n\nPractice laps, x\n\n\nLap-time improvement, y\n\n\n\n\n\n\n5\n\n\n0.6\n\n\n\n\n8\n\n\n1.0\n\n\n\n\n10\n\n\n1.4\n\n\n\n\n12\n\n\n1.5\n\n\n\n\n15\n\n\n2.1\n\n\n\n\n18\n\n\n2.4\n\n\n\n\n\n\n\n\nGoal of the example\n\n\n\nWe want to split the total variation in lap-time improvement into:\n\n\nSSE: unexplained variation left in the residuals\n\n\nSSR: variation explained by the fitted regression line\n\n\nSST: total variation in the observed response values\n\n\nThen we compute R², the proportion of total variation explained by simulator practice laps through the fitted linear model.\n\n\n\n\nVariance decomposition\n\n\nSST = SSR + SSE\n\n\n\n\nCoefficient of determination\n\n\nR² = SSR / SST"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-ishowspeed-charity-stream-teasers",
@@ -3700,14 +3700,14 @@
     "href": "Chapter Slides/chapter9-slides.html#example-starbucks-mobile-order-queue",
     "title": "STA258",
     "section": "Example: Starbucks Mobile-Order Queue",
-    "text": "Example: Starbucks Mobile-Order Queue\n\n\nA Starbucks location studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n\\[\ns^2=\n\\frac{1.328}{8-2}\n=\n0.221\n\\]\n\\[\ns=\\sqrt{0.221}=0.470\n\\]\n\\[\nSE(\\hat{\\beta}_1)=\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\n\\]\n\\[\nt=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\]\n\\[\n95\\%\\ CI:\n\\quad\n1.038\\pm2.447(0.043)\n=\n(0.932,\\;1.144)\n\\]\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
+    "text": "Example: Starbucks Mobile-Order Queue\n\n\nA Starbucks location studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n$$ \\[\\begin{align}\ns^2 &=\n\\frac{1.328}{8-2}\n=\n0.221\\\\\n\ns &=\\sqrt{0.221}=0.470\nSE(\\hat{\\beta}_1) =\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\\\\\n\nt &=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\end{align}\\]\n95% CI: (0.043) = (0.932,;1.144) $$\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
     "title": "STA258",
     "section": "Check in R: Slope Test and Confidence Interval",
-    "text": "Check in R: Slope Test and Confidence Interval\n\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nStarbucks queue example"
+    "text": "Check in R: Slope Test and Confidence Interval\n\n\n\n\nEvent flyers example\n\n\n\n\n\n\n\n\n\n\n\n\nCoffee shop queue example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-ishowspeed-teaser-clips",
@@ -3945,7 +3945,7 @@
     "href": "Chapter Slides/chapter9-slides.html#example-late-night-tiktok-scrolling-and-quiz-scores",
     "title": "STA258",
     "section": "Example: Late-Night TikTok Scrolling and Quiz Scores",
-    "text": "Example: Late-Night TikTok Scrolling and Quiz Scores\n\n\nA student group collects fictional data on late-night TikTok scrolling before a morning quiz.\n\n\n\nTikTok minutes after midnight \\((x)\\)\nQuiz score \\((y)\\)\n\n\n\n\n15\n88\n\n\n30\n84\n\n\n45\n76\n\n\n60\n71\n\n\n75\n63\n\n\n90\n58\n\n\n\nCompute and interpret the sample correlation.\n\n\nCalculation\n\\[\n\\bar{x}=52.500,\n\\qquad\n\\bar{y}=73.333\n\\]\n\\[\ns_x=28.062,\n\\qquad\ns_y=11.690\n\\]\n\\[\ns_{xy}\n=\n\\frac{1}{6-1}\n\\sum(x_i-\\bar{x})(y_i-\\bar{y})\n=\n-327.000\n\\]\n\\[\nr=\n\\frac{s_{xy}}{s_xs_y}\n=\n\\frac{-327.000}{(28.062)(11.690)}\n=\n-0.997\n\\]\n\\[\nr^2=0.994\n\\]\n\n\nTarget relationship\nWe compare late-night TikTok scrolling time and morning quiz score.\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\nThe correlation is -0.997, so the relationship is strongly negative: students who scrolled longer after midnight tended to have lower quiz scores."
+    "text": "Example: Late-Night TikTok Scrolling and Quiz Scores\n\n\n\nA student group collects fictional data on late-night TikTok scrolling before a morning quiz.\n\n\n\nTikTok minutes after midnight \\((x)\\)\nQuiz score \\((y)\\)\n\n\n\n\n15\n88\n\n\n30\n84\n\n\n45\n76\n\n\n60\n71\n\n\n75\n63\n\n\n90\n58\n\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\nCalculation\n\n\n\nSummary work\n\n\n\\(\\bar{x}=\\dfrac{15+30+45+60+75+90}{6}=52.500\\)\n\\(\\bar{y}=\\dfrac{88+84+76+71+63+58}{6}=73.333\\)\n\n\nDeviation sums\n\n\n\\(\\sum (x_i-\\bar{x})^2=3937.500\\)\n\\(\\sum (y_i-\\bar{y})^2=683.333\\)\n\\(\\sum (x_i-\\bar{x})(y_i-\\bar{y})=-1635.000\\)\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{\\dfrac{3937.500}{6-1}}=28.062\\)\n\\(s_y=\\sqrt{\\dfrac{683.333}{6-1}}=11.690\\)\n\n\nCovariance and correlation\n\n\n\\(s_{xy}=\\dfrac{-1635.000}{6-1}=-327.000\\)\n\\(r=\\dfrac{s_{xy}}{s_xs_y}\n=\\dfrac{-327.000}{(28.062)(11.690)}\n=-0.997\\)\n\n\n\\(r^2=(-0.997)^2=0.994\\)\n\n\n\n\n\nTarget relationship\nWe compare late-night TikTok scrolling time and morning quiz score.\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\nThe correlation is -0.997, so the relationship is strongly negative: students who scrolled longer after midnight tended to have lower quiz scores."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-delays-and-commute-time",
@@ -5024,5 +5024,143 @@
     "title": "STA258",
     "section": "Pomodoro: Difference Table",
     "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"
+    "objectID": "Chapter Slides/chapter9-slides.html#example-practice-problems-and-quiz-score",
+    "href": "Chapter Slides/chapter9-slides.html#example-practice-problems-and-quiz-score",
+    "title": "STA258",
+    "section": "Example: Practice Problems and Quiz Score",
+    "text": "Example: Practice Problems and Quiz Score\n\n\nA class collects fictional data on how many practice problem sets students completed before a quiz.\n\n\n\nPractice sets completed \\((x)\\)\nQuiz score \\((y)\\)\n\n\n\n\n2\n41\n\n\n3\n47\n\n\n4\n50\n\n\n5\n56\n\n\n6\n61\n\n\n7\n65\n\n\n8\n70\n\n\n9\n75\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=5.500,\n\\qquad\n\\bar{y}=58.125\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=201.500\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{S_{xy}}{S_{xx}}\n=\n\\frac{201.500}{42.000}\n=\n4.798\n\\]\n\\[\n\\hat{\\beta}_0=\n58.125-4.798(5.500)\n=\n31.738\n\\]\n\\[\n\\hat{y}=31.738+4.798x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{quiz score}\n\\]\nusing:\n\\[\nx=\\text{practice sets completed}\n\\]\n\n\nFor each additional practice set completed, the predicted quiz score increases by about 4.80 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-study-hours-and-assignment-score",
+    "href": "Chapter Slides/chapter9-slides.html#example-study-hours-and-assignment-score",
+    "title": "STA258",
+    "section": "Example: Study Hours and Assignment Score",
+    "text": "Example: Study Hours and Assignment Score\n\n\nA student support team collects fictional data on how many hours students spent studying for an assignment.\n\n\n\nStudy hours \\((x)\\)\nAssignment score \\((y)\\)\n\n\n\n\n3\n52\n\n\n4\n57\n\n\n5\n61\n\n\n6\n63\n\n\n7\n70\n\n\n8\n73\n\n\n9\n78\n\n\n10\n82\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=6.500,\n\\qquad\n\\bar{y}=67.000\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=179.000\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{179.000}{42.000}\n=\n4.262\n\\]\n\\[\n\\hat{\\beta}_0=\n67.000-4.262(6.500)\n=\n39.298\n\\]\n\\[\n\\hat{y}=39.298+4.262x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{assignment score}\n\\]\nusing:\n\\[\nx=\\text{study hours}\n\\]\n\n\nFor each additional hour studied, the predicted assignment score increases by about 4.26 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth",
+    "href": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth",
+    "title": "STA258",
+    "section": "Example: Sunlight and Plant Growth",
+    "text": "Example: Sunlight and Plant Growth\n\n\n\nContext and question\nA greenhouse records fictional data on how much sunlight different plants receive and how tall they are after several weeks.\nWe use sunlight hours per day to study its relationship with plant height.\n\\[\nx=\\text{sunlight hours per day},\n\\qquad\ny=\\text{plant height in cm}\n\\]\nCompute and interpret the sample correlation, \\(r\\).\n\n\nObserved data\n\n\n\n\nSunlight hours per day, (x)\n\n\nPlant height in cm, (y)\n\n\n\n\n\n\n1\n\n\n18\n\n\n\n\n2\n\n\n21\n\n\n\n\n4\n\n\n34\n\n\n\n\n6\n\n\n43\n\n\n\n\n7\n\n\n48\n\n\n\n\n\n\n\nGoal of the example\n\n\n\nWe want to measure the strength and direction of the linear relationship between sunlight and plant height. This means computing the covariance, then standardizing it into a correlation.\n\n\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\n\n\nCovariance \\[\ns_{xy}=\\frac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})\n\\]\n\n\nCorrelation \\[\nr=\\frac{s_{xy}}{s_xs_y}\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-event-flyers-and-sign-ups",
+    "href": "Chapter Slides/chapter9-slides.html#example-event-flyers-and-sign-ups",
+    "title": "STA258",
+    "section": "Example: Event Flyers and Sign-Ups",
+    "text": "Example: Event Flyers and Sign-Ups\n\n\nA student club studies fictional data from a community event promotion.\nFor each day:\n\n\\(x=\\) flyers posted around campus\n\\(y=\\) new sign-ups in tens\n\nData:\n\\[\nx: 1,\\;2,\\;3,\\;4,\\;5\n\\]\n\\[\ny: 1,\\;1,\\;2,\\;2,\\;4\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nFrom least squares:\n\\[\n\\hat{y}=-0.100+0.700x\n\\]\n\\[\nSSE=1.100,\n\\qquad\nS_{xx}=10.000,\n\\qquad\nn=5\n\\]\n\\[\ns^2=\n\\frac{SSE}{n-2}\n=\n\\frac{1.100}{3}\n=\n0.3667\n\\]\n\\[\ns=\\sqrt{0.3667}=0.6055\n\\]\n\\[\nSE(\\hat{\\beta}_1)=\n\\frac{0.6055}{\\sqrt{10}}\n=\n0.1915\n\\]\n\\[\nt=\n\\frac{0.700}{0.1915}\n=\n3.656,\n\\qquad\ndf=3\n\\]\n\\[\n95\\%\\ CI:\n\\quad\n0.700\\pm3.182(0.1915)\n=\n(0.091,\\;1.309)\n\\]\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_3\\).\n\n\nSince the p-value is about 0.035, we reject \\(H_0\\) at the 5% level. There is evidence of a positive linear relationship between flyers posted and new sign-ups."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-coffee-shop-mobile-order-queue",
+    "href": "Chapter Slides/chapter9-slides.html#example-coffee-shop-mobile-order-queue",
+    "title": "STA258",
+    "section": "Example: Coffee Shop Mobile-Order Queue",
+    "text": "Example: Coffee Shop Mobile-Order Queue\n\n\nA coffee shop studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n$$ \\[\\begin{align}\ns^2 &=\n\\frac{1.328}{8-2}\n=\n0.221\\\\\n\ns &=\\sqrt{0.221}=0.470\nSE(\\hat{\\beta}_1) =\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\\\\\n\nt &=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\end{align}\\]\n95% CI: (0.043) = (0.932,;1.144) $$\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-event-flyers-and-sign-ups",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-event-flyers-and-sign-ups",
+    "title": "STA258",
+    "section": "Example: ANOVA for Event Flyers and Sign-Ups",
+    "text": "Example: ANOVA for Event Flyers and Sign-Ups\n\n\nReturn to the event flyers and sign-ups example.\nThe fitted line is:\n\\[\n\\hat{y}=-0.100+0.700x.\n\\]\nThe variation quantities are:\n\\[\nSST=6.000,\n\\qquad\nSSR=4.900,\n\\qquad\nSSE=1.100.\n\\]\nQuestion. Construct the ANOVA table and test whether the regression model explains a meaningful amount of variation in new sign-ups.\n\n\nANOVA calculations\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n4.900\n1\n4.900\n13.364\n\n\nError\n1.100\n3\n0.367\n\n\n\nTotal\n6.000\n4\n\n\n\n\n\n\\[\nMSR=\\frac{SSR}{1}=4.900\n\\]\n\\[\nMSE=\\frac{SSE}{n-2}\n=\n\\frac{1.100}{3}\n=\n0.3667\n\\]\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{4.900}{0.3667}\n=\n13.364\n\\]\nSince (p=0.0354&lt;0.05), reject (H_0:_1=0).\n\n\nTarget question\nDoes the number of flyers posted explain a statistically meaningful amount of variation in new sign-ups?\n\n\nThe ANOVA test gives evidence that flyers posted are linearly related to new sign-ups in this fictional example."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-charging-time-and-battery-level",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-charging-time-and-battery-level",
+    "title": "STA258",
+    "section": "Example: ANOVA for Charging Time and Battery Level",
+    "text": "Example: ANOVA for Charging Time and Battery Level\n\n\nA device lab studies fictional data on battery charging.\nFor each device:\n\n\\(x=\\) charging time in hours\n\\(y=\\) battery level increase in percentage points\n\nThe fitted line is:\n\\[\n\\hat{y}=12.400+5.886x.\n\\]\nThe variation quantities are:\n\\[\nSST=610.000,\n\\qquad\nSSR=606.229,\n\\qquad\nSSE=3.771.\n\\]\nQuestion. Construct the ANOVA table and test whether charging time explains a meaningful amount of variation in battery level increase.\n\n\nCalculation\nThere are \\(n=6\\) devices, so:\n\\[\ndf_{\\text{Reg}}=1,\n\\qquad\ndf_{\\text{Error}}=6-2=4,\n\\qquad\ndf_{\\text{Total}}=5.\n\\]\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n606.229\n1\n606.229\n642.970\n\n\nError\n3.771\n4\n0.943\n\n\n\nTotal\n610.000\n5\n\n\n\n\n\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{606.229}{0.943}\n=\n642.970\n\\]\nThe p-value is less than 0.001.\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe ANOVA \\(F\\)-test checks whether the regression model explains meaningful variation compared with the leftover residual variation.\n\n\nSince the p-value is very small, we reject \\(H_0\\). There is strong evidence that charging time is linearly related to battery level increase in this fictional dataset."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-what-residuals-look-like",
+    "href": "Chapter Slides/chapter9-slides.html#visual-what-residuals-look-like",
+    "title": "STA258",
+    "section": "Visual: What Residuals Look Like",
+    "text": "Visual: What Residuals Look Like"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-a-good-residual-plot",
+    "href": "Chapter Slides/chapter9-slides.html#visual-a-good-residual-plot",
+    "title": "STA258",
+    "section": "Visual: A Good Residual Plot",
+    "text": "Visual: A Good Residual Plot"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#least-squares-method-1",
+    "href": "Chapter Slides/chapter9-slides.html#least-squares-method-1",
+    "title": "STA258",
+    "section": "9.1.1 Least Squares Method",
+    "text": "9.1.1 Least Squares Method\n\nA residual is the difference between an observed data point and a fitted value from the regression model:\n\\[\ne_i = y_i - \\hat{y}_i.\n\\]\nIt is the vertical distance from the observed value to the fitted line.\n\n\n\n\n\n\n\n\n\n\n\n\nIf \\(e_i &gt; 0\\), the point is above the fitted line.\nThe model underpredicted the response.\n\n\nIf \\(e_i &lt; 0\\), the point is below the fitted line.\nThe model overpredicted the response."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time",
+    "href": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time",
+    "title": "STA258",
+    "section": "Example: TTC Stops and Commute Time",
+    "text": "Example: TTC Stops and Commute Time\n\n\n\nContext and question\nA student tracks fictional TTC trips during a week with random delays.\nWe use the number of stations travelled to predict commute time, measured in minutes.\n\\[\nx=\\text{stations travelled},\n\\qquad\ny=\\text{commute time}\n\\]\nThe fitted regression line is:\n\\[\n\\hat{y}=1.310+3.357x\n\\]\n\n\nObserved data\n\n\n\n\nStations travelled, (x)\n\n\nCommute time, (y)\n\n\n\n\n\n\n3\n\n\n12\n\n\n\n\n5\n\n\n22\n\n\n\n\n7\n\n\n18\n\n\n\n\n9\n\n\n36\n\n\n\n\n11\n\n\n31\n\n\n\n\n13\n\n\n50\n\n\n\n\n\n\n\nGoal of the example\nWe want to split the total variation in commute time into:\n\\[\nSST = SSR + SSE\n\\]\nThen we compute:\n\\[\nR^2=\\frac{SSR}{SST}\n\\]\nto measure how much of the variation in commute time is explained by stations travelled through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-simulator-practice",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-simulator-practice",
+    "title": "STA258",
+    "section": "Example Continued: F1 Monaco Simulator Practice",
+    "text": "Example Continued: F1 Monaco Simulator Practice\n\n\nStep 1: Use (x) to get ()\nUsing ( = -0.098 + 0.141x):\n\n\n\n(x)\nSubstitute into fitted line\n()\n\n\n\n\n5\n(-0.098 + 0.141(5))\n0.607\n\n\n8\n(-0.098 + 0.141(8))\n1.030\n\n\n10\n(-0.098 + 0.141(10))\n1.312\n\n\n12\n(-0.098 + 0.141(12))\n1.594\n\n\n15\n(-0.098 + 0.141(15))\n2.017\n\n\n18\n(-0.098 + 0.141(18))\n2.440\n\n\n\n\n\nStep 2: Build the variation table\nHere ({y}=1.500).\n\n\n\n\n\n\n\n\n\n\n\n(x)\n(y)\n()\n((y-)^2)\n((-{y})^2)\n((y-{y})^2)\n\n\n\n\n5\n0.6\n0.607\n0.000\n0.798\n0.810\n\n\n8\n1.0\n1.030\n0.001\n0.221\n0.250\n\n\n10\n1.4\n1.312\n0.008\n0.035\n0.010\n\n\n12\n1.5\n1.594\n0.009\n0.009\n0.000\n\n\n15\n2.1\n2.017\n0.007\n0.267\n0.360\n\n\n18\n2.4\n2.440\n0.002\n0.884\n0.810\n\n\n\n\n\n0.026\n2.214\n2.240\n\n\n\n\n\nConclusion\n[ SSE = 0.026 ]\n[ SSR = 2.214 ]\n[ SST = 2.240 ]\n[ SSR + SSE = 2.214 + 0.026 = 2.240 = SST ]\n[ R^2 = = = 0.988 ]\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-practice",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-practice",
+    "title": "STA258",
+    "section": "Example Continued: F1 Monaco Practice",
+    "text": "Example Continued: F1 Monaco Practice\n\n\nStep 1: Use x to get ŷ\nUsing (=-0.098+0.141x):\n\n\n\n\nx\n\n\nSubstitution\n\n\nŷ\n\n\n\n\n\n\n5\n\n\n−0.098 + 0.141(5)\n\n\n0.607\n\n\n\n\n8\n\n\n−0.098 + 0.141(8)\n\n\n1.030\n\n\n\n\n10\n\n\n−0.098 + 0.141(10)\n\n\n1.312\n\n\n\n\n12\n\n\n−0.098 + 0.141(12)\n\n\n1.594\n\n\n\n\n15\n\n\n−0.098 + 0.141(15)\n\n\n2.017\n\n\n\n\n18\n\n\n−0.098 + 0.141(18)\n\n\n2.440\n\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=1.500\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum (y_i-\\hat{y}_i)^2=0.026\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=2.214\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=2.240\n\\]\nCheck:\n\\[\nSSR+SSE=2.214+0.026=2.240=SST\n\\]\n\\[\nR^2=\\frac{SSR}{SST}\n=\\frac{2.214}{2.240}\n=0.988\n\\]\n\n\nConclusion\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model.\n\n\nStep 2: Build the variation table\n\n\n\n\nx\n\n\ny\n\n\nŷ\n\n\nSSE part:(y − ŷ)2\n\n\nSSR part:(ŷ − ȳ)2\n\n\nSST part:(y − ȳ)2\n\n\n\n\n\n\n5\n\n\n0.6\n\n\n0.607\n\n\n0.000\n\n\n0.798\n\n\n0.810\n\n\n\n\n8\n\n\n1.0\n\n\n1.030\n\n\n0.001\n\n\n0.221\n\n\n0.250\n\n\n\n\n10\n\n\n1.4\n\n\n1.312\n\n\n0.008\n\n\n0.035\n\n\n0.010\n\n\n\n\n12\n\n\n1.5\n\n\n1.594\n\n\n0.009\n\n\n0.009\n\n\n0.000\n\n\n\n\n15\n\n\n2.1\n\n\n2.017\n\n\n0.007\n\n\n0.267\n\n\n0.360\n\n\n\n\n18\n\n\n2.4\n\n\n2.440\n\n\n0.002\n\n\n0.884\n\n\n0.810\n\n\n\n\n\n\n\n\nTotal\n\n\n0.026\n\n\n2.214\n\n\n2.240"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-finding-fitted-values",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-finding-fitted-values",
+    "title": "STA258",
+    "section": "Example Continued: Finding Fitted Values",
+    "text": "Example Continued: Finding Fitted Values\n\n\nStep 1\nUse each (x)-value in the fitted line:\n\\[\n\\hat{y} = -0.098 + 0.141x\n\\]\nFor example, when (x=5):\n\\[\n\\hat{y} = -0.098 + 0.141(5) = 0.607\n\\]\n\n\nPredicted values\n\n\n\n(x)\nSubstitute into fitted line\n()\n\n\n\n\n5\n(-0.098 + 0.141(5))\n0.607\n\n\n8\n(-0.098 + 0.141(8))\n1.030\n\n\n10\n(-0.098 + 0.141(10))\n1.312\n\n\n12\n(-0.098 + 0.141(12))\n1.594\n\n\n15\n(-0.098 + 0.141(15))\n2.017\n\n\n18\n(-0.098 + 0.141(18))\n2.440\n\n\n\n\n\nWhy this matters\nOnce we have (), we can compare:\n[ y_i _i ]\nThis gives the unexplained variation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-variation-and-r2",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-variation-and-r2",
+    "title": "STA258",
+    "section": "Example Continued: Variation and (R^2)",
+    "text": "Example Continued: Variation and (R^2)\n\n\nVariation table\nHere ({y}=1.500).\n\n\n\n\n\n\n\n\n\n\n\n(x)\n(y)\n()\nSSE part: ((y-)^2)\nSSR part: ((-{y})^2)\nSST part: ((y-{y})^2)\n\n\n\n\n5\n0.6\n0.607\n0.000\n0.798\n0.810\n\n\n8\n1.0\n1.030\n0.001\n0.221\n0.250\n\n\n10\n1.4\n1.312\n0.008\n0.035\n0.010\n\n\n12\n1.5\n1.594\n0.009\n0.009\n0.000\n\n\n15\n2.1\n2.017\n0.007\n0.267\n0.360\n\n\n18\n2.4\n2.440\n0.002\n0.884\n0.810\n\n\n\n\nTotal\n0.026\n2.214\n2.240\n\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=1.500\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum(y_i-\\hat{y}_i)^2=0.026\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=2.214\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=2.240\n\\]\n\n\nCheck and conclusion\n\\[\nSSR+SSE=2.214+0.026=2.240=SST\n\\]\n\\[\nR^2=\\frac{SSR}{SST}\n=\\frac{2.214}{2.240}\n=0.988\n\\]\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-1",
+    "href": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-1",
+    "title": "STA258",
+    "section": "Example: F1 Monaco Simulator Practice",
+    "text": "Example: F1 Monaco Simulator Practice\n\n\n\n\nPredicted values\n\n\nUse the fitted line: ŷ = −0.098 + 0.141x.\n\n\n\n\n\nx\n\n\nPlug into fitted line\n\n\nŷi\n\n\n\n\n\n\n5\n\n\n−0.098 + 0.141(5)\n\n\n0.607\n\n\n\n\n8\n\n\n−0.098 + 0.141(8)\n\n\n1.030\n\n\n\n\n10\n\n\n−0.098 + 0.141(10)\n\n\n1.312\n\n\n\n\n12\n\n\n−0.098 + 0.141(12)\n\n\n1.594\n\n\n\n\n15\n\n\n−0.098 + 0.141(15)\n\n\n2.017\n\n\n\n\n18\n\n\n−0.098 + 0.141(18)\n\n\n2.440\n\n\n\n\n\n\n\nVariation table\n\n\nHere ȳ = 1.500. The three right-hand columns correspond to SSE, SSR, and SST.\n\n\n\n\n\nx\n\n\ny\n\n\nŷi\n\n\n(yi − ŷi)2\n\n\n(ŷi − ȳ)2\n\n\n(yi − ȳ)2\n\n\n\n\n\n\n5\n\n\n0.6\n\n\n0.607\n\n\n0.000\n\n\n0.798\n\n\n0.810\n\n\n\n\n8\n\n\n1.0\n\n\n1.030\n\n\n0.001\n\n\n0.221\n\n\n0.250\n\n\n\n\n10\n\n\n1.4\n\n\n1.312\n\n\n0.008\n\n\n0.035\n\n\n0.010\n\n\n\n\n12\n\n\n1.5\n\n\n1.594\n\n\n0.009\n\n\n0.009\n\n\n0.000\n\n\n\n\n15\n\n\n2.1\n\n\n2.017\n\n\n0.007\n\n\n0.267\n\n\n0.360\n\n\n\n\n18\n\n\n2.4\n\n\n2.440\n\n\n0.002\n\n\n0.884\n\n\n0.810\n\n\n\n\nTotals\n\n\n\n\n\n\nSSE = 0.026\n\n\nSSR = 2.214\n\n\nSST = 2.240"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time-1",
+    "href": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time-1",
+    "title": "STA258",
+    "section": "Example: TTC Stops and Commute Time",
+    "text": "Example: TTC Stops and Commute Time\n\n\n\n\nPredicted values\n\n\nUse the fitted line: ŷ = 1.310 + 3.357x.\n\n\n\n\nx\nPlug into fitted line\nŷ\n\n\n\n\n3\n1.310 + 3.357(3)\n11.381\n\n\n5\n1.310 + 3.357(5)\n18.095\n\n\n7\n1.310 + 3.357(7)\n24.810\n\n\n9\n1.310 + 3.357(9)\n31.524\n\n\n11\n1.310 + 3.357(11)\n38.238\n\n\n13\n1.310 + 3.357(13)\n44.952\n\n\n\n\n\n\nVariation table\n\n\nHere ȳ = 28.167. The three variation columns correspond to SSE, SSR, and SST.\n\n\n\n\n\n\n\n\n\n\n\n\nx\ny\nŷ\nResidual part\nRegression part\nTotal part\n\n\n\n\n3\n12\n11.381\n0.383\n281.760\n261.361\n\n\n5\n22\n18.095\n15.247\n101.434\n38.028\n\n\n7\n18\n24.810\n46.370\n11.270\n103.361\n\n\n9\n36\n31.524\n20.036\n11.270\n61.361\n\n\n11\n31\n38.238\n52.390\n101.434\n8.028\n\n\n13\n50\n44.952\n25.478\n281.760\n476.694\n\n\nTotals\n\n\nSSE = 159.905\nSSR = 788.929\nSST = 948.833\n\n\n\n\n\n\n\n\nCalculation\n\n\n\n\n\nMean response\n\n\nȳ = 28.167\n\n\n\n\nUnexplained variation\n\n\nSSE = Σ(yᵢ − ŷᵢ)² = 159.905\n\n\n\n\nExplained variation\n\n\nSSR = Σ(ŷᵢ − ȳ)² = 788.929\n\n\n\n\nTotal variation\n\n\nSST = Σ(yᵢ − ȳ)² = 948.833\n\n\n\n\n\n\nCheck\n\n\nSSR + SSE = 788.929 + 159.905 = 948.833\n\n\nThis matches SST, up to rounding.\n\n\n\n\nCoefficient of determination\n\n\nR² = SSR / SST\n\n\nR² = 788.929 / 948.833 = 0.831\n\n\n\n\n\n\n\nConclusion\n\n\nR² = 0.831, so about 83.1% is explained.\n\nAbout 83.1% of the variation in commute time is explained by stations travelled through the fitted linear model.\nThe unexplained variation is still noticeable: SSE = 159.905.\nThis makes sense because commute time can also be affected by delays, crowding, and waiting time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores",
+    "href": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores",
+    "title": "STA258",
+    "section": "Example: Late-Night Scrolling and Quiz Scores",
+    "text": "Example: Late-Night Scrolling and Quiz Scores\n\n\n\nA student group collects fictional data on late-night scrolling before a morning quiz.\n\n\n\nMinutes after midnight \\((x)\\)\nQuiz score \\((y)\\)\n\n\n\n\n15\n88\n\n\n30\n84\n\n\n45\n76\n\n\n60\n71\n\n\n75\n63\n\n\n90\n58\n\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\nCalculation\n\n\n\nSummary work\n\n\n\\(15+30+45+60+75+90=315\\)\n\\(\\bar{x}=\\dfrac{315}{6}=52.500\\)\n\\(88+84+76+71+63+58=440\\)\n\\(\\bar{y}=\\dfrac{440}{6}=73.333\\)\n\n\nDeviation sums\n\n\n\\(\\sum (x_i-\\bar{x})^2=3937.500\\)\n\\(\\sum (y_i-\\bar{y})^2=683.333\\)\n\\(\\sum (x_i-\\bar{x})(y_i-\\bar{y})=-1635.000\\)\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{\\dfrac{3937.500}{6-1}}=28.062\\)\n\\(s_y=\\sqrt{\\dfrac{683.333}{6-1}}=11.690\\)\n\n\nCovariance and correlation\n\n\n\\(s_{xy}=\\dfrac{-1635.000}{6-1}=-327.000\\)\n\\(r=\\dfrac{s_{xy}}{s_xs_y}\n=\\dfrac{-327.000}{(28.062)(11.690)}\n=-0.997\\)\n\n\n\\(r^2=(-0.997)^2=0.994\\)\n\n\n\n\n\nTarget relationship\nWe compare late-night scrolling time and morning quiz score.\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\nThe correlation is -0.997, so the relationship is strongly negative: students who scrolled longer after midnight tended to have lower quiz scores."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-2",
+    "href": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-2",
+    "title": "STA258",
+    "section": "Example: F1 Monaco Simulator Practice",
+    "text": "Example: F1 Monaco Simulator Practice\n\n\n\n\nCalculation summary\n\n\n\n\n\nQuantity\n\n\nValue\n\n\nMeaning\n\n\n\n\n\n\nSSE\n\n\n0.026\n\n\nvariation left unexplained by the fitted line\n\n\n\n\nSSR\n\n\n2.214\n\n\nvariation explained by the fitted line\n\n\n\n\nSST\n\n\n2.240\n\n\ntotal variation in lap-time improvement\n\n\n\n\n\nR2 = SSR / SST = 2.214 / 2.240 = 0.988\n\n\n\n\nConclusion\n\n\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps.\n\nThe explained variation is much larger than the unexplained variation, so the fitted line summarizes this fictional Monaco simulator data very well.\nIn context, drivers with more simulator practice laps tended to show larger lap-time improvements.\n\nThis is a strong linear association in the sample, but it does not prove that practice laps alone caused the improvement."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth-1",
+    "href": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth-1",
+    "title": "STA258",
+    "section": "Example: Sunlight and Plant Growth",
+    "text": "Example: Sunlight and Plant Growth\n\n\n\n\nStep-by-step deviations and products\n\n\nHere \\(\\bar{x}=4.000\\) and \\(\\bar{y}=32.800\\). Each row shows the building blocks for covariance and correlation.\n\n\n\n\n\nxi\n\n\nyi\n\n\nxi − x̄\n\n\nyi − ȳ\n\n\n(xi − x̄)(yi − ȳ)\n\n\n(xi − x̄)2\n\n\n(yi − ȳ)2\n\n\n\n\n\n\n1\n\n\n18\n\n\n−3.000\n\n\n−14.800\n\n\n44.400\n\n\n9.000\n\n\n219.040\n\n\n\n\n2\n\n\n21\n\n\n−2.000\n\n\n−11.800\n\n\n23.600\n\n\n4.000\n\n\n139.240\n\n\n\n\n4\n\n\n34\n\n\n0.000\n\n\n1.200\n\n\n0.000\n\n\n0.000\n\n\n1.440\n\n\n\n\n6\n\n\n43\n\n\n2.000\n\n\n10.200\n\n\n20.400\n\n\n4.000\n\n\n104.040\n\n\n\n\n7\n\n\n48\n\n\n3.000\n\n\n15.200\n\n\n45.600\n\n\n9.000\n\n\n231.040\n\n\n\n\nTotals\n\n\n\n\n\n\n\n\n134.000\n\n\n26.000\n\n\n694.800\n\n\n\n\n\n\n\n\nCalculation\n\n\n\n\nStandard deviation of \\(x\\)\n\n\n\\(s_x=\\sqrt{26.000/4}=2.550\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=134.000/4=33.500\\)\n\n\n\n\nStandard deviation of \\(y\\)\n\n\n\\(s_y=\\sqrt{694.800/4}=13.180\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{33.500}{(2.550)(13.180)}=0.997\\)\n\n\n\n\n\n\nConclusion\n\n\n\\(r=0.997 \\quad \\text{and} \\quad r^2=0.994\\)\n\nThe correlation is 0.997, which is strongly positive: plants that received more sunlight tended to be taller.\nAbout 99.4% of the variation in plant height lines up with the linear trend in sunlight hours."
   }
 ]

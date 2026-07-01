@@ -724,8 +724,6 @@ $$
 
 ---
 
----
-
 ## ANOVA as a Prediction Problem {.compact .anova-prediction}
 
 :::: {.prediction-flow style="display:grid; grid-template-rows: auto auto auto; gap: 10px; align-items: stretch;"}
@@ -1687,6 +1685,56 @@ plot_ly(
 The **red dots** show the sample mean watch time for each edit style. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
 :::
 
+
+---
+
+## Check in R: One-Way ANOVA {.compact-r}
+
+:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Campus café example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+wait_time <- c(5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
+               6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
+               7.8, 8.8, 9.8, 10.6, 11.8, 12.4)
+
+system <- factor(rep(c("Mobile", "Kiosk", "Counter"), each = 6))
+
+fit <- aov(wait_time ~ system)
+
+anova(fit)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Short-form video example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+watch_time <- c(32, 36, 38, 40, 44,
+                39, 39, 44, 49, 49,
+                35, 40, 41, 42, 47,
+                46, 49, 52, 55, 58)
+
+style <- factor(rep(c("Clean", "Captions", "Meme", "Story"), each = 5))
+
+fit <- aov(watch_time ~ style)
+
+anova(fit)
+```
+:::
+
+::::
+
 ---
 
 ## What If ANOVA Rejects? {.compact .anova-rejects}
@@ -2519,7 +2567,7 @@ The **red dots** show the sample mean repair cost for each phone case design. Th
 
 ---
 
-## Check in R: Fisher's LSD Intervals {.compact-r}
+## Check in R: Fisher's LSD Comparisons {.compact-r}
 
 :::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
@@ -2531,8 +2579,6 @@ The **red dots** show the sample mean repair cost for each phone case design. Th
 ```{webr}
 #| autorun: false
 
-library(DescTools)
-
 score <- c(19, 20, 21, 23, 24, 25,
            24, 25, 26, 28, 29, 30,
            26, 27, 28, 29, 30, 31)
@@ -2541,7 +2587,11 @@ drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
 
 fit <- aov(score ~ drill)
 
-PostHocTest(fit, method = "lsd")
+anova(fit)
+
+pairwise.t.test(score, drill,
+                p.adjust.method = "none",
+                pool.sd = TRUE)
 ```
 :::
 
@@ -2553,8 +2603,6 @@ PostHocTest(fit, method = "lsd")
 ```{webr}
 #| autorun: false
 
-library(DescTools)
-
 cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
           73, 75, 77, 79, 79, 81, 83, 85,
           78, 80, 82, 84, 84, 86, 88, 90,
@@ -2564,7 +2612,11 @@ case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
 
 fit <- aov(cost ~ case)
 
-PostHocTest(fit, method = "lsd")
+anova(fit)
+
+pairwise.t.test(cost, case,
+                p.adjust.method = "none",
+                pool.sd = TRUE)
 ```
 :::
 

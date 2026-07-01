@@ -1488,6 +1488,10 @@ chi_star
 p_value
 ```
 
+::: {.thinkbox .fragment}
+Base R has no one-sample variance test, so the code builds $\chi^{2*}$ by hand from $n$ and $s$ and finds the p-value with `pchisq()`.
+:::
+
 ---
 
 ## 6.3 Two-Sample Test Targets

@@ -5002,7 +5002,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores",
     "title": "STA258",
     "section": "Visual: Badminton Drill Accuracy Scores",
-    "text": "Visual: Badminton Drill Accuracy Scores\n\n\n\n\n\n\n\nThe red dots show the group means. Static targets is clearly centered lower, while the two higher drill programs overlap more closely."
+    "text": "Visual: Badminton Drill Accuracy Scores\n\n\n\n\n\n\n\nThe red dots show the sample mean accuracy score for each drill program. The vertical bars show 95% confidence intervals for the group means, matching the textbook-style visual."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores",
@@ -5114,14 +5114,14 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-campus-café-pickup-systems",
     "title": "STA258",
     "section": "Visual: Campus Café Pickup Systems",
-    "text": "Visual: Campus Café Pickup Systems\n\n\n\n\n\n\n\nThe red dots show the group means. Counter order is centered higher than the other systems, which is why the ANOVA table gives a small p-value."
+    "text": "Visual: Campus Café Pickup Systems\n\n\n\n\n\n\n\nThe red dots show the sample mean pickup wait time for each ordering system. The vertical bars show 95% confidence intervals for the group means, matching the textbook-style visual."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#visual-short-form-video-edit-styles",
     "href": "Chapter Slides/chapter8-slides.html#visual-short-form-video-edit-styles",
     "title": "STA258",
     "section": "Visual: Short-Form Video Edit Styles",
-    "text": "Visual: Short-Form Video Edit Styles\n\n\n\n\n\n\n\nThe story hook group is clearly centered higher than the other edit styles. ANOVA confirms that the differences in group centers are large relative to the within-style variation."
+    "text": "Visual: Short-Form Video Edit Styles\n\n\n\n\n\n\n\nThe red dots show the sample mean watch time for each edit style. The vertical bars show 95% confidence intervals for the group means, matching the textbook-style visual."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova-tables",
@@ -5184,7 +5184,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-drop-test-costs",
     "title": "STA258",
     "section": "Visual: Phone Case Drop-Test Costs",
-    "text": "Visual: Phone Case Drop-Test Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design. The group centers increase from Clear to Rugged, matching the Bonferroni results."
+    "text": "Visual: Phone Case Drop-Test Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design. The vertical bars show 95% confidence intervals for the group means, matching the textbook-style visual."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#fishers-lsd",
@@ -5331,7 +5331,7 @@
     "href": "Chapter Slides/chapter8-slides.html#bonferroni-why-adjust",
     "title": "STA258",
     "section": "Bonferroni: Why Adjust?",
-    "text": "Bonferroni: Why Adjust?\n\n\nThe issue\nAfter ANOVA rejects, we may compare many pairs of means.\nEach pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making at least one false discovery.\n\n\n\n1. Count comparisons\nWith \\(k\\) groups, the number of pairwise comparisons is\n\\[\nm=\\binom{k}{2}.\n\\]\nFor example, if \\(k=4\\),\n\\[\nm=\\binom{4}{2}=6.\n\\]\n\n\n2. Adjust the critical value\nBonferroni uses a more conservative critical value:\n\\[\nt^*=t_{1-\\alpha/(2m),\\;n-k}.\n\\]\nBecause \\(\\alpha\\) is divided by \\(m\\), the critical value becomes larger.\n\n\n3. Wider intervals\nThe interval is still\n\\[\n(\\bar{x}_i-\\bar{x}_j)\\pm t^*SE.\n\\]\nBut Bonferroni has a larger \\(t^*\\), so the intervals become wider and harder to exclude 0.\n\n\n\nKey idea\nFisher’s LSD is more willing to declare differences.\nBonferroni is more cautious because it protects against doing many pairwise comparisons at once."
+    "text": "Bonferroni: Why Adjust?\n\n\nThe issue\nAfter ANOVA rejects, we may compare many pairs of means.\nEach pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making at least one false discovery.\n\n\n\n1. Count comparisons\nWith \\(k\\) groups, the number of pairwise comparisons is\n\\[\nm=\\binom{k}{2}.\n\\]\nFor example, if \\(k=4\\),\n\\[\nm=\\binom{4}{2}=6.\n\\]\n\n\n2. Experiment-wise error\nIf each comparison uses error rate \\(\\alpha\\), then the chance of making at least one Type I error is\n\\[\n\\alpha_E=1-(1-\\alpha)^m.\n\\]\nAs \\(m\\) increases, \\(\\alpha_E\\) increases.\n\n\n3. Bonferroni correction\nTo keep the overall error rate controlled, Bonferroni uses a smaller per-comparison level:\n\\[\n\\frac{\\alpha}{m}.\n\\]\nFor a two-sided interval, this gives\n\\[\nt^*=t_{1-\\alpha/(2m),\\;n-k}.\n\\]\n\n\n\nKey idea\nFisher’s LSD is more powerful, but it does not control the experiment-wise Type I error rate.\nBonferroni is more cautious: it uses wider intervals to protect against making false discoveries across many pairwise comparisons."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drills-bonferroni",

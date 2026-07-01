@@ -1363,51 +1363,70 @@ The ANOVA test tells us that at least one system has a different mean. It does *
 
 ```{r}
 #| echo: false
+#| warning: false
+#| message: false
+
 cafe <- data.frame(
   wait_time = c(5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
                 6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
                 7.8, 8.8, 9.8, 10.6, 11.8, 12.4),
-  system = factor(rep(c("Mobile order", "Kiosk order", "Counter order"), each = 6),
-                  levels = c("Mobile order", "Kiosk order", "Counter order"))
+  system = factor(
+    rep(c("Mobile order", "Kiosk order", "Counter order"), each = 6),
+    levels = c("Mobile order", "Kiosk order", "Counter order")
+  )
 )
 
-cafe_means <- cafe |>
+cafe_ci <- cafe |>
   group_by(system) |>
-  summarise(mean_wait = mean(wait_time), .groups = "drop")
+  summarise(
+    n = n(),
+    mean_wait = mean(wait_time),
+    sd_wait = sd(wait_time),
+    se = sd_wait / sqrt(n),
+    t_star = qt(0.975, df = n - 1),
+    lower = mean_wait - t_star * se,
+    upper = mean_wait + t_star * se,
+    .groups = "drop"
+  )
 
-plot_ly() |>
-  add_trace(
-    data = cafe,
-    x = ~system,
-    y = ~wait_time,
-    type = "box",
-    name = "",
-    boxpoints = FALSE,
-    whiskerwidth = 0.55,
-    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
-    fillcolor = "rgba(200,230,243,0.40)",
-    hovertemplate = "System: %{x}<br>Wait time: %{y:.1f}<extra></extra>",
-    showlegend = FALSE
-  ) |>
-  add_markers(
-    data = cafe_means,
-    x = ~system,
-    y = ~mean_wait,
-    marker = list(size = 9, color = plot_cols$red, symbol = "circle",
-                  line = list(color = "white", width = 1)),
-    hovertemplate = "System: %{x}<br>Mean wait: %{y:.1f}<extra></extra>",
-    showlegend = FALSE
-  ) |>
+plot_ly(
+  cafe_ci,
+  x = ~system,
+  y = ~mean_wait,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    size = 12,
+    color = plot_cols$red,
+    line = list(color = "white", width = 1.4)
+  ),
+  error_y = list(
+    type = "data",
+    array = ~upper - mean_wait,
+    arrayminus = ~mean_wait - lower,
+    color = "rgba(0,105,92,0.75)",
+    thickness = 2.3,
+    width = 8
+  ),
+  hovertemplate = paste(
+    "System: %{x}",
+    "<br>Mean wait time: %{y:.2f}",
+    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
+) |>
   plotly_anova_layout(
-    title = "Pickup wait times by ordering system",
+    title = "95% confidence intervals for mean pickup wait time by system",
     x_title = "Ordering system",
-    y_title = "Wait time (minutes)",
+    y_title = "Mean wait time (minutes)",
     height = 390,
     margin = list(l = 76, r = 25, t = 60, b = 70)
   ) |>
   layout(
     yaxis = list(
-      title = "Wait time (minutes)",
+      title = "Mean wait time (minutes)",
       zeroline = FALSE,
       showline = TRUE,
       fixedrange = TRUE,
@@ -1416,13 +1435,13 @@ plot_ly() |>
       tickmode = "linear",
       tick0 = 5,
       dtick = 1,
-      range = c(4.6, 12.8)
+      range = c(4.8, 12.4)
     )
   )
 ```
 
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the group means. Counter order is centered higher than the other systems, which is why the ANOVA table gives a small p-value.
+The **red dots** show the sample mean pickup wait time for each ordering system. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
 :::
 
 ---
@@ -1562,52 +1581,71 @@ The ANOVA test tells us that at least one edit style has a different mean. It do
 
 ```{r}
 #| echo: false
+#| warning: false
+#| message: false
+
 video <- data.frame(
   watch_time = c(32, 36, 38, 40, 44,
                  39, 39, 44, 49, 49,
                  35, 40, 41, 42, 47,
                  46, 49, 52, 55, 58),
-  style = factor(rep(c("Clean cut", "Captions-first", "Meme overlay", "Story hook"), each = 5),
-                 levels = c("Clean cut", "Captions-first", "Meme overlay", "Story hook"))
+  style = factor(
+    rep(c("Clean cut", "Captions-first", "Meme overlay", "Story hook"), each = 5),
+    levels = c("Clean cut", "Captions-first", "Meme overlay", "Story hook")
+  )
 )
 
-video_means <- video |>
+video_ci <- video |>
   group_by(style) |>
-  summarise(mean_watch = mean(watch_time), .groups = "drop")
+  summarise(
+    n = n(),
+    mean_watch = mean(watch_time),
+    sd_watch = sd(watch_time),
+    se = sd_watch / sqrt(n),
+    t_star = qt(0.975, df = n - 1),
+    lower = mean_watch - t_star * se,
+    upper = mean_watch + t_star * se,
+    .groups = "drop"
+  )
 
-plot_ly() |>
-  add_trace(
-    data = video,
-    x = ~style,
-    y = ~watch_time,
-    type = "box",
-    name = "",
-    boxpoints = FALSE,
-    whiskerwidth = 0.55,
-    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
-    fillcolor = "rgba(200,230,243,0.40)",
-    hovertemplate = "Style: %{x}<br>Watch time: %{y}<extra></extra>",
-    showlegend = FALSE
-  ) |>
-  add_markers(
-    data = video_means,
-    x = ~style,
-    y = ~mean_watch,
-    marker = list(size = 9, color = plot_cols$red, symbol = "circle",
-                  line = list(color = "white", width = 1)),
-    hovertemplate = "Style: %{x}<br>Mean watch time: %{y:.1f}<extra></extra>",
-    showlegend = FALSE
-  ) |>
+plot_ly(
+  video_ci,
+  x = ~style,
+  y = ~mean_watch,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    size = 12,
+    color = plot_cols$red,
+    line = list(color = "white", width = 1.4)
+  ),
+  error_y = list(
+    type = "data",
+    array = ~upper - mean_watch,
+    arrayminus = ~mean_watch - lower,
+    color = "rgba(0,105,92,0.75)",
+    thickness = 2.3,
+    width = 8
+  ),
+  hovertemplate = paste(
+    "Edit style: %{x}",
+    "<br>Mean watch time: %{y:.2f}",
+    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
+) |>
   plotly_anova_layout(
-    title = "Watch time by edit style",
+    title = "95% confidence intervals for mean watch time by edit style",
     x_title = "Edit style",
-    y_title = "Watch time (seconds)",
+    y_title = "Mean watch time (seconds)",
     height = 390,
     margin = list(l = 76, r = 25, t = 60, b = 82)
   ) |>
   layout(
     yaxis = list(
-      title = "Watch time (seconds)",
+      title = "Mean watch time (seconds)",
       zeroline = FALSE,
       showline = TRUE,
       fixedrange = TRUE,
@@ -1622,7 +1660,7 @@ plot_ly() |>
 ```
 
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **story hook** group is clearly centered higher than the other edit styles. ANOVA confirms that the differences in group centers are large relative to the within-style variation.
+The **red dots** show the sample mean watch time for each edit style. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
 :::
 
 ---
@@ -2187,51 +2225,70 @@ However, **Footwork + serve** and **Coach-fed targets** are not clearly differen
 
 ```{r}
 #| echo: false
+#| warning: false
+#| message: false
+
 badminton <- data.frame(
   score = c(19, 20, 21, 23, 24, 25,
             24, 25, 26, 28, 29, 30,
             26, 27, 28, 29, 30, 31),
-  drill = factor(rep(c("Static targets", "Footwork + serve", "Coach-fed targets"), each = 6),
-                 levels = c("Static targets", "Footwork + serve", "Coach-fed targets"))
+  drill = factor(
+    rep(c("Static targets", "Footwork + serve", "Coach-fed targets"), each = 6),
+    levels = c("Static targets", "Footwork + serve", "Coach-fed targets")
+  )
 )
 
-badminton_means <- badminton |>
+badminton_ci <- badminton |>
   group_by(drill) |>
-  summarise(mean_score = mean(score), .groups = "drop")
+  summarise(
+    n = n(),
+    mean_score = mean(score),
+    sd_score = sd(score),
+    se = sd_score / sqrt(n),
+    t_star = qt(0.975, df = n - 1),
+    lower = mean_score - t_star * se,
+    upper = mean_score + t_star * se,
+    .groups = "drop"
+  )
 
-plot_ly() |>
-  add_trace(
-    data = badminton,
-    x = ~drill,
-    y = ~score,
-    type = "box",
-    name = "",
-    boxpoints = FALSE,
-    whiskerwidth = 0.55,
-    line = list(color = "rgba(0,77,64,0.85)", width = 2.1),
-    fillcolor = "rgba(200,230,243,0.38)",
-    hovertemplate = "Drill: %{x}<br>Score: %{y}<extra></extra>",
-    showlegend = FALSE
-  ) |>
-  add_markers(
-    data = badminton_means,
-    x = ~drill,
-    y = ~mean_score,
-    marker = list(size = 9, color = plot_cols$red, symbol = "circle",
-                  line = list(color = "white", width = 1)),
-    hovertemplate = "Drill: %{x}<br>Mean score: %{y:.1f}<extra></extra>",
-    showlegend = FALSE
-  ) |>
+plot_ly(
+  badminton_ci,
+  x = ~drill,
+  y = ~mean_score,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    size = 12,
+    color = plot_cols$red,
+    line = list(color = "white", width = 1.4)
+  ),
+  error_y = list(
+    type = "data",
+    array = ~upper - mean_score,
+    arrayminus = ~mean_score - lower,
+    color = "rgba(0,105,92,0.75)",
+    thickness = 2.3,
+    width = 8
+  ),
+  hovertemplate = paste(
+    "Drill: %{x}",
+    "<br>Mean score: %{y:.2f}",
+    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
+) |>
   plotly_anova_layout(
-    title = "Serve-target accuracy after two months of drill training",
+    title = "95% confidence intervals for mean accuracy score by drill program",
     x_title = "Badminton drill program",
-    y_title = "Accuracy score out of 40",
+    y_title = "Mean accuracy score",
     height = 390,
-    margin = list(l = 70, r = 25, t = 60, b = 70)
+    margin = list(l = 76, r = 25, t = 60, b = 78)
   ) |>
   layout(
     yaxis = list(
-      title = "Accuracy score out of 40",
+      title = "Mean accuracy score",
       zeroline = FALSE,
       showline = TRUE,
       fixedrange = TRUE,
@@ -2240,13 +2297,13 @@ plot_ly() |>
       tickmode = "linear",
       tick0 = 20,
       dtick = 2,
-      range = c(18.5, 31.5)
+      range = c(18, 32)
     )
   )
 ```
 
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the group means. Static targets is clearly centered lower, while the two higher drill programs overlap more closely.
+The **red dots** show the sample mean accuracy score for each drill program. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
 :::
 
 ---
@@ -2352,52 +2409,71 @@ $$
 
 ```{r}
 #| echo: false
+#| warning: false
+#| message: false
+
 case_data <- data.frame(
-  cost = c(75,70,82,78,76,80,72,74,
-           80,92,85,88,90,84,95,86,
-           100,96,102,98,95,101,97,99,
-           110,115,105,120,112,118,108,116),
-  type = factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8),
-                levels = c("Clear", "Slim", "Wallet", "Rugged"))
+  cost = c(69, 71, 73, 75, 75, 77, 79, 81,
+           73, 75, 77, 79, 79, 81, 83, 85,
+           78, 80, 82, 84, 84, 86, 88, 90,
+           85, 87, 89, 91, 91, 93, 95, 97),
+  type = factor(
+    rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8),
+    levels = c("Clear", "Slim", "Wallet", "Rugged")
+  )
 )
 
-case_means <- case_data |>
+case_ci <- case_data |>
   group_by(type) |>
-  summarise(mean_cost = mean(cost), .groups = "drop")
+  summarise(
+    n = n(),
+    mean_cost = mean(cost),
+    sd_cost = sd(cost),
+    se = sd_cost / sqrt(n),
+    t_star = qt(0.975, df = n - 1),
+    lower = mean_cost - t_star * se,
+    upper = mean_cost + t_star * se,
+    .groups = "drop"
+  )
 
-plot_ly() |>
-  add_trace(
-    data = case_data,
-    x = ~type,
-    y = ~cost,
-    type = "box",
-    name = "",
-    boxpoints = FALSE,
-    whiskerwidth = 0.55,
-    line = list(color = "rgba(0,77,64,0.85)", width = 2.1),
-    fillcolor = "rgba(200,230,243,0.38)",
-    hovertemplate = "Case: %{x}<br>Repair cost: %{y}<extra></extra>",
-    showlegend = FALSE
-  ) |>
-  add_markers(
-    data = case_means,
-    x = ~type,
-    y = ~mean_cost,
-    marker = list(size = 9, color = plot_cols$red, symbol = "circle",
-                  line = list(color = "white", width = 1)),
-    hovertemplate = "Case: %{x}<br>Mean repair cost: %{y:.2f}<extra></extra>",
-    showlegend = FALSE
-  ) |>
+plot_ly(
+  case_ci,
+  x = ~type,
+  y = ~mean_cost,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    size = 12,
+    color = plot_cols$red,
+    line = list(color = "white", width = 1.4)
+  ),
+  error_y = list(
+    type = "data",
+    array = ~upper - mean_cost,
+    arrayminus = ~mean_cost - lower,
+    color = "rgba(0,105,92,0.75)",
+    thickness = 2.3,
+    width = 8
+  ),
+  hovertemplate = paste(
+    "Case design: %{x}",
+    "<br>Mean repair cost: %{y:.2f}",
+    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
+) |>
   plotly_anova_layout(
-    title = "Repair costs after standardized drop test",
+    title = "95% confidence intervals for mean repair cost by phone case design",
     x_title = "Phone case design",
-    y_title = "Repair cost",
+    y_title = "Mean repair cost",
     height = 390,
-    margin = list(l = 72, r = 25, t = 60, b = 70)
+    margin = list(l = 76, r = 25, t = 60, b = 70)
   ) |>
   layout(
     yaxis = list(
-      title = "Repair cost",
+      title = "Mean repair cost",
       zeroline = FALSE,
       showline = TRUE,
       fixedrange = TRUE,
@@ -2405,105 +2481,14 @@ plot_ly() |>
       gridcolor = "rgba(0,0,0,0.07)",
       tickmode = "linear",
       tick0 = 70,
-      dtick = 10,
-      range = c(68, 122)
+      dtick = 5,
+      range = c(68, 96)
     )
   )
 ```
 
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the sample mean repair cost for each phone case design. The group centers increase from Clear to Rugged, matching the Bonferroni results.
-:::
-
----
-
-## Check in R: Fisher's LSD Intervals {.compact-r}
-
-:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
-
-::: {.col}
-
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Badminton drill example</span>
-
-Use R to compute the Fisher LSD intervals.
-:::
-
-```{webr}
-#| autorun: false
-
-score <- c(19, 20, 21, 23, 24, 25,
-           24, 25, 26, 28, 29, 30,
-           26, 27, 28, 29, 30, 31)
-
-drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
-
-fit <- aov(score ~ drill)
-
-means <- tapply(score, drill, mean)
-pairs <- combn(names(means), 2)
-
-MSE <- summary(fit)[[1]]["Residuals", "Mean Sq"]
-df <- summary(fit)[[1]]["Residuals", "Df"]
-
-ME <- qt(0.975, df) * sqrt(MSE * (1/6 + 1/6))
-
-diff <- means[pairs[1, ]] - means[pairs[2, ]]
-
-data.frame(
-  pair = paste(pairs[1, ], "-", pairs[2, ]),
-  lower = round(diff - ME, 2),
-  upper = round(diff + ME, 2)
-)
-```
-
-:::
-
-::: {.col}
-
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Phone case example</span>
-
-Use R to compute the Fisher LSD intervals.
-:::
-
-```{webr}
-#| autorun: false
-
-cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
-          73, 75, 77, 79, 79, 81, 83, 85,
-          78, 80, 82, 84, 84, 86, 88, 90,
-          85, 87, 89, 91, 91, 93, 95, 97)
-
-case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
-
-fit <- aov(cost ~ case)
-
-means <- tapply(cost, case, mean)
-pairs <- combn(names(means), 2)
-
-MSE <- summary(fit)[[1]]["Residuals", "Mean Sq"]
-df <- summary(fit)[[1]]["Residuals", "Df"]
-
-ME <- qt(0.975, df) * sqrt(MSE * (1/8 + 1/8))
-
-diff <- means[pairs[1, ]] - means[pairs[2, ]]
-
-data.frame(
-  pair = paste(pairs[1, ], "-", pairs[2, ]),
-  lower = round(diff - ME, 2),
-  upper = round(diff + ME, 2)
-)
-```
-
-:::
-
-::::
-
-::: {.thinkbox style="font-size: 0.62em; line-height: 1.15; padding: 12px 16px; margin-top: 10px;"}
-<span class="label">Check</span>
-
-If an interval contains 0, the pair is **not clearly different**. If it avoids 0, the pair is **different**.
+The **red dots** show the sample mean repair cost for each phone case design. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
 :::
 
 ---
@@ -2522,7 +2507,7 @@ Each pairwise comparison has a chance of making a Type I error, so doing many co
 
 :::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
 
-::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">1. Count comparisons</span>
 
 With $k$ groups, the number of pairwise comparisons is
@@ -2538,28 +2523,32 @@ m=\binom{4}{2}=6.
 $$
 :::
 
-::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">2. Adjust the critical value</span>
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">2. Experiment-wise error</span>
 
-Bonferroni uses a more conservative critical value:
+If each comparison uses error rate $\alpha$, then the chance of making at least one Type I error is
+
+$$
+\alpha_E=1-(1-\alpha)^m.
+$$
+
+As $m$ increases, $\alpha_E$ increases.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">3. Bonferroni correction</span>
+
+To keep the overall error rate controlled, Bonferroni uses a smaller per-comparison level:
+
+$$
+\frac{\alpha}{m}.
+$$
+
+For a two-sided interval, this gives
 
 $$
 t^*=t_{1-\alpha/(2m),\;n-k}.
 $$
-
-Because $\alpha$ is divided by $m$, the critical value becomes larger.
-:::
-
-::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">3. Wider intervals</span>
-
-The interval is still
-
-$$
-(\bar{x}_i-\bar{x}_j)\pm t^*SE.
-$$
-
-But Bonferroni has a larger $t^*$, so the intervals become **wider** and harder to exclude 0.
 :::
 
 ::::
@@ -2567,9 +2556,9 @@ But Bonferroni has a larger $t^*$, so the intervals become **wider** and harder 
 ::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.17; padding: 13px 18px; margin-bottom: 0;"}
 <span class="label">Key idea</span>
 
-**Fisher's LSD** is more willing to declare differences.
+**Fisher's LSD** is more powerful, but it does not control the experiment-wise Type I error rate.
 
-**Bonferroni** is more cautious because it protects against doing many pairwise comparisons at once.
+**Bonferroni** is more cautious: it uses wider intervals to protect against making false discoveries across many pairwise comparisons.
 :::
 
 ::::

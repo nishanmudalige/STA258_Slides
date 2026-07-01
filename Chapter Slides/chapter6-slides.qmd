@@ -1657,27 +1657,27 @@ ttest_plot(tstar = 4.13, tcrit = 2.11, df = 17, alternative = "two.sided",
 
 ---
 
-## 6.3.1.3 Hypothesis Tests on Two Means, Unequal Variances (Welch $t$)
+## 6.3.1.3 Hypothesis Tests on Two Means
 
 ::: {.defbox}
-For unequal or unspecified population variances, use Welch's two-sample $t$ test (no pooling):
+For unequal or unspecified population variances, use Welch's two-sample $t$ test (no pooling), with test statistic
 
 $$
-t^*=
-\frac{(\bar{x}_1-\bar{x}_2)-D_0}
-{\sqrt{s_1^2/n_1+s_2^2/n_2}}
+t^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{\sqrt{s_1^2/n_1+s_2^2/n_2}}
 $$
+
+which, under $H_0$, approximately follows a $t$ reference distribution with the Welch–Satterthwaite degrees of freedom.
 :::
 
 :::: {.two-col}
 ::: {.notebox .fragment}
-<span class="label">Default</span>
-Welch is a good default when equal variances are not clearly justified.
+<span class="label">Reference distribution</span>
+$T\sim t_\nu$, with the Welch–Satterthwaite $\nu$.
 :::
 
 ::: {.notebox .fragment}
-<span class="label">Degrees of freedom</span>
-Software uses the Welch-Satterthwaite approximation.
+<span class="label">Use when</span>
+Comparing two population means from independent samples when equal variances are not clearly justified.
 :::
 ::::
 

@@ -4975,5 +4975,12 @@
     "title": "STA258",
     "section": "6.3.1.1 Hypothesis Tests on Two Means",
     "text": "6.3.1.1 Hypothesis Tests on Two Means\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(Z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
+    "title": "STA258",
+    "section": "6.3.1.3 Hypothesis Tests on Two Means",
+    "text": "6.3.1.3 Hypothesis Tests on Two Means\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling), with test statistic\n\\[\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), approximately follows a \\(t\\) reference distribution with the Welch–Satterthwaite degrees of freedom.\n\n\n\nReference distribution \\(T\\sim t_\\nu\\), with the Welch–Satterthwaite \\(\\nu\\).\n\n\nUse when Comparing two population means from independent samples when equal variances are not clearly justified."
   }
 ]

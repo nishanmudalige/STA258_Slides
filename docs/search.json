@@ -4169,7 +4169,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
     "title": "STA258",
     "section": "Example: Protein Scoop Consistency",
-    "text": "Example: Protein Scoop Consistency\n\n\n\nA fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most \\(2.8\\) g. A reviewer weighs a random sample of \\(n=28\\) scoops and finds \\(s=3.4\\) g.\nDoes this undermine the consistency claim? Use \\(\\alpha=0.05\\) and assume scoop weights are normal.\n\n\n\\[H_0:\\sigma^2=2.8^2,\\qquad H_a:\\sigma^2&gt;2.8^2\\]\nA larger sample spread is evidence against the “at most 2.8 g” claim."
+    "text": "Example: Protein Scoop Consistency\n\n\n\nA fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most \\(2.8\\) g. A reviewer weighs a random sample of \\(n=28\\) scoops and finds \\(s=3.4\\) g.\nDoes this undermine the consistency claim? Use \\(\\alpha=0.05\\) and assume scoop weights are normal.\n\n\n\\[H_0:\\sigma^2=2.8^2,\\qquad H_a:\\sigma^2&gt;2.8^2\\]\nA larger sample spread is evidence against the “at most 2.8 g” claim.\n\n\n\n\nWhat we are given\n\nClaimed SD: \\(\\sigma_0 = 2.8\\) g, so \\(\\sigma_0^2 = 7.84\\)\nSample: \\(n = 28\\), \\(s = 3.4\\) g\nDegrees of freedom: \\(df = n-1 = 27\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Testing a claim about a single variance (normal population), so use a one-sample \\(\\chi^2\\) test with reference distribution \\(\\chi^2_{27}\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
@@ -4870,5 +4870,12 @@
     "title": "STA258",
     "section": "Reusable Cup Discount: Calculation",
     "text": "Reusable Cup Discount: Calculation\n\n\n\nHypotheses \\[H_0:p=0.10 \\qquad H_a:p&gt;0.10 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}=\\frac{0.1308-0.10}{\\sqrt{0.10\\cdot 0.90/520}}=2.339\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.339)=0.0097\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0097 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the participation rate has increased above \\(10\\%\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#protein-scoop-consistency-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#protein-scoop-consistency-calculation",
+    "title": "STA258",
+    "section": "Protein Scoop Consistency: Calculation",
+    "text": "Protein Scoop Consistency: Calculation\n\n\n\nHypotheses \\[H_0:\\sigma^2=2.8^2 \\qquad H_a:\\sigma^2&gt;2.8^2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}=\\frac{27\\cdot 3.4^2}{2.8^2}=39.81\\]\np-value \\[\\text{p-value}=P(\\chi^2_{27}\\ge 39.81)=0.0534\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0534 &gt; 0.05\\) (and \\(39.81 &lt; 40.11\\)), so fail to reject \\(H_0\\).\n\n\nConclusion There is not enough evidence that the true SD of scoop weights exceeds \\(2.8\\) g."
   }
 ]

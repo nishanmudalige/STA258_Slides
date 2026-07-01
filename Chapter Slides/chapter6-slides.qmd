@@ -91,6 +91,65 @@ chisq_tail_plot <- function(stat, df, alternative = "greater",
     config(displayModeBar = FALSE, responsive = TRUE)
 }
 
+# Meaningful chi-square plot: draws the observed statistic, the critical value, and the
+# rejection region -- the chi-square analog of ztest_plot / ttest_plot.
+chisq_test_plot <- function(chistar, chicrit = NULL, df = 27, alternative = "greater",
+                            title = "", shade = "pvalue") {
+  xmax <- max(qchisq(0.999, df), chistar, chicrit) * 1.08  # room on the right tail
+  x <- seq(0, xmax, length.out = 500)
+  y <- dchisq(x, df)
+  shade_at <- if (shade == "reject" && !is.null(chicrit)) chicrit else chistar
+  shade_keep <- if (alternative == "less") x <= shade_at else x >= shade_at
+  ymax <- max(y)
+  # Draw the statistic line with a deliberate visual gap from the critical value so the two
+  # markers are clearly distinguishable. This is schematic: the exact numbers live in the
+  # labels and the calculation box, but the picture keeps the lines from piling up.
+  gap <- 0.025 * xmax                         # small visual gap: close to crit, but distinct
+  stat_x <- if (!is.null(chicrit)) {
+    if (alternative == "less") max(chistar, chicrit + gap) else min(chistar, chicrit - gap)
+  } else chistar
+  cmark <- ymax * 0.80                        # tall line, clearly poking above the curve
+  shapes <- list(
+    list(type = "line", x0 = stat_x, x1 = stat_x, y0 = 0, y1 = cmark,
+         line = list(color = "#333", width = 3))
+  )
+  # statistic label sits in the white space up-and-left of its line (right edge stops short
+  # of the crit line), below the crit label, so it never lands on the curve or a marker
+  anns <- list(
+    list(x = stat_x, y = cmark + ymax * 0.22, xshift = -5,
+         text = paste0("&#967;&#178;* = ", formatC(chistar, format = "f", digits = 2)),
+         showarrow = FALSE, xanchor = "right",
+         font = list(color = "#333", size = 13))
+  )
+  if (!is.null(chicrit)) {
+    shapes <- c(shapes, list(
+      list(type = "line", x0 = chicrit, x1 = chicrit, y0 = 0, y1 = ymax * 1.05,
+           line = list(color = "#00695c", width = 2.5, dash = "dash"))))
+    anns <- c(anns, list(
+      list(x = chicrit, y = ymax * 1.27,
+           text = paste0("crit. value = ", formatC(chicrit, format = "f", digits = 2)),
+           showarrow = FALSE, xanchor = "center",
+           font = list(color = "#00695c", size = 12))))
+  }
+  plot_ly(width = 620, height = 230) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
+              name = paste0("chi^2(", df, ")"), hoverinfo = "skip") |>
+    add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.6)",
+              line = list(color = "rgba(249,168,37,0.95)", width = 1),
+              name = "shaded region", hoverinfo = "skip") |>
+    layout(
+      title = list(text = title, x = 0.02, font = list(size = 14)),
+      xaxis = list(title = "test statistic", range = c(0, xmax),
+                   zeroline = TRUE, zerolinecolor = "#222", fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero",
+                   range = c(0, ymax * 1.3), fixedrange = TRUE),
+      margin = list(l = 42, r = 12, t = 36, b = 42),
+      showlegend = FALSE, shapes = shapes, annotations = anns
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+}
+
 # Two cascading dropdowns: pick the type of test (Z / t / chi-square / F), then the
 # alternative (left / right / both tails). The shaded p-value area updates for the
 # selected (distribution, tail) combination. Cascade logic runs in JS via onRender,
@@ -1303,12 +1362,60 @@ A larger sample spread is evidence against the "at most 2.8 g" claim.
 :::
 
 ::: {.col}
-::: {.mini-plot .fragment}
+::: {.card}
+<span class="label">What we are given</span>
+
+- Claimed SD: $\sigma_0 = 2.8$ g, so $\sigma_0^2 = 7.84$
+- Sample: $n = 28$, $s = 3.4$ g
+- Degrees of freedom: $df = n-1 = 27$
+- Significance level: $\alpha = 0.05$
+:::
+
+::: {.notebox .fragment}
+<span class="label">Which test?</span>
+Testing a claim about a single variance (normal population), so use a one-sample $\chi^2$ test with reference distribution $\chi^2_{27}$.
+:::
+:::
+::::
+
+---
+
+## Protein Scoop Consistency: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\sigma^2=2.8^2 \qquad H_a:\sigma^2>2.8^2 \quad (\alpha=0.05)$$
+
+<span class="label">Test statistic</span>
+$$\chi^{2*}=\frac{(n-1)s^2}{\sigma_0^2}=\frac{27\cdot 3.4^2}{2.8^2}=39.81$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(\chi^2_{27}\ge 39.81)=0.0534$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
 ```{r}
-chisq_tail_plot(stat = 34, df = 27, alternative = "greater",
-                title = "Right-tailed chi-square test (df = 27)")
+chisq_test_plot(chistar = 39.81, chicrit = 40.11, df = 27, alternative = "greater",
+                shade = "reject",
+                title = "χ²* falls short of the rejection region (α = 0.05)")
 ```
 :::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0534 > 0.05$ (and $39.81 < 40.11$), so **fail to reject** $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is not enough evidence that the true SD of scoop weights exceeds $2.8$ g.
 :::
 ::::
 

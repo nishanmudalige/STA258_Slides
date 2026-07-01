@@ -1508,25 +1508,27 @@ These tests all compare **two independent samples**.
 
 ---
 
-## 6.3.1.1 Two Means: Known $\sigma_1,\sigma_2$
+## 6.3.1.1 Hypothesis Tests on Two Means
 
 ::: {.defbox}
-When both population standard deviations are known:
+When both population standard deviations, $\sigma_1,\sigma_2$, are **known**, use the test statistic
 
 $$
-z^*=
-\frac{(\bar{x}_1-\bar{x}_2)-D_0}
-{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}
+z^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}
 $$
+
+which, under $H_0$, follows the standard normal reference distribution $Z\sim N(0,1)$.
 :::
 
 :::: {.two-col}
 ::: {.notebox .fragment}
-Usually $D_0=0$ when testing whether the population means are equal.
+<span class="label">Reference distribution</span>
+$Z^*\sim N(0,1)$.
 :::
 
 ::: {.notebox .fragment}
-Use $Z$ because the population standard deviations are known.
+<span class="label">Use when</span>
+Comparing two population means from independent samples with **known** $\sigma_1,\sigma_2$. Usually $D_0=0$.
 :::
 ::::
 
@@ -1570,7 +1572,7 @@ p_value
 
 ---
 
-## 6.3.1.2 Two Means: Equal Variances (Pooled $t$)
+## 6.3.1.2 Hypothesis Tests on Two Means, Equal Variances (Pooled $t$)
 
 ::: {.defbox}
 When the population variances are unknown but can be assumed **equal**, pool the two sample variances into one estimate:
@@ -1628,7 +1630,7 @@ t.test(fert_a, fert_b, var.equal = TRUE)
 
 ---
 
-## 6.3.1.3 Two Means: Unequal Variances (Welch $t$)
+## 6.3.1.3 Hypothesis Tests on Two Means, Unequal Variances (Welch $t$)
 
 ::: {.defbox}
 For unequal or unspecified population variances, use Welch's two-sample $t$ test (no pooling):

@@ -4940,5 +4940,40 @@
     "title": "STA258",
     "section": "6.2.3 Hypothesis Tests on a Variance",
     "text": "6.2.3 Hypothesis Tests on a Variance\n\nFor one normal population, test a variance using the chi-square statistic:\n\\[\n\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\n\\]\n\n\n\nReference distribution \\(\\chi^2\\) with \\(n-1\\) degrees of freedom.\n\n\nImportant condition The population should be approximately normal. Variance tests are sensitive to non-normality."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-sigma_1sigma_2-known",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-sigma_1sigma_2-known",
+    "title": "STA258",
+    "section": "6.3.1.1 Hypothesis Tests on Two Means, \\(\\sigma_1,\\sigma_2\\) Known",
+    "text": "6.3.1.1 Hypothesis Tests on Two Means, \\(\\sigma_1,\\sigma_2\\) Known\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(Z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-equal-variances-pooled-t",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-equal-variances-pooled-t",
+    "title": "STA258",
+    "section": "6.3.1.2 Hypothesis Tests on Two Means, Equal Variances (Pooled \\(t\\))",
+    "text": "6.3.1.2 Hypothesis Tests on Two Means, Equal Variances (Pooled \\(t\\))\n\nWhen the population variances are unknown but can be assumed equal, pool the two sample variances into one estimate:\n\\[\ns_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2},\n\\qquad\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{s_p\\sqrt{\\dfrac{1}{n_1}+\\dfrac{1}{n_2}}}\n\\]\n\n\n\nDegrees of freedom \\(df=n_1+n_2-2\\) — exact, and larger than Welch’s.\n\n\nWhen to pool Reasonable when the sample spreads are similar — e.g. the fold rule \\(\\dfrac{\\max(s_1,s_2)}{\\min(s_1,s_2)}&lt;\\sqrt{2}\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-known",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-known",
+    "title": "STA258",
+    "section": "6.3.1.1 Hypothesis Tests on Two Means Known",
+    "text": "6.3.1.1 Hypothesis Tests on Two Means Known\n\nWhen both population standard deviations are known:\n\\[\nz^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\n\n\n\nUsually \\(D_0=0\\) when testing whether the population means are equal.\n\n\nUse \\(Z\\) because the population standard deviations are known."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-unequal-variances-welch-t",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-unequal-variances-welch-t",
+    "title": "STA258",
+    "section": "6.3.1.3 Hypothesis Tests on Two Means, Unequal Variances (Welch \\(t\\))",
+    "text": "6.3.1.3 Hypothesis Tests on Two Means, Unequal Variances (Welch \\(t\\))\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling):\n\\[\nt^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\n\n\n\nDefault Welch is a good default when equal variances are not clearly justified.\n\n\nDegrees of freedom Software uses the Welch-Satterthwaite approximation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means",
+    "title": "STA258",
+    "section": "6.3.1.1 Hypothesis Tests on Two Means",
+    "text": "6.3.1.1 Hypothesis Tests on Two Means\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(Z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
   }
 ]

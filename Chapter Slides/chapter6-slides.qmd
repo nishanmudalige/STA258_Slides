@@ -2060,6 +2060,41 @@ Use paired differences $d_i=\text{after}_i-\text{before}_i$ and test $H_0:\mu_d=
 
 ---
 
+## Pomodoro: Difference Table
+
+Reduce each pair ($M_1$ = before, $M_2$ = after) to a single difference $d_i = M_2 - M_1$:
+
+:::: {.two-col}
+::: {.col}
+| Person | $M_1$ | $M_2$ | $d_i = M_2-M_1$ |
+|:-:|:-:|:-:|:-:|
+| 1 | 34 | 37 | 3 |
+| 2 | 29 | 28 | −1 |
+| 3 | 41 | 45 | 4 |
+| 4 | 38 | 39 | 1 |
+| 5 | 36 | 38 | 2 |
+| 6 | 33 | 33 | 0 |
+:::
+
+::: {.col}
+| Person | $M_1$ | $M_2$ | $d_i = M_2-M_1$ |
+|:-:|:-:|:-:|:-:|
+| 7 | 40 | 38 | −2 |
+| 8 | 31 | 34 | 3 |
+| 9 | 37 | 38 | 1 |
+| 10 | 35 | 39 | 4 |
+| 11 | 39 | 41 | 2 |
+| 12 | 32 | 33 | 1 |
+:::
+::::
+
+::: {.defbox .fragment}
+Now treat the 12 differences as one sample:
+$$\bar d = \frac{\sum d_i}{n} = \frac{18}{12} = 1.5, \qquad s_d = 1.88, \qquad t^* = \frac{\bar d}{s_d/\sqrt n} = \frac{1.5}{1.88/\sqrt{12}} = 2.76$$
+:::
+
+---
+
 ## Check in R: Paired Pomodoro Test
 
 ```{webr}

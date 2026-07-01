@@ -150,6 +150,59 @@ chisq_test_plot <- function(chistar, chicrit = NULL, df = 27, alternative = "gre
     config(displayModeBar = FALSE, responsive = TRUE)
 }
 
+# Meaningful F plot: draws the observed statistic, the critical value, and the rejection
+# region -- the F analog of ztest_plot / ttest_plot / chisq_test_plot.
+ftest_plot <- function(fstar, fcrit = NULL, df1 = 11, df2 = 9, alternative = "greater",
+                       title = "", shade = "reject") {
+  # Extend the axis so the statistic is drawn at its TRUE position (accurate), with a bit
+  # of headroom so the statistic line and its label are not clipped at the right edge.
+  xmax <- max(qf(0.99, df1, df2), fstar, fcrit) * 1.2
+  x <- seq(0, xmax, length.out = 600)
+  y <- df(x, df1, df2)
+  ymax <- max(y)
+  shade_at <- if (shade == "reject" && !is.null(fcrit)) fcrit else fstar
+  shade_keep <- if (alternative == "less") x <= shade_at else x >= shade_at
+  fmark <- max(df(fstar, df1, df2), ymax * 0.42)   # floor keeps the far-tail line visible
+  shapes <- list(
+    list(type = "line", x0 = fstar, x1 = fstar, y0 = 0, y1 = fmark,
+         line = list(color = "#333", width = 3))
+  )
+  # statistic sits far out in the tail: label anchored left of its line, in the open tail
+  anns <- list(
+    list(x = fstar, y = fmark + ymax * 0.13, xshift = -8,
+         text = paste0("F* = ", formatC(fstar, format = "f", digits = 2)),
+         showarrow = FALSE, xanchor = "right",
+         font = list(color = "#333", size = 13))
+  )
+  if (!is.null(fcrit)) {
+    shapes <- c(shapes, list(
+      list(type = "line", x0 = fcrit, x1 = fcrit, y0 = 0, y1 = ymax * 0.62,
+           line = list(color = "#00695c", width = 2.5, dash = "dash"))))
+    anns <- c(anns, list(
+      list(x = fcrit, y = ymax * 0.70, xshift = 4,
+           text = paste0("crit. value = ", formatC(fcrit, format = "f", digits = 2)),
+           showarrow = FALSE, xanchor = "left",
+           font = list(color = "#00695c", size = 11))))
+  }
+  plot_ly(width = 620, height = 230) |>
+    add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
+              name = paste0("F(", df1, ", ", df2, ")"), hoverinfo = "skip") |>
+    add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.6)",
+              line = list(color = "rgba(249,168,37,0.95)", width = 1),
+              name = "shaded region", hoverinfo = "skip") |>
+    layout(
+      title = list(text = title, x = 0.02, font = list(size = 14)),
+      xaxis = list(title = "test statistic", range = c(0, xmax),
+                   zeroline = TRUE, zerolinecolor = "#222", fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero",
+                   range = c(0, ymax * 1.3), fixedrange = TRUE),
+      margin = list(l = 42, r = 12, t = 36, b = 42),
+      showlegend = FALSE, shapes = shapes, annotations = anns
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
+}
+
 # Two cascading dropdowns: pick the type of test (Z / t / chi-square / F), then the
 # alternative (left / right / both tails). The shaded p-value area updates for the
 # selected (distribution, tail) combination. Cascade logic runs in JS via onRender,
@@ -1616,7 +1669,7 @@ Extreme ratios in either direction count as evidence against equal variances.
 ::: {.examplebox}
 Two basketball players average about the same points per game, but a scout suspects **Player A is less consistent** — more variable game to game.
 
-Player A: `78 85 72 91 68 88 75 82 95 70 84 77`
+Player A: `76 87 74 86 81 83 77 88 79 84 75 82`
 
 Player B: `82 84 79 85 81 83 80 86 82 84`
 
@@ -1631,25 +1684,60 @@ $$F^*=\frac{s_A^2}{s_B^2}\sim F_{n_A-1,\,n_B-1}$$
 :::
 
 ::: {.col}
-::: {.mini-plot .fragment}
+::: {.card}
+<span class="label">What we are given</span>
+
+- Player A: $n_A = 12$, $s_A^2 = 23.09$
+- Player B: $n_B = 10$, $s_B^2 = 4.933$
+- Degrees of freedom: $df = (11,\ 9)$
+- Significance level: $\alpha = 0.05$
+:::
+
+::: {.notebox .fragment}
+<span class="label">Which test?</span>
+Comparing two population variances (normal populations), so use an $F$ test with the larger-variance group on top: $F^*=s_A^2/s_B^2 \sim F_{11,\,9}$.
+:::
+:::
+::::
+
+---
+
+## Scoring Consistency: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\sigma_A^2=\sigma_B^2 \qquad H_a:\sigma_A^2>\sigma_B^2 \quad (\alpha=0.05)$$
+
+<span class="label">Test statistic</span>
+$$F^*=\frac{s_A^2}{s_B^2}=\frac{23.09}{4.933}=4.68$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(F_{11,9}\ge 4.68)=0.014$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
 ```{r}
-fx <- seq(0, 6, length.out = 500)
-plot_ly(width = 620, height = 230) |>
-  add_lines(x = fx, y = df(fx, 11, 9),
-            line = list(color = "#1f4e79", width = 4), name = "F(11, 9)") |>
-  add_trace(x = fx[fx >= 2.0], y = df(fx[fx >= 2.0], 11, 9),
-            type = "scatter", mode = "lines", fill = "tozeroy",
-            fillcolor = "rgba(249,168,37,0.55)",
-            line = list(color = "rgba(249,168,37,0.95)", width = 1)) |>
-  layout(title = list(text = "Right-tailed F test (df = 11, 9)",
-                      x = 0.02, font = list(size = 15)),
-         xaxis = list(title = "", fixedrange = TRUE, zeroline = TRUE,
-                      zerolinecolor = "#222"),
-         yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
-         margin = list(l = 42, r = 12, t = 36, b = 28), showlegend = FALSE) |>
-  config(displayModeBar = FALSE, responsive = TRUE)
+ftest_plot(fstar = 4.68, fcrit = 3.10, df1 = 11, df2 = 9, alternative = "greater",
+           shade = "reject",
+           title = "F* falls in the rejection region (α = 0.05)")
 ```
 :::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.014 \le 0.05$ (and $4.68 > 3.10$), so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is strong evidence Player A has the larger scoring variance — i.e. is less consistent.
 :::
 ::::
 
@@ -1658,7 +1746,7 @@ plot_ly(width = 620, height = 230) |>
 ## Check in R: Ratio of Variances
 
 ```{webr}
-player_a <- c(78, 85, 72, 91, 68, 88, 75, 82, 95, 70, 84, 77)
+player_a <- c(76, 87, 74, 86, 81, 83, 77, 88, 79, 84, 75, 82)
 player_b <- c(82, 84, 79, 85, 81, 83, 80, 86, 82, 84)
 
 var.test(player_a, player_b, alternative = "greater")

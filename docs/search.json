@@ -4498,7 +4498,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
     "title": "STA258",
     "section": "Example: Scoring Consistency",
-    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
+    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 76 87 74 86 81 83 77 88 79 84 75 82\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]\n\n\n\n\nWhat we are given\n\nPlayer A: \\(n_A = 12\\), \\(s_A^2 = 23.09\\)\nPlayer B: \\(n_B = 10\\), \\(s_B^2 = 4.933\\)\nDegrees of freedom: \\(df = (11,\\ 9)\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Comparing two population variances (normal populations), so use an \\(F\\) test with the larger-variance group on top: \\(F^*=s_A^2/s_B^2 \\sim F_{11,\\,9}\\)."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#using-power-to-determine-sample-size",
@@ -4877,5 +4877,12 @@
     "title": "STA258",
     "section": "Protein Scoop Consistency: Calculation",
     "text": "Protein Scoop Consistency: Calculation\n\n\n\nHypotheses \\[H_0:\\sigma^2=2.8^2 \\qquad H_a:\\sigma^2&gt;2.8^2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}=\\frac{27\\cdot 3.4^2}{2.8^2}=39.81\\]\np-value \\[\\text{p-value}=P(\\chi^2_{27}\\ge 39.81)=0.0534\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0534 &gt; 0.05\\) (and \\(39.81 &lt; 40.11\\)), so fail to reject \\(H_0\\).\n\n\nConclusion There is not enough evidence that the true SD of scoop weights exceeds \\(2.8\\) g."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#scoring-consistency-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#scoring-consistency-calculation",
+    "title": "STA258",
+    "section": "Scoring Consistency: Calculation",
+    "text": "Scoring Consistency: Calculation\n\n\n\nHypotheses \\[H_0:\\sigma_A^2=\\sigma_B^2 \\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[F^*=\\frac{s_A^2}{s_B^2}=\\frac{23.09}{4.933}=4.68\\]\np-value \\[\\text{p-value}=P(F_{11,9}\\ge 4.68)=0.014\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.014 \\le 0.05\\) (and \\(4.68 &gt; 3.10\\)), so reject \\(H_0\\).\n\n\nConclusion There is strong evidence Player A has the larger scoring variance — i.e. is less consistent."
   }
 ]

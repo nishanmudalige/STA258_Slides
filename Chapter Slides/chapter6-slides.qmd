@@ -1603,6 +1603,47 @@ Both population SDs are **known**, so use a two-sample $z$ test.
 
 ---
 
+## Download Speeds: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\mu_A-\mu_B=0 \qquad H_a:\mu_A-\mu_B>0 \quad (\alpha=0.05)$$
+
+<span class="label">Test statistic</span>
+$$z^*=\frac{(\bar{x}_A-\bar{x}_B)-0}{\sqrt{\sigma_A^2/n_A+\sigma_B^2/n_B}}=\frac{86-79}{\sqrt{12^2/40+15^2/45}}=2.387$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(Z\ge 2.387)=0.0085$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ztest_plot(zstar = 2.387, zcrit = 1.645, alternative = "greater",
+           shade = "reject",
+           title = "z* falls in the rejection region (α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0085 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is evidence Provider A's mean download speed is higher than Provider B's.
+:::
+::::
+
+---
+
 ## Check in R: Download Speeds
 
 ```{webr}
@@ -1616,12 +1657,8 @@ z_star
 p_value
 ```
 
-::: {.mini-plot}
-```{r}
-ztest_plot(zstar = 2.39, zcrit = 1.645, alternative = "greater",
-           shade = "reject",
-           title = "z* falls in the rejection region (α = 0.05)")
-```
+::: {.thinkbox .fragment}
+The output gives $z^*=2.39$ and p-value $0.0085$. At $\alpha=0.05$, reject $H_0$.
 :::
 
 ---
@@ -1672,6 +1709,50 @@ Variances are unknown but the spreads look similar, so use a pooled two-sample $
 
 ---
 
+## Two Fertilizers: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\mu_A-\mu_B=0 \qquad H_a:\mu_A-\mu_B\neq 0 \quad (\alpha=0.05)$$
+
+<span class="label">Pooled variance</span>
+$$s_p^2=\frac{(n_A-1)s_A^2+(n_B-1)s_B^2}{n_A+n_B-2}=\frac{8(0.274^2)+9(0.221^2)}{17}=0.0612$$
+
+<span class="label">Test statistic</span>
+$$t^*=\frac{\bar{x}_A-\bar{x}_B}{s_p\sqrt{1/n_A+1/n_B}}=\frac{4.10-3.63}{0.2475\sqrt{1/9+1/10}}=4.13$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=2\,P(T_{17}\ge 4.13)=0.0007$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ttest_plot(tstar = 4.13, tcrit = 2.11, df = 17, alternative = "two.sided",
+           shade = "reject",
+           title = "t* falls in the rejection region (two-sided, α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0007 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is strong evidence the two fertilizers give different mean yields.
+:::
+::::
+
+---
+
 ## Check in R: Two Fertilizers
 
 ```{webr}
@@ -1682,12 +1763,8 @@ fert_b <- c(3.6, 3.9, 3.4, 3.8, 3.5, 3.7, 3.3, 4.0, 3.6, 3.5)
 t.test(fert_a, fert_b, var.equal = TRUE)
 ```
 
-::: {.mini-plot}
-```{r}
-ttest_plot(tstar = 4.13, tcrit = 2.11, df = 17, alternative = "two.sided",
-           shade = "reject",
-           title = "t* falls in the rejection region (two-sided, α = 0.05)")
-```
+::: {.thinkbox .fragment}
+The output gives $t^*=4.13$, $df=17$, and p-value $0.0007$. At $\alpha=0.05$, reject $H_0$.
 :::
 
 ---
@@ -1736,7 +1813,48 @@ Let $\mu_1$ be the active-recall mean and $\mu_2$ the rereading mean. Test $H_0:
 
 ---
 
-## Check in R: Two-Sample t Test
+## Active Recall vs Rereading: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\mu_1-\mu_2=0 \qquad H_a:\mu_1-\mu_2>0 \quad (\alpha=0.05)$$
+
+<span class="label">Test statistic (no pooling)</span>
+$$t^*=\frac{\bar{x}_1-\bar{x}_2}{\sqrt{s_1^2/n_1+s_2^2/n_2}}=\frac{86.92-84.60}{\sqrt{2.392^2/12+1.506^2/10}}=2.76$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(T_\nu\ge 2.76)=0.0062,\qquad \nu\approx 18.8$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ttest_plot(tstar = 2.76, tcrit = 1.73, df = 19, alternative = "greater",
+           shade = "reject",
+           title = "t* falls in the rejection region (α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0062 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is evidence active recall produces a higher mean quiz score than rereading.
+:::
+::::
+
+---
+
+## Check in R: Active Recall vs Rereading
 
 ```{webr}
 active <- c(88, 84, 90, 86, 89, 85, 88, 83, 90, 86, 89, 85)
@@ -1745,12 +1863,8 @@ review <- c(84, 86, 83, 85, 84, 82, 87, 84, 86, 85)
 t.test(active, review, alternative = "greater", var.equal = FALSE)
 ```
 
-::: {.mini-plot}
-```{r}
-ttest_plot(tstar = 2.76, tcrit = 1.73, df = 19, alternative = "greater",
-           shade = "reject",
-           title = "t* falls in the rejection region (α = 0.05)")
-```
+::: {.thinkbox .fragment}
+Welch's test reports $t^*=2.76$ with $\nu\approx 18.8$ and p-value $0.0062$. At $\alpha=0.05$, reject $H_0$.
 :::
 
 ---
@@ -1827,6 +1941,50 @@ $$
 
 ---
 
+## Push Notifications: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:p_1-p_2=0 \qquad H_a:p_1-p_2>0 \quad (\alpha=0.05)$$
+
+<span class="label">Sample and pooled proportions</span>
+$$\hat p_1=\tfrac{142}{360}=0.394,\quad \hat p_2=\tfrac{118}{370}=0.319,\quad \hat p=\tfrac{142+118}{360+370}=0.356$$
+
+<span class="label">Test statistic</span>
+$$z^*=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}=\frac{0.394-0.319}{\sqrt{0.356\cdot 0.644\,(1/360+1/370)}}=2.13$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(Z\ge 2.13)=0.0166$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ztest_plot(zstar = 2.13, zcrit = 1.645, alternative = "greater",
+           shade = "reject",
+           title = "z* falls in the rejection region (α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0166 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is evidence the daily push notification increases the check-in rate.
+:::
+::::
+
+---
+
 ## Check in R: Two Proportions
 
 ```{webr}
@@ -1836,16 +1994,8 @@ totals <- c(360, 370)
 prop.test(successes, totals, alternative = "greater", correct = FALSE)
 ```
 
-::: {.mini-plot}
-```{r}
-ztest_plot(zstar = 2.13, zcrit = 1.645, alternative = "greater",
-           shade = "reject",
-           title = "z* falls in the rejection region (α = 0.05)")
-```
-:::
-
 ::: {.thinkbox .fragment}
-The output gives p-value about $0.0166$, so there is evidence that the daily push notification increases the check-in rate.
+`prop.test` reports the **chi-square** form ($\chi^2=(z^*)^2$) with p-value $0.0166$, so there is evidence the daily push notification increases the check-in rate.
 :::
 
 ---

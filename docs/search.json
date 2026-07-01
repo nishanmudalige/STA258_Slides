@@ -2055,7 +2055,7 @@
     "href": "Chapter Slides/chapter6-slides.html#check-in-r-two-proportions",
     "title": "STA258",
     "section": "Check in R: Two Proportions",
-    "text": "Check in R: Two Proportions\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe output gives p-value about \\(0.0166\\), so there is evidence that the daily push notification increases the check-in rate."
+    "text": "Check in R: Two Proportions\n\n\n\n\n\n\n\n\n\nprop.test reports the chi-square form (\\(\\chi^2=(z^*)^2\\)) with p-value \\(0.0166\\), so there is evidence the daily push notification increases the check-in rate."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#ratio-of-variances",
@@ -4918,14 +4918,14 @@
     "href": "Chapter Slides/chapter6-slides.html#check-in-r-download-speeds",
     "title": "STA258",
     "section": "Check in R: Download Speeds",
-    "text": "Check in R: Download Speeds"
+    "text": "Check in R: Download Speeds\n\n\n\n\n\n\n\n\n\nThe output gives \\(z^*=2.39\\) and p-value \\(0.0085\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
     "href": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
     "title": "STA258",
     "section": "Check in R: Two Fertilizers",
-    "text": "Check in R: Two Fertilizers"
+    "text": "Check in R: Two Fertilizers\n\n\n\n\n\n\n\n\n\nThe output gives \\(t^*=4.13\\), \\(df=17\\), and p-value \\(0.0007\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-test-on-a-variance",
@@ -5024,5 +5024,40 @@
     "title": "STA258",
     "section": "Pomodoro: Difference Table",
     "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#download-speeds-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#download-speeds-calculation",
+    "title": "STA258",
+    "section": "Download Speeds: Calculation",
+    "text": "Download Speeds: Calculation\n\n\n\nHypotheses \\[H_0:\\mu_A-\\mu_B=0 \\qquad H_a:\\mu_A-\\mu_B&gt;0 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{(\\bar{x}_A-\\bar{x}_B)-0}{\\sqrt{\\sigma_A^2/n_A+\\sigma_B^2/n_B}}=\\frac{86-79}{\\sqrt{12^2/40+15^2/45}}=2.387\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.387)=0.0085\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0085 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence Provider A’s mean download speed is higher than Provider B’s."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#two-fertilizers-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#two-fertilizers-calculation",
+    "title": "STA258",
+    "section": "Two Fertilizers: Calculation",
+    "text": "Two Fertilizers: Calculation\n\n\n\nHypotheses \\[H_0:\\mu_A-\\mu_B=0 \\qquad H_a:\\mu_A-\\mu_B\\neq 0 \\quad (\\alpha=0.05)\\]\nPooled variance \\[s_p^2=\\frac{(n_A-1)s_A^2+(n_B-1)s_B^2}{n_A+n_B-2}=\\frac{8(0.274^2)+9(0.221^2)}{17}=0.0612\\]\nTest statistic \\[t^*=\\frac{\\bar{x}_A-\\bar{x}_B}{s_p\\sqrt{1/n_A+1/n_B}}=\\frac{4.10-3.63}{0.2475\\sqrt{1/9+1/10}}=4.13\\]\np-value \\[\\text{p-value}=2\\,P(T_{17}\\ge 4.13)=0.0007\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0007 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is strong evidence the two fertilizers give different mean yields."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#active-recall-vs-rereading-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#active-recall-vs-rereading-calculation",
+    "title": "STA258",
+    "section": "Active Recall vs Rereading: Calculation",
+    "text": "Active Recall vs Rereading: Calculation\n\n\n\nHypotheses \\[H_0:\\mu_1-\\mu_2=0 \\qquad H_a:\\mu_1-\\mu_2&gt;0 \\quad (\\alpha=0.05)\\]\nTest statistic (no pooling) \\[t^*=\\frac{\\bar{x}_1-\\bar{x}_2}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}=\\frac{86.92-84.60}{\\sqrt{2.392^2/12+1.506^2/10}}=2.76\\]\np-value \\[\\text{p-value}=P(T_\\nu\\ge 2.76)=0.0062,\\qquad \\nu\\approx 18.8\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0062 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence active recall produces a higher mean quiz score than rereading."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-active-recall-vs-rereading",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-active-recall-vs-rereading",
+    "title": "STA258",
+    "section": "Check in R: Active Recall vs Rereading",
+    "text": "Check in R: Active Recall vs Rereading\n\n\n\n\n\n\n\n\n\nWelch’s test reports \\(t^*=2.76\\) with \\(\\nu\\approx 18.8\\) and p-value \\(0.0062\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#push-notifications-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#push-notifications-calculation",
+    "title": "STA258",
+    "section": "Push Notifications: Calculation",
+    "text": "Push Notifications: Calculation\n\n\n\nHypotheses \\[H_0:p_1-p_2=0 \\qquad H_a:p_1-p_2&gt;0 \\quad (\\alpha=0.05)\\]\nSample and pooled proportions \\[\\hat p_1=\\tfrac{142}{360}=0.394,\\quad \\hat p_2=\\tfrac{118}{370}=0.319,\\quad \\hat p=\\tfrac{142+118}{360+370}=0.356\\]\nTest statistic \\[z^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}=\\frac{0.394-0.319}{\\sqrt{0.356\\cdot 0.644\\,(1/360+1/370)}}=2.13\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.13)=0.0166\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0166 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the daily push notification increases the check-in rate."
   }
 ]

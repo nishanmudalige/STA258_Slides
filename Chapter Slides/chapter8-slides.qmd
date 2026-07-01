@@ -1293,7 +1293,7 @@ Each system has $n_i=6$ wait-time measurements.
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: start;"}
 
-::: {.stat-card style="grid-column: 1; grid-row: 1; font-size: 0.54em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 1; font-size: 0.54em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;" data-fragment-index="1"}
 <span class="label">Calculation table</span>
 
 The grand mean is $\bar{x}=8.57$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
@@ -1318,7 +1318,7 @@ $$
 </div>
 :::
 
-::: {.notebox .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
+::: {.notebox .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;" data-fragment-index="2"}
 <span class="label">ANOVA table</span>
 
 | Source | df | SS | MS | F | p-value |
@@ -1340,7 +1340,7 @@ F^*=\frac{15.38}{2.63}=5.85
 $$
 :::
 
-::: {.examplebox style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;"}
+::: {.examplebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;" data-fragment-index="3"}
 <span class="label">Conclusion</span>
 
 Since $p=0.0132<0.05$, reject $H_0$.
@@ -2116,127 +2116,337 @@ The **red dots** show the group means. Static targets is clearly centered lower,
 
 ---
 
-## Example: Phone Case Drop-Test Costs — Fisher's LSD {.compact .phone-case-example}
+## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-r2-fixed}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
-
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
-<span class="label">Problem</span>
-
-A device lab compares four phone case designs after a standardized drop test.
-
-For each case design, the lab records the **repair cost** after impact.
-
-| Clear | Slim | Wallet | Rugged |
-|---:|---:|---:|---:|
-| 69 | 73 | 78 | 85 |
-| 71 | 75 | 80 | 87 |
-| 73 | 77 | 82 | 89 |
-| 75 | 79 | 84 | 91 |
-| 75 | 79 | 84 | 91 |
-| 77 | 81 | 86 | 93 |
-| 79 | 83 | 88 | 95 |
-| 81 | 85 | 90 | 97 |
-
-ANOVA rejects $H_0$. Which case designs differ using **Fisher's LSD**?
-:::
-
-::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
-<span class="label">Setup from ANOVA</span>
-
-$$
-MSE=16.00,
-\qquad
-v=n-k=32-4=28
-$$
-
-$$
-\bar{x}_{Clear}=75,\quad
-\bar{x}_{Slim}=79,\quad
-\bar{x}_{Wallet}=84,\quad
-\bar{x}_{Rugged}=91
-$$
-
-Each group has $n_i=8$.
-:::
-
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.55em; line-height: 1.08; padding: 15px 17px; margin-bottom: 0;"}
-<span class="label">Fisher LSD calculation</span>
-
-::: {.fragment}
-Use the ordinary critical value:
-
-$$
-t^*=t_{0.975,28}=2.048
-$$
-:::
-
-::: {.fragment}
-Because all groups have size 8, the standard error is the same for every pair:
-
-$$
-SE=
-\sqrt{
-16.00
-\left(
-\frac18+\frac18
-\right)
+```{=html}
+<style>
+.reveal section.late-scroll-r2-fixed {
+  font-size: 0.77em;
 }
-=
-2.00
+
+/* Main layout */
+.reveal section.late-scroll-r2-fixed .scroll-answer-grid {
+  display: grid;
+  grid-template-columns: 0.68fr 0.32fr;
+  gap: 13px;
+  align-items: stretch;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-left-stack {
+  display: grid;
+  gap: 10px;
+  align-items: start;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-right-stack {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* Cards */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card,
+.reveal section.late-scroll-r2-fixed .scroll-table-card,
+.reveal section.late-scroll-r2-fixed .scroll-calc-card,
+.reveal section.late-scroll-r2-fixed .scroll-problem-card,
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--sta-border) !important;
+}
+
+/* White cards */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card,
+.reveal section.late-scroll-r2-fixed .scroll-calc-card,
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+}
+
+/* Table card */
+.reveal section.late-scroll-r2-fixed .scroll-table-card {
+  padding: 10px 12px 8px 12px;
+}
+
+/* Compact problem card */
+.reveal section.late-scroll-r2-fixed .scroll-problem-card {
+  background: var(--sta-yellow);
+  border: 1px solid rgba(255, 167, 38, 0.24);
+  padding: 12px 14px;
+}
+
+/* Minimal conclusion card, pushed lower */
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  align-self: end;
+  padding: 12px 14px;
+}
+
+/* Card spacing */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card {
+  padding: 10px 14px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-calc-card {
+  padding: 10px 14px 11px 14px;
+}
+
+/* Titles */
+.reveal section.late-scroll-r2-fixed .scroll-card-title,
+.reveal section.late-scroll-r2-fixed .scroll-problem-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+/* Setup */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card p {
+  font-size: 13.4px;
+  line-height: 1.18;
+  margin: 0 0 5px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-setup-card p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-setup-math {
+  font-size: 15.2px;
+  line-height: 1.12;
+  margin-top: 5px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-setup-math mjx-container[display="true"],
+.reveal section.late-scroll-r2-fixed .scroll-setup-math .MathJax_Display {
+  margin: 0.10em 0 !important;
+}
+
+/* Table note */
+.reveal section.late-scroll-r2-fixed .scroll-card-note {
+  font-size: 12.5px;
+  line-height: 1.14;
+  color: var(--sta-muted);
+  margin: 0 0 6px 0;
+}
+
+/* Chapter 8-style markdown table */
+.reveal section.late-scroll-r2-fixed .scroll-table-card table {
+  font-size: 0.50em;
+  margin: 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card th,
+.reveal section.late-scroll-r2-fixed .scroll-table-card td {
+  padding: 3px 6px;
+  line-height: 1.05;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card th {
+  text-align: center;
+  font-weight: 700;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card td {
+  text-align: right;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card td:first-child,
+.reveal section.late-scroll-r2-fixed .scroll-table-card td:nth-child(2) {
+  text-align: center;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card tbody tr:last-child td {
+  background: #eef8fb;
+  font-weight: 700;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+/* Final calculation */
+.reveal section.late-scroll-r2-fixed .scroll-calc-lines {
+  display: grid;
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-calc-line {
+  display: grid;
+  grid-template-columns: 0.24fr 0.76fr;
+  gap: 10px;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid #e5edf0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-calc-line:last-child {
+  border-bottom: none;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-line-label {
+  font-weight: 800;
+  color: var(--sta-text);
+  font-size: 13px;
+  line-height: 1.08;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-line-math {
+  font-size: 15.6px;
+  line-height: 1.10;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-line-math mjx-container[display="true"],
+.reveal section.late-scroll-r2-fixed .scroll-line-math .MathJax_Display {
+  margin: 0.06em 0 !important;
+}
+
+/* Problem */
+.reveal section.late-scroll-r2-fixed .scroll-problem-card p {
+  font-size: 13.8px;
+  line-height: 1.20;
+  margin: 0 0 7px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-problem-card p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-problem-target {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 105, 92, 0.18);
+  font-weight: 700;
+}
+
+/* Minimal conclusion */
+.reveal section.late-scroll-r2-fixed .scroll-result-pill {
+  background: #fbfdfe;
+  border: 1px solid rgba(0, 105, 92, 0.24);
+  border-radius: 9px;
+  padding: 7px 9px;
+  margin: 2px 0 8px 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  text-align: center;
+  line-height: 1.10;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card p {
+  font-size: 13.8px;
+  line-height: 1.18;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card p:last-child {
+  margin-bottom: 0;
+}
+</style>
+```
+
+:::: {.scroll-answer-grid}
+
+::: {.scroll-left-stack}
+
+::: {.scroll-setup-card .fragment}
+
+::: {.scroll-card-title}
+Calculation setup
+:::
+
+<p>To compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate $s_x$, $s_y$, $s_{xy}$, and $r$.</p>
+
+::: {.scroll-setup-math}
+$$
+\bar{x}=\frac{15+30+45+60+75+90}{6}=52.500
+\qquad
+\bar{y}=\frac{88+84+76+71+63+58}{6}=73.333
 $$
 :::
 
-::: {.fragment}
-The least significant difference is
-
-$$
-LSD=2.048(2.00)=4.10
-$$
-
-So each pairwise interval is:
-
-$$
-(\bar{x}_i-\bar{x}_j)\pm 4.10
-$$
 :::
 
-::: {.fragment}
-<div class="calc-left" style="font-size: 1.02em; line-height: 1.10; margin-top: 10px;">
+::: {.scroll-table-card .fragment}
 
-<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Fisher LSD intervals</span>
-
-:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start;"}
-
-::: {}
-$$
-\begin{aligned}
-\text{Clear} - \text{Slim}
-&:\ -4.00\pm4.10=(-8.10,\,0.10)\\[5pt]
-\text{Clear} - \text{Wallet}
-&:\ -9.00\pm4.10=(-13.10,\,-4.90)\\[5pt]
-\text{Clear} - \text{Rugged}
-&:\ -16.00\pm4.10=(-20.10,\,-11.90)
-\end{aligned}
-$$
+::: {.scroll-card-title}
+Step-by-step deviations and products
 :::
 
-::: {}
-$$
-\begin{aligned}
-\text{Slim} - \text{Wallet}
-&:\ -5.00\pm4.10=(-9.10,\,-0.90)\\[5pt]
-\text{Slim} - \text{Rugged}
-&:\ -12.00\pm4.10=(-16.10,\,-7.90)\\[5pt]
-\text{Wallet} - \text{Rugged}
-&:\ -7.00\pm4.10=(-11.10,\,-2.90)
-\end{aligned}
-$$
+::: {.scroll-card-note}
+The totals row gives the values used in the final calculation.
+:::
+
+| $x_i$ | $y_i$ | $x_i-\bar{x}$ | $y_i-\bar{y}$ | $(x_i-\bar{x})(y_i-\bar{y})$ | $(x_i-\bar{x})^2$ | $(y_i-\bar{y})^2$ |
+|---:|---:|---:|---:|---:|---:|---:|
+| 15 | 88 | −37.500 | 14.667 | −550.000 | 1406.250 | 215.111 |
+| 30 | 84 | −22.500 | 10.667 | −240.000 | 506.250 | 113.778 |
+| 45 | 76 | −7.500 | 2.667 | −20.000 | 56.250 | 7.111 |
+| 60 | 71 | 7.500 | −2.333 | −17.500 | 56.250 | 5.444 |
+| 75 | 63 | 22.500 | −10.333 | −232.500 | 506.250 | 106.778 |
+| 90 | 58 | 37.500 | −15.333 | −575.000 | 1406.250 | 235.111 |
+| **Totals** |  |  |  | **−1635.000** | **3937.500** | **683.333** |
+
+:::
+
+::: {.scroll-calc-card .fragment}
+
+::: {.scroll-card-title}
+Final calculation
+:::
+
+:::: {.scroll-calc-lines}
+
+::: {.scroll-calc-line}
+<div class="scroll-line-label">Standard deviations</div>
+<div class="scroll-line-math">$s_x=\sqrt{3937.500/5}=28.062 \qquad s_y=\sqrt{683.333/5}=11.690$</div>
+:::
+
+::: {.scroll-calc-line}
+<div class="scroll-line-label">Covariance</div>
+<div class="scroll-line-math">$s_{xy}=-1635.000/5=-327.000$</div>
+:::
+
+::: {.scroll-calc-line}
+<div class="scroll-line-label">Correlation</div>
+<div class="scroll-line-math">$r=\dfrac{-327.000}{(28.062)(11.690)}=-0.997$</div>
 :::
 
 ::::
 
+:::
+
+:::
+
+::: {.scroll-right-stack}
+
+::: {.scroll-problem-card}
+<span class="label">Problem</span>
+
+<p>A student records late-night scrolling time after midnight and the next-day quiz score.</p>
+
+<p>We use scrolling time to study the linear relationship with quiz score.</p>
+
+<div class="scroll-problem-target">
+Compute and interpret the sample correlation, $r$.
 </div>
+:::
+
+::: {.scroll-conclusion-card .fragment}
+
+::: {.scroll-card-title}
+Conclusion
+:::
+
+::: {.scroll-result-pill}
+$r=-0.997 \quad \text{and} \quad r^2=0.994$
+:::
+
+<p>The correlation is **-0.997**, which is strongly negative.</p>
+
+<p>About **99.4%** of the variation in quiz scores lines up with the linear trend.</p>
+
 :::
 
 :::

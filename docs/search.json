@@ -2069,7 +2069,7 @@
     "href": "Chapter Slides/chapter6-slides.html#paired-data",
     "title": "STA258",
     "section": "6.4 Paired Data",
-    "text": "6.4 Paired Data\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+    "text": "6.4 Paired Data"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-paired-study-plan-test",
@@ -5003,5 +5003,19 @@
     "title": "STA258",
     "section": "6.3.1.3 Hypothesis Tests on Two Means",
     "text": "6.3.1.3 Hypothesis Tests on Two Means\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling), with test statistic\n\\[\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), approximately follows a \\(t\\) reference distribution with the Welch–Satterthwaite degrees of freedom.\n\n\n\nReference distribution \\(T\\sim t_\\nu\\), with the Welch–Satterthwaite \\(\\nu\\).\n\n\nUse when Comparing two population means from independent samples when equal variances are not clearly justified."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#paired-data-reduce-to-differences",
+    "href": "Chapter Slides/chapter6-slides.html#paired-data-reduce-to-differences",
+    "title": "STA258",
+    "section": "Paired Data: Reduce to Differences",
+    "text": "Paired Data: Reduce to Differences\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#paired-data-1",
+    "href": "Chapter Slides/chapter6-slides.html#paired-data-1",
+    "title": "STA258",
+    "section": "6.4 Paired Data",
+    "text": "6.4 Paired Data\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
   }
 ]

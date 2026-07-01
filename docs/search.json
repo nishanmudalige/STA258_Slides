@@ -4980,6 +4980,27 @@
     "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
     "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
     "title": "STA258",
+    "section": "6.3.1.2 Hypothesis Tests on Two Means",
+    "text": "6.3.1.2 Hypothesis Tests on Two Means\n\nWhen the population variances are unknown but can be assumed equal, pool the two sample variances into one estimate:\n\\[\ns_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2},\n\\qquad\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{s_p\\sqrt{\\dfrac{1}{n_1}+\\dfrac{1}{n_2}}}\n\\]\n\n\n\nDegrees of freedom \\(df=n_1+n_2-2\\) — exact, and larger than Welch’s.\n\n\nWhen to pool Reasonable when the sample spreads are similar — e.g. the fold rule \\(\\dfrac{\\max(s_1,s_2)}{\\min(s_1,s_2)}&lt;\\sqrt{2}\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-proportions",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-proportions",
+    "title": "STA258",
+    "section": "6.3.2 Hypothesis Tests on Two Proportions",
+    "text": "6.3.2 Hypothesis Tests on Two Proportions\n\nWhen testing \\(H_0:p_1-p_2=0\\), pool the sample proportions under the null and use the test statistic\n\\[\n\\hat p=\\frac{x_1+x_2}{n_1+n_2},\n\\qquad\nz^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(Z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population proportions from independent samples, with enough successes and failures in each group."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-variances",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-variances",
+    "title": "STA258",
+    "section": "6.3.3 Hypothesis Tests on Two Variances",
+    "text": "6.3.3 Hypothesis Tests on Two Variances\n\nFor two normal populations, test a ratio of variances with the test statistic\n\\[\nF^*=\\frac{s_1^2}{s_2^2}\n\\]\nwhich, under \\(H_0\\), follows an \\(F\\) reference distribution with \\(n_1-1\\) and \\(n_2-1\\) degrees of freedom.\n\n\n\nReference distribution \\(F^*\\sim F_{n_1-1,\\,n_2-1}\\).\n\n\nUse when Comparing two population variances from independent normal samples; the \\(F\\) test is sensitive to non-normality."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-2",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-2",
+    "title": "STA258",
     "section": "6.3.1.3 Hypothesis Tests on Two Means",
     "text": "6.3.1.3 Hypothesis Tests on Two Means\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling), with test statistic\n\\[\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), approximately follows a \\(t\\) reference distribution with the Welch–Satterthwaite degrees of freedom.\n\n\n\nReference distribution \\(T\\sim t_\\nu\\), with the Welch–Satterthwaite \\(\\nu\\).\n\n\nUse when Comparing two population means from independent samples when equal variances are not clearly justified."
   }

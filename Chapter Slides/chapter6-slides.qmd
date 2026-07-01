@@ -1591,7 +1591,7 @@ ztest_plot(zstar = 2.39, zcrit = 1.645, alternative = "greater",
 
 ---
 
-## 6.3.1.2 Hypothesis Tests on Two Means, Equal Variances (Pooled $t$)
+## 6.3.1.2 Hypothesis Tests on Two Means
 
 ::: {.defbox}
 When the population variances are unknown but can be assumed **equal**, pool the two sample variances into one estimate:
@@ -1720,20 +1720,31 @@ ttest_plot(tstar = 4.63, tcrit = 1.725, df = 20, alternative = "greater",
 
 ---
 
-## 6.3.2 Difference of Proportions
+## 6.3.2 Hypothesis Tests on Two Proportions
 
 ::: {.defbox}
-When testing $H_0:p_1-p_2=0$, pool the sample proportions under the null:
+When testing $H_0:p_1-p_2=0$, pool the sample proportions under the null and use the test statistic
 
 $$
-\hat p=\frac{x_1+x_2}{n_1+n_2}
+\hat p=\frac{x_1+x_2}{n_1+n_2},
+\qquad
+z^*=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}
 $$
 
-$$
-z^*=\frac{\hat p_1-\hat p_2}
-{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}
-$$
+which, under $H_0$, follows the standard normal reference distribution $Z\sim N(0,1)$.
 :::
+
+:::: {.two-col}
+::: {.notebox .fragment}
+<span class="label">Reference distribution</span>
+$Z^*\sim N(0,1)$.
+:::
+
+::: {.notebox .fragment}
+<span class="label">Use when</span>
+Comparing two population proportions from independent samples, with enough successes and failures in each group.
+:::
+::::
 
 ---
 
@@ -1780,27 +1791,27 @@ The output gives p-value about $0.0166$, so there is evidence that the daily pus
 
 ---
 
-## 6.3.3 Ratio of Variances
+## 6.3.3 Hypothesis Tests on Two Variances
 
 ::: {.defbox}
-For two normal populations, test a ratio of variances with
+For two normal populations, test a ratio of variances with the test statistic
 
 $$
 F^*=\frac{s_1^2}{s_2^2}
 $$
 
-using an $F$ reference distribution with $n_1-1$ and $n_2-1$ degrees of freedom.
+which, under $H_0$, follows an $F$ reference distribution with $n_1-1$ and $n_2-1$ degrees of freedom.
 :::
 
 :::: {.two-col}
-::: {.warnbox .fragment}
-<span class="label">Normality matters</span>
-The $F$ test for variances is sensitive to non-normality.
+::: {.notebox .fragment}
+<span class="label">Reference distribution</span>
+$F^*\sim F_{n_1-1,\,n_2-1}$.
 :::
 
 ::: {.notebox .fragment}
-<span class="label">Two-sided idea</span>
-Extreme ratios in either direction count as evidence against equal variances.
+<span class="label">Use when</span>
+Comparing two population variances from independent **normal** samples; the $F$ test is sensitive to non-normality.
 :::
 ::::
 

@@ -394,11 +394,13 @@ ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
     list(type = "line", x0 = zstar, x1 = zstar, y0 = 0, y1 = zmark,
          line = list(color = "#333", width = 2.5))
   )
-  # label sits centered directly above the z* line
+  # place the z* label on the tail side of its line so it clears the crit-value marker
+  lab_anchor <- if (alternative == "less") "right" else "left"
+  lab_shift  <- if (alternative == "less") -6 else 6
   anns <- list(
     list(x = zstar, y = zmark + 0.07,
          text = paste0("z* = ", formatC(zstar, format = "f", digits = 2)),
-         showarrow = FALSE, xanchor = "center",
+         showarrow = FALSE, xanchor = lab_anchor, xshift = lab_shift,
          font = list(color = "#333", size = 13))
   )
   if (!is.null(zcrit)) {
@@ -484,13 +486,17 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
            showarrow = TRUE, ax = if (alternative == "less") -10 else 10, ay = -28,
            arrowcolor = "#b26a00", font = list(color = "#b26a00", size = 12))))
   }
-  plot_ly(width = 620, height = 230) |>
+  # shade each tail as its own trace so two-sided fills the tails (not the middle)
+  add_shade <- function(pp, keep) add_trace(pp, x = x[keep], y = y[keep],
+      type = "scatter", mode = "lines", fill = "tozeroy",
+      fillcolor = "rgba(249,168,37,0.6)",
+      line = list(color = "rgba(249,168,37,0.95)", width = 1),
+      name = "shaded region", hoverinfo = "skip")
+  p <- plot_ly(width = 620, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
-              name = paste0("t(", df, ")"), hoverinfo = "skip") |>
-    add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = "rgba(249,168,37,0.6)",
-              line = list(color = "rgba(249,168,37,0.95)", width = 1),
-              name = "shaded region", hoverinfo = "skip") |>
+              name = paste0("t(", df, ")"), hoverinfo = "skip")
+  p <- if (alternative == "two.sided") add_shade(add_shade(p, x <= -cut), x >= cut) else add_shade(p, shade_keep)
+  p |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 14)),
       xaxis = list(title = "test statistic", range = xr,
@@ -1599,11 +1605,9 @@ Both population SDs are **known**, so use a two-sample $z$ test.
 # Population SDs known -> build the two-sample z by hand
 nA <- 40; xbarA <- 86; sigmaA <- 12
 nB <- 45; xbarB <- 79; sigmaB <- 15
-
 se <- sqrt(sigmaA^2 / nA + sigmaB^2 / nB)
 z_star <- (xbarA - xbarB) / se
 p_value <- 1 - pnorm(z_star)   # Ha: muA - muB > 0
-
 z_star
 p_value
 ```
@@ -1715,9 +1719,9 @@ Comparing two population means from independent samples when equal variances are
 ::: {.examplebox}
 Decades of memory research suggest **active recall** (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.
 
-Active recall: `88 91 85 94 89 90 87 92 86 93 89 90`
+Active recall: `88 84 90 86 89 85 88 83 90 86 89 85`
 
-Rereading: `84 86 82 88 85 83 81 87 84 86`
+Rereading: `84 86 83 85 84 82 87 84 86 85`
 
 Does active recall produce a higher mean quiz score?
 :::
@@ -1731,15 +1735,15 @@ Let $\mu_1$ be the active-recall mean and $\mu_2$ the rereading mean. Test $H_0:
 ## Check in R: Two-Sample t Test
 
 ```{webr}
-active <- c(88, 91, 85, 94, 89, 90, 87, 92, 86, 93, 89, 90)
-review <- c(84, 86, 82, 88, 85, 83, 81, 87, 84, 86)
+active <- c(88, 84, 90, 86, 89, 85, 88, 83, 90, 86, 89, 85)
+review <- c(84, 86, 83, 85, 84, 82, 87, 84, 86, 85)
 
 t.test(active, review, alternative = "greater", var.equal = FALSE)
 ```
 
 ::: {.mini-plot}
 ```{r}
-ttest_plot(tstar = 4.63, tcrit = 1.725, df = 20, alternative = "greater",
+ttest_plot(tstar = 2.76, tcrit = 1.73, df = 19, alternative = "greater",
            shade = "reject",
            title = "t* falls in the rejection region (α = 0.05)")
 ```
@@ -2045,7 +2049,7 @@ Each of 12 students completes a timed practice set, then writes a comparable set
 
 Before: `34 29 41 38 36 33 40 31 37 35 39 32`
 
-After: `36 31 43 39 38 35 39 34 40 37 41 33`
+After: `37 28 45 39 38 33 38 34 38 39 41 33`
 
 Can we conclude the technique improves scores?
 :::
@@ -2060,14 +2064,14 @@ Use paired differences $d_i=\text{after}_i-\text{before}_i$ and test $H_0:\mu_d=
 
 ```{webr}
 before <- c(34, 29, 41, 38, 36, 33, 40, 31, 37, 35, 39, 32)
-after <- c(36, 31, 43, 39, 38, 35, 39, 34, 40, 37, 41, 33)
+after <- c(37, 28, 45, 39, 38, 33, 38, 34, 38, 39, 41, 33)
 
 t.test(after, before, paired = TRUE, alternative = "greater")
 ```
 
 ::: {.mini-plot}
 ```{r}
-ttest_plot(tstar = 5.75, tcrit = 1.796, df = 11, alternative = "greater",
+ttest_plot(tstar = 2.76, tcrit = 1.796, df = 11, alternative = "greater",
            shade = "reject",
            title = "t* falls in the rejection region (α = 0.05)")
 ```

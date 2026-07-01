@@ -5015,7 +5015,7 @@
     "objectID": "Chapter Slides/chapter6-slides.html#paired-data-1",
     "href": "Chapter Slides/chapter6-slides.html#paired-data-1",
     "title": "STA258",
-    "section": "6.4 Paired Data",
-    "text": "6.4 Paired Data\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+    "section": "Paired Data",
+    "text": "Paired Data\n\nFor matched pairs or before-after data, reduce each pair to a difference (measurement 1 \\(-\\) measurement 2):\n\\[\nd_i = m_{1i}-m_{2i} \\quad (\\text{or } m_{2i}-m_{1i})\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
   }
 ]

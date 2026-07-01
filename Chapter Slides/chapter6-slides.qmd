@@ -1919,13 +1919,13 @@ var.test(player_a, player_b, alternative = "greater")
 
 ---
 
-## Paired Data: Reduce to Differences
+## Paired Data
 
 ::: {.defbox}
-For matched pairs or before-after data, first reduce the data to differences:
+For matched pairs or before-after data, reduce each pair to a difference (measurement 1 $-$ measurement 2):
 
 $$
-d_i = \text{new}_i-\text{current}_i
+d_i = m_{1i}-m_{2i} \quad (\text{or } m_{2i}-m_{1i})
 $$
 
 Then run a one-sample $t$ test on $\mu_d$.

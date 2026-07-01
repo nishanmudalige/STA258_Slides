@@ -1547,6 +1547,29 @@ Comparing two population means from independent samples with **known** $\sigma_1
 
 ---
 
+## Assumptions: Two Independent Means
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Sampling structure</span>
+<ul class="assumption-list">
+  <li class="fragment">The two samples are independent.</li>
+  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
+  <li class="fragment">If sampling without replacement, each sample is less than 10% of its population.</li>
+</ul>
+:::
+
+::: {.card .fragment}
+<span class="label">Model condition</span>
+<ul class="assumption-list">
+  <li class="fragment">Each population is approximately normal, or both sample sizes are large enough for the CLT.</li>
+  <li class="fragment">For a pooled test, equal population variances should be reasonable.</li>
+</ul>
+:::
+::::
+
+---
+
 ## Example: Comparing Download Speeds
 
 ::: {.examplebox}
@@ -1750,6 +1773,30 @@ Comparing two population proportions from independent samples, with enough succe
 
 ---
 
+## Assumptions: Difference of Proportions
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Sampling structure</span>
+<ul class="assumption-list">
+  <li class="fragment">The two groups are independent.</li>
+  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
+  <li class="fragment">If sampling without replacement, each sample should be less than 10% of its population.</li>
+</ul>
+:::
+
+::: {.card .fragment}
+<span class="label">Large-count condition</span>
+<ul class="assumption-list">
+  <li class="fragment">Check successes and failures in <em>each</em> group.</li>
+  <li class="fragment">At least 10 successes: $x_i \ge 10$.</li>
+  <li class="fragment">At least 10 failures: $n_i - x_i \ge 10$.</li>
+</ul>
+:::
+::::
+
+---
+
 ## Example: Push Notifications
 
 ::: {.examplebox}
@@ -1814,6 +1861,28 @@ $F^*\sim F_{n_1-1,\,n_2-1}$.
 ::: {.notebox .fragment}
 <span class="label">Use when</span>
 Comparing two population variances from independent **normal** samples; the $F$ test is sensitive to non-normality.
+:::
+::::
+
+---
+
+## Assumptions: Ratio of Variances
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Required structure</span>
+<ul class="assumption-list">
+  <li class="fragment">The two samples are independent.</li>
+  <li class="fragment">Each sample comes from a random process or randomized design.</li>
+</ul>
+:::
+
+::: {.warnbox .fragment}
+<span class="label">Normality matters here</span>
+<ul class="assumption-list">
+  <li class="fragment">The $F$ test for a variance ratio is sensitive to non-normality.</li>
+  <li class="fragment">This condition is more important here than it is for many mean-based tests.</li>
+</ul>
 :::
 ::::
 
@@ -1945,6 +2014,28 @@ $t$ with $n-1$ degrees of freedom for the differences.
 
 ---
 
+## Assumptions: Paired Data
+
+:::: {.assumption-stack}
+::: {.card .fragment}
+<span class="label">Paired structure</span>
+<ul class="assumption-list">
+  <li class="fragment">Each pair comes from the same unit, matched units, or a before-after measurement.</li>
+  <li class="fragment">The pairs themselves are independent of one another.</li>
+</ul>
+:::
+
+::: {.card .fragment}
+<span class="label">Model condition</span>
+<ul class="assumption-list">
+  <li class="fragment">Analyze the differences $d_i$, not the two original columns separately.</li>
+  <li class="fragment">For small samples, the distribution of differences should be approximately normal.</li>
+</ul>
+:::
+::::
+
+---
+
 ## Example: Pomodoro Focus Timer
 
 ::: {.examplebox}
@@ -1994,97 +2085,6 @@ In the Pomodoro example, why is a paired $t$ test appropriate?
 - The sample size is less than 30
 - [Each student has both before and after scores, so observations are matched within student]{.correct data-explanation="The student creates a natural pair: the before score and after score come from the same person."}
 - Proportion tests cannot use score data
-
----
-
-## Assumptions: Two Independent Means
-
-:::: {.assumption-stack}
-::: {.card .fragment}
-<span class="label">Sampling structure</span>
-<ul class="assumption-list">
-  <li class="fragment">The two samples are independent.</li>
-  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
-  <li class="fragment">If sampling without replacement, each sample is less than 10% of its population.</li>
-</ul>
-:::
-
-::: {.card .fragment}
-<span class="label">Model condition</span>
-<ul class="assumption-list">
-  <li class="fragment">Each population is approximately normal, or both sample sizes are large enough for the CLT.</li>
-  <li class="fragment">For a pooled test, equal population variances should be reasonable.</li>
-</ul>
-:::
-::::
-
----
-
-## Assumptions: Difference of Proportions
-
-:::: {.assumption-stack}
-::: {.card .fragment}
-<span class="label">Sampling structure</span>
-<ul class="assumption-list">
-  <li class="fragment">The two groups are independent.</li>
-  <li class="fragment">Each sample is random, or the data come from a randomized design.</li>
-  <li class="fragment">If sampling without replacement, each sample should be less than 10% of its population.</li>
-</ul>
-:::
-
-::: {.card .fragment}
-<span class="label">Large-count condition</span>
-<ul class="assumption-list">
-  <li class="fragment">Check successes and failures in <em>each</em> group.</li>
-  <li class="fragment">At least 10 successes: $x_i \ge 10$.</li>
-  <li class="fragment">At least 10 failures: $n_i - x_i \ge 10$.</li>
-</ul>
-:::
-::::
-
----
-
-## Assumptions: Ratio of Variances
-
-:::: {.assumption-stack}
-::: {.card .fragment}
-<span class="label">Required structure</span>
-<ul class="assumption-list">
-  <li class="fragment">The two samples are independent.</li>
-  <li class="fragment">Each sample comes from a random process or randomized design.</li>
-</ul>
-:::
-
-::: {.warnbox .fragment}
-<span class="label">Normality matters here</span>
-<ul class="assumption-list">
-  <li class="fragment">The $F$ test for a variance ratio is sensitive to non-normality.</li>
-  <li class="fragment">This condition is more important here than it is for many mean-based tests.</li>
-</ul>
-:::
-::::
-
----
-
-## Assumptions: Paired Data
-
-:::: {.assumption-stack}
-::: {.card .fragment}
-<span class="label">Paired structure</span>
-<ul class="assumption-list">
-  <li class="fragment">Each pair comes from the same unit, matched units, or a before-after measurement.</li>
-  <li class="fragment">The pairs themselves are independent of one another.</li>
-</ul>
-:::
-
-::: {.card .fragment}
-<span class="label">Model condition</span>
-<ul class="assumption-list">
-  <li class="fragment">Analyze the differences $d_i$, not the two original columns separately.</li>
-  <li class="fragment">For small samples, the distribution of differences should be approximately normal.</li>
-</ul>
-:::
-::::
 
 ---
 

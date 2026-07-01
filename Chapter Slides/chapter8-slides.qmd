@@ -498,37 +498,66 @@ University of Toronto Mississauga
 
 ## Chapter Roadmap {.compact}
 
-:::: {.three-col}
-::: {.card .fragment}
-<span class="label">Concept 1</span>
-**One-way ANOVA F test**  
-Model, variation split, assumptions, ANOVA table, and p-value.
+:::: {.roadmap-grid style="display:grid; grid-template-rows: auto auto; gap: 18px; align-items: stretch;"}
+
+:::: {.three-col style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch;"}
+
+::: {.defbox .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Part 1</span>
+
+**One-way ANOVA F test**
+
+Model, assumptions, variation split, ANOVA table, and right-tail p-value.
 :::
 
-::: {.card .fragment}
-<span class="label">Examples + R</span>
-Use two raw-data examples, then confirm the ANOVA table in R.
+::: {.defbox .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Part 2</span>
+
+**Examples + R checks**
+
+Use raw-data examples to calculate ANOVA tables, then confirm the work in R.
 :::
 
-::: {.card .fragment}
-<span class="label">Concept 2</span>
-**Pairwise comparisons**  
-After ANOVA rejects, ask which means differ.
+::: {.defbox .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Part 3</span>
+
+**Pairwise comparisons**
+
+After ANOVA rejects, use Fisher's LSD and Bonferroni to ask which means differ.
 :::
+
 ::::
 
-<br>
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch;"}
 
-:::: {.two-col}
-::: {.stat-card .fragment}
-<span class="label">Block 1 examples</span>
-Campus café pickup systems and short-form video edit styles.
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.14; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">ANOVA examples</span>
+
+**Campus café pickup systems**  
+Compare mean wait times across ordering methods.
+
+**Short-form video edit styles**  
+Compare mean watch times across edit styles.
 :::
 
-::: {.stat-card .fragment}
-<span class="label">Block 2 examples</span>
-Badminton drill accuracy scores and phone case drop-test costs.
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.14; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Pairwise comparison examples</span>
+
+**Badminton drill accuracy scores**  
+Identify which drill programs differ.
+
+**Phone case drop-test costs**  
+Compare repair costs across case designs.
 :::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Chapter goal</span>
+
+Use ANOVA to decide whether several means differ, then use pairwise methods to identify the specific differences.
+:::
+
 ::::
 
 ---
@@ -735,46 +764,58 @@ The ANOVA $F$ statistic becomes large when between-group variation is large rela
 
 ---
 
-## Total Variation and Decomposition
+## Total Variation and Decomposition {.compact .total-decomp}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-Total variation:
+:::: {.total-decomp-grid style="display:grid; grid-template-columns: 1.02fr 0.98fr; grid-template-rows: 205px 175px auto; gap: 16px 18px; align-items: stretch;"}
+
+::: {.defbox style="grid-column: 1; grid-row: 1; font-size: 0.66em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
+<span class="label">Total variation</span>
+
+Total variation measures how far all observations are from the overall mean.
 
 $$
-SSTotal=\sum_{i=1}^{k}\sum_{j=1}^{n_i}(X_{ij}-\bar X)^2
+SSTotal=
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}
+(X_{ij}-\bar X)^2
 $$
 :::
 
-::: {.notebox .fragment}
+::: {.thinkbox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.66em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
+<span class="label">What ANOVA compares</span>
+
+ANOVA compares variation **between group centers** to variation **inside the groups**.
+
+$$
+\text{between-group variation}
+\qquad \text{vs.} \qquad
+\text{within-group variation}
+$$
+:::
+
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 2; font-size: 0.66em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
 <span class="label">Decomposition identity</span>
+
+Total variation splits into treatment variation plus error variation:
 
 $$
 SSTotal=SSTr+SSE
 $$
 :::
-:::
 
-::: {.col}
-::: {.thinkbox}
-ANOVA compares:
+::: {.notebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
+<span class="label">Intuition</span>
 
-$$
-\begin{aligned}
-&\text{between-group variation}\\[2pt]
-&\qquad\quad \text{vs.}\\[2pt]
-&\text{within-group variation}
-\end{aligned}
-$$
-:::
-
-::: {.examplebox .fragment}
 If group means are close together, $SSTr$ is small.
 
 If at least one group mean is far away, $SSTr$ becomes larger.
 :::
+
+::: {.examplebox .fragment style="grid-column: 1 / span 2; grid-row: 3; font-size: 0.66em; line-height: 1.18; padding: 14px 20px; margin-bottom: 0;"}
+<span class="label">Big picture</span>
+
+ANOVA asks whether the **between-group variation** is large compared with the **within-group error variation**.
 :::
+
 ::::
 
 ---
@@ -1357,229 +1398,235 @@ The **story hook** group is clearly centered higher than the other edit styles. 
 
 ---
 
-## Check in R: One-Way ANOVA Tables {.compact-r}
+## What If ANOVA Rejects? {.compact .anova-rejects}
 
-:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+:::: {.anova-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
 
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Campus café pickup example</span>
-:::
+::: {.defbox style="font-size: 0.64em; line-height: 1.17; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Global ANOVA result</span>
 
-```{webr}
-#| autorun: false
-
-wait_time <- c(5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
-               6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
-               7.8, 8.8, 9.8, 10.6, 11.8, 12.4)
-
-system <- factor(rep(c("Mobile", "Kiosk", "Counter"), each = 6))
-
-anova(lm(wait_time ~ system))
-```
-:::
-
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Short-form video edit example</span>
-:::
-
-```{webr}
-#| autorun: false
-
-watch_time <- c(32, 36, 38, 40, 44,
-                39, 39, 44, 49, 49,
-                35, 40, 41, 42, 47,
-                46, 49, 52, 55, 58)
-
-style <- factor(rep(c("Clean", "Captions", "Meme", "Story"), each = 5))
-
-anova(lm(watch_time ~ style))
-```
-:::
-
-::::
-
----
-
-## What If ANOVA Rejects?
-
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-ANOVA's alternative is broad:
+ANOVA tests whether all population means are equal:
 
 $$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+\qquad \text{vs.} \qquad
 H_a:\text{at least one mean is different}
 $$
-
-So after rejecting $H_0$, we still need to ask:
-
-**Which mean or means are different?**
-:::
 :::
 
-::: {.col}
-::: {.notebox .fragment}
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.thinkbox .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Important limitation</span>
+
+Rejecting $H_0$ tells us that **not all means are equal**.
+
+It does **not** tell us which specific groups differ.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Follow-up question</span>
+
+After a significant ANOVA result, we ask:
+
+$$
+\text{Which means are different?}
+$$
+:::
+
+::: {.notebox .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">Pairwise comparisons</span>
-
-Compare the means in pairs.
 
 For three groups:
 
-- $\mu_1$ vs. $\mu_2$
-- $\mu_1$ vs. $\mu_3$
-- $\mu_2$ vs. $\mu_3$
-:::
+$$
+\mu_1-\mu_2,\qquad
+\mu_1-\mu_3,\qquad
+\mu_2-\mu_3
+$$
 
-::: {.thinkbox .fragment}
-Number of pairwise comparisons:
+With $k$ groups:
 
 $$
 m=\binom{k}{2}
 $$
 :::
+
+::::
+
+::: {.examplebox .fragment style="font-size: 0.64em; line-height: 1.18; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">Next step</span>
+
+Use pairwise confidence intervals to compare specific group means: first **Fisher's LSD**, then **Bonferroni**.
 :::
+
 ::::
 
 ---
 
-## Pairwise Confidence Intervals
+## Pairwise Confidence Intervals {.compact .pairwise-ci}
 
-::: {.defbox}
-For comparing two group means after ANOVA, use intervals for:
+:::: {.pairwise-ci-flow style="display:grid; grid-template-rows: auto 1fr; gap: 14px; align-items: stretch;"}
 
-$$
-\mu_i-\mu_j
-$$
-:::
+::: {.defbox style="font-size: 0.61em; line-height: 1.14; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">General idea</span>
 
-:::: {.two-col}
-::: {.stat-card .fragment}
-<span class="label">Fisher's LSD</span>
+After ANOVA rejects, compare two population means using an interval for $\mu_i-\mu_j$:
 
-$$
-(\bar x_i-\bar x_j)
-\pm
-t_{n-k,\alpha/2}
-\sqrt{
-MSE
-\left(
-\frac{1}{n_i}+\frac{1}{n_j}
-\right)
-}
-$$
-
-More power, but does not control experiment-wise Type I error.
-:::
-
-::: {.stat-card .fragment}
-<span class="label">Bonferroni</span>
-
-$$
-(\bar x_i-\bar x_j)
-\pm
-t_{n-k,\alpha/(2m)}
-\sqrt{
-MSE
-\left(
-\frac{1}{n_i}+\frac{1}{n_j}
-\right)
-}
-$$
-
-where $m=\binom{k}{2}$.
-:::
-::::
-
----
-
-## Fisher LSD vs. Bonferroni
-
-| Method | What it does | Tradeoff |
-|---|---|---|
-| Fisher LSD | Uses ordinary pairwise intervals after ANOVA | Higher power, but does not control experiment-wise Type I error |
-| Bonferroni | Adjusts each interval for the number of comparisons | Controls experiment-wise Type I error, but intervals are wider |
-
-::: {.notebox .fragment}
-<span class="label">Least significant difference</span>
-
-$$
-LSD=
-t_{\alpha/2,v}
-\sqrt{
-MSE
-\left(
-\frac{1}{n_i}+\frac{1}{n_j}
-\right)
-}
-$$
-
-Conclude two means differ if:
-
-$$
-|\bar x_i-\bar x_j|>LSD
-$$
-:::
-
----
-
-## Fisher's LSD
-
-:::: {.two-col-wide style="grid-template-columns: 0.92fr 1.08fr; gap: 20px; align-items: stretch;"}
-
-::: {.defbox style="font-size: 0.66em; line-height: 1.16; padding: 15px 17px; margin-bottom: 0;"}
-<span class="label">Idea</span>
-
-Fisher's LSD is used **after ANOVA rejects**.
-
-It compares two group means using the pooled error estimate from ANOVA:
-
-$$
-MSE
-$$
-
-It is more powerful, but it does **not** control the experiment-wise Type I error rate.
-:::
-
-::: {.stat-card .calc-left style="font-size: 0.64em; line-height: 1.14; padding: 15px 17px; margin-bottom: 0;"}
-<span class="label">Textbook formula</span>
-
-For each pair:
+<div class="calc-left" style="font-size: 0.95em; margin-top: 6px; margin-bottom: 4px;">
 
 $$
 (\bar{x}_i-\bar{x}_j)
 \pm
-t_{\alpha/2,v}
+t^*
 \sqrt{
-MSE
-\left(
-\frac{1}{n_i}+\frac{1}{n_j}
-\right)
+MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)
 }
+\qquad
+\text{where } \hat{\sigma}^2=MSE
 $$
 
-where:
-
-$$
-v=n-k
-$$
-
-A pair differs if its interval **does not contain 0**.
+</div>
 :::
+
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Fisher's LSD</span>
+
+Use the ordinary two-sided critical value:
+
+$$
+t^*=t_{1-\alpha/2,\;n-k}
+$$
+
+This gives **narrower intervals**, so it has more power to detect differences.
+
+It is less conservative when many pairs are compared.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Bonferroni</span>
+
+First count the number of pairwise comparisons:
+
+$$
+m=\binom{k}{2}
+$$
+
+Then use the adjusted critical value:
+
+$$
+t^*=t_{1-\alpha/(2m),\;n-k}
+$$
+
+This gives **wider intervals**.
+:::
+
+::: {.thinkbox .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Decision rule</span>
+
+A pair is declared **different** when the interval for $\mu_i-\mu_j$ does **not contain 0**.
+
+If the interval contains 0, the pair is **not clearly different**.
+
+So the whole method is:
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+$$
+:::
+
+::::
 
 ::::
 
 ---
 
-## Badminton: Fisher LSD Comparisons {.badminton-example}
+## Fisher's LSD: The Idea {.compact .fisher-idea}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 280px 210px; gap: 10px 16px; align-items: stretch; height: 502px;"}
+:::: {.fisher-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.50em; line-height: 1.04; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+::: {.defbox style="font-size: 0.64em; line-height: 1.17; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Least Significant Difference</span>
+
+Fisher's LSD compares two group means after the overall ANOVA test has rejected $H_0$.
+
+For a pair of groups $i$ and $j$, we compare the observed mean difference:
+
+$$
+\bar{x}_i-\bar{x}_j
+$$
+:::
+
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Shared error estimate</span>
+
+Use the pooled within-group variation from ANOVA:
+
+$$
+MSE
+$$
+
+This estimates the common variance $\sigma^2$.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Ordinary t critical value</span>
+
+Fisher's LSD uses:
+
+$$
+t^*=t_{1-\alpha/2,\;n-k}
+$$
+
+The degrees of freedom come from the ANOVA error row.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">LSD cutoff</span>
+
+When group sizes are $n_i$ and $n_j$:
+
+$$
+LSD=
+t^*
+\sqrt{
+MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)
+}
+$$
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.18; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">How to decide</span>
+
+If
+
+$$
+|\bar{x}_i-\bar{x}_j|>LSD,
+$$
+
+then the pair is declared **different**. Fisher's LSD is powerful, but it is less conservative when many pairwise comparisons are made.
+:::
+
+::::
+
+----
+
+## Example: Badminton Drills — Fisher's LSD {.compact .badminton-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
-A badminton coach compares three drill programs for improving serve-target accuracy.
+A badminton coach compares three drill programs for improving **serve-target accuracy**.
 
 After two months, each player completes the same accuracy test out of 40.
 
@@ -1595,18 +1642,14 @@ After two months, each player completes the same accuracy test out of 40.
 ANOVA rejects $H_0$. Which drill programs differ using **Fisher's LSD**?
 :::
 
-::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.47em; line-height: 1.04; padding: 10px 12px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Setup</span>
-
-From ANOVA:
+::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Setup from ANOVA</span>
 
 $$
 MSE=4.90,
 \qquad
 v=n-k=18-3=15
 $$
-
-Sample means:
 
 $$
 \bar{x}_1=22,
@@ -1619,16 +1662,19 @@ $$
 Each group has $n_i=6$.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.06; padding: 13px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.57em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0; display: flex; flex-direction: column;"}
 <span class="label">Fisher LSD calculation</span>
 
+::: {.fragment}
 Use the ordinary critical value:
 
 $$
 t^*=t_{0.975,15}=2.131
 $$
+:::
 
-Standard error:
+::: {.fragment}
+Because all groups have size 6, the standard error is the same for every pair:
 
 $$
 SE=
@@ -1641,252 +1687,55 @@ SE=
 =
 1.28
 $$
+:::
 
-Least significant difference:
+::: {.fragment}
+The least significant difference is
 
 $$
 LSD=2.131(1.28)=2.72
 $$
 
-So any pair of sample means more than **2.72** apart is declared different.
+So each pairwise interval is:
 
-| Pair | Difference | Compare to LSD |
-|---|---:|---:|
-| Static - Footwork | $|-5.00|=5.00$ | $5.00>2.72$ |
-| Static - Coach-fed | $|-6.50|=6.50$ | $6.50>2.72$ |
-| Footwork - Coach-fed | $|-1.50|=1.50$ | $1.50<2.72$ |
+$$
+(\bar{x}_i-\bar{x}_j)\pm 2.72
+$$
+:::
+
+::: {.fragment style="margin-top: auto;"}
+<div class="calc-left" style="font-size: 1.10em; line-height: 1.14; padding-top: 12px;">
+
+<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Fisher LSD intervals</span>
+
+$$
+\begin{aligned}
+\text{Static} - \text{Footwork}
+&:\ -5.00\pm2.72=(-7.72,\,-2.28)\\[7pt]
+\text{Static} - \text{Coach-fed}
+&:\ -6.50\pm2.72=(-9.22,\,-3.78)\\[7pt]
+\text{Footwork} - \text{Coach-fed}
+&:\ -1.50\pm2.72=(-4.22,\,1.22)
+\end{aligned}
+$$
+
+</div>
+:::
+
 :::
 
 ::::
 
 ---
 
-## Badminton: Fisher LSD Results {.badminton-example}
+## Badminton Drills — Fisher LSD Results {.compact .badminton-results}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; gap: 16px; align-items: start;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
 
-::: {.stat-card style="grid-column: 1; font-size: 0.55em; line-height: 1.08; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Pairwise Fisher LSD intervals</span>
-
-| Pair | Fisher LSD interval | Decision |
-|---|---:|---|
-| Static targets - Footwork + serve | $(-7.72,\,-2.28)$ | Different |
-| Static targets - Coach-fed targets | $(-9.22,\,-3.78)$ | Different |
-| Footwork + serve - Coach-fed targets | $(-4.22,\;1.22)$ | Not different |
-
-<br>
-
-If the interval **contains 0**, the pair is **not clearly different**.
-
-If the interval **does not contain 0**, the pair **differs**.
-:::
-
-::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Conclusion</span>
-
-- **Static vs Footwork**: different  
-- **Static vs Coach-fed**: different  
-- **Footwork vs Coach-fed**: not different  
-
-Using Fisher's LSD, **Static targets** is lower than the other two programs.
-
-**Footwork + serve** and **Coach-fed targets** are not clearly different.
-:::
-
-::::
-
----
-
-## Phone Case: Fisher LSD Comparisons {.phone-case-example}
-
-:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 280px 210px; gap: 10px 16px; align-items: stretch; height: 502px;"}
-
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.50em; line-height: 1.04; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+::: {.taskbox style="font-size: 0.55em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
-A device lab compares four phone case designs after a standardized drop test.
-
-For each case design, the lab records the **repair cost** after impact.
-
-ANOVA rejects the equal-means hypothesis.
-
-Which case designs differ using **Fisher's LSD**?
-
-| Case design | Mean repair cost |
-|---|---:|
-| Clear | 75.88 |
-| Slim | 87.50 |
-| Wallet | 98.50 |
-| Rugged | 113.00 |
-:::
-
-::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.47em; line-height: 1.04; padding: 10px 12px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Setup</span>
-
-From ANOVA:
-
-$$
-MSE=17.89,
-\qquad
-v=n-k=32-4=28
-$$
-
-Each case design has:
-
-$$
-n_i=8
-$$
-
-Use Fisher's LSD intervals.
-:::
-
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.54em; line-height: 1.05; padding: 13px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
-<span class="label">Fisher LSD calculation</span>
-
-Use the ordinary critical value:
-
-$$
-t^*=t_{0.975,28}=2.048
-$$
-
-Standard error:
-
-$$
-SE=
-\sqrt{
-17.89
-\left(
-\frac18+\frac18
-\right)
-}
-=
-2.115
-$$
-
-Least significant difference:
-
-$$
-LSD=2.048(2.115)=4.33
-$$
-
-So any pair of sample means more than **4.33** apart is declared different.
-
-| Pair | Difference | Compare to LSD |
-|---|---:|---:|
-| Clear - Slim | $11.63$ | $11.63>4.33$ |
-| Clear - Wallet | $22.63$ | $22.63>4.33$ |
-| Clear - Rugged | $37.13$ | $37.13>4.33$ |
-| Slim - Wallet | $11.00$ | $11.00>4.33$ |
-| Slim - Rugged | $25.50$ | $25.50>4.33$ |
-| Wallet - Rugged | $14.50$ | $14.50>4.33$ |
-:::
-
-::::
-
----
-
-## Phone Case: Fisher LSD Results {.phone-case-results}
-
-:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; gap: 16px; align-items: start;"}
-
-::: {.stat-card style="grid-column: 1; font-size: 0.51em; line-height: 1.06; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Pairwise Fisher LSD intervals</span>
-
-| Pair | Fisher LSD interval | Decision |
-|---|---:|---|
-| Clear - Slim | $(-15.96,\,-7.29)$ | Different |
-| Clear - Wallet | $(-26.96,\,-18.29)$ | Different |
-| Clear - Rugged | $(-41.46,\,-32.79)$ | Different |
-| Slim - Wallet | $(-15.33,\,-6.67)$ | Different |
-| Slim - Rugged | $(-29.83,\,-21.17)$ | Different |
-| Wallet - Rugged | $(-18.83,\,-10.17)$ | Different |
-
-<br>
-
-Every interval avoids 0, so every pair differs.
-:::
-
-::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Conclusion</span>
-
-All six Fisher LSD intervals avoid 0.
-
-So every pair of phone case designs has a different population mean repair cost.
-
-The sample means increase in this order:
-
-**Clear < Slim < Wallet < Rugged**
-:::
-
-::::
-
----
-
-## Check in R: Fisher LSD {.compact-r}
-
-:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
-
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Badminton drill example</span>
-
-Fisher LSD-style check: no p-value adjustment.
-:::
-
-```{webr}
-#| autorun: false
-
-score <- c(19, 20, 21, 23, 24, 25,
-           24, 25, 26, 28, 29, 30,
-           26, 27, 28, 29, 30, 31)
-
-drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
-
-anova(lm(score ~ drill))
-
-pairwise.t.test(score, drill,
-                p.adjust.method = "none",
-                pool.sd = TRUE)
-```
-:::
-
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Phone case example</span>
-
-Fisher LSD-style check: no p-value adjustment.
-:::
-
-```{webr}
-#| autorun: false
-
-cost <- c(75,70,82,78,76,80,72,74,
-          80,92,85,88,90,84,95,86,
-          100,96,102,98,95,101,97,99,
-          110,115,105,120,112,118,108,116)
-
-case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
-
-anova(lm(cost ~ case))
-
-pairwise.t.test(cost, case,
-                p.adjust.method = "none",
-                pool.sd = TRUE)
-```
-:::
-
-::::
-
----
-
-## Example: Badminton Drill Accuracy Scores {.badminton-example}
-
-:::: {.example-grid style="display:grid; grid-template-columns: 0.36fr 0.64fr; grid-template-rows: 292px 210px; gap: 10px 16px; align-items: stretch; height: 512px;"}
-
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.49em; line-height: 1.03; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Problem</span>
-
-A badminton coach compares three drill programs for improving serve-target accuracy.
+A badminton coach compares three drill programs for improving **serve-target accuracy**.
 
 After two months, each player completes the same accuracy test out of 40.
 
@@ -1899,127 +1748,79 @@ After two months, each player completes the same accuracy test out of 40.
 | 24 | 29 | 30 |
 | 25 | 30 | 31 |
 
-ANOVA rejects $H_0$. Which drill programs differ?
+ANOVA rejects $H_0$. Which drill programs differ using **Fisher's LSD**?
 :::
 
-::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.47em; line-height: 1.03; padding: 10px 12px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Setup</span>
+::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
 
-From ANOVA:
+::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Read the Fisher LSD intervals</span>
+
+A pair is declared **different** when the interval does **not contain 0**.
 
 $$
-MSE=4.90,
+\text{interval avoids }0
+\Rightarrow
+\text{different}
 \qquad
-v=n-k=18-3=15
+\text{interval contains }0
+\Rightarrow
+\text{not clearly different}
 $$
-
-There are
-
-$$
-m=\binom{3}{2}=3
-$$
-
-pairwise comparisons.
-
-Use Bonferroni intervals for the three mean differences.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.53em; line-height: 1.03; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
-<span class="label">Calculation</span>
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: stretch;"}
 
-First find the sample means:
-
-$$
-\begin{aligned}
-\bar{x}_1 &= \frac{19+20+21+23+24+25}{6}=22,\\
-\bar{x}_2 &= \frac{24+25+26+28+29+30}{6}=27,\\
-\bar{x}_3 &= \frac{26+27+28+29+30+31}{6}=28.5.
-\end{aligned}
-$$
-
-Bonferroni critical value:
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Static vs Footwork</span>
 
 $$
-t^*
-=
-t_{1-\alpha/(2m),\,15}
-=
-t_{1-0.05/(2\cdot3),\,15}
-=
-t_{0.99167,\,15}
-=
-2.69
+(-7.72,\,-2.28)
 $$
 
-Standard error and margin:
+This interval avoids 0.
+
+**Different**
+:::
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Static vs Coach-fed</span>
 
 $$
-SE
-=
-\sqrt{
-4.90
-\left(
-\frac16+\frac16
-\right)
-}
-=
-1.28,
-\qquad
-ME=2.69(1.28)=3.44
+(-9.22,\,-3.78)
 $$
 
-Now compute the Bonferroni intervals:
+This interval avoids 0.
+
+**Different**
+:::
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Footwork vs Coach-fed</span>
 
 $$
-\begin{aligned}
-\text{Static} - \text{Footwork}
-&:\ 22-27=-5.00,\\
-&\quad -5.00\pm3.44=(-8.44,\,-1.56),\\[4pt]
-\text{Static} - \text{Coach-fed}
-&:\ 22-28.5=-6.50,\\
-&\quad -6.50\pm3.44=(-9.94,\,-3.06),\\[4pt]
-\text{Footwork} - \text{Coach-fed}
-&:\ 27-28.5=-1.50,\\
-&\quad -1.50\pm3.44=(-4.94,\,1.94).
-\end{aligned}
+(-4.22,\,1.22)
 $$
+
+This interval contains 0.
+
+**Not clearly different**
 :::
 
 ::::
 
----
+::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Answer</span>
 
-## Badminton: Bonferroni Results {.badminton-example}
+Using Fisher's LSD, **Static targets** has a lower mean accuracy score than both **Footwork + serve** and **Coach-fed targets**.
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.58fr 0.42fr; gap: 16px; align-items: start;"}
-
-::: {.stat-card style="grid-column: 1; font-size: 0.56em; line-height: 1.08; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Pairwise Bonferroni intervals</span>
-
-| Pair | Bonferroni interval | Decision |
-|---|---:|---|
-| Static targets - Footwork + serve | $(-8.44,\,-1.56)$ | Different |
-| Static targets - Coach-fed targets | $(-9.94,\,-3.06)$ | Different |
-| Footwork + serve - Coach-fed targets | $(-4.94,\;1.94)$ | Not different |
-
-<br>
-
-If the interval **contains 0**, the pair is **not clearly different**.
-
-If the interval **does not contain 0**, the pair **differs**.
+However, **Footwork + serve** and **Coach-fed targets** are not clearly different from each other.
 :::
 
-::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Conclusion</span>
-
-- **Static vs Footwork**: different  
-- **Static vs Coach-fed**: different  
-- **Footwork vs Coach-fed**: not different  
-
-Therefore, **Static targets is lower than the other two programs**, while **Footwork + serve** and **Coach-fed targets** are **not clearly different from each other**.
 :::
 
 ::::
+
 
 ---
 
@@ -2091,157 +1892,226 @@ The **red dots** show the group means. Static targets is clearly centered lower,
 
 ---
 
-## Example: Phone Case Drop-Test Costs {.phone-case-example}
+## Example: Phone Case Drop-Test Costs — Fisher's LSD {.compact .phone-case-example}
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.36fr 0.64fr; grid-template-rows: 292px 210px; gap: 10px 16px; align-items: stretch; height: 512px;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.49em; line-height: 1.03; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
 A device lab compares four phone case designs after a standardized drop test.
 
 For each case design, the lab records the **repair cost** after impact.
 
-ANOVA rejects the equal-means hypothesis. Which case designs differ?
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
 
-| Case design | Mean repair cost |
-|---|---:|
-| Clear | 75.88 |
-| Slim | 87.50 |
-| Wallet | 98.50 |
-| Rugged | 113.00 |
+ANOVA rejects $H_0$. Which case designs differ using **Fisher's LSD**?
 :::
 
-::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.47em; line-height: 1.03; padding: 10px 12px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Setup</span>
-
-From ANOVA:
+::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Setup from ANOVA</span>
 
 $$
-MSE=17.89,
+MSE=16.00,
 \qquad
 v=n-k=32-4=28
 $$
 
-There are
-
 $$
-m=\binom{4}{2}=6
+\bar{x}_{Clear}=75,\quad
+\bar{x}_{Slim}=79,\quad
+\bar{x}_{Wallet}=84,\quad
+\bar{x}_{Rugged}=91
 $$
 
-pairwise comparisons.
-
-Use Bonferroni intervals for the six mean differences.
+Each group has $n_i=8$.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.02; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
-<span class="label">Calculation</span>
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.55em; line-height: 1.08; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Fisher LSD calculation</span>
 
-Sample means:
-
-$$
-\bar{x}_{Clear}=75.88,\quad
-\bar{x}_{Slim}=87.50,\quad
-\bar{x}_{Wallet}=98.50,\quad
-\bar{x}_{Rugged}=113.00
-$$
-
-Bonferroni critical value:
+::: {.fragment}
+Use the ordinary critical value:
 
 $$
-t^*
-=
-t_{1-\alpha/(2m),\,28}
-=
-t_{1-0.05/(2\cdot6),\,28}
-=
-t_{0.99583,\,28}
-=
-2.839
+t^*=t_{0.975,28}=2.048
 $$
+:::
 
-Standard error and margin:
+::: {.fragment}
+Because all groups have size 8, the standard error is the same for every pair:
 
 $$
-SE
-=
+SE=
 \sqrt{
-17.89
+16.00
 \left(
 \frac18+\frac18
 \right)
 }
 =
-2.115,
-\qquad
-ME=2.839(2.115)=6.00
+2.00
+$$
+:::
+
+::: {.fragment}
+The least significant difference is
+
+$$
+LSD=2.048(2.00)=4.10
 $$
 
-Now compute the Bonferroni intervals:
+So each pairwise interval is:
 
+$$
+(\bar{x}_i-\bar{x}_j)\pm 4.10
+$$
+:::
+
+::: {.fragment}
+<div class="calc-left" style="font-size: 1.02em; line-height: 1.10; margin-top: 10px;">
+
+<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Fisher LSD intervals</span>
+
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start;"}
+
+::: {}
 $$
 \begin{aligned}
 \text{Clear} - \text{Slim}
-&:\ 75.88-87.50=-11.63,\\
-&\quad -11.63\pm6.00=(-17.63,\,-5.62),\\[3pt]
+&:\ -4.00\pm4.10=(-8.10,\,0.10)\\[5pt]
 \text{Clear} - \text{Wallet}
-&:\ 75.88-98.50=-22.63,\\
-&\quad -22.63\pm6.00=(-28.63,\,-16.62),\\[3pt]
+&:\ -9.00\pm4.10=(-13.10,\,-4.90)\\[5pt]
 \text{Clear} - \text{Rugged}
-&:\ 75.88-113.00=-37.13,\\
-&\quad -37.13\pm6.00=(-43.13,\,-31.12),\\[3pt]
+&:\ -16.00\pm4.10=(-20.10,\,-11.90)
+\end{aligned}
+$$
+:::
+
+::: {}
+$$
+\begin{aligned}
 \text{Slim} - \text{Wallet}
-&:\ 87.50-98.50=-11.00,\\
-&\quad -11.00\pm6.00=(-17.00,\,-5.00),\\[3pt]
+&:\ -5.00\pm4.10=(-9.10,\,-0.90)\\[5pt]
 \text{Slim} - \text{Rugged}
-&:\ 87.50-113.00=-25.50,\\
-&\quad -25.50\pm6.00=(-31.50,\,-19.50),\\[3pt]
+&:\ -12.00\pm4.10=(-16.10,\,-7.90)\\[5pt]
 \text{Wallet} - \text{Rugged}
-&:\ 98.50-113.00=-14.50,\\
-&\quad -14.50\pm6.00=(-20.50,\,-8.50).
+&:\ -7.00\pm4.10=(-11.10,\,-2.90)
 \end{aligned}
 $$
 :::
 
 ::::
 
----
-
-## Phone Case: Bonferroni Results {.phone-case-results}
-
-:::: {.example-grid style="display:grid; grid-template-columns: 0.58fr 0.42fr; gap: 16px; align-items: start;"}
-
-::: {.stat-card style="grid-column: 1; font-size: 0.52em; line-height: 1.06; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Pairwise Bonferroni intervals</span>
-
-| Pair | Bonferroni interval | Decision |
-|---|---:|---|
-| Clear - Slim | $(-17.63,\,-5.62)$ | Different |
-| Clear - Wallet | $(-28.63,\,-16.62)$ | Different |
-| Clear - Rugged | $(-43.13,\,-31.12)$ | Different |
-| Slim - Wallet | $(-17.00,\,-5.00)$ | Different |
-| Slim - Rugged | $(-31.50,\,-19.50)$ | Different |
-| Wallet - Rugged | $(-20.50,\,-8.50)$ | Different |
-
-<br>
-
-If the interval **contains 0**, the pair is **not clearly different**.
-
-If the interval **does not contain 0**, the pair **differs**.
+</div>
 :::
 
-::: {.thinkbox style="grid-column: 2; font-size: 0.55em; line-height: 1.10; padding: 14px 16px; margin-bottom: 0;"}
-<span class="label">Conclusion</span>
+:::
 
-All six Bonferroni intervals avoid 0.
+::::
 
-So every pair of phone case designs has a different population mean repair cost.
+---
 
-The sample means increase in this order:
+## Phone Case Drop-Test Costs — Fisher LSD Results {.compact .phone-case-results}
 
-**Clear < Slim < Wallet < Rugged**
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
 
-Therefore, Rugged has the highest mean repair cost, while Clear has the lowest.
+::: {.taskbox style="font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the lab records the **repair cost** after impact.
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ using **Fisher's LSD**?
+:::
+
+::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
+
+::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Read the Fisher LSD intervals</span>
+
+A pair is declared **different** when the interval does **not contain 0**.
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+\qquad
+\text{interval contains }0
+\Rightarrow
+\text{not clearly different}
+$$
+:::
+
+:::: {.two-col style="display:grid; grid-template-columns: 0.42fr 0.58fr; gap: 12px; align-items: stretch;"}
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Contains 0</span>
+
+$$
+\text{Clear}-\text{Slim}
+$$
+
+$$
+(-8.10,\;0.10)
+$$
+
+This interval contains 0.
+
+So **Clear** and **Slim** are **not clearly different**.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.50em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Intervals that avoid 0</span>
+
+| Pair | Fisher LSD interval | Decision |
+|---|---:|---|
+| Clear - Wallet | $(-13.10,\,-4.90)$ | Different |
+| Clear - Rugged | $(-20.10,\,-11.90)$ | Different |
+| Slim - Wallet | $(-9.10,\,-0.90)$ | Different |
+| Slim - Rugged | $(-16.10,\,-7.90)$ | Different |
+| Wallet - Rugged | $(-11.10,\,-2.90)$ | Different |
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Answer</span>
+
+Using Fisher's LSD, **Clear** is not clearly different from **Slim**.
+
+All other pairs are different, so the sample means suggest the ordering
+
+$$
+\text{Clear} \approx \text{Slim}
+\quad < \quad
+\text{Wallet}
+\quad < \quad
+\text{Rugged}.
+$$
+:::
+
 :::
 
 ::::
@@ -2314,6 +2184,529 @@ plot_ly() |>
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
 The **red dots** show the sample mean repair cost for each phone case design. The group centers increase from Clear to Rugged, matching the Bonferroni results.
 :::
+
+---
+
+## Check in R: Fisher's LSD Intervals {.compact-r}
+
+:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Badminton drill example</span>
+
+Use R to compute the Fisher LSD intervals.
+:::
+
+```{webr}
+#| autorun: false
+
+score <- c(19, 20, 21, 23, 24, 25,
+           24, 25, 26, 28, 29, 30,
+           26, 27, 28, 29, 30, 31)
+
+drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+
+fit <- aov(score ~ drill)
+
+means <- tapply(score, drill, mean)
+pairs <- combn(names(means), 2)
+
+MSE <- summary(fit)[[1]]["Residuals", "Mean Sq"]
+df <- summary(fit)[[1]]["Residuals", "Df"]
+
+ME <- qt(0.975, df) * sqrt(MSE * (1/6 + 1/6))
+
+diff <- means[pairs[1, ]] - means[pairs[2, ]]
+
+data.frame(
+  pair = paste(pairs[1, ], "-", pairs[2, ]),
+  lower = round(diff - ME, 2),
+  upper = round(diff + ME, 2)
+)
+```
+
+:::
+
+::: {.col}
+
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Phone case example</span>
+
+Use R to compute the Fisher LSD intervals.
+:::
+
+```{webr}
+#| autorun: false
+
+cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
+          73, 75, 77, 79, 79, 81, 83, 85,
+          78, 80, 82, 84, 84, 86, 88, 90,
+          85, 87, 89, 91, 91, 93, 95, 97)
+
+case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
+
+fit <- aov(cost ~ case)
+
+means <- tapply(cost, case, mean)
+pairs <- combn(names(means), 2)
+
+MSE <- summary(fit)[[1]]["Residuals", "Mean Sq"]
+df <- summary(fit)[[1]]["Residuals", "Df"]
+
+ME <- qt(0.975, df) * sqrt(MSE * (1/8 + 1/8))
+
+diff <- means[pairs[1, ]] - means[pairs[2, ]]
+
+data.frame(
+  pair = paste(pairs[1, ], "-", pairs[2, ]),
+  lower = round(diff - ME, 2),
+  upper = round(diff + ME, 2)
+)
+```
+
+:::
+
+::::
+
+::: {.thinkbox style="font-size: 0.62em; line-height: 1.15; padding: 12px 16px; margin-top: 10px;"}
+<span class="label">Check</span>
+
+If an interval contains 0, the pair is **not clearly different**. If it avoids 0, the pair is **different**.
+:::
+
+---
+
+## Bonferroni: Why Adjust? {.compact .bonferroni-idea}
+
+:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
+
+::: {.defbox style="font-size: 0.63em; line-height: 1.16; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">The issue</span>
+
+After ANOVA rejects, we may compare many pairs of means.
+
+Each pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making **at least one false discovery**.
+:::
+
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">1. Count comparisons</span>
+
+With $k$ groups, the number of pairwise comparisons is
+
+$$
+m=\binom{k}{2}.
+$$
+
+For example, if $k=4$,
+
+$$
+m=\binom{4}{2}=6.
+$$
+:::
+
+::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">2. Adjust the critical value</span>
+
+Bonferroni uses a more conservative critical value:
+
+$$
+t^*=t_{1-\alpha/(2m),\;n-k}.
+$$
+
+Because $\alpha$ is divided by $m$, the critical value becomes larger.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">3. Wider intervals</span>
+
+The interval is still
+
+$$
+(\bar{x}_i-\bar{x}_j)\pm t^*SE.
+$$
+
+But Bonferroni has a larger $t^*$, so the intervals become **wider** and harder to exclude 0.
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.17; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">Key idea</span>
+
+**Fisher's LSD** is more willing to declare differences.
+
+**Bonferroni** is more cautious because it protects against doing many pairwise comparisons at once.
+:::
+
+::::
+
+---
+
+## Example: Phone Case Drop-Test Costs — Fisher's LSD {.compact .phone-case-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the lab records the **repair cost** after impact.
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ using **Fisher's LSD**?
+:::
+
+::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Setup from ANOVA</span>
+
+$$
+MSE=16.00,
+\qquad
+v=n-k=32-4=28
+$$
+
+$$
+\bar{x}_{Clear}=75,\quad
+\bar{x}_{Slim}=79,\quad
+\bar{x}_{Wallet}=84,\quad
+\bar{x}_{Rugged}=91
+$$
+
+Each group has $n_i=8$.
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.55em; line-height: 1.08; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Fisher LSD calculation</span>
+
+::: {.fragment}
+Use the ordinary critical value:
+
+$$
+t^*=t_{0.975,28}=2.048
+$$
+:::
+
+::: {.fragment}
+Because all groups have size 8, the standard error is the same for every pair:
+
+$$
+SE=
+\sqrt{
+16.00
+\left(
+\frac18+\frac18
+\right)
+}
+=
+2.00
+$$
+:::
+
+::: {.fragment}
+The least significant difference is
+
+$$
+LSD=2.048(2.00)=4.10
+$$
+
+So each pairwise interval is:
+
+$$
+(\bar{x}_i-\bar{x}_j)\pm 4.10
+$$
+:::
+
+::: {.fragment}
+<div class="calc-left" style="font-size: 1.02em; line-height: 1.10; margin-top: 10px;">
+
+<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Fisher LSD intervals</span>
+
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start;"}
+
+::: {}
+$$
+\begin{aligned}
+\text{Clear} - \text{Slim}
+&:\ -4.00\pm4.10=(-8.10,\,0.10)\\[5pt]
+\text{Clear} - \text{Wallet}
+&:\ -9.00\pm4.10=(-13.10,\,-4.90)\\[5pt]
+\text{Clear} - \text{Rugged}
+&:\ -16.00\pm4.10=(-20.10,\,-11.90)
+\end{aligned}
+$$
+:::
+
+::: {}
+$$
+\begin{aligned}
+\text{Slim} - \text{Wallet}
+&:\ -5.00\pm4.10=(-9.10,\,-0.90)\\[5pt]
+\text{Slim} - \text{Rugged}
+&:\ -12.00\pm4.10=(-16.10,\,-7.90)\\[5pt]
+\text{Wallet} - \text{Rugged}
+&:\ -7.00\pm4.10=(-11.10,\,-2.90)
+\end{aligned}
+$$
+:::
+
+::::
+
+</div>
+:::
+
+:::
+
+::::
+
+---
+
+## Example: Phone Case Drop-Test Costs — Bonferroni {.compact .phone-case-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the lab records the **repair cost** after impact.
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ using **Bonferroni**?
+:::
+
+::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.54em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Setup from ANOVA</span>
+
+$$
+MSE=16.00,
+\qquad
+v=n-k=32-4=28
+$$
+
+$$
+\bar{x}_{Clear}=75,\quad
+\bar{x}_{Slim}=79,\quad
+\bar{x}_{Wallet}=84,\quad
+\bar{x}_{Rugged}=91
+$$
+
+There are
+
+$$
+m=\binom{4}{2}=6
+$$
+
+pairwise comparisons.
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.54em; line-height: 1.07; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Bonferroni calculation</span>
+
+Use the Bonferroni critical value:
+
+$$
+t^*
+=
+t_{1-\alpha/(2m),\,28}
+=
+t_{1-0.05/(2\cdot6),\,28}
+=
+t_{0.99583,\,28}
+=
+2.84
+$$
+
+::: {.fragment}
+Because all groups have size 8, the standard error is still
+
+$$
+SE=
+\sqrt{
+16.00
+\left(
+\frac18+\frac18
+\right)
+}
+=
+2.00
+$$
+:::
+
+::: {.fragment}
+The Bonferroni margin of error is
+
+$$
+ME=2.84(2.00)=5.68
+$$
+
+So each pairwise interval is:
+
+$$
+(\bar{x}_i-\bar{x}_j)\pm 5.68
+$$
+:::
+
+::: {.fragment}
+<div class="calc-left" style="font-size: 1.00em; line-height: 1.08; margin-top: 22px;">
+
+<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Bonferroni intervals</span>
+
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start;"}
+
+::: {}
+$$
+\begin{aligned}
+\text{Clear} - \text{Slim}
+&:\ -4.00\pm5.68=(-9.68,\,1.68)\\[5pt]
+\text{Clear} - \text{Wallet}
+&:\ -9.00\pm5.68=(-14.68,\,-3.32)\\[5pt]
+\text{Clear} - \text{Rugged}
+&:\ -16.00\pm5.68=(-21.68,\,-10.32)
+\end{aligned}
+$$
+:::
+
+::: {}
+$$
+\begin{aligned}
+\text{Slim} - \text{Wallet}
+&:\ -5.00\pm5.68=(-10.68,\,0.68)\\[5pt]
+\text{Slim} - \text{Rugged}
+&:\ -12.00\pm5.68=(-17.68,\,-6.32)\\[5pt]
+\text{Wallet} - \text{Rugged}
+&:\ -7.00\pm5.68=(-12.68,\,-1.32)
+\end{aligned}
+$$
+:::
+
+::::
+
+</div>
+:::
+
+:::
+
+::::
+
+---
+
+## Phone Case Drop-Test Costs — Bonferroni Results {.compact .phone-case-results}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
+
+::: {.taskbox style="font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the lab records the **repair cost** after impact.
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ using **Bonferroni**?
+:::
+
+::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
+
+::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Read the Bonferroni intervals</span>
+
+A pair is declared **different** when the interval does **not contain 0**.
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+\qquad
+\text{interval contains }0
+\Rightarrow
+\text{not clearly different}
+$$
+:::
+
+:::: {.two-col style="display:grid; grid-template-columns: 0.43fr 0.57fr; gap: 12px; align-items: stretch;"}
+
+::: {.notebox .fragment style="font-size: 0.52em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Intervals that contain 0</span>
+
+$$
+\text{Clear}-\text{Slim}
+$$
+
+$$
+(-9.68,\;1.68)
+$$
+
+$$
+\text{Slim}-\text{Wallet}
+$$
+
+$$
+(-10.68,\;0.68)
+$$
+
+These pairs are **not clearly different**.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.50em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Intervals that avoid 0</span>
+
+| Pair | Bonferroni interval | Decision |
+|---|---:|---|
+| Clear - Wallet | $(-14.68,\,-3.32)$ | Different |
+| Clear - Rugged | $(-21.68,\,-10.32)$ | Different |
+| Slim - Rugged | $(-17.68,\,-6.32)$ | Different |
+| Wallet - Rugged | $(-12.68,\,-1.32)$ | Different |
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Answer</span>
+
+Using Bonferroni, **Clear** and **Slim** are not clearly different, and **Slim** and **Wallet** are not clearly different.
+
+However, **Rugged** is clearly higher than all other case designs.
+:::
+
+:::
+
+::::
 
 ---
 

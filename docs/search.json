@@ -4386,7 +4386,7 @@
     "href": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",
     "title": "STA258",
     "section": "Streaming Example: Power Grows with \\(n\\)",
-    "text": "Streaming Example: Power Grows with \\(n\\)\n\n\n\n\n\n\\(n\\)\ncutoff \\(\\hat p^{\\,*}\\)\n\\(z\\) under \\(p=0.85\\)\nPower\n\n\n\n\n50\n0.8507\n\\(-0.39\\)\n0.347\n\n\n100\n0.8507\n\\(0.02\\)\n0.507\n\n\n200\n0.8651\n\\(0.60\\)\n0.725\n\n\n\n\nSame effect (a drop from 0.90 to 0.85), same \\(\\alpha\\), only \\(n\\) changes. Power climbs from 35% to 73%."
+    "text": "Streaming Example: Power Grows with \\(n\\)\n\n\n\n\n\n\\(n\\)\ncutoff \\(\\hat p^{\\,*}\\)\n\\(z\\) under \\(p=0.85\\)\nPower\n\n\n\n\n50\n0.8302\n\\(-0.39\\)\n0.347\n\n\n100\n0.8507\n\\(0.02\\)\n0.507\n\n\n200\n0.8651\n\\(0.60\\)\n0.725\n\n\n\n\nSame effect (a drop from 0.90 to 0.85), same \\(\\alpha\\), only \\(n\\) changes. Power climbs from 35% to 73%."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-proportion-power",
@@ -5059,5 +5059,12 @@
     "title": "STA258",
     "section": "Push Notifications: Calculation",
     "text": "Push Notifications: Calculation\n\n\n\nHypotheses \\[H_0:p_1-p_2=0 \\qquad H_a:p_1-p_2&gt;0 \\quad (\\alpha=0.05)\\]\nSample and pooled proportions \\[\\hat p_1=\\tfrac{142}{360}=0.394,\\quad \\hat p_2=\\tfrac{118}{370}=0.319,\\quad \\hat p=\\tfrac{142+118}{360+370}=0.356\\]\nTest statistic \\[z^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}=\\frac{0.0756}{0.0354}=2.13\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.13)=0.0166\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0166 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the daily push notification increases the check-in rate."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
+    "href": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
+    "title": "STA258",
+    "section": "Interactive: Watch Power Climb with \\(n\\)",
+    "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
   }
 ]

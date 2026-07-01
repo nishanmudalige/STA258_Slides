@@ -5023,7 +5023,7 @@
     "href": "Chapter Slides/chapter8-slides.html#anova-as-a-prediction-problem",
     "title": "STA258",
     "section": "ANOVA as a Prediction Problem",
-    "text": "ANOVA as a Prediction Problem\n\n\nMain idea\nANOVA can be understood as comparing two prediction rules.\n\n\n\nIgnore group information\nPredict every observation using the overall mean:\n\\[\n\\bar X\n\\]\nThis treats all observations as coming from one common center.\n\n\nUse group information\nPredict observation \\(j\\) in group \\(i\\) using its group mean:\n\\[\n\\bar X_i\n\\]\nThis allows each group to have its own center.\n\n\n\nANOVA question\nIf using group means improves prediction by a lot compared with the within-group noise, the ANOVA (F) statistic becomes large."
+    "text": "ANOVA as a Prediction Problem\n\n\nMain idea\nANOVA compares two prediction rules: one that ignores the group and one that uses the group.\n\n\n\nIgnore group information\nPredict every observation using the overall mean:\n\\[\n\\widehat X_{ij}=\\bar X\n\\]\nTotal prediction error:\n\\[\nSSTotal=\n\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}\n(X_{ij}-\\bar X)^2\n\\]\nAll observations are treated as coming from one common center.\n\n\nUse group information\nPredict observation \\(j\\) in group \\(i\\) using its group mean:\n\\[\n\\widehat X_{ij}=\\bar X_i\n\\]\nRemaining prediction error:\n\\[\nSSE=\n\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}\n(X_{ij}-\\bar X_i)^2\n\\]\nEach group is allowed to have its own center.\n\n\n\nImprovement from using groups\nThe variation explained by group membership is the reduction in prediction error:\n\\[\nSSTr=SSTotal-SSE\n\\]\nIf this improvement is large compared with the within-group error, the ANOVA (F) statistic becomes large."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-country-sales-by-region",
@@ -5324,7 +5324,7 @@
     "href": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-intervals",
     "title": "STA258",
     "section": "Check in R: Fisher’s LSD Intervals",
-    "text": "Check in R: Fisher’s LSD Intervals\n\n\n\nBadminton drill example\nUse R to compute the Fisher LSD intervals.\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example\nUse R to compute the Fisher LSD intervals.\n\n\n\n\n\n\n\n\n\n\n\n\nCheck\nIf an interval contains 0, the pair is not clearly different. If it avoids 0, the pair is different."
+    "text": "Check in R: Fisher’s LSD Intervals\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#bonferroni-why-adjust",

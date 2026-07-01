@@ -724,48 +724,72 @@ $$
 
 ---
 
+---
+
 ## ANOVA as a Prediction Problem {.compact .anova-prediction}
 
-:::: {.prediction-flow style="display:grid; grid-template-rows: auto auto auto; gap: 15px; align-items: stretch;"}
+:::: {.prediction-flow style="display:grid; grid-template-rows: auto auto auto; gap: 10px; align-items: stretch;"}
 
-::: {.defbox style="font-size: 0.65em; line-height: 1.16; padding: 15px 19px; margin-bottom: 0;"}
+::: {.defbox style="font-size: 0.60em; line-height: 1.12; padding: 12px 17px; margin-bottom: 0;"}
 <span class="label">Main idea</span>
 
-ANOVA can be understood as comparing **two prediction rules**.
+ANOVA compares **two prediction rules**: one that ignores the group and one that uses the group.
 :::
 
-:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: stretch;"}
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch;"}
 
-::: {.stat-card .fragment style="font-size: 0.64em; line-height: 1.16; padding: 17px 20px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.54em; line-height: 1.06; padding: 13px 16px; margin-bottom: 0;"}
 <span class="label">Ignore group information</span>
 
 Predict every observation using the overall mean:
 
 $$
-\bar X
+\widehat X_{ij}=\bar X
 $$
 
-This treats all observations as coming from one common center.
+Total prediction error:
+
+$$
+SSTotal=
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}
+(X_{ij}-\bar X)^2
+$$
+
+All observations are treated as coming from one common center.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.64em; line-height: 1.16; padding: 17px 20px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.54em; line-height: 1.06; padding: 13px 16px; margin-bottom: 0;"}
 <span class="label">Use group information</span>
 
 Predict observation $j$ in group $i$ using its group mean:
 
 $$
-\bar X_i
+\widehat X_{ij}=\bar X_i
 $$
 
-This allows each group to have its own center.
+Remaining prediction error:
+
+$$
+SSE=
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}
+(X_{ij}-\bar X_i)^2
+$$
+
+Each group is allowed to have its own center.
 :::
 
 ::::
 
-::: {.thinkbox .fragment style="font-size: 0.66em; line-height: 1.18; padding: 16px 20px; margin-bottom: 0;"}
-<span class="label">ANOVA question</span>
+::: {.thinkbox .fragment style="font-size: 0.58em; line-height: 1.10; padding: 12px 17px; margin-bottom: 0;"}
+<span class="label">Improvement from using groups</span>
 
-If using group means improves prediction by a lot compared with the within-group noise, the ANOVA \(F\) statistic becomes large.
+The variation explained by group membership is the reduction in prediction error:
+
+$$
+SSTr=SSTotal-SSE
+$$
+
+If this improvement is large compared with the within-group error, the ANOVA \(F\) statistic becomes large.
 :::
 
 ::::
@@ -2491,6 +2515,61 @@ plot_ly(
 The **red dots** show the sample mean repair cost for each phone case design. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
 :::
 
+
+
+---
+
+## Check in R: Fisher's LSD Intervals {.compact-r}
+
+:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Badminton drill example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+library(DescTools)
+
+score <- c(19, 20, 21, 23, 24, 25,
+           24, 25, 26, 28, 29, 30,
+           26, 27, 28, 29, 30, 31)
+
+drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+
+fit <- aov(score ~ drill)
+
+PostHocTest(fit, method = "lsd")
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Phone case example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+library(DescTools)
+
+cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
+          73, 75, 77, 79, 79, 81, 83, 85,
+          78, 80, 82, 84, 84, 86, 88, 90,
+          85, 87, 89, 91, 91, 93, 95, 97)
+
+case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
+
+fit <- aov(cost ~ case)
+
+PostHocTest(fit, method = "lsd")
+```
+:::
+
+::::
+
 ---
 
 ## Bonferroni: Why Adjust? {.compact .bonferroni-idea}
@@ -2812,17 +2891,19 @@ However, **Rugged** is clearly higher than all other case designs.
 ```{webr}
 #| autorun: false
 
+library(DescTools)
+
 score <- c(19, 20, 21, 23, 24, 25,
            24, 25, 26, 28, 29, 30,
            26, 27, 28, 29, 30, 31)
 
 drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
 
-anova(lm(score ~ drill))
+fit <- aov(score ~ drill)
 
-pairwise.t.test(score, drill,
-                p.adjust.method = "bonferroni",
-                pool.sd = TRUE)
+PostHocTest(fit, method = "lsd")
+
+PostHocTest(fit, method = "bonferroni")
 ```
 :::
 
@@ -2834,6 +2915,8 @@ pairwise.t.test(score, drill,
 ```{webr}
 #| autorun: false
 
+library(DescTools)
+
 cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
           73, 75, 77, 79, 79, 81, 83, 85,
           78, 80, 82, 84, 84, 86, 88, 90,
@@ -2841,11 +2924,11 @@ cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
 
 case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
 
-anova(lm(cost ~ case))
+fit <- aov(cost ~ case)
 
-pairwise.t.test(cost, case,
-                p.adjust.method = "bonferroni",
-                pool.sd = TRUE)
+PostHocTest(fit, method = "lsd")
+
+PostHocTest(fit, method = "bonferroni")
 ```
 :::
 

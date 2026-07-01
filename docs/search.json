@@ -4162,7 +4162,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
     "title": "STA258",
     "section": "Example: Reusable Cup Discount",
-    "text": "Example: Reusable Cup Discount\n\n\n\nLast year only \\(10\\%\\) of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds \\(x=68\\) of \\(n=520\\) students bringing their own cup.\nIs this evidence that the participation rate has increased above \\(10\\%\\)?\n\n\n\\[H_0:p=0.10,\\qquad H_a:p&gt;0.10\\]\n\\[\\hat p=\\frac{68}{520}=0.1308\\]"
+    "text": "Example: Reusable Cup Discount\n\n\n\nLast year only \\(10\\%\\) of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds \\(x=68\\) of \\(n=520\\) students bringing their own cup.\nIs this evidence that the participation rate has increased above \\(10\\%\\)?\n\n\n\\[H_0:p=0.10,\\qquad H_a:p&gt;0.10\\]\n\\[\\hat p=\\frac{68}{520}=0.1308\\]\n\n\n\n\nWhat we are given\n\nNull proportion: \\(p_0 = 0.10\\)\nSample: \\(n = 520\\), \\(x = 68\\)\nSample proportion: \\(\\hat p = 0.1308\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Since \\(np_0 = 52\\) and \\(n(1-p_0) = 468\\) are both \\(\\ge 10\\), use a one-sample \\(z\\) test for a proportion with reference distribution \\(N(0,1)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
@@ -4863,5 +4863,12 @@
     "title": "STA258",
     "section": "Food Delivery ETA: Calculation",
     "text": "Food Delivery ETA: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=16.5 \\qquad H_a:\\mu&gt;16.5 \\quad (\\alpha=0.05)\\]\nTest statistic \\[t^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}=\\frac{17.68-16.5}{1.53/\\sqrt{12}}=2.682\\]\np-value \\[\\text{p-value}=P(T_{11}\\ge 2.682)=0.0107\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0107 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the true mean delivery time exceeds the advertised \\(16.5\\) minutes."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#reusable-cup-discount-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#reusable-cup-discount-calculation",
+    "title": "STA258",
+    "section": "Reusable Cup Discount: Calculation",
+    "text": "Reusable Cup Discount: Calculation\n\n\n\nHypotheses \\[H_0:p=0.10 \\qquad H_a:p&gt;0.10 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}=\\frac{0.1308-0.10}{\\sqrt{0.10\\cdot 0.90/520}}=2.339\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.339)=0.0097\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0097 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the participation rate has increased above \\(10\\%\\)."
   }
 ]

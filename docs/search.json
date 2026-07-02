@@ -1859,7 +1859,7 @@
     "href": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
     "title": "STA258",
     "section": "The Five-Step Procedure",
-    "text": "The Five-Step Procedure\n\n\n\n1. Choose \\(\\alpha\\). Set the significance level before making the decision.\n\n\n2. State hypotheses. Use the correct population parameter.\n\n\n3. Compute statistic. Standardize the estimate with the correct standard error.\n\n\n4. Find the p-value. Use the tail area that matches \\(H_a\\).\n\n\n5. Conclude. Compare to \\(\\alpha\\) and write the conclusion in context.\n\n\n\nStep 4 and Step 5 are separate: first calculate evidence, then make the decision."
+    "text": "The Five-Step Procedure\n\n\n\n1. Choose \\(\\alpha\\). Set the significance level before making the decision.\n\n\n2. State hypotheses. Use the correct population parameter.\n\n\n3. Compute statistic. Standardize the estimate with the correct standard error.\n\n\n4. Find the p-value. Use the tail area that matches \\(H_a\\).\n\n\n5. Conclude. Compare to \\(\\alpha\\) and write the conclusion in context.\n\n\n\n\n\n\n\n\n\n\n\nStep 4 and Step 5 are separate: first calculate evidence, then make the decision."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#choosing-the-alternative",
@@ -1873,7 +1873,7 @@
     "href": "Chapter Slides/chapter6-slides.html#p-value-areas",
     "title": "STA258",
     "section": "P-Value Areas",
-    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(W \\le w^*)\\).\n\n\nRight-tailed: \\(P(W \\ge w^*)\\).\n\n\nTwo-tailed: double the matching one-tail area.\n\n\n\n\\(W\\) is the test statistic from the chosen reference distribution (Z, t, chi-square, or F), with observed value \\(w^*\\).\n\n\n\n\nUse the two dropdowns at the top-right of the plot: first pick the type of test (\\(Z\\), \\(t\\), \\(\\chi^2\\), or \\(F\\)), then pick the alternative (left-tailed, right-tailed, or two-tailed). The shaded p-value area updates for that combination."
+    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\n\n\nUse the dropdown at the top-right of the plot to switch the shaded p-value area between the three alternative hypotheses."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#decision-rule",
@@ -1971,14 +1971,14 @@
     "href": "Chapter Slides/chapter6-slides.html#check-in-r-one-proportion",
     "title": "STA258",
     "section": "Check in R: One Proportion",
-    "text": "Check in R: One Proportion\n\n\n\n\n\n\n\n\n\nThe code above builds \\(z^*\\) by hand and finds the p-value with pnorm(). An alternative is using prop.test(), but note that it runs the chi-square version of the test, so its output reports X-squared, not \\(z^*\\), where \\(\\chi^2 = (z^*)^2\\)."
+    "text": "Check in R: One Proportion"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#section-2",
     "href": "Chapter Slides/chapter6-slides.html#section-2",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nFor the reusable-cup test, why is the alternative \\(H_a:p&gt;0.10\\)?\n\n\n\n\nThe sample proportion is always greater than the null value\nThe research question asks whether participation has increased\nThe sample size is greater than 30\nProportion tests are always right-tailed"
+    "text": "Question\n\n\nFor the recycling test, why is the alternative \\(H_a:p&gt;0.10\\)?\n\n\n\n\nThe sample proportion is always greater than the null value\nThe research question asks whether participation has increased\nThe sample size is greater than 30\nProportion tests are always right-tailed"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#one-variance-test",
@@ -2006,7 +2006,7 @@
     "href": "Chapter Slides/chapter6-slides.html#two-sample-test-targets",
     "title": "STA258",
     "section": "6.3 Two-Sample Test Targets",
-    "text": "6.3 Two-Sample Test Targets\n\n\n\n\n\n\n\n\nTarget parameter\nTypical question\nReference distribution\n\n\n\n\n\\(\\mu_1-\\mu_2\\)\nAre two population means different?\n\\(Z\\) or \\(t\\)\n\n\n\\(p_1-p_2\\)\nAre two population proportions different?\n\\(Z\\) or \\(\\chi^2\\)\n\n\n\\(\\sigma_1^2/\\sigma_2^2\\)\nAre two population variances different?\n\\(F\\)\n\n\n\n\nThese tests all compare two independent samples."
+    "text": "6.3 Two-Sample Test Targets\n\n\n\n\n\n\n\n\nTarget parameter\nTypical question\nReference distribution\n\n\n\n\n\\(\\mu_1-\\mu_2\\)\nAre two population means different?\n\\(Z\\) or \\(t\\)\n\n\n\\(p_1-p_2\\)\nAre two population proportions different?\n\\(Z\\)\n\n\n\\(\\sigma_1^2/\\sigma_2^2\\)\nAre two population variances different?\n\\(F\\)\n\n\n\\(\\mu_d\\)\nIs the mean paired difference nonzero?\n\\(t\\)\n\n\n\n\nStart by deciding whether the samples are independent or paired. That choice changes the whole test."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#two-means-known-sigma_1sigma_2",
@@ -2069,7 +2069,7 @@
     "href": "Chapter Slides/chapter6-slides.html#paired-data",
     "title": "STA258",
     "section": "6.4 Paired Data",
-    "text": "6.4 Paired Data"
+    "text": "6.4 Paired Data\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-paired-study-plan-test",
@@ -2776,7 +2776,7 @@
     "href": "Chapter Slides/chapter9-slides.html#introduction-to-the-linear-model",
     "title": "STA258",
     "section": "9.1 Introduction to the Linear Model",
-    "text": "9.1 Introduction to the Linear Model\n\nA linear model has the form:\n\\[\ny_i =\n\\beta_0+\\beta_1z_{i1}+\\beta_2z_{i2}+\\cdots+\\beta_pz_{ip}\n+\\varepsilon_i,\n\\qquad\n\\varepsilon_i\\sim N(0,\\sigma^2).\n\\]\nHere:\n\n\\(y_i\\) is the response variable.\n\\(z_{i1},\\ldots,z_{ip}\\) are the predictors.\n\\(\\varepsilon_i\\) is random error.\n\n\n\nThe textbook model assumes predictors are fixed, errors are independent, and the errors have constant variance \\(\\sigma^2\\)."
+    "text": "9.1 Introduction to the Linear Model\n\nA linear model has the form:\n\\[\ny_i=\\beta_0+\\beta_1 x_{i1}+\\beta_2 x_{i2}+\\cdots+\\beta_p x_{ip}+\\varepsilon_i,\n\\qquad\n\\varepsilon_i \\sim N(0,\\sigma^2).\n\\]\nHere:\n\n\\(y_i\\) is the response variable.\n\\(x_{i1},\\ldots,x_{ip}\\) are the predictors.\n\\(\\varepsilon_i\\) is random error.\n\n\n\nThe textbook model assumes predictors are fixed, errors are independent, and the errors have constant variance \\(\\sigma^2\\)."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#simple-linear-regression",
@@ -2797,7 +2797,7 @@
     "href": "Chapter Slides/chapter9-slides.html#least-squares-method",
     "title": "STA258",
     "section": "9.1.1 Least Squares Method",
-    "text": "9.1.1 Least Squares Method\n\nA residual is the difference between an observed data point and a fitted value from the regression model:\n\\[\ne_i=y_i-\\hat{y}_i.\n\\]\nIt is the vertical distance from the observed value to the fitted line.\n\n\n\nIf \\(e_i&gt;0\\), the point is above the fitted line.\nThe model underpredicted the response.\n\n\nIf \\(e_i&lt;0\\), the point is below the fitted line.\nThe model overpredicted the response."
+    "text": "9.1.1 Least Squares Method\n\nA residual is the difference between an observed data point and a fitted value from the regression model:\n\\[\ne_i = y_i - \\hat{y}_i.\n\\]\nIt is the vertical distance from the observed value to the fitted line.\n\n\n\n\n\n\n\n\n\n\n\n\nIf \\(e_i &gt; 0\\), the point is above the fitted line.\nThe model underpredicted the response.\n\n\nIf \\(e_i &lt; 0\\), the point is below the fitted line.\nThe model overpredicted the response."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#residuals-on-a-regression-plot",
@@ -3245,7 +3245,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-covariance-and-correlation",
     "title": "STA258",
     "section": "Check in R: Covariance and Correlation",
-    "text": "Check in R: Covariance and Correlation\n\n\n\nCaitlin Clark highlight example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
+    "text": "Check in R: Covariance and Correlation\n\n\n\nSunlight and plant growth example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-unexplained-variation",
@@ -3357,7 +3357,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-least-squares-equations",
     "title": "STA258",
     "section": "Check in R: Least-Squares Equations",
-    "text": "Check in R: Least-Squares Equations\n\n\n\nRonaldo vs Messi example\n\n\n\n\n\n\n\n\n\n\n\n\nArgentina vs France example"
+    "text": "Check in R: Least-Squares Equations\n\n\n\nPractice problems example\n\n\n\n\n\n\n\n\n\n\n\n\nStudy hours example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-least-squares-lines",
@@ -3483,7 +3483,7 @@
     "href": "Chapter Slides/chapter9-slides.html#section-4",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nWhich residual plot pattern would be most concerning for simple linear regression?\n\n\n\n\nRandom scatter around zero\nResiduals with no clear pattern\nA clear curve or funnel shape in the residuals\nResiduals that include both positive and negative values"
+    "text": "Question\n\n\nFor testing whether a simple linear regression slope is zero, what is the usual reference distribution?\n\n\n\n\nStandard normal distribution\nChi-square distribution with \\(n-1\\) degrees of freedom\nt distribution with \\(n-2\\) degrees of freedom\nF distribution with \\(n\\) degrees of freedom only"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-residuals-on-a-regression-line",
@@ -3553,7 +3553,7 @@
     "href": "Chapter Slides/chapter9-slides.html#assumptions-for-regression-inference",
     "title": "STA258",
     "section": "Assumptions for Regression Inference",
-    "text": "Assumptions for Regression Inference\n\nAssumptions\n\n\nLinearity: The relationship between the mean response and the predictor should be approximately linear.\n\n\nIndependence: Observations and errors should be independent.\n\n\nMean zero errors: At each value of \\(x\\), the average error should be 0.\n\n\nConstant variance: The error variance should be the same for all values of \\(x\\).\n\n\nNormal errors: The errors should be approximately normally distributed, especially for small samples.\n\n\n\n\nPractical reminder\nThese assumptions support the confidence interval and hypothesis test for the slope."
+    "text": "Assumptions for Regression Inference\n\nAssumptions\n\n\nLinearity: The relationship between the mean response and the predictor should be approximately linear.\n\n\nIndependence: Observations and errors should be independent.\n\n\nMean zero errors: At each value of (x), the average error should be 0.\n\n\nConstant variance: The error variance should be the same for all values of (x).\n\n\nNormal errors: The errors should be approximately normally distributed, especially for small samples.\n\n\n\n\nPractical reminder\nThese assumptions support the confidence interval and hypothesis test for the slope."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#anova-table-for-simple-linear-regression",
@@ -3581,7 +3581,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-anova-table",
     "title": "STA258",
     "section": "Check in R: ANOVA Table",
-    "text": "Check in R: ANOVA Table\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nRap beef reaction example"
+    "text": "Check in R: ANOVA Table\n\n\n\nEvent flyers example\n\n\n\n\n\n\n\n\n\n\n\n\nCharging time example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
@@ -3686,7 +3686,7 @@
     "href": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice",
     "title": "STA258",
     "section": "Example: F1 Monaco Simulator Practice",
-    "text": "Example: F1 Monaco Simulator Practice\n\n\nAn F1 analytics page studies a fictional Monaco simulator practice session.\nFor each player:\n\n\\(x=\\) simulator practice laps\n\\(y=\\) lap-time improvement in seconds\n\nThe fitted line is:\n\\[\n\\hat{y}=-0.098+0.141x.\n\\]\nQuestion. Calculate \\(SSE\\), \\(SSR\\), \\(SST\\), and \\(R^2\\).\n\n\n\n\\(x\\)\n\\(y\\)\n\\(\\hat y\\)\n\\((y-\\hat y)^2\\)\n\\((\\hat y-\\bar y)^2\\)\n\n\n\n\n5\n0.6\n0.607\n0.000\n0.798\n\n\n8\n1.0\n1.030\n0.001\n0.221\n\n\n10\n1.4\n1.312\n0.008\n0.035\n\n\n12\n1.5\n1.594\n0.009\n0.009\n\n\n15\n2.1\n2.017\n0.007\n0.267\n\n\n18\n2.4\n2.440\n0.002\n0.884\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=1.500\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum(y_i-\\hat{y}_i)^2=0.026\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=2.214\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=2.240\n\\]\nCheck:\n\\[\nSSR+SSE=2.214+0.026=2.240=SST\n\\]\n\\[\nR^2=\\frac{2.214}{2.240}=0.988\n\\]\n\n\nTarget relationship\nWe model lap-time improvement using simulator practice laps.\n\n\nAbout 98.8% of the variation in lap-time improvement is explained by practice laps through the fitted linear model."
+    "text": "Example: F1 Monaco Simulator Practice\n\n\n\n\nContext and question\n\nA Formula 1 team records fictional data from a Monaco simulator session.\nWe use the number of simulator practice laps to predict lap-time improvement, measured in seconds.\n\nx = simulator practice laps\ny = lap-time improvement in seconds\n\nThe fitted regression line is:\n\nŷ = −0.098 + 0.141x\n\n\n\n\nObserved data\n\n\n\n\n\nPractice laps, x\n\n\nLap-time improvement, y\n\n\n\n\n\n\n5\n\n\n0.6\n\n\n\n\n8\n\n\n1.0\n\n\n\n\n10\n\n\n1.4\n\n\n\n\n12\n\n\n1.5\n\n\n\n\n15\n\n\n2.1\n\n\n\n\n18\n\n\n2.4\n\n\n\n\n\n\n\n\nGoal of the example\n\n\n\nWe want to split the total variation in lap-time improvement into:\n\n\nSSE: unexplained variation left in the residuals\n\n\nSSR: variation explained by the fitted regression line\n\n\nSST: total variation in the observed response values\n\n\nThen we compute R², the proportion of total variation explained by simulator practice laps through the fitted linear model.\n\n\n\n\nVariance decomposition\n\n\nSST = SSR + SSE\n\n\n\n\nCoefficient of determination\n\n\nR² = SSR / SST"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-ishowspeed-charity-stream-teasers",
@@ -3700,14 +3700,14 @@
     "href": "Chapter Slides/chapter9-slides.html#example-starbucks-mobile-order-queue",
     "title": "STA258",
     "section": "Example: Starbucks Mobile-Order Queue",
-    "text": "Example: Starbucks Mobile-Order Queue\n\n\nA Starbucks location studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n\\[\ns^2=\n\\frac{1.328}{8-2}\n=\n0.221\n\\]\n\\[\ns=\\sqrt{0.221}=0.470\n\\]\n\\[\nSE(\\hat{\\beta}_1)=\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\n\\]\n\\[\nt=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\]\n\\[\n95\\%\\ CI:\n\\quad\n1.038\\pm2.447(0.043)\n=\n(0.932,\\;1.144)\n\\]\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
+    "text": "Example: Starbucks Mobile-Order Queue\n\n\nA Starbucks location studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nCalculation\nThe summary values are:\n\\[\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n$$ \\[\\begin{align}\ns^2 &=\n\\frac{1.328}{8-2}\n=\n0.221\\\\\n\ns &=\\sqrt{0.221}=0.470\nSE(\\hat{\\beta}_1) =\n\\frac{0.470}{\\sqrt{117.500}}\n=\n0.043\\\\\n\nt &=\n\\frac{1.038}{0.043}\n=\n23.926,\n\\qquad\ndf=6\n\\end{align}\\]\n95% CI: (0.043) = (0.932,;1.144) $$\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\n\n\nThere is strong evidence of a positive linear relationship. Each additional mobile order ahead is associated with about 1.04 more minutes of expected pickup wait time."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-slope-test-and-confidence-interval",
     "title": "STA258",
     "section": "Check in R: Slope Test and Confidence Interval",
-    "text": "Check in R: Slope Test and Confidence Interval\n\n\n\n\nIShowSpeed teaser example\n\n\n\n\n\n\n\n\n\n\n\n\nStarbucks queue example"
+    "text": "Check in R: Slope Test and Confidence Interval\n\n\n\n\nEvent flyers example\n\n\n\n\n\n\n\n\n\n\n\n\nCoffee shop queue example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-ishowspeed-teaser-clips",
@@ -4155,28 +4155,28 @@
     "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
     "title": "STA258",
     "section": "Example: Food Delivery ETA",
-    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test.\n\n\n\n\nWhat we are given\n\nAdvertised mean: \\(\\mu_0 = 16.5\\) min\nSample: \\(n = 12\\)\nSample mean: \\(\\bar{x} = 17.68\\) min\nSample SD: \\(s = 1.53\\) min\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? \\(\\sigma\\) is unknown and estimated by \\(s\\), so use a one-sample \\(t\\) test with reference distribution \\(t_{11}\\)."
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
     "href": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
     "title": "STA258",
     "section": "Example: Reusable Cup Discount",
-    "text": "Example: Reusable Cup Discount\n\n\n\nLast year only \\(10\\%\\) of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds \\(x=68\\) of \\(n=520\\) students bringing their own cup.\nIs this evidence that the participation rate has increased above \\(10\\%\\)?\n\n\n\\[H_0:p=0.10,\\qquad H_a:p&gt;0.10\\]\n\\[\\hat p=\\frac{68}{520}=0.1308\\]\n\n\n\n\nWhat we are given\n\nNull proportion: \\(p_0 = 0.10\\)\nSample: \\(n = 520\\), \\(x = 68\\)\nSample proportion: \\(\\hat p = 0.1308\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Since \\(np_0 = 52\\) and \\(n(1-p_0) = 468\\) are both \\(\\ge 10\\), use a one-sample \\(z\\) test for a proportion with reference distribution \\(N(0,1)\\)."
+    "text": "Example: Reusable Cup Discount\n\n\n\nLast year only \\(10\\%\\) of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds \\(x=68\\) of \\(n=520\\) students bringing their own cup.\nIs this evidence that the participation rate has increased above \\(10\\%\\)?\n\n\n\\[H_0:p=0.10,\\qquad H_a:p&gt;0.10\\]\n\\[\\hat p=\\frac{68}{520}=0.1308\\]"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
     "href": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
     "title": "STA258",
     "section": "Example: Protein Scoop Consistency",
-    "text": "Example: Protein Scoop Consistency\n\n\n\nA fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most \\(2.8\\) g. A reviewer weighs a random sample of \\(n=28\\) scoops and finds \\(s=3.4\\) g.\nDoes this undermine the consistency claim? Use \\(\\alpha=0.05\\) and assume scoop weights are normal.\n\n\n\\[H_0:\\sigma^2=2.8^2,\\qquad H_a:\\sigma^2&gt;2.8^2\\]\nA larger sample spread is evidence against the “at most 2.8 g” claim.\n\n\n\n\nWhat we are given\n\nClaimed SD: \\(\\sigma_0 = 2.8\\) g, so \\(\\sigma_0^2 = 7.84\\)\nSample: \\(n = 28\\), \\(s = 3.4\\) g\nDegrees of freedom: \\(df = n-1 = 27\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Testing a claim about a single variance (normal population), so use a one-sample \\(\\chi^2\\) test with reference distribution \\(\\chi^2_{27}\\)."
+    "text": "Example: Protein Scoop Consistency\n\n\n\nA fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most \\(2.8\\) g. A reviewer weighs a random sample of \\(n=28\\) scoops and finds \\(s=3.4\\) g.\nDoes this undermine the consistency claim? Use \\(\\alpha=0.05\\) and assume scoop weights are normal.\n\n\n\\[H_0:\\sigma^2=2.8^2,\\qquad H_a:\\sigma^2&gt;2.8^2\\]\nA larger sample spread is evidence against the “at most 2.8 g” claim."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "href": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "title": "STA258",
     "section": "Example: Active Recall vs Rereading",
-    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 84 90 86 89 85 88 83 90 86 89 85\nRereading: 84 86 83 85 84 82 87 84 86 85\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
+    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90\nRereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-push-notifications",
@@ -4190,14 +4190,14 @@
     "href": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "title": "STA258",
     "section": "Example: Pomodoro Focus Timer",
-    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 37 28 45 39 38 33 38 34 38 39 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
+    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
     "href": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
     "title": "STA258",
     "section": "Check in R: Scoop Variance Test",
-    "text": "Check in R: Scoop Variance Test\n\n\n\n\n\n\n\n\n\nBase R has no one-sample variance test, so the code builds \\(\\chi^{2*}\\) by hand from \\(n\\) and \\(s\\) and finds the p-value with pchisq()."
+    "text": "Check in R: Scoop Variance Test"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-paired-pomodoro-test",
@@ -4498,7 +4498,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
     "title": "STA258",
     "section": "Example: Scoring Consistency",
-    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 76 87 74 86 81 83 77 88 79 84 75 82\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]\n\n\n\n\nWhat we are given\n\nPlayer A: \\(n_A = 12\\), \\(s_A^2 = 23.09\\)\nPlayer B: \\(n_B = 10\\), \\(s_B^2 = 4.933\\)\nDegrees of freedom: \\(df = (11,\\ 9)\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Comparing two population variances (normal populations), so use an \\(F\\) test with the larger-variance group on top: \\(F^*=s_A^2/s_B^2 \\sim F_{11,\\,9}\\)."
+    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#using-power-to-determine-sample-size",
@@ -4512,7 +4512,7 @@
     "href": "Chapter Slides/chapter8-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\n8.1 - ANOVA model Compare \\(k \\ge 3\\) population means using one global model.\n\n\n8.2 - Variation split Break total variation into treatment variation and error variation.\n\n\n8.3 - ANOVA F test Use the ANOVA table and a right-tailed \\(F\\) distribution.\n\n\n\n\n\n8.4 - Assumptions Normal residuals, equal population variance, and independent observations.\n\n\n8.5 - Pairwise comparisons After rejecting ANOVA, compare means in pairs.\n\n\n8.6 - R checks Use oneway.test(), aov(), and pairwise confidence intervals."
+    "text": "Chapter Roadmap\n\n\n8.1 - ANOVA model Compare \\(k \\ge 3\\) population means using one global model.\n\n\n8.2 - Variation split Break total variation into treatment variation and error variation.\n\n\n8.3 - ANOVA F test Use the ANOVA table and a right-tailed \\(F\\) distribution.\n\n\n\n\n\n8.4 - Assumptions Normal residuals, equal population variance, and independent observations.\n\n\n8.5 - Pairwise comparisons After rejecting ANOVA, compare means in pairs.\n\n\n8.6 - R checks Use aov(), anova(lm()), and pairwise.t.test() to check ANOVA and pairwise comparisons."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#up-next",
@@ -4554,42 +4554,42 @@
     "href": "Chapter Slides/chapter8-slides.html#why-anova",
     "title": "STA258",
     "section": "Why ANOVA?",
-    "text": "Why ANOVA?\n\nAnalysis of Variance (ANOVA) is used to compare several population means.\nSuppose we have \\(k\\) groups, where usually \\(k \\ge 3\\).\n\n\n\nQuestion\nDo all groups have the same population mean?\n\n\nNull hypothesis\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\n\nANOVA starts with one global test. If the global test rejects, pairwise comparisons can then ask which means differ."
+    "text": "Why ANOVA?\n\n\nPurpose\nAnalysis of Variance (ANOVA) is used to compare several population means at once.\nInstead of running many separate two-sample tests, ANOVA begins with one global test.\n\n\n\nQuestion\nDo all groups have the same population mean?\n\\[\nk \\ge 3\n\\]\ngroups are being compared.\n\n\nNull hypothesis\nThe population means are all equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative hypothesis\nAt least one population mean is different:\n\\[\nH_a:\\text{not all }\\mu_i\\text{ are equal}\n\\]\n\n\n\nKey idea\nANOVA tells us whether there is evidence that at least one mean differs.\nIf ANOVA rejects (H_0), then pairwise comparisons can ask which means differ."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#one-factor-anova-model",
     "href": "Chapter Slides/chapter8-slides.html#one-factor-anova-model",
     "title": "STA258",
     "section": "One-Factor ANOVA Model",
-    "text": "One-Factor ANOVA Model\n\n\n\nThe textbook model is:\n\\[\nY_{ij}=\\mu+\\tau_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\nwhere \\(Y_{ij}\\) is observation \\(j\\) in group \\(i\\).\n\n\nMeaning\n\n\\(\\mu\\): overall mean\n\\(\\tau_i\\): treatment-specific effect\n\\(\\epsilon_{ij}\\): random error term\n\\(\\mu+\\tau_i\\): group mean\n\n\n\n\n\nEquivalent form:\n\\[\nY_{ij}=\\mu_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\nwhere \\(\\mu_i\\) is the population mean for group \\(i\\).\n\n\nEvery observation in the same group is assigned the same group mean, plus random error."
+    "text": "One-Factor ANOVA Model\n\n\nTextbook model\nFor observation \\(j\\) in group \\(i\\):\n\\[\nY_{ij}=\\mu+\\tau_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\nHere, \\(Y_{ij}\\) is the response value for observation \\(j\\) in group \\(i\\).\n\n\nEquivalent form\nSince the population mean for group \\(i\\) is\n\\[\n\\mu_i=\\mu+\\tau_i,\n\\]\nthe same model can be written as\n\\[\nY_{ij}=\\mu_i+\\epsilon_{ij},\n\\qquad\n\\epsilon_{ij}\\sim N(0,\\sigma^2)\n\\]\n\n\nMeaning of the notation\n\n\\(\\mu\\): overall population mean\n\\(\\tau_i\\): treatment effect for group \\(i\\)\n\\(\\epsilon_{ij}\\): random error for observation \\(j\\) in group \\(i\\)\n\\(\\mu_i=\\mu+\\tau_i\\): population mean of group \\(i\\)\n\n\n\nIntuition\nEach observation is modeled as\n\\[\n\\text{response}\n=\n\\text{group mean}\n+\n\\text{random error}.\n\\]\nSo ANOVA asks whether all group means are equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\nor whether at least one group mean differs."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#data-structure-and-notation",
     "href": "Chapter Slides/chapter8-slides.html#data-structure-and-notation",
     "title": "STA258",
     "section": "Data Structure and Notation",
-    "text": "Data Structure and Notation\n\n\n\n\n\nGroup 1\nGroup 2\n\\(\\cdots\\)\nGroup \\(k\\)\n\n\n\n\n\\(X_{11}\\)\n\\(X_{21}\\)\n\\(\\cdots\\)\n\\(X_{k1}\\)\n\n\n\\(X_{12}\\)\n\\(X_{22}\\)\n\\(\\cdots\\)\n\\(X_{k2}\\)\n\n\n\\(\\vdots\\)\n\\(\\vdots\\)\n\\(\\ddots\\)\n\\(\\vdots\\)\n\n\n\\(X_{1n_1}\\)\n\\(X_{2n_2}\\)\n\\(\\cdots\\)\n\\(X_{kn_k}\\)\n\n\n\\(\\bar X_1\\)\n\\(\\bar X_2\\)\n\\(\\cdots\\)\n\\(\\bar X_k\\)\n\n\n\\(S_1^2\\)\n\\(S_2^2\\)\n\\(\\cdots\\)\n\\(S_k^2\\)\n\n\n\\(n_1\\)\n\\(n_2\\)\n\\(\\cdots\\)\n\\(n_k\\)\n\n\n\n\n\n\nNotation\n\n\\(\\bar X_i\\): sample mean of group \\(i\\)\n\\(S_i^2\\): sample variance of group \\(i\\)\n\\(n_i\\): sample size of group \\(i\\)\n\n\n\nTotal sample size:\n\\[\nn=n_1+n_2+\\cdots+n_k\n\\]\nOverall sample mean:\n\\[\n\\bar X=\n\\frac{1}{n}\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}X_{ij}\n=\n\\frac{1}{n}\\sum_{i=1}^{k} n_i\\bar X_i\n\\]"
+    "text": "Data Structure and Notation\n\n\n\nData layout\n\n\n\nGroup 1\nGroup 2\n\\(\\cdots\\)\nGroup \\(k\\)\n\n\n\n\n\\(X_{11}\\)\n\\(X_{21}\\)\n\\(\\cdots\\)\n\\(X_{k1}\\)\n\n\n\\(X_{12}\\)\n\\(X_{22}\\)\n\\(\\cdots\\)\n\\(X_{k2}\\)\n\n\n\\(\\vdots\\)\n\\(\\vdots\\)\n\\(\\ddots\\)\n\\(\\vdots\\)\n\n\n\\(X_{1n_1}\\)\n\\(X_{2n_2}\\)\n\\(\\cdots\\)\n\\(X_{kn_k}\\)\n\n\n\\(\\bar X_1\\)\n\\(\\bar X_2\\)\n\\(\\cdots\\)\n\\(\\bar X_k\\)\n\n\n\\(S_1^2\\)\n\\(S_2^2\\)\n\\(\\cdots\\)\n\\(S_k^2\\)\n\n\n\\(n_1\\)\n\\(n_2\\)\n\\(\\cdots\\)\n\\(n_k\\)\n\n\n\n\n\nNotation\n\n\\(\\bar X_i\\): sample mean of group \\(i\\)\n\\(S_i^2\\): sample variance of group \\(i\\)\n\\(n_i\\): sample size of group \\(i\\)\n\n\n\n\nOverall summaries\nTotal sample size:\n\\[\nn=n_1+n_2+\\cdots+n_k\n\\]\nOverall sample mean:\n\\[\n\\bar X\n=\n\\frac{1}{n}\n\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}X_{ij}\n=\n\\frac{1}{n}\n\\sum_{i=1}^{k}n_i\\bar X_i\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#sources-of-variation",
     "href": "Chapter Slides/chapter8-slides.html#sources-of-variation",
     "title": "STA258",
     "section": "Sources of Variation",
-    "text": "Sources of Variation\n\nANOVA works by splitting variation into two pieces: variation within groups and variation between groups.\n\n\n\nWithin groups: error variation\n\\[\nSSE=\\sum_{i=1}^{k}(n_i-1)S_i^2\n\\]\nThis is residual variation inside the groups.\n\n\nBetween groups: treatment variation\n\\[\nSSTr=\\sum_{i=1}^{k} n_i(\\bar X_i-\\bar X)^2\n\\]\nThis captures how group means differ from the overall mean.\n\n\n\nThe ANOVA F statistic becomes large when between-group variation is large relative to within-group error variation."
+    "text": "Sources of Variation\n\nANOVA works by splitting variation into two pieces: variation within groups and variation between groups.\n\n\n\nWithin groups: error variation\n\\[\nSSE=\\sum_{i=1}^{k}(n_i-1)S_i^2\n\\]\nThis is residual variation inside the groups.\n\n\nBetween groups: treatment variation\n\\[\nSSTr=\\sum_{i=1}^{k} n_i(\\bar X_i-\\bar X)^2\n\\]\nThis captures how group means differ from the overall mean.\n\n\n\nThe ANOVA \\(F\\) statistic becomes large when between-group variation is large relative to within-group error variation."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#total-variation-and-decomposition",
     "href": "Chapter Slides/chapter8-slides.html#total-variation-and-decomposition",
     "title": "STA258",
     "section": "Total Variation and Decomposition",
-    "text": "Total Variation and Decomposition\n\n\n\nTotal variation:\n\\[\nSSTotal=\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}(X_{ij}-\\bar X)^2\n\\]\n\n\nDecomposition identity\n\\[\nSSTotal=SSTr+SSE\n\\]\n\n\n\n\nANOVA compares:\n\\[\n\\begin{aligned}\n&\\text{between-group variation}\\\\[2pt]\n&\\qquad\\quad \\text{vs.}\\\\[2pt]\n&\\text{within-group variation}\n\\end{aligned}\n\\]\n\n\nIf group means are close together, \\(SSTr\\) is small.\nIf at least one group mean is far away, \\(SSTr\\) becomes larger."
+    "text": "Total Variation and Decomposition\n\n\nTotal variation\nTotal variation measures how far all observations are from the overall mean.\n\\[\nSSTotal=\n\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}\n(X_{ij}-\\bar X)^2\n\\]\n\n\nWhat ANOVA compares\nANOVA compares variation between group centers to variation inside the groups.\n\\[\n\\text{between-group variation}\n\\qquad \\text{vs.} \\qquad\n\\text{within-group variation}\n\\]\n\n\nDecomposition identity\nTotal variation splits into treatment variation plus error variation:\n\\[\nSSTotal=SSTr+SSE\n\\]\n\n\nIntuition\nIf group means are close together, \\(SSTr\\) is small.\nIf at least one group mean is far away, \\(SSTr\\) becomes larger.\n\n\nBig picture\nANOVA asks whether the between-group variation is large compared with the within-group error variation."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#the-anova-table",
     "href": "Chapter Slides/chapter8-slides.html#the-anova-table",
     "title": "STA258",
     "section": "The ANOVA Table",
-    "text": "The ANOVA Table\n\n\n\n\n\n\n\n\n\n\nSource\ndf\nSS\nMS\nF-statistic\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\\(MSTr=\\dfrac{SSTr}{k-1}\\)\n\\(F^*=\\dfrac{MSTr}{MSE}\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\\(MSE=\\dfrac{SSE}{n-k}\\)\n\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\n\nMean square rule\n\\[\nMS=\\frac{SS}{df}\n\\]\n\n\nThe F statistic compares treatment variation per degree of freedom with error variation per degree of freedom."
+    "text": "The ANOVA Table\n\n\nANOVA table structure\n\n\n\nSource\ndf\nSS\nMS\n\\(F^*\\)\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\\(MSTr\\)\n\\(MSTr/MSE\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\\(MSE\\)\n\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\n\n\\[\nSSTotal=SSTr+SSE\n\\]\n\\[\nF^*=\\frac{MSTr}{MSE}\n\\]\n\nThe p-value comes from the right tail of the (F) distribution.\n\n\nMean square rule\nA mean square is a sum of squares divided by its degrees of freedom:\n\\[\nMS=\\frac{SS}{df}\n\\]\nSo in one-way ANOVA:\n\\[\nMSTr=\\frac{SSTr}{k-1},\n\\qquad\nMSE=\\frac{SSE}{n-k}\n\\]\n\n\nDegrees of freedom\nThe degrees of freedom split the same way as the sums of squares:\n\\[\nn-1=(k-1)+(n-k)\n\\]\nTreatment variation uses (k-1) df, and error variation uses (n-k) df.\n\n\nTest statistic and p-value\nThe ANOVA test statistic is\n\\[\nF^*=\\frac{MSTr}{MSE}\n\\]\nUnder \\(H_0\\),\n\\[\nF^*\\sim F_{k-1,\\;n-k}\n\\]\nThe p-value is the right-tail area."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#hypothesis-test-and-reference-distribution",
@@ -4603,7 +4603,7 @@
     "href": "Chapter Slides/chapter8-slides.html#anova-p-value-visual",
     "title": "STA258",
     "section": "ANOVA P-value Visual",
-    "text": "ANOVA P-value Visual\n\n\n\nRight-tail reference distribution\nFor \\(k=3\\) groups and \\(n=18\\) observations:\n\\[\ndf_1=k-1=2,\n\\qquad\ndf_2=n-k=15\n\\]\nThe shaded region is:\n\\[\nP(F_{2,15}\\ge F^*)\n\\]\nIn R, this is calculated with lower.tail = FALSE."
+    "text": "ANOVA P-value Visual\n\n\nRight-tail reference distribution\nFor \\(k=3\\) groups and \\(n=18\\) observations:\n\\[\ndf_1=k-1=2,\n\\qquad\ndf_2=n-k=15\n\\]\nThe shaded region is:\n\\[\nP(F_{2,15}\\ge F^*)\n\\]\nIn R, this is calculated with lower.tail = FALSE.\n\n\nInteractive right-tail area"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-margarine-container-fill-amounts",
@@ -4617,7 +4617,7 @@
     "href": "Chapter Slides/chapter8-slides.html#example-campus-café-pickup-systems",
     "title": "STA258",
     "section": "Example: Campus Café Pickup Systems",
-    "text": "Example: Campus Café Pickup Systems\n\n\nA campus café compares mean pickup wait time across three ordering systems.\n\n\n\nSystem\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\n\n\n\nMobile order\n6\n7.0\n2.0\n\n\nKiosk order\n6\n8.5\n2.8\n\n\nCounter order\n6\n10.2\n3.1\n\n\n\nUse ANOVA at the 5% level.\n\n\nCalculation\n\\[\n\\bar x=\\frac{6(7.0)+6(8.5)+6(10.2)}{18}=8.57\n\\]\n\\[\nSSTr=6(7.0-8.57)^2+6(8.5-8.57)^2+6(10.2-8.57)^2=30.76\n\\]\n\\[\nSSE=(5)(2.0)+(5)(2.8)+(5)(3.1)=39.50\n\\]\n\\[\nMSTr=\\frac{30.76}{2}=15.38,\n\\quad\nMSE=\\frac{39.50}{15}=2.63\n\\]\n\\[\nF^*=\\frac{15.38}{2.63}=5.84\n\\]\n\n\nHypotheses\n\\[H_0:\\mu_1=\\mu_2=\\mu_3\\]\n\\[H_a:\\text{at least one mean wait time differs}\\]\n\n\nWith \\(df_1=2\\) and \\(df_2=15\\), \\(p=0.0133\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). There is evidence that not all ordering systems have the same population mean wait time."
+    "text": "Example: Campus Café Pickup Systems\n\n\nProblem\nA campus café wants to compare three pickup systems used during the same lunch rush period:\n\nmobile order,\nkiosk order,\ncounter order.\n\nFor each system, the café records the number of minutes from order confirmation to pickup.\nWe want to know whether the population mean pickup time is the same for all three systems.\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{ at least one mean pickup time differs}\n\\]\nUse a one-way ANOVA at the 5% level.\n\n\nObserved data\n\n\n\nMobile order\nKiosk order\nCounter order\n\n\n\n\n5.0\n6.5\n7.8\n\n\n6.0\n6.5\n8.8\n\n\n7.0\n8.5\n9.8\n\n\n7.0\n9.5\n10.6\n\n\n8.0\n9.5\n11.8\n\n\n9.0\n10.5\n12.4\n\n\n\n\n\nANOVA setup\nThe explanatory variable is the pickup system.\nThe response variable is pickup wait time.\nThere are \\(k=3\\) groups and \\(n=18\\) observations.\nEach system has \\(n_i=6\\) wait-time measurements."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-summary-statistic-anova",
@@ -4631,21 +4631,21 @@
     "href": "Chapter Slides/chapter8-slides.html#example-basketball-drill-scores",
     "title": "STA258",
     "section": "Example: Basketball Drill Scores",
-    "text": "Example: Basketball Drill Scores\n\n\nA coach tests three practice formats and records shooting-drill scores.\n\n\n\nClassic\nStreak challenge\nLeaderboard\n\n\n\n\n18\n23\n30\n\n\n20\n25\n29\n\n\n19\n26\n31\n\n\n22\n24\n28\n\n\n21\n27\n32\n\n\n20\n25\n30\n\n\n\nTest whether the three population mean scores are equal.\n\n\nManual ANOVA pieces\n\\[\n\\bar x_1=20,\n\\qquad\n\\bar x_2=25,\n\\qquad\n\\bar x_3=30,\n\\qquad\n\\bar x=25\n\\]\n\\[\nSSTr=6(20-25)^2+6(25-25)^2+6(30-25)^2=300\n\\]\n\\[\nSSE=(5)(2)+(5)(2)+(5)(2)=30\n\\]\n\\[\nMSTr=150,\n\\qquad\nMSE=2,\n\\qquad\nF^*=75\n\\]\n\n\nDecision\n\\[\nF^*\\sim F_{2,15}\n\\]\nThe p-value is extremely small.\n\n\nReject \\(H_0\\). There is strong evidence that at least one practice format has a different population mean shooting-drill score."
+    "text": "Example: Basketball Drill Scores\n\n\nA coach tests three practice formats and records shooting-drill scores. Each player completes the same drill after one practice format, and higher scores mean more made shots.\n\n\n\nClassic\nStreak challenge\nLeaderboard\n\n\n\n\n18\n23\n30\n\n\n20\n25\n29\n\n\n19\n26\n31\n\n\n22\n24\n28\n\n\n21\n27\n32\n\n\n20\n25\n30\n\n\n\nTest whether the three population mean scores are equal.\n\n\nManual ANOVA pieces\n\\[\n\\bar x_1=20,\n\\qquad\n\\bar x_2=25,\n\\qquad\n\\bar x_3=30,\n\\qquad\n\\bar x=25\n\\]\n\\[\nSSTr=6(20-25)^2+6(25-25)^2+6(30-25)^2=300\n\\]\n\\[\nSSE=(5)(2)+(5)(2)+(5)(2)=30\n\\]\n\\[\nMSTr=150,\n\\qquad\nMSE=2,\n\\qquad\nF^*=75\n\\]\n\n\nDecision\n\\[\nF^*\\sim F_{2,15}\n\\]\nThe p-value is extremely small.\n\n\nReject \\(H_0\\). There is strong evidence that at least one practice format has a different population mean shooting-drill score."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#visual-basketball-drill-scores",
     "href": "Chapter Slides/chapter8-slides.html#visual-basketball-drill-scores",
     "title": "STA258",
     "section": "Visual: Basketball Drill Scores",
-    "text": "Visual: Basketball Drill Scores\n\n\n\n\n\n\n\nThis is the ANOVA story visually: the group means move a lot, while the points inside each group are fairly tight."
+    "text": "Visual: Basketball Drill Scores\n\n\n\n\n\n\n\nThis is the ANOVA story visually: the group centers are clearly separated, while the scores within each practice format are still fairly tight.\nThe red dots show the group means, and the boxplots make the within-group spread easier to compare."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-study-playlist-focus-scores",
     "href": "Chapter Slides/chapter8-slides.html#example-study-playlist-focus-scores",
     "title": "STA258",
     "section": "Example: Study Playlist Focus Scores",
-    "text": "Example: Study Playlist Focus Scores\n\n\nA study app compares focus scores after three playlist styles.\n\n\n\nLo-fi\nClassical\nAmbient\n\n\n\n\n41\n43\n44\n\n\n44\n45\n43\n\n\n43\n44\n46\n\n\n42\n46\n45\n\n\n46\n47\n48\n\n\n45\n42\n47\n\n\n\nTest whether the population mean focus scores are equal.\n\n\nManual ANOVA pieces\n\\[\n\\bar x_1=43.5,\n\\qquad\n\\bar x_2=44.5,\n\\qquad\n\\bar x_3=45.5,\n\\qquad\n\\bar x=44.5\n\\]\n\\[\nSSTr=6(43.5-44.5)^2+6(44.5-44.5)^2+6(45.5-44.5)^2=12\n\\]\n\\[\nSSE=52.5\n\\]\n\\[\nMSTr=6,\n\\qquad\nMSE=3.5,\n\\qquad\nF^*=1.71\n\\]\n\n\nDecision\n\\[\nF^*\\sim F_{2,15}\n\\]\nThe p-value is about \\(0.214\\).\n\n\nDo not reject \\(H_0\\). These data do not give enough evidence that the playlist styles have different population mean focus scores."
+    "text": "Example: Study Playlist Focus Scores\n\n\nA study app compares focus scores after three playlist styles. Each student uses one playlist during the same length study session, then completes the same focus survey.\n\n\n\nLo-fi\nClassical\nAmbient\n\n\n\n\n41\n43\n44\n\n\n44\n45\n43\n\n\n43\n44\n46\n\n\n42\n46\n45\n\n\n46\n47\n48\n\n\n45\n42\n47\n\n\n\nTest whether the population mean focus scores are equal.\n\n\nManual ANOVA pieces\n\\[\n\\bar x_1=43.5,\n\\qquad\n\\bar x_2=44.5,\n\\qquad\n\\bar x_3=45.5,\n\\qquad\n\\bar x=44.5\n\\]\n\\[\nSSTr=6(43.5-44.5)^2+6(44.5-44.5)^2+6(45.5-44.5)^2=12\n\\]\n\\[\nSSE=52.5\n\\]\n\\[\nMSTr=6,\n\\qquad\nMSE=3.5,\n\\qquad\nF^*=1.71\n\\]\n\n\nDecision\n\\[\nF^*\\sim F_{2,15}\n\\]\nThe p-value is about \\(0.214\\).\n\n\nDo not reject \\(H_0\\). These data do not give enough evidence that the playlist styles have different population mean focus scores."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova-f-tests",
@@ -4659,21 +4659,21 @@
     "href": "Chapter Slides/chapter8-slides.html#assumptions-of-anova",
     "title": "STA258",
     "section": "Assumptions of ANOVA",
-    "text": "Assumptions of ANOVA\n\nAssumptions\n\n\nObservations are independent.\n\n\nError terms, or residuals, are Normal.\n\n\nAll groups have the same population variance: \\(\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2\\).\n\n\n\n\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat\\sigma^2=MSE\n\\]\n\n\nThis is why the denominator of the F statistic is \\(MSE\\): it estimates the shared within-group variance."
+    "text": "Assumptions of ANOVA\n\n\nAssumptions\n\n\nObservations are independent.\n\n\n\n\nError terms, or residuals, are Normal.\n\n\n\n\nAll groups have the same population variance:\n\n\\[\n\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2.\n\\]\n\n\n\nCommon variance estimate\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat{\\sigma}^2=MSE\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#what-if-anova-rejects",
     "href": "Chapter Slides/chapter8-slides.html#what-if-anova-rejects",
     "title": "STA258",
     "section": "What If ANOVA Rejects?",
-    "text": "What If ANOVA Rejects?\n\n\n\nANOVA’s alternative is broad:\n\\[\nH_a:\\text{at least one mean is different}\n\\]\nSo after rejecting \\(H_0\\), we still need to ask:\nWhich mean or means are different?\n\n\n\n\nPairwise comparisons\nCompare the means in pairs.\nFor three groups:\n\n\\(\\mu_1\\) vs. \\(\\mu_2\\)\n\\(\\mu_1\\) vs. \\(\\mu_3\\)\n\\(\\mu_2\\) vs. \\(\\mu_3\\)\n\n\n\nNumber of comparisons:\n\\[\n\\binom{k}{2}\n\\]"
+    "text": "What If ANOVA Rejects?\n\n\nGlobal ANOVA result\nANOVA tests whether all population means are equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\qquad \\text{vs.} \\qquad\nH_a:\\text{at least one mean is different}\n\\]\n\n\n\nImportant limitation\nRejecting \\(H_0\\) tells us that not all means are equal.\nIt does not tell us which specific groups differ.\n\n\nFollow-up question\nAfter a significant ANOVA result, we ask:\n\\[\n\\text{Which means are different?}\n\\]\n\n\nPairwise comparisons\nFor three groups:\n\\[\n\\mu_1-\\mu_2,\\qquad\n\\mu_1-\\mu_3,\\qquad\n\\mu_2-\\mu_3\n\\]\nWith \\(k\\) groups:\n\\[\nm=\\binom{k}{2}\n\\]\n\n\n\nNext step\nUse pairwise confidence intervals to compare specific group means: first Fisher’s LSD, then Bonferroni."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#pairwise-confidence-intervals",
     "href": "Chapter Slides/chapter8-slides.html#pairwise-confidence-intervals",
     "title": "STA258",
     "section": "Pairwise Confidence Intervals",
-    "text": "Pairwise Confidence Intervals\n\nFor comparing two group means after ANOVA, use intervals for:\n\\[\n\\mu_i-\\mu_j\n\\]\n\n\n\nFisher’s LSD\n\\[\n(\\bar x_i-\\bar x_j)\n\\pm\nt_{n-k,\\alpha/2}\n\\sqrt{\nMSE\n\\left(\n\\frac{1}{n_i}+\\frac{1}{n_j}\n\\right)\n}\n\\]\nMore power, but does not control experiment-wise Type I error.\n\n\nBonferroni\n\\[\n(\\bar x_i-\\bar x_j)\n\\pm\nt_{n-k,\\alpha/(2m)}\n\\sqrt{\nMSE\n\\left(\n\\frac{1}{n_i}+\\frac{1}{n_j}\n\\right)\n}\n\\]\nwhere \\(m=\\binom{k}{2}\\)."
+    "text": "Pairwise Confidence Intervals\n\n\nGeneral idea\nAfter ANOVA rejects, compare two population means using an interval for \\(\\mu_i-\\mu_j\\):\n\n\\[\n(\\bar{x}_i-\\bar{x}_j)\n\\pm\nt^*\n\\sqrt{\nMSE\\left(\\frac{1}{n_i}+\\frac{1}{n_j}\\right)\n}\n\\qquad\n\\text{where } \\hat{\\sigma}^2=MSE\n\\]\n\n\n\n\nFisher’s LSD\nUse the ordinary two-sided critical value:\n\\[\nt^*=t_{1-\\alpha/2,\\;n-k}\n\\]\nThis gives narrower intervals, so it has more power to detect differences.\nIt is less conservative when many pairs are compared.\n\n\nBonferroni\nFirst count the number of pairwise comparisons:\n\\[\nm=\\binom{k}{2}\n\\]\nThen use the adjusted critical value:\n\\[\nt^*=t_{1-\\alpha/(2m),\\;n-k}\n\\]\nThis gives wider intervals.\n\n\nDecision rule\nA pair is declared different when the interval for \\(\\mu_i-\\mu_j\\) does not contain 0.\nIf the interval contains 0, the pair is not clearly different.\nSo the whole method is:\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#fisher-lsd-vs.-bonferroni",
@@ -4694,14 +4694,14 @@
     "href": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs",
     "title": "STA258",
     "section": "Example: Phone Case Drop-Test Costs",
-    "text": "Example: Phone Case Drop-Test Costs\n\n\nA device lab tests four phone case designs. After a standardized drop test, it records repair cost.\nANOVA rejects the equal-means hypothesis.\n\n\n\nCase\nMean repair cost\n\n\n\n\nSlim\n87.50\n\n\nRugged\n113.00\n\n\nWallet\n98.50\n\n\nClear\n75.88\n\n\n\nThe ANOVA error estimate is \\(MSE=17.89\\), with \\(v=28\\) error degrees of freedom.\n\n\nBonferroni setup\nThere are:\n\\[\nm=\\binom{4}{2}=6\n\\]\npairwise comparisons.\nBonferroni uses:\n\\[\nt_{1-\\alpha/(2m),28}\n=\nt_{1-0.05/12,28}\n=\n2.839\n\\]\nFor equal sample sizes \\(n_i=8\\):\n\\[\nSE=\n\\sqrt{\n17.89\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.115\n\\]\nBonferroni margin:\n\\[\n2.839(2.115)=6.00\n\\]\n\n\nQuestion\nWhich phone case designs have different population mean repair costs?\nA pair differs if its Bonferroni interval for \\(\\mu_i-\\mu_j\\) does not contain 0.\n\n\nThe Bonferroni margin is 6.00. So a pairwise difference must be more than 6 dollars away from 0 to be clearly different at the family-wise 5% level."
+    "text": "Example: Phone Case Drop-Test Costs\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the lab records the repair cost after impact.\nANOVA rejects the equal-means hypothesis. Which case designs differ?\n\n\n\nCase design\nMean repair cost\n\n\n\n\nClear\n75.88\n\n\nSlim\n87.50\n\n\nWallet\n98.50\n\n\nRugged\n113.00\n\n\n\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=17.89,\n\\qquad\nv=n-k=32-4=28\n\\]\nThere are\n\\[\nm=\\binom{4}{2}=6\n\\]\npairwise comparisons.\nUse Bonferroni intervals for the six mean differences.\n\n\nCalculation\nSample means:\n\\[\n\\bar{x}_{Clear}=75.88,\\quad\n\\bar{x}_{Slim}=87.50,\\quad\n\\bar{x}_{Wallet}=98.50,\\quad\n\\bar{x}_{Rugged}=113.00\n\\]\nBonferroni critical value:\n\\[\nt^*\n=\nt_{1-\\alpha/(2m),\\,28}\n=\nt_{1-0.05/(2\\cdot6),\\,28}\n=\nt_{0.99583,\\,28}\n=\n2.839\n\\]\nStandard error and margin:\n\\[\nSE\n=\n\\sqrt{\n17.89\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.115,\n\\qquad\nME=2.839(2.115)=6.00\n\\]\nNow compute the Bonferroni intervals:\n\\[\n\\begin{aligned}\n\\text{Clear} - \\text{Slim}\n&:\\ 75.88-87.50=-11.63,\\\\\n&\\quad -11.63\\pm6.00=(-17.63,\\,-5.62),\\\\[3pt]\n\\text{Clear} - \\text{Wallet}\n&:\\ 75.88-98.50=-22.63,\\\\\n&\\quad -22.63\\pm6.00=(-28.63,\\,-16.62),\\\\[3pt]\n\\text{Clear} - \\text{Rugged}\n&:\\ 75.88-113.00=-37.13,\\\\\n&\\quad -37.13\\pm6.00=(-43.13,\\,-31.12),\\\\[3pt]\n\\text{Slim} - \\text{Wallet}\n&:\\ 87.50-98.50=-11.00,\\\\\n&\\quad -11.00\\pm6.00=(-17.00,\\,-5.00),\\\\[3pt]\n\\text{Slim} - \\text{Rugged}\n&:\\ 87.50-113.00=-25.50,\\\\\n&\\quad -25.50\\pm6.00=(-31.50,\\,-19.50),\\\\[3pt]\n\\text{Wallet} - \\text{Rugged}\n&:\\ 98.50-113.00=-14.50,\\\\\n&\\quad -14.50\\pm6.00=(-20.50,\\,-8.50).\n\\end{aligned}\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-comparisons",
     "href": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-comparisons",
     "title": "STA258",
     "section": "Check in R: Pairwise Comparisons",
-    "text": "Check in R: Pairwise Comparisons\n\n\n\n\nBasketball Fisher / Bonferroni intervals\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case Bonferroni intervals"
+    "text": "Check in R: Pairwise Comparisons\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#bonferroni-vs.-fisher-decision-guide",
@@ -4715,7 +4715,7 @@
     "href": "Chapter Slides/chapter8-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nIn one-way ANOVA, the total variation decomposes into which two pieces?\n\n\n\n\n\\(SSTotal = SSTr - SSE\\)\n\\(SSTotal = SSTr + SSE\\)\n\\(SSTotal = MSTr + MSE\\)\n\\(SSTotal = SSTr \\times SSE\\)"
+    "text": "Question\n\n\nA one-way ANOVA with \\(k=4\\) groups has a significant p-value. How many pairwise mean comparisons are possible?\n\n\n\n\n3\n6\n8\n16"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#final-checklist",
@@ -4736,14 +4736,14 @@
     "href": "Chapter Slides/chapter8-slides.html#anova-hypothesis-test",
     "title": "STA258",
     "section": "ANOVA Hypothesis Test",
-    "text": "ANOVA Hypothesis Test\n\n\n\nHypotheses:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\\[\nH_a:\\text{at least one }\\mu_j\\text{ is different}\n\\]\n\n\nTest statistic\n\\[\nF^*=\n\\frac{MSTr}{MSE}\n=\n\\frac{SSTr/(k-1)}{SSE/(n-k)}\n\\]\n\n\n\n\nUnder \\(H_0\\):\n\\[\nF^* \\sim F_{k-1,n-k}\n\\]\nThe numerator degrees of freedom are \\(k-1\\).\nThe denominator degrees of freedom are \\(n-k\\).\n\n\nThe ANOVA p-value is the area to the right of \\(F^*\\), because large F values mean group means differ more than expected from random error alone."
+    "text": "ANOVA Hypothesis Test\n\n\nHypotheses\nThe null hypothesis says all population means are equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\nThe alternative says at least one population mean differs:\n\\[\nH_a:\\text{not all }\\mu_i\\text{ are equal}\n\\]\n\n\nReference distribution\nUnder \\(H_0\\), the test statistic follows an \\(F\\) distribution:\n\\[\nF^* \\sim F_{k-1,\\;n-k}\n\\]\nNumerator df:\n\\[\nk-1\n\\]\nDenominator df:\n\\[\nn-k\n\\]\n\n\nTest statistic\nThe ANOVA test statistic is\n\\[\nF^*\n=\n\\frac{MSTr}{MSE}\n=\n\\frac{SSTr/(k-1)}{SSE/(n-k)}\n\\]\nIt compares between-group variation to within-group error variation.\n\n\nP-value\nThe ANOVA p-value is the area to the right of \\(F^*\\).\n\\[\np\\text{-value}=P(F_{k-1,\\;n-k}\\ge F^*)\n\\]\nLarge \\(F^*\\) values give evidence that the group means differ more than expected from random error alone."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-short-form-video-edit-styles",
     "href": "Chapter Slides/chapter8-slides.html#example-short-form-video-edit-styles",
     "title": "STA258",
     "section": "Example: Short-Form Video Edit Styles",
-    "text": "Example: Short-Form Video Edit Styles\n\n\nA creator compares mean viewer watch time across four video edit styles.\n\n\n\nStyle\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\n\n\n\nClean cut\n5\n38\n20\n\n\nCaptions-first\n5\n44\n25\n\n\nMeme overlay\n5\n41\n18\n\n\nStory hook\n5\n52\n22\n\n\n\nComplete the ANOVA table and test at the 5% level.\n\n\nCalculation\n\\[\n\\bar x=\\frac{5(38)+5(44)+5(41)+5(52)}{20}=43.75\n\\]\n\\[\n\\begin{aligned}\nSSTr &= 5(38-43.75)^2+5(44-43.75)^2\\\\\n     &\\quad +\\,5(41-43.75)^2+5(52-43.75)^2\\\\\n     &= 543.75\n\\end{aligned}\n\\]\n\\[\nSSE=4(20)+4(25)+4(18)+4(22)=340.00\n\\]\n\\[\nMSTr=\\frac{543.75}{3}=181.25,\n\\quad\nMSE=\\frac{340.00}{16}=21.25\n\\]\n\\[\nF^*=\\frac{181.25}{21.25}=8.53\n\\]\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\n\n\n\n\nTreatment\n3\n543.75\n181.25\n8.53\n\n\nError\n16\n340.00\n21.25\n\n\n\nTotal\n19\n883.75\n\n\n\n\n\n\n\nWith \\(df_1=3\\) and \\(df_2=16\\), \\(p=0.0013\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). At least one edit style has a different population mean watch time."
+    "text": "Example: Short-Form Video Edit Styles\n\n\nProblem\nA creator wants to compare four video edit styles used on comparable short videos from the same account:\n\nclean cut,\ncaptions-first,\nmeme overlay,\nstory hook.\n\nFor each video, the creator records the viewer watch time in seconds.\nWe want to know whether the population mean watch time is the same for all four edit styles.\n\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3=\\mu_4\n\\]\n\\[\nH_a:\\text{at least one mean watch time differs}\n\\]\n\nUse a one-way ANOVA at the 5% level.\n\n\n\nObserved data\n\n\n\nClean cut\nCaptions-first\nMeme overlay\nStory hook\n\n\n\n\n32\n39\n35\n46\n\n\n36\n39\n40\n49\n\n\n38\n44\n41\n52\n\n\n40\n49\n42\n55\n\n\n44\n49\n47\n58\n\n\n\n\n\nANOVA setup\nThe explanatory variable is the edit style.\nThe response variable is viewer watch time.\nThere are \\(k=4\\) groups and \\(n=20\\) observations.\nEach edit style has \\(n_i=5\\) watch-time measurements."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-anova-from-summary-statistics",
@@ -4757,7 +4757,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-study-playlist-focus-scores",
     "title": "STA258",
     "section": "Visual: Study Playlist Focus Scores",
-    "text": "Visual: Study Playlist Focus Scores\n\n\n\n\n\n\n\nHere, the group means are close. ANOVA finds that the between-group variation is not large enough relative to error variation."
+    "text": "Visual: Study Playlist Focus Scores\n\n\n\n\n\n\n\nThe red dots show the group means for each playlist style.\nThe three boxplots are close together and overlap, so the visual matches the ANOVA conclusion: the differences between playlist styles are not large enough compared with the within-group variation."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#textbook-r-check-oneway.test",
@@ -4771,7 +4771,7 @@
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs",
     "title": "STA258",
     "section": "Visual: Phone Case Mean Repair Costs",
-    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nPairwise intervals compare differences between means, not the separate mean intervals shown here."
+    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design. The vertical lines show ordinary 95% intervals for the group means before applying the pairwise Bonferroni comparison."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-confidence-intervals",
@@ -4785,7 +4785,7 @@
     "href": "Chapter Slides/chapter8-slides.html#phone-case-bonferroni-results",
     "title": "STA258",
     "section": "Phone Case: Bonferroni Results",
-    "text": "Phone Case: Bonferroni Results\n\n\n\nHow to read the table\nEach interval estimates a difference in population mean repair cost.\nIf 0 is not in the interval, that pair of phone case designs has different mean repair cost.\n\n\nHere, all Bonferroni intervals avoid 0, so all pairs differ.\n\n\n\n\n\n\nPair\nDifference\nBonferroni CI\n\n\n\n\nSlim - Rugged\n-25.50\n\\((-31.50,\\,-19.50)\\)\n\n\nSlim - Wallet\n-11.00\n\\((-17.00,\\,-5.00)\\)\n\n\nSlim - Clear\n11.63\n\\((5.62,\\;17.63)\\)\n\n\nRugged - Wallet\n14.50\n\\((8.50,\\;20.50)\\)\n\n\nRugged - Clear\n37.13\n\\((31.12,\\;43.13)\\)\n\n\nWallet - Clear\n22.63\n\\((16.62,\\;28.63)\\)"
+    "text": "Phone Case: Bonferroni Results\n\n\nPairwise Bonferroni intervals\n\n\n\nPair\nBonferroni interval\nDecision\n\n\n\n\nClear - Slim\n\\((-17.63,\\,-5.62)\\)\nDifferent\n\n\nClear - Wallet\n\\((-28.63,\\,-16.62)\\)\nDifferent\n\n\nClear - Rugged\n\\((-43.13,\\,-31.12)\\)\nDifferent\n\n\nSlim - Wallet\n\\((-17.00,\\,-5.00)\\)\nDifferent\n\n\nSlim - Rugged\n\\((-31.50,\\,-19.50)\\)\nDifferent\n\n\nWallet - Rugged\n\\((-20.50,\\,-8.50)\\)\nDifferent\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\nAll six Bonferroni intervals avoid 0.\nSo every pair of phone case designs has a different population mean repair cost.\nThe sample means increase in this order:\nClear &lt; Slim &lt; Wallet &lt; Rugged\nTherefore, Rugged has the highest mean repair cost, while Clear has the lowest."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#section-3",
@@ -4813,7 +4813,7 @@
     "href": "Chapter Slides/chapter8-slides.html#section-1",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nIn one-way ANOVA, what is the null hypothesis \\(H_0\\)?\n\n\n\n\nAt least one group mean differs from the others\nAll group means are equal: \\(\\mu_1=\\mu_2=\\dots=\\mu_k\\)\nAll group variances are equal\nAll group means are equal to zero"
+    "text": "Question\n\n\nA one-way ANOVA with \\(k=4\\) groups has a significant p-value. How many pairwise mean comparisons are possible?\n\n\n\n\n3\n6\n8\n16"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#section-2",
@@ -4837,190 +4837,645 @@
     "text": "Question\n\n\nA one-way ANOVA with \\(k=4\\) groups has a significant p-value. How many pairwise mean comparisons are possible?\n\n\n\n\n3\n6\n8\n16"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-known",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-known",
+    "objectID": "Chapter Slides/chapter9-slides.html#example-practice-problems-and-quiz-score",
+    "href": "Chapter Slides/chapter9-slides.html#example-practice-problems-and-quiz-score",
+    "title": "STA258",
+    "section": "Example: Practice Problems and Quiz Score",
+    "text": "Example: Practice Problems and Quiz Score\n\n\nA class collects fictional data on how many practice problem sets students completed before a quiz.\n\n\n\nPractice sets completed \\((x)\\)\nQuiz score \\((y)\\)\n\n\n\n\n2\n41\n\n\n3\n47\n\n\n4\n50\n\n\n5\n56\n\n\n6\n61\n\n\n7\n65\n\n\n8\n70\n\n\n9\n75\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=5.500,\n\\qquad\n\\bar{y}=58.125\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=201.500\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{S_{xy}}{S_{xx}}\n=\n\\frac{201.500}{42.000}\n=\n4.798\n\\]\n\\[\n\\hat{\\beta}_0=\n58.125-4.798(5.500)\n=\n31.738\n\\]\n\\[\n\\hat{y}=31.738+4.798x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{quiz score}\n\\]\nusing:\n\\[\nx=\\text{practice sets completed}\n\\]\n\n\nFor each additional practice set completed, the predicted quiz score increases by about 4.80 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-study-hours-and-assignment-score",
+    "href": "Chapter Slides/chapter9-slides.html#example-study-hours-and-assignment-score",
+    "title": "STA258",
+    "section": "Example: Study Hours and Assignment Score",
+    "text": "Example: Study Hours and Assignment Score\n\n\nA student support team collects fictional data on how many hours students spent studying for an assignment.\n\n\n\nStudy hours \\((x)\\)\nAssignment score \\((y)\\)\n\n\n\n\n3\n52\n\n\n4\n57\n\n\n5\n61\n\n\n6\n63\n\n\n7\n70\n\n\n8\n73\n\n\n9\n78\n\n\n10\n82\n\n\n\nEstimate the regression equation.\n\n\nCalculation\n\\[\n\\bar{x}=6.500,\n\\qquad\n\\bar{y}=67.000\n\\]\n\\[\nS_{xx}=\\sum(x_i-\\bar{x})^2=42.000\n\\]\n\\[\nS_{xy}=\\sum(x_i-\\bar{x})(y_i-\\bar{y})=179.000\n\\]\n\\[\n\\hat{\\beta}_1=\n\\frac{179.000}{42.000}\n=\n4.262\n\\]\n\\[\n\\hat{\\beta}_0=\n67.000-4.262(6.500)\n=\n39.298\n\\]\n\\[\n\\hat{y}=39.298+4.262x\n\\]\n\n\nTarget model\nWe model:\n\\[\ny=\\text{assignment score}\n\\]\nusing:\n\\[\nx=\\text{study hours}\n\\]\n\n\nFor each additional hour studied, the predicted assignment score increases by about 4.26 points."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth",
+    "href": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth",
+    "title": "STA258",
+    "section": "Example: Sunlight and Plant Growth",
+    "text": "Example: Sunlight and Plant Growth\n\n\n\nContext and question\nA greenhouse records fictional data on how much sunlight different plants receive and how tall they are after several weeks.\nWe use sunlight hours per day to study its relationship with plant height.\n\\[\nx=\\text{sunlight hours per day},\n\\qquad\ny=\\text{plant height in cm}\n\\]\nCompute and interpret the sample correlation, \\(r\\).\n\n\nObserved data\n\n\n\n\nSunlight hours per day, (x)\n\n\nPlant height in cm, (y)\n\n\n\n\n\n\n1\n\n\n18\n\n\n\n\n2\n\n\n21\n\n\n\n\n4\n\n\n34\n\n\n\n\n6\n\n\n43\n\n\n\n\n7\n\n\n48\n\n\n\n\n\n\n\nGoal of the example\n\n\n\nWe want to measure the strength and direction of the linear relationship between sunlight and plant height. This means computing the covariance, then standardizing it into a correlation.\n\n\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\n\n\nCovariance \\[\ns_{xy}=\\frac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})\n\\]\n\n\nCorrelation \\[\nr=\\frac{s_{xy}}{s_xs_y}\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-event-flyers-and-sign-ups",
+    "href": "Chapter Slides/chapter9-slides.html#example-event-flyers-and-sign-ups",
+    "title": "STA258",
+    "section": "Example: Event Flyers and Sign-Ups",
+    "text": "Example: Event Flyers and Sign-Ups\n\n\nProblem\nA student club studies fictional data from a community event promotion.\nFor each day:\n\n\\(x=\\) flyers posted around campus\n\\(y=\\) new sign-ups in tens\n\nData:\n\\[\nx: 1,\\;2,\\;3,\\;4,\\;5\n\\]\n\\[\ny: 1,\\;1,\\;2,\\;2,\\;4\n\\]\nTest whether the slope differs from 0.\n\n\nHypotheses and conclusion\n\\[\nH_0:\\beta_1=0,\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_3\\).\nSince the p-value is about 0.035, reject \\(H_0\\) at the 5% level.\nThere is evidence of a positive linear relationship.\n\n\nCalculation\nFrom least squares:\n\\(\\hat y=-0.100+0.700x\\), \\(SSE=1.100\\), \\(S_{xx}=10.000\\), \\(n=5\\).\n\n1. Estimate the error variance\n\\(s^2=\\dfrac{SSE}{n-2}=\\dfrac{1.100}{5-2}=\\dfrac{1.100}{3}=0.3667\\)\n\\(s=\\sqrt{0.3667}=0.6055\\)\n\n2. Standard error of the slope\n\\(SE(\\hat\\beta_1)=\\dfrac{s}{\\sqrt{S_{xx}}}\n=\\dfrac{0.6055}{\\sqrt{10}}\n=0.1915\\)\n\n3. Test statistic\n\\(t=\\dfrac{\\hat\\beta_1-0}{SE(\\hat\\beta_1)}\n=\\dfrac{0.700}{0.1915}\n=3.656\\)\n\\(df=n-2=5-2=3\\)\n\n4. Confidence interval for the slope\n\\(95\\%\\ CI:\\ \\hat\\beta_1\\pm t_{0.975,3}SE(\\hat\\beta_1)\\)\n\\(=0.700\\pm3.182(0.1915)\\)\n\\(=(0.091,\\;1.309)\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-coffee-shop-mobile-order-queue",
+    "href": "Chapter Slides/chapter9-slides.html#example-coffee-shop-mobile-order-queue",
+    "title": "STA258",
+    "section": "Example: Coffee Shop Mobile-Order Queue",
+    "text": "Example: Coffee Shop Mobile-Order Queue\n\n\n\nProblem\nA coffee shop studies a fictional mobile-order queue.\nFor each time window:\n\n\\(x=\\) mobile orders already ahead\n\\(y=\\) pickup wait time in minutes\n\nThe fitted line is:\n\\[\n\\hat{y}=2.953+1.038x\n\\]\nTest whether the slope differs from 0.\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0,\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe reference distribution is \\(t_6\\).\nSince the p-value is very small, reject \\(H_0\\) at the 5% level.\nThere is strong evidence of a positive linear relationship.\n\n\nCalculation\nFrom least squares:\n\\[\n\\hat{y}=2.953+1.038x,\n\\qquad\nSSE=1.328,\n\\qquad\nS_{xx}=117.500,\n\\qquad\nn=8\n\\]\n1. Estimate the error variance\n\\[\n\\begin{aligned}\ns^2\n&=\\frac{SSE}{n-2}\n=\\frac{1.328}{8-2}\n=\\frac{1.328}{6}\n=0.221,\\\\[-1pt]\ns\n&=\\sqrt{0.221}\n=0.470.\n\\end{aligned}\n\\]\n2. Standard error of the slope\n\\[\n\\begin{aligned}\nSE(\\hat{\\beta}_1)\n&=\\frac{s}{\\sqrt{S_{xx}}}\n=\\frac{0.470}{\\sqrt{117.500}}\n=0.043.\n\\end{aligned}\n\\]\n3. Test statistic\n\\[\n\\begin{aligned}\nt\n&=\\frac{\\hat{\\beta}_1-0}{SE(\\hat{\\beta}_1)}\n=\\frac{1.038}{0.043}\n=23.926,\\\\[-1pt]\ndf\n&=n-2\n=8-2\n=6.\n\\end{aligned}\n\\]\n4. Confidence interval for the slope\n\\[\n\\begin{aligned}\n95\\%\\ CI\n&:\\quad\n\\hat{\\beta}_1\\pm t_{0.975,6}SE(\\hat{\\beta}_1)\\\\[-1pt]\n&=\n1.038\\pm2.447(0.043)\\\\[-1pt]\n&=\n(0.932,\\;1.144).\n\\end{aligned}\n\\]\nSince \\(0\\notin(0.932,\\;1.144)\\), the slope is clearly positive."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-event-flyers-and-sign-ups",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-event-flyers-and-sign-ups",
+    "title": "STA258",
+    "section": "Example: ANOVA for Event Flyers and Sign-Ups",
+    "text": "Example: ANOVA for Event Flyers and Sign-Ups\n\n\n\nProblem\nReturn to the event flyers and sign-ups example.\nThe fitted line is:\n\\[\n\\hat{y}=-0.100+0.700x\n\\]\nThe variation quantities are:\n\\[\nSST=6.000,\n\\qquad\nSSR=4.900,\n\\qquad\nSSE=1.100\n\\]\nQuestion. Construct the ANOVA table and test whether the regression model explains a meaningful amount of variation in new sign-ups.\n\n\nTarget question\nDoes the number of flyers posted explain a statistically meaningful amount of variation in new sign-ups?\nThe ANOVA test checks whether regression variation is large compared with error variation.\n\n\nANOVA calculations\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n4.900\n1\n4.900\n13.364\n\n\nError\n1.100\n3\n0.367\n\n\n\nTotal\n6.000\n4\n\n\n\n\n\nManual work:\n\\[\n\\begin{aligned}\ndf_{\\text{Reg}}\n&=1,\\\\\ndf_{\\text{Error}}\n&=n-2=5-2=3,\\\\\ndf_{\\text{Total}}\n&=n-1=5-1=4.\n\\end{aligned}\n\\]\n\\[\n\\begin{aligned}\nMSR\n&=\\frac{SSR}{df_{\\text{Reg}}}\n=\\frac{4.900}{1}\n=4.900,\\\\[2pt]\nMSE\n&=\\frac{SSE}{df_{\\text{Error}}}\n=\\frac{1.100}{3}\n=0.3667.\n\\end{aligned}\n\\]\n\\[\n\\begin{aligned}\nF\n&=\\frac{MSR}{MSE}\n=\\frac{4.900}{0.3667}\n=13.364.\n\\end{aligned}\n\\]\nSince \\(p=0.0354&lt;0.05\\), reject \\(H_0:\\beta_1=0\\).\nThere is evidence that flyers posted are linearly related to new sign-ups in this fictional example."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-anova-for-charging-time-and-battery-level",
+    "href": "Chapter Slides/chapter9-slides.html#example-anova-for-charging-time-and-battery-level",
+    "title": "STA258",
+    "section": "Example: ANOVA for Charging Time and Battery Level",
+    "text": "Example: ANOVA for Charging Time and Battery Level\n\n\nA device lab studies fictional data on battery charging.\nFor each device:\n\n\\(x=\\) charging time in hours\n\\(y=\\) battery level increase in percentage points\n\nThe fitted line is:\n\\[\n\\hat{y}=12.400+5.886x.\n\\]\nThe variation quantities are:\n\\[\nSST=610.000,\n\\qquad\nSSR=606.229,\n\\qquad\nSSE=3.771.\n\\]\nQuestion. Construct the ANOVA table and test whether charging time explains a meaningful amount of variation in battery level increase.\n\n\nCalculation\nThere are \\(n=6\\) devices, so:\n\\[\ndf_{\\text{Reg}}=1,\n\\qquad\ndf_{\\text{Error}}=6-2=4,\n\\qquad\ndf_{\\text{Total}}=5.\n\\]\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n606.229\n1\n606.229\n642.970\n\n\nError\n3.771\n4\n0.943\n\n\n\nTotal\n610.000\n5\n\n\n\n\n\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{606.229}{0.943}\n=\n642.970\n\\]\nThe p-value is less than 0.001.\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe ANOVA \\(F\\)-test checks whether the regression model explains meaningful variation compared with the leftover residual variation.\n\n\nSince the p-value is very small, we reject \\(H_0\\). There is strong evidence that charging time is linearly related to battery level increase in this fictional dataset."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-what-residuals-look-like",
+    "href": "Chapter Slides/chapter9-slides.html#visual-what-residuals-look-like",
+    "title": "STA258",
+    "section": "Visual: What Residuals Look Like",
+    "text": "Visual: What Residuals Look Like"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#visual-a-good-residual-plot",
+    "href": "Chapter Slides/chapter9-slides.html#visual-a-good-residual-plot",
+    "title": "STA258",
+    "section": "Visual: A Good Residual Plot",
+    "text": "Visual: A Good Residual Plot"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#least-squares-method-1",
+    "href": "Chapter Slides/chapter9-slides.html#least-squares-method-1",
+    "title": "STA258",
+    "section": "9.1.1 Least Squares Method",
+    "text": "9.1.1 Least Squares Method\n\nA residual is the difference between an observed data point and a fitted value from the regression model:\n\\[\ne_i = y_i - \\hat{y}_i.\n\\]\nIt is the vertical distance from the observed value to the fitted line.\n\n\n\n\n\n\n\n\n\n\n\n\nIf \\(e_i &gt; 0\\), the point is above the fitted line.\nThe model underpredicted the response.\n\n\nIf \\(e_i &lt; 0\\), the point is below the fitted line.\nThe model overpredicted the response."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time",
+    "href": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time",
+    "title": "STA258",
+    "section": "Example: TTC Stops and Commute Time",
+    "text": "Example: TTC Stops and Commute Time\n\n\n\n\nContext and question\n\nA student tracks fictional TTC trips during a week with random delays.\nWe use the number of stations travelled to predict commute time, measured in minutes.\n\nx = stations travelled y = commute time in minutes\n\nThe fitted regression line is:\n\nŷ = 1.310 + 3.357x\n\n\n\n\nObserved data\n\n\n\n\n\nStations travelled, x\n\n\nCommute time, y\n\n\n\n\n\n\n3\n\n\n12\n\n\n\n\n5\n\n\n22\n\n\n\n\n7\n\n\n18\n\n\n\n\n9\n\n\n36\n\n\n\n\n11\n\n\n31\n\n\n\n\n13\n\n\n50\n\n\n\n\n\n\n\n\nGoal of the example\n\n\n\nWe want to split the total variation in commute time into:\n\n\nSSE: unexplained variation left in the residuals\n\n\nSSR: variation explained by the fitted regression line\n\n\nSST: total variation in the observed commute times\n\n\nThen we compute R², the proportion of total variation explained by stations travelled through the fitted linear model.\n\n\n\n\nVariance decomposition\n\n\nSST = SSR + SSE\n\n\n\n\nCoefficient of determination\n\n\nR² = SSR / SST"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-simulator-practice",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-simulator-practice",
+    "title": "STA258",
+    "section": "Example Continued: F1 Monaco Simulator Practice",
+    "text": "Example Continued: F1 Monaco Simulator Practice\n\n\nStep 1: Use (x) to get ()\nUsing ( = -0.098 + 0.141x):\n\n\n\n(x)\nSubstitute into fitted line\n()\n\n\n\n\n5\n(-0.098 + 0.141(5))\n0.607\n\n\n8\n(-0.098 + 0.141(8))\n1.030\n\n\n10\n(-0.098 + 0.141(10))\n1.312\n\n\n12\n(-0.098 + 0.141(12))\n1.594\n\n\n15\n(-0.098 + 0.141(15))\n2.017\n\n\n18\n(-0.098 + 0.141(18))\n2.440\n\n\n\n\n\nStep 2: Build the variation table\nHere ({y}=1.500).\n\n\n\n\n\n\n\n\n\n\n\n(x)\n(y)\n()\n((y-)^2)\n((-{y})^2)\n((y-{y})^2)\n\n\n\n\n5\n0.6\n0.607\n0.000\n0.798\n0.810\n\n\n8\n1.0\n1.030\n0.001\n0.221\n0.250\n\n\n10\n1.4\n1.312\n0.008\n0.035\n0.010\n\n\n12\n1.5\n1.594\n0.009\n0.009\n0.000\n\n\n15\n2.1\n2.017\n0.007\n0.267\n0.360\n\n\n18\n2.4\n2.440\n0.002\n0.884\n0.810\n\n\n\n\n\n0.026\n2.214\n2.240\n\n\n\n\n\nConclusion\n[ SSE = 0.026 ]\n[ SSR = 2.214 ]\n[ SST = 2.240 ]\n[ SSR + SSE = 2.214 + 0.026 = 2.240 = SST ]\n[ R^2 = = = 0.988 ]\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-practice",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-f1-monaco-practice",
+    "title": "STA258",
+    "section": "Example Continued: F1 Monaco Practice",
+    "text": "Example Continued: F1 Monaco Practice\n\n\nStep 1: Use x to get ŷ\nUsing (=-0.098+0.141x):\n\n\n\n\nx\n\n\nSubstitution\n\n\nŷ\n\n\n\n\n\n\n5\n\n\n−0.098 + 0.141(5)\n\n\n0.607\n\n\n\n\n8\n\n\n−0.098 + 0.141(8)\n\n\n1.030\n\n\n\n\n10\n\n\n−0.098 + 0.141(10)\n\n\n1.312\n\n\n\n\n12\n\n\n−0.098 + 0.141(12)\n\n\n1.594\n\n\n\n\n15\n\n\n−0.098 + 0.141(15)\n\n\n2.017\n\n\n\n\n18\n\n\n−0.098 + 0.141(18)\n\n\n2.440\n\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=1.500\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum (y_i-\\hat{y}_i)^2=0.026\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=2.214\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=2.240\n\\]\nCheck:\n\\[\nSSR+SSE=2.214+0.026=2.240=SST\n\\]\n\\[\nR^2=\\frac{SSR}{SST}\n=\\frac{2.214}{2.240}\n=0.988\n\\]\n\n\nConclusion\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model.\n\n\nStep 2: Build the variation table\n\n\n\n\nx\n\n\ny\n\n\nŷ\n\n\nSSE part:(y − ŷ)2\n\n\nSSR part:(ŷ − ȳ)2\n\n\nSST part:(y − ȳ)2\n\n\n\n\n\n\n5\n\n\n0.6\n\n\n0.607\n\n\n0.000\n\n\n0.798\n\n\n0.810\n\n\n\n\n8\n\n\n1.0\n\n\n1.030\n\n\n0.001\n\n\n0.221\n\n\n0.250\n\n\n\n\n10\n\n\n1.4\n\n\n1.312\n\n\n0.008\n\n\n0.035\n\n\n0.010\n\n\n\n\n12\n\n\n1.5\n\n\n1.594\n\n\n0.009\n\n\n0.009\n\n\n0.000\n\n\n\n\n15\n\n\n2.1\n\n\n2.017\n\n\n0.007\n\n\n0.267\n\n\n0.360\n\n\n\n\n18\n\n\n2.4\n\n\n2.440\n\n\n0.002\n\n\n0.884\n\n\n0.810\n\n\n\n\n\n\n\n\nTotal\n\n\n0.026\n\n\n2.214\n\n\n2.240"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-finding-fitted-values",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-finding-fitted-values",
+    "title": "STA258",
+    "section": "Example Continued: Finding Fitted Values",
+    "text": "Example Continued: Finding Fitted Values\n\n\nStep 1\nUse each (x)-value in the fitted line:\n\\[\n\\hat{y} = -0.098 + 0.141x\n\\]\nFor example, when (x=5):\n\\[\n\\hat{y} = -0.098 + 0.141(5) = 0.607\n\\]\n\n\nPredicted values\n\n\n\n(x)\nSubstitute into fitted line\n()\n\n\n\n\n5\n(-0.098 + 0.141(5))\n0.607\n\n\n8\n(-0.098 + 0.141(8))\n1.030\n\n\n10\n(-0.098 + 0.141(10))\n1.312\n\n\n12\n(-0.098 + 0.141(12))\n1.594\n\n\n15\n(-0.098 + 0.141(15))\n2.017\n\n\n18\n(-0.098 + 0.141(18))\n2.440\n\n\n\n\n\nWhy this matters\nOnce we have (), we can compare:\n[ y_i _i ]\nThis gives the unexplained variation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-continued-variation-and-r2",
+    "href": "Chapter Slides/chapter9-slides.html#example-continued-variation-and-r2",
+    "title": "STA258",
+    "section": "Example Continued: Variation and (R^2)",
+    "text": "Example Continued: Variation and (R^2)\n\n\nVariation table\nHere ({y}=1.500).\n\n\n\n\n\n\n\n\n\n\n\n(x)\n(y)\n()\nSSE part: ((y-)^2)\nSSR part: ((-{y})^2)\nSST part: ((y-{y})^2)\n\n\n\n\n5\n0.6\n0.607\n0.000\n0.798\n0.810\n\n\n8\n1.0\n1.030\n0.001\n0.221\n0.250\n\n\n10\n1.4\n1.312\n0.008\n0.035\n0.010\n\n\n12\n1.5\n1.594\n0.009\n0.009\n0.000\n\n\n15\n2.1\n2.017\n0.007\n0.267\n0.360\n\n\n18\n2.4\n2.440\n0.002\n0.884\n0.810\n\n\n\n\nTotal\n0.026\n2.214\n2.240\n\n\n\n\n\n\nCalculation\nThe sample mean response is:\n\\[\n\\bar{y}=1.500\n\\]\nUnexplained variation:\n\\[\nSSE=\\sum(y_i-\\hat{y}_i)^2=0.026\n\\]\nExplained variation:\n\\[\nSSR=\\sum(\\hat{y}_i-\\bar{y})^2=2.214\n\\]\nTotal variation:\n\\[\nSST=\\sum(y_i-\\bar{y})^2=2.240\n\\]\n\n\nCheck and conclusion\n\\[\nSSR+SSE=2.214+0.026=2.240=SST\n\\]\n\\[\nR^2=\\frac{SSR}{SST}\n=\\frac{2.214}{2.240}\n=0.988\n\\]\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps through the fitted linear model."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-1",
+    "href": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-1",
+    "title": "STA258",
+    "section": "Example: F1 Monaco Simulator Practice",
+    "text": "Example: F1 Monaco Simulator Practice\n\n\n\n\nPredicted values\n\n\nUse the fitted line: ŷ = −0.098 + 0.141x.\n\n\n\n\n\nx\n\n\nPlug into fitted line\n\n\nŷi\n\n\n\n\n\n\n5\n\n\n−0.098 + 0.141(5)\n\n\n0.607\n\n\n\n\n8\n\n\n−0.098 + 0.141(8)\n\n\n1.030\n\n\n\n\n10\n\n\n−0.098 + 0.141(10)\n\n\n1.312\n\n\n\n\n12\n\n\n−0.098 + 0.141(12)\n\n\n1.594\n\n\n\n\n15\n\n\n−0.098 + 0.141(15)\n\n\n2.017\n\n\n\n\n18\n\n\n−0.098 + 0.141(18)\n\n\n2.440\n\n\n\n\n\n\n\nVariation table\n\n\nHere ȳ = 1.500. The three right-hand columns correspond to SSE, SSR, and SST.\n\n\n\n\n\nx\n\n\ny\n\n\nŷi\n\n\n(yi − ŷi)2\n\n\n(ŷi − ȳ)2\n\n\n(yi − ȳ)2\n\n\n\n\n\n\n5\n\n\n0.6\n\n\n0.607\n\n\n0.000\n\n\n0.798\n\n\n0.810\n\n\n\n\n8\n\n\n1.0\n\n\n1.030\n\n\n0.001\n\n\n0.221\n\n\n0.250\n\n\n\n\n10\n\n\n1.4\n\n\n1.312\n\n\n0.008\n\n\n0.035\n\n\n0.010\n\n\n\n\n12\n\n\n1.5\n\n\n1.594\n\n\n0.009\n\n\n0.009\n\n\n0.000\n\n\n\n\n15\n\n\n2.1\n\n\n2.017\n\n\n0.007\n\n\n0.267\n\n\n0.360\n\n\n\n\n18\n\n\n2.4\n\n\n2.440\n\n\n0.002\n\n\n0.884\n\n\n0.810\n\n\n\n\nTotals\n\n\n\n\n\n\nSSE = 0.026\n\n\nSSR = 2.214\n\n\nSST = 2.240"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time-1",
+    "href": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time-1",
+    "title": "STA258",
+    "section": "Example: TTC Stops and Commute Time",
+    "text": "Example: TTC Stops and Commute Time\n\n\n\n\nPredicted values\n\n\nUse the fitted line: ŷ = 1.310 + 3.357x.\n\n\n\n\n\nx\n\n\nPlug into fitted line\n\n\nŷi\n\n\n\n\n\n\n3\n\n\n1.310 + 3.357(3)\n\n\n11.381\n\n\n\n\n5\n\n\n1.310 + 3.357(5)\n\n\n18.095\n\n\n\n\n7\n\n\n1.310 + 3.357(7)\n\n\n24.810\n\n\n\n\n9\n\n\n1.310 + 3.357(9)\n\n\n31.524\n\n\n\n\n11\n\n\n1.310 + 3.357(11)\n\n\n38.238\n\n\n\n\n13\n\n\n1.310 + 3.357(13)\n\n\n44.952\n\n\n\n\n\n\n\nVariation table\n\n\nHere ȳ = 28.167. The three right-hand columns correspond to SSE, SSR, and SST.\n\n\n\n\n\nx\n\n\ny\n\n\nŷi\n\n\n(yi − ŷi)2\n\n\n(ŷi − ȳ)2\n\n\n(yi − ȳ)2\n\n\n\n\n\n\n3\n\n\n12\n\n\n11.381\n\n\n0.383\n\n\n281.760\n\n\n261.361\n\n\n\n\n5\n\n\n22\n\n\n18.095\n\n\n15.247\n\n\n101.434\n\n\n38.028\n\n\n\n\n7\n\n\n18\n\n\n24.810\n\n\n46.370\n\n\n11.270\n\n\n103.361\n\n\n\n\n9\n\n\n36\n\n\n31.524\n\n\n20.036\n\n\n11.270\n\n\n61.361\n\n\n\n\n11\n\n\n31\n\n\n38.238\n\n\n52.390\n\n\n101.434\n\n\n8.028\n\n\n\n\n13\n\n\n50\n\n\n44.952\n\n\n25.478\n\n\n281.760\n\n\n476.694\n\n\n\n\nTotals\n\n\n\n\n\n\nSSE = 159.905\n\n\nSSR = 788.929\n\n\nSST = 948.833"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth-1",
+    "href": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth-1",
+    "title": "STA258",
+    "section": "Example: Sunlight and Plant Growth",
+    "text": "Example: Sunlight and Plant Growth\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{1+2+4+6+7}{5}=4.000\n\\qquad\n\\bar{y}=\\frac{18+21+34+43+48}{5}=32.800\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n1\n18\n−3.000\n−14.800\n44.400\n9.000\n219.040\n\n\n2\n21\n−2.000\n−11.800\n23.600\n4.000\n139.240\n\n\n4\n34\n0.000\n1.200\n0.000\n0.000\n1.440\n\n\n6\n43\n2.000\n10.200\n20.400\n4.000\n104.040\n\n\n7\n48\n3.000\n15.200\n45.600\n9.000\n231.040\n\n\nTotals\n\n\n\n134.000\n26.000\n694.800\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{26.000/4}=2.550 \\qquad s_y=\\sqrt{694.800/4}=13.180\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=134.000/4=33.500\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{33.500}{(2.550)(13.180)}=0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA greenhouse records data on sunlight hours per day and plant height after several weeks.\n\n\nWe use sunlight hours to study the linear relationship with plant height.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=0.997 \\quad \\text{and} \\quad r^2=0.994\\)\n\n\nThe correlation is 0.997, which is strongly positive.\n\n\nAbout 99.4% of the variation in plant height lines up with the linear trend."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores",
+    "href": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores",
+    "title": "STA258",
+    "section": "Example: Late-Night Scrolling and Quiz Scores",
+    "text": "Example: Late-Night Scrolling and Quiz Scores\n\n\n\nContext and question\nA student group collects fictional data on late-night scrolling before a morning quiz.\nWe use minutes after midnight to study its relationship with quiz score.\n\\[\nx=\\text{minutes after midnight},\n\\qquad\ny=\\text{quiz score}\n\\]\nCompute and interpret the sample correlation, \\(r\\).\n\n\nObserved data\n\n\n\n\nMinutes after midnight, (x)\n\n\nQuiz score, (y)\n\n\n\n\n\n\n15\n\n\n88\n\n\n\n\n30\n\n\n84\n\n\n\n\n45\n\n\n76\n\n\n\n\n60\n\n\n71\n\n\n\n\n75\n\n\n63\n\n\n\n\n90\n\n\n58\n\n\n\n\n\n\n\nGoal of the example\n\n\n\nWe want to measure the strength and direction of the linear relationship between late-night scrolling time and quiz score.\n\n\nThe sign of \\(r\\) tells us direction. The size of \\(r\\) tells us strength.\n\n\n\n\nCovariance \\[\ns_{xy}=\\frac{1}{n-1}\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})\n\\]\n\n\nCorrelation \\[\nr=\\frac{s_{xy}}{s_xs_y}\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-2",
+    "href": "Chapter Slides/chapter9-slides.html#example-f1-monaco-simulator-practice-2",
+    "title": "STA258",
+    "section": "Example: F1 Monaco Simulator Practice",
+    "text": "Example: F1 Monaco Simulator Practice\n\n\n\n\nCalculation summary\n\n\n\n\n\nQuantity\n\n\nValue\n\n\nMeaning\n\n\n\n\n\n\nSSE\n\n\n0.026\n\n\nvariation left unexplained by the fitted line\n\n\n\n\nSSR\n\n\n2.214\n\n\nvariation explained by the fitted line\n\n\n\n\nSST\n\n\n2.240\n\n\ntotal variation in lap-time improvement\n\n\n\n\n\nR2 = SSR / SST = 2.214 / 2.240 = 0.988\n\n\n\n\nConclusion\n\n\nAbout 98.8% of the variation in lap-time improvement is explained by simulator practice laps.\n\nThe explained variation is much larger than the unexplained variation, so the fitted line summarizes this fictional Monaco simulator data very well.\nIn context, drivers with more simulator practice laps tended to show larger lap-time improvements.\n\nThis is a strong linear association in the sample, but it does not prove that practice laps alone caused the improvement."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores-1",
+    "href": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores-1",
+    "title": "STA258",
+    "section": "Example: Late-Night Scrolling and Quiz Scores",
+    "text": "Example: Late-Night Scrolling and Quiz Scores\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{15+30+45+60+75+90}{6}=52.500\n\\qquad\n\\bar{y}=\\frac{88+84+76+71+63+58}{6}=73.333\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n15\n88\n−37.500\n14.667\n−550.000\n1406.250\n215.111\n\n\n30\n84\n−22.500\n10.667\n−240.000\n506.250\n113.778\n\n\n45\n76\n−7.500\n2.667\n−20.000\n56.250\n7.111\n\n\n60\n71\n7.500\n−2.333\n−17.500\n56.250\n5.444\n\n\n75\n63\n22.500\n−10.333\n−232.500\n506.250\n106.778\n\n\n90\n58\n37.500\n−15.333\n−575.000\n1406.250\n235.111\n\n\nTotals\n\n\n\n−1635.000\n3937.500\n683.333\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{3937.500/5}=28.062 \\qquad s_y=\\sqrt{683.333/5}=11.690\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=-1635.000/5=-327.000\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{-327.000}{(28.062)(11.690)}=-0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA student records late-night scrolling time after midnight and the next-day quiz score.\n\n\nWe use scrolling time to study the linear relationship with quiz score.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=-0.997 \\quad \\text{and} \\quad r^2=0.994\\)\n\n\nThe correlation is -0.997, which is strongly negative.\n\n\nAbout 99.4% of the variation in quiz scores lines up with the linear trend."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time-2",
+    "href": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time-2",
+    "title": "STA258",
+    "section": "Example: TTC Stops and Commute Time",
+    "text": "Example: TTC Stops and Commute Time\n\n\n\n\nCalculation summary\n\n\n\n\n\nQuantity\n\n\nValue\n\n\nMeaning\n\n\n\n\n\n\nSSE\n\n\n159.905\n\n\nvariation left unexplained by the fitted line\n\n\n\n\nSSR\n\n\n788.929\n\n\nvariation explained by the fitted line\n\n\n\n\nSST\n\n\n948.833\n\n\ntotal variation in commute time\n\n\n\n\n\nR2 = SSR / SST = 788.929 / 948.833 = 0.831\n\n\n\n\nConclusion\n\n\nAbout 83.1% of the variation in commute time is explained by stations travelled.\n\nThe fitted line explains a large part of the variation, but the unexplained variation is still noticeable.\nThat makes sense because commute time can also be affected by delays, crowding, waiting time, and transfer timing.\n\nThis is a strong linear association in the sample, but it does not prove that the number of stations alone caused the commute time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-which-badminton-drills-differ",
+    "href": "Chapter Slides/chapter8-slides.html#example-which-badminton-drills-differ",
+    "title": "STA258",
+    "section": "Example: Which Badminton Drills Differ?",
+    "text": "Example: Which Badminton Drills Differ?\n\n\nThe badminton ANOVA rejected \\(H_0\\). This follow-up step asks which training drills differ, instead of only saying that some difference exists.\nPlayers trained for two months using one of three badminton drill programs. After the training period, each player completed a serve-target accuracy test out of 40.\nGroup means:\n\\[\n\\bar x_1=22,\n\\quad\n\\bar x_2=27,\n\\quad\n\\bar x_3=29\n\\]\nANOVA gave:\n\\[\nMSE=5.40,\n\\qquad\nv=n-k=15\n\\]\nUse Fisher’s LSD intervals.\n\n\nFisher LSD setup\n\\[\nSE=\n\\sqrt{\n5.40\\left(\\frac{1}{6}+\\frac{1}{6}\\right)\n}\n=\n1.342\n\\]\n\\[\nt_{0.975,15}=2.131\n\\]\n\\[\nLSD=2.131(1.342)=2.86\n\\]\n\n\n\nPair\nDifference\nFisher LSD CI\n\n\n\n\nStatic targets - Footwork + serve\n-5\n\\((-7.86,-2.14)\\)\n\n\nStatic targets - Coach-fed targets\n-7\n\\((-9.86,-4.14)\\)\n\n\nFootwork + serve - Coach-fed targets\n-2\n\\((-4.86,0.86)\\)\n\n\n\n\n\nNumber of comparisons\n\\[\n\\binom{3}{2}=3\n\\]\n\n\nStatic target practice differs from both footwork + serve and coach-fed targets because those intervals avoid 0. Footwork + serve and coach-fed targets are not clearly different because that interval contains 0."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores",
+    "href": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores",
+    "title": "STA258",
+    "section": "Visual: Badminton Drill Accuracy Scores",
+    "text": "Visual: Badminton Drill Accuracy Scores\n\n\n\n\n\n\n\nThe red dots show the sample mean accuracy score for each drill program. The vertical bars show 95% confidence intervals for the group means, matching the textbook-style visual."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores",
+    "title": "STA258",
+    "section": "Example: Badminton Drill Accuracy Scores",
+    "text": "Example: Badminton Drill Accuracy Scores\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ?\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\nThere are\n\\[\nm=\\binom{3}{2}=3\n\\]\npairwise comparisons.\nUse Bonferroni intervals for the three mean differences.\n\n\nCalculation\nFirst find the sample means:\n\\[\n\\begin{aligned}\n\\bar{x}_1 &= \\frac{19+20+21+23+24+25}{6}=22,\\\\\n\\bar{x}_2 &= \\frac{24+25+26+28+29+30}{6}=27,\\\\\n\\bar{x}_3 &= \\frac{26+27+28+29+30+31}{6}=28.5.\n\\end{aligned}\n\\]\nBonferroni critical value:\n\\[\nt^*\n=\nt_{1-\\alpha/(2m),\\,15}\n=\nt_{1-0.05/(2\\cdot3),\\,15}\n=\nt_{0.99167,\\,15}\n=\n2.69\n\\]\nStandard error and margin:\n\\[\nSE\n=\n\\sqrt{\n4.90\n\\left(\n\\frac16+\\frac16\n\\right)\n}\n=\n1.28,\n\\qquad\nME=2.69(1.28)=3.44\n\\]\nNow compute the Bonferroni intervals:\n\\[\n\\begin{aligned}\n\\text{Static} - \\text{Footwork}\n&:\\ 22-27=-5.00,\\\\\n&\\quad -5.00\\pm3.44=(-8.44,\\,-1.56),\\\\[4pt]\n\\text{Static} - \\text{Coach-fed}\n&:\\ 22-28.5=-6.50,\\\\\n&\\quad -6.50\\pm3.44=(-9.94,\\,-3.06),\\\\[4pt]\n\\text{Footwork} - \\text{Coach-fed}\n&:\\ 27-28.5=-1.50,\\\\\n&\\quad -1.50\\pm3.44=(-4.94,\\,1.94).\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs-1",
+    "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-mean-repair-costs-1",
+    "title": "STA258",
+    "section": "Visual: Phone Case Mean Repair Costs",
+    "text": "Visual: Phone Case Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design.\nThe vertical lines show 95% confidence intervals for the group means. This visual helps compare the estimated mean repair costs before looking at the pairwise Bonferroni intervals."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#anova-as-a-prediction-problem",
+    "href": "Chapter Slides/chapter8-slides.html#anova-as-a-prediction-problem",
+    "title": "STA258",
+    "section": "ANOVA as a Prediction Problem",
+    "text": "ANOVA as a Prediction Problem\n\n\nMain idea\nANOVA compares two prediction rules: one that ignores the group and one that uses the group.\n\n\n\nIgnore group information\nPredict every observation using the overall mean:\n\\[\n\\widehat X_{ij}=\\bar X\n\\]\nTotal prediction error:\n\\[\nSSTotal=\n\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}\n(X_{ij}-\\bar X)^2\n\\]\nAll observations are treated as coming from one common center.\n\n\nUse group information\nPredict observation \\(j\\) in group \\(i\\) using its group mean:\n\\[\n\\widehat X_{ij}=\\bar X_i\n\\]\nRemaining prediction error:\n\\[\nSSE=\n\\sum_{i=1}^{k}\\sum_{j=1}^{n_i}\n(X_{ij}-\\bar X_i)^2\n\\]\nEach group is allowed to have its own center.\n\n\n\nImprovement from using groups\nThe variation explained by group membership is the reduction in prediction error:\n\\[\nSSTr=SSTotal-SSE\n\\]\nIf this improvement is large compared with the within-group error, the ANOVA (F) statistic becomes large."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-country-sales-by-region",
+    "href": "Chapter Slides/chapter8-slides.html#example-country-sales-by-region",
+    "title": "STA258",
+    "section": "Example: Country Sales by Region",
+    "text": "Example: Country Sales by Region\n\n\nA small business records last year’s sales in three countries. The response is sales in thousands of dollars.\n\n\n\nCountry A\nCountry B\nCountry C\n\n\n\n\n6\n10\n14\n\n\n10\n8\n13\n\n\n7\n12\n11\n\n\n9\n10\n10\n\n\nMean: 8\nMean: 10\nMean: 12\n\n\n\nUse ANOVA at the 5% level.\n\n\nCalculation\n\\[\n\\bar x=10\n\\]\n\\[\nSSTr=4(8-10)^2+4(10-10)^2+4(12-10)^2=32\n\\]\n\\[\nSSE=10+8+10=28\n\\]\n\\[\nMSTr=\\frac{32}{2}=16,\n\\qquad\nMSE=\\frac{28}{9}=3.111\n\\]\n\\[\nF^*=\\frac{16}{3.111}=5.143\n\\]\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\n\n\n\n\nTreatment\n2\n32\n16.000\n5.143\n\n\nError\n9\n28\n3.111\n\n\n\nTotal\n11\n60\n\n\n\n\n\n\n\nWith \\(df_1=2\\) and \\(df_2=9\\), \\(p=0.0324\\). Since \\(p&lt;0.05\\), reject \\(H_0\\). There is evidence that the country population means are not all equal."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-country-sales-by-region",
+    "href": "Chapter Slides/chapter8-slides.html#visual-country-sales-by-region",
+    "title": "STA258",
+    "section": "Visual: Country Sales by Region",
+    "text": "Visual: Country Sales by Region\n\n\n\n\n\n\n\nThe red dots show the group means. The center of Country C is higher than Country A, and ANOVA checks whether that separation is large relative to the within-country noise."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-margarine-fill-differences",
+    "href": "Chapter Slides/chapter8-slides.html#example-margarine-fill-differences",
+    "title": "STA258",
+    "section": "Example: Margarine Fill Differences",
+    "text": "Example: Margarine Fill Differences\n\n\nA consumer organization compares three margarine brands. The response is the difference from the advertised 500 ml amount.\n\n\n\nBrand 1\nBrand 2\nBrand 3\n\n\n\n\n1\n2\n1\n\n\n3\n2\n2\n\n\n3\n4\n4\n\n\n0\n3\n2\n\n\n1\n0\n3\n\n\n0\n4\n4\n\n\n\nUse ANOVA at \\(\\alpha=0.05\\).\n\n\nCalculation\n\\[\n\\bar x_1=1.33,\n\\qquad\n\\bar x_2=2.50,\n\\qquad\n\\bar x_3=2.67,\n\\qquad\n\\bar x=2.17\n\\]\n\\[\nSSTr=6(1.33-2.17)^2+6(2.50-2.17)^2+6(2.67-2.17)^2\\approx 6.33\n\\]\n\\[\nSSE=(5)(1.87)+(5)(2.30)+(5)(1.47)\\approx 28.17\n\\]\n\\[\nMSTr=3.17,\n\\qquad\nMSE=1.88,\n\\qquad\nF^*\\approx 1.69\n\\]\n\n\nHypotheses\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3\n\\]\n\\[\nH_a:\\text{at least one brand mean differs}\n\\]\n\n\nWith \\(df_1=2\\) and \\(df_2=15\\), \\(p\\approx 0.218\\). Since \\(p&gt;0.05\\), do not reject \\(H_0\\). These data do not give enough evidence that the brand population means differ."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-margarine-fill-differences",
+    "href": "Chapter Slides/chapter8-slides.html#visual-margarine-fill-differences",
+    "title": "STA258",
+    "section": "Visual: Margarine Fill Differences",
+    "text": "Visual: Margarine Fill Differences\n\n\n\n\n\n\n\nThe red dots show the group means. The boxplots overlap heavily, so the visual matches the ANOVA conclusion: insufficient evidence that the three population means differ."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-bumper-repair-costs",
+    "href": "Chapter Slides/chapter8-slides.html#example-bumper-repair-costs",
+    "title": "STA258",
+    "section": "Example: Bumper Repair Costs",
+    "text": "Example: Bumper Repair Costs\n\n\nA manufacturer tests four bumper types. Ten cars with each bumper are driven into a wall at low speed, and the repair cost is recorded.\nThe one-way ANOVA rejects the equal-means hypothesis.\n\n\n\nBumper\nMean repair cost\n\n\n\n\nBumper 1\n494.40\n\n\nBumper 2\n536.00\n\n\nBumper 3\n492.00\n\n\nBumper 4\n420.20\n\n\n\nUse pairwise intervals to decide which bumper means differ.\n\n\nANOVA result\n\\[\nk=4,\n\\qquad\nn=40,\n\\qquad\nv=n-k=36\n\\]\n\\[\nMSE=4459.56\n\\]\n\\[\nF^*=5.184,\n\\qquad\np=0.0044\n\\]\nSince \\(p&lt;0.05\\), reject \\(H_0\\).\n\n\nPairwise setup\nThere are:\n\\[\nm=\\binom{4}{2}=6\n\\]\npairwise comparisons.\n\n\nThe ANOVA tells us at least one bumper mean repair cost differs. The pairwise intervals tell us which bumper pairs are separated after accounting for the shared ANOVA error estimate."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#bumper-repair-lsd-and-bonferroni",
+    "href": "Chapter Slides/chapter8-slides.html#bumper-repair-lsd-and-bonferroni",
+    "title": "STA258",
+    "section": "Bumper Repair: LSD and Bonferroni",
+    "text": "Bumper Repair: LSD and Bonferroni\n\n\n\nCritical margins\nFor equal sample sizes \\(n_i=10\\):\n\\[\nSE=\\sqrt{4459.56\\left(\\frac{1}{10}+\\frac{1}{10}\\right)}=29.86\n\\]\n\\[\nLSD\\text{ margin}=60.57\n\\]\n\\[\n\\text{Bonferroni margin}=83.38\n\\]\n\n\nA pair is different when the confidence interval does not contain 0.\n\n\n\n\n\n\nPair\nDifference\nFisher LSD CI\nBonferroni CI\n\n\n\n\nB1 - B2\n-41.60\n(-102.17, 18.97)\n(-124.98, 41.78)\n\n\nB1 - B3\n2.40\n(-58.17, 62.97)\n(-80.98, 85.78)\n\n\nB1 - B4\n74.20\n(13.63, 134.77)\n(-9.18, 157.58)\n\n\nB2 - B3\n44.00\n(-16.57, 104.57)\n(-39.38, 127.38)\n\n\nB2 - B4\n115.80\n(55.23, 176.37)\n(32.42, 199.18)\n\n\nB3 - B4\n71.80\n(11.23, 132.37)\n(-11.58, 155.18)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-bumper-mean-repair-costs",
+    "href": "Chapter Slides/chapter8-slides.html#visual-bumper-mean-repair-costs",
+    "title": "STA258",
+    "section": "Visual: Bumper Mean Repair Costs",
+    "text": "Visual: Bumper Mean Repair Costs\n\n\n\n\n\n\n\nThe red dots show the group means. Bumper 4 is visibly lower, but Bonferroni requires stronger evidence for each individual comparison than Fisher LSD."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-apple-juice-advertising",
+    "href": "Chapter Slides/chapter8-slides.html#example-apple-juice-advertising",
+    "title": "STA258",
+    "section": "Example: Apple Juice Advertising",
+    "text": "Example: Apple Juice Advertising\n\n\nAn apple juice manufacturer compares three advertising strategies for a new concentrate product.\nThe response is weekly packages sold after the campaign begins.\n\n\n\nStrategy\n\\(n_i\\)\n\\(\\bar x_i\\)\n\n\n\n\nConvenience\n20\n577.55\n\n\nQuality\n20\n653.00\n\n\nPrice\n20\n608.65\n\n\n\nAssume ANOVA rejected at the 5% level.\n\n\nANOVA and pairwise setup\n\\[\nk=3,\n\\qquad\nn=60,\n\\qquad\nv=57\n\\]\n\\[\nMSE=3500,\n\\qquad\nm=\\binom{3}{2}=3\n\\]\n\\[\nF^*=8.216,\n\\qquad\np=0.0007\n\\]\n\n\nMargins\n\\[\nSE=\\sqrt{3500\\left(\\frac{1}{20}+\\frac{1}{20}\\right)}=18.71\n\\]\n\\[\n\\text{LSD margin}=37.46\n\\]\n\\[\n\\text{Bonferroni margin}=46.15\n\\]\n\n\nBonferroni intervals are wider. This can change the practical conclusion for borderline pairs, even when the original ANOVA rejects."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#apple-juice-pairwise-results",
+    "href": "Chapter Slides/chapter8-slides.html#apple-juice-pairwise-results",
+    "title": "STA258",
+    "section": "Apple Juice: Pairwise Results",
+    "text": "Apple Juice: Pairwise Results\n\n\n\nHow to read this\nEach interval estimates a difference in population mean weekly sales.\nIf 0 is outside the interval, that pair is statistically different.\n\n\nThe Quality vs Price pair is a useful borderline case: Fisher LSD suggests a difference, but Bonferroni does not.\n\n\n\n\n\n\n\n\n\n\n\n\nPair\nDifference\nFisher LSD CI\nBonferroni CI\n\n\n\n\nConvenience - Quality\n-75.45\n(-112.91, -37.99)\n(-121.60, -29.30)\n\n\nConvenience - Price\n-31.10\n(-68.56, 6.36)\n(-77.25, 15.05)\n\n\nQuality - Price\n44.35\n(6.89, 81.81)\n(-1.80, 90.50)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-intervals",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-pairwise-intervals",
+    "title": "STA258",
+    "section": "Check in R: Pairwise Intervals",
+    "text": "Check in R: Pairwise Intervals\n\n\n\nBumper example: Bonferroni intervals\n\n\n\n\n\n\n\n\n\n\n\n\nApple juice example: compare LSD vs Bonferroni"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-f-test-p-values",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-f-test-p-values",
+    "title": "STA258",
+    "section": "Check in R: Confirm F-test P-values",
+    "text": "Check in R: Confirm F-test P-values\n\n\n\nCampus café pickup example\n\n\n\n\n\n\n\n\n\n\n\n\nShort-form video edit example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-anova-p-values",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-confirm-anova-p-values",
+    "title": "STA258",
+    "section": "Check in R: Confirm ANOVA P-values",
+    "text": "Check in R: Confirm ANOVA P-values\n\n\n\nCampus café pickup example\n\n\n\n\n\n\n\n\n\n\nThis checks the right-tail p-value for the ANOVA test statistic.\nThe output should be close to \\(0.0133\\).\n\n\n\n\nShort-form video edit example\n\n\n\n\n\n\n\n\n\n\nThis checks the right-tail p-value for the ANOVA test statistic.\nThe output should be close to \\(0.0013\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-campus-café-pickup-systems",
+    "href": "Chapter Slides/chapter8-slides.html#visual-campus-café-pickup-systems",
+    "title": "STA258",
+    "section": "Visual: Campus Café Pickup Systems",
+    "text": "Visual: Campus Café Pickup Systems\n\n\n\n\n\n\n\nThe red dots show the sample mean pickup wait time for each ordering system.\nThe boxplots show the within-group spread. The centers are clearly separated, especially for counter order versus mobile order, which matches the ANOVA conclusion that not all group means are the same."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-short-form-video-edit-styles",
+    "href": "Chapter Slides/chapter8-slides.html#visual-short-form-video-edit-styles",
+    "title": "STA258",
+    "section": "Visual: Short-Form Video Edit Styles",
+    "text": "Visual: Short-Form Video Edit Styles\n\n\n\n\n\n\n\nThe red dots show the sample mean watch time for each edit style. The vertical bars show 95% confidence intervals for the group means, matching the textbook-style visual."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova-tables",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova-tables",
+    "title": "STA258",
+    "section": "Check in R: One-Way ANOVA Tables",
+    "text": "Check in R: One-Way ANOVA Tables\n\n\n\nCampus café pickup example\n\n\n\n\n\n\n\n\n\n\n\n\nShort-form video edit example"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-bonferroni-results",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-bonferroni-results",
+    "title": "STA258",
+    "section": "Badminton: Bonferroni Results",
+    "text": "Badminton: Bonferroni Results\n\n\nPairwise Bonferroni intervals\n\n\n\n\n\n\n\n\nPair\nBonferroni interval\nDecision\n\n\n\n\nStatic targets - Footwork + serve\n\\((-8.44,\\,-1.56)\\)\nDifferent\n\n\nStatic targets - Coach-fed targets\n\\((-9.94,\\,-3.06)\\)\nDifferent\n\n\nFootwork + serve - Coach-fed targets\n\\((-4.94,\\;1.94)\\)\nNot different\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\n\nStatic vs Footwork: different\n\nStatic vs Coach-fed: different\n\nFootwork vs Coach-fed: not different\n\nTherefore, Static targets is lower than the other two programs, while Footwork + serve and Coach-fed targets are not clearly different from each other."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#campus-café-anova-table-and-conclusion",
+    "href": "Chapter Slides/chapter8-slides.html#campus-café-anova-table-and-conclusion",
+    "title": "STA258",
+    "section": "Campus Café: ANOVA Table and Conclusion",
+    "text": "Campus Café: ANOVA Table and Conclusion\n\n\nCalculation\n\\[\ndf_{\\text{Tr}}=k-1=3-1=2,\n\\qquad\ndf_E=n-k=18-3=15\n\\]\n\\[\nMSTr=\\frac{30.76}{2}=15.38,\n\\qquad\nMSE=\\frac{39.44}{15}=2.63\n\\]\n\\[\nF^*=\\frac{MSTr}{MSE}\n=\n\\frac{15.38}{2.63}\n=\n5.85\n\\]\n\n\nVisual check\n\n\n\n\n\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n2\n30.76\n15.38\n5.85\n0.0132\n\n\nError\n15\n39.44\n2.63\n\n\n\n\nTotal\n17\n70.20\n\n\n\n\n\n\nSince \\(p=0.0132&lt;0.05\\), reject \\(H_0\\). There is evidence that not all ordering systems have the same population mean pickup wait time."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#campus-café-calculation-table",
+    "href": "Chapter Slides/chapter8-slides.html#campus-café-calculation-table",
+    "title": "STA258",
+    "section": "Campus Café: Calculation Table",
+    "text": "Campus Café: Calculation Table\n\nStep-by-step ANOVA building blocks\nHere \\(\\bar x = 8.57\\). The last two columns give the pieces needed for \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\n\nSystem\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(\\bar x_i-\\bar x\\)\n\\(n_i(\\bar x_i-\\bar x)^2\\)\n\n\n\n\nMobile order\n6\n7.00\n2.00\n10.00\n-1.57\n14.73\n\n\nKiosk order\n6\n8.50\n2.80\n14.00\n-0.07\n0.03\n\n\nCounter order\n6\n10.20\n3.09\n15.44\n1.63\n16.01\n\n\nTotals\n18\n\n\n39.44\n\n30.76\n\n\n\n\n\n\nWithin-system variation\n\\[\nSSE=10.00+14.00+15.44=39.44\n\\]\n\n\nBetween-system variation\n\\[\nSSTr=14.73+0.03+16.01=30.76\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#campus-café-anova-result-and-visual",
+    "href": "Chapter Slides/chapter8-slides.html#campus-café-anova-result-and-visual",
+    "title": "STA258",
+    "section": "Campus Café: ANOVA Result and Visual",
+    "text": "Campus Café: ANOVA Result and Visual\n\n\nCalculation table\nHere \\(\\bar x=8.57\\). The final two columns add up to \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\n\nSystem\n\\(n_i\\)\n\\(\\bar x_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(\\bar x_i-\\bar x\\)\n\\(n_i(\\bar x_i-\\bar x)^2\\)\n\n\n\n\nMobile\n6\n7.00\n2.00\n10.00\n-1.57\n14.73\n\n\nKiosk\n6\n8.50\n2.80\n14.00\n-0.07\n0.03\n\n\nCounter\n6\n10.20\n3.09\n15.44\n1.63\n16.01\n\n\nTotals\n18\n\n\n39.44\n\n30.76\n\n\n\n\nTherefore, \\(SSE=39.44\\) and \\(SSTr=30.76\\).\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n2\n30.76\n15.38\n5.85\n0.0132\n\n\nError\n15\n39.44\n2.63\n\n\n\n\nTotal\n17\n70.20\n\n\n\n\n\n\n\\[\nMSTr=\\frac{30.76}{2}=15.38,\n\\qquad\nMSE=\\frac{39.44}{15}=2.63\n\\]\n\\[\nF^*=\\frac{15.38}{2.63}=5.85\n\\]\n\n\nVisual reference\n\n\n\n\n\n\n\n\nConclusion\nSince \\(p=0.0132&lt;0.05\\), reject \\(H_0\\).\nThere is evidence that not all ordering systems have the same population mean pickup wait time.\nThe visual is only a reference: the counter-order system is centered higher than the other two."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#campus-café-anova-result",
+    "href": "Chapter Slides/chapter8-slides.html#campus-café-anova-result",
+    "title": "STA258",
+    "section": "Campus Café: ANOVA Result",
+    "text": "Campus Café: ANOVA Result\n\n\nCalculation table\nThe grand mean is \\(\\bar{x}=8.57\\). The final two columns give the pieces that add to \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\nSystem\n\\(n_i\\)\n\\(\\bar{x}_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(n_i(\\bar{x}_i-\\bar{x})^2\\)\n\n\n\n\nMobile\n6\n7.00\n2.00\n10.00\n14.73\n\n\nKiosk\n6\n8.50\n2.80\n14.00\n0.03\n\n\nCounter\n6\n10.20\n3.09\n15.44\n16.01\n\n\nTotals\n18\n\n\n39.44\n30.76\n\n\n\n\n\\[\nSSE=39.44,\n\\qquad\nSSTr=30.76,\n\\qquad\nSSTotal=70.20\n\\]\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n2\n30.76\n15.38\n5.85\n0.0132\n\n\nError\n15\n39.44\n2.63\n\n\n\n\nTotal\n17\n70.20\n\n\n\n\n\n\n\\[\nMSTr=\\frac{30.76}{2}=15.38\n\\]\n\\[\nMSE=\\frac{39.44}{15}=2.63\n\\]\n\\[\nF^*=\\frac{15.38}{2.63}=5.85\n\\]\n\n\nConclusion\nSince \\(p=0.0132&lt;0.05\\), reject \\(H_0\\).\nThere is evidence that not all pickup systems have the same population mean pickup wait time.\nThe ANOVA test tells us that at least one system has a different mean. It does not tell us which systems differ."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#short-form-video-anova-result",
+    "href": "Chapter Slides/chapter8-slides.html#short-form-video-anova-result",
+    "title": "STA258",
+    "section": "Short-Form Video: ANOVA Result",
+    "text": "Short-Form Video: ANOVA Result\n\n\nCalculation table\nThe grand mean is \\(\\bar{x}=43.75\\). The final two columns give the pieces that add to \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\nEdit style\n\\(n_i\\)\n\\(\\bar{x}_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(n_i(\\bar{x}_i-\\bar{x})^2\\)\n\n\n\n\nClean cut\n5\n38.00\n20.00\n80.00\n165.31\n\n\nCaptions-first\n5\n44.00\n25.00\n100.00\n0.31\n\n\nMeme overlay\n5\n41.00\n18.50\n74.00\n37.81\n\n\nStory hook\n5\n52.00\n22.50\n90.00\n340.31\n\n\nTotals\n20\n\n\n344.00\n543.75\n\n\n\n\n\\[\nSSE=344.00,\n\\qquad\nSSTr=543.75,\n\\qquad\nSSTotal=887.75\n\\]\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n3\n543.75\n181.25\n8.43\n0.0014\n\n\nError\n16\n344.00\n21.50\n\n\n\n\nTotal\n19\n887.75\n\n\n\n\n\n\n\\[\nMSTr=\\frac{543.75}{3}=181.25\n\\]\n\\[\nMSE=\\frac{344.00}{16}=21.50\n\\]\n\\[\nF^*=\\frac{181.25}{21.50}=8.43\n\\]\n\n\nConclusion\nSince \\(p=0.0014&lt;0.05\\), reject \\(H_0\\).\nThere is evidence that not all edit styles have the same population mean viewer watch time.\nThe ANOVA test tells us that at least one edit style has a different mean. It does not tell us which styles differ."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores-1",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drill-accuracy-scores-1",
+    "title": "STA258",
+    "section": "Example: Badminton Drill Accuracy Scores",
+    "text": "Example: Badminton Drill Accuracy Scores\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ?\n\n\nSetup\nUse the ANOVA output:\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\nThere are\n\\[\nm=\\binom{3}{2}=3\n\\]\npairwise comparisons.\nSince each group has size 6, we use Bonferroni intervals for each difference in population means.\n\n\nCalculation\nFirst find the sample means:\n\\[\n\\bar{x}_1=\\frac{19+20+21+23+24+25}{6}=22\n\\]\n\\[\n\\bar{x}_2=\\frac{24+25+26+28+29+30}{6}=27\n\\]\n\\[\n\\bar{x}_3=\\frac{26+27+28+29+30+31}{6}=28.5\n\\]\nFor Bonferroni intervals at the family-wise \\(5\\%\\) level:\n\\[\nt^*\n=\nt_{1-\\alpha/(2m),\\,15}\n=\nt_{1-0.05/(2\\cdot3),\\,15}\n=\nt_{0.99167,\\,15}\n=\n2.69\n\\]\nSince \\(n_1=n_2=n_3=6\\),\n\\[\nSE\n=\n\\sqrt{\nMSE\\left(\\frac{1}{n_i}+\\frac{1}{n_j}\\right)\n}\n=\n\\sqrt{\n4.90\\left(\\frac16+\\frac16\\right)\n}\n=\n1.28\n\\]\n\\[\nME=t^*(SE)=2.69(1.28)=3.44\n\\]\nNow find each sample mean difference:\n\\[\n\\bar{x}_1-\\bar{x}_2=22-27=-5.00\n\\]\n\\[\n\\bar{x}_1-\\bar{x}_3=22-28.5=-6.50\n\\]\n\\[\n\\bar{x}_2-\\bar{x}_3=27-28.5=-1.50\n\\]\nTherefore the Bonferroni intervals are:\n\\[\n\\mu_1-\\mu_2:\\ -5.00\\pm3.44=(-8.44,\\,-1.56)\n\\]\n\\[\n\\mu_1-\\mu_3:\\ -6.50\\pm3.44=(-9.94,\\,-3.06)\n\\]\n\\[\n\\mu_2-\\mu_3:\\ -1.50\\pm3.44=(-4.94,\\,1.94)\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-drop-test-costs",
+    "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-drop-test-costs",
+    "title": "STA258",
+    "section": "Visual: Phone Case Drop-Test Costs",
+    "text": "Visual: Phone Case Drop-Test Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design. The vertical bars show 95% confidence intervals for the group means, matching the textbook-style visual."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#fishers-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#fishers-lsd",
+    "title": "STA258",
+    "section": "Fisher’s LSD",
+    "text": "Fisher’s LSD\n\n\nIdea\nFisher’s LSD is used after ANOVA rejects.\nIt compares two group means using the pooled error estimate from ANOVA:\n\\[\nMSE\n\\]\nIt is more powerful, but it does not control the experiment-wise Type I error rate.\n\n\nTextbook formula\nFor each pair:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\n\\pm\nt_{\\alpha/2,v}\n\\sqrt{\nMSE\n\\left(\n\\frac{1}{n_i}+\\frac{1}{n_j}\n\\right)\n}\n\\]\nwhere:\n\\[\nv=n-k\n\\]\nA pair differs if its interval does not contain 0."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-comparisons",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-comparisons",
+    "title": "STA258",
+    "section": "Badminton: Fisher LSD Comparisons",
+    "text": "Badminton: Fisher LSD Comparisons\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\nSample means:\n\\[\n\\bar{x}_1=22,\n\\qquad\n\\bar{x}_2=27,\n\\qquad\n\\bar{x}_3=28.5\n\\]\nEach group has \\(n_i=6\\).\n\n\nFisher LSD calculation\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,15}=2.131\n\\]\nStandard error:\n\\[\nSE=\n\\sqrt{\n4.90\n\\left(\n\\frac16+\\frac16\n\\right)\n}\n=\n1.28\n\\]\nLeast significant difference:\n\\[\nLSD=2.131(1.28)=2.72\n\\]\nSo any pair of sample means more than 2.72 apart is declared different.\n\n\n\nPair\nDifference\nCompare to LSD\n\n\n\n\nStatic - Footwork\n\\(|-5.00|=5.00\\)\n\\(5.00&gt;2.72\\)\n\n\nStatic - Coach-fed\n\\(|-6.50|=6.50\\)\n\\(6.50&gt;2.72\\)\n\n\nFootwork - Coach-fed\n\\(|-1.50|=1.50\\)\n\\(1.50&lt;2.72\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-results",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-fisher-lsd-results",
+    "title": "STA258",
+    "section": "Badminton: Fisher LSD Results",
+    "text": "Badminton: Fisher LSD Results\n\n\nPairwise Fisher LSD intervals\n\n\n\n\n\n\n\n\nPair\nFisher LSD interval\nDecision\n\n\n\n\nStatic targets - Footwork + serve\n\\((-7.72,\\,-2.28)\\)\nDifferent\n\n\nStatic targets - Coach-fed targets\n\\((-9.22,\\,-3.78)\\)\nDifferent\n\n\nFootwork + serve - Coach-fed targets\n\\((-4.22,\\;1.22)\\)\nNot different\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\n\nStatic vs Footwork: different\n\nStatic vs Coach-fed: different\n\nFootwork vs Coach-fed: not different\n\nUsing Fisher’s LSD, Static targets is lower than the other two programs.\nFootwork + serve and Coach-fed targets are not clearly different."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-comparisons",
+    "href": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-comparisons",
+    "title": "STA258",
+    "section": "Phone Case: Fisher LSD Comparisons",
+    "text": "Phone Case: Fisher LSD Comparisons\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the lab records the repair cost after impact.\nANOVA rejects the equal-means hypothesis.\nWhich case designs differ using Fisher’s LSD?\n\n\n\nCase design\nMean repair cost\n\n\n\n\nClear\n75.88\n\n\nSlim\n87.50\n\n\nWallet\n98.50\n\n\nRugged\n113.00\n\n\n\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=17.89,\n\\qquad\nv=n-k=32-4=28\n\\]\nEach case design has:\n\\[\nn_i=8\n\\]\nUse Fisher’s LSD intervals.\n\n\nFisher LSD calculation\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,28}=2.048\n\\]\nStandard error:\n\\[\nSE=\n\\sqrt{\n17.89\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.115\n\\]\nLeast significant difference:\n\\[\nLSD=2.048(2.115)=4.33\n\\]\nSo any pair of sample means more than 4.33 apart is declared different.\n\n\n\nPair\nDifference\nCompare to LSD\n\n\n\n\nClear - Slim\n\\(11.63\\)\n\\(11.63&gt;4.33\\)\n\n\nClear - Wallet\n\\(22.63\\)\n\\(22.63&gt;4.33\\)\n\n\nClear - Rugged\n\\(37.13\\)\n\\(37.13&gt;4.33\\)\n\n\nSlim - Wallet\n\\(11.00\\)\n\\(11.00&gt;4.33\\)\n\n\nSlim - Rugged\n\\(25.50\\)\n\\(25.50&gt;4.33\\)\n\n\nWallet - Rugged\n\\(14.50\\)\n\\(14.50&gt;4.33\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-results",
+    "href": "Chapter Slides/chapter8-slides.html#phone-case-fisher-lsd-results",
+    "title": "STA258",
+    "section": "Phone Case: Fisher LSD Results",
+    "text": "Phone Case: Fisher LSD Results\n\n\nPairwise Fisher LSD intervals\n\n\n\nPair\nFisher LSD interval\nDecision\n\n\n\n\nClear - Slim\n\\((-15.96,\\,-7.29)\\)\nDifferent\n\n\nClear - Wallet\n\\((-26.96,\\,-18.29)\\)\nDifferent\n\n\nClear - Rugged\n\\((-41.46,\\,-32.79)\\)\nDifferent\n\n\nSlim - Wallet\n\\((-15.33,\\,-6.67)\\)\nDifferent\n\n\nSlim - Rugged\n\\((-29.83,\\,-21.17)\\)\nDifferent\n\n\nWallet - Rugged\n\\((-18.83,\\,-10.17)\\)\nDifferent\n\n\n\n\nEvery interval avoids 0, so every pair differs.\n\n\nConclusion\nAll six Fisher LSD intervals avoid 0.\nSo every pair of phone case designs has a different population mean repair cost.\nThe sample means increase in this order:\nClear &lt; Slim &lt; Wallet &lt; Rugged"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fisher-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-fisher-lsd",
+    "title": "STA258",
+    "section": "Check in R: Fisher LSD",
+    "text": "Check in R: Fisher LSD\n\n\n\nBadminton drill example\nFisher LSD-style check: no p-value adjustment.\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example\nFisher LSD-style check: no p-value adjustment."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drillsfisher-lsd-comparisons",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drillsfisher-lsd-comparisons",
+    "title": "STA258",
+    "section": "Example: Badminton drills(Fisher LSD Comparisons)",
+    "text": "Example: Badminton drills(Fisher LSD Comparisons)\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\nSample means:\n\\[\n\\bar{x}_1=22,\n\\qquad\n\\bar{x}_2=27,\n\\qquad\n\\bar{x}_3=28.5\n\\]\nEach group has \\(n_i=6\\).\n\n\nFisher LSD calculation\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,15}=2.131\n\\]\nStandard error:\n\\[\nSE=\n\\sqrt{\n4.90\n\\left(\n\\frac16+\\frac16\n\\right)\n}\n=\n1.28\n\\]\nLeast significant difference:\n\\[\nLSD=2.131(1.28)=2.72\n\\]\nSo any pair of sample means more than 2.72 apart is declared different.\n\n\n\nPair\nDifference\nCompare to LSD\n\n\n\n\nStatic - Footwork\n\\(|-5.00|=5.00\\)\n\\(5.00&gt;2.72\\)\n\n\nStatic - Coach-fed\n\\(|-6.50|=6.50\\)\n\\(6.50&gt;2.72\\)\n\n\nFootwork - Coach-fed\n\\(|-1.50|=1.50\\)\n\\(1.50&lt;2.72\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drillsfisher-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drillsfisher-lsd",
+    "title": "STA258",
+    "section": "Example: Badminton drills(Fisher LSD)",
+    "text": "Example: Badminton drills(Fisher LSD)\n\n\nPairwise Fisher LSD intervals\n\n\n\n\n\n\n\n\nPair\nFisher LSD interval\nDecision\n\n\n\n\nStatic targets - Footwork + serve\n\\((-7.72,\\,-2.28)\\)\nDifferent\n\n\nStatic targets - Coach-fed targets\n\\((-9.22,\\,-3.78)\\)\nDifferent\n\n\nFootwork + serve - Coach-fed targets\n\\((-4.22,\\;1.22)\\)\nNot different\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\n\nStatic vs Footwork: different\n\nStatic vs Coach-fed: different\n\nFootwork vs Coach-fed: not different\n\nUsing Fisher’s LSD, Static targets is lower than the other two programs.\nFootwork + serve and Coach-fed targets are not clearly different."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-comparisonsfisher-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#example-phone-case-comparisonsfisher-lsd",
+    "title": "STA258",
+    "section": "Example: Phone Case comparisons(Fisher LSD)",
+    "text": "Example: Phone Case comparisons(Fisher LSD)\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the lab records the repair cost after impact.\nANOVA rejects the equal-means hypothesis.\nWhich case designs differ using Fisher’s LSD?\n\n\n\nCase design\nMean repair cost\n\n\n\n\nClear\n75.88\n\n\nSlim\n87.50\n\n\nWallet\n98.50\n\n\nRugged\n113.00\n\n\n\n\n\nSetup\nFrom ANOVA:\n\\[\nMSE=17.89,\n\\qquad\nv=n-k=32-4=28\n\\]\nEach case design has:\n\\[\nn_i=8\n\\]\nUse Fisher’s LSD intervals.\n\n\nFisher LSD calculation\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,28}=2.048\n\\]\nStandard error:\n\\[\nSE=\n\\sqrt{\n17.89\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.115\n\\]\nLeast significant difference:\n\\[\nLSD=2.048(2.115)=4.33\n\\]\nSo any pair of sample means more than 4.33 apart is declared different.\n\n\n\nPair\nDifference\nCompare to LSD\n\n\n\n\nClear - Slim\n\\(11.63\\)\n\\(11.63&gt;4.33\\)\n\n\nClear - Wallet\n\\(22.63\\)\n\\(22.63&gt;4.33\\)\n\n\nClear - Rugged\n\\(37.13\\)\n\\(37.13&gt;4.33\\)\n\n\nSlim - Wallet\n\\(11.00\\)\n\\(11.00&gt;4.33\\)\n\n\nSlim - Rugged\n\\(25.50\\)\n\\(25.50&gt;4.33\\)\n\n\nWallet - Rugged\n\\(14.50\\)\n\\(14.50&gt;4.33\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drillsfisher-lsd-1",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drillsfisher-lsd-1",
+    "title": "STA258",
+    "section": "Example: Badminton drills(Fisher LSD)",
+    "text": "Example: Badminton drills(Fisher LSD)\n\n\nPairwise Fisher LSD intervals\n\n\n\n\n\n\n\n\nPair\nFisher LSD interval\nDecision\n\n\n\n\nStatic targets - Footwork + serve\n\\((-7.72,\\,-2.28)\\)\nDifferent\n\n\nStatic targets - Coach-fed targets\n\\((-9.22,\\,-3.78)\\)\nDifferent\n\n\nFootwork + serve - Coach-fed targets\n\\((-4.22,\\;1.22)\\)\nNot different\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\n\nStatic vs Footwork: different\n\nStatic vs Coach-fed: different\n\nFootwork vs Coach-fed: not different\n\nUsing Fisher’s LSD, Static targets is lower than the other two programs.\nFootwork + serve and Coach-fed targets are not clearly different."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drillsbonferroni",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drillsbonferroni",
+    "title": "STA258",
+    "section": "Example: Badminton drills(Bonferroni)",
+    "text": "Example: Badminton drills(Bonferroni)\n\n\nPairwise Bonferroni intervals\n\n\n\n\n\n\n\n\nPair\nBonferroni interval\nDecision\n\n\n\n\nStatic targets - Footwork + serve\n\\((-8.44,\\,-1.56)\\)\nDifferent\n\n\nStatic targets - Coach-fed targets\n\\((-9.94,\\,-3.06)\\)\nDifferent\n\n\nFootwork + serve - Coach-fed targets\n\\((-4.94,\\;1.94)\\)\nNot different\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\n\nStatic vs Footwork: different\n\nStatic vs Coach-fed: different\n\nFootwork vs Coach-fed: not different\n\nTherefore, Static targets is lower than the other two programs, while Footwork + serve and Coach-fed targets are not clearly different from each other."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drillsbonferroni-1",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drillsbonferroni-1",
+    "title": "STA258",
+    "section": "Example: Badminton drills(Bonferroni)",
+    "text": "Example: Badminton drills(Bonferroni)\n\n\nPairwise Bonferroni intervals\n\n\n\n\n\n\n\n\nPair\nBonferroni interval\nDecision\n\n\n\n\nStatic targets - Footwork + serve\n\\((-8.44,\\,-1.56)\\)\nDifferent\n\n\nStatic targets - Coach-fed targets\n\\((-9.94,\\,-3.06)\\)\nDifferent\n\n\nFootwork + serve - Coach-fed targets\n\\((-4.94,\\;1.94)\\)\nNot different\n\n\n\n\nIf the interval contains 0, the pair is not clearly different.\nIf the interval does not contain 0, the pair differs.\n\n\nConclusion\n\nStatic vs Footwork: different\n\nStatic vs Coach-fed: different\n\nFootwork vs Coach-fed: not different\n\nTherefore, Static targets is lower than the other two programs, while Footwork + serve and Coach-fed targets are not clearly different from each other."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#fishers-lsd-the-idea",
+    "href": "Chapter Slides/chapter8-slides.html#fishers-lsd-the-idea",
+    "title": "STA258",
+    "section": "Fisher’s LSD: The Idea",
+    "text": "Fisher’s LSD: The Idea\n\n\nLeast Significant Difference\nFisher’s LSD compares two group means after the overall ANOVA test has rejected \\(H_0\\).\nFor a pair of groups \\(i\\) and \\(j\\), we compare the observed mean difference:\n\\[\n\\bar{x}_i-\\bar{x}_j\n\\]\n\n\n\nShared error estimate\nUse the pooled within-group variation from ANOVA:\n\\[\nMSE\n\\]\nThis estimates the common variance \\(\\sigma^2\\).\n\n\nOrdinary t critical value\nFisher’s LSD uses:\n\\[\nt^*=t_{1-\\alpha/2,\\;n-k}\n\\]\nThe degrees of freedom come from the ANOVA error row.\n\n\nLSD cutoff\nWhen group sizes are \\(n_i\\) and \\(n_j\\):\n\\[\nLSD=\nt^*\n\\sqrt{\nMSE\\left(\\frac{1}{n_i}+\\frac{1}{n_j}\\right)\n}\n\\]\n\n\n\nHow to decide\nIf\n\\[\n|\\bar{x}_i-\\bar{x}_j|&gt;LSD,\n\\]\nthen the pair is declared different. Fisher’s LSD is powerful, but it is less conservative when many pairwise comparisons are made."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drills-setup",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drills-setup",
+    "title": "STA258",
+    "section": "Example: Badminton Drills — Setup",
+    "text": "Example: Badminton Drills — Setup\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\nThe overall ANOVA test rejects \\(H_0\\).\nSo we now ask:\n\\[\n\\text{Which drill programs differ?}\n\\]\nUse Fisher’s LSD at the 5% level.\n\n\n\nObserved data\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\n\n\n\nSample means\n\\[\n\\bar{x}_1=22,\\qquad\n\\bar{x}_2=27,\\qquad\n\\bar{x}_3=28.5\n\\]\nEach group has\n\\[\nn_i=6\n\\]\n\n\nFrom ANOVA\n\\[\nMSE=4.90\n\\]\n\\[\nv=n-k=18-3=15\n\\]\nThese are reused in Fisher’s LSD."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drills-fishers-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drills-fishers-lsd",
+    "title": "STA258",
+    "section": "Example: Badminton Drills — Fisher’s LSD",
+    "text": "Example: Badminton Drills — Fisher’s LSD\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nBasic serve\nTarget serve\nMatch-play serve\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\nSetup from ANOVA\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\n\\[\n\\bar{x}_1=22,\n\\qquad\n\\bar{x}_2=27,\n\\qquad\n\\bar{x}_3=28.5\n\\]\nEach group has \\(n_i=6\\).\n\n\nFisher LSD calculation\n\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,15}=2.131\n\\]\n\n\nBecause all groups have size 6, the standard error is the same for every pair:\n\\[\nSE=\n\\sqrt{\n4.90\n\\left(\n\\frac16+\\frac16\n\\right)\n}\n=\n1.28\n\\]\n\n\nThe least significant difference is\n\\[\nLSD=2.131(1.28)=2.72\n\\]\nSo each pairwise interval is:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\\pm 2.72\n\\]\n\n\n\nPairwise Fisher LSD intervals\n\\[\n\\begin{aligned}\n\\text{Basic} - \\text{Target}\n&:\\ -5.00\\pm2.72=(-7.72,\\,-2.28)\\\\[7pt]\n\\text{Basic} - \\text{Match-play}\n&:\\ -6.50\\pm2.72=(-9.22,\\,-3.78)\\\\[7pt]\n\\text{Target} - \\text{Match-play}\n&:\\ -1.50\\pm2.72=(-4.22,\\,1.22)\n\\end{aligned}\n\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
     "title": "STA258",
     "section": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known",
     "text": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known\n\nFor testing \\(H_0:\\mu=\\mu_0\\) when \\(\\sigma\\) is known, use the test statistic\n\\[\nz^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Testing a population mean with known \\(\\sigma\\) and an appropriate random/normal-or-large-sample setup."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-unknown",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-unknown",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd",
     "title": "STA258",
-    "section": "6.2.1.2 Hypothesis Tests on the Mean, \\(\\sigma\\) Unknown",
-    "text": "6.2.1.2 Hypothesis Tests on the Mean, \\(\\sigma\\) Unknown\n\nFor testing \\(H_0:\\mu=\\mu_0\\) when \\(\\sigma\\) is unknown, replace it with \\(s\\) and use the test statistic\n\\[\nt^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}\n\\]\nwhich, under \\(H_0\\), follows the Student \\(t\\) distribution with \\(n-1\\) degrees of freedom.\n\n\n\nReference distribution \\(t^*\\sim t_{n-1}\\).\n\n\nAssumptions Random/independent observations; population normal or sample large enough for the \\(t\\) approximation."
+    "section": "Example: Phone Case Drop-Test Costs — Fisher’s LSD",
+    "text": "Example: Phone Case Drop-Test Costs — Fisher’s LSD\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the response variable is\n\\[\ny=\\text{repair cost in dollars after impact}.\n\\]\n\n\n\nClear\nSlim\nWallet\nRugged\n\n\n\n\n69\n73\n78\n85\n\n\n71\n75\n80\n87\n\n\n73\n77\n82\n89\n\n\n75\n79\n84\n91\n\n\n75\n79\n84\n91\n\n\n77\n81\n86\n93\n\n\n79\n83\n88\n95\n\n\n81\n85\n90\n97\n\n\n\nANOVA rejects \\(H_0\\). Which case designs differ in mean repair cost using Fisher’s LSD?\n\n\nSetup from ANOVA\n\\[\nMSE=16.00,\n\\qquad\nv=n-k=32-4=28\n\\]\n\\[\n\\bar{x}_{Clear}=75,\\quad\n\\bar{x}_{Slim}=79,\\quad\n\\bar{x}_{Wallet}=84,\\quad\n\\bar{x}_{Rugged}=91\n\\]\nEach group has \\(n_i=8\\).\n\n\nFisher LSD calculation\n\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,28}=2.048\n\\]\n\n\nBecause all groups have size 8, the standard error is the same for every pair:\n\\[\nSE=\n\\sqrt{\n16.00\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.00\n\\]\n\n\nThe least significant difference is\n\\[\nLSD=2.048(2.00)=4.10\n\\]\nSo each pairwise interval is:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\\pm 4.10\n\\]\n\n\n\nPairwise Fisher LSD intervals\n\n\n\\[\n\\begin{aligned}\n\\text{Clear} - \\text{Slim}\n&:\\ -4.00\\pm4.10=(-8.10,\\,0.10)\\\\[5pt]\n\\text{Clear} - \\text{Wallet}\n&:\\ -9.00\\pm4.10=(-13.10,\\,-4.90)\\\\[5pt]\n\\text{Clear} - \\text{Rugged}\n&:\\ -16.00\\pm4.10=(-20.10,\\,-11.90)\n\\end{aligned}\n\\]\n\n\n\\[\n\\begin{aligned}\n\\text{Slim} - \\text{Wallet}\n&:\\ -5.00\\pm4.10=(-9.10,\\,-0.90)\\\\[5pt]\n\\text{Slim} - \\text{Rugged}\n&:\\ -12.00\\pm4.10=(-16.10,\\,-7.90)\\\\[5pt]\n\\text{Wallet} - \\text{Rugged}\n&:\\ -7.00\\pm4.10=(-11.10,\\,-2.90)\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-proportion",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-proportion",
+    "objectID": "Chapter Slides/chapter8-slides.html#phone-case-drop-test-costs-fisher-lsd-results",
+    "href": "Chapter Slides/chapter8-slides.html#phone-case-drop-test-costs-fisher-lsd-results",
     "title": "STA258",
-    "section": "6.2.2 Hypothesis Tests on a Proportion",
-    "text": "6.2.2 Hypothesis Tests on a Proportion\n\nFor testing \\(H_0:p=p_0\\), use the test statistic\n\\[\nz^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse the null value The standard error uses \\(p_0\\), not \\(\\hat p\\).\n\n\nLarge-count check Under \\(H_0\\), both \\(np_0\\) and \\(n(1-p_0)\\) should be at least 10."
+    "section": "Phone Case Drop-Test Costs — Fisher LSD Results",
+    "text": "Phone Case Drop-Test Costs — Fisher LSD Results\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the response variable is\n\\[\ny=\\text{repair cost in dollars after impact}.\n\\]\n\n\n\nClear\nSlim\nWallet\nRugged\n\n\n\n\n69\n73\n78\n85\n\n\n71\n75\n80\n87\n\n\n73\n77\n82\n89\n\n\n75\n79\n84\n91\n\n\n75\n79\n84\n91\n\n\n77\n81\n86\n93\n\n\n79\n83\n88\n95\n\n\n81\n85\n90\n97\n\n\n\nANOVA rejects \\(H_0\\). Which case designs differ in mean repair cost using Fisher’s LSD?\n\n\n\nRead the Fisher LSD intervals\nA pair is declared different when the interval does not contain 0.\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\qquad\n\\text{interval contains }0\n\\Rightarrow\n\\text{not clearly different}\n\\]\n\n\n\nContains 0\n\\[\n\\text{Clear}-\\text{Slim}\n\\]\n\\[\n(-8.10,\\;0.10)\n\\]\nThis interval contains 0.\nSo Clear and Slim are not clearly different.\n\n\nIntervals that avoid 0\n\n\n\nPair\nFisher LSD interval\nDecision\n\n\n\n\nClear - Wallet\n\\((-13.10,\\,-4.90)\\)\nDifferent\n\n\nClear - Rugged\n\\((-20.10,\\,-11.90)\\)\nDifferent\n\n\nSlim - Wallet\n\\((-9.10,\\,-0.90)\\)\nDifferent\n\n\nSlim - Rugged\n\\((-16.10,\\,-7.90)\\)\nDifferent\n\n\nWallet - Rugged\n\\((-11.10,\\,-2.90)\\)\nDifferent\n\n\n\n\n\n\nAnswer\nUsing Fisher’s LSD, Clear is not clearly different from Slim.\nAll other pairs are different, so the sample means suggest the ordering\n\\[\n\\text{Clear} \\approx \\text{Slim}\n\\quad &lt; \\quad\n\\text{Wallet}\n\\quad &lt; \\quad\n\\text{Rugged}.\n\\]"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#food-delivery-eta-calculation",
-    "href": "Chapter Slides/chapter6-slides.html#food-delivery-eta-calculation",
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd",
     "title": "STA258",
-    "section": "Food Delivery ETA: Calculation",
-    "text": "Food Delivery ETA: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=16.5 \\qquad H_a:\\mu&gt;16.5 \\quad (\\alpha=0.05)\\]\nTest statistic \\[t^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}=\\frac{17.68-16.5}{1.53/\\sqrt{12}}=2.682\\]\np-value \\[\\text{p-value}=P(T_{11}\\ge 2.682)=0.0107\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0107 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the true mean delivery time exceeds the advertised \\(16.5\\) minutes."
+    "section": "Check in R: Fisher’s LSD",
+    "text": "Check in R: Fisher’s LSD\n\n\n\nBadminton drill example\nTextbook-style check: compute (MSE), (t^*), LSD, and compare mean differences.\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example\nTextbook-style check: compute (MSE), (t^*), LSD, and compare mean differences.\n\n\n\n\n\n\n\n\n\n\n\n\nHow to check\nCompare each absolute mean difference to LSD. If the difference is larger than LSD, that pair is declared different."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#reusable-cup-discount-calculation",
-    "href": "Chapter Slides/chapter6-slides.html#reusable-cup-discount-calculation",
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-intervals",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-intervals",
     "title": "STA258",
-    "section": "Reusable Cup Discount: Calculation",
-    "text": "Reusable Cup Discount: Calculation\n\n\n\nHypotheses \\[H_0:p=0.10 \\qquad H_a:p&gt;0.10 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}=\\frac{0.1308-0.10}{\\sqrt{0.10\\cdot 0.90/520}}=2.339\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.339)=0.0097\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0097 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the participation rate has increased above \\(10\\%\\)."
+    "section": "Check in R: Fisher’s LSD Intervals",
+    "text": "Check in R: Fisher’s LSD Intervals\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#protein-scoop-consistency-calculation",
-    "href": "Chapter Slides/chapter6-slides.html#protein-scoop-consistency-calculation",
+    "objectID": "Chapter Slides/chapter8-slides.html#bonferroni-why-adjust",
+    "href": "Chapter Slides/chapter8-slides.html#bonferroni-why-adjust",
     "title": "STA258",
-    "section": "Protein Scoop Consistency: Calculation",
-    "text": "Protein Scoop Consistency: Calculation\n\n\n\nHypotheses \\[H_0:\\sigma^2=2.8^2 \\qquad H_a:\\sigma^2&gt;2.8^2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}=\\frac{27\\cdot 3.4^2}{2.8^2}=39.81\\]\np-value \\[\\text{p-value}=P(\\chi^2_{27}\\ge 39.81)=0.0534\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0534 &gt; 0.05\\) (and \\(39.81 &lt; 40.11\\)), so fail to reject \\(H_0\\).\n\n\nConclusion There is not enough evidence that the true SD of scoop weights exceeds \\(2.8\\) g."
+    "section": "Bonferroni: Why Adjust?",
+    "text": "Bonferroni: Why Adjust?\n\n\nThe issue\nAfter ANOVA rejects, we may compare many pairs of means.\nEach pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making at least one false discovery.\n\n\n\n1. Count comparisons\nWith \\(k\\) groups, the number of pairwise comparisons is\n\\[\nm=\\binom{k}{2}.\n\\]\nFor example, if \\(k=4\\),\n\\[\nm=\\binom{4}{2}=6.\n\\]\n\n\n2. Experiment-wise error\nIf each comparison uses error rate \\(\\alpha\\), then the chance of making at least one Type I error is\n\\[\n\\alpha_E=1-(1-\\alpha)^m.\n\\]\nAs \\(m\\) increases, \\(\\alpha_E\\) increases.\n\n\n3. Bonferroni correction\nTo keep the overall error rate controlled, Bonferroni uses a smaller per-comparison level:\n\\[\n\\frac{\\alpha}{m}.\n\\]\nFor a two-sided interval, this gives\n\\[\nt^*=t_{1-\\alpha/(2m),\\;n-k}.\n\\]\n\n\n\nKey idea\nFisher’s LSD is more powerful, but it does not control the experiment-wise Type I error rate.\nBonferroni is more cautious: it uses wider intervals to protect against making false discoveries across many pairwise comparisons."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#scoring-consistency-calculation",
-    "href": "Chapter Slides/chapter6-slides.html#scoring-consistency-calculation",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drills-bonferroni",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drills-bonferroni",
     "title": "STA258",
-    "section": "Scoring Consistency: Calculation",
-    "text": "Scoring Consistency: Calculation\n\n\n\nHypotheses \\[H_0:\\sigma_A^2=\\sigma_B^2 \\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[F^*=\\frac{s_A^2}{s_B^2}=\\frac{23.09}{4.933}=4.68\\]\np-value \\[\\text{p-value}=P(F_{11,9}\\ge 4.68)=0.014\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.014 \\le 0.05\\) (and \\(4.68 &gt; 3.10\\)), so reject \\(H_0\\).\n\n\nConclusion There is strong evidence Player A has the larger scoring variance — i.e. is less consistent."
+    "section": "Example: Badminton Drills — Bonferroni",
+    "text": "Example: Badminton Drills — Bonferroni\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Bonferroni?\n\n\nSetup from ANOVA\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\n\\[\n\\bar{x}_1=22,\n\\qquad\n\\bar{x}_2=27,\n\\qquad\n\\bar{x}_3=28.5\n\\]\nThere are\n\\[\nm=\\binom{3}{2}=3\n\\]\npairwise comparisons.\n\n\nBonferroni calculation\n\nUse the Bonferroni critical value:\n\\[\nt^*\n=\nt_{1-\\alpha/(2m),\\,15}\n=\nt_{1-0.05/(2\\cdot3),\\,15}\n=\nt_{0.99167,\\,15}\n=\n2.69\n\\]\n\n\nBecause all groups have size 6, the standard error is still\n\\[\nSE=\n\\sqrt{\n4.90\n\\left(\n\\frac16+\\frac16\n\\right)\n}\n=\n1.28\n\\]\n\n\nThe Bonferroni margin of error is\n\\[\nME=2.69(1.28)=3.44\n\\]\nSo each pairwise interval is:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\\pm 3.44\n\\]\n\n\n\nPairwise Bonferroni intervals\n\\[\n\\begin{aligned}\n\\text{Static} - \\text{Footwork}\n&:\\ -5.00\\pm3.44=(-8.44,\\,-1.56)\\\\[7pt]\n\\text{Static} - \\text{Coach-fed}\n&:\\ -6.50\\pm3.44=(-9.94,\\,-3.06)\\\\[7pt]\n\\text{Footwork} - \\text{Coach-fed}\n&:\\ -1.50\\pm3.44=(-4.94,\\,1.94)\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#two-means-equal-variances-pooled-t",
-    "href": "Chapter Slides/chapter6-slides.html#two-means-equal-variances-pooled-t",
+    "objectID": "Chapter Slides/chapter8-slides.html#badminton-drills-bonferroni-results",
+    "href": "Chapter Slides/chapter8-slides.html#badminton-drills-bonferroni-results",
     "title": "STA258",
-    "section": "6.3.1.2 Two Means: Equal Variances (Pooled \\(t\\))",
-    "text": "6.3.1.2 Two Means: Equal Variances (Pooled \\(t\\))\n\nWhen the population variances are unknown but can be assumed equal, pool the two sample variances into one estimate:\n\\[\ns_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2},\n\\qquad\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{s_p\\sqrt{\\dfrac{1}{n_1}+\\dfrac{1}{n_2}}}\n\\]\n\n\n\nDegrees of freedom \\(df=n_1+n_2-2\\) — exact, and larger than Welch’s.\n\n\nWhen to pool Reasonable when the sample spreads are similar — e.g. the fold rule \\(\\dfrac{\\max(s_1,s_2)}{\\min(s_1,s_2)}&lt;\\sqrt{2}\\)."
+    "section": "Badminton Drills — Bonferroni Results",
+    "text": "Badminton Drills — Bonferroni Results\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Bonferroni?\n\n\n\nRead the Bonferroni intervals\nA pair is declared different when the interval does not contain 0.\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\qquad\n\\text{interval contains }0\n\\Rightarrow\n\\text{not clearly different}\n\\]\n\n\n\nStatic vs Footwork\n\\[\n(-8.44,\\,-1.56)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nStatic vs Coach-fed\n\\[\n(-9.94,\\,-3.06)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nFootwork vs Coach-fed\n\\[\n(-4.94,\\,1.94)\n\\]\nThis interval contains 0.\nNot clearly different\n\n\n\nAnswer\nUsing Bonferroni, Static targets has a lower mean accuracy score than both Footwork + serve and Coach-fed targets.\nHowever, Footwork + serve and Coach-fed targets are not clearly different from each other."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#two-means-unequal-variances-welch-t",
-    "href": "Chapter Slides/chapter6-slides.html#two-means-unequal-variances-welch-t",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-bonferroni",
+    "href": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-bonferroni",
     "title": "STA258",
-    "section": "6.3.1.3 Two Means: Unequal Variances (Welch \\(t\\))",
-    "text": "6.3.1.3 Two Means: Unequal Variances (Welch \\(t\\))\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling):\n\\[\nt^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\n\n\n\nDefault Welch is a good default when equal variances are not clearly justified.\n\n\nDegrees of freedom Software uses the Welch-Satterthwaite approximation."
+    "section": "Example: Phone Case Drop-Test Costs — Bonferroni",
+    "text": "Example: Phone Case Drop-Test Costs — Bonferroni\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the lab records the repair cost after impact.\n\n\n\nClear\nSlim\nWallet\nRugged\n\n\n\n\n69\n73\n78\n85\n\n\n71\n75\n80\n87\n\n\n73\n77\n82\n89\n\n\n75\n79\n84\n91\n\n\n75\n79\n84\n91\n\n\n77\n81\n86\n93\n\n\n79\n83\n88\n95\n\n\n81\n85\n90\n97\n\n\n\nANOVA rejects \\(H_0\\). Which case designs differ using Bonferroni?\n\n\nSetup from ANOVA\n\\[\nMSE=16.00,\n\\qquad\nv=n-k=32-4=28\n\\]\n\\[\n\\bar{x}_{Clear}=75,\\quad\n\\bar{x}_{Slim}=79,\\quad\n\\bar{x}_{Wallet}=84,\\quad\n\\bar{x}_{Rugged}=91\n\\]\nThere are\n\\[\nm=\\binom{4}{2}=6\n\\]\npairwise comparisons.\n\n\nBonferroni calculation\nUse the Bonferroni critical value:\n\\[\nt^*\n=\nt_{1-\\alpha/(2m),\\,28}\n=\nt_{1-0.05/(2\\cdot6),\\,28}\n=\nt_{0.99583,\\,28}\n=\n2.84\n\\]\n\nBecause all groups have size 8, the standard error is still\n\\[\nSE=\n\\sqrt{\n16.00\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.00\n\\]\n\n\nThe Bonferroni margin of error is\n\\[\nME=2.84(2.00)=5.68\n\\]\nSo each pairwise interval is:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\\pm 5.68\n\\]\n\n\n\nPairwise Bonferroni intervals\n\n\n\\[\n\\begin{aligned}\n\\text{Clear} - \\text{Slim}\n&:\\ -4.00\\pm5.68=(-9.68,\\,1.68)\\\\[5pt]\n\\text{Clear} - \\text{Wallet}\n&:\\ -9.00\\pm5.68=(-14.68,\\,-3.32)\\\\[5pt]\n\\text{Clear} - \\text{Rugged}\n&:\\ -16.00\\pm5.68=(-21.68,\\,-10.32)\n\\end{aligned}\n\\]\n\n\n\\[\n\\begin{aligned}\n\\text{Slim} - \\text{Wallet}\n&:\\ -5.00\\pm5.68=(-10.68,\\,0.68)\\\\[5pt]\n\\text{Slim} - \\text{Rugged}\n&:\\ -12.00\\pm5.68=(-17.68,\\,-6.32)\\\\[5pt]\n\\text{Wallet} - \\text{Rugged}\n&:\\ -7.00\\pm5.68=(-12.68,\\,-1.32)\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#example-comparing-download-speeds",
-    "href": "Chapter Slides/chapter6-slides.html#example-comparing-download-speeds",
+    "objectID": "Chapter Slides/chapter8-slides.html#phone-case-drop-test-costs-bonferroni-results",
+    "href": "Chapter Slides/chapter8-slides.html#phone-case-drop-test-costs-bonferroni-results",
     "title": "STA258",
-    "section": "Example: Comparing Download Speeds",
-    "text": "Example: Comparing Download Speeds\n\nTwo campus internet providers both advertise fast service. From years of monitoring, download speeds (Mbps) are known to have \\(\\sigma_A=12\\) for Provider A and \\(\\sigma_B=15\\) for Provider B.\nA student runs independent speed tests and records:\n\nProvider A: \\(n_A=40\\), \\(\\bar{x}_A=86\\) Mbps\nProvider B: \\(n_B=45\\), \\(\\bar{x}_B=79\\) Mbps\n\nIs Provider A’s mean download speed higher than Provider B’s?\n\n\nLet \\(\\mu_A,\\mu_B\\) be the true mean speeds. Test \\(H_0:\\mu_A-\\mu_B=0\\) against \\(H_a:\\mu_A-\\mu_B&gt;0\\).\nBoth population SDs are known, so use a two-sample \\(z\\) test."
+    "section": "Phone Case Drop-Test Costs — Bonferroni Results",
+    "text": "Phone Case Drop-Test Costs — Bonferroni Results\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the lab records the repair cost after impact.\n\n\n\nClear\nSlim\nWallet\nRugged\n\n\n\n\n69\n73\n78\n85\n\n\n71\n75\n80\n87\n\n\n73\n77\n82\n89\n\n\n75\n79\n84\n91\n\n\n75\n79\n84\n91\n\n\n77\n81\n86\n93\n\n\n79\n83\n88\n95\n\n\n81\n85\n90\n97\n\n\n\nANOVA rejects \\(H_0\\). Which case designs differ using Bonferroni?\n\n\n\nRead the Bonferroni intervals\nA pair is declared different when the interval does not contain 0.\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\qquad\n\\text{interval contains }0\n\\Rightarrow\n\\text{not clearly different}\n\\]\n\n\n\nIntervals that contain 0\n\\[\n\\text{Clear}-\\text{Slim}\n\\]\n\\[\n(-9.68,\\;1.68)\n\\]\n\\[\n\\text{Slim}-\\text{Wallet}\n\\]\n\\[\n(-10.68,\\;0.68)\n\\]\nThese pairs are not clearly different.\n\n\nIntervals that avoid 0\n\n\n\nPair\nBonferroni interval\nDecision\n\n\n\n\nClear - Wallet\n\\((-14.68,\\,-3.32)\\)\nDifferent\n\n\nClear - Rugged\n\\((-21.68,\\,-10.32)\\)\nDifferent\n\n\nSlim - Rugged\n\\((-17.68,\\,-6.32)\\)\nDifferent\n\n\nWallet - Rugged\n\\((-12.68,\\,-1.32)\\)\nDifferent\n\n\n\n\n\n\nAnswer\nUsing Bonferroni, Clear and Slim are not clearly different, and Slim and Wallet are not clearly different.\nHowever, Rugged is clearly higher than all other case designs."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#example-two-fertilizers-similar-spread",
-    "href": "Chapter Slides/chapter6-slides.html#example-two-fertilizers-similar-spread",
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores-1",
+    "href": "Chapter Slides/chapter8-slides.html#visual-badminton-drill-accuracy-scores-1",
     "title": "STA258",
-    "section": "Example: Two Fertilizers, Similar Spread",
-    "text": "Example: Two Fertilizers, Similar Spread\n\nA gardener compares two organic fertilizers on tomato plants and expects the two groups to have similar variability. Yields (kg per plant) from independent plots:\nFertilizer A: 4.2 3.8 4.5 4.0 3.9 4.3 4.1 3.7 4.4\nFertilizer B: 3.6 3.9 3.4 3.8 3.5 3.7 3.3 4.0 3.6 3.5\nDo the two fertilizers give different mean yields at \\(\\alpha=0.05\\)?\n\n\nLet \\(\\mu_A,\\mu_B\\) be the true mean yields. Test \\(H_0:\\mu_A-\\mu_B=0\\) against \\(H_a:\\mu_A-\\mu_B\\neq 0\\).\nVariances are unknown but the spreads look similar, so use a pooled two-sample \\(t\\) test."
+    "section": "Visual: Badminton Drill Accuracy Scores",
+    "text": "Visual: Badminton Drill Accuracy Scores\n\n\n\n\n\n\n\nThe red dots show the group means. Static targets is clearly centered lower, while the two higher drill programs overlap more closely."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-download-speeds",
-    "href": "Chapter Slides/chapter6-slides.html#check-in-r-download-speeds",
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-drop-test-costs-1",
+    "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-drop-test-costs-1",
     "title": "STA258",
     "section": "Check in R: Download Speeds",
     "text": "Check in R: Download Speeds\n\n\n\n\n\n\n\n\n\nThe output gives \\(z^*=2.39\\) and p-value \\(0.0085\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
-    "href": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drills-fishers-lsd-1",
+    "href": "Chapter Slides/chapter8-slides.html#example-badminton-drills-fishers-lsd-1",
     "title": "STA258",
     "section": "Check in R: Two Fertilizers",
     "text": "Check in R: Two Fertilizers\n\n\n\n\n\n\n\n\n\nThe output gives \\(t^*=4.13\\), \\(df=17\\), and p-value \\(0.0007\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-test-on-a-variance",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-test-on-a-variance",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd-1",
+    "href": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd-1",
     "title": "STA258",
-    "section": "6.2.3 Hypothesis Test on a Variance",
-    "text": "6.2.3 Hypothesis Test on a Variance\n\nFor one normal population, test a variance using the chi-square statistic:\n\\[\n\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\n\\]\n\n\n\nReference distribution \\(\\chi^2\\) with \\(n-1\\) degrees of freedom.\n\n\nImportant condition The population should be approximately normal. Variance tests are sensitive to non-normality."
+    "section": "Example: Phone Case Drop-Test Costs — Fisher’s LSD",
+    "text": "Example: Phone Case Drop-Test Costs — Fisher’s LSD\n\n\nProblem\nA device lab compares four phone case designs after a standardized drop test.\nFor each case design, the lab records the repair cost after impact.\n\n\n\nClear\nSlim\nWallet\nRugged\n\n\n\n\n69\n73\n78\n85\n\n\n71\n75\n80\n87\n\n\n73\n77\n82\n89\n\n\n75\n79\n84\n91\n\n\n75\n79\n84\n91\n\n\n77\n81\n86\n93\n\n\n79\n83\n88\n95\n\n\n81\n85\n90\n97\n\n\n\nANOVA rejects \\(H_0\\). Which case designs differ using Fisher’s LSD?\n\n\nSetup from ANOVA\n\\[\nMSE=16.00,\n\\qquad\nv=n-k=32-4=28\n\\]\n\\[\n\\bar{x}_{Clear}=75,\\quad\n\\bar{x}_{Slim}=79,\\quad\n\\bar{x}_{Wallet}=84,\\quad\n\\bar{x}_{Rugged}=91\n\\]\nEach group has \\(n_i=8\\).\n\n\nFisher LSD calculation\n\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,28}=2.048\n\\]\n\n\nBecause all groups have size 8, the standard error is the same for every pair:\n\\[\nSE=\n\\sqrt{\n16.00\n\\left(\n\\frac18+\\frac18\n\\right)\n}\n=\n2.00\n\\]\n\n\nThe least significant difference is\n\\[\nLSD=2.048(2.00)=4.10\n\\]\nSo each pairwise interval is:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\\pm 4.10\n\\]\n\n\n\nPairwise Fisher LSD intervals\n\n\n\\[\n\\begin{aligned}\n\\text{Clear} - \\text{Slim}\n&:\\ -4.00\\pm4.10=(-8.10,\\,0.10)\\\\[5pt]\n\\text{Clear} - \\text{Wallet}\n&:\\ -9.00\\pm4.10=(-13.10,\\,-4.90)\\\\[5pt]\n\\text{Clear} - \\text{Rugged}\n&:\\ -16.00\\pm4.10=(-20.10,\\,-11.90)\n\\end{aligned}\n\\]\n\n\n\\[\n\\begin{aligned}\n\\text{Slim} - \\text{Wallet}\n&:\\ -5.00\\pm4.10=(-9.10,\\,-0.90)\\\\[5pt]\n\\text{Slim} - \\text{Rugged}\n&:\\ -12.00\\pm4.10=(-16.10,\\,-7.90)\\\\[5pt]\n\\text{Wallet} - \\text{Rugged}\n&:\\ -7.00\\pm4.10=(-11.10,\\,-2.90)\n\\end{aligned}\n\\]"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-variance",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-variance",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-late-night-scrolling-and-quiz-scores",
+    "href": "Chapter Slides/chapter8-slides.html#example-late-night-scrolling-and-quiz-scores",
     "title": "STA258",
-    "section": "6.2.3 Hypothesis Tests on a Variance",
-    "text": "6.2.3 Hypothesis Tests on a Variance\n\nFor one normal population, test a variance using the chi-square statistic:\n\\[\n\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\n\\]\n\n\n\nReference distribution \\(\\chi^2\\) with \\(n-1\\) degrees of freedom.\n\n\nImportant condition The population should be approximately normal. Variance tests are sensitive to non-normality."
+    "section": "Example: Late-Night Scrolling and Quiz Scores",
+    "text": "Example: Late-Night Scrolling and Quiz Scores\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{15+30+45+60+75+90}{6}=52.500\n\\qquad\n\\bar{y}=\\frac{88+84+76+71+63+58}{6}=73.333\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n15\n88\n−37.500\n14.667\n−550.000\n1406.250\n215.111\n\n\n30\n84\n−22.500\n10.667\n−240.000\n506.250\n113.778\n\n\n45\n76\n−7.500\n2.667\n−20.000\n56.250\n7.111\n\n\n60\n71\n7.500\n−2.333\n−17.500\n56.250\n5.444\n\n\n75\n63\n22.500\n−10.333\n−232.500\n506.250\n106.778\n\n\n90\n58\n37.500\n−15.333\n−575.000\n1406.250\n235.111\n\n\nTotals\n\n\n\n−1635.000\n3937.500\n683.333\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{3937.500/5}=28.062 \\qquad s_y=\\sqrt{683.333/5}=11.690\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=-1635.000/5=-327.000\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{-327.000}{(28.062)(11.690)}=-0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA student records late-night scrolling time after midnight and the next-day quiz score.\n\n\nWe use scrolling time to study the linear relationship with quiz score.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=-0.997 \\quad \\text{and} \\quad r^2=0.994\\)\n\n\nThe correlation is -0.997, which is strongly negative.\n\n\nAbout 99.4% of the variation in quiz scores lines up with the linear trend."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-sigma_1sigma_2-known",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-sigma_1sigma_2-known",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-late-night-scrolling-and-quiz-scores-1",
+    "href": "Chapter Slides/chapter8-slides.html#example-late-night-scrolling-and-quiz-scores-1",
     "title": "STA258",
-    "section": "6.3.1.1 Hypothesis Tests on Two Means, \\(\\sigma_1,\\sigma_2\\) Known",
-    "text": "6.3.1.1 Hypothesis Tests on Two Means, \\(\\sigma_1,\\sigma_2\\) Known\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(Z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
+    "section": "Example: Late-Night Scrolling and Quiz Scores",
+    "text": "Example: Late-Night Scrolling and Quiz Scores\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{15+30+45+60+75+90}{6}=52.500\n\\qquad\n\\bar{y}=\\frac{88+84+76+71+63+58}{6}=73.333\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n15\n88\n−37.500\n14.667\n−550.000\n1406.250\n215.111\n\n\n30\n84\n−22.500\n10.667\n−240.000\n506.250\n113.778\n\n\n45\n76\n−7.500\n2.667\n−20.000\n56.250\n7.111\n\n\n60\n71\n7.500\n−2.333\n−17.500\n56.250\n5.444\n\n\n75\n63\n22.500\n−10.333\n−232.500\n506.250\n106.778\n\n\n90\n58\n37.500\n−15.333\n−575.000\n1406.250\n235.111\n\n\nTotals\n\n\n\n−1635.000\n3937.500\n683.333\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{3937.500/5}=28.062 \\qquad s_y=\\sqrt{683.333/5}=11.690\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=-1635.000/5=-327.000\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{-327.000}{(28.062)(11.690)}=-0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA student records late-night scrolling time after midnight and the next-day quiz score.\n\n\nWe use scrolling time to study the linear relationship with quiz score.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=-0.997 \\quad \\text{and} \\quad r^2=0.994\\)\n\n\nThe correlation is -0.997, which is strongly negative.\n\n\nAbout 99.4% of the variation in quiz scores lines up with the linear trend."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-equal-variances-pooled-t",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-equal-variances-pooled-t",
+    "objectID": "Chapter Slides/chapter8-slides.html#late-night-scrolling-correlation-result",
+    "href": "Chapter Slides/chapter8-slides.html#late-night-scrolling-correlation-result",
     "title": "STA258",
-    "section": "6.3.1.2 Hypothesis Tests on Two Means, Equal Variances (Pooled \\(t\\))",
-    "text": "6.3.1.2 Hypothesis Tests on Two Means, Equal Variances (Pooled \\(t\\))\n\nWhen the population variances are unknown but can be assumed equal, pool the two sample variances into one estimate:\n\\[\ns_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2},\n\\qquad\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{s_p\\sqrt{\\dfrac{1}{n_1}+\\dfrac{1}{n_2}}}\n\\]\n\n\n\nDegrees of freedom \\(df=n_1+n_2-2\\) — exact, and larger than Welch’s.\n\n\nWhen to pool Reasonable when the sample spreads are similar — e.g. the fold rule \\(\\dfrac{\\max(s_1,s_2)}{\\min(s_1,s_2)}&lt;\\sqrt{2}\\)."
+    "section": "Late-Night Scrolling: Correlation Result",
+    "text": "Late-Night Scrolling: Correlation Result\n\n\nCalculation table\nThe means are \\(\\bar{x}=52.50\\) and \\(\\bar{y}=73.33\\). Here, x dev means \\(x_i-\\bar{x}\\) and y dev means \\(y_i-\\bar{y}\\).\n\n\n\nx\ny\nx dev\ny dev\nproduct\nx dev²\ny dev²\n\n\n\n\n15\n88\n-37.500\n14.667\n-550.000\n1406.250\n215.111\n\n\n30\n84\n-22.500\n10.667\n-240.000\n506.250\n113.778\n\n\n45\n76\n-7.500\n2.667\n-20.000\n56.250\n7.111\n\n\n60\n71\n7.500\n-2.333\n-17.500\n56.250\n5.444\n\n\n75\n63\n22.500\n-10.333\n-232.500\n506.250\n106.778\n\n\n90\n58\n37.500\n-15.333\n-575.000\n1406.250\n235.111\n\n\nTotals\n\n\n\n-1635.000\n3937.500\n683.333\n\n\n\n\n\\[\n\\sum \\text{product}=-1635.000,\n\\qquad\n\\sum x\\text{ dev}^2=3937.500,\n\\qquad\n\\sum y\\text{ dev}^2=683.333\n\\]\n\n\n\nCorrelation calculation\n\\[\ns_x=\\sqrt{\\frac{3937.500}{5}}=28.062\n\\]\n\\[\ns_y=\\sqrt{\\frac{683.333}{5}}=11.690\n\\]\n\\[\ns_{xy}=\\frac{-1635.000}{5}=-327.000\n\\]\n\\[\nr=\\frac{-327.000}{(28.062)(11.690)}=-0.997\n\\]\n\n\nConclusion\nThe correlation is \\(r=-0.997\\), which is strongly negative.\nStudents who scrolled longer after midnight tended to have lower quiz scores.\nSince \\(r^2=0.994\\), about 99.4% of the variation in quiz scores lines up with the linear trend in late-night scrolling time."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-known",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-known",
+    "objectID": "Chapter Slides/chapter8-slides.html#late-night-scrolling-anova-result",
+    "href": "Chapter Slides/chapter8-slides.html#late-night-scrolling-anova-result",
     "title": "STA258",
-    "section": "6.3.1.1 Hypothesis Tests on Two Means Known",
-    "text": "6.3.1.1 Hypothesis Tests on Two Means Known\n\nWhen both population standard deviations are known:\n\\[\nz^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\n\n\n\nUsually \\(D_0=0\\) when testing whether the population means are equal.\n\n\nUse \\(Z\\) because the population standard deviations are known."
+    "section": "Late-Night Scrolling: ANOVA Result",
+    "text": "Late-Night Scrolling: ANOVA Result\n\n\nCalculation table\nThe grand mean is \\(\\bar{x}=73.33\\). The final two columns give the pieces that add to \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\nScrolling group\n\\(n_i\\)\n\\(\\bar{x}_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(n_i(\\bar{x}_i-\\bar{x})^2\\)\n\n\n\n\n15-30 min\n2\n86.00\n8.00\n8.00\n320.89\n\n\n45-60 min\n2\n73.50\n12.50\n12.50\n0.06\n\n\n75-90 min\n2\n60.50\n12.50\n12.50\n329.39\n\n\nTotals\n6\n\n\n33.00\n650.33\n\n\n\n\n\\[\nSSE=33.00,\n\\qquad\nSSTr=650.33,\n\\qquad\nSSTotal=683.33\n\\]\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n2\n650.33\n325.17\n29.56\n0.0106\n\n\nError\n3\n33.00\n11.00\n\n\n\n\nTotal\n5\n683.33\n\n\n\n\n\n\n\\[\nMSTr=\\frac{650.33}{2}=325.17\n\\]\n\\[\nMSE=\\frac{33.00}{3}=11.00\n\\]\n\\[\nF^*=\\frac{325.17}{11.00}=29.56\n\\]\n\n\nConclusion\nSince \\(p=0.0106&lt;0.05\\), reject \\(H_0\\).\nThere is evidence that not all scrolling groups have the same population mean quiz score.\nThe group means decrease as scrolling time gets later, but ANOVA only tells us that at least one group mean differs."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-unequal-variances-welch-t",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-unequal-variances-welch-t",
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-one-way-anova",
     "title": "STA258",
-    "section": "6.3.1.3 Hypothesis Tests on Two Means, Unequal Variances (Welch \\(t\\))",
-    "text": "6.3.1.3 Hypothesis Tests on Two Means, Unequal Variances (Welch \\(t\\))\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling):\n\\[\nt^*=\n\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}\n{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\n\n\n\nDefault Welch is a good default when equal variances are not clearly justified.\n\n\nDegrees of freedom Software uses the Welch-Satterthwaite approximation."
+    "section": "Check in R: One-Way ANOVA",
+    "text": "Check in R: One-Way ANOVA\n\n\n\nCampus café example\n\n\n\n\n\n\n\n\n\n\n\n\nGym class example"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means",
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
     "title": "STA258",
     "section": "6.3.1.1 Hypothesis Tests on Two Means",
     "text": "6.3.1.1 Hypothesis Tests on Two Means\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-comparisons",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-comparisons",
     "title": "STA258",
-    "section": "6.3.1.2 Hypothesis Tests on Two Means",
-    "text": "6.3.1.2 Hypothesis Tests on Two Means\n\nWhen the population variances are unknown but can be assumed equal, pool the two sample variances into one estimate:\n\\[\ns_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2},\n\\qquad\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{s_p\\sqrt{\\dfrac{1}{n_1}+\\dfrac{1}{n_2}}}\n\\]\n\n\n\nDegrees of freedom \\(df=n_1+n_2-2\\) — exact, and larger than Welch’s.\n\n\nWhen to pool Reasonable when the sample spreads are similar — e.g. the fold rule \\(\\dfrac{\\max(s_1,s_2)}{\\min(s_1,s_2)}&lt;\\sqrt{2}\\)."
+    "section": "Check in R: Bonferroni Comparisons",
+    "text": "Check in R: Bonferroni Comparisons\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-proportions",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-proportions",
+    "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-intervals",
+    "href": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-intervals",
     "title": "STA258",
     "section": "6.3.2 Hypothesis Tests on Two Proportions",
     "text": "6.3.2 Hypothesis Tests on Two Proportions\n\nWhen testing \\(H_0:p_1-p_2=0\\), pool the sample proportions under the null and use the test statistic\n\\[\n\\hat p=\\frac{x_1+x_2}{n_1+n_2},\n\\qquad\nz^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population proportions from independent samples, with enough successes and failures in each group."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-variances",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-variances",
+    "objectID": "Chapter Slides/chapter8-slides.html#example-gym-class-types",
+    "href": "Chapter Slides/chapter8-slides.html#example-gym-class-types",
     "title": "STA258",
-    "section": "6.3.3 Hypothesis Tests on Two Variances",
-    "text": "6.3.3 Hypothesis Tests on Two Variances\n\nFor two normal populations, test a ratio of variances with the test statistic\n\\[\nF^*=\\frac{s_1^2}{s_2^2}\n\\]\nwhich, under \\(H_0\\), follows an \\(F\\) reference distribution with \\(n_1-1\\) and \\(n_2-1\\) degrees of freedom.\n\n\n\nReference distribution \\(F^*\\sim F_{n_1-1,\\,n_2-1}\\).\n\n\nUse when Comparing two population variances from independent normal samples; the \\(F\\) test is sensitive to non-normality."
+    "section": "Example: Gym Class Types",
+    "text": "Example: Gym Class Types\n\n\nProblem\nA fitness studio wants to compare four gym class types offered in 45-minute sessions:\n\ncycling,\nboxing,\nHIIT,\nyoga.\n\nFor each participant, the studio records the calories burned.\nWe want to know whether the population mean calories burned is the same for all four class types.\n\n\\[\nH_0:\\mu_1=\\mu_2=\\mu_3=\\mu_4\n\\]\n\\[\nH_a:\\text{at least one mean calories-burned value differs}\n\\]\n\nUse a one-way ANOVA at the 5% level.\n\n\n\nObserved data\n\n\n\nCycling\nBoxing\nHIIT\nYoga\n\n\n\n\n430\n450\n470\n400\n\n\n445\n460\n485\n415\n\n\n455\n475\n500\n430\n\n\n470\n490\n520\n445\n\n\n485\n505\n535\n460\n\n\n\n\n\nANOVA setup\nThe explanatory variable is the gym class type.\nThe response variable is calories burned.\nThere are \\(k=4\\) groups and \\(n=20\\) observations.\nEach class type has \\(n_i=5\\) calorie-burn measurements."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-2",
-    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-2",
+    "objectID": "Chapter Slides/chapter8-slides.html#gym-class-types-anova-result",
+    "href": "Chapter Slides/chapter8-slides.html#gym-class-types-anova-result",
     "title": "STA258",
-    "section": "6.3.1.3 Hypothesis Tests on Two Means",
-    "text": "6.3.1.3 Hypothesis Tests on Two Means\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling), with test statistic\n\\[\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), approximately follows a \\(t\\) reference distribution with the Welch–Satterthwaite degrees of freedom.\n\n\n\nReference distribution \\(T\\sim t_\\nu\\), with the Welch–Satterthwaite \\(\\nu\\).\n\n\nUse when Comparing two population means from independent samples when equal variances are not clearly justified."
+    "section": "Gym Class Types: ANOVA Result",
+    "text": "Gym Class Types: ANOVA Result\n\n\nCalculation table\nThe grand mean is \\(\\bar{x}=466.25\\). The final two columns give the pieces that add to \\(SSE\\) and \\(SSTr\\).\n\n\n\n\n\n\n\n\n\n\n\nClass type\n\\(n_i\\)\n\\(\\bar{x}_i\\)\n\\(s_i^2\\)\n\\((n_i-1)s_i^2\\)\n\\(n_i(\\bar{x}_i-\\bar{x})^2\\)\n\n\n\n\nCycling\n5\n457.00\n457.50\n1830.00\n427.81\n\n\nBoxing\n5\n476.00\n492.50\n1970.00\n475.31\n\n\nHIIT\n5\n502.00\n682.50\n2730.00\n6390.31\n\n\nYoga\n5\n430.00\n562.50\n2250.00\n6570.31\n\n\nTotals\n20\n\n\n8780.00\n13863.75\n\n\n\n\n\\[\nSSE=8780.00,\n\\qquad\nSSTr=13863.75,\n\\qquad\nSSTotal=22643.75\n\\]\n\n\n\nANOVA table\n\n\n\nSource\ndf\nSS\nMS\nF\np-value\n\n\n\n\nTreatment\n3\n13863.75\n4621.25\n8.42\n0.0014\n\n\nError\n16\n8780.00\n548.75\n\n\n\n\nTotal\n19\n22643.75\n\n\n\n\n\n\n\\[\nMSTr=\\frac{13863.75}{3}=4621.25\n\\]\n\\[\nMSE=\\frac{8780.00}{16}=548.75\n\\]\n\\[\nF^*=\\frac{4621.25}{548.75}=8.42\n\\]\n\n\nConclusion\nSince \\(p=0.0014&lt;0.05\\), reject \\(H_0\\).\nThere is evidence that not all gym class types have the same population mean calories burned.\nThe ANOVA test tells us that at least one class type has a different mean. It does not tell us which class types differ."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#paired-data-reduce-to-differences",
-    "href": "Chapter Slides/chapter6-slides.html#paired-data-reduce-to-differences",
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-gym-class-types",
+    "href": "Chapter Slides/chapter8-slides.html#visual-gym-class-types",
     "title": "STA258",
-    "section": "Paired Data: Reduce to Differences",
-    "text": "Paired Data: Reduce to Differences\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+    "section": "Visual: Gym Class Types",
+    "text": "Visual: Gym Class Types\n\n\n\n\n\n\n\nThe red dots show the sample mean calories burned for each gym class type.\nThe boxplots show the within-group spread. The centers are noticeably different, especially for HIIT compared with yoga, which matches the ANOVA conclusion that not all group means are the same."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#paired-data-1",
-    "href": "Chapter Slides/chapter6-slides.html#paired-data-1",
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-fisher-lsd-pairwise-intervals",
+    "href": "Chapter Slides/chapter8-slides.html#visual-fisher-lsd-pairwise-intervals",
     "title": "STA258",
-    "section": "Paired Data",
-    "text": "Paired Data\n\nFor matched pairs or before-after data, reduce each pair to a difference (measurement 1 \\(-\\) measurement 2):\n\\[\nd_i = m_{1i}-m_{2i} \\quad (\\text{or } m_{2i}-m_{1i})\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+    "section": "Visual: Fisher LSD Pairwise Intervals",
+    "text": "Visual: Fisher LSD Pairwise Intervals\n\n\n\n\n\n\n\nThe red dots show the observed pairwise mean differences. The red vertical intervals show the Fisher LSD intervals.\nThe black dashed line marks 0. Intervals that avoid 0 indicate pairs that are significantly different. The first two intervals avoid 0, while Target serve vs Match-play serve contains 0."
   },
   {
-    "objectID": "Chapter Slides/chapter6-slides.html#pomodoro-difference-table",
-    "href": "Chapter Slides/chapter6-slides.html#pomodoro-difference-table",
+    "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
+    "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
     "title": "STA258",
     "section": "Pomodoro: Difference Table",
     "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"

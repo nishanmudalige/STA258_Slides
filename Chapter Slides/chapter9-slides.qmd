@@ -647,17 +647,15 @@ Use residual logic to judge whether regression assumptions are reasonable.
 A **linear model** has the form:
 
 $$
-y_i =
-\beta_0+\beta_1z_{i1}+\beta_2z_{i2}+\cdots+\beta_pz_{ip}
-+\varepsilon_i,
+y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\cdots+\beta_p x_{ip}+\varepsilon_i,
 \qquad
-\varepsilon_i\sim N(0,\sigma^2).
+\varepsilon_i \sim N(0,\sigma^2).
 $$
 
 Here:
 
 - $y_i$ is the **response** variable.
-- $z_{i1},\ldots,z_{ip}$ are the **predictors**.
+- $x_{i1},\ldots,x_{ip}$ are the **predictors**.
 - $\varepsilon_i$ is random error.
 :::
 
@@ -716,30 +714,205 @@ The part of $y_i$ not explained by the line.
 
 ## 9.1.1 Least Squares Method
 
-::: {.defbox .fragment}
+::: {.defbox .fragment style="margin-bottom: 10px;"}
 A **residual** is the difference between an observed data point and a
 fitted value from the regression model:
 
 $$
-e_i=y_i-\hat{y}_i.
+e_i = y_i - \hat{y}_i.
 $$
 
 It is the vertical distance from the observed value to the fitted line.
 :::
 
-::::: two-col
-::: {.examplebox .fragment}
-If $e_i>0$, the point is **above** the fitted line.
+:::: {.two-col-wide style="grid-template-columns: 1.08fr 0.92fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+resid_demo <- data.frame(
+  x = c(1.0, 2.0, 3.5, 5.0, 6.5, 8.0),
+  y = c(35.0, 55.0, 46.0, 64.0, 72.5, 66.0)
+)
+
+resid_fit <- lm(y ~ x, data = resid_demo)
+
+resid_demo$fitted   <- fitted(resid_fit)
+resid_demo$residual <- resid(resid_fit)
+
+pos_df <- subset(resid_demo, residual >= 0)
+neg_df <- subset(resid_demo, residual < 0)
+
+line_df <- data.frame(
+  x = seq(0.5, 8.5, length.out = 300)
+)
+
+line_df$y <- predict(resid_fit, newdata = line_df)
+
+plot_ly() |>
+  add_lines(
+    data = line_df,
+    x = ~x,
+    y = ~y,
+    hoverinfo = "skip",
+    showlegend = FALSE,
+    line = list(
+      color = plot_cols$secondary,
+      width = 4
+    )
+  ) |>
+  add_segments(
+    data = pos_df,
+    x = ~x,
+    xend = ~x,
+    y = ~fitted,
+    yend = ~y,
+    customdata = ~cbind(y, fitted, residual),
+    hovertemplate = paste(
+      "<b>Positive residual</b><br>",
+      "x: %{x:.1f}<br>",
+      "Observed y: %{customdata[0]:.1f}<br>",
+      "Fitted y: %{customdata[1]:.1f}<br>",
+      "Residual: %{customdata[2]:.2f}",
+      "<extra></extra>"
+    ),
+    showlegend = FALSE,
+    line = list(
+      color = plot_cols$green,
+      width = 4
+    )
+  ) |>
+  add_segments(
+    data = neg_df,
+    x = ~x,
+    xend = ~x,
+    y = ~fitted,
+    yend = ~y,
+    customdata = ~cbind(y, fitted, residual),
+    hovertemplate = paste(
+      "<b>Negative residual</b><br>",
+      "x: %{x:.1f}<br>",
+      "Observed y: %{customdata[0]:.1f}<br>",
+      "Fitted y: %{customdata[1]:.1f}<br>",
+      "Residual: %{customdata[2]:.2f}",
+      "<extra></extra>"
+    ),
+    showlegend = FALSE,
+    line = list(
+      color = plot_cols$red,
+      width = 4
+    )
+  ) |>
+  add_markers(
+    data = resid_demo,
+    x = ~x,
+    y = ~y,
+    hovertemplate = paste(
+      "<b>Observed value</b><br>",
+      "x: %{x:.1f}<br>",
+      "y: %{y:.1f}",
+      "<extra></extra>"
+    ),
+    showlegend = FALSE,
+    marker = list(
+      color = "#111827",
+      size = 11,
+      line = list(color = "white", width = 1.2)
+    )
+  ) |>
+  add_markers(
+    data = resid_demo,
+    x = ~x,
+    y = ~fitted,
+    hovertemplate = paste(
+      "<b>Fitted value</b><br>",
+      "x: %{x:.1f}<br>",
+      "ŷ: %{y:.1f}",
+      "<extra></extra>"
+    ),
+    showlegend = FALSE,
+    marker = list(
+      color = "white",
+      size = 11,
+      line = list(color = plot_cols$main_dark, width = 2.2)
+    )
+  ) |>
+  plotly_slide_layout(
+    title = "Residuals are vertical distances from the fitted line",
+    x_title = "Predictor, x",
+    y_title = "Response, y",
+    height = 345,
+    x_range = c(0.4, 8.7),
+    y_range = c(34, 82),
+    showlegend = FALSE,
+    margin = list(l = 66, r = 18, t = 54, b = 56),
+    annotations = list(
+      list(
+        x = 2.0,
+        y = 55.0,
+        xref = "x",
+        yref = "y",
+        text = "positive residual<br><span style='font-size:12px;'>point above line</span>",
+        showarrow = TRUE,
+        arrowhead = 2,
+        arrowsize = 1,
+        arrowwidth = 1.5,
+        arrowcolor = plot_cols$green,
+        ax = 70,
+        ay = -48,
+        bgcolor = "rgba(255,255,255,0.96)",
+        bordercolor = plot_cols$border,
+        borderwidth = 1,
+        borderpad = 5,
+        font = list(size = 13, color = plot_cols$text)
+      ),
+      list(
+        x = 3.5,
+        y = 46.0,
+        xref = "x",
+        yref = "y",
+        text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
+        showarrow = TRUE,
+        arrowhead = 2,
+        arrowsize = 1,
+        arrowwidth = 1.5,
+        arrowcolor = plot_cols$red,
+        ax = 72,
+        ay = 55,
+        bgcolor = "rgba(255,255,255,0.96)",
+        bordercolor = plot_cols$border,
+        borderwidth = 1,
+        borderpad = 5,
+        font = list(size = 13, color = plot_cols$text)
+      )
+    )
+  )
+```
+
+:::
+
+::: {.col}
+
+::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 12px;"}
+If $e_i > 0$, the point is **above** the fitted line.
 
 The model underpredicted the response.
 :::
 
-::: {.examplebox .fragment}
-If $e_i<0$, the point is **below** the fitted line.
+::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 0;"}
+If $e_i < 0$, the point is **below** the fitted line.
 
 The model overpredicted the response.
 :::
-:::::
+
+:::
+
+::::
 
 ------------------------------------------------------------------------
 
@@ -866,15 +1039,15 @@ the predictor and response.
 
 ------------------------------------------------------------------------
 
-## Example: Ronaldo vs Messi GOAT Debate Clips
+## Example: Practice Problems and Quiz Score
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-A sports media page studies fictional engagement with Ronaldo vs Messi
-GOAT debate clips.
+A class collects fictional data on how many practice problem sets students
+completed before a quiz.
 
-| Clips watched $(x)$ | Engagement score $(y)$ |
+| Practice sets completed $(x)$ | Quiz score $(y)$ |
 |---:|---:|
 | 2 | 41 |
 | 3 | 47 |
@@ -932,18 +1105,18 @@ $$
 We model:
 
 $$
-y=\text{engagement score}
+y=\text{quiz score}
 $$
 
 using:
 
 $$
-x=\text{debate clips watched}
+x=\text{practice sets completed}
 $$
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-For each additional debate clip watched, the predicted engagement score
+For each additional practice set completed, the predicted quiz score
 increases by about **4.80 points**.
 :::
 
@@ -951,15 +1124,15 @@ increases by about **4.80 points**.
 
 ------------------------------------------------------------------------
 
-## Example: Argentina vs France World Cup
+## Example: Study Hours and Assignment Score
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A football media account studies fictional replay interest after viewers
-watch Argentina vs France World Cup Final highlight packages.
+A student support team collects fictional data on how many hours students
+spent studying for an assignment.
 
-| Highlight minutes $(x)$ | Replay interest $(y)$ |
+| Study hours $(x)$ | Assignment score $(y)$ |
 |---:|---:|
 | 3 | 52 |
 | 4 | 57 |
@@ -1015,19 +1188,19 @@ $$
 We model:
 
 $$
-y=\text{replay interest score}
+y=\text{assignment score}
 $$
 
 using:
 
 $$
-x=\text{highlight minutes watched}
+x=\text{study hours}
 $$
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-For each additional minute of highlights watched, the predicted replay
-interest score increases by about **4.26 points**.
+For each additional hour studied, the predicted assignment score increases
+by about **4.26 points**.
 :::
 
 ::::
@@ -1040,7 +1213,7 @@ interest score increases by about **4.26 points**.
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Ronaldo vs Messi example</span>
+<span class="label">Practice problems example</span>
 :::
 
 ```{webr}
@@ -1069,7 +1242,7 @@ print(out, row.names = FALSE)
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Argentina vs France example</span>
+<span class="label">Study hours example</span>
 :::
 
 ```{webr}
@@ -1190,150 +1363,1006 @@ linear relationship between two variables.
 
 ------------------------------------------------------------------------
 
-## Example: Caitlin Clark Highlight Clips and Shares
+## Example: Sunlight and Plant Growth {.sunlight-seq}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.sunlight-seq .sunlight-intro-grid {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 16px;
+  align-items: stretch;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A sports social-media team studies fictional viewer groups watching
-Caitlin Clark (WNBA Star) highlight clips.
+.reveal section.sunlight-seq .sunlight-intro-bottom {
+  margin-top: 14px;
+}
 
-| Highlight clips watched $(x)$ | Group-chat shares $(y)$ |
-|---:|---:|
-| 1 | 18 |
-| 2 | 21 |
-| 4 | 34 |
-| 6 | 43 |
-| 7 | 48 |
+.reveal section.sunlight-seq .sunlight-obs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin-top: 8px;
+  font-size: 0.80em;
+  line-height: 1.15;
+}
 
-Compute and interpret the sample correlation.
-:::
+.reveal section.sunlight-seq .sunlight-obs-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
+.reveal section.sunlight-seq .sunlight-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.reveal section.sunlight-seq mjx-container[display="true"],
+.reveal section.sunlight-seq .MathJax_Display {
+  margin: 0.16em 0 !important;
+}
+
+.reveal section.sunlight-seq .sunlight-goal-grid {
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.reveal section.sunlight-seq .sunlight-goal-text p {
+  margin: 0 0 9px 0;
+  line-height: 1.22;
+}
+
+.reveal section.sunlight-seq .sunlight-goal-text p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-pill {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 5px solid var(--sta-teal);
+  border-radius: 9px;
+  padding: 9px 14px 10px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-pill .sunlight-pill-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--sta-muted);
+  margin-bottom: 3px;
+}
+
+.reveal section.sunlight-seq .sunlight-formula-pill mjx-container {
+  font-size: 1.04em !important;
+}
+</style>
+```
+
+:::: {.sunlight-intro-grid}
+
+::: {.taskbox style="font-size: 0.68em; line-height: 1.2; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Context and question</span>
+
+A greenhouse records fictional data on how much sunlight different plants receive and how tall they are after several weeks.
+
+We use **sunlight hours per day** to study its relationship with **plant height**.
 
 $$
-\bar{x}=4.000,
+x=\text{sunlight hours per day},
 \qquad
-\bar{y}=32.800
+y=\text{plant height in cm}
 $$
 
-$$
-s_x=2.550,
-\qquad
-s_y=13.180
-$$
-
-$$
-s_{xy}
-=
-\frac{1}{5-1}
-\sum(x_i-\bar{x})(y_i-\bar{y})
-=
-33.500
-$$
-
-$$
-r=
-\frac{s_{xy}}{s_xs_y}
-=
-\frac{33.500}{(2.550)(13.180)}
-=
-0.997
-$$
-
-$$
-r^2=0.994
-$$
+Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target relationship</span>
+::: {.examplebox style="font-size: 0.68em; line-height: 1.13; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
-We compare highlight clips watched and group-chat shares.
-
-The sign of $r$ tells us direction. The size of $r$ tells us strength.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The correlation is **0.997**, so the relationship is strongly positive:
-groups that watch more highlight clips tend to share more clips.
+<table class="sunlight-obs-table">
+  <thead>
+    <tr>
+      <th>Sunlight hours per day, \(x\)</th>
+      <th>Plant height in cm, \(y\)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>18</td></tr>
+    <tr><td>2</td><td>21</td></tr>
+    <tr><td>4</td><td>34</td></tr>
+    <tr><td>6</td><td>43</td></tr>
+    <tr><td>7</td><td>48</td></tr>
+  </tbody>
+</table>
 :::
 
 ::::
 
----
+::: {.notebox .sunlight-intro-bottom style="font-size: 0.66em; line-height: 1.18; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Goal of the example</span>
 
-## Example: Late-Night TikTok Scrolling and Quiz Scores
+:::: {.sunlight-goal-grid}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
-
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A student group collects fictional data on late-night TikTok scrolling
-before a morning quiz.
-
-| TikTok minutes after midnight $(x)$ | Quiz score $(y)$ |
-|---:|---:|
-| 15 | 88 |
-| 30 | 84 |
-| 45 | 76 |
-| 60 | 71 |
-| 75 | 63 |
-| 90 | 58 |
-
-Compute and interpret the sample correlation.
+::: {.sunlight-goal-text}
+<p>We want to measure the strength and direction of the linear relationship between sunlight and plant height. This means computing the covariance, then standardizing it into a correlation.</p>
+<p>The sign of $r$ tells us direction. The size of $r$ tells us strength.</p>
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
-
+::: {.sunlight-formula-stack}
+<div class="sunlight-formula-pill">
+<span class="sunlight-pill-label">Covariance</span>
 $$
-\bar{x}=52.500,
+s_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+$$
+</div>
+
+<div class="sunlight-formula-pill">
+<span class="sunlight-pill-label">Correlation</span>
+$$
+r=\frac{s_{xy}}{s_xs_y}
+$$
+</div>
+:::
+
+::::
+
+:::
+
+------------------------------------------------------------------------
+
+## Example: Sunlight and Plant Growth {.sunlight-r2-fixed}
+
+```{=html}
+<style>
+.reveal section.sunlight-r2-fixed {
+  font-size: 0.77em;
+}
+
+/* Main layout */
+.reveal section.sunlight-r2-fixed .sunlight-answer-grid {
+  display: grid;
+  grid-template-columns: 0.68fr 0.32fr;
+  gap: 13px;
+  align-items: stretch;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-left-stack {
+  display: grid;
+  gap: 10px;
+  align-items: start;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-right-stack {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* Cards */
+.reveal section.sunlight-r2-fixed .sunlight-setup-card,
+.reveal section.sunlight-r2-fixed .sunlight-table-card,
+.reveal section.sunlight-r2-fixed .sunlight-calc-card,
+.reveal section.sunlight-r2-fixed .sunlight-problem-card,
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--sta-border) !important;
+}
+
+/* White cards */
+.reveal section.sunlight-r2-fixed .sunlight-setup-card,
+.reveal section.sunlight-r2-fixed .sunlight-calc-card,
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+}
+
+/* Table card */
+.reveal section.sunlight-r2-fixed .sunlight-table-card {
+  padding: 10px 12px 8px 12px;
+}
+
+/* Compact problem card */
+.reveal section.sunlight-r2-fixed .sunlight-problem-card {
+  background: var(--sta-yellow);
+  border: 1px solid rgba(255, 167, 38, 0.24);
+  padding: 12px 14px;
+}
+
+/* Minimal conclusion card, pushed lower */
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card {
+  align-self: end;
+  padding: 12px 14px;
+}
+
+/* Card spacing */
+.reveal section.sunlight-r2-fixed .sunlight-setup-card {
+  padding: 10px 14px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-calc-card {
+  padding: 10px 14px 11px 14px;
+}
+
+/* Titles */
+.reveal section.sunlight-r2-fixed .sunlight-card-title,
+.reveal section.sunlight-r2-fixed .sunlight-problem-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+/* Setup */
+.reveal section.sunlight-r2-fixed .sunlight-setup-card p {
+  font-size: 13.4px;
+  line-height: 1.18;
+  margin: 0 0 5px 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-setup-card p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-setup-math {
+  font-size: 15.2px;
+  line-height: 1.12;
+  margin-top: 5px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-setup-math mjx-container[display="true"],
+.reveal section.sunlight-r2-fixed .sunlight-setup-math .MathJax_Display {
+  margin: 0.10em 0 !important;
+}
+
+/* Table note */
+.reveal section.sunlight-r2-fixed .sunlight-card-note {
+  font-size: 12.5px;
+  line-height: 1.14;
+  color: var(--sta-muted);
+  margin: 0 0 6px 0;
+}
+
+/* Chapter 8-style markdown table */
+.reveal section.sunlight-r2-fixed .sunlight-table-card table {
+  font-size: 0.52em;
+  margin: 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-table-card th,
+.reveal section.sunlight-r2-fixed .sunlight-table-card td {
+  padding: 3px 6px;
+  line-height: 1.05;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-table-card th {
+  text-align: center;
+  font-weight: 700;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-table-card td {
+  text-align: right;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-table-card td:first-child,
+.reveal section.sunlight-r2-fixed .sunlight-table-card td:nth-child(2) {
+  text-align: center;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-table-card tbody tr:last-child td {
+  background: #eef8fb;
+  font-weight: 700;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+/* Final calculation */
+.reveal section.sunlight-r2-fixed .sunlight-calc-lines {
+  display: grid;
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-calc-line {
+  display: grid;
+  grid-template-columns: 0.24fr 0.76fr;
+  gap: 10px;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid #e5edf0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-calc-line:last-child {
+  border-bottom: none;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-line-label {
+  font-weight: 800;
+  color: var(--sta-text);
+  font-size: 13px;
+  line-height: 1.08;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-line-math {
+  font-size: 15.6px;
+  line-height: 1.10;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-line-math mjx-container[display="true"],
+.reveal section.sunlight-r2-fixed .sunlight-line-math .MathJax_Display {
+  margin: 0.06em 0 !important;
+}
+
+/* Problem */
+.reveal section.sunlight-r2-fixed .sunlight-problem-card p {
+  font-size: 13.8px;
+  line-height: 1.20;
+  margin: 0 0 7px 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-problem-card p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-problem-target {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 105, 92, 0.18);
+  font-weight: 700;
+}
+
+/* Minimal conclusion */
+.reveal section.sunlight-r2-fixed .sunlight-result-pill {
+  background: #fbfdfe;
+  border: 1px solid rgba(0, 105, 92, 0.24);
+  border-radius: 9px;
+  padding: 7px 9px;
+  margin: 2px 0 8px 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  text-align: center;
+  line-height: 1.10;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card p {
+  font-size: 13.8px;
+  line-height: 1.18;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.sunlight-r2-fixed .sunlight-conclusion-card p:last-child {
+  margin-bottom: 0;
+}
+</style>
+```
+
+:::: {.sunlight-answer-grid}
+
+::: {.sunlight-left-stack}
+
+::: {.sunlight-setup-card .fragment}
+
+::: {.sunlight-card-title}
+Calculation setup
+:::
+
+<p>To compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate $s_x$, $s_y$, $s_{xy}$, and $r$.</p>
+
+::: {.sunlight-setup-math}
+$$
+\bar{x}=\frac{1+2+4+6+7}{5}=4.000
 \qquad
-\bar{y}=73.333
+\bar{y}=\frac{18+21+34+43+48}{5}=32.800
 $$
+:::
+
+:::
+
+::: {.sunlight-table-card .fragment}
+
+::: {.sunlight-card-title}
+Step-by-step deviations and products
+:::
+
+::: {.sunlight-card-note}
+The totals row gives the values used in the final calculation.
+:::
+
+| $x_i$ | $y_i$ | $x_i-\bar{x}$ | $y_i-\bar{y}$ | $(x_i-\bar{x})(y_i-\bar{y})$ | $(x_i-\bar{x})^2$ | $(y_i-\bar{y})^2$ |
+|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 18 | −3.000 | −14.800 | 44.400 | 9.000 | 219.040 |
+| 2 | 21 | −2.000 | −11.800 | 23.600 | 4.000 | 139.240 |
+| 4 | 34 | 0.000 | 1.200 | 0.000 | 0.000 | 1.440 |
+| 6 | 43 | 2.000 | 10.200 | 20.400 | 4.000 | 104.040 |
+| 7 | 48 | 3.000 | 15.200 | 45.600 | 9.000 | 231.040 |
+| **Totals** |  |  |  | **134.000** | **26.000** | **694.800** |
+
+:::
+
+::: {.sunlight-calc-card .fragment}
+
+::: {.sunlight-card-title}
+Final calculation
+:::
+
+:::: {.sunlight-calc-lines}
+
+::: {.sunlight-calc-line}
+<div class="sunlight-line-label">Standard deviations</div>
+<div class="sunlight-line-math">$s_x=\sqrt{26.000/4}=2.550 \qquad s_y=\sqrt{694.800/4}=13.180$</div>
+:::
+
+::: {.sunlight-calc-line}
+<div class="sunlight-line-label">Covariance</div>
+<div class="sunlight-line-math">$s_{xy}=134.000/4=33.500$</div>
+:::
+
+::: {.sunlight-calc-line}
+<div class="sunlight-line-label">Correlation</div>
+<div class="sunlight-line-math">$r=\dfrac{33.500}{(2.550)(13.180)}=0.997$</div>
+:::
+
+::::
+
+:::
+
+:::
+
+::: {.sunlight-right-stack}
+
+::: {.sunlight-problem-card}
+<span class="label">Problem</span>
+
+<p>A greenhouse records data on sunlight hours per day and plant height after several weeks.</p>
+
+<p>We use sunlight hours to study the linear relationship with plant height.</p>
+
+<div class="sunlight-problem-target">
+Compute and interpret the sample correlation, $r$.
+</div>
+:::
+
+::: {.sunlight-conclusion-card .fragment}
+
+::: {.sunlight-card-title}
+Conclusion
+:::
+
+::: {.sunlight-result-pill}
+$r=0.997 \quad \text{and} \quad r^2=0.994$
+:::
+
+<p>The correlation is **0.997**, which is strongly positive.</p>
+
+<p>About **99.4%** of the variation in plant height lines up with the linear trend.</p>
+
+:::
+
+:::
+
+::::
+
+------------------------------------------------------------------------
+
+## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-seq}
+
+```{=html}
+<style>
+.reveal section.late-scroll-seq .scroll-intro-grid {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.reveal section.late-scroll-seq .scroll-intro-bottom {
+  margin-top: 14px;
+}
+
+.reveal section.late-scroll-seq .scroll-obs-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin-top: 8px;
+  font-size: 0.80em;
+  line-height: 1.15;
+}
+
+.reveal section.late-scroll-seq .scroll-obs-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.reveal section.late-scroll-seq .scroll-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.reveal section.late-scroll-seq mjx-container[display="true"],
+.reveal section.late-scroll-seq .MathJax_Display {
+  margin: 0.16em 0 !important;
+}
+
+.reveal section.late-scroll-seq .scroll-goal-grid {
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.reveal section.late-scroll-seq .scroll-goal-text p {
+  margin: 0 0 9px 0;
+  line-height: 1.22;
+}
+
+.reveal section.late-scroll-seq .scroll-goal-text p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.late-scroll-seq .scroll-formula-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.reveal section.late-scroll-seq .scroll-formula-pill {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 5px solid var(--sta-teal);
+  border-radius: 9px;
+  padding: 9px 14px 10px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.reveal section.late-scroll-seq .scroll-formula-pill .scroll-pill-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--sta-muted);
+  margin-bottom: 3px;
+}
+
+.reveal section.late-scroll-seq .scroll-formula-pill mjx-container {
+  font-size: 1.04em !important;
+}
+</style>
+```
+
+:::: {.scroll-intro-grid}
+
+::: {.taskbox style="font-size: 0.68em; line-height: 1.2; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Context and question</span>
+
+A student group collects fictional data on late-night scrolling before a morning quiz.
+
+We use **minutes after midnight** to study its relationship with **quiz score**.
 
 $$
-s_x=28.062,
+x=\text{minutes after midnight},
 \qquad
-s_y=11.690
+y=\text{quiz score}
 $$
 
-$$
-s_{xy}
-=
-\frac{1}{6-1}
-\sum(x_i-\bar{x})(y_i-\bar{y})
-=
--327.000
-$$
+Compute and interpret the sample correlation, $r$.
+:::
 
-$$
-r=
-\frac{s_{xy}}{s_xs_y}
-=
-\frac{-327.000}{(28.062)(11.690)}
-=
--0.997
-$$
+::: {.examplebox style="font-size: 0.68em; line-height: 1.13; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
+<table class="scroll-obs-table">
+  <thead>
+    <tr>
+      <th>Minutes after midnight, \(x\)</th>
+      <th>Quiz score, \(y\)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>15</td><td>88</td></tr>
+    <tr><td>30</td><td>84</td></tr>
+    <tr><td>45</td><td>76</td></tr>
+    <tr><td>60</td><td>71</td></tr>
+    <tr><td>75</td><td>63</td></tr>
+    <tr><td>90</td><td>58</td></tr>
+  </tbody>
+</table>
+:::
+
+::::
+
+::: {.notebox .scroll-intro-bottom style="font-size: 0.66em; line-height: 1.18; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Goal of the example</span>
+
+:::: {.scroll-goal-grid}
+
+::: {.scroll-goal-text}
+<p>We want to measure the strength and direction of the linear relationship between late-night scrolling time and quiz score.</p>
+<p>The sign of $r$ tells us direction. The size of $r$ tells us strength.</p>
+:::
+
+::: {.scroll-formula-stack}
+<div class="scroll-formula-pill">
+<span class="scroll-pill-label">Covariance</span>
 $$
-r^2=0.994
+s_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+$$
+</div>
+
+<div class="scroll-formula-pill">
+<span class="scroll-pill-label">Correlation</span>
+$$
+r=\frac{s_{xy}}{s_xs_y}
+$$
+</div>
+:::
+
+::::
+
+:::
+
+------------------------------------------------------------------------
+
+## Example: Late-Night Scrolling and Quiz Scores {.late-scroll-r2-fixed}
+
+```{=html}
+<style>
+.reveal section.late-scroll-r2-fixed {
+  font-size: 0.77em;
+}
+
+/* Main layout */
+.reveal section.late-scroll-r2-fixed .scroll-answer-grid {
+  display: grid;
+  grid-template-columns: 0.68fr 0.32fr;
+  gap: 13px;
+  align-items: stretch;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-left-stack {
+  display: grid;
+  gap: 10px;
+  align-items: start;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-right-stack {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* Cards */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card,
+.reveal section.late-scroll-r2-fixed .scroll-table-card,
+.reveal section.late-scroll-r2-fixed .scroll-calc-card,
+.reveal section.late-scroll-r2-fixed .scroll-problem-card,
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
+  border-left: 1px solid var(--sta-border) !important;
+}
+
+/* White cards */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card,
+.reveal section.late-scroll-r2-fixed .scroll-calc-card,
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+}
+
+/* Table card */
+.reveal section.late-scroll-r2-fixed .scroll-table-card {
+  padding: 10px 12px 8px 12px;
+}
+
+/* Compact problem card */
+.reveal section.late-scroll-r2-fixed .scroll-problem-card {
+  background: var(--sta-yellow);
+  border: 1px solid rgba(255, 167, 38, 0.24);
+  padding: 12px 14px;
+}
+
+/* Minimal conclusion card, pushed lower */
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card {
+  align-self: end;
+  padding: 12px 14px;
+}
+
+/* Card spacing */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card {
+  padding: 10px 14px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-calc-card {
+  padding: 10px 14px 11px 14px;
+}
+
+/* Titles */
+.reveal section.late-scroll-r2-fixed .scroll-card-title,
+.reveal section.late-scroll-r2-fixed .scroll-problem-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+/* Setup */
+.reveal section.late-scroll-r2-fixed .scroll-setup-card p {
+  font-size: 13.4px;
+  line-height: 1.18;
+  margin: 0 0 5px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-setup-card p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-setup-math {
+  font-size: 15.2px;
+  line-height: 1.12;
+  margin-top: 5px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-setup-math mjx-container[display="true"],
+.reveal section.late-scroll-r2-fixed .scroll-setup-math .MathJax_Display {
+  margin: 0.10em 0 !important;
+}
+
+/* Table note */
+.reveal section.late-scroll-r2-fixed .scroll-card-note {
+  font-size: 12.5px;
+  line-height: 1.14;
+  color: var(--sta-muted);
+  margin: 0 0 6px 0;
+}
+
+/* Chapter 8-style markdown table */
+.reveal section.late-scroll-r2-fixed .scroll-table-card table {
+  font-size: 0.50em;
+  margin: 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card th,
+.reveal section.late-scroll-r2-fixed .scroll-table-card td {
+  padding: 3px 6px;
+  line-height: 1.05;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card th {
+  text-align: center;
+  font-weight: 700;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card td {
+  text-align: right;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card td:first-child,
+.reveal section.late-scroll-r2-fixed .scroll-table-card td:nth-child(2) {
+  text-align: center;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-table-card tbody tr:last-child td {
+  background: #eef8fb;
+  font-weight: 700;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+/* Final calculation */
+.reveal section.late-scroll-r2-fixed .scroll-calc-lines {
+  display: grid;
+  gap: 3px;
+  margin-top: 3px;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-calc-line {
+  display: grid;
+  grid-template-columns: 0.24fr 0.76fr;
+  gap: 10px;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid #e5edf0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-calc-line:last-child {
+  border-bottom: none;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-line-label {
+  font-weight: 800;
+  color: var(--sta-text);
+  font-size: 13px;
+  line-height: 1.08;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-line-math {
+  font-size: 15.6px;
+  line-height: 1.10;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-line-math mjx-container[display="true"],
+.reveal section.late-scroll-r2-fixed .scroll-line-math .MathJax_Display {
+  margin: 0.06em 0 !important;
+}
+
+/* Problem */
+.reveal section.late-scroll-r2-fixed .scroll-problem-card p {
+  font-size: 13.8px;
+  line-height: 1.20;
+  margin: 0 0 7px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-problem-card p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-problem-target {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 105, 92, 0.18);
+  font-weight: 700;
+}
+
+/* Minimal conclusion */
+.reveal section.late-scroll-r2-fixed .scroll-result-pill {
+  background: #fbfdfe;
+  border: 1px solid rgba(0, 105, 92, 0.24);
+  border-radius: 9px;
+  padding: 7px 9px;
+  margin: 2px 0 8px 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  text-align: center;
+  line-height: 1.10;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card p {
+  font-size: 13.8px;
+  line-height: 1.18;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.late-scroll-r2-fixed .scroll-conclusion-card p:last-child {
+  margin-bottom: 0;
+}
+</style>
+```
+
+:::: {.scroll-answer-grid}
+
+::: {.scroll-left-stack}
+
+::: {.scroll-setup-card .fragment}
+
+::: {.scroll-card-title}
+Calculation setup
+:::
+
+<p>To compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate $s_x$, $s_y$, $s_{xy}$, and $r$.</p>
+
+::: {.scroll-setup-math}
+$$
+\bar{x}=\frac{15+30+45+60+75+90}{6}=52.500
+\qquad
+\bar{y}=\frac{88+84+76+71+63+58}{6}=73.333
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target relationship</span>
-
-We compare late-night TikTok scrolling time and morning quiz score.
-
-The sign of $r$ tells us direction. The size of $r$ tells us strength.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The correlation is **-0.997**, so the relationship is strongly negative:
-students who scrolled longer after midnight tended to have lower quiz
-scores.
+::: {.scroll-table-card .fragment}
+
+::: {.scroll-card-title}
+Step-by-step deviations and products
+:::
+
+::: {.scroll-card-note}
+The totals row gives the values used in the final calculation.
+:::
+
+| $x_i$ | $y_i$ | $x_i-\bar{x}$ | $y_i-\bar{y}$ | $(x_i-\bar{x})(y_i-\bar{y})$ | $(x_i-\bar{x})^2$ | $(y_i-\bar{y})^2$ |
+|---:|---:|---:|---:|---:|---:|---:|
+| 15 | 88 | −37.500 | 14.667 | −550.000 | 1406.250 | 215.111 |
+| 30 | 84 | −22.500 | 10.667 | −240.000 | 506.250 | 113.778 |
+| 45 | 76 | −7.500 | 2.667 | −20.000 | 56.250 | 7.111 |
+| 60 | 71 | 7.500 | −2.333 | −17.500 | 56.250 | 5.444 |
+| 75 | 63 | 22.500 | −10.333 | −232.500 | 506.250 | 106.778 |
+| 90 | 58 | 37.500 | −15.333 | −575.000 | 1406.250 | 235.111 |
+| **Totals** |  |  |  | **−1635.000** | **3937.500** | **683.333** |
+
+:::
+
+::: {.scroll-calc-card .fragment}
+
+::: {.scroll-card-title}
+Final calculation
+:::
+
+:::: {.scroll-calc-lines}
+
+::: {.scroll-calc-line}
+<div class="scroll-line-label">Standard deviations</div>
+<div class="scroll-line-math">$s_x=\sqrt{3937.500/5}=28.062 \qquad s_y=\sqrt{683.333/5}=11.690$</div>
+:::
+
+::: {.scroll-calc-line}
+<div class="scroll-line-label">Covariance</div>
+<div class="scroll-line-math">$s_{xy}=-1635.000/5=-327.000$</div>
+:::
+
+::: {.scroll-calc-line}
+<div class="scroll-line-label">Correlation</div>
+<div class="scroll-line-math">$r=\dfrac{-327.000}{(28.062)(11.690)}=-0.997$</div>
+:::
+
+::::
+
+:::
+
+:::
+
+::: {.scroll-right-stack}
+
+::: {.scroll-problem-card}
+<span class="label">Problem</span>
+
+<p>A student records late-night scrolling time after midnight and the next-day quiz score.</p>
+
+<p>We use scrolling time to study the linear relationship with quiz score.</p>
+
+<div class="scroll-problem-target">
+Compute and interpret the sample correlation, $r$.
+</div>
+:::
+
+::: {.scroll-conclusion-card .fragment}
+
+::: {.scroll-card-title}
+Conclusion
+:::
+
+::: {.scroll-result-pill}
+$r=-0.997 \quad \text{and} \quad r^2=0.994$
+:::
+
+<p>The correlation is **-0.997**, which is strongly negative.</p>
+
+<p>About **99.4%** of the variation in quiz scores lines up with the linear trend.</p>
+
+:::
+
 :::
 
 ::::
@@ -1346,7 +2375,7 @@ scores.
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Caitlin Clark highlight example</span>
+<span class="label">Sunlight and plant growth example</span>
 :::
 
 ```{webr}
@@ -1358,14 +2387,9 @@ y <- c(18, 21, 34, 43, 48)
 model <- lm(y ~ x)
 
 out <- round(data.frame(
-  xbar = mean(x),
-  ybar = mean(y),
-  sx = sd(x),
-  sy = sd(y),
-  sxy = cov(x, y),
-  r = cor(x, y),
-  r2 = cor(x, y)^2,
-  R2 = summary(model)$r.squared
+  covariance = cov(x, y),
+  correlation = cor(x, y),
+  r_squared = summary(model)$r.squared
 ), 3)
 
 print(out, row.names = FALSE)
@@ -1386,14 +2410,9 @@ y <- c(88, 84, 76, 71, 63, 58)
 model <- lm(y ~ x)
 
 out <- round(data.frame(
-  xbar = mean(x),
-  ybar = mean(y),
-  sx = sd(x),
-  sy = sd(y),
-  sxy = cov(x, y),
-  r = cor(x, y),
-  r2 = cor(x, y)^2,
-  R2 = summary(model)$r.squared
+  covariance = cov(x, y),
+  correlation = cor(x, y),
+  r_squared = summary(model)$r.squared
 ), 3)
 
 print(out, row.names = FALSE)
@@ -1762,6 +2781,7 @@ $$
 
 A large $R^2$ does **not** prove causation.
 :::
+
 ::::::
 
 ::: {.thinkbox .fragment}
@@ -1772,168 +2792,1273 @@ model.”
 
 ------------------------------------------------------------------------
 
-## Example: F1 Monaco Simulator Practice
+## Example: F1 Monaco Simulator Practice {.f1-monaco-3a}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.90fr 1.10fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.f1-monaco-3a {
+  font-size: 0.82em;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.56em; line-height: 1.09; padding: 10px 14px; margin-bottom: 0;"}
-An F1 analytics page studies a fictional Monaco simulator practice
-session.
+.reveal section.f1-monaco-3a .f1-intro-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 14px;
+  align-items: stretch;
+}
 
-For each player:
+.reveal section.f1-monaco-3a .f1-context-card,
+.reveal section.f1-monaco-3a .f1-data-card,
+.reveal section.f1-monaco-3a .f1-goal-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
 
-- $x=$ simulator practice laps
-- $y=$ lap-time improvement in seconds
+.reveal section.f1-monaco-3a .f1-context-card {
+  padding: 18px 20px;
+}
 
-The fitted line is:
+.reveal section.f1-monaco-3a .f1-data-card {
+  padding: 16px 18px;
+}
 
-$$
-\hat{y}=-0.098+0.141x.
-$$
+.reveal section.f1-monaco-3a .f1-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 10px 0;
+}
 
-**Question.** Calculate $SSE$, $SSR$, $SST$, and $R^2$.
+.reveal section.f1-monaco-3a .f1-context-card p,
+.reveal section.f1-monaco-3a .f1-goal-card p,
+.reveal section.f1-monaco-3a .f1-goal-card li {
+  font-size: 17px;
+  line-height: 1.24;
+  margin: 0 0 12px 0;
+}
 
-| $x$ | $y$ | $\hat y$ | $(y-\hat y)^2$ | $(\hat y-\bar y)^2$ |
-|---:|---:|---:|---:|---:|
-| 5 | 0.6 | 0.607 | 0.000 | 0.798 |
-| 8 | 1.0 | 1.030 | 0.001 | 0.221 |
-| 10 | 1.4 | 1.312 | 0.008 | 0.035 |
-| 12 | 1.5 | 1.594 | 0.009 | 0.009 |
-| 15 | 2.1 | 2.017 | 0.007 | 0.267 |
-| 18 | 2.4 | 2.440 | 0.002 | 0.884 |
+.reveal section.f1-monaco-3a .f1-variable-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 10px 12px;
+  margin: 12px 0 14px 0;
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--sta-text);
+}
+
+.reveal section.f1-monaco-3a .f1-fit-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.35);
+  border-radius: 9px;
+  padding: 11px 12px;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  line-height: 1.15;
+}
+
+.reveal section.f1-monaco-3a .f1-obs-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+  font-size: 16px;
+}
+
+.reveal section.f1-monaco-3a .f1-obs-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.f1-monaco-3a .f1-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-card {
+  margin-top: 14px;
+  padding: 18px 20px;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-layout {
+  display: grid;
+  grid-template-columns: 1.06fr 0.94fr;
+  gap: 22px;
+  align-items: center;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-list {
+  margin: 8px 0 0 0;
+  padding-left: 21px;
+}
+
+.reveal section.f1-monaco-3a .f1-goal-list li {
+  margin-bottom: 5px;
+}
+
+.reveal section.f1-monaco-3a .f1-formula-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.reveal section.f1-monaco-3a .f1-formula-card {
+  background: white;
+  border: 1px solid #d7e4e7;
+  border-left: 6px solid var(--sta-teal);
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+}
+
+.reveal section.f1-monaco-3a .f1-formula-label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sta-muted);
+  margin-bottom: 6px;
+}
+
+.reveal section.f1-monaco-3a .f1-formula-eq {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  line-height: 1.15;
+}
+</style>
+```
+
+:::: {.f1-intro-grid}
+
+::: {.taskbox .f1-context-card}
+
+::: {.f1-card-title}
+Context and question
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
+A Formula 1 team records fictional data from a Monaco simulator session.
 
-The sample mean response is:
+We use the number of **simulator practice laps** to predict **lap-time improvement**, measured in seconds.
 
-$$
-\bar{y}=1.500
-$$
-
-Unexplained variation:
-
-$$
-SSE=\sum(y_i-\hat{y}_i)^2=0.026
-$$
-
-Explained variation:
-
-$$
-SSR=\sum(\hat{y}_i-\bar{y})^2=2.214
-$$
-
-Total variation:
-
-$$
-SST=\sum(y_i-\bar{y})^2=2.240
-$$
-
-Check:
-
-$$
-SSR+SSE=2.214+0.026=2.240=SST
-$$
-
-$$
-R^2=\frac{2.214}{2.240}=0.988
-$$
+::: {.f1-variable-pill .fragment data-fragment-index="1"}
+**x = simulator practice laps**  
+**y = lap-time improvement in seconds**
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target relationship</span>
+The fitted regression line is:
 
-We model lap-time improvement using simulator practice laps.
+::: {.f1-fit-pill .fragment data-fragment-index="2"}
+ŷ = −0.098 + 0.141x
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-About **98.8%** of the variation in lap-time improvement is explained by
-practice laps through the fitted linear model.
+:::
+
+::: {.examplebox .f1-data-card .fragment data-fragment-index="3"}
+
+::: {.f1-card-title}
+Observed data
+:::
+
+<table class="f1-obs-table">
+  <thead>
+    <tr>
+      <th>Practice laps, x</th>
+      <th>Lap-time improvement, y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>5</td><td>0.6</td></tr>
+    <tr><td>8</td><td>1.0</td></tr>
+    <tr><td>10</td><td>1.4</td></tr>
+    <tr><td>12</td><td>1.5</td></tr>
+    <tr><td>15</td><td>2.1</td></tr>
+    <tr><td>18</td><td>2.4</td></tr>
+  </tbody>
+</table>
+
+:::
+
+::::
+
+::: {.notebox .f1-goal-card .fragment data-fragment-index="4"}
+
+::: {.f1-card-title}
+Goal of the example
+:::
+
+:::: {.f1-goal-layout}
+
+::: {.f1-goal-text}
+We want to split the total variation in lap-time improvement into:
+
+<ul class="f1-goal-list">
+  <li><strong>SSE</strong>: unexplained variation left in the residuals</li>
+  <li><strong>SSR</strong>: variation explained by the fitted regression line</li>
+  <li><strong>SST</strong>: total variation in the observed response values</li>
+</ul>
+
+Then we compute R², the proportion of total variation explained by simulator practice laps through the fitted linear model.
+:::
+
+::: {.f1-formula-stack}
+
+::: {.f1-formula-card}
+::: {.f1-formula-label}
+Variance decomposition
+:::
+::: {.f1-formula-eq}
+SST = SSR + SSE
+:::
+:::
+
+::: {.f1-formula-card}
+::: {.f1-formula-label}
+Coefficient of determination
+:::
+::: {.f1-formula-eq}
+R² = SSR / SST
+:::
+:::
+
+:::
+
+::::
+
+:::
+
+------------------------------------------------------------------------
+
+## Example: F1 Monaco Simulator Practice {.f1-monaco-3b}
+
+```{=html}
+<style>
+.reveal section.f1-monaco-3b {
+  font-size: 0.80em;
+}
+
+.reveal section.f1-monaco-3b .f1-stack-pro {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.reveal section.f1-monaco-3b .f1-stack-card {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
+
+.reveal section.f1-monaco-3b .f1-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.f1-monaco-3b .f1-card-note {
+  font-size: 15px;
+  line-height: 1.20;
+  color: var(--sta-muted);
+  margin: 0 0 8px 0;
+}
+
+.reveal section.f1-monaco-3b .f1-fit-eq {
+  font-weight: 800;
+  color: var(--sta-text);
+  background: #fbfdfe;
+  border: 1px solid #d7e4e7;
+  border-radius: 7px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.reveal section.f1-monaco-3b .f1-clean-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+}
+
+.reveal section.f1-monaco-3b .f1-clean-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 7px 7px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.06;
+  white-space: normal;
+}
+
+.reveal section.f1-monaco-3b .f1-clean-table td {
+  border: 1px solid var(--sta-border);
+  padding: 6px 8px;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.f1-monaco-3b .f1-pred-table {
+  font-size: 15.5px;
+}
+
+.reveal section.f1-monaco-3b .f1-pred-table th:nth-child(1) { width: 13%; }
+.reveal section.f1-monaco-3b .f1-pred-table th:nth-child(2) { width: 65%; }
+.reveal section.f1-monaco-3b .f1-pred-table th:nth-child(3) { width: 22%; }
+
+.reveal section.f1-monaco-3b .f1-pred-table td:nth-child(1),
+.reveal section.f1-monaco-3b .f1-pred-table td:nth-child(3) {
+  text-align: center;
+  font-weight: 650;
+}
+
+.reveal section.f1-monaco-3b .f1-pred-table td:nth-child(2) {
+  text-align: left;
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+.reveal section.f1-monaco-3b .f1-var-table {
+  font-size: 14.5px;
+}
+
+.reveal section.f1-monaco-3b .f1-var-table th {
+  padding: 7px 6px;
+  font-size: 14px;
+}
+
+.reveal section.f1-monaco-3b .f1-var-table td {
+  text-align: center;
+  padding: 6px 6px;
+}
+
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(1) { width: 9%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(2) { width: 9%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(3) { width: 11%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(4) { width: 24%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(5) { width: 24%; }
+.reveal section.f1-monaco-3b .f1-var-table th:nth-child(6) { width: 23%; }
+
+.reveal section.f1-monaco-3b .f1-total-row td {
+  background: #eef8fb;
+  font-weight: 800;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+.reveal section.f1-monaco-3b .f1-total-row td:nth-child(4),
+.reveal section.f1-monaco-3b .f1-total-row td:nth-child(5),
+.reveal section.f1-monaco-3b .f1-total-row td:nth-child(6) {
+  color: var(--sta-teal-dark);
+}
+</style>
+```
+
+:::: {.f1-stack-pro}
+
+::: {.examplebox .f1-stack-card .fragment data-fragment-index="1"}
+<div class="f1-card-title">Predicted values</div>
+
+<div class="f1-card-note">
+Use the fitted line: <span class="f1-fit-eq">ŷ = −0.098 + 0.141x</span>.
+</div>
+
+<table class="f1-clean-table f1-pred-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>Plug into fitted line</th>
+      <th>ŷ<sub>i</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>5</td><td>−0.098 + 0.141(5)</td><td>0.607</td></tr>
+    <tr><td>8</td><td>−0.098 + 0.141(8)</td><td>1.030</td></tr>
+    <tr><td>10</td><td>−0.098 + 0.141(10)</td><td>1.312</td></tr>
+    <tr><td>12</td><td>−0.098 + 0.141(12)</td><td>1.594</td></tr>
+    <tr><td>15</td><td>−0.098 + 0.141(15)</td><td>2.017</td></tr>
+    <tr><td>18</td><td>−0.098 + 0.141(18)</td><td>2.440</td></tr>
+  </tbody>
+</table>
+:::
+
+::: {.stat-card .f1-stack-card .fragment data-fragment-index="2"}
+<div class="f1-card-title">Variation table</div>
+
+<div class="f1-card-note">
+Here <strong>ȳ = 1.500</strong>. The three right-hand columns correspond to <strong>SSE</strong>, <strong>SSR</strong>, and <strong>SST</strong>.
+</div>
+
+<table class="f1-clean-table f1-var-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+      <th>ŷ<sub>i</sub></th>
+      <th>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup></th>
+      <th>(ŷ<sub>i</sub> − ȳ)<sup>2</sup></th>
+      <th>(y<sub>i</sub> − ȳ)<sup>2</sup></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>5</td><td>0.6</td><td>0.607</td><td>0.000</td><td>0.798</td><td>0.810</td></tr>
+    <tr><td>8</td><td>1.0</td><td>1.030</td><td>0.001</td><td>0.221</td><td>0.250</td></tr>
+    <tr><td>10</td><td>1.4</td><td>1.312</td><td>0.008</td><td>0.035</td><td>0.010</td></tr>
+    <tr><td>12</td><td>1.5</td><td>1.594</td><td>0.009</td><td>0.009</td><td>0.000</td></tr>
+    <tr><td>15</td><td>2.1</td><td>2.017</td><td>0.007</td><td>0.267</td><td>0.360</td></tr>
+    <tr><td>18</td><td>2.4</td><td>2.440</td><td>0.002</td><td>0.884</td><td>0.810</td></tr>
+    <tr class="f1-total-row fragment" data-fragment-index="3">
+      <td>Totals</td>
+      <td></td>
+      <td></td>
+      <td>SSE = 0.026</td>
+      <td>SSR = 2.214</td>
+      <td>SST = 2.240</td>
+    </tr>
+  </tbody>
+</table>
 :::
 
 ::::
 
 ---
 
-## Example: TTC Delays and Commute Time
+## Example: F1 Monaco Simulator Practice {.f1-monaco-3c}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.90fr 1.10fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.f1-monaco-3c {
+  font-size: 0.84em;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.08; padding: 10px 14px; margin-bottom: 0;"}
+.reveal section.f1-monaco-3c .f1-final-clean-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-card,
+.reveal section.f1-monaco-3c .f1-clean-conclusion {
+  border-radius: 11px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 7px solid var(--sta-teal);
+  padding: 19px 21px;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-conclusion {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+  padding: 20px 22px;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 21px;
+  line-height: 1.08;
+  margin: 0 0 14px 0;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.16;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  vertical-align: middle;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td:nth-child(1) {
+  width: 20%;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td:nth-child(2) {
+  width: 23%;
+  font-weight: 800;
+  text-align: right;
+}
+
+.reveal section.f1-monaco-3c .f1-summary-table td:nth-child(3) {
+  width: 57%;
+}
+
+.reveal section.f1-monaco-3c .f1-r2-line {
+  background: #fbfdfe;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 13px 15px;
+  text-align: center;
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 20px;
+  line-height: 1.20;
+}
+
+.reveal section.f1-monaco-3c .f1-conclusion-main {
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 21px;
+  line-height: 1.22;
+  margin: 0 0 16px 0;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-conclusion p {
+  font-size: 17px;
+  line-height: 1.30;
+  margin: 0 0 13px 0;
+}
+
+.reveal section.f1-monaco-3c .f1-clean-conclusion p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.f1-monaco-3c .f1-caution {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(0, 105, 92, 0.20);
+  color: var(--sta-muted);
+}
+</style>
+```
+
+:::: {.f1-final-clean-grid}
+
+::: {.f1-clean-card .fragment data-fragment-index="1"}
+
+::: {.f1-clean-title}
+Calculation summary
+:::
+
+<table class="f1-summary-table">
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SSE</td>
+      <td>0.026</td>
+      <td>variation left unexplained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SSR</td>
+      <td>2.214</td>
+      <td>variation explained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SST</td>
+      <td>2.240</td>
+      <td>total variation in lap-time improvement</td>
+    </tr>
+  </tbody>
+</table>
+
+::: {.f1-r2-line .fragment data-fragment-index="2"}
+R<sup>2</sup> = SSR / SST = 2.214 / 2.240 = 0.988
+:::
+
+:::
+
+::: {.f1-clean-conclusion .fragment data-fragment-index="3"}
+
+::: {.f1-clean-title}
+Conclusion
+:::
+
+::: {.f1-conclusion-main}
+About 98.8% of the variation in lap-time improvement is explained by simulator practice laps.
+:::
+
+The explained variation is much larger than the unexplained variation, so the fitted line summarizes this fictional Monaco simulator data very well.
+
+In context, drivers with more simulator practice laps tended to show larger lap-time improvements.
+
+::: {.f1-caution}
+This is a strong linear association in the sample, but it does not prove that practice laps alone caused the improvement.
+:::
+
+:::
+
+::::
+
+---
+
+## Example: TTC Stops and Commute Time {.ttc-stops-3a}
+
+```{=html}
+<style>
+.reveal section.ttc-stops-3a {
+  font-size: 0.82em;
+}
+
+.reveal section.ttc-stops-3a .ttc-intro-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.reveal section.ttc-stops-3a .ttc-context-card,
+.reveal section.ttc-stops-3a .ttc-data-card,
+.reveal section.ttc-stops-3a .ttc-goal-card {
+  margin: 0;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
+
+.reveal section.ttc-stops-3a .ttc-context-card {
+  padding: 18px 20px;
+}
+
+.reveal section.ttc-stops-3a .ttc-data-card {
+  padding: 16px 18px;
+}
+
+.reveal section.ttc-stops-3a .ttc-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 10px 0;
+}
+
+.reveal section.ttc-stops-3a .ttc-context-card p,
+.reveal section.ttc-stops-3a .ttc-goal-card p,
+.reveal section.ttc-stops-3a .ttc-goal-card li {
+  font-size: 17px;
+  line-height: 1.24;
+  margin: 0 0 12px 0;
+}
+
+.reveal section.ttc-stops-3a .ttc-variable-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 10px 12px;
+  margin: 12px 0 14px 0;
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--sta-text);
+}
+
+.reveal section.ttc-stops-3a .ttc-fit-pill {
+  background: white;
+  border: 1px solid rgba(0, 105, 92, 0.35);
+  border-radius: 9px;
+  padding: 11px 12px;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+  line-height: 1.15;
+}
+
+.reveal section.ttc-stops-3a .ttc-obs-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+  font-size: 16px;
+}
+
+.reveal section.ttc-stops-3a .ttc-obs-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 10px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.ttc-stops-3a .ttc-obs-table td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.ttc-stops-3a .ttc-goal-card {
+  margin-top: 14px;
+  padding: 18px 20px;
+}
+
+.reveal section.ttc-stops-3a .ttc-goal-layout {
+  display: grid;
+  grid-template-columns: 1.06fr 0.94fr;
+  gap: 22px;
+  align-items: center;
+}
+
+.reveal section.ttc-stops-3a .ttc-goal-list {
+  margin: 8px 0 0 0;
+  padding-left: 21px;
+}
+
+.reveal section.ttc-stops-3a .ttc-goal-list li {
+  margin-bottom: 5px;
+}
+
+.reveal section.ttc-stops-3a .ttc-formula-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.reveal section.ttc-stops-3a .ttc-formula-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 5px solid var(--sta-teal);
+  border-radius: 9px;
+  padding: 11px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.reveal section.ttc-stops-3a .ttc-formula-label {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--sta-muted);
+  margin-bottom: 5px;
+}
+
+.reveal section.ttc-stops-3a .ttc-formula-eq {
+  font-size: 19px;
+  font-weight: 850;
+  color: var(--sta-teal-dark);
+  line-height: 1.15;
+  text-align: center;
+}
+</style>
+```
+
+:::: {.ttc-intro-grid}
+
+::: {.taskbox .ttc-context-card}
+
+::: {.ttc-card-title}
+Context and question
+:::
+
 A student tracks fictional TTC trips during a week with random delays.
 
-For each trip:
+We use the number of **stations travelled** to predict **commute time**, measured in minutes.
 
-- $x=$ number of stations travelled
-- $y=$ commute time in minutes
-
-The fitted line is:
-
-$$
-\hat{y}=1.310+3.357x.
-$$
-
-**Question.** Calculate $SSE$, $SSR$, $SST$, and $R^2$.
-
-| $x$ | $y$ | $\hat y$ | $(y-\hat y)^2$ | $(\hat y-\bar y)^2$ |
-|---:|---:|---:|---:|---:|
-| 3 | 12 | 11.381 | 0.383 | 281.760 |
-| 5 | 22 | 18.095 | 15.247 | 101.434 |
-| 7 | 18 | 24.810 | 46.370 | 11.270 |
-| 9 | 36 | 31.524 | 20.036 | 11.270 |
-| 11 | 31 | 38.238 | 52.390 | 101.434 |
-| 13 | 50 | 44.952 | 25.478 | 281.760 |
+::: {.ttc-variable-pill .fragment data-fragment-index="1"}
+<strong>x</strong> = stations travelled<br>
+<strong>y</strong> = commute time in minutes
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
+The fitted regression line is:
 
-The sample mean response is:
-
-$$
-\bar{y}=28.167
-$$
-
-Unexplained variation:
-
-$$
-SSE=\sum(y_i-\hat{y}_i)^2=159.905
-$$
-
-Explained variation:
-
-$$
-SSR=\sum(\hat{y}_i-\bar{y})^2=788.929
-$$
-
-Total variation:
-
-$$
-SST=\sum(y_i-\bar{y})^2=948.833
-$$
-
-Check:
-
-$$
-SSR+SSE=788.929+159.905=948.833=SST
-$$
-
-$$
-R^2=\frac{788.929}{948.833}=0.831
-$$
+::: {.ttc-fit-pill .fragment data-fragment-index="2"}
+ŷ = 1.310 + 3.357x
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target relationship</span>
-
-We model commute time using the number of TTC stations travelled.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-About **83.1%** of the variation in commute time is explained by stations
-travelled. The leftover variation is the messy part: delays, crowding,
-and waiting time.
+::: {.examplebox .ttc-data-card .fragment data-fragment-index="3"}
+
+::: {.ttc-card-title}
+Observed data
+:::
+
+<table class="ttc-obs-table">
+  <thead>
+    <tr>
+      <th>Stations travelled, x</th>
+      <th>Commute time, y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>3</td><td>12</td></tr>
+    <tr><td>5</td><td>22</td></tr>
+    <tr><td>7</td><td>18</td></tr>
+    <tr><td>9</td><td>36</td></tr>
+    <tr><td>11</td><td>31</td></tr>
+    <tr><td>13</td><td>50</td></tr>
+  </tbody>
+</table>
+
+:::
+
+::::
+
+::: {.notebox .ttc-goal-card .fragment data-fragment-index="4"}
+
+::: {.ttc-card-title}
+Goal of the example
+:::
+
+:::: {.ttc-goal-layout}
+
+::: {.ttc-goal-text}
+We want to split the total variation in commute time into:
+
+<ul class="ttc-goal-list">
+  <li><strong>SSE</strong>: unexplained variation left in the residuals</li>
+  <li><strong>SSR</strong>: variation explained by the fitted regression line</li>
+  <li><strong>SST</strong>: total variation in the observed commute times</li>
+</ul>
+
+Then we compute R², the proportion of total variation explained by stations travelled through the fitted linear model.
+:::
+
+::: {.ttc-formula-stack}
+
+::: {.ttc-formula-card}
+::: {.ttc-formula-label}
+Variance decomposition
+:::
+::: {.ttc-formula-eq}
+SST = SSR + SSE
+:::
+:::
+
+::: {.ttc-formula-card}
+::: {.ttc-formula-label}
+Coefficient of determination
+:::
+::: {.ttc-formula-eq}
+R² = SSR / SST
+:::
+:::
+
+:::
+
+::::
+
+:::
+
+------------------------------------------------------------------------
+
+## Example: TTC Stops and Commute Time {.ttc-stops-3b}
+
+```{=html}
+<style>
+.reveal section.ttc-stops-3b {
+  font-size: 0.80em;
+}
+
+.reveal section.ttc-stops-3b .ttc-stack-pro {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.reveal section.ttc-stops-3b .ttc-stack-card {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 11px;
+  box-sizing: border-box;
+}
+
+.reveal section.ttc-stops-3b .ttc-card-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+}
+
+.reveal section.ttc-stops-3b .ttc-card-note {
+  font-size: 15px;
+  line-height: 1.20;
+  color: var(--sta-muted);
+  margin: 0 0 8px 0;
+}
+
+.reveal section.ttc-stops-3b .ttc-fit-eq {
+  font-weight: 800;
+  color: var(--sta-text);
+  background: #fbfdfe;
+  border: 1px solid #d7e4e7;
+  border-radius: 7px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.reveal section.ttc-stops-3b .ttc-clean-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: white;
+  color: var(--sta-text);
+  margin: 0;
+}
+
+.reveal section.ttc-stops-3b .ttc-clean-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 7px 7px;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.06;
+  white-space: normal;
+}
+
+.reveal section.ttc-stops-3b .ttc-clean-table td {
+  border: 1px solid var(--sta-border);
+  padding: 6px 8px;
+  vertical-align: middle;
+  line-height: 1.08;
+}
+
+.reveal section.ttc-stops-3b .ttc-pred-table {
+  font-size: 15.5px;
+}
+
+.reveal section.ttc-stops-3b .ttc-pred-table th:nth-child(1) { width: 13%; }
+.reveal section.ttc-stops-3b .ttc-pred-table th:nth-child(2) { width: 65%; }
+.reveal section.ttc-stops-3b .ttc-pred-table th:nth-child(3) { width: 22%; }
+
+.reveal section.ttc-stops-3b .ttc-pred-table td:nth-child(1),
+.reveal section.ttc-stops-3b .ttc-pred-table td:nth-child(3) {
+  text-align: center;
+  font-weight: 650;
+}
+
+.reveal section.ttc-stops-3b .ttc-pred-table td:nth-child(2) {
+  text-align: left;
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table {
+  font-size: 14.5px;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table th {
+  padding: 7px 6px;
+  font-size: 14px;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table td {
+  text-align: center;
+  padding: 6px 6px;
+}
+
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(1) { width: 9%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(2) { width: 9%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(3) { width: 11%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(4) { width: 24%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(5) { width: 24%; }
+.reveal section.ttc-stops-3b .ttc-var-table th:nth-child(6) { width: 23%; }
+
+.reveal section.ttc-stops-3b .ttc-total-row td {
+  background: #eef8fb;
+  font-weight: 800;
+  border-top: 2px solid var(--sta-teal-dark);
+}
+
+.reveal section.ttc-stops-3b .ttc-total-row td:nth-child(4),
+.reveal section.ttc-stops-3b .ttc-total-row td:nth-child(5),
+.reveal section.ttc-stops-3b .ttc-total-row td:nth-child(6) {
+  color: var(--sta-teal-dark);
+}
+</style>
+```
+
+:::: {.ttc-stack-pro}
+
+::: {.examplebox .ttc-stack-card .fragment data-fragment-index="1"}
+<div class="ttc-card-title">Predicted values</div>
+
+<div class="ttc-card-note">
+Use the fitted line: <span class="ttc-fit-eq">ŷ = 1.310 + 3.357x</span>.
+</div>
+
+<table class="ttc-clean-table ttc-pred-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>Plug into fitted line</th>
+      <th>ŷ<sub>i</sub></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>3</td><td>1.310 + 3.357(3)</td><td>11.381</td></tr>
+    <tr><td>5</td><td>1.310 + 3.357(5)</td><td>18.095</td></tr>
+    <tr><td>7</td><td>1.310 + 3.357(7)</td><td>24.810</td></tr>
+    <tr><td>9</td><td>1.310 + 3.357(9)</td><td>31.524</td></tr>
+    <tr><td>11</td><td>1.310 + 3.357(11)</td><td>38.238</td></tr>
+    <tr><td>13</td><td>1.310 + 3.357(13)</td><td>44.952</td></tr>
+  </tbody>
+</table>
+:::
+
+::: {.stat-card .ttc-stack-card .fragment data-fragment-index="2"}
+<div class="ttc-card-title">Variation table</div>
+
+<div class="ttc-card-note">
+Here <strong>ȳ = 28.167</strong>. The three right-hand columns correspond to <strong>SSE</strong>, <strong>SSR</strong>, and <strong>SST</strong>.
+</div>
+
+<table class="ttc-clean-table ttc-var-table">
+  <thead>
+    <tr>
+      <th>x</th>
+      <th>y</th>
+      <th>ŷ<sub>i</sub></th>
+      <th>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup></th>
+      <th>(ŷ<sub>i</sub> − ȳ)<sup>2</sup></th>
+      <th>(y<sub>i</sub> − ȳ)<sup>2</sup></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>3</td><td>12</td><td>11.381</td><td>0.383</td><td>281.760</td><td>261.361</td></tr>
+    <tr><td>5</td><td>22</td><td>18.095</td><td>15.247</td><td>101.434</td><td>38.028</td></tr>
+    <tr><td>7</td><td>18</td><td>24.810</td><td>46.370</td><td>11.270</td><td>103.361</td></tr>
+    <tr><td>9</td><td>36</td><td>31.524</td><td>20.036</td><td>11.270</td><td>61.361</td></tr>
+    <tr><td>11</td><td>31</td><td>38.238</td><td>52.390</td><td>101.434</td><td>8.028</td></tr>
+    <tr><td>13</td><td>50</td><td>44.952</td><td>25.478</td><td>281.760</td><td>476.694</td></tr>
+    <tr class="ttc-total-row fragment" data-fragment-index="3">
+      <td>Totals</td>
+      <td></td>
+      <td></td>
+      <td>SSE = 159.905</td>
+      <td>SSR = 788.929</td>
+      <td>SST = 948.833</td>
+    </tr>
+  </tbody>
+</table>
+:::
+
+::::
+
+------------------------------------------------------------------------
+
+## Example: TTC Stops and Commute Time {.ttc-stops-3c}
+
+```{=html}
+<style>
+.reveal section.ttc-stops-3c {
+  font-size: 0.84em;
+}
+
+.reveal section.ttc-stops-3c .ttc-final-clean-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-card,
+.reveal section.ttc-stops-3c .ttc-clean-conclusion {
+  border-radius: 11px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-left: 7px solid var(--sta-teal);
+  padding: 19px 21px;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-conclusion {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
+  padding: 20px 22px;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-title {
+  color: var(--sta-teal-dark);
+  font-weight: 800;
+  font-size: 21px;
+  line-height: 1.08;
+  margin: 0 0 14px 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.16;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table th {
+  background: var(--sta-teal-light);
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  font-weight: 800;
+  text-align: left;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td {
+  border: 1px solid var(--sta-border);
+  padding: 8px 9px;
+  vertical-align: middle;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td:nth-child(1) {
+  width: 20%;
+  font-weight: 800;
+  color: var(--sta-teal-dark);
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td:nth-child(2) {
+  width: 23%;
+  font-weight: 800;
+  text-align: right;
+}
+
+.reveal section.ttc-stops-3c .ttc-summary-table td:nth-child(3) {
+  width: 57%;
+}
+
+.reveal section.ttc-stops-3c .ttc-r2-line {
+  background: #fbfdfe;
+  border: 1px solid rgba(0, 105, 92, 0.28);
+  border-radius: 9px;
+  padding: 13px 15px;
+  text-align: center;
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 20px;
+  line-height: 1.20;
+}
+
+.reveal section.ttc-stops-3c .ttc-conclusion-main {
+  color: var(--sta-teal-dark);
+  font-weight: 850;
+  font-size: 21px;
+  line-height: 1.22;
+  margin: 0 0 16px 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-conclusion p {
+  font-size: 17px;
+  line-height: 1.30;
+  margin: 0 0 13px 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-clean-conclusion p:last-child {
+  margin-bottom: 0;
+}
+
+.reveal section.ttc-stops-3c .ttc-caution {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(0, 105, 92, 0.20);
+  color: var(--sta-muted);
+}
+</style>
+```
+
+:::: {.ttc-final-clean-grid}
+
+::: {.ttc-clean-card .fragment data-fragment-index="1"}
+
+::: {.ttc-clean-title}
+Calculation summary
+:::
+
+<table class="ttc-summary-table">
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Value</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SSE</td>
+      <td>159.905</td>
+      <td>variation left unexplained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SSR</td>
+      <td>788.929</td>
+      <td>variation explained by the fitted line</td>
+    </tr>
+    <tr>
+      <td>SST</td>
+      <td>948.833</td>
+      <td>total variation in commute time</td>
+    </tr>
+  </tbody>
+</table>
+
+::: {.ttc-r2-line .fragment data-fragment-index="2"}
+R<sup>2</sup> = SSR / SST = 788.929 / 948.833 = 0.831
+:::
+
+:::
+
+::: {.ttc-clean-conclusion .fragment data-fragment-index="3"}
+
+::: {.ttc-clean-title}
+Conclusion
+:::
+
+::: {.ttc-conclusion-main}
+About 83.1% of the variation in commute time is explained by stations travelled.
+:::
+
+The fitted line explains a large part of the variation, but the unexplained variation is still noticeable.
+
+That makes sense because commute time can also be affected by delays, crowding, waiting time, and transfer timing.
+
+::: {.ttc-caution}
+This is a strong linear association in the sample, but it does not prove that the number of stations alone caused the commute time.
+:::
+
 :::
 
 ::::
@@ -1956,24 +4081,12 @@ x <- c(5, 8, 10, 12, 15, 18)
 y <- c(0.6, 1.0, 1.4, 1.5, 2.1, 2.4)
 
 model <- lm(y ~ x)
+a <- anova(model)
 
-yhat <- fitted(model)
-ybar <- mean(y)
+round(a, 3)
 
-SSE <- sum((y - yhat)^2)
-SSR <- sum((yhat - ybar)^2)
-SST <- sum((y - ybar)^2)
-
-out <- round(data.frame(
-  SSE = SSE,
-  SSR = SSR,
-  SST = SST,
-  Check = SSR + SSE,
-  R2 = SSR / SST,
-  lm_R2 = summary(model)$r.squared
-), 3)
-
-print(out, row.names = FALSE)
+cat("\nSST =", round(sum(a$`Sum Sq`), 3))
+cat("\nR-squared =", round(summary(model)$r.squared, 3), "\n")
 ```
 :::
 
@@ -1989,24 +4102,12 @@ x <- c(3, 5, 7, 9, 11, 13)
 y <- c(12, 22, 18, 36, 31, 50)
 
 model <- lm(y ~ x)
+a <- anova(model)
 
-yhat <- fitted(model)
-ybar <- mean(y)
+round(a, 3)
 
-SSE <- sum((y - yhat)^2)
-SSR <- sum((yhat - ybar)^2)
-SST <- sum((y - ybar)^2)
-
-out <- round(data.frame(
-  SSE = SSE,
-  SSR = SSR,
-  SST = SST,
-  Check = SSR + SSE,
-  R2 = SSR / SST,
-  lm_R2 = summary(model)$r.squared
-), 3)
-
-print(out, row.names = FALSE)
+cat("\nSST =", round(sum(a$`Sum Sq`), 3))
+cat("\nR-squared =", round(summary(model)$r.squared, 3), "\n")
 ```
 :::
 
@@ -2200,17 +4301,19 @@ $y$.
 
 ------------------------------------------------------------------------
 
-## Example: IShowSpeed Charity Stream Teasers
+## Example: Event Flyers and Sign-Ups
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 310px 190px; gap: 10px 16px; align-items: stretch; height: 512px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A streaming team studies a fictional IShowSpeed charity stream campaign.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.53em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
+
+A student club studies fictional data from a community event promotion.
 
 For each day:
 
-- $x=$ teaser clips posted
-- $y=$ live viewers in ten-thousands
+- $x=$ flyers posted around campus
+- $y=$ new sign-ups in tens
 
 Data:
 
@@ -2225,89 +4328,94 @@ $$
 Test whether the slope differs from 0.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.73em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
-
-From least squares:
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Hypotheses and conclusion</span>
 
 $$
-\hat{y}=-0.100+0.700x
-$$
-
-$$
-SSE=1.100,
-\qquad
-S_{xx}=10.000,
-\qquad
-n=5
-$$
-
-$$
-s^2=
-\frac{SSE}{n-2}
-=
-\frac{1.100}{3}
-=
-0.3667
-$$
-
-$$
-s=\sqrt{0.3667}=0.6055
-$$
-
-$$
-SE(\hat{\beta}_1)=
-\frac{0.6055}{\sqrt{10}}
-=
-0.1915
-$$
-
-$$
-t=
-\frac{0.700}{0.1915}
-=
-3.656,
-\qquad
-df=3
-$$
-
-$$
-95\%\ CI:
-\quad
-0.700\pm3.182(0.1915)
-=
-(0.091,\;1.309)
-$$
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Hypotheses</span>
-
-$$
-H_0:\beta_1=0
+H_0:\beta_1=0,
 \qquad
 H_A:\beta_1\ne0
 $$
 
 The reference distribution is $t_3$.
+
+Since the p-value is about **0.035**, reject $H_0$ at the 5% level.
+
+There is evidence of a positive linear relationship.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-Since the p-value is about **0.035**, we reject $H_0$ at the 5% level.
-There is evidence of a positive linear relationship between teaser clips
-posted and live viewers.
+::: {.stat-card style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.58em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+<span class="label">Calculation</span>
+
+From least squares:  
+$\hat y=-0.100+0.700x$,  $SSE=1.100$,  $S_{xx}=10.000$,  $n=5$.
+
+<br>
+
+**1. Estimate the error variance**
+
+$s^2=\dfrac{SSE}{n-2}=\dfrac{1.100}{5-2}=\dfrac{1.100}{3}=0.3667$
+
+$s=\sqrt{0.3667}=0.6055$
+
+<br>
+
+**2. Standard error of the slope**
+
+$SE(\hat\beta_1)=\dfrac{s}{\sqrt{S_{xx}}}
+=\dfrac{0.6055}{\sqrt{10}}
+=0.1915$
+
+<br>
+
+**3. Test statistic**
+
+$t=\dfrac{\hat\beta_1-0}{SE(\hat\beta_1)}
+=\dfrac{0.700}{0.1915}
+=3.656$
+
+$df=n-2=5-2=3$
+
+<br>
+
+**4. Confidence interval for the slope**
+
+$95\%\ CI:\ \hat\beta_1\pm t_{0.975,3}SE(\hat\beta_1)$
+
+$=0.700\pm3.182(0.1915)$
+
+$=(0.091,\;1.309)$
 :::
 
 ::::
 
 ------------------------------------------------------------------------
 
-## Example: Starbucks Mobile-Order Queue
+## Example: Coffee Shop Mobile-Order Queue {.coffee-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+<style>
+.reveal section.coffee-example .coffee-calc mjx-container[display="true"] {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  margin: 0.08em 0 0.16em 0 !important;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A Starbucks location studies a fictional mobile-order queue.
+.reveal section.coffee-example .coffee-calc .MathJax_Display {
+  text-align: left !important;
+  margin: 0.08em 0 0.16em 0 !important;
+}
+
+.reveal section.coffee-example .coffee-calc p {
+  margin: 0 0 3px 0 !important;
+}
+</style>
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.37fr 0.63fr; grid-template-rows: 300px 200px; gap: 10px 16px; align-items: stretch; height: 510px;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.53em; line-height: 1.07; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
+
+A coffee shop studies a fictional mobile-order queue.
 
 For each time window:
 
@@ -2323,12 +4431,30 @@ $$
 Test whether the slope differs from 0.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.73em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
-
-The summary values are:
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Hypotheses</span>
 
 $$
+H_0:\beta_1=0,
+\qquad
+H_A:\beta_1\ne0
+$$
+
+The reference distribution is $t_6$.
+
+Since the p-value is very small, reject $H_0$ at the 5% level.
+
+There is strong evidence of a positive linear relationship.
+:::
+
+::: {.stat-card .calc-left .coffee-calc style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.00; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+<span class="label">Calculation</span>
+
+From least squares:
+
+$$
+\hat{y}=2.953+1.038x,
+\qquad
 SSE=1.328,
 \qquad
 S_{xx}=117.500,
@@ -2336,58 +4462,62 @@ S_{xx}=117.500,
 n=8
 $$
 
-$$
-s^2=
-\frac{1.328}{8-2}
-=
-0.221
-$$
+**1. Estimate the error variance**
 
 $$
-s=\sqrt{0.221}=0.470
+\begin{aligned}
+s^2
+&=\frac{SSE}{n-2}
+=\frac{1.328}{8-2}
+=\frac{1.328}{6}
+=0.221,\\[-1pt]
+s
+&=\sqrt{0.221}
+=0.470.
+\end{aligned}
 $$
 
-$$
-SE(\hat{\beta}_1)=
-\frac{0.470}{\sqrt{117.500}}
-=
-0.043
-$$
+**2. Standard error of the slope**
 
 $$
-t=
-\frac{1.038}{0.043}
-=
-23.926,
-\qquad
-df=6
+\begin{aligned}
+SE(\hat{\beta}_1)
+&=\frac{s}{\sqrt{S_{xx}}}
+=\frac{0.470}{\sqrt{117.500}}
+=0.043.
+\end{aligned}
 $$
 
-$$
-95\%\ CI:
-\quad
-1.038\pm2.447(0.043)
-=
-(0.932,\;1.144)
-$$
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Hypotheses</span>
+**3. Test statistic**
 
 $$
-H_0:\beta_1=0
-\qquad
-H_A:\beta_1\ne0
+\begin{aligned}
+t
+&=\frac{\hat{\beta}_1-0}{SE(\hat{\beta}_1)}
+=\frac{1.038}{0.043}
+=23.926,\\[-1pt]
+df
+&=n-2
+=8-2
+=6.
+\end{aligned}
 $$
 
-The reference distribution is $t_6$.
-:::
+**4. Confidence interval for the slope**
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-There is strong evidence of a positive linear relationship. Each
-additional mobile order ahead is associated with about **1.04 more
-minutes** of expected pickup wait time.
+$$
+\begin{aligned}
+95\%\ CI
+&:\quad
+\hat{\beta}_1\pm t_{0.975,6}SE(\hat{\beta}_1)\\[-1pt]
+&=
+1.038\pm2.447(0.043)\\[-1pt]
+&=
+(0.932,\;1.144).
+\end{aligned}
+$$
+
+Since $0\notin(0.932,\;1.144)$, the slope is clearly positive.
 :::
 
 ::::
@@ -2435,7 +4565,7 @@ minutes** of expected pickup wait time.
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">IShowSpeed teaser example</span>
+<span class="label">Event flyers example</span>
 :::
 
 ```{webr}
@@ -2445,23 +4575,15 @@ x <- c(1, 2, 3, 4, 5)
 y <- c(1, 1, 2, 2, 4)
 
 model <- lm(y ~ x)
-s <- summary(model)
-ci <- confint(model, "x")
 
-round(data.frame(
-  b1 = coef(model)["x"],
-  SE = s$coefficients["x", "Std. Error"],
-  t = s$coefficients["x", "t value"],
-  p = s$coefficients["x", "Pr(>|t|)"],
-  lower = ci[1],
-  upper = ci[2]
-), 4)
+round(summary(model)$coefficients, 4)
+round(confint(model), 4)
 ```
 :::
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">Starbucks queue example</span>
+<span class="label">Coffee shop queue example</span>
 :::
 
 ```{webr}
@@ -2471,17 +4593,9 @@ x <- c(2, 4, 5, 7, 8, 10, 12, 14)
 y <- c(5, 7, 8, 10, 12, 13, 16, 17)
 
 model <- lm(y ~ x)
-s <- summary(model)
-ci <- confint(model, "x")
 
-round(data.frame(
-  b1 = coef(model)["x"],
-  SE = s$coefficients["x", "Std. Error"],
-  t = s$coefficients["x", "t value"],
-  p = s$coefficients["x", "Pr(>|t|)"],
-  lower = ci[1],
-  upper = ci[2]
-), 4)
+round(summary(model)$coefficients, 4)
+round(confint(model), 4)
 ```
 :::
 
@@ -2491,27 +4605,22 @@ round(data.frame(
 
 ## Assumptions for Regression Inference
 
-::: {.notebox style="font-size: 0.69em; line-height: 1.23; padding: 15px 18px; margin-top: 10px;"}
+::: {.examplebox style="font-size: 0.78em; line-height: 1.3; padding: 16px 18px; margin-bottom: 14px;"}
 <span class="label">Assumptions</span>
 
 <ul class="assumption-list">
-  <li><strong>Linearity:</strong> The relationship between the mean response and the predictor should be approximately linear.</li>
-
-  <li><strong>Independence:</strong> Observations and errors should be independent.</li>
-
-  <li><strong>Mean zero errors:</strong> At each value of $x$, the average error should be 0.</li>
-
-  <li><strong>Constant variance:</strong> The error variance should be the same for all values of $x$.</li>
-
-  <li><strong>Normal errors:</strong> The errors should be approximately normally distributed, especially for small samples.</li>
+  <li class="fragment"><strong>Linearity:</strong> The relationship between the mean response and the predictor should be approximately linear.</li>
+  <li class="fragment"><strong>Independence:</strong> Observations and errors should be independent.</li>
+  <li class="fragment"><strong>Mean zero errors:</strong> At each value of \(x\), the average error should be 0.</li>
+  <li class="fragment"><strong>Constant variance:</strong> The error variance should be the same for all values of \(x\).</li>
+  <li class="fragment"><strong>Normal errors:</strong> The errors should be approximately normally distributed, especially for small samples.</li>
 </ul>
 :::
 
-::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
+::: {.thinkbox .fragment style="font-size: 0.78em; line-height: 1.3; padding: 14px 18px;"}
 <span class="label">Practical reminder</span>
 
-These assumptions support the confidence interval and hypothesis test for
-the slope.
+These assumptions support the confidence interval and hypothesis test for the slope.
 :::
 
 ------------------------------------------------------------------------
@@ -2578,17 +4687,43 @@ For simple linear regression, this tests whether the slope is zero.
 
 ------------------------------------------------------------------------
 
-## Example: ANOVA for IShowSpeed Teaser Clips
+## Example: ANOVA for Event Flyers and Sign-Ups {.flyers-anova-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+<style>
+.reveal section.flyers-anova-example .anova-calc mjx-container[display="true"] {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  margin: 0.12em 0 0.18em 0 !important;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-Return to the IShowSpeed charity stream teaser example.
+.reveal section.flyers-anova-example .anova-calc .MathJax_Display {
+  text-align: left !important;
+  margin: 0.12em 0 0.18em 0 !important;
+}
+
+.reveal section.flyers-anova-example .anova-calc table {
+  font-size: 0.78em !important;
+  margin-bottom: 7px !important;
+}
+
+.reveal section.flyers-anova-example .anova-calc th,
+.reveal section.flyers-anova-example .anova-calc td {
+  padding: 3px 6px !important;
+  line-height: 1.03 !important;
+}
+</style>
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.39fr 0.61fr; grid-template-rows: 300px 200px; gap: 10px 16px; align-items: stretch; height: 510px;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Problem</span>
+
+Return to the event flyers and sign-ups example.
 
 The fitted line is:
 
 $$
-\hat{y}=-0.100+0.700x.
+\hat{y}=-0.100+0.700x
 $$
 
 The variation quantities are:
@@ -2598,14 +4733,21 @@ SST=6.000,
 \qquad
 SSR=4.900,
 \qquad
-SSE=1.100.
+SSE=1.100
 $$
 
-**Question.** Construct the ANOVA table and test whether the regression
-model explains a meaningful amount of variation in live viewers.
+**Question.** Construct the ANOVA table and test whether the regression model explains a meaningful amount of variation in new sign-ups.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.67em; line-height: 1.06; padding: 11px 15px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.09; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Target question</span>
+
+Does the number of flyers posted explain a statistically meaningful amount of variation in new sign-ups?
+
+The ANOVA test checks whether regression variation is large compared with error variation.
+:::
+
+::: {.stat-card .calc-left .anova-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.51em; line-height: 1.02; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
 <span class="label">ANOVA calculations</span>
 
 | Source | SS | df | MS | F |
@@ -2614,58 +4756,61 @@ model explains a meaningful amount of variation in live viewers.
 | Error | 1.100 | 3 | 0.367 |  |
 | Total | 6.000 | 4 |  |  |
 
+Manual work:
+
 $$
-MSR=\frac{SSR}{1}=4.900
+\begin{aligned}
+df_{\text{Reg}}
+&=1,\\
+df_{\text{Error}}
+&=n-2=5-2=3,\\
+df_{\text{Total}}
+&=n-1=5-1=4.
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+MSR
+&=\frac{SSR}{df_{\text{Reg}}}
+=\frac{4.900}{1}
+=4.900,\\[2pt]
+MSE
+&=\frac{SSE}{df_{\text{Error}}}
+=\frac{1.100}{3}
+=0.3667.
+\end{aligned}
 $$
 
 $$
-MSE=\frac{SSE}{n-2}
-=
-\frac{1.100}{3}
-=
-0.3667
+\begin{aligned}
+F
+&=\frac{MSR}{MSE}
+=\frac{4.900}{0.3667}
+=13.364.
+\end{aligned}
 $$
 
-$$
-F=
-\frac{MSR}{MSE}
-=
-\frac{4.900}{0.3667}
-=
-13.364
-$$
+Since $p=0.0354<0.05$, reject $H_0:\beta_1=0$.
 
-Since \(p=0.0354<0.05\), reject \(H_0:\beta_1=0\).
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target question</span>
-
-Does the number of teaser clips explain a statistically meaningful amount
-of variation in live viewers?
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The ANOVA test gives evidence that teaser clips posted are linearly
-related to live viewers in this fictional example.
+There is evidence that flyers posted are linearly related to new sign-ups in this fictional example.
 :::
 
 ::::
 
 ---
 
-## Example: ANOVA for Viral Rap Beef Reaction Clips
+## Example: ANOVA for Charging Time and Battery Level
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-A music analytics account studies fictional daily data during a viral
-Kendrick vs Drake reaction week.
+A device lab studies fictional data on battery charging.
 
-For each day:
+For each device:
 
-- $x=$ reaction clips posted
-- $y=$ stream increase in thousands
+- $x=$ charging time in hours
+- $y=$ battery level increase in percentage points
 
 The fitted line is:
 
@@ -2683,14 +4828,14 @@ SSR=606.229,
 SSE=3.771.
 $$
 
-**Question.** Construct the ANOVA table and test whether reaction clips
-explain a meaningful amount of variation in stream increases.
+**Question.** Construct the ANOVA table and test whether charging time
+explains a meaningful amount of variation in battery level increase.
 :::
 
 ::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
-There are $n=6$ days, so:
+There are $n=6$ devices, so:
 
 $$
 df_{\text{Reg}}=1,
@@ -2732,9 +4877,9 @@ variation compared with the leftover residual variation.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-Since the p-value is very small, we reject $H_0$. There is strong
-evidence that reaction clips are linearly related to stream increases in
-this fictional dataset.
+Since the p-value is very small, we reject $H_0$. There is strong evidence
+that charging time is linearly related to battery level increase in this
+fictional dataset.
 :::
 
 ::::
@@ -2747,7 +4892,7 @@ this fictional dataset.
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">IShowSpeed teaser example</span>
+<span class="label">Event flyers example</span>
 :::
 
 ```{webr}
@@ -2758,43 +4903,16 @@ y <- c(1, 1, 2, 2, 4)
 
 model <- lm(y ~ x)
 a <- anova(model)
-s <- summary(model)
 
-SS_reg <- a$`Sum Sq`[1]
-SS_err <- a$`Sum Sq`[2]
-SS_tot <- SS_reg + SS_err
+round(a, 4)
 
-MS_reg <- a$`Mean Sq`[1]
-MS_err <- a$`Mean Sq`[2]
-
-F_val <- a$`F value`[1]
-p_val <- a$`Pr(>F)`[1]
-
-out <- data.frame(
-  Source = c("Reg", "Error", "Total"),
-  SS = c(round(SS_reg, 3), round(SS_err, 3), round(SS_tot, 3)),
-  df = c(1, length(x) - 2, length(x) - 1),
-  MS = c(round(MS_reg, 3), round(MS_err, 3), ""),
-  F = c(round(F_val, 3), "", ""),
-  p = c(format.pval(p_val, digits = 4), "", "")
-)
-
-print(out, row.names = FALSE)
-
-t_val <- s$coefficients["x", "t value"]
-
-check <- round(data.frame(
-  F = F_val,
-  t_squared = t_val^2
-), 3)
-
-print(check, row.names = FALSE)
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
 ```
 :::
 
 ::: {.col}
 ::: {.notebox}
-<span class="label">Rap beef reaction example</span>
+<span class="label">Charging time example</span>
 :::
 
 ```{webr}
@@ -2805,37 +4923,10 @@ y <- c(18, 24, 31, 35, 43, 47)
 
 model <- lm(y ~ x)
 a <- anova(model)
-s <- summary(model)
 
-SS_reg <- a$`Sum Sq`[1]
-SS_err <- a$`Sum Sq`[2]
-SS_tot <- SS_reg + SS_err
+round(a, 4)
 
-MS_reg <- a$`Mean Sq`[1]
-MS_err <- a$`Mean Sq`[2]
-
-F_val <- a$`F value`[1]
-p_val <- a$`Pr(>F)`[1]
-
-out <- data.frame(
-  Source = c("Reg", "Error", "Total"),
-  SS = c(round(SS_reg, 3), round(SS_err, 3), round(SS_tot, 3)),
-  df = c(1, length(x) - 2, length(x) - 1),
-  MS = c(round(MS_reg, 3), round(MS_err, 3), ""),
-  F = c(round(F_val, 3), "", ""),
-  p = c(format.pval(p_val, digits = 4), "", "")
-)
-
-print(out, row.names = FALSE)
-
-t_val <- s$coefficients["x", "t value"]
-
-check <- round(data.frame(
-  F = F_val,
-  t_squared = t_val^2
-), 3)
-
-print(check, row.names = FALSE)
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
 ```
 :::
 
@@ -3053,18 +5144,15 @@ y <- c(2200, 2450, 2600, 2850,
 model <- lm(y ~ x)
 
 new_units <- data.frame(x = c(8, 20))
-predicted <- predict(model, newdata = new_units)
-
-type <- ifelse(
-  new_units$x >= min(x) & new_units$x <= max(x),
-  "interpolation",
-  "extrapolation"
-)
 
 out <- data.frame(
-  sqft = c(800, 2000),
-  type = type,
-  predicted_rent = round(predicted, 2)
+  sqft = new_units$x * 100,
+  type = ifelse(
+    new_units$x >= min(x) & new_units$x <= max(x),
+    "interpolation",
+    "extrapolation"
+  ),
+  predicted_rent = round(predict(model, new_units), 2)
 )
 
 print(out, row.names = FALSE)
@@ -3085,18 +5173,15 @@ y <- c(420, 390, 360, 335, 310, 295)
 model <- lm(y ~ x)
 
 new_days <- data.frame(x = c(8, 30))
-predicted <- predict(model, newdata = new_days)
-
-type <- ifelse(
-  new_days$x >= min(x) & new_days$x <= max(x),
-  "interpolation",
-  "extrapolation"
-)
 
 out <- data.frame(
   days_before_concert = new_days$x,
-  type = type,
-  predicted_price = round(predicted, 2)
+  type = ifelse(
+    new_days$x >= min(x) & new_days$x <= max(x),
+    "interpolation",
+    "extrapolation"
+  ),
+  predicted_price = round(predict(model, new_days), 2)
 )
 
 print(out, row.names = FALSE)
@@ -3131,6 +5216,123 @@ print(out, row.names = FALSE)
 Residual plots are used to judge whether the regression assumptions are
 reasonable before trusting inference.
 :::
+
+------------------------------------------------------------------------
+
+## Visual: A Good Residual Plot
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+set.seed(258)
+
+resid_check_df <- data.frame(
+  fitted = c(
+    runif(45, 17, 28),
+    runif(25, 28, 36),
+    runif(15, 36, 45)
+  )
+)
+
+resid_check_df$residual <- c(
+  rnorm(45, mean = 0.2, sd = 3.4),
+  rnorm(25, mean = 0.0, sd = 3.2),
+  rnorm(15, mean = -0.1, sd = 3.1)
+)
+
+resid_check_df$residual <- pmax(pmin(resid_check_df$residual, 9.5), -6.8)
+
+plot_ly() |>
+  add_markers(
+    data = resid_check_df,
+    x = ~fitted,
+    y = ~residual,
+    showlegend = FALSE,
+    hovertemplate = paste(
+      "<b>Residual point</b><br>",
+      "Fitted value: %{x:.1f}<br>",
+      "Residual: %{y:.1f}",
+      "<extra></extra>"
+    ),
+    marker = list(
+      color = "#ef3b2c",
+      size = 9,
+      opacity = 0.95,
+      line = list(color = "#ef3b2c", width = 0.5)
+    )
+  ) |>
+  plotly_slide_layout(
+    title = "",
+    x_title = "Fitted Value",
+    y_title = "Residual",
+    height = 470,
+    x_range = c(16.5, 45.5),
+    y_range = c(-7.5, 10.5),
+    shapes = list(
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+        x0 = 16.5,
+        x1 = 45.5,
+        y0 = 0,
+        y1 = 0,
+        line = list(color = "#222222", width = 2),
+        layer = "below"
+      )
+    ),
+    margin = list(l = 78, r = 24, t = 20, b = 70)
+  ) |>
+  layout(
+    xaxis = list(
+      title = list(
+        text = "<b>Fitted Value</b>",
+        standoff = 14,
+        font = list(size = 15, color = plot_cols$text)
+      ),
+      range = c(16.5, 45.5),
+      fixedrange = TRUE,
+      tickmode = "array",
+      tickvals = c(20, 25, 30, 35, 40, 45),
+      tickfont = list(size = 13, color = plot_cols$muted),
+      showline = TRUE,
+      linewidth = 1.5,
+      linecolor = "#222222",
+      zeroline = FALSE,
+      showgrid = FALSE,
+      ticks = "outside",
+      ticklen = 5,
+      tickcolor = "#222222",
+      automargin = TRUE
+    ),
+    yaxis = list(
+      title = list(
+        text = "<b>Residual</b>",
+        standoff = 14,
+        font = list(size = 15, color = plot_cols$text)
+      ),
+      range = c(-7.5, 10.5),
+      fixedrange = TRUE,
+      tickmode = "array",
+      tickvals = c(-5, -2.5, 0, 2.5, 5, 7.5, 10),
+      tickfont = list(size = 13, color = plot_cols$muted),
+      showline = TRUE,
+      linewidth = 1.5,
+      linecolor = "#222222",
+      zeroline = FALSE,
+      showgrid = TRUE,
+      gridcolor = "rgba(203,213,225,0.35)",
+      gridwidth = 1,
+      ticks = "outside",
+      ticklen = 5,
+      tickcolor = "#222222",
+      automargin = TRUE
+    )
+  )
+```
 
 ------------------------------------------------------------------------
 

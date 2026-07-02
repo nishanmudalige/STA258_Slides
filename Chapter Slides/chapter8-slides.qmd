@@ -35,8 +35,8 @@ library(ggplot2)
 library(dplyr)
 library(plotly)
 
-theme_set(theme_minimal(base_size = 13))
 set.seed(258)
+theme_set(theme_minimal(base_size = 13))
 
 plot_cols <- list(
   teal        = "#00695c",
@@ -60,8 +60,8 @@ plotly_anova_layout <- function(
   title = NULL,
   x_title = NULL,
   y_title = NULL,
-  height = 340,
-  margin = list(l = 64, r = 20, t = 58, b = 58)
+  height = 360,
+  margin = list(l = 70, r = 24, t = 58, b = 64)
 ) {
   p |>
     layout(
@@ -111,6 +111,7 @@ plotly_anova_layout <- function(
   --sta-grey:        #f5f6f7;
   --sta-yellow:      #fff8e1;
   --sta-orange:      #f9a825;
+  --sta-red:         #c62828;
   --sta-text:        #2f3437;
   --sta-muted:       #667174;
   --sta-border:      #d8dee2;
@@ -138,7 +139,7 @@ plotly_anova_layout <- function(
 .reveal h1 { font-size: 1.72em !important; }
 
 .reveal h2 {
-  font-size: 1.55em !important;
+  font-size: 1.50em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
@@ -152,7 +153,7 @@ plotly_anova_layout <- function(
 .reveal p,
 .reveal li {
   font-size: 0.76em;
-  line-height: 1.32;
+  line-height: 1.30;
 }
 
 .title-slide { text-align: center !important; }
@@ -171,7 +172,7 @@ plotly_anova_layout <- function(
 }
 
 .two-col { grid-template-columns: 1fr 1fr; }
-.two-col-lean { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-lean { grid-template-columns: 0.92fr 1.08fr; }
 .two-col-wide { grid-template-columns: 1.08fr 0.92fr; }
 .three-col { grid-template-columns: repeat(3, 1fr); }
 .four-grid { grid-template-columns: repeat(2, 1fr); }
@@ -190,7 +191,7 @@ plotly_anova_layout <- function(
   padding: 14px 16px;
   border-radius: 10px;
   font-size: 0.72em;
-  line-height: 1.26;
+  line-height: 1.24;
   box-sizing: border-box;
   margin-bottom: 8px;
 }
@@ -229,7 +230,11 @@ plotly_anova_layout <- function(
 .taskbox .label,
 .notebox .label,
 .mini-card .label,
-.stat-card .label {
+.stat-card .label,
+.examplebox .label,
+.defbox .label,
+.thinkbox .label,
+.warnbox .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -246,14 +251,15 @@ plotly_anova_layout <- function(
 .small-text { font-size: 0.62em; }
 .tight li { margin-bottom: 0.16em; }
 
-.formula {
-  display: inline-block;
-  background: white;
-  border: 1px solid var(--sta-border);
-  border-radius: 8px;
-  padding: 5px 10px;
-  font-family: "SFMono-Regular", Consolas, monospace;
-  font-size: 1.02em;
+.calc-left mjx-container[display="true"],
+.calc-left .MathJax_Display {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.calc-left mjx-container[display="true"] {
+  justify-content: flex-start !important;
 }
 
 .reveal table {
@@ -293,18 +299,9 @@ plotly_anova_layout <- function(
   padding: 1px 4px;
 }
 
-.reveal .slides section.scrollable {
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  max-height: 700px;
-}
-
-.reveal section.compact h2 { font-size: 1.1em !important; }
-
+.reveal section.compact h2 { font-size: 1.15em !important; }
 .reveal section.compact p,
-.reveal section.compact li {
-  font-size: 0.72em;
-}
+.reveal section.compact li { font-size: 0.72em; }
 
 .reveal section.quiz-question {
   display: flex !important;
@@ -328,18 +325,6 @@ plotly_anova_layout <- function(
 .reveal .quiz-question .callout-note {
   margin: 4px 0 12px 0 !important;
   text-align: left;
-}
-
-.reveal .quiz-question .callout-note .callout-body p,
-.reveal .quiz-question .callout-note p {
-  font-size: 0.76em !important;
-  line-height: 1.28;
-  margin: 4px 0;
-}
-
-.reveal .quiz-question .callout-title {
-  font-size: 0.82em !important;
-  padding: 5px 12px !important;
 }
 
 .reveal .quiz-question ul {
@@ -367,31 +352,12 @@ plotly_anova_layout <- function(
   text-align: right;
 }
 
-.reveal .check-button,
-.reveal .reset-button,
-.reveal .prev-button,
-.reveal .next-button {
-  padding: 7px 16px !important;
-  font-size: 0.78em !important;
-  border-radius: 6px !important;
-  margin: 0 4px !important;
-}
-
 .reveal .feedback,
 .reveal .explanation,
 .reveal .quiz-question .explanation {
   font-size: 0.7em !important;
   margin-top: 8px;
 }
-
-.quiz-hint {
-  font-size: 0.6em;
-  color: var(--sta-muted);
-  font-style: italic;
-  margin: 0 0 6px 0;
-}
-
-.callout { font-size: 0.75em; }
 
 .reveal .assumption-list {
   list-style: none !important;
@@ -427,25 +393,24 @@ plotly_anova_layout <- function(
   max-width: 100% !important;
 }
 
-.reveal .plot-container { border-radius: 10px; }
-
-/* WebR check slide formatting copied to match the reference style */
 .reveal section.compact-r .cm-editor,
 .reveal section.compact-r .cm-content,
 .reveal section.compact-r .cm-line,
+.reveal section.compact-r .cm-line span,
 .reveal section.compact-r pre,
 .reveal section.compact-r code {
   font-size: 0.82em !important;
   line-height: 1.08 !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
 }
 
-/* Keep the line-number gutter in sync with the code lines so the
-   numbers line up one-per-row instead of bunching together. */
 .reveal section.compact-r .cm-gutters,
-.reveal section.compact-r .cm-lineNumbers,
 .reveal section.compact-r .cm-gutterElement {
-  font-size: 0.82em !important;
+  font-size: 0.78em !important;
   line-height: 1.08 !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
 }
 
 .reveal section.compact-r .cell-output,
@@ -456,20 +421,34 @@ plotly_anova_layout <- function(
   white-space: pre !important;
 }
 
-.reveal section.compact-r .notebox {
-  margin-bottom: 5px !important;
-}
+.reveal section.compact-r .notebox { margin-bottom: 5px !important; }
 
+.reveal section.cafe-example table,
+.reveal section.video-example table,
+.reveal section.badminton-example table,
 .reveal section.phone-case-example table,
 .reveal section.phone-case-results table {
-  font-size: 0.58em !important;
+  font-size: 0.54em !important;
 }
 
+.reveal section.cafe-example th,
+.reveal section.cafe-example td,
+.reveal section.video-example th,
+.reveal section.video-example td,
+.reveal section.badminton-example th,
+.reveal section.badminton-example td,
 .reveal section.phone-case-example th,
 .reveal section.phone-case-example td,
 .reveal section.phone-case-results th,
 .reveal section.phone-case-results td {
-  padding: 5px 7px !important;
+  padding: 4px 6px !important;
+  line-height: 1.06 !important;
+}
+
+.reveal section.badminton-example mjx-container[display="true"],
+.reveal section.phone-case-example mjx-container[display="true"] {
+  font-size: 86% !important;
+  margin: 0.22em 0 !important;
 }
 
 .home-button-row {
@@ -562,56 +541,81 @@ After rejecting ANOVA, compare means in pairs.
 
 ::: {.stat-card .fragment}
 <span class="label">8.6 - R checks</span>
-Use `oneway.test()`, `aov()`, and pairwise confidence intervals.
+Use `aov()`, `anova(lm())`, and `pairwise.t.test()` to check ANOVA and pairwise comparisons.
 :::
 ::::
 
+
 ---
 
-## Why ANOVA?
+## Why ANOVA? {.compact .why-anova}
 
-::: {.defbox}
-**Analysis of Variance (ANOVA)** is used to compare several population means.
+:::: {.why-anova-flow style="display:grid; grid-template-rows: auto auto auto; gap: 14px; align-items: stretch;"}
 
-Suppose we have $k$ groups, where usually $k \ge 3$.
+::: {.defbox .fragment style="font-size: 0.66em; line-height: 1.17; padding: 16px 20px; margin-bottom: 0;"}
+<span class="label">Purpose</span>
+
+**Analysis of Variance (ANOVA)** is used to compare several population means at once.
+
+Instead of running many separate two-sample tests, ANOVA begins with one **global test**.
 :::
 
-:::: {.three-col}
-::: {.stat-card .fragment}
+:::: {.three-col style="display:grid; grid-template-columns: 0.95fr 1.05fr 1.05fr; gap: 16px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.62em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Question</span>
 
 Do all groups have the same population mean?
+
+$$
+k \ge 3
+$$
+
+groups are being compared.
 :::
 
-::: {.stat-card .fragment}
+::: {.stat-card .fragment style="font-size: 0.62em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Null hypothesis</span>
+
+The population means are all equal:
 
 $$
 H_0:\mu_1=\mu_2=\cdots=\mu_k
 $$
 :::
 
-::: {.stat-card .fragment}
-<span class="label">Alternative</span>
+::: {.stat-card .fragment style="font-size: 0.62em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Alternative hypothesis</span>
+
+At least one population mean is different:
 
 $$
-H_a:\text{at least one }\mu_j\text{ is different}
+H_a:\text{not all }\mu_i\text{ are equal}
 $$
 :::
+
 ::::
 
-::: {.thinkbox .fragment}
-ANOVA starts with one global test. If the global test rejects, pairwise comparisons can then ask which means differ.
+::: {.thinkbox .fragment style="font-size: 0.65em; line-height: 1.17; padding: 15px 20px; margin-bottom: 0;"}
+<span class="label">Key idea</span>
+
+ANOVA tells us whether there is evidence that **at least one mean differs**.
+
+If ANOVA rejects \(H_0\), then pairwise comparisons can ask **which means differ**.
 :::
+
+::::
 
 ---
 
-## One-Factor ANOVA Model
+## One-Factor ANOVA Model {.compact .anova-model}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-The textbook model is:
+:::: {.anova-model-grid style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
+
+::: {.defbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Textbook model</span>
+
+For observation $j$ in group $i$:
 
 $$
 Y_{ij}=\mu+\tau_i+\epsilon_{ij},
@@ -619,46 +623,73 @@ Y_{ij}=\mu+\tau_i+\epsilon_{ij},
 \epsilon_{ij}\sim N(0,\sigma^2)
 $$
 
-where $Y_{ij}$ is observation $j$ in group $i$.
+Here, $Y_{ij}$ is the response value for observation $j$ in group $i$.
 :::
 
-::: {.notebox .fragment}
-<span class="label">Meaning</span>
+::: {.defbox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Equivalent form</span>
 
-- $\mu$: overall mean
-- $\tau_i$: treatment-specific effect
-- $\epsilon_{ij}$: random error term
-- $\mu+\tau_i$: group mean
-:::
-:::
+Since the population mean for group $i$ is
 
-::: {.col}
-::: {.defbox .fragment}
-Equivalent form:
+$$
+\mu_i=\mu+\tau_i,
+$$
+
+the same model can be written as
 
 $$
 Y_{ij}=\mu_i+\epsilon_{ij},
 \qquad
 \epsilon_{ij}\sim N(0,\sigma^2)
 $$
-
-where $\mu_i$ is the population mean for group $i$.
 :::
 
-::: {.thinkbox .fragment}
-Every observation in the same group is assigned the same group mean, plus random error.
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.18; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Meaning of the notation</span>
+
+- $\mu$: overall population mean
+- $\tau_i$: treatment effect for group $i$
+- $\epsilon_{ij}$: random error for observation $j$ in group $i$
+- $\mu_i=\mu+\tau_i$: population mean of group $i$
 :::
+
+::: {.thinkbox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.16; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Intuition</span>
+
+Each observation is modeled as
+
+$$
+\text{response}
+=
+\text{group mean}
++
+\text{random error}.
+$$
+
+So ANOVA asks whether all group means are equal:
+
+$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+$$
+
+or whether at least one group mean differs.
 :::
+
 ::::
 
 ---
 
-## Data Structure and Notation
+## Data Structure and Notation {.compact .data-notation}
 
-:::: {.two-col}
-::: {.col}
+:::: {.data-notation-grid style="display:grid; grid-template-columns: 0.52fr 0.48fr; gap: 18px; align-items: start;"}
+
+::: {.col style="display:grid; grid-template-rows: auto auto; gap: 14px;"}
+
+::: {.stat-card style="font-size: 0.50em; line-height: 1.04; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Data layout</span>
+
 | Group 1 | Group 2 | $\cdots$ | Group $k$ |
-|---:|---:|:---:|---:|
+|---:|---:|---:|---:|
 | $X_{11}$ | $X_{21}$ | $\cdots$ | $X_{k1}$ |
 | $X_{12}$ | $X_{22}$ | $\cdots$ | $X_{k2}$ |
 | $\vdots$ | $\vdots$ | $\ddots$ | $\vdots$ |
@@ -668,8 +699,7 @@ Every observation in the same group is assigned the same group mean, plus random
 | $n_1$ | $n_2$ | $\cdots$ | $n_k$ |
 :::
 
-::: {.col}
-::: {.notebox}
+::: {.notebox .fragment style="font-size: 0.62em; line-height: 1.16; padding: 15px 18px; margin-bottom: 0;"}
 <span class="label">Notation</span>
 
 - $\bar X_i$: sample mean of group $i$
@@ -677,7 +707,11 @@ Every observation in the same group is assigned the same group mean, plus random
 - $n_i$: sample size of group $i$
 :::
 
-::: {.defbox .fragment}
+:::
+
+::: {.defbox .fragment style="font-size: 0.61em; line-height: 1.16; padding: 15px 18px; margin-bottom: 0;"}
+<span class="label">Overall summaries</span>
+
 Total sample size:
 
 $$
@@ -687,13 +721,86 @@ $$
 Overall sample mean:
 
 $$
-\bar X=
-\frac{1}{n}\sum_{i=1}^{k}\sum_{j=1}^{n_i}X_{ij}
+\bar X
 =
-\frac{1}{n}\sum_{i=1}^{k} n_i\bar X_i
+\frac{1}{n}
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}X_{ij}
+=
+\frac{1}{n}
+\sum_{i=1}^{k}n_i\bar X_i
 $$
 :::
+
+::::
+
+---
+
+## ANOVA as a Prediction Problem {.compact .anova-prediction}
+
+:::: {.prediction-flow style="display:grid; grid-template-rows: auto auto auto; gap: 10px; align-items: stretch;"}
+
+::: {.defbox style="font-size: 0.60em; line-height: 1.12; padding: 12px 17px; margin-bottom: 0;"}
+<span class="label">Main idea</span>
+
+ANOVA compares **two prediction rules**: one that ignores the group and one that uses the group.
 :::
+
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.54em; line-height: 1.06; padding: 13px 16px; margin-bottom: 0;"}
+<span class="label">Ignore group information</span>
+
+Predict every observation using the overall mean:
+
+$$
+\widehat X_{ij}=\bar X
+$$
+
+Total prediction error:
+
+$$
+SSTotal=
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}
+(X_{ij}-\bar X)^2
+$$
+
+All observations are treated as coming from one common center.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.54em; line-height: 1.06; padding: 13px 16px; margin-bottom: 0;"}
+<span class="label">Use group information</span>
+
+Predict observation $j$ in group $i$ using its group mean:
+
+$$
+\widehat X_{ij}=\bar X_i
+$$
+
+Remaining prediction error:
+
+$$
+SSE=
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}
+(X_{ij}-\bar X_i)^2
+$$
+
+Each group is allowed to have its own center.
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.58em; line-height: 1.10; padding: 12px 17px; margin-bottom: 0;"}
+<span class="label">Improvement from using groups</span>
+
+The variation explained by group membership is the reduction in prediction error:
+
+$$
+SSTr=SSTotal-SSE
+$$
+
+If this improvement is large compared with the within-group error, the ANOVA \(F\) statistic becomes large.
+:::
+
 ::::
 
 ---
@@ -727,161 +834,264 @@ This captures how group means differ from the overall mean.
 ::::
 
 ::: {.thinkbox .fragment}
-The ANOVA F statistic becomes large when between-group variation is large relative to within-group error variation.
+The ANOVA $F$ statistic becomes large when between-group variation is large relative to within-group error variation.
 :::
 
 ---
 
-## Total Variation and Decomposition
+## Total Variation and Decomposition {.compact .total-decomp}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-Total variation:
+:::: {.total-decomp-grid style="display:grid; grid-template-columns: 1.02fr 0.98fr; grid-template-rows: 205px 175px auto; gap: 16px 18px; align-items: stretch;"}
+
+::: {.defbox style="grid-column: 1; grid-row: 1; font-size: 0.66em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
+<span class="label">Total variation</span>
+
+Total variation measures how far all observations are from the overall mean.
 
 $$
-SSTotal=\sum_{i=1}^{k}\sum_{j=1}^{n_i}(X_{ij}-\bar X)^2
+SSTotal=
+\sum_{i=1}^{k}\sum_{j=1}^{n_i}
+(X_{ij}-\bar X)^2
 $$
 :::
 
-::: {.notebox .fragment}
+::: {.thinkbox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.66em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
+<span class="label">What ANOVA compares</span>
+
+ANOVA compares variation **between group centers** to variation **inside the groups**.
+
+$$
+\text{between-group variation}
+\qquad \text{vs.} \qquad
+\text{within-group variation}
+$$
+:::
+
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 2; font-size: 0.66em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
 <span class="label">Decomposition identity</span>
+
+Total variation splits into treatment variation plus error variation:
 
 $$
 SSTotal=SSTr+SSE
 $$
 :::
-:::
 
-::: {.col}
-::: {.thinkbox}
-ANOVA compares:
+::: {.notebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.17; padding: 17px 20px; margin-bottom: 0;"}
+<span class="label">Intuition</span>
 
-$$
-\begin{aligned}
-&\text{between-group variation}\\[2pt]
-&\qquad\quad \text{vs.}\\[2pt]
-&\text{within-group variation}
-\end{aligned}
-$$
-:::
-
-::: {.examplebox .fragment}
 If group means are close together, $SSTr$ is small.
 
 If at least one group mean is far away, $SSTr$ becomes larger.
 :::
+
+::: {.examplebox .fragment style="grid-column: 1 / span 2; grid-row: 3; font-size: 0.66em; line-height: 1.18; padding: 14px 20px; margin-bottom: 0;"}
+<span class="label">Big picture</span>
+
+ANOVA asks whether the **between-group variation** is large compared with the **within-group error variation**.
 :::
+
 ::::
 
 ---
 
-##  {.quiz-question}
+## The ANOVA Table {.compact .anova-table-slide}
 
-:::: {.callout-note icon="false"}
-## Question
+:::: {.anova-table-grid style="display:grid; grid-template-columns: 0.52fr 0.48fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
 
-In one-way ANOVA, the total variation decomposes into which two pieces?
-::::
+::: {.stat-card style="grid-column: 1; grid-row: 1; font-size: 0.54em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">ANOVA table structure</span>
 
-- $SSTotal = SSTr - SSE$
-- [$SSTotal = SSTr + SSE$]{.correct data-explanation="Total variation splits into the between-group (treatment) sum of squares plus the within-group (error) sum of squares: SSTotal = SSTr + SSE."}
-- $SSTotal = MSTr + MSE$
-- $SSTotal = SSTr \times SSE$
-
----
-
-## The ANOVA Table
-
-| Source | df | SS | MS | F-statistic |
+| Source | df | SS | MS | $F^*$ |
 |---|---:|---:|---:|---:|
-| Treatment | $k-1$ | $SSTr$ | $MSTr=\dfrac{SSTr}{k-1}$ | $F^*=\dfrac{MSTr}{MSE}$ |
-| Error | $n-k$ | $SSE$ | $MSE=\dfrac{SSE}{n-k}$ |  |
+| Treatment | $k-1$ | $SSTr$ | $MSTr$ | $MSTr/MSE$ |
+| Error | $n-k$ | $SSE$ | $MSE$ |  |
 | Total | $n-1$ | $SSTotal$ |  |  |
 
-::: {.notebox .fragment}
+<div class="calc-left" style="font-size: 1.00em; margin-top: 10px;">
+
+$$
+SSTotal=SSTr+SSE
+$$
+
+$$
+F^*=\frac{MSTr}{MSE}
+$$
+
+</div>
+
+The p-value comes from the **right tail** of the \(F\) distribution.
+:::
+
+::: {.notebox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.61em; line-height: 1.14; padding: 14px 17px; margin-bottom: 0;"}
 <span class="label">Mean square rule</span>
+
+A mean square is a sum of squares divided by its degrees of freedom:
 
 $$
 MS=\frac{SS}{df}
 $$
+
+So in one-way ANOVA:
+
+$$
+MSTr=\frac{SSTr}{k-1},
+\qquad
+MSE=\frac{SSE}{n-k}
+$$
 :::
 
-::: {.thinkbox .fragment}
-The F statistic compares treatment variation per degree of freedom with error variation per degree of freedom.
+::: {.defbox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Degrees of freedom</span>
+
+The degrees of freedom split the same way as the sums of squares:
+
+$$
+n-1=(k-1)+(n-k)
+$$
+
+Treatment variation uses \(k-1\) df, and error variation uses \(n-k\) df.
 :::
+
+::: {.thinkbox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Test statistic and p-value</span>
+
+The ANOVA test statistic is
+
+$$
+F^*=\frac{MSTr}{MSE}
+$$
+
+Under $H_0$,
+
+$$
+F^*\sim F_{k-1,\;n-k}
+$$
+
+The p-value is the right-tail area.
+:::
+
+::::
 
 ---
 
-## ANOVA Hypothesis Test
+## ANOVA Hypothesis Test {.compact .anova-hyp-test}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-Hypotheses:
+:::: {.anova-test-grid style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
+
+::: {.defbox style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
+
+The null hypothesis says all population means are equal:
 
 $$
 H_0:\mu_1=\mu_2=\cdots=\mu_k
 $$
 
+The alternative says at least one population mean differs:
+
 $$
-H_a:\text{at least one }\mu_j\text{ is different}
+H_a:\text{not all }\mu_i\text{ are equal}
 $$
 :::
 
-::: {.notebox .fragment}
-<span class="label">Test statistic</span>
+::: {.defbox .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Reference distribution</span>
+
+Under $H_0$, the test statistic follows an $F$ distribution:
 
 $$
-F^*=
+F^* \sim F_{k-1,\;n-k}
+$$
+
+Numerator df:
+
+$$
+k-1
+$$
+
+Denominator df:
+
+$$
+n-k
+$$
+:::
+
+::: {.stat-card .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">Test statistic</span>
+
+The ANOVA test statistic is
+
+$$
+F^*
+=
 \frac{MSTr}{MSE}
 =
 \frac{SSTr/(k-1)}{SSE/(n-k)}
 $$
-:::
+
+It compares between-group variation to within-group error variation.
 :::
 
-::: {.col}
-::: {.defbox .fragment}
-Under $H_0$:
+::: {.thinkbox .fragment style="font-size: 0.63em; line-height: 1.15; padding: 16px 18px; margin-bottom: 0;"}
+<span class="label">P-value</span>
+
+The ANOVA p-value is the area to the **right** of $F^*$.
 
 $$
-F^* \sim F_{k-1,n-k}
+p\text{-value}=P(F_{k-1,\;n-k}\ge F^*)
 $$
 
-The numerator degrees of freedom are $k-1$.
-
-The denominator degrees of freedom are $n-k$.
+Large $F^*$ values give evidence that the group means differ more than expected from random error alone.
 :::
 
-::: {.thinkbox .fragment}
-The ANOVA p-value is the area to the **right** of $F^*$, because large F values mean group means differ more than expected from random error alone.
-:::
-:::
 ::::
 
 ---
 
-##  {.quiz-question}
+## Assumptions of ANOVA {.compact .anova-assumptions}
 
-:::: {.callout-note icon="false"}
-## Question
+:::: {.assumptions-flow style="display:grid; grid-template-rows: auto auto; gap: 14px; align-items: stretch;"}
 
-In one-way ANOVA, what is the null hypothesis $H_0$?
+::: {.stat-card style="font-size: 0.66em; line-height: 1.22; padding: 18px 22px; margin-bottom: 0;"}
+<span class="label">Assumptions</span>
+
+::: {.fragment}
+- Observations are independent.
+:::
+
+::: {.fragment}
+- Error terms, or residuals, are Normal.
+:::
+
+::: {.fragment}
+- All groups have the same population variance:
+
+$$
+\sigma_1^2=\sigma_2^2=\cdots=\sigma_k^2=\sigma^2.
+$$
+:::
+:::
+
+::: {.defbox style="font-size: 0.66em; line-height: 1.20; padding: 17px 22px; margin-bottom: 0;"}
+<span class="label">Common variance estimate</span>
+
+The common variance is estimated using the Mean Squared Error from ANOVA:
+
+$$
+\hat{\sigma}^2=MSE
+$$
+:::
+
 ::::
-
-- At least one group mean differs from the others
-- [All group means are equal: $\mu_1=\mu_2=\dots=\mu_k$]{.correct data-explanation="ANOVA tests H₀: all population means are equal against Hₐ: at least one mean differs. (Equal variances is an assumption of the test, not the null hypothesis.)"}
-- All group variances are equal
-- All group means are equal to zero
 
 ---
 
-## ANOVA P-value Visual
+## ANOVA P-value Visual {.compact .anova-pvalue-visual}
 
-:::: {.two-col-wide}
-::: {.col}
-::: {.notebox}
+:::: {.two-col-wide style="display:grid; grid-template-columns: 0.46fr 0.54fr; gap: 18px; align-items: start;"}
+
+::: {.stat-card .fragment style="font-size: 0.66em; line-height: 1.18; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Right-tail reference distribution</span>
 
 For $k=3$ groups and $n=18$ observations:
@@ -900,587 +1110,630 @@ $$
 
 In R, this is calculated with `lower.tail = FALSE`.
 :::
-:::
 
-::: {.col}
+::: {.stat-card .fragment style="font-size: 0.60em; line-height: 1.12; padding: 13px 15px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Interactive right-tail area</span>
+
 ```{r}
 #| echo: false
-x <- seq(0, 8, length.out = 500)
-fstar <- 5.84
-f_df <- data.frame(x = x, density = stats::df(x, df1 = 2, df2 = 15))
-shade_df <- f_df |> filter(x >= fstar)
+#| warning: false
+#| message: false
+#| fig-width: 5.2
+#| fig-height: 3.0
+#| out-width: "100%"
 
-plot_ly() |>
+library(plotly)
+
+df1 <- 2
+df2 <- 15
+
+p_levels <- c(0.10, 0.05, 0.01)
+p_labels <- c("0.10", "0.05", "0.01")
+F_values <- qf(1 - p_levels, df1 = df1, df2 = df2)
+
+x_max <- 6.5
+x <- seq(0.001, x_max, length.out = 700)
+y <- df(x, df1 = df1, df2 = df2)
+
+plot_df <- data.frame(x = x, y = y)
+
+p <- plot_ly(width = 520, height = 300)
+
+p <- p |>
   add_trace(
-    data = f_df,
+    data = plot_df,
     x = ~x,
-    y = ~density,
+    y = ~y,
     type = "scatter",
     mode = "lines",
-    line = list(color = plot_cols$text, width = 2.6),
-    hovertemplate = "F = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>"
-  ) |>
-  add_trace(
-    data = shade_df,
-    x = ~x,
-    y = ~density,
-    type = "scatter",
-    mode = "lines",
-    fill = "tozeroy",
-    fillcolor = "rgba(249,168,37,0.38)",
-    line = list(color = "rgba(249,168,37,0.90)", width = 1.5),
-    hovertemplate = "p-value tail<extra></extra>"
-  ) |>
-  layout(
-    shapes = list(list(
-      type = "line",
-      x0 = fstar,
-      x1 = fstar,
-      y0 = 0,
-      y1 = max(f_df$density) * 0.92,
-      line = list(color = plot_cols$teal_dark, width = 2.4, dash = "dash")
-    )),
-    annotations = list(list(
-      x = fstar + 0.55,
-      y = max(f_df$density) * 0.55,
-      text = "p-value",
-      showarrow = FALSE,
-      font = list(size = 13, color = plot_cols$text)
-    ))
-  ) |>
-  plotly_anova_layout(
-    "Right-tail p-value for ANOVA",
-    "F",
-    "Density",
-    height = 345
+    line = list(color = "#263238", width = 3),
+    hovertemplate = "F = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>",
+    showlegend = FALSE
   )
+
+for (i in seq_along(p_levels)) {
+  F_star <- F_values[i]
+
+  tail_x <- seq(F_star, x_max, length.out = 250)
+  tail_y <- df(tail_x, df1 = df1, df2 = df2)
+
+  shade_x <- c(F_star, tail_x, x_max)
+  shade_y <- c(0, tail_y, 0)
+
+  visible_now <- i == 2
+
+  p <- p |>
+    add_trace(
+      x = shade_x,
+      y = shade_y,
+      type = "scatter",
+      mode = "lines",
+      fill = "toself",
+      fillcolor = "rgba(245, 124, 0, 0.48)",
+      line = list(color = "rgba(245, 124, 0, 0)", width = 0),
+      hoverinfo = "skip",
+      visible = visible_now,
+      showlegend = FALSE
+    ) |>
+    add_trace(
+      x = c(F_star, F_star),
+      y = c(0, df(F_star, df1 = df1, df2 = df2)),
+      type = "scatter",
+      mode = "lines",
+      line = list(color = "#00695c", width = 3, dash = "dash"),
+      hovertemplate = paste0(
+        "F* = ", round(F_star, 2),
+        "<br>p-value = ", p_labels[i],
+        "<extra></extra>"
+      ),
+      visible = visible_now,
+      showlegend = FALSE
+    ) |>
+    add_trace(
+      x = min(F_star + 0.45, x_max - 1.0),
+      y = max(y) * 0.46,
+      type = "scatter",
+      mode = "text",
+      text = paste0("p-value = ", p_labels[i]),
+      textfont = list(color = "#263238", size = 13),
+      hoverinfo = "skip",
+      visible = visible_now,
+      showlegend = FALSE
+    )
+}
+
+buttons <- lapply(seq_along(p_levels), function(i) {
+  visible <- rep(FALSE, 1 + 3 * length(p_levels))
+  visible[1] <- TRUE
+
+  start <- 2 + 3 * (i - 1)
+  visible[start:(start + 2)] <- TRUE
+
+  list(
+    method = "update",
+    label = paste0("p-value = ", p_labels[i]),
+    args = list(
+      list(visible = visible),
+      list(
+        title = paste0(
+          "Right-tail area: P(F<sub>2,15</sub> ≥ ",
+          round(F_values[i], 2),
+          ") = ",
+          p_labels[i]
+        )
+      )
+    )
+  )
+})
+
+p |>
+  layout(
+    title = paste0(
+      "Right-tail area: P(F<sub>2,15</sub> ≥ ",
+      round(F_values[2], 2),
+      ") = ",
+      p_labels[2]
+    ),
+    xaxis = list(
+      title = "F",
+      range = c(0, x_max),
+      zeroline = FALSE,
+      gridcolor = "rgba(0,0,0,0.08)"
+    ),
+    yaxis = list(
+      title = "Density",
+      range = c(0, max(y) * 1.05),
+      zeroline = FALSE,
+      gridcolor = "rgba(0,0,0,0.08)"
+    ),
+    margin = list(l = 45, r = 12, t = 54, b = 42),
+    paper_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "rgba(0,0,0,0)",
+    updatemenus = list(
+      list(
+        type = "dropdown",
+        direction = "down",
+        active = 1,
+        x = 0.02,
+        y = 1.14,
+        xanchor = "left",
+        yanchor = "top",
+        buttons = buttons
+      )
+    )
+  ) |>
+  config(displayModeBar = FALSE, responsive = FALSE)
 ```
 :::
+
 ::::
 
 ---
 
-##  {.quiz-question}
+## Example: Campus Café Pickup Systems {.compact .cafe-example}
 
-:::: {.callout-note icon="false"}
-## Question
+:::: {.example-grid style="display:grid; grid-template-columns: 0.42fr 0.58fr; grid-template-rows: auto auto; gap: 14px 18px; align-items: stretch;"}
 
-The ANOVA $F$-statistic ($F = MSTr / MSE$) tends to be **large** when:
-::::
+::: {.taskbox style="grid-column: 1; grid-row: 1 / span 2; font-size: 0.60em; line-height: 1.13; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">Problem</span>
 
-- within-group variation is large relative to between-group variation
-- [between-group variation is large relative to within-group variation]{.correct data-explanation="F compares between-group variation (MSTr) to within-group variation (MSE). A large F means the group means are spread far apart relative to the noise within groups — evidence against equal means."}
-- the group means are all equal
-- the sample size in each group is small
+A campus café wants to compare **three pickup systems** used during the same lunch rush period:
 
----
+- mobile order,
+- kiosk order,
+- counter order.
 
-## Example: Campus Café Pickup Systems
+For each system, the café records the number of minutes from **order confirmation** to **pickup**.
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+We want to know whether the population mean **pickup time** is the same for all three systems.
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A campus café compares mean pickup wait time across three ordering systems.
+$$
+H_0:\mu_1=\mu_2=\mu_3
+$$
 
-| System | $n_i$ | $\bar x_i$ | $s_i^2$ |
-|---|---:|---:|---:|
-| Mobile order | 6 | 7.0 | 2.0 |
-| Kiosk order | 6 | 8.5 | 2.8 |
-| Counter order | 6 | 10.2 | 3.1 |
+$$
+H_a:\text{ at least one mean pickup time differs}
+$$
 
-Use ANOVA at the 5% level.
+Use a **one-way ANOVA at the 5% level**.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
+::: {.stat-card .fragment style="grid-column: 2; grid-row: 1; font-size: 0.50em; line-height: 1.06; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
-$$
-\bar x=\frac{6(7.0)+6(8.5)+6(10.2)}{18}=8.57
-$$
-
-$$
-SSTr=6(7.0-8.57)^2+6(8.5-8.57)^2+6(10.2-8.57)^2=30.76
-$$
-
-$$
-SSE=(5)(2.0)+(5)(2.8)+(5)(3.1)=39.50
-$$
-
-$$
-MSTr=\frac{30.76}{2}=15.38,
-\quad
-MSE=\frac{39.50}{15}=2.63
-$$
-
-$$
-F^*=\frac{15.38}{2.63}=5.84
-$$
+| Mobile order | Kiosk order | Counter order |
+|---:|---:|---:|
+| 5.0 | 6.5 | 7.8 |
+| 6.0 | 6.5 | 8.8 |
+| 7.0 | 8.5 | 9.8 |
+| 7.0 | 9.5 | 10.6 |
+| 8.0 | 9.5 | 11.8 |
+| 9.0 | 10.5 | 12.4 |
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Hypotheses</span>
+::: {.notebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.16; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">ANOVA setup</span>
 
-$$H_0:\mu_1=\mu_2=\mu_3$$
+The explanatory variable is the **pickup system**.
 
-$$H_a:\text{at least one mean wait time differs}$$
-:::
+The response variable is **pickup wait time**.
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.15; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-With $df_1=2$ and $df_2=15$, $p=0.0133$. Since $p<0.05$, reject $H_0$. There is evidence that not all ordering systems have the same population mean wait time.
+There are $k=3$ groups and $n=18$ observations.
+
+Each system has $n_i=6$ wait-time measurements.
 :::
 
 ::::
 
 ---
 
-## Example: Short-Form Video Edit Styles
+## Campus Café: ANOVA Result {.cafe-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: start;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A creator compares mean viewer watch time across four video edit styles.
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 1; font-size: 0.54em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;" data-fragment-index="1"}
+<span class="label">Calculation table</span>
 
-| Style | $n_i$ | $\bar x_i$ | $s_i^2$ |
-|---|---:|---:|---:|
-| Clean cut | 5 | 38 | 20 |
-| Captions-first | 5 | 44 | 25 |
-| Meme overlay | 5 | 41 | 18 |
-| Story hook | 5 | 52 | 22 |
+The grand mean is $\bar{x}=8.57$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
 
-Complete the ANOVA table and test at the 5% level.
+| System | $n_i$ | $\bar{x}_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $n_i(\bar{x}_i-\bar{x})^2$ |
+|---|---:|---:|---:|---:|---:|
+| Mobile | 6 | 7.00 | 2.00 | 10.00 | 14.73 |
+| Kiosk | 6 | 8.50 | 2.80 | 14.00 | 0.03 |
+| Counter | 6 | 10.20 | 3.09 | 15.44 | 16.01 |
+| **Totals** | **18** |  |  | **39.44** | **30.76** |
+
+<div class="calc-left" style="font-size: 1.08em; margin-top: 12px;">
+
+$$
+SSE=39.44,
+\qquad
+SSTr=30.76,
+\qquad
+SSTotal=70.20
+$$
+
+</div>
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Calculation</span>
-
-$$
-\bar x=\frac{5(38)+5(44)+5(41)+5(52)}{20}=43.75
-$$
-
-$$
-\begin{aligned}
-SSTr &= 5(38-43.75)^2+5(44-43.75)^2\\
-     &\quad +\,5(41-43.75)^2+5(52-43.75)^2\\
-     &= 543.75
-\end{aligned}
-$$
-
-$$
-SSE=4(20)+4(25)+4(18)+4(22)=340.00
-$$
-
-$$
-MSTr=\frac{543.75}{3}=181.25,
-\quad
-MSE=\frac{340.00}{16}=21.25
-$$
-
-$$
-F^*=\frac{181.25}{21.25}=8.53
-$$
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;" data-fragment-index="2"}
 <span class="label">ANOVA table</span>
 
-| Source | df | SS | MS | F |
-|---|---:|---:|---:|---:|
-| Treatment | 3 | 543.75 | 181.25 | 8.53 |
-| Error | 16 | 340.00 | 21.25 |  |
-| Total | 19 | 883.75 |  |  |
+| Source | df | SS | MS | F | p-value |
+|---|---:|---:|---:|---:|---:|
+| Treatment | 2 | 30.76 | 15.38 | 5.85 | 0.0132 |
+| Error | 15 | 39.44 | 2.63 |  |  |
+| Total | 17 | 70.20 |  |  |  |
+
+$$
+MSTr=\frac{30.76}{2}=15.38
+$$
+
+$$
+MSE=\frac{39.44}{15}=2.63
+$$
+
+$$
+F^*=\frac{15.38}{2.63}=5.85
+$$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.15; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-With $df_1=3$ and $df_2=16$, $p=0.0013$. Since $p<0.05$, reject $H_0$. At least one edit style has a different population mean watch time.
-:::
+::: {.examplebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;" data-fragment-index="3"}
+<span class="label">Conclusion</span>
 
-::::
+Since $p=0.0132<0.05$, reject $H_0$.
 
----
+There is evidence that **not all pickup systems** have the same population mean pickup wait time.
 
-## Check in R: ANOVA from Summary Statistics {.compact-r}
-
-:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
-
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Campus café pickup example</span>
-:::
-
-```{webr}
-#| autorun: false
-
-n <- c(6, 6, 6)
-xbar <- c(7.0, 8.5, 10.2)
-s2 <- c(2.0, 2.8, 3.1)
-
-k <- length(n)
-N <- sum(n)
-grand <- sum(n * xbar) / N
-
-SSTR <- sum(n * (xbar - grand)^2)
-SSE <- sum((n - 1) * s2)
-
-df1 <- k - 1
-df2 <- N - k
-
-MSTR <- SSTR / df1
-MSE <- SSE / df2
-Fstar <- MSTR / MSE
-pval <- pf(Fstar, df1, df2, lower.tail = FALSE)
-
-out <- round(data.frame(
-  grand, SSTR, SSE, MSTR, MSE, Fstar, pval
-), 3)
-
-print(out, row.names = FALSE)
-```
-:::
-
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Short-form video edit example</span>
-:::
-
-```{webr}
-#| autorun: false
-
-n <- c(5, 5, 5, 5)
-xbar <- c(38, 44, 41, 52)
-s2 <- c(20, 25, 18, 22)
-
-k <- length(n)
-N <- sum(n)
-grand <- sum(n * xbar) / N
-
-SSTR <- sum(n * (xbar - grand)^2)
-SSE <- sum((n - 1) * s2)
-
-df1 <- k - 1
-df2 <- N - k
-
-MSTR <- SSTR / df1
-MSE <- SSE / df2
-Fstar <- MSTR / MSE
-pval <- pf(Fstar, df1, df2, lower.tail = FALSE)
-
-out <- round(data.frame(
-  grand, SSTR, SSE, MSTR, MSE, Fstar, pval
-), 3)
-
-print(out, row.names = FALSE)
-```
+The ANOVA test tells us that at least one system has a different mean. It does **not** tell us which systems differ.
 :::
 
 ::::
 
 ---
 
-## Example: Basketball Drill Scores
-
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
-
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A coach tests three practice formats and records shooting-drill scores.
-
-| Classic | Streak challenge | Leaderboard |
-|---:|---:|---:|
-| 18 | 23 | 30 |
-| 20 | 25 | 29 |
-| 19 | 26 | 31 |
-| 22 | 24 | 28 |
-| 21 | 27 | 32 |
-| 20 | 25 | 30 |
-
-Test whether the three population mean scores are equal.
-:::
-
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Manual ANOVA pieces</span>
-
-$$
-\bar x_1=20,
-\qquad
-\bar x_2=25,
-\qquad
-\bar x_3=30,
-\qquad
-\bar x=25
-$$
-
-$$
-SSTr=6(20-25)^2+6(25-25)^2+6(30-25)^2=300
-$$
-
-$$
-SSE=(5)(2)+(5)(2)+(5)(2)=30
-$$
-
-$$
-MSTr=150,
-\qquad
-MSE=2,
-\qquad
-F^*=75
-$$
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Decision</span>
-
-$$
-F^*\sim F_{2,15}
-$$
-
-The p-value is extremely small.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.15; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-Reject $H_0$. There is strong evidence that at least one practice format has a different population mean shooting-drill score.
-:::
-
-::::
-
----
-
-## Visual: Basketball Drill Scores
+## Visual: Campus Café Pickup Systems
 
 ```{r}
 #| echo: false
-basketball <- data.frame(
-  score = c(18,20,19,22,21,20, 23,25,26,24,27,25, 30,29,31,28,32,30),
-  format = rep(c("Classic", "Streak challenge", "Leaderboard"), each = 6)
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(plotly)
+
+cafe <- data.frame(
+  wait_time = c(
+    5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
+    6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
+    7.8, 8.8, 9.8, 10.6, 11.8, 12.4
+  ),
+  system = factor(
+    rep(c("Mobile order", "Kiosk order", "Counter order"), each = 6),
+    levels = c("Mobile order", "Kiosk order", "Counter order")
+  )
 )
 
-means_b <- basketball |>
-  group_by(format) |>
-  summarise(mean_score = mean(score), .groups = "drop")
+cafe_means <- cafe |>
+  group_by(system) |>
+  summarise(mean_wait = mean(wait_time), .groups = "drop")
 
 plot_ly() |>
-  add_markers(
-    data = basketball,
-    x = ~format,
-    y = ~score,
-    marker = list(
-      size = 9,
-      color = "rgba(0,105,92,0.62)",
-      line = list(color = "white", width = 1)
-    ),
-    hovertemplate = "%{x}<br>Score: %{y}<extra></extra>"
+  add_trace(
+    data = cafe,
+    x = ~system,
+    y = ~wait_time,
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.40)",
+    hovertemplate = "System: %{x}<br>Wait time: %{y:.1f} minutes<extra></extra>",
+    showlegend = FALSE
   ) |>
   add_markers(
-    data = means_b,
-    x = ~format,
-    y = ~mean_score,
+    data = cafe_means,
+    x = ~system,
+    y = ~mean_wait,
     marker = list(
-      size = 17,
-      color = plot_cols$orange,
-      symbol = "diamond",
-      line = list(color = plot_cols$teal_dark, width = 1.5)
+      size = 10,
+      color = "#c62828",
+      symbol = "circle",
+      line = list(color = "white", width = 1.2)
     ),
-    hovertemplate = "%{x}<br>Group mean: %{y:.1f}<extra></extra>"
+    hovertemplate = "System: %{x}<br>Mean wait time: %{y:.2f} minutes<extra></extra>",
+    showlegend = FALSE
   ) |>
   plotly_anova_layout(
-    "Group means are far apart relative to within-group noise",
-    "Practice format",
-    "Score",
-    height = 390
+    title = "Pickup wait times by ordering system",
+    x_title = "Ordering system",
+    y_title = "Wait time (minutes)",
+    height = 390,
+    margin = list(l = 76, r = 25, t = 60, b = 70)
+  ) |>
+  layout(
+    yaxis = list(
+      title = "Wait time (minutes)",
+      zeroline = FALSE,
+      showline = TRUE,
+      fixedrange = TRUE,
+      linecolor = plot_cols$border,
+      gridcolor = "rgba(0,0,0,0.07)",
+      tickmode = "linear",
+      tick0 = 5,
+      dtick = 1,
+      range = c(4.8, 12.8)
+    )
   )
 ```
 
-::: {.thinkbox}
-This is the ANOVA story visually: the group means move a lot, while the points inside each group are fairly tight.
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+The **red dots** show the sample mean pickup wait time for each ordering system.
+
+The **boxplots** show the within-group spread. The centers are clearly separated, especially for **counter order** versus **mobile order**, which matches the ANOVA conclusion that not all group means are the same.
 :::
 
 ---
 
-## Example: Study Playlist Focus Scores
+## Example: Gym Class Types {.video-example}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.43fr 0.57fr; gap: 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-A study app compares focus scores after three playlist styles.
+::: {.taskbox style="font-size: 0.62em; line-height: 1.18; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">Problem</span>
 
-| Lo-fi | Classical | Ambient |
-|---:|---:|---:|
-| 41 | 43 | 44 |
-| 44 | 45 | 43 |
-| 43 | 44 | 46 |
-| 42 | 46 | 45 |
-| 46 | 47 | 48 |
-| 45 | 42 | 47 |
+A fitness studio wants to compare **four gym class types** offered in 45-minute sessions:
 
-Test whether the population mean focus scores are equal.
+- cycling,
+- boxing,
+- HIIT,
+- yoga.
+
+For each participant, the studio records the **calories burned**.
+
+We want to know whether the **population mean calories burned** is the same for all four class types.
+
+<div class="calc-left" style="font-size: 0.95em; margin-top: 12px; margin-bottom: 12px;">
+
+$$
+H_0:\mu_1=\mu_2=\mu_3=\mu_4
+$$
+
+$$
+H_a:\text{at least one mean calories-burned value differs}
+$$
+
+</div>
+
+Use a **one-way ANOVA at the 5% level**.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Manual ANOVA pieces</span>
+::: {.col style="display:grid; grid-template-rows: auto 1fr; gap: 16px;"}
 
-$$
-\bar x_1=43.5,
-\qquad
-\bar x_2=44.5,
-\qquad
-\bar x_3=45.5,
-\qquad
-\bar x=44.5
-$$
+::: {.stat-card .fragment style="font-size: 0.53em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Observed data</span>
 
-$$
-SSTr=6(43.5-44.5)^2+6(44.5-44.5)^2+6(45.5-44.5)^2=12
-$$
-
-$$
-SSE=52.5
-$$
-
-$$
-MSTr=6,
-\qquad
-MSE=3.5,
-\qquad
-F^*=1.71
-$$
+| Cycling | Boxing | HIIT | Yoga |
+|---:|---:|---:|---:|
+| 430 | 450 | 470 | 400 |
+| 445 | 460 | 485 | 415 |
+| 455 | 475 | 500 | 430 |
+| 470 | 490 | 520 | 445 |
+| 485 | 505 | 535 | 460 |
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Decision</span>
+::: {.notebox .fragment style="font-size: 0.64em; line-height: 1.22; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">ANOVA setup</span>
 
-$$
-F^*\sim F_{2,15}
-$$
+The explanatory variable is the **gym class type**.
 
-The p-value is about $0.214$.
+The response variable is **calories burned**.
+
+There are $k=4$ groups and $n=20$ observations.
+
+Each class type has $n_i=5$ calorie-burn measurements.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.15; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-Do not reject $H_0$. These data do not give enough evidence that the playlist styles have different population mean focus scores.
 :::
 
 ::::
 
 ---
 
-## Visual: Study Playlist Focus Scores
+## Gym Class Types: ANOVA Result {.video-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: start;"}
+
+::: {.stat-card .fragment style="grid-column: 1; grid-row: 1; font-size: 0.52em; line-height: 1.09; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Calculation table</span>
+
+The grand mean is $\bar{x}=466.25$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
+
+| Class type | $n_i$ | $\bar{x}_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $n_i(\bar{x}_i-\bar{x})^2$ |
+|---|---:|---:|---:|---:|---:|
+| Cycling | 5 | 457.00 | 457.50 | 1830.00 | 427.81 |
+| Boxing | 5 | 476.00 | 492.50 | 1970.00 | 475.31 |
+| HIIT | 5 | 502.00 | 682.50 | 2730.00 | 6390.31 |
+| Yoga | 5 | 430.00 | 562.50 | 2250.00 | 6570.31 |
+| **Totals** | **20** |  |  | **8780.00** | **13863.75** |
+
+<div class="calc-left" style="font-size: 1.08em; margin-top: 12px;">
+
+$$
+SSE=8780.00,
+\qquad
+SSTr=13863.75,
+\qquad
+SSTotal=22643.75
+$$
+
+</div>
+:::
+
+::: {.notebox .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.56em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">ANOVA table</span>
+
+| Source | df | SS | MS | F | p-value |
+|---|---:|---:|---:|---:|---:|
+| Treatment | 3 | 13863.75 | 4621.25 | 8.42 | 0.0014 |
+| Error | 16 | 8780.00 | 548.75 |  |  |
+| Total | 19 | 22643.75 |  |  |  |
+
+$$
+MSTr=\frac{13863.75}{3}=4621.25
+$$
+
+$$
+MSE=\frac{8780.00}{16}=548.75
+$$
+
+$$
+F^*=\frac{4621.25}{548.75}=8.42
+$$
+:::
+
+::: {.examplebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.67em; line-height: 1.21; padding: 17px 19px; margin-bottom: 0;"}
+<span class="label">Conclusion</span>
+
+Since $p=0.0014<0.05$, reject $H_0$.
+
+There is evidence that **not all gym class types** have the same population mean calories burned.
+
+The ANOVA test tells us that at least one class type has a different mean. It does **not** tell us which class types differ.
+:::
+
+::::
+
+---
+
+## Visual: Gym Class Types
 
 ```{r}
 #| echo: false
-playlist <- data.frame(
-  score = c(41,44,43,42,46,45, 43,45,44,46,47,42, 44,43,46,45,48,47),
-  style = rep(c("Lo-fi", "Classical", "Ambient"), each = 6)
+#| warning: false
+#| message: false
+
+library(dplyr)
+library(plotly)
+
+video <- data.frame(
+  calories = c(
+    430, 445, 455, 470, 485,
+    450, 460, 475, 490, 505,
+    470, 485, 500, 520, 535,
+    400, 415, 430, 445, 460
+  ),
+  style = factor(
+    rep(c("Cycling", "Boxing", "HIIT", "Yoga"), each = 5),
+    levels = c("Cycling", "Boxing", "HIIT", "Yoga")
+  )
 )
 
-means_p <- playlist |>
+video_means <- video |>
   group_by(style) |>
-  summarise(mean_score = mean(score), .groups = "drop")
+  summarise(mean_watch = mean(calories), .groups = "drop")
 
 plot_ly() |>
-  add_markers(
-    data = playlist,
+  add_trace(
+    data = video,
     x = ~style,
-    y = ~score,
-    marker = list(
-      size = 9,
-      color = "rgba(0,105,92,0.62)",
-      line = list(color = "white", width = 1)
-    ),
-    hovertemplate = "%{x}<br>Focus score: %{y}<extra></extra>"
+    y = ~calories,
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.40)",
+    hovertemplate = "Class type: %{x}<br>Calories burned: %{y:.1f}<extra></extra>",
+    showlegend = FALSE
   ) |>
   add_markers(
-    data = means_p,
+    data = video_means,
     x = ~style,
-    y = ~mean_score,
+    y = ~mean_watch,
     marker = list(
-      size = 17,
-      color = plot_cols$orange,
-      symbol = "diamond",
-      line = list(color = plot_cols$teal_dark, width = 1.5)
+      size = 10,
+      color = "#c62828",
+      symbol = "circle",
+      line = list(color = "white", width = 1.2)
     ),
-    hovertemplate = "%{x}<br>Group mean: %{y:.1f}<extra></extra>"
+    hovertemplate = "Class type: %{x}<br>Mean calories burned: %{y:.2f}<extra></extra>",
+    showlegend = FALSE
   ) |>
   plotly_anova_layout(
-    "Means are close compared with within-group noise",
-    "Playlist style",
-    "Focus score",
-    height = 390
+    title = "Calories burned by gym class type",
+    x_title = "Gym class type",
+    y_title = "Calories burned",
+    height = 390,
+    margin = list(l = 76, r = 25, t = 60, b = 82)
+  ) |>
+  layout(
+    yaxis = list(
+      title = "Calories burned",
+      zeroline = FALSE,
+      showline = TRUE,
+      fixedrange = TRUE,
+      linecolor = plot_cols$border,
+      gridcolor = "rgba(0,0,0,0.07)",
+      tickmode = "linear",
+      tick0 = 400,
+      dtick = 20,
+      range = c(390, 545)
+    )
   )
 ```
 
-::: {.thinkbox}
-Here, the group means are close. ANOVA finds that the between-group variation is not large enough relative to error variation.
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+The **red dots** show the sample mean calories burned for each gym class type.
+
+The **boxplots** show the within-group spread. The centers are noticeably different, especially for **HIIT** compared with **yoga**, which matches the ANOVA conclusion that not all group means are the same.
 :::
 
 ---
 
-## Check in R: One-Way ANOVA F Tests {.compact-r}
+## Check in R: One-Way ANOVA {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Basketball drill example</span>
+<span class="label">Campus café example</span>
 :::
 
 ```{webr}
 #| autorun: false
 
-classic <- c(18, 20, 19, 22, 21, 20)
-streak <- c(23, 25, 26, 24, 27, 25)
-leaderboard <- c(30, 29, 31, 28, 32, 30)
+wait_time <- c(5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
+               6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
+               7.8, 8.8, 9.8, 10.6, 11.8, 12.4)
 
-score <- c(classic, streak, leaderboard)
-format <- factor(rep(
-  c("Classic", "Streak", "Leaderboard"),
-  each = 6
-))
+system <- factor(rep(c("Mobile", "Kiosk", "Counter"), each = 6))
 
-test <- oneway.test(score ~ format, var.equal = TRUE)
-fit <- aov(score ~ format)
-tab <- anova(fit)
+fit <- aov(wait_time ~ system)
 
-out <- data.frame(
-  F = unname(test$statistic),
-  df1 = unname(test$parameter[1]),
-  df2 = unname(test$parameter[2]),
-  p_value = test$p.value,
-  MSE = tab$`Mean Sq`[2]
-)
-
-print(round(out, 4), row.names = FALSE)
+anova(fit)
 ```
 :::
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Study playlist example</span>
+<span class="label">Gym class example</span>
 :::
 
 ```{webr}
 #| autorun: false
 
-lofi <- c(41, 44, 43, 42, 46, 45)
-classical <- c(43, 45, 44, 46, 47, 42)
-ambient <- c(44, 43, 46, 45, 48, 47)
+calories <- c(430, 445, 455, 470, 485,
+              450, 460, 475, 490, 505,
+              470, 485, 500, 520, 535,
+              400, 415, 430, 445, 460)
 
-score <- c(lofi, classical, ambient)
-style <- factor(rep(
-  c("Lo-fi", "Classical", "Ambient"),
-  each = 6
-))
+class_type <- factor(rep(c("Cycling", "Boxing", "HIIT", "Yoga"), each = 5))
 
-test <- oneway.test(score ~ style, var.equal = TRUE)
-fit <- aov(score ~ style)
-tab <- anova(fit)
+fit <- aov(calories ~ class_type)
 
-out <- data.frame(
-  F = unname(test$statistic),
-  df1 = unname(test$parameter[1]),
-  df2 = unname(test$parameter[2]),
-  p_value = test$p.value,
-  MSE = tab$`Mean Sq`[2]
-)
-
-print(round(out, 4), row.names = FALSE)
+anova(fit)
 ```
 :::
 
@@ -1488,444 +1741,952 @@ print(round(out, 4), row.names = FALSE)
 
 ---
 
-## Assumptions of ANOVA
+## What If ANOVA Rejects? {.compact .anova-rejects}
 
-::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
-<span class="label">Assumptions</span>
+:::: {.anova-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
 
-<ul class="assumption-list" style="gap: 10px;">
-  <li>Observations are independent.</li>
-  <li>Error terms, or residuals, are Normal.</li>
-  <li>All groups have the same population variance: $\sigma_1^2=\sigma_2^2=\cdots=\sigma_k^2=\sigma^2$.</li>
-</ul>
-:::
+::: {.defbox style="font-size: 0.64em; line-height: 1.17; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Global ANOVA result</span>
 
-::: {.defbox .fragment}
-The common variance is estimated using the Mean Squared Error from ANOVA:
+ANOVA tests whether all population means are equal:
 
 $$
-\hat\sigma^2=MSE
-$$
-:::
-
-::: {.thinkbox .fragment}
-This is why the denominator of the F statistic is $MSE$: it estimates the shared within-group variance.
-:::
-
----
-
-##  {.quiz-question}
-
-:::: {.callout-note icon="false"}
-## Question
-
-Which of the following is an assumption of one-way ANOVA?
-::::
-
-- The group sample sizes must all be equal
-- [Independent samples from normal populations with equal variances]{.correct data-explanation="One-way ANOVA assumes independent samples drawn from normal populations that share a common variance. Equal sample sizes are not required."}
-- The response variable must be categorical
-- Each expected cell count is at least 5
-
----
-
-## What If ANOVA Rejects?
-
-:::: {.two-col-wide}
-::: {.col}
-::: {.defbox}
-ANOVA's alternative is broad:
-
-$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+\qquad \text{vs.} \qquad
 H_a:\text{at least one mean is different}
 $$
-
-So after rejecting $H_0$, we still need to ask:
-
-**Which mean or means are different?**
-:::
 :::
 
-::: {.col}
-::: {.notebox .fragment}
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.thinkbox .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Important limitation</span>
+
+Rejecting $H_0$ tells us that **not all means are equal**.
+
+It does **not** tell us which specific groups differ.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Follow-up question</span>
+
+After a significant ANOVA result, we ask:
+
+$$
+\text{Which means are different?}
+$$
+:::
+
+::: {.notebox .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">Pairwise comparisons</span>
-
-Compare the means in pairs.
 
 For three groups:
 
-- $\mu_1$ vs. $\mu_2$
-- $\mu_1$ vs. $\mu_3$
-- $\mu_2$ vs. $\mu_3$
-:::
+$$
+\mu_1-\mu_2,\qquad
+\mu_1-\mu_3,\qquad
+\mu_2-\mu_3
+$$
 
-::: {.thinkbox .fragment}
-Number of comparisons:
+With $k$ groups:
 
 $$
-\binom{k}{2}
+m=\binom{k}{2}
 $$
 :::
+
+::::
+
+::: {.examplebox .fragment style="font-size: 0.64em; line-height: 1.18; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">Next step</span>
+
+Use pairwise confidence intervals to compare specific group means: first **Fisher's LSD**, then **Bonferroni**.
 :::
+
 ::::
 
 ---
 
-## Pairwise Confidence Intervals
+## Pairwise Confidence Intervals {.compact .pairwise-ci}
 
-::: {.defbox}
-For comparing two group means after ANOVA, use intervals for:
+:::: {.pairwise-ci-flow style="display:grid; grid-template-rows: auto 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.defbox style="font-size: 0.61em; line-height: 1.14; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">General idea</span>
+
+After ANOVA rejects, compare two population means using an interval for $\mu_i-\mu_j$:
+
+<div class="calc-left" style="font-size: 0.95em; margin-top: 6px; margin-bottom: 4px;">
 
 $$
-\mu_i-\mu_j
+(\bar{x}_i-\bar{x}_j)
+\pm
+t^*
+\sqrt{
+MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)
+}
+\qquad
+\text{where } \hat{\sigma}^2=MSE
 $$
+
+</div>
 :::
 
-:::: {.two-col}
-::: {.stat-card .fragment}
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">Fisher's LSD</span>
 
+Use the ordinary two-sided critical value:
+
 $$
-(\bar x_i-\bar x_j)
-\pm
-t_{n-k,\alpha/2}
-\sqrt{
-MSE
-\left(
-\frac{1}{n_i}+\frac{1}{n_j}
-\right)
-}
+t^*=t_{1-\alpha/2,\;n-k}
 $$
 
-More power, but does not control experiment-wise Type I error.
+This gives **narrower intervals**, so it has more power to detect differences.
+
+It is less conservative when many pairs are compared.
 :::
 
-::: {.stat-card .fragment}
+::: {.stat-card .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">Bonferroni</span>
 
+First count the number of pairwise comparisons:
+
 $$
-(\bar x_i-\bar x_j)
-\pm
-t_{n-k,\alpha/(2m)}
-\sqrt{
-MSE
-\left(
-\frac{1}{n_i}+\frac{1}{n_j}
-\right)
-}
+m=\binom{k}{2}
 $$
 
-where $m=\binom{k}{2}$.
+Then use the adjusted critical value:
+
+$$
+t^*=t_{1-\alpha/(2m),\;n-k}
+$$
+
+This gives **wider intervals**.
 :::
+
+::: {.thinkbox .fragment style="font-size: 0.59em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Decision rule</span>
+
+A pair is declared **different** when the interval for $\mu_i-\mu_j$ does **not contain 0**.
+
+If the interval contains 0, the pair is **not clearly different**.
+
+So the whole method is:
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+$$
+:::
+
+::::
+
 ::::
 
 ---
 
-## Fisher LSD vs. Bonferroni
+## Fisher's LSD: The Idea {.compact .fisher-idea}
 
-| Method | What it does | Tradeoff |
-|---|---|---|
-| Fisher LSD | Uses ordinary pairwise intervals after ANOVA | Higher power, but does not control experiment-wise Type I error |
-| Bonferroni | Adjusts each interval for the number of comparisons | Controls experiment-wise Type I error, but intervals are wider |
+:::: {.fisher-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
 
-::: {.notebox .fragment}
-<span class="label">Least significant difference</span>
+::: {.defbox style="font-size: 0.64em; line-height: 1.17; padding: 14px 18px; margin-bottom: 0;"}
+<span class="label">Least Significant Difference</span>
+
+Fisher's LSD compares two group means after the overall ANOVA test has rejected $H_0$.
+
+For a pair of groups $i$ and $j$, we compare the observed mean difference:
+
+$$
+\bar{x}_i-\bar{x}_j
+$$
+:::
+
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Shared error estimate</span>
+
+Use the pooled within-group variation from ANOVA:
+
+$$
+MSE
+$$
+
+This estimates the common variance $\sigma^2$.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">Ordinary t critical value</span>
+
+Fisher's LSD uses:
+
+$$
+t^*=t_{1-\alpha/2,\;n-k}
+$$
+
+The degrees of freedom come from the ANOVA error row.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.61em; line-height: 1.16; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">LSD cutoff</span>
+
+When group sizes are $n_i$ and $n_j$:
 
 $$
 LSD=
-t_{\alpha/2,v}
+t^*
 \sqrt{
-MSE
-\left(
-\frac{1}{n_i}+\frac{1}{n_j}
-\right)
+MSE\left(\frac{1}{n_i}+\frac{1}{n_j}\right)
 }
 $$
-
-Conclude two means differ if:
-
-$$
-|\bar x_i-\bar x_j|>LSD
-$$
-:::
-
----
-
-## Example: Which Basketball Drills Differ?
-
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
-
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 11px 15px; margin-bottom: 0;"}
-The basketball ANOVA rejected $H_0$.
-
-Group means:
-
-$$
-\bar x_1=20,
-\quad
-\bar x_2=25,
-\quad
-\bar x_3=30
-$$
-
-ANOVA gave:
-
-$$
-MSE=2,
-\qquad
-v=n-k=15
-$$
-
-Use Fisher's LSD intervals.
-:::
-
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.76em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Fisher LSD setup</span>
-
-$$
-SE=
-\sqrt{
-2\left(\frac{1}{6}+\frac{1}{6}\right)
-}
-=
-0.8165
-$$
-
-$$
-t_{0.975,15}=2.131
-$$
-
-$$
-LSD=2.131(0.8165)=1.74
-$$
-
-| Pair | Difference | Fisher LSD CI |
-|---|---:|---:|
-| Classic - Streak | -5 | $(-6.74,-3.26)$ |
-| Classic - Leaderboard | -10 | $(-11.74,-8.26)$ |
-| Streak - Leaderboard | -5 | $(-6.74,-3.26)$ |
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.61em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Number of comparisons</span>
-
-$$
-\binom{3}{2}=3
-$$
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.15; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-All three Fisher LSD intervals avoid 0, so each pair of practice formats has different population mean shooting-drill scores.
 :::
 
 ::::
 
----
+::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.18; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">How to decide</span>
 
-## Example: Phone Case Drop-Test Costs {.phone-case-example}
+If
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.90fr 1.10fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+$$
+|\bar{x}_i-\bar{x}_j|>LSD,
+$$
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0;"}
-A device lab tests four phone case designs. After a standardized drop test, it records repair cost.
-
-ANOVA rejects the equal-means hypothesis.
-
-| Case | Mean repair cost |
-|---|---:|
-| Slim | 87.50 |
-| Rugged | 113.00 |
-| Wallet | 98.50 |
-| Clear | 75.88 |
-
-The ANOVA error estimate is $MSE=17.89$, with $v=28$ error degrees of freedom.
+then the pair is declared **different**. Fisher's LSD is powerful, but it is less conservative when many pairwise comparisons are made.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.66em; line-height: 1.10; padding: 11px 15px; margin-bottom: 0;"}
-<span class="label">Bonferroni setup</span>
+::::
 
-There are:
+----
+
+## Example: Badminton Drills — Fisher's LSD {.compact .badminton-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A badminton coach compares three drill programs for improving **serve-target accuracy**.
+
+After two months, each player completes the same accuracy test out of 40.
+
+| Basic serve | Target serve | Match-play serve |
+|---:|---:|---:|
+| 19 | 24 | 26 |
+| 20 | 25 | 27 |
+| 21 | 26 | 28 |
+| 23 | 28 | 29 |
+| 24 | 29 | 30 |
+| 25 | 30 | 31 |
+
+ANOVA rejects $H_0$. Which drill programs differ using **Fisher's LSD**?
+:::
+
+::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Setup from ANOVA</span>
 
 $$
-m=\binom{4}{2}=6
+MSE=4.90,
+\qquad
+v=n-k=18-3=15
 $$
 
-pairwise comparisons.
-
-Bonferroni uses:
-
 $$
-t_{1-\alpha/(2m),28}
-=
-t_{1-0.05/12,28}
-=
-2.839
+\bar{x}_1=22,
+\qquad
+\bar{x}_2=27,
+\qquad
+\bar{x}_3=28.5
 $$
 
-For equal sample sizes $n_i=8$:
+Each group has $n_i=6$.
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.57em; line-height: 1.10; padding: 15px 17px; margin-bottom: 0; display: flex; flex-direction: column;"}
+<span class="label">Fisher LSD calculation</span>
+
+::: {.fragment}
+Use the ordinary critical value:
+
+$$
+t^*=t_{0.975,15}=2.131
+$$
+:::
+
+::: {.fragment}
+Because all groups have size 6, the standard error is the same for every pair:
 
 $$
 SE=
 \sqrt{
-17.89
+4.90
+\left(
+\frac16+\frac16
+\right)
+}
+=
+1.28
+$$
+:::
+
+::: {.fragment}
+The least significant difference is
+
+$$
+LSD=2.131(1.28)=2.72
+$$
+
+So each pairwise interval is:
+
+$$
+(\bar{x}_i-\bar{x}_j)\pm 2.72
+$$
+:::
+
+::: {.fragment style="margin-top: auto;"}
+<div class="calc-left" style="font-size: 1.10em; line-height: 1.14; padding-top: 12px;">
+
+<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Fisher LSD intervals</span>
+
+$$
+\begin{aligned}
+\text{Basic} - \text{Target}
+&:\ -5.00\pm2.72=(-7.72,\,-2.28)\\[7pt]
+\text{Basic} - \text{Match-play}
+&:\ -6.50\pm2.72=(-9.22,\,-3.78)\\[7pt]
+\text{Target} - \text{Match-play}
+&:\ -1.50\pm2.72=(-4.22,\,1.22)
+\end{aligned}
+$$
+
+</div>
+:::
+
+:::
+
+::::
+
+
+----
+
+## Badminton Drills — Fisher LSD Results {.compact .badminton-results}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
+
+::: {.taskbox style="font-size: 0.55em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A badminton coach compares three drill programs for improving **serve-target accuracy**.
+
+After two months, each player completes the same accuracy test out of 40.
+
+| Basic serve | Target serve | Match-play serve |
+|---:|---:|---:|
+| 19 | 24 | 26 |
+| 20 | 25 | 27 |
+| 21 | 26 | 28 |
+| 23 | 28 | 29 |
+| 24 | 29 | 30 |
+| 25 | 30 | 31 |
+
+ANOVA rejects $H_0$. Which drill programs differ using **Fisher's LSD**?
+:::
+
+::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
+
+::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Read the Fisher LSD intervals</span>
+
+A pair is declared **different** when the interval does **not contain 0**.
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+\qquad
+\text{interval contains }0
+\Rightarrow
+\text{not clearly different}
+$$
+:::
+
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: stretch;"}
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Basic vs Target</span>
+
+$$
+(-7.72,\,-2.28)
+$$
+
+This interval avoids 0.
+
+**Different**
+:::
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Basic vs Match-play</span>
+
+$$
+(-9.22,\,-3.78)
+$$
+
+This interval avoids 0.
+
+**Different**
+:::
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Target vs Match-play</span>
+
+$$
+(-4.22,\,1.22)
+$$
+
+This interval contains 0.
+
+**Not clearly different**
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Answer</span>
+
+Using Fisher's LSD, **Basic serve** has a lower mean accuracy score than both **Target serve** and **Match-play serve**.
+
+However, **Target serve** and **Match-play serve** are not clearly different from each other.
+:::
+
+:::
+
+::::
+
+
+---
+
+## Visual: Fisher LSD Pairwise Intervals
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(plotly)
+
+badminton_lsd <- data.frame(
+  comparison = factor(
+    c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
+    levels = c("Basic − Target", "Basic − Match-play", "Target − Match-play")
+  ),
+  difference = c(-5.00, -6.50, -1.50),
+  lower = c(-7.72, -9.22, -4.22),
+  upper = c(-2.28, -3.78, 1.22)
+)
+
+plot_ly(
+  badminton_lsd,
+  x = ~comparison,
+  y = ~difference,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    size = 10,
+    color = "rgba(198,40,40,1)",
+    line = list(color = "rgba(198,40,40,1)", width = 1.0)
+  ),
+  error_y = list(
+    type = "data",
+    array = ~upper - difference,
+    arrayminus = ~difference - lower,
+    color = "rgba(198,40,40,1)",
+    thickness = 1.9,
+    width = 6
+  ),
+  hovertemplate = paste(
+    "Comparison: %{x}",
+    "<br>Mean difference: %{y:.2f}",
+    "<br>Fisher LSD interval: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
+) |>
+  plotly_anova_layout(
+    title = "Fisher LSD intervals for pairwise mean differences",
+    x_title = "Pairwise comparison",
+    y_title = "Mean difference in accuracy score",
+    height = 350,
+    margin = list(l = 78, r = 20, t = 54, b = 82)
+  ) |>
+  layout(
+    shapes = list(
+      list(
+        type = "line",
+        xref = "paper",
+        x0 = 0,
+        x1 = 1,
+        yref = "y",
+        y0 = 0,
+        y1 = 0,
+        line = list(
+          color = "black",
+          width = 2.1,
+          dash = "dash"
+        )
+      )
+    ),
+    xaxis = list(
+      title = list(
+        text = "Pairwise comparison",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
+      showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      tickangle = 0,
+      tickmode = "array",
+      tickvals = c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
+      ticktext = c("Basic<br>vs<br>Target",
+                   "Basic<br>vs<br>Match-play",
+                   "Target<br>vs<br>Match-play"),
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = list(
+        text = "Mean difference in accuracy score",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      fixedrange = TRUE,
+      gridcolor = "rgba(0,0,0,0.06)",
+      tickmode = "linear",
+      tick0 = -10,
+      dtick = 2,
+      range = c(-10, 3)
+    )
+  )
+```
+
+::: {.thinkbox style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;"}
+The **red dots** show the observed pairwise mean differences. The **red vertical intervals** show the Fisher LSD intervals.
+
+The **black dashed line** marks 0. Intervals that avoid 0 indicate pairs that are significantly different. The first two intervals avoid 0, while **Target serve vs Match-play serve** contains 0.
+:::
+
+---
+
+## Example: Phone Case Drop-Test Costs — Fisher's LSD {.compact .phone-case-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the response variable is
+
+$$
+y=\text{repair cost in dollars after impact}.
+$$
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ in mean repair cost using **Fisher's LSD**?
+:::
+
+::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Setup from ANOVA</span>
+
+$$
+MSE=16.00,
+\qquad
+v=n-k=32-4=28
+$$
+
+$$
+\bar{x}_{Clear}=75,\quad
+\bar{x}_{Slim}=79,\quad
+\bar{x}_{Wallet}=84,\quad
+\bar{x}_{Rugged}=91
+$$
+
+Each group has $n_i=8$.
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.55em; line-height: 1.08; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Fisher LSD calculation</span>
+
+::: {.fragment}
+Use the ordinary critical value:
+
+$$
+t^*=t_{0.975,28}=2.048
+$$
+:::
+
+::: {.fragment}
+Because all groups have size 8, the standard error is the same for every pair:
+
+$$
+SE=
+\sqrt{
+16.00
 \left(
 \frac18+\frac18
 \right)
 }
 =
-2.115
-$$
-
-Bonferroni margin:
-
-$$
-2.839(2.115)=6.00
+2.00
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.60em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
-<span class="label">Question</span>
+::: {.fragment}
+The least significant difference is
 
-Which phone case designs have different population mean repair costs?
+$$
+LSD=2.048(2.00)=4.10
+$$
 
-A pair differs if its Bonferroni interval for $\mu_i-\mu_j$ does not contain 0.
+So each pairwise interval is:
+
+$$
+(\bar{x}_i-\bar{x}_j)\pm 4.10
+$$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.60em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0; display: flex; align-items: center;"}
-The Bonferroni margin is 6.00. So a pairwise difference must be more than 6 dollars away from 0 to be clearly different at the family-wise 5% level.
+::: {.fragment}
+<div class="calc-left" style="font-size: 1.02em; line-height: 1.10; margin-top: 10px;">
+
+<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Fisher LSD intervals</span>
+
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start;"}
+
+::: {}
+$$
+\begin{aligned}
+\text{Clear} - \text{Slim}
+&:\ -4.00\pm4.10=(-8.10,\,0.10)\\[5pt]
+\text{Clear} - \text{Wallet}
+&:\ -9.00\pm4.10=(-13.10,\,-4.90)\\[5pt]
+\text{Clear} - \text{Rugged}
+&:\ -16.00\pm4.10=(-20.10,\,-11.90)
+\end{aligned}
+$$
+:::
+
+::: {}
+$$
+\begin{aligned}
+\text{Slim} - \text{Wallet}
+&:\ -5.00\pm4.10=(-9.10,\,-0.90)\\[5pt]
+\text{Slim} - \text{Rugged}
+&:\ -12.00\pm4.10=(-16.10,\,-7.90)\\[5pt]
+\text{Wallet} - \text{Rugged}
+&:\ -7.00\pm4.10=(-11.10,\,-2.90)
+\end{aligned}
+$$
+:::
+
+::::
+
+</div>
+:::
+
+:::
+
+::::
+
+
+---
+
+## Phone Case Drop-Test Costs — Fisher LSD Results {.compact .phone-case-results}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
+
+::: {.taskbox style="font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the response variable is
+
+$$
+y=\text{repair cost in dollars after impact}.
+$$
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ in mean repair cost using **Fisher's LSD**?
+:::
+
+::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
+
+::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Read the Fisher LSD intervals</span>
+
+A pair is declared **different** when the interval does **not contain 0**.
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+\qquad
+\text{interval contains }0
+\Rightarrow
+\text{not clearly different}
+$$
+:::
+
+:::: {.two-col style="display:grid; grid-template-columns: 0.42fr 0.58fr; gap: 12px; align-items: stretch;"}
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Contains 0</span>
+
+$$
+\text{Clear}-\text{Slim}
+$$
+
+$$
+(-8.10,\;0.10)
+$$
+
+This interval contains 0.
+
+So **Clear** and **Slim** are **not clearly different**.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.50em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Intervals that avoid 0</span>
+
+| Pair | Fisher LSD interval | Decision |
+|---|---:|---|
+| Clear - Wallet | $(-13.10,\,-4.90)$ | Different |
+| Clear - Rugged | $(-20.10,\,-11.90)$ | Different |
+| Slim - Wallet | $(-9.10,\,-0.90)$ | Different |
+| Slim - Rugged | $(-16.10,\,-7.90)$ | Different |
+| Wallet - Rugged | $(-11.10,\,-2.90)$ | Different |
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Answer</span>
+
+Using Fisher's LSD, **Clear** is not clearly different from **Slim**.
+
+All other pairs are different, so the sample means suggest the ordering
+
+$$
+\text{Clear} \approx \text{Slim}
+\quad < \quad
+\text{Wallet}
+\quad < \quad
+\text{Rugged}.
+$$
+:::
+
 :::
 
 ::::
 
 ---
 
-## Phone Case: Bonferroni Results {.phone-case-results}
-
-:::: {.two-col-wide style="grid-template-columns: 0.82fr 1.18fr; gap: 20px; align-items: start;"}
-
-::: {.col}
-::: {.notebox style="font-size: 0.67em; line-height: 1.20; padding: 13px 16px;"}
-<span class="label">How to read the table</span>
-
-Each interval estimates a difference in population mean repair cost.
-
-If 0 is not in the interval, that pair of phone case designs has different mean repair cost.
-:::
-
-::: {.thinkbox style="font-size: 0.65em; line-height: 1.18; padding: 12px 15px;"}
-Here, all Bonferroni intervals avoid 0, so all pairs differ.
-:::
-:::
-
-::: {.col}
-| Pair | Difference | Bonferroni CI |
-|---|---:|---:|
-| Slim - Rugged | -25.50 | $(-31.50,\,-19.50)$ |
-| Slim - Wallet | -11.00 | $(-17.00,\,-5.00)$ |
-| Slim - Clear | 11.63 | $(5.62,\;17.63)$ |
-| Rugged - Wallet | 14.50 | $(8.50,\;20.50)$ |
-| Rugged - Clear | 37.13 | $(31.12,\;43.13)$ |
-| Wallet - Clear | 22.63 | $(16.62,\;28.63)$ |
-:::
-
-::::
-
----
-
-## Visual: Phone Case Mean Repair Costs
+## Visual: Phone Case Fisher LSD Pairwise Intervals
 
 ```{r}
 #| echo: false
-case_data <- data.frame(
-  cost = c(
-    80,92,85,88,90,84,95,86,
-    110,115,105,120,112,118,108,116,
-    100,96,102,98,95,101,97,99,
-    75,70,82,78,76,80,72,74
+#| warning: false
+#| message: false
+
+library(plotly)
+
+case_lsd <- data.frame(
+  comparison = factor(
+    c(
+      "Clear − Slim",
+      "Clear − Wallet",
+      "Clear − Rugged",
+      "Slim − Wallet",
+      "Slim − Rugged",
+      "Wallet − Rugged"
+    ),
+    levels = c(
+      "Clear − Slim",
+      "Clear − Wallet",
+      "Clear − Rugged",
+      "Slim − Wallet",
+      "Slim − Rugged",
+      "Wallet − Rugged"
+    )
   ),
-  type = rep(c("Slim", "Rugged", "Wallet", "Clear"), each = 8)
+  difference = c(-4.00, -9.00, -16.00, -5.00, -12.00, -7.00),
+  lower = c(-8.10, -13.10, -20.10, -9.10, -16.10, -11.10),
+  upper = c(0.10, -4.90, -11.90, -0.90, -7.90, -2.90)
 )
 
-case_summary <- case_data |>
-  group_by(type) |>
-  summarise(mean_cost = mean(cost), .groups = "drop") |>
-  mutate(
-    lower = mean_cost - 6.00,
-    upper = mean_cost + 6.00
-  )
-
 plot_ly(
-  case_summary,
-  x = ~type,
-  y = ~mean_cost,
+  case_lsd,
+  x = ~comparison,
+  y = ~difference,
   type = "scatter",
   mode = "markers",
   marker = list(
-    size = 15,
-    color = plot_cols$teal,
-    line = list(color = plot_cols$teal_dark, width = 1.5)
+    size = 10,
+    color = "rgba(198,40,40,1)",
+    line = list(color = "rgba(198,40,40,1)", width = 1.0)
   ),
   error_y = list(
     type = "data",
-    array = ~upper - mean_cost,
-    arrayminus = ~mean_cost - lower,
-    color = "rgba(0,105,92,0.65)",
-    thickness = 1.8,
-    width = 8
+    array = ~upper - difference,
+    arrayminus = ~difference - lower,
+    color = "rgba(198,40,40,1)",
+    thickness = 1.9,
+    width = 6
   ),
-  hovertemplate = "%{x}<br>Mean cost: %{y:.2f}<extra></extra>"
+  hovertemplate = paste(
+    "Comparison: %{x}",
+    "<br>Mean cost difference: $%{y:.2f}",
+    "<br>Fisher LSD interval: ($%{customdata[0]:.2f}, $%{customdata[1]:.2f})",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
 ) |>
   plotly_anova_layout(
-    "Mean repair cost by phone case design",
-    "Phone case design",
-    "Mean repair cost",
-    height = 390
+    title = "Fisher LSD intervals for pairwise mean repair-cost differences",
+    x_title = "Pairwise comparison",
+    y_title = "Mean repair-cost difference ($)",
+    height = 350,
+    margin = list(l = 78, r = 20, t = 54, b = 82)
+  ) |>
+  layout(
+    shapes = list(
+      list(
+        type = "line",
+        xref = "paper",
+        x0 = 0,
+        x1 = 1,
+        yref = "y",
+        y0 = 0,
+        y1 = 0,
+        line = list(
+          color = "black",
+          width = 2.1,
+          dash = "dash"
+        )
+      )
+    ),
+    xaxis = list(
+      title = list(
+        text = "Pairwise comparison",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
+      showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 9),
+      tickangle = -14,
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = list(
+        text = "Mean repair-cost difference ($)",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      fixedrange = TRUE,
+      gridcolor = "rgba(0,0,0,0.06)",
+      tickmode = "linear",
+      tick0 = -20,
+      dtick = 4,
+      range = c(-22, 2)
+    )
   )
 ```
 
-::: {.thinkbox}
-Pairwise intervals compare **differences between means**, not the separate mean intervals shown here.
+::: {.thinkbox style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;"}
+The **red dots** show the observed pairwise mean repair-cost differences. The **red vertical intervals** show the Fisher LSD intervals.
+
+The **black dashed line** marks 0. Intervals that avoid 0 indicate pairs that are significantly different. Only **Clear vs Slim** contains 0, so that pair is not clearly different.
 :::
+
+
 
 ---
 
-## Check in R: Pairwise Confidence Intervals {.compact-r}
+## Check in R: Fisher's LSD Comparisons {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Basketball drill example</span>
+<span class="label">Badminton drill example</span>
 :::
 
 ```{webr}
 #| autorun: false
 
-means <- c(Classic = 20, Streak = 25, Leaderboard = 30)
-n <- c(Classic = 6, Streak = 6, Leaderboard = 6)
+score <- c(19, 20, 21, 23, 24, 25,
+           24, 25, 26, 28, 29, 30,
+           26, 27, 28, 29, 30, 31)
 
-MSE <- 2
-v <- 15
-alpha <- 0.05
+drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
 
-pairs <- combn(names(means), 2)
+fit <- aov(score ~ drill)
 
-out <- lapply(seq_len(ncol(pairs)), function(a) {
-  i <- pairs[1, a]
-  j <- pairs[2, a]
+anova(fit)
 
-  diff <- means[i] - means[j]
-  se <- sqrt(MSE * (1/n[i] + 1/n[j]))
-
-  data.frame(
-    pair = paste(i, "-", j),
-    diff = diff,
-    low = diff - qt(1 - alpha/2, v) * se,
-    up = diff + qt(1 - alpha/2, v) * se
-  )
-})
-
-print(round(do.call(rbind, out), 2), row.names = FALSE)
+pairwise.t.test(score, drill,
+                p.adjust.method = "none",
+                pool.sd = TRUE)
 ```
 :::
 
@@ -1937,34 +2698,20 @@ print(round(do.call(rbind, out), 2), row.names = FALSE)
 ```{webr}
 #| autorun: false
 
-means <- c(Slim = 87.50, Rugged = 113.00,
-           Wallet = 98.50, Clear = 75.875)
-n <- rep(8, 4)
-names(n) <- names(means)
+cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
+          73, 75, 77, 79, 79, 81, 83, 85,
+          78, 80, 82, 84, 84, 86, 88, 90,
+          85, 87, 89, 91, 91, 93, 95, 97)
 
-MSE <- 17.8884
-v <- 28
-alpha <- 0.05
-m <- choose(length(means), 2)
+case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
 
-pairs <- combn(names(means), 2)
+fit <- aov(cost ~ case)
 
-out <- lapply(seq_len(ncol(pairs)), function(a) {
-  i <- pairs[1, a]
-  j <- pairs[2, a]
+anova(fit)
 
-  diff <- means[i] - means[j]
-  se <- sqrt(MSE * (1/n[i] + 1/n[j]))
-
-  data.frame(
-    pair = paste(i, "-", j),
-    diff = diff,
-    low = diff - qt(1 - alpha/(2*m), v) * se,
-    up = diff + qt(1 - alpha/(2*m), v) * se
-  )
-})
-
-print(round(do.call(rbind, out), 2), row.names = FALSE)
+pairwise.t.test(cost, case,
+                p.adjust.method = "none",
+                pool.sd = TRUE)
 ```
 :::
 
@@ -1972,29 +2719,368 @@ print(round(do.call(rbind, out), 2), row.names = FALSE)
 
 ---
 
-## Bonferroni vs. Fisher: Decision Guide
+## Bonferroni: Why Adjust? {.compact .bonferroni-idea}
 
-:::: {.two-col}
-::: {.card .fragment}
-<span class="label">Fisher LSD</span>
+:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
 
-- Easier to calculate.
-- Higher power.
-- Does **not** control experiment-wise Type I error.
+::: {.defbox style="font-size: 0.63em; line-height: 1.16; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">The issue</span>
+
+After ANOVA rejects, we may compare many pairs of means.
+
+Each pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making **at least one false discovery**.
 :::
 
-::: {.card .fragment}
-<span class="label">Bonferroni</span>
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
 
-- Controls experiment-wise Type I error.
-- Uses wider intervals.
-- Has lower power and higher Type II error risk.
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">1. Count comparisons</span>
+
+With $k$ groups, the number of pairwise comparisons is
+
+$$
+m=\binom{k}{2}.
+$$
+
+For example, if $k=4$,
+
+$$
+m=\binom{4}{2}=6.
+$$
 :::
+
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">2. Experiment-wise error</span>
+
+If each comparison uses error rate $\alpha$, then the chance of making at least one Type I error is
+
+$$
+\alpha_E=1-(1-\alpha)^m.
+$$
+
+As $m$ increases, $\alpha_E$ increases.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+<span class="label">3. Bonferroni correction</span>
+
+To keep the overall error rate controlled, Bonferroni uses a smaller per-comparison level:
+
+$$
+\frac{\alpha}{m}.
+$$
+
+For a two-sided interval, this gives
+
+$$
+t^*=t_{1-\alpha/(2m),\;n-k}.
+$$
+:::
+
 ::::
 
-::: {.thinkbox .fragment}
-Textbook takeaway: Fisher LSD is simpler and more powerful, but Bonferroni corrects the multiple-comparisons problem.
+::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.17; padding: 13px 18px; margin-bottom: 0;"}
+<span class="label">Key idea</span>
+
+**Fisher's LSD** is more powerful, but it does not control the experiment-wise Type I error rate.
+
+**Bonferroni** is more cautious: it uses wider intervals to protect against making false discoveries across many pairwise comparisons.
 :::
+
+::::
+
+---
+
+## Example: Phone Case Drop-Test Costs — Bonferroni {.compact .phone-case-example}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; grid-template-rows: auto auto; gap: 13px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the lab records the **repair cost** after impact.
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ using **Bonferroni**?
+:::
+
+::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.54em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Setup from ANOVA</span>
+
+$$
+MSE=16.00,
+\qquad
+v=n-k=32-4=28
+$$
+
+$$
+\bar{x}_{Clear}=75,\quad
+\bar{x}_{Slim}=79,\quad
+\bar{x}_{Wallet}=84,\quad
+\bar{x}_{Rugged}=91
+$$
+
+There are
+
+$$
+m=\binom{4}{2}=6
+$$
+
+pairwise comparisons.
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.54em; line-height: 1.07; padding: 15px 17px; margin-bottom: 0;"}
+<span class="label">Bonferroni calculation</span>
+
+Use the Bonferroni critical value:
+
+$$
+t^*
+=
+t_{1-\alpha/(2m),\,28}
+=
+t_{1-0.05/(2\cdot6),\,28}
+=
+t_{0.99583,\,28}
+=
+2.84
+$$
+
+::: {.fragment}
+Because all groups have size 8, the standard error is still
+
+$$
+SE=
+\sqrt{
+16.00
+\left(
+\frac18+\frac18
+\right)
+}
+=
+2.00
+$$
+:::
+
+::: {.fragment}
+The Bonferroni margin of error is
+
+$$
+ME=2.84(2.00)=5.68
+$$
+
+So each pairwise interval is:
+
+$$
+(\bar{x}_i-\bar{x}_j)\pm 5.68
+$$
+:::
+
+::: {.fragment}
+<div class="calc-left" style="font-size: 1.00em; line-height: 1.08; margin-top: 22px;">
+
+<span class="label" style="font-size: 1.02em; margin-bottom: 4px;">Pairwise Bonferroni intervals</span>
+
+:::: {.two-col style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start;"}
+
+::: {}
+$$
+\begin{aligned}
+\text{Clear} - \text{Slim}
+&:\ -4.00\pm5.68=(-9.68,\,1.68)\\[5pt]
+\text{Clear} - \text{Wallet}
+&:\ -9.00\pm5.68=(-14.68,\,-3.32)\\[5pt]
+\text{Clear} - \text{Rugged}
+&:\ -16.00\pm5.68=(-21.68,\,-10.32)
+\end{aligned}
+$$
+:::
+
+::: {}
+$$
+\begin{aligned}
+\text{Slim} - \text{Wallet}
+&:\ -5.00\pm5.68=(-10.68,\,0.68)\\[5pt]
+\text{Slim} - \text{Rugged}
+&:\ -12.00\pm5.68=(-17.68,\,-6.32)\\[5pt]
+\text{Wallet} - \text{Rugged}
+&:\ -7.00\pm5.68=(-12.68,\,-1.32)
+\end{aligned}
+$$
+:::
+
+::::
+
+</div>
+:::
+
+:::
+
+::::
+
+---
+
+## Phone Case Drop-Test Costs — Bonferroni Results {.compact .phone-case-results}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
+
+::: {.taskbox style="font-size: 0.51em; line-height: 1.06; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A device lab compares four phone case designs after a standardized drop test.
+
+For each case design, the lab records the **repair cost** after impact.
+
+| Clear | Slim | Wallet | Rugged |
+|---:|---:|---:|---:|
+| 69 | 73 | 78 | 85 |
+| 71 | 75 | 80 | 87 |
+| 73 | 77 | 82 | 89 |
+| 75 | 79 | 84 | 91 |
+| 75 | 79 | 84 | 91 |
+| 77 | 81 | 86 | 93 |
+| 79 | 83 | 88 | 95 |
+| 81 | 85 | 90 | 97 |
+
+ANOVA rejects $H_0$. Which case designs differ using **Bonferroni**?
+:::
+
+::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
+
+::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Read the Bonferroni intervals</span>
+
+A pair is declared **different** when the interval does **not contain 0**.
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+\qquad
+\text{interval contains }0
+\Rightarrow
+\text{not clearly different}
+$$
+:::
+
+:::: {.two-col style="display:grid; grid-template-columns: 0.43fr 0.57fr; gap: 12px; align-items: stretch;"}
+
+::: {.notebox .fragment style="font-size: 0.52em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Intervals that contain 0</span>
+
+$$
+\text{Clear}-\text{Slim}
+$$
+
+$$
+(-9.68,\;1.68)
+$$
+
+$$
+\text{Slim}-\text{Wallet}
+$$
+
+$$
+(-10.68,\;0.68)
+$$
+
+These pairs are **not clearly different**.
+:::
+
+::: {.stat-card .fragment style="font-size: 0.50em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Intervals that avoid 0</span>
+
+| Pair | Bonferroni interval | Decision |
+|---|---:|---|
+| Clear - Wallet | $(-14.68,\,-3.32)$ | Different |
+| Clear - Rugged | $(-21.68,\,-10.32)$ | Different |
+| Slim - Rugged | $(-17.68,\,-6.32)$ | Different |
+| Wallet - Rugged | $(-12.68,\,-1.32)$ | Different |
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Answer</span>
+
+Using Bonferroni, **Clear** and **Slim** are not clearly different, and **Slim** and **Wallet** are not clearly different.
+
+However, **Rugged** is clearly higher than all other case designs.
+:::
+
+:::
+
+::::
+
+---
+
+
+## Check in R: Bonferroni Comparisons {.compact-r}
+
+:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Badminton drill example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+score <- c(19, 20, 21, 23, 24, 25,
+           24, 25, 26, 28, 29, 30,
+           26, 27, 28, 29, 30, 31)
+
+drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+
+fit <- aov(score ~ drill)
+
+anova(fit)
+
+pairwise.t.test(score, drill,
+                p.adjust.method = "bonferroni",
+                pool.sd = TRUE)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Phone case example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
+          73, 75, 77, 79, 79, 81, 83, 85,
+          78, 80, 82, 84, 84, 86, 88, 90,
+          85, 87, 89, 91, 91, 93, 95, 97)
+
+case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
+
+fit <- aov(cost ~ case)
+
+anova(fit)
+
+pairwise.t.test(cost, case,
+                p.adjust.method = "bonferroni",
+                pool.sd = TRUE)
+```
+:::
+
+::::
 
 ---
 

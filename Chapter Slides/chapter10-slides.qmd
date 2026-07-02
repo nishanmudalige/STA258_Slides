@@ -777,8 +777,6 @@ Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café dr
   line-height: 1.05 !important;
 }
 
-/* Keep the line-number gutter in sync with the code lines so the
-   numbers line up one-per-row instead of bunching together. */
 .reveal section.gof-r-check .cm-gutters,
 .reveal section.gof-r-check .cm-lineNumbers,
 .reveal section.gof-r-check .cm-gutterElement {
@@ -816,13 +814,7 @@ x <- c(Netflix = 88,
 
 tt <- chisq.test(x)
 
-out <- data.frame(
-  X2 = unname(tt$statistic),
-  df = unname(tt$parameter),
-  p_value = tt$p.value
-)
-
-print(round(out, 5), row.names = FALSE)
+tt
 tt$expected
 ```
 :::
@@ -841,13 +833,7 @@ x <- c(IcedCoffee = 72,
 
 tt <- chisq.test(x)
 
-out <- data.frame(
-  X2 = unname(tt$statistic),
-  df = unname(tt$parameter),
-  p_value = tt$p.value
-)
-
-print(round(out, 5), row.names = FALSE)
+tt
 tt$expected
 ```
 :::
@@ -1081,13 +1067,7 @@ p0 <- c(0.15, 0.35, 0.30, 0.20)
 
 tt <- chisq.test(x, p = p0)
 
-out <- data.frame(
-  X2 = unname(tt$statistic),
-  df = unname(tt$parameter),
-  p_value = tt$p.value
-)
-
-print(round(out, 4), row.names = FALSE)
+tt
 round(tt$expected, 1)
 ```
 :::
@@ -1107,13 +1087,7 @@ p0 <- c(0.30, 0.25, 0.25, 0.20)
 
 tt <- chisq.test(x, p = p0)
 
-out <- data.frame(
-  X2 = unname(tt$statistic),
-  df = unname(tt$parameter),
-  p_value = tt$p.value
-)
-
-print(round(out, 4), row.names = FALSE)
+tt
 round(tt$expected, 1)
 ```
 :::
@@ -1356,13 +1330,7 @@ p0 <- c(0.10, 0.20, 0.30, 0.20, 0.20)
 
 tt <- chisq.test(x, p = p0)
 
-out <- data.frame(
-  X2 = unname(tt$statistic),
-  df = unname(tt$parameter),
-  p_value = tt$p.value
-)
-
-print(round(out, 4), row.names = FALSE)
+tt
 tt$expected
 ```
 :::

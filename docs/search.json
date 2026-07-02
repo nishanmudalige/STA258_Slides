@@ -5295,8 +5295,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
     "href": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
     "title": "STA258",
-    "section": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known",
-    "text": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known\n\nFor testing \\(H_0:\\mu=\\mu_0\\) when \\(\\sigma\\) is known, use the test statistic\n\\[\nz^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Testing a population mean with known \\(\\sigma\\) and an appropriate random/normal-or-large-sample setup."
+    "section": "Badminton Drills — Fisher LSD Results",
+    "text": "Badminton Drills — Fisher LSD Results\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nBasic serve\nTarget serve\nMatch-play serve\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\n\nRead the Fisher LSD intervals\nA pair is declared different when the interval does not contain 0.\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\qquad\n\\text{interval contains }0\n\\Rightarrow\n\\text{not clearly different}\n\\]\n\n\n\nBasic vs Target\n\\[\n(-7.72,\\,-2.28)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nBasic vs Match-play\n\\[\n(-9.22,\\,-3.78)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nTarget vs Match-play\n\\[\n(-4.22,\\,1.22)\n\\]\nThis interval contains 0.\nNot clearly different\n\n\n\nAnswer\nUsing Fisher’s LSD, Basic serve has a lower mean accuracy score than both Target serve and Match-play serve.\nHowever, Target serve and Match-play serve are not clearly different from each other."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd",
@@ -5428,8 +5428,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
     "href": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
     "title": "STA258",
-    "section": "6.3.1.1 Hypothesis Tests on Two Means",
-    "text": "6.3.1.1 Hypothesis Tests on Two Means\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
+    "section": "Check in R: Fisher’s LSD Comparisons",
+    "text": "Check in R: Fisher’s LSD Comparisons\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-comparisons",
@@ -5477,8 +5477,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
     "title": "STA258",
-    "section": "Pomodoro: Difference Table",
-    "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"
+    "section": "Visual: Phone Case Fisher LSD Pairwise Intervals",
+    "text": "Visual: Phone Case Fisher LSD Pairwise Intervals\n\n\n\n\n\n\n\nThe red dots show the observed pairwise mean repair-cost differences. The red vertical intervals show the Fisher LSD intervals.\nThe black dashed line marks 0. Intervals that avoid 0 indicate pairs that are significantly different. Only Clear vs Slim contains 0, so that pair is not clearly different."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#download-speeds-calculation",

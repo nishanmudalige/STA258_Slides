@@ -2055,7 +2055,7 @@
     "href": "Chapter Slides/chapter6-slides.html#check-in-r-two-proportions",
     "title": "STA258",
     "section": "Check in R: Two Proportions",
-    "text": "Check in R: Two Proportions\n\n\n\n\n\n\n\n\n\nThe output gives p-value about \\(0.0166\\), so there is evidence that reminder texts increase the sign-up rate."
+    "text": "Check in R: Two Proportions\n\n\n\n\n\n\n\n\n\nprop.test reports the chi-square form (\\(\\chi^2=(z^*)^2\\)) with p-value \\(0.0166\\), so there is evidence the daily push notification increases the check-in rate."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#ratio-of-variances",
@@ -2139,7 +2139,7 @@
     "href": "Chapter Slides/chapter6-slides.html#test-statistic-cheat-sheet",
     "title": "STA258",
     "section": "Test Statistic Cheat Sheet",
-    "text": "Test Statistic Cheat Sheet\n\n\n\n\n\n\n\nSituation\nTest statistic\n\n\n\n\nOne mean, \\(\\sigma\\) known\n\\(\\displaystyle z^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\\)\n\n\nOne mean, \\(\\sigma\\) unknown\n\\(\\displaystyle t^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}\\)\n\n\nOne proportion\n\\(\\displaystyle z^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}\\)\n\n\nOne variance\n\\(\\displaystyle \\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\\)\n\n\nDifference of proportions\n\\(\\displaystyle z^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\\)"
+    "text": "Test Statistic Cheat Sheet\n\n\n\n\n\n\n\nSituation\nTest statistic\n\n\n\n\nOne mean, \\(\\sigma\\) known\n\\(z^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\\)\n\n\nOne mean, \\(\\sigma\\) unknown\n\\(t^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}\\)\n\n\nOne proportion\n\\(z^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}\\)\n\n\nOne variance\n\\(\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\\)\n\n\nTwo means, \\(\\sigma_1,\\sigma_2\\) known\n\\(z^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\\)\n\n\nTwo means, pooled \\(t\\)\n\\(t^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{s_p\\sqrt{1/n_1+1/n_2}}\\)\n\n\nPooled variance (\\(s_p^2\\))\n\\(s_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}\\)\n\n\nTwo means, Welch \\(t\\)\n\\(t^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\\)\n\n\nTwo proportions\n\\(z^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\\)\n\n\nRatio of variances\n\\(F^*=\\frac{s_1^2}{s_2^2}\\)\n\n\nPaired differences\n\\(t^*=\\frac{\\bar{d}-\\mu_{d0}}{s_d/\\sqrt n}\\)"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#what-to-write-in-a-conclusion",
@@ -5295,8 +5295,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
     "href": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
     "title": "STA258",
-    "section": "Badminton Drills — Fisher LSD Results",
-    "text": "Badminton Drills — Fisher LSD Results\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nBasic serve\nTarget serve\nMatch-play serve\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\n\nRead the Fisher LSD intervals\nA pair is declared different when the interval does not contain 0.\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\qquad\n\\text{interval contains }0\n\\Rightarrow\n\\text{not clearly different}\n\\]\n\n\n\nBasic vs Target\n\\[\n(-7.72,\\,-2.28)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nBasic vs Match-play\n\\[\n(-9.22,\\,-3.78)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nTarget vs Match-play\n\\[\n(-4.22,\\,1.22)\n\\]\nThis interval contains 0.\nNot clearly different\n\n\n\nAnswer\nUsing Fisher’s LSD, Basic serve has a lower mean accuracy score than both Target serve and Match-play serve.\nHowever, Target serve and Match-play serve are not clearly different from each other."
+    "section": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known",
+    "text": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known\n\nFor testing \\(H_0:\\mu=\\mu_0\\) when \\(\\sigma\\) is known, use the test statistic\n\\[\nz^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Testing a population mean with known \\(\\sigma\\) and an appropriate random/normal-or-large-sample setup."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd",
@@ -5372,15 +5372,15 @@
     "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-drop-test-costs-1",
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-drop-test-costs-1",
     "title": "STA258",
-    "section": "Visual: Phone Case Drop-Test Costs",
-    "text": "Visual: Phone Case Drop-Test Costs\n\n\n\n\n\n\n\nThe red dots show the sample mean repair cost for each phone case design. The group centers increase from Clear to Rugged, matching the Bonferroni results."
+    "section": "Check in R: Download Speeds",
+    "text": "Check in R: Download Speeds\n\n\n\n\n\n\n\n\n\nThe output gives \\(z^*=2.39\\) and p-value \\(0.0085\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-badminton-drills-fishers-lsd-1",
     "href": "Chapter Slides/chapter8-slides.html#example-badminton-drills-fishers-lsd-1",
     "title": "STA258",
-    "section": "Example: Badminton Drills — Fisher’s LSD",
-    "text": "Example: Badminton Drills — Fisher’s LSD\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nStatic targets\nFootwork + serve\nCoach-fed targets\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\nSetup from ANOVA\n\\[\nMSE=4.90,\n\\qquad\nv=n-k=18-3=15\n\\]\n\\[\n\\bar{x}_1=22,\n\\qquad\n\\bar{x}_2=27,\n\\qquad\n\\bar{x}_3=28.5\n\\]\nEach group has \\(n_i=6\\).\n\n\nFisher LSD calculation\n\nUse the ordinary critical value:\n\\[\nt^*=t_{0.975,15}=2.131\n\\]\n\n\nBecause all groups have size 6, the standard error is the same for every pair:\n\\[\nSE=\n\\sqrt{\n4.90\n\\left(\n\\frac16+\\frac16\n\\right)\n}\n=\n1.28\n\\]\n\n\nThe least significant difference is\n\\[\nLSD=2.131(1.28)=2.72\n\\]\nSo each pairwise interval is:\n\\[\n(\\bar{x}_i-\\bar{x}_j)\\pm 2.72\n\\]\n\n\n\nPairwise Fisher LSD intervals\n\\[\n\\begin{aligned}\n\\text{Static} - \\text{Footwork}\n&:\\ -5.00\\pm2.72=(-7.72,\\,-2.28)\\\\[7pt]\n\\text{Static} - \\text{Coach-fed}\n&:\\ -6.50\\pm2.72=(-9.22,\\,-3.78)\\\\[7pt]\n\\text{Footwork} - \\text{Coach-fed}\n&:\\ -1.50\\pm2.72=(-4.22,\\,1.22)\n\\end{aligned}\n\\]"
+    "section": "Check in R: Two Fertilizers",
+    "text": "Check in R: Two Fertilizers\n\n\n\n\n\n\n\n\n\nThe output gives \\(t^*=4.13\\), \\(df=17\\), and p-value \\(0.0007\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd-1",
@@ -5428,8 +5428,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
     "href": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
     "title": "STA258",
-    "section": "Check in R: Fisher’s LSD Comparisons",
-    "text": "Check in R: Fisher’s LSD Comparisons\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
+    "section": "6.3.1.1 Hypothesis Tests on Two Means",
+    "text": "6.3.1.1 Hypothesis Tests on Two Means\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-comparisons",
@@ -5442,8 +5442,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-intervals",
     "href": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-intervals",
     "title": "STA258",
-    "section": "Check in R: Bonferroni Intervals",
-    "text": "Check in R: Bonferroni Intervals\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
+    "section": "6.3.2 Hypothesis Tests on Two Proportions",
+    "text": "6.3.2 Hypothesis Tests on Two Proportions\n\nWhen testing \\(H_0:p_1-p_2=0\\), pool the sample proportions under the null and use the test statistic\n\\[\n\\hat p=\\frac{x_1+x_2}{n_1+n_2},\n\\qquad\nz^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population proportions from independent samples, with enough successes and failures in each group."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-gym-class-types",
@@ -5477,7 +5477,42 @@
     "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
     "title": "STA258",
-    "section": "Visual: Phone Case Fisher LSD Pairwise Intervals",
-    "text": "Visual: Phone Case Fisher LSD Pairwise Intervals\n\n\n\n\n\n\n\nThe red dots show the observed pairwise mean repair-cost differences. The red vertical intervals show the Fisher LSD intervals.\nThe black dashed line marks 0. Intervals that avoid 0 indicate pairs that are significantly different. Only Clear vs Slim contains 0, so that pair is not clearly different."
+    "section": "Pomodoro: Difference Table",
+    "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#download-speeds-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#download-speeds-calculation",
+    "title": "STA258",
+    "section": "Download Speeds: Calculation",
+    "text": "Download Speeds: Calculation\n\n\n\nHypotheses \\[H_0:\\mu_A-\\mu_B=0 \\qquad H_a:\\mu_A-\\mu_B&gt;0 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{(\\bar{x}_A-\\bar{x}_B)-0}{\\sqrt{\\sigma_A^2/n_A+\\sigma_B^2/n_B}}=\\frac{86-79}{\\sqrt{12^2/40+15^2/45}}=2.387\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.387)=0.0085\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0085 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence Provider A’s mean download speed is higher than Provider B’s."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#two-fertilizers-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#two-fertilizers-calculation",
+    "title": "STA258",
+    "section": "Two Fertilizers: Calculation",
+    "text": "Two Fertilizers: Calculation\n\n\n\nHypotheses \\[H_0:\\mu_A-\\mu_B=0 \\qquad H_a:\\mu_A-\\mu_B\\neq 0 \\quad (\\alpha=0.05)\\]\nPooled variance \\[s_p^2=\\frac{(n_A-1)s_A^2+(n_B-1)s_B^2}{n_A+n_B-2}=\\frac{8(0.274^2)+9(0.221^2)}{17}=0.0612\\]\nTest statistic \\[t^*=\\frac{\\bar{x}_A-\\bar{x}_B}{s_p\\sqrt{1/n_A+1/n_B}}=\\frac{4.10-3.63}{0.2475\\sqrt{1/9+1/10}}=4.13\\]\np-value \\[\\text{p-value}=2\\,P(T_{17}\\ge 4.13)=0.0007\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0007 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is strong evidence the two fertilizers give different mean yields."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#active-recall-vs-rereading-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#active-recall-vs-rereading-calculation",
+    "title": "STA258",
+    "section": "Active Recall vs Rereading: Calculation",
+    "text": "Active Recall vs Rereading: Calculation\n\n\n\nHypotheses \\[H_0:\\mu_1-\\mu_2=0 \\qquad H_a:\\mu_1-\\mu_2&gt;0 \\quad (\\alpha=0.05)\\]\nTest statistic (no pooling) \\[t^*=\\frac{\\bar{x}_1-\\bar{x}_2}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}=\\frac{86.92-84.60}{\\sqrt{2.392^2/12+1.506^2/10}}=2.76\\]\np-value \\[\\text{p-value}=P(T_\\nu\\ge 2.76)=0.0062,\\qquad \\nu\\approx 18.8\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0062 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence active recall produces a higher mean quiz score than rereading."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-active-recall-vs-rereading",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-active-recall-vs-rereading",
+    "title": "STA258",
+    "section": "Check in R: Active Recall vs Rereading",
+    "text": "Check in R: Active Recall vs Rereading\n\n\n\n\n\n\n\n\n\nWelch’s test reports \\(t^*=2.76\\) with \\(\\nu\\approx 18.8\\) and p-value \\(0.0062\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#push-notifications-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#push-notifications-calculation",
+    "title": "STA258",
+    "section": "Push Notifications: Calculation",
+    "text": "Push Notifications: Calculation\n\n\n\nHypotheses \\[H_0:p_1-p_2=0 \\qquad H_a:p_1-p_2&gt;0 \\quad (\\alpha=0.05)\\]\nSample and pooled proportions \\[\\hat p_1=\\tfrac{142}{360}=0.394,\\quad \\hat p_2=\\tfrac{118}{370}=0.319,\\quad \\hat p=\\tfrac{142+118}{360+370}=0.356\\]\nTest statistic \\[z^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}=\\frac{0.0756}{0.0354}=2.13\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.13)=0.0166\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0166 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the daily push notification increases the check-in rate."
   }
 ]

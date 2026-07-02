@@ -1388,67 +1388,62 @@ The ANOVA test tells us that at least one system has a different mean. It does *
 #| warning: false
 #| message: false
 
+library(dplyr)
+library(plotly)
+
 cafe <- data.frame(
-  wait_time = c(5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
-                6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
-                7.8, 8.8, 9.8, 10.6, 11.8, 12.4),
+  wait_time = c(
+    5.0, 6.0, 7.0, 7.0, 8.0, 9.0,
+    6.5, 6.5, 8.5, 9.5, 9.5, 10.5,
+    7.8, 8.8, 9.8, 10.6, 11.8, 12.4
+  ),
   system = factor(
     rep(c("Mobile order", "Kiosk order", "Counter order"), each = 6),
     levels = c("Mobile order", "Kiosk order", "Counter order")
   )
 )
 
-cafe_ci <- cafe |>
+cafe_means <- cafe |>
   group_by(system) |>
-  summarise(
-    n = n(),
-    mean_wait = mean(wait_time),
-    sd_wait = sd(wait_time),
-    se = sd_wait / sqrt(n),
-    t_star = qt(0.975, df = n - 1),
-    lower = mean_wait - t_star * se,
-    upper = mean_wait + t_star * se,
-    .groups = "drop"
-  )
+  summarise(mean_wait = mean(wait_time), .groups = "drop")
 
-plot_ly(
-  cafe_ci,
-  x = ~system,
-  y = ~mean_wait,
-  type = "scatter",
-  mode = "markers",
-  marker = list(
-    size = 12,
-    color = plot_cols$red,
-    line = list(color = "white", width = 1.4)
-  ),
-  error_y = list(
-    type = "data",
-    array = ~upper - mean_wait,
-    arrayminus = ~mean_wait - lower,
-    color = "rgba(0,105,92,0.75)",
-    thickness = 2.3,
-    width = 8
-  ),
-  hovertemplate = paste(
-    "System: %{x}",
-    "<br>Mean wait time: %{y:.2f}",
-    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
-    "<extra></extra>"
-  ),
-  customdata = ~cbind(lower, upper),
-  showlegend = FALSE
-) |>
+plot_ly() |>
+  add_trace(
+    data = cafe,
+    x = ~system,
+    y = ~wait_time,
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.40)",
+    hovertemplate = "System: %{x}<br>Wait time: %{y:.1f} minutes<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_markers(
+    data = cafe_means,
+    x = ~system,
+    y = ~mean_wait,
+    marker = list(
+      size = 10,
+      color = "#c62828",
+      symbol = "circle",
+      line = list(color = "white", width = 1.2)
+    ),
+    hovertemplate = "System: %{x}<br>Mean wait time: %{y:.2f} minutes<extra></extra>",
+    showlegend = FALSE
+  ) |>
   plotly_anova_layout(
-    title = "95% confidence intervals for mean pickup wait time by system",
+    title = "Pickup wait times by ordering system",
     x_title = "Ordering system",
-    y_title = "Mean wait time (minutes)",
+    y_title = "Wait time (minutes)",
     height = 390,
     margin = list(l = 76, r = 25, t = 60, b = 70)
   ) |>
   layout(
     yaxis = list(
-      title = "Mean wait time (minutes)",
+      title = "Wait time (minutes)",
       zeroline = FALSE,
       showline = TRUE,
       fixedrange = TRUE,
@@ -1457,34 +1452,36 @@ plot_ly(
       tickmode = "linear",
       tick0 = 5,
       dtick = 1,
-      range = c(4.8, 12.4)
+      range = c(4.8, 12.8)
     )
   )
 ```
 
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the sample mean pickup wait time for each ordering system. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
+The **red dots** show the sample mean pickup wait time for each ordering system.
+
+The **boxplots** show the within-group spread. The centers are clearly separated, especially for **counter order** versus **mobile order**, which matches the ANOVA conclusion that not all group means are the same.
 :::
 
 ---
 
-## Example: Short-Form Video Edit Styles {.video-example}
+## Example: Gym Class Types {.video-example}
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.43fr 0.57fr; gap: 18px; align-items: stretch;"}
 
 ::: {.taskbox style="font-size: 0.62em; line-height: 1.18; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
-A creator wants to compare **four video edit styles** used on comparable short videos from the same account:
+A fitness studio wants to compare **four gym class types** offered in 45-minute sessions:
 
-- clean cut,
-- captions-first,
-- meme overlay,
-- story hook.
+- cycling,
+- boxing,
+- HIIT,
+- yoga.
 
-For each video, the creator records the **viewer watch time** in seconds.
+For each participant, the studio records the **calories burned**.
 
-We want to know whether the **population mean watch time** is the same for all four edit styles.
+We want to know whether the **population mean calories burned** is the same for all four class types.
 
 <div class="calc-left" style="font-size: 0.95em; margin-top: 12px; margin-bottom: 12px;">
 
@@ -1493,7 +1490,7 @@ H_0:\mu_1=\mu_2=\mu_3=\mu_4
 $$
 
 $$
-H_a:\text{at least one mean watch time differs}
+H_a:\text{at least one mean calories-burned value differs}
 $$
 
 </div>
@@ -1506,25 +1503,25 @@ Use a **one-way ANOVA at the 5% level**.
 ::: {.stat-card .fragment style="font-size: 0.53em; line-height: 1.08; padding: 13px 15px; margin-bottom: 0;"}
 <span class="label">Observed data</span>
 
-| Clean cut | Captions-first | Meme overlay | Story hook |
+| Cycling | Boxing | HIIT | Yoga |
 |---:|---:|---:|---:|
-| 32 | 39 | 35 | 46 |
-| 36 | 39 | 40 | 49 |
-| 38 | 44 | 41 | 52 |
-| 40 | 49 | 42 | 55 |
-| 44 | 49 | 47 | 58 |
+| 430 | 450 | 470 | 400 |
+| 445 | 460 | 485 | 415 |
+| 455 | 475 | 500 | 430 |
+| 470 | 490 | 520 | 445 |
+| 485 | 505 | 535 | 460 |
 :::
 
 ::: {.notebox .fragment style="font-size: 0.64em; line-height: 1.22; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">ANOVA setup</span>
 
-The explanatory variable is the **edit style**.
+The explanatory variable is the **gym class type**.
 
-The response variable is **viewer watch time**.
+The response variable is **calories burned**.
 
 There are $k=4$ groups and $n=20$ observations.
 
-Each edit style has $n_i=5$ watch-time measurements.
+Each class type has $n_i=5$ calorie-burn measurements.
 :::
 
 :::
@@ -1533,31 +1530,31 @@ Each edit style has $n_i=5$ watch-time measurements.
 
 ---
 
-## Short-Form Video: ANOVA Result {.video-example}
+## Gym Class Types: ANOVA Result {.video-example}
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.60fr 0.40fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: start;"}
 
 ::: {.stat-card .fragment style="grid-column: 1; grid-row: 1; font-size: 0.52em; line-height: 1.09; padding: 15px 17px; margin-bottom: 0;"}
 <span class="label">Calculation table</span>
 
-The grand mean is $\bar{x}=43.75$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
+The grand mean is $\bar{x}=466.25$. The final two columns give the pieces that add to $SSE$ and $SSTr$.
 
-| Edit style | $n_i$ | $\bar{x}_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $n_i(\bar{x}_i-\bar{x})^2$ |
+| Class type | $n_i$ | $\bar{x}_i$ | $s_i^2$ | $(n_i-1)s_i^2$ | $n_i(\bar{x}_i-\bar{x})^2$ |
 |---|---:|---:|---:|---:|---:|
-| Clean cut | 5 | 38.00 | 20.00 | 80.00 | 165.31 |
-| Captions-first | 5 | 44.00 | 25.00 | 100.00 | 0.31 |
-| Meme overlay | 5 | 41.00 | 18.50 | 74.00 | 37.81 |
-| Story hook | 5 | 52.00 | 22.50 | 90.00 | 340.31 |
-| **Totals** | **20** |  |  | **344.00** | **543.75** |
+| Cycling | 5 | 457.00 | 457.50 | 1830.00 | 427.81 |
+| Boxing | 5 | 476.00 | 492.50 | 1970.00 | 475.31 |
+| HIIT | 5 | 502.00 | 682.50 | 2730.00 | 6390.31 |
+| Yoga | 5 | 430.00 | 562.50 | 2250.00 | 6570.31 |
+| **Totals** | **20** |  |  | **8780.00** | **13863.75** |
 
 <div class="calc-left" style="font-size: 1.08em; margin-top: 12px;">
 
 $$
-SSE=344.00,
+SSE=8780.00,
 \qquad
-SSTr=543.75,
+SSTr=13863.75,
 \qquad
-SSTotal=887.75
+SSTotal=22643.75
 $$
 
 </div>
@@ -1568,20 +1565,20 @@ $$
 
 | Source | df | SS | MS | F | p-value |
 |---|---:|---:|---:|---:|---:|
-| Treatment | 3 | 543.75 | 181.25 | 8.43 | 0.0014 |
-| Error | 16 | 344.00 | 21.50 |  |  |
-| Total | 19 | 887.75 |  |  |  |
+| Treatment | 3 | 13863.75 | 4621.25 | 8.42 | 0.0014 |
+| Error | 16 | 8780.00 | 548.75 |  |  |
+| Total | 19 | 22643.75 |  |  |  |
 
 $$
-MSTr=\frac{543.75}{3}=181.25
-$$
-
-$$
-MSE=\frac{344.00}{16}=21.50
+MSTr=\frac{13863.75}{3}=4621.25
 $$
 
 $$
-F^*=\frac{181.25}{21.50}=8.43
+MSE=\frac{8780.00}{16}=548.75
+$$
+
+$$
+F^*=\frac{4621.25}{548.75}=8.42
 $$
 :::
 
@@ -1590,101 +1587,97 @@ $$
 
 Since $p=0.0014<0.05$, reject $H_0$.
 
-There is evidence that **not all edit styles** have the same population mean viewer watch time.
+There is evidence that **not all gym class types** have the same population mean calories burned.
 
-The ANOVA test tells us that at least one edit style has a different mean. It does **not** tell us which styles differ.
+The ANOVA test tells us that at least one class type has a different mean. It does **not** tell us which class types differ.
 :::
 
 ::::
 
 ---
 
-## Visual: Short-Form Video Edit Styles
+## Visual: Gym Class Types
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
 
+library(dplyr)
+library(plotly)
+
 video <- data.frame(
-  watch_time = c(32, 36, 38, 40, 44,
-                 39, 39, 44, 49, 49,
-                 35, 40, 41, 42, 47,
-                 46, 49, 52, 55, 58),
+  calories = c(
+    430, 445, 455, 470, 485,
+    450, 460, 475, 490, 505,
+    470, 485, 500, 520, 535,
+    400, 415, 430, 445, 460
+  ),
   style = factor(
-    rep(c("Clean cut", "Captions-first", "Meme overlay", "Story hook"), each = 5),
-    levels = c("Clean cut", "Captions-first", "Meme overlay", "Story hook")
+    rep(c("Cycling", "Boxing", "HIIT", "Yoga"), each = 5),
+    levels = c("Cycling", "Boxing", "HIIT", "Yoga")
   )
 )
 
-video_ci <- video |>
+video_means <- video |>
   group_by(style) |>
-  summarise(
-    n = n(),
-    mean_watch = mean(watch_time),
-    sd_watch = sd(watch_time),
-    se = sd_watch / sqrt(n),
-    t_star = qt(0.975, df = n - 1),
-    lower = mean_watch - t_star * se,
-    upper = mean_watch + t_star * se,
-    .groups = "drop"
-  )
+  summarise(mean_watch = mean(calories), .groups = "drop")
 
-plot_ly(
-  video_ci,
-  x = ~style,
-  y = ~mean_watch,
-  type = "scatter",
-  mode = "markers",
-  marker = list(
-    size = 12,
-    color = plot_cols$red,
-    line = list(color = "white", width = 1.4)
-  ),
-  error_y = list(
-    type = "data",
-    array = ~upper - mean_watch,
-    arrayminus = ~mean_watch - lower,
-    color = "rgba(0,105,92,0.75)",
-    thickness = 2.3,
-    width = 8
-  ),
-  hovertemplate = paste(
-    "Edit style: %{x}",
-    "<br>Mean watch time: %{y:.2f}",
-    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
-    "<extra></extra>"
-  ),
-  customdata = ~cbind(lower, upper),
-  showlegend = FALSE
-) |>
+plot_ly() |>
+  add_trace(
+    data = video,
+    x = ~style,
+    y = ~calories,
+    type = "box",
+    name = "",
+    boxpoints = FALSE,
+    whiskerwidth = 0.55,
+    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    fillcolor = "rgba(200,230,243,0.40)",
+    hovertemplate = "Class type: %{x}<br>Calories burned: %{y:.1f}<extra></extra>",
+    showlegend = FALSE
+  ) |>
+  add_markers(
+    data = video_means,
+    x = ~style,
+    y = ~mean_watch,
+    marker = list(
+      size = 10,
+      color = "#c62828",
+      symbol = "circle",
+      line = list(color = "white", width = 1.2)
+    ),
+    hovertemplate = "Class type: %{x}<br>Mean calories burned: %{y:.2f}<extra></extra>",
+    showlegend = FALSE
+  ) |>
   plotly_anova_layout(
-    title = "95% confidence intervals for mean watch time by edit style",
-    x_title = "Edit style",
-    y_title = "Mean watch time (seconds)",
+    title = "Calories burned by gym class type",
+    x_title = "Gym class type",
+    y_title = "Calories burned",
     height = 390,
     margin = list(l = 76, r = 25, t = 60, b = 82)
   ) |>
   layout(
     yaxis = list(
-      title = "Mean watch time (seconds)",
+      title = "Calories burned",
       zeroline = FALSE,
       showline = TRUE,
       fixedrange = TRUE,
       linecolor = plot_cols$border,
       gridcolor = "rgba(0,0,0,0.07)",
       tickmode = "linear",
-      tick0 = 32,
-      dtick = 4,
-      range = c(30, 60)
+      tick0 = 400,
+      dtick = 20,
+      range = c(390, 545)
     )
   )
 ```
 
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the sample mean watch time for each edit style. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
-:::
+The **red dots** show the sample mean calories burned for each gym class type.
 
+The **boxplots** show the within-group spread. The centers are noticeably different, especially for **HIIT** compared with **yoga**, which matches the ANOVA conclusion that not all group means are the same.
+:::
 
 ---
 
@@ -1714,20 +1707,20 @@ anova(fit)
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Short-form video example</span>
+<span class="label">Gym class example</span>
 :::
 
 ```{webr}
 #| autorun: false
 
-watch_time <- c(32, 36, 38, 40, 44,
-                39, 39, 44, 49, 49,
-                35, 40, 41, 42, 47,
-                46, 49, 52, 55, 58)
+calories <- c(430, 445, 455, 470, 485,
+              450, 460, 475, 490, 505,
+              470, 485, 500, 520, 535,
+              400, 415, 430, 445, 460)
 
-style <- factor(rep(c("Clean", "Captions", "Meme", "Story"), each = 5))
+class_type <- factor(rep(c("Cycling", "Boxing", "HIIT", "Yoga"), each = 5))
 
-fit <- aov(watch_time ~ style)
+fit <- aov(calories ~ class_type)
 
 anova(fit)
 ```
@@ -1969,7 +1962,7 @@ A badminton coach compares three drill programs for improving **serve-target acc
 
 After two months, each player completes the same accuracy test out of 40.
 
-| Static targets | Footwork + serve | Coach-fed targets |
+| Basic serve | Target serve | Match-play serve |
 |---:|---:|---:|
 | 19 | 24 | 26 |
 | 20 | 25 | 27 |
@@ -2049,11 +2042,11 @@ $$
 
 $$
 \begin{aligned}
-\text{Static} - \text{Footwork}
+\text{Basic} - \text{Target}
 &:\ -5.00\pm2.72=(-7.72,\,-2.28)\\[7pt]
-\text{Static} - \text{Coach-fed}
+\text{Basic} - \text{Match-play}
 &:\ -6.50\pm2.72=(-9.22,\,-3.78)\\[7pt]
-\text{Footwork} - \text{Coach-fed}
+\text{Target} - \text{Match-play}
 &:\ -1.50\pm2.72=(-4.22,\,1.22)
 \end{aligned}
 $$
@@ -2064,6 +2057,227 @@ $$
 :::
 
 ::::
+
+
+----
+
+## Badminton Drills — Fisher LSD Results {.compact .badminton-results}
+
+:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
+
+::: {.taskbox style="font-size: 0.55em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
+<span class="label">Problem</span>
+
+A badminton coach compares three drill programs for improving **serve-target accuracy**.
+
+After two months, each player completes the same accuracy test out of 40.
+
+| Basic serve | Target serve | Match-play serve |
+|---:|---:|---:|
+| 19 | 24 | 26 |
+| 20 | 25 | 27 |
+| 21 | 26 | 28 |
+| 23 | 28 | 29 |
+| 24 | 29 | 30 |
+| 25 | 30 | 31 |
+
+ANOVA rejects $H_0$. Which drill programs differ using **Fisher's LSD**?
+:::
+
+::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
+
+::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
+<span class="label">Read the Fisher LSD intervals</span>
+
+A pair is declared **different** when the interval does **not contain 0**.
+
+$$
+\text{interval avoids }0
+\Rightarrow
+\text{different}
+\qquad
+\text{interval contains }0
+\Rightarrow
+\text{not clearly different}
+$$
+:::
+
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: stretch;"}
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Basic vs Target</span>
+
+$$
+(-7.72,\,-2.28)
+$$
+
+This interval avoids 0.
+
+**Different**
+:::
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Basic vs Match-play</span>
+
+$$
+(-9.22,\,-3.78)
+$$
+
+This interval avoids 0.
+
+**Different**
+:::
+
+::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
+<span class="label">Target vs Match-play</span>
+
+$$
+(-4.22,\,1.22)
+$$
+
+This interval contains 0.
+
+**Not clearly different**
+:::
+
+::::
+
+::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
+<span class="label">Answer</span>
+
+Using Fisher's LSD, **Basic serve** has a lower mean accuracy score than both **Target serve** and **Match-play serve**.
+
+However, **Target serve** and **Match-play serve** are not clearly different from each other.
+:::
+
+:::
+
+::::
+
+
+---
+
+## Visual: Fisher LSD Pairwise Intervals
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(plotly)
+
+badminton_lsd <- data.frame(
+  comparison = factor(
+    c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
+    levels = c("Basic − Target", "Basic − Match-play", "Target − Match-play")
+  ),
+  difference = c(-5.00, -6.50, -1.50),
+  lower = c(-7.72, -9.22, -4.22),
+  upper = c(-2.28, -3.78, 1.22)
+)
+
+plot_ly(
+  badminton_lsd,
+  x = ~comparison,
+  y = ~difference,
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    size = 10,
+    color = "rgba(198,40,40,1)",
+    line = list(color = "rgba(198,40,40,1)", width = 1.0)
+  ),
+  error_y = list(
+    type = "data",
+    array = ~upper - difference,
+    arrayminus = ~difference - lower,
+    color = "rgba(198,40,40,1)",
+    thickness = 1.9,
+    width = 6
+  ),
+  hovertemplate = paste(
+    "Comparison: %{x}",
+    "<br>Mean difference: %{y:.2f}",
+    "<br>Fisher LSD interval: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
+    "<extra></extra>"
+  ),
+  customdata = ~cbind(lower, upper),
+  showlegend = FALSE
+) |>
+  plotly_anova_layout(
+    title = "Fisher LSD intervals for pairwise mean differences",
+    x_title = "Pairwise comparison",
+    y_title = "Mean difference in accuracy score",
+    height = 350,
+    margin = list(l = 78, r = 20, t = 54, b = 82)
+  ) |>
+  layout(
+    shapes = list(
+      list(
+        type = "line",
+        xref = "paper",
+        x0 = 0,
+        x1 = 1,
+        yref = "y",
+        y0 = 0,
+        y1 = 0,
+        line = list(
+          color = "black",
+          width = 2.1,
+          dash = "dash"
+        )
+      )
+    ),
+    xaxis = list(
+      title = list(
+        text = "Pairwise comparison",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
+      showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      tickangle = 0,
+      tickmode = "array",
+      tickvals = c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
+      ticktext = c("Basic<br>vs<br>Target",
+                   "Basic<br>vs<br>Match-play",
+                   "Target<br>vs<br>Match-play"),
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = list(
+        text = "Mean difference in accuracy score",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      fixedrange = TRUE,
+      gridcolor = "rgba(0,0,0,0.06)",
+      tickmode = "linear",
+      tick0 = -10,
+      dtick = 2,
+      range = c(-10, 3)
+    )
+  )
+```
+
+::: {.thinkbox style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;"}
+The **red dots** show the observed pairwise mean differences. The **red vertical intervals** show the Fisher LSD intervals.
+
+The **black dashed line** marks 0. Intervals that avoid 0 indicate pairs that are significantly different. The first two intervals avoid 0, while **Target serve vs Match-play serve** contains 0.
+:::
 
 ---
 
@@ -2076,7 +2290,11 @@ $$
 
 A device lab compares four phone case designs after a standardized drop test.
 
-For each case design, the lab records the **repair cost** after impact.
+For each case design, the response variable is
+
+$$
+y=\text{repair cost in dollars after impact}.
+$$
 
 | Clear | Slim | Wallet | Rugged |
 |---:|---:|---:|---:|
@@ -2089,7 +2307,7 @@ For each case design, the lab records the **repair cost** after impact.
 | 79 | 83 | 88 | 95 |
 | 81 | 85 | 90 | 97 |
 
-ANOVA rejects $H_0$. Which case designs differ using **Fisher's LSD**?
+ANOVA rejects $H_0$. Which case designs differ in mean repair cost using **Fisher's LSD**?
 :::
 
 ::: {.notebox .calc-left .fragment style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.10; padding: 13px 15px; margin-bottom: 0;"}
@@ -2195,189 +2413,6 @@ $$
 ::::
 
 
-----
-
-## Badminton Drills — Fisher LSD Results {.compact .badminton-results}
-
-:::: {.example-grid style="display:grid; grid-template-columns: 0.40fr 0.60fr; gap: 16px; align-items: start;"}
-
-::: {.taskbox style="font-size: 0.55em; line-height: 1.09; padding: 13px 15px; margin-bottom: 0;"}
-<span class="label">Problem</span>
-
-A badminton coach compares three drill programs for improving **serve-target accuracy**.
-
-After two months, each player completes the same accuracy test out of 40.
-
-| Static targets | Footwork + serve | Coach-fed targets |
-|---:|---:|---:|
-| 19 | 24 | 26 |
-| 20 | 25 | 27 |
-| 21 | 26 | 28 |
-| 23 | 28 | 29 |
-| 24 | 29 | 30 |
-| 25 | 30 | 31 |
-
-ANOVA rejects $H_0$. Which drill programs differ using **Fisher's LSD**?
-:::
-
-::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
-
-::: {.stat-card .calc-left style="font-size: 0.58em; line-height: 1.12; padding: 14px 17px; margin-bottom: 0;"}
-<span class="label">Read the Fisher LSD intervals</span>
-
-A pair is declared **different** when the interval does **not contain 0**.
-
-$$
-\text{interval avoids }0
-\Rightarrow
-\text{different}
-\qquad
-\text{interval contains }0
-\Rightarrow
-\text{not clearly different}
-$$
-:::
-
-:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; align-items: stretch;"}
-
-::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
-<span class="label">Static vs Footwork</span>
-
-$$
-(-7.72,\,-2.28)
-$$
-
-This interval avoids 0.
-
-**Different**
-:::
-
-::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
-<span class="label">Static vs Coach-fed</span>
-
-$$
-(-9.22,\,-3.78)
-$$
-
-This interval avoids 0.
-
-**Different**
-:::
-
-::: {.notebox .fragment style="font-size: 0.54em; line-height: 1.10; padding: 13px 14px; margin-bottom: 0;"}
-<span class="label">Footwork vs Coach-fed</span>
-
-$$
-(-4.22,\,1.22)
-$$
-
-This interval contains 0.
-
-**Not clearly different**
-:::
-
-::::
-
-::: {.thinkbox .fragment style="font-size: 0.62em; line-height: 1.15; padding: 13px 17px; margin-bottom: 0;"}
-<span class="label">Answer</span>
-
-Using Fisher's LSD, **Static targets** has a lower mean accuracy score than both **Footwork + serve** and **Coach-fed targets**.
-
-However, **Footwork + serve** and **Coach-fed targets** are not clearly different from each other.
-:::
-
-:::
-
-::::
-
-
----
-
-## Visual: Badminton Drill Accuracy Scores
-
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-
-badminton <- data.frame(
-  score = c(19, 20, 21, 23, 24, 25,
-            24, 25, 26, 28, 29, 30,
-            26, 27, 28, 29, 30, 31),
-  drill = factor(
-    rep(c("Static targets", "Footwork + serve", "Coach-fed targets"), each = 6),
-    levels = c("Static targets", "Footwork + serve", "Coach-fed targets")
-  )
-)
-
-badminton_ci <- badminton |>
-  group_by(drill) |>
-  summarise(
-    n = n(),
-    mean_score = mean(score),
-    sd_score = sd(score),
-    se = sd_score / sqrt(n),
-    t_star = qt(0.975, df = n - 1),
-    lower = mean_score - t_star * se,
-    upper = mean_score + t_star * se,
-    .groups = "drop"
-  )
-
-plot_ly(
-  badminton_ci,
-  x = ~drill,
-  y = ~mean_score,
-  type = "scatter",
-  mode = "markers",
-  marker = list(
-    size = 12,
-    color = plot_cols$red,
-    line = list(color = "white", width = 1.4)
-  ),
-  error_y = list(
-    type = "data",
-    array = ~upper - mean_score,
-    arrayminus = ~mean_score - lower,
-    color = "rgba(0,105,92,0.75)",
-    thickness = 2.3,
-    width = 8
-  ),
-  hovertemplate = paste(
-    "Drill: %{x}",
-    "<br>Mean score: %{y:.2f}",
-    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
-    "<extra></extra>"
-  ),
-  customdata = ~cbind(lower, upper),
-  showlegend = FALSE
-) |>
-  plotly_anova_layout(
-    title = "95% confidence intervals for mean accuracy score by drill program",
-    x_title = "Badminton drill program",
-    y_title = "Mean accuracy score",
-    height = 390,
-    margin = list(l = 76, r = 25, t = 60, b = 78)
-  ) |>
-  layout(
-    yaxis = list(
-      title = "Mean accuracy score",
-      zeroline = FALSE,
-      showline = TRUE,
-      fixedrange = TRUE,
-      linecolor = plot_cols$border,
-      gridcolor = "rgba(0,0,0,0.07)",
-      tickmode = "linear",
-      tick0 = 20,
-      dtick = 2,
-      range = c(18, 32)
-    )
-  )
-```
-
-::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the sample mean accuracy score for each drill program. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
-:::
-
 ---
 
 ## Phone Case Drop-Test Costs — Fisher LSD Results {.compact .phone-case-results}
@@ -2389,7 +2424,11 @@ The **red dots** show the sample mean accuracy score for each drill program. The
 
 A device lab compares four phone case designs after a standardized drop test.
 
-For each case design, the lab records the **repair cost** after impact.
+For each case design, the response variable is
+
+$$
+y=\text{repair cost in dollars after impact}.
+$$
 
 | Clear | Slim | Wallet | Rugged |
 |---:|---:|---:|---:|
@@ -2402,7 +2441,7 @@ For each case design, the lab records the **repair cost** after impact.
 | 79 | 83 | 88 | 95 |
 | 81 | 85 | 90 | 97 |
 
-ANOVA rejects $H_0$. Which case designs differ using **Fisher's LSD**?
+ANOVA rejects $H_0$. Which case designs differ in mean repair cost using **Fisher's LSD**?
 :::
 
 ::: {.col style="display:grid; grid-template-rows: auto auto auto; gap: 12px;"}
@@ -2477,90 +2516,135 @@ $$
 
 ---
 
-## Visual: Phone Case Drop-Test Costs
+## Visual: Phone Case Fisher LSD Pairwise Intervals
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
 
-case_data <- data.frame(
-  cost = c(69, 71, 73, 75, 75, 77, 79, 81,
-           73, 75, 77, 79, 79, 81, 83, 85,
-           78, 80, 82, 84, 84, 86, 88, 90,
-           85, 87, 89, 91, 91, 93, 95, 97),
-  type = factor(
-    rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8),
-    levels = c("Clear", "Slim", "Wallet", "Rugged")
-  )
+library(plotly)
+
+case_lsd <- data.frame(
+  comparison = factor(
+    c(
+      "Clear − Slim",
+      "Clear − Wallet",
+      "Clear − Rugged",
+      "Slim − Wallet",
+      "Slim − Rugged",
+      "Wallet − Rugged"
+    ),
+    levels = c(
+      "Clear − Slim",
+      "Clear − Wallet",
+      "Clear − Rugged",
+      "Slim − Wallet",
+      "Slim − Rugged",
+      "Wallet − Rugged"
+    )
+  ),
+  difference = c(-4.00, -9.00, -16.00, -5.00, -12.00, -7.00),
+  lower = c(-8.10, -13.10, -20.10, -9.10, -16.10, -11.10),
+  upper = c(0.10, -4.90, -11.90, -0.90, -7.90, -2.90)
 )
 
-case_ci <- case_data |>
-  group_by(type) |>
-  summarise(
-    n = n(),
-    mean_cost = mean(cost),
-    sd_cost = sd(cost),
-    se = sd_cost / sqrt(n),
-    t_star = qt(0.975, df = n - 1),
-    lower = mean_cost - t_star * se,
-    upper = mean_cost + t_star * se,
-    .groups = "drop"
-  )
-
 plot_ly(
-  case_ci,
-  x = ~type,
-  y = ~mean_cost,
+  case_lsd,
+  x = ~comparison,
+  y = ~difference,
   type = "scatter",
   mode = "markers",
   marker = list(
-    size = 12,
-    color = plot_cols$red,
-    line = list(color = "white", width = 1.4)
+    size = 10,
+    color = "rgba(198,40,40,1)",
+    line = list(color = "rgba(198,40,40,1)", width = 1.0)
   ),
   error_y = list(
     type = "data",
-    array = ~upper - mean_cost,
-    arrayminus = ~mean_cost - lower,
-    color = "rgba(0,105,92,0.75)",
-    thickness = 2.3,
-    width = 8
+    array = ~upper - difference,
+    arrayminus = ~difference - lower,
+    color = "rgba(198,40,40,1)",
+    thickness = 1.9,
+    width = 6
   ),
   hovertemplate = paste(
-    "Case design: %{x}",
-    "<br>Mean repair cost: %{y:.2f}",
-    "<br>95% CI: (%{customdata[0]:.2f}, %{customdata[1]:.2f})",
+    "Comparison: %{x}",
+    "<br>Mean cost difference: $%{y:.2f}",
+    "<br>Fisher LSD interval: ($%{customdata[0]:.2f}, $%{customdata[1]:.2f})",
     "<extra></extra>"
   ),
   customdata = ~cbind(lower, upper),
   showlegend = FALSE
 ) |>
   plotly_anova_layout(
-    title = "95% confidence intervals for mean repair cost by phone case design",
-    x_title = "Phone case design",
-    y_title = "Mean repair cost",
-    height = 390,
-    margin = list(l = 76, r = 25, t = 60, b = 70)
+    title = "Fisher LSD intervals for pairwise mean repair-cost differences",
+    x_title = "Pairwise comparison",
+    y_title = "Mean repair-cost difference ($)",
+    height = 350,
+    margin = list(l = 78, r = 20, t = 54, b = 82)
   ) |>
   layout(
+    shapes = list(
+      list(
+        type = "line",
+        xref = "paper",
+        x0 = 0,
+        x1 = 1,
+        yref = "y",
+        y0 = 0,
+        y1 = 0,
+        line = list(
+          color = "black",
+          width = 2.1,
+          dash = "dash"
+        )
+      )
+    ),
+    xaxis = list(
+      title = list(
+        text = "Pairwise comparison",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
+      showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 9),
+      tickangle = -14,
+      fixedrange = TRUE
+    ),
     yaxis = list(
-      title = "Mean repair cost",
+      title = list(
+        text = "Mean repair-cost difference ($)",
+        font = list(color = "rgba(0,0,0,0.88)")
+      ),
       zeroline = FALSE,
       showline = TRUE,
+      linecolor = "rgba(0,0,0,0.90)",
+      linewidth = 1.7,
+      ticks = "outside",
+      ticklen = 5,
+      tickwidth = 1.2,
+      tickcolor = "rgba(0,0,0,0.78)",
+      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
       fixedrange = TRUE,
-      linecolor = plot_cols$border,
-      gridcolor = "rgba(0,0,0,0.07)",
+      gridcolor = "rgba(0,0,0,0.06)",
       tickmode = "linear",
-      tick0 = 70,
-      dtick = 5,
-      range = c(68, 96)
+      tick0 = -20,
+      dtick = 4,
+      range = c(-22, 2)
     )
   )
 ```
 
-::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
-The **red dots** show the sample mean repair cost for each phone case design. The vertical bars show **95% confidence intervals for the group means**, matching the textbook-style visual.
+::: {.thinkbox style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;"}
+The **red dots** show the observed pairwise mean repair-cost differences. The **red vertical intervals** show the Fisher LSD intervals.
+
+The **black dashed line** marks 0. Intervals that avoid 0 indicate pairs that are significantly different. Only **Clear vs Slim** contains 0, so that pair is not clearly different.
 :::
 
 
@@ -2621,7 +2705,6 @@ pairwise.t.test(cost, case,
 :::
 
 ::::
-
 
 ---
 

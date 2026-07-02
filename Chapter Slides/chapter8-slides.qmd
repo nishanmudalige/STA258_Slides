@@ -1690,7 +1690,7 @@ The **red dots** show the sample mean watch time for each edit style. The vertic
 
 ## Check in R: One-Way ANOVA {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
@@ -2622,6 +2622,7 @@ pairwise.t.test(cost, case,
 
 ::::
 
+
 ---
 
 ## Bonferroni: Why Adjust? {.compact .bonferroni-idea}
@@ -2931,9 +2932,10 @@ However, **Rugged** is clearly higher than all other case designs.
 
 ---
 
-## Check in R: Pairwise Comparisons {.compact-r}
 
-:::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
+## Check in R: Bonferroni Comparisons {.compact-r}
+
+:::: {.two-col-wide style="display:grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
@@ -2943,8 +2945,6 @@ However, **Rugged** is clearly higher than all other case designs.
 ```{webr}
 #| autorun: false
 
-library(DescTools)
-
 score <- c(19, 20, 21, 23, 24, 25,
            24, 25, 26, 28, 29, 30,
            26, 27, 28, 29, 30, 31)
@@ -2953,9 +2953,11 @@ drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
 
 fit <- aov(score ~ drill)
 
-PostHocTest(fit, method = "lsd")
+anova(fit)
 
-PostHocTest(fit, method = "bonferroni")
+pairwise.t.test(score, drill,
+                p.adjust.method = "bonferroni",
+                pool.sd = TRUE)
 ```
 :::
 
@@ -2967,8 +2969,6 @@ PostHocTest(fit, method = "bonferroni")
 ```{webr}
 #| autorun: false
 
-library(DescTools)
-
 cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
           73, 75, 77, 79, 79, 81, 83, 85,
           78, 80, 82, 84, 84, 86, 88, 90,
@@ -2978,9 +2978,11 @@ case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
 
 fit <- aov(cost ~ case)
 
-PostHocTest(fit, method = "lsd")
+anova(fit)
 
-PostHocTest(fit, method = "bonferroni")
+pairwise.t.test(cost, case,
+                p.adjust.method = "bonferroni",
+                pool.sd = TRUE)
 ```
 :::
 

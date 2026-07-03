@@ -396,10 +396,21 @@ plotly_anova_layout <- function(
 .reveal section.compact-r .cm-editor,
 .reveal section.compact-r .cm-content,
 .reveal section.compact-r .cm-line,
+.reveal section.compact-r .cm-line span,
 .reveal section.compact-r pre,
 .reveal section.compact-r code {
   font-size: 0.82em !important;
   line-height: 1.08 !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
+}
+
+.reveal section.compact-r .cm-gutters,
+.reveal section.compact-r .cm-gutterElement {
+  font-size: 0.78em !important;
+  line-height: 1.08 !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
 }
 
 .reveal section.compact-r .cell-output,
@@ -3078,13 +3089,13 @@ pairwise.t.test(cost, case,
 :::: {.callout-note icon="false"}
 ## Question
 
-A one-way ANOVA with $k=4$ groups has a significant p-value. How many pairwise mean comparisons are possible?
+A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
 ::::
 
-- 3
-- [6]{.correct data-explanation="The number of pairwise comparisons is choose(k, 2). With k = 4, choose(4, 2) = 6."}
-- 8
+- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
 - 16
+- 8
+- 3
 
 ---
 

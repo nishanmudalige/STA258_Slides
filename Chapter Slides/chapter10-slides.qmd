@@ -1195,17 +1195,17 @@ Some expected counts are below 5, so the chi-square approximation may be unrelia
 <span class="label">Assumptions</span>
 
 <ul class="assumption-list" style="gap: 10px;">
-  <li><strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.</li>
+  <li class="fragment" data-fragment-index="1"><strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.</li>
 
-  <li><strong>One category per trial:</strong> Each observation should fall into exactly one of the possible categories.</li>
+  <li class="fragment" data-fragment-index="2"><strong>One category per trial:</strong> Each observation should fall into exactly one of the possible categories.</li>
 
-  <li><strong>Independent trials:</strong> The trials or observations should be independent.</li>
+  <li class="fragment" data-fragment-index="3"><strong>Independent trials:</strong> The trials or observations should be independent.</li>
 
-  <li><strong>Expected cell frequency:</strong> Each expected count should usually be at least 5.</li>
+  <li class="fragment" data-fragment-index="4"><strong>Expected cell frequency:</strong> Each expected count should usually be at least 5.</li>
 </ul>
 :::
 
-::: {.thinkbox style="font-size: 0.70em; line-height: 1.22; padding: 13px 16px; margin-top: 14px;"}
+::: {.thinkbox .fragment style="font-size: 0.70em; line-height: 1.22; padding: 13px 16px; margin-top: 14px;" data-fragment-index="5"}
 <span class="label">Course reminder</span>
 
 Check expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied.

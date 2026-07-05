@@ -242,6 +242,16 @@ plotly_slide_layout <- function(
 .center     { text-align: center; }
 .small-text { font-size: 0.64em; }
 .tight li   { margin-bottom: 0.18em; }
+.calc-left mjx-container[display="true"],
+.calc-left .MathJax_Display {
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.calc-left mjx-container[display="true"] {
+  justify-content: flex-start !important;
+}
 .formula {
   display: inline-block;
   background: white;
@@ -646,7 +656,7 @@ The club wants to test whether the four apps are equally preferred.
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 If all four apps are equally preferred:
@@ -713,7 +723,7 @@ A random sample of $n=180$ student purchases gives:
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 If all three drinks are equally preferred:

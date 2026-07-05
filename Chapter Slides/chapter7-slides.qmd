@@ -273,6 +273,70 @@ tail_plot <- function(stat = 1.645, alternative = "greater",
         showarrow = FALSE, font = list(color = "#333", size = 11)))
     ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
+
+# ---- Interactive: dropdown to switch the sample size (or any case) ----------
+# Builds one H0 line + one Ha line + one power-fill per case and wires a
+# plotly dropdown that toggles which case is visible and updates the title
+# and y-axis range to match. Runs fully client-side (no webR needed).
+explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
+                            alternative = "less", xlab = "sample mean  x̄",
+                            width = 760, height = 320) {
+  zc  <- qnorm(1 - alpha)
+  ses <- sigma / sqrt(ns)
+  lo  <- min(mu0, mua) - 4 * max(ses)
+  hi  <- max(mu0, mua) + 4 * max(ses)
+  x   <- seq(lo, hi, length.out = 600)
+  powers <- numeric(length(ns))
+  ymax   <- numeric(length(ns))
+  p <- plot_ly(width = width, height = height)
+  for (i in seq_along(ns)) {
+    se    <- ses[i]
+    xcrit <- if (alternative == "less") mu0 - zc * se else mu0 + zc * se
+    y0    <- dnorm(x, mu0, se)
+    ya    <- dnorm(x, mua, se)
+    keep  <- if (alternative == "less") x <= xcrit else x >= xcrit
+    powers[i] <- if (alternative == "less") pnorm((xcrit - mua) / se) else
+                                            pnorm((mua - xcrit) / se)
+    ymax[i]   <- dnorm(mu0, mu0, se)
+    vis <- (i == 1)
+    p <- p |>
+      add_lines(x = x, y = y0, visible = vis,
+                line = list(color = col_null, width = 3),
+                name = "H₀", hoverinfo = "none") |>
+      add_lines(x = x, y = ya, visible = vis,
+                line = list(color = col_alt, width = 3),
+                name = "Hₐ", hoverinfo = "none") |>
+      add_trace(x = x[keep], y = ya[keep], visible = vis, type = "scatter",
+                mode = "lines", fill = "tozeroy", fillcolor = fill_pow,
+                line = list(color = line_pow, width = 1),
+                name = "power", hoverinfo = "none")
+  }
+  ttl <- function(i) paste0("n = ", ns[i], "   →   power = ",
+                            formatC(powers[i], format = "f", digits = 3))
+  buttons <- lapply(seq_along(ns), function(i) {
+    v <- rep(FALSE, 3 * length(ns))
+    v[((i - 1) * 3 + 1):((i - 1) * 3 + 3)] <- TRUE
+    list(method = "update", label = paste0("n = ", ns[i]),
+         args = list(list(visible = v),
+                     list("title.text"  = ttl(i),
+                          "yaxis.range"  = c(0, ymax[i] * 1.22))))
+  })
+  p |> layout(
+    title = list(text = ttl(1), x = 0.02, font = list(size = 15)),
+    xaxis = list(title = xlab, zeroline = FALSE, fixedrange = TRUE),
+    yaxis = list(title = "", rangemode = "tozero",
+                 range = c(0, ymax[1] * 1.22), fixedrange = TRUE),
+    margin = list(l = 28, r = 12, t = 74, b = 40), showlegend = FALSE,
+    updatemenus = list(list(type = "dropdown", direction = "down",
+                            x = 0.99, xanchor = "right", y = 1.22,
+                            yanchor = "top", pad = list(t = 2, r = 2),
+                            font = list(size = 12), buttons = buttons)),
+    annotations = list(list(x = 0.99, y = 1.30, xref = "paper", yref = "paper",
+                            xanchor = "right", showarrow = FALSE,
+                            text = "choose sample size ↓",
+                            font = list(size = 11, color = "#667174")))
+  ) |> config(displayModeBar = FALSE, responsive = TRUE)
+}
 ```
 
 # Chapter 7: Statistical Power {.title-slide}
@@ -785,7 +849,8 @@ power_overlap(mu0 = 0, mua = 1.1, se0 = 1 / sqrt(10),
               xlab = "mean sweetness change  x̄",
               cutoff_label = "cutoff = 0.52",
               power_label = "power = 0.966",
-              beta_label = "β = 0.034")
+              beta_label = "β = 0.034",
+              width = 500, height = 270)
 ```
 :::
 
@@ -898,6 +963,24 @@ c(xcrit = xcrit, power = power)
 
 ::: {.notebox .fragment}
 Try bumping `n` to 30 or 60 and re-run, then watch the power climb as the standard error shrinks.
+:::
+
+---
+
+## Interactive: Watch Power Climb with $n$ {.compact}
+
+Use the dropdown to change the sample size for the bottling test ($\mu_0=300$, $\mu_a=299$, $\sigma=3$, left-tailed $\alpha=0.05$). As $n$ grows, both curves sharpen, they separate more cleanly, and the green **power** area past the cutoff expands.
+
+:::{style="max-width:840px; margin:0 auto;"}
+```{r}
+explore_power_n(mu0 = 300, mua = 299, sigma = 3,
+                ns = c(6, 15, 30, 60), alpha = 0.05,
+                alternative = "less")
+```
+:::
+
+::: {.thinkbox}
+Same 1 ml shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 0.20$ at $n=6$ to $\approx 0.83$ at $n=60$. That is why sample size is your main planning lever.
 :::
 
 ---
@@ -1043,8 +1126,25 @@ ceiling(n)
 ::: {.defbox}
 For a one-sided test of $p$, the rejection cutoff uses the **null** standard error, but power is computed with the **alternative** standard error:
 
-$$\hat p^{\,*}=p_0 \mp z_\alpha\sqrt{\tfrac{p_0(1-p_0)}{n}}, \qquad
+$$\hat p^{\,*}=p_0 \mathbin{\substack{+\\[-4pt]-}} z_\alpha\sqrt{\tfrac{p_0(1-p_0)}{n}}, \qquad
 \text{power}=P\!\left(\hat p \text{ in reject region}\;\middle|\; p=p_a\right)$$
+:::
+
+::: {.stat-card .fragment}
+<span class="label">Which sign on $z_\alpha$?</span>
+
+| Test | Cutoff $\hat p^{\,*}$ | Reject when |
+|---|---|---|
+| $H_a:p<p_0$ | $p_0-z_\alpha\sqrt{p_0(1-p_0)/n}$ | $\hat p<\hat p^{\,*}$ |
+| $H_a:p>p_0$ | $p_0+z_\alpha\sqrt{p_0(1-p_0)/n}$ | $\hat p>\hat p^{\,*}$ |
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Three steps, same as the mean</span>
+
+- Find the cutoff $\hat p^{\,*}$ from $p_0$ and $z_\alpha$.
+- Standardize that cutoff under $p=p_a$ using $\text{SE}_a$.
+- The tail area past it is the power.
 :::
 
 ---
@@ -1070,7 +1170,7 @@ How does the power to detect this 5-point drop change as the sample grows from $
 ::: {.col}
 | $n$ | cutoff $\hat p^{\,*}$ | $z$ under $p=0.85$ | Power |
 |---|---|---|---|
-| 50 | 0.8507 | $-0.39$ | 0.347 |
+| 50 | 0.8302 | $-0.39$ | 0.347 |
 | 100 | 0.8507 | $0.02$ | 0.507 |
 | 200 | 0.8651 | $0.60$ | 0.725 |
 

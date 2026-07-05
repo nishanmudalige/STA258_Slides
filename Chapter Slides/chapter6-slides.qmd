@@ -48,7 +48,7 @@ tail_plot <- function(stat = 1.8, dist = "z", df = 12, alternative = "greater",
     less = x <= stat,
     two = abs(x) >= stat_abs
   )
-  p <- plot_ly(width = 620, height = 230) |>
+  p <- plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
               name = if (dist == "z") "N(0,1)" else paste0("t(", df, ")")) |>
     add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
@@ -73,7 +73,7 @@ chisq_tail_plot <- function(stat, df, alternative = "greater",
   x <- seq(0, qchisq(0.999, df), length.out = 500)
   y <- dchisq(x, df)
   shade <- if (alternative == "less") x <= stat else x >= stat
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
               name = paste0("chi^2(", df, ")")) |>
     add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
@@ -131,7 +131,7 @@ chisq_test_plot <- function(chistar, chicrit = NULL, df = 27, alternative = "gre
            showarrow = FALSE, xanchor = "center",
            font = list(color = "#00695c", size = 12))))
   }
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("chi^2(", df, ")"), hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -184,7 +184,7 @@ ftest_plot <- function(fstar, fcrit = NULL, df1 = 11, df2 = 9, alternative = "gr
            showarrow = FALSE, xanchor = "left",
            font = list(color = "#00695c", size = 11))))
   }
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("F(", df1, ", ", df2, ")"), hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -419,7 +419,7 @@ ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
            showarrow = TRUE, ax = if (alternative == "less") -10 else 10, ay = -28,
            arrowcolor = "#b26a00", font = list(color = "#b26a00", size = 12))))
   }
-  plot_ly(width = 620, height = 230) |>
+  plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = "N(0,1)", hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -492,7 +492,7 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
       fillcolor = "rgba(249,168,37,0.6)",
       line = list(color = "rgba(249,168,37,0.95)", width = 1),
       name = "shaded region", hoverinfo = "skip")
-  p <- plot_ly(width = 620, height = 230) |>
+  p <- plot_ly(width = 520, height = 230) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("t(", df, ")"), hoverinfo = "skip")
   p <- if (alternative == "two.sided") add_shade(add_shade(p, x <= -cut), x >= cut) else add_shade(p, shade_keep)
@@ -666,11 +666,18 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .reveal .slides section.scrollable { overflow-y: auto !important; overflow-x: hidden !important; max-height: 700px; }
 .reveal section.compact h2 { font-size: 1.08em !important; }
 .reveal section.compact p, .reveal section.compact li { font-size: 0.7em; }
-.reveal section.cheat-sheet table { font-size: 0.5em; }
-.reveal section.cheat-sheet th, .reveal section.cheat-sheet td { padding: 2px 8px; }
+.reveal section.cheat-sheet { padding-top: 2px; }
+.reveal section.cheat-sheet h2 { margin-top: 0; margin-bottom: 6px; }
+.reveal section.cheat-sheet table { font-size: 0.52em; margin-top: 0; }
+.reveal section.cheat-sheet th, .reveal section.cheat-sheet td { padding: 4px 10px; line-height: 1.25; }
 .reveal section.compact-table table { font-size: 0.52em; }
 .reveal section.compact-table th, .reveal section.compact-table td { padding: 4px 8px; }
 .reveal section.compact-table > p { font-size: 0.72em; }
+.reveal section.tight-calc .examplebox { font-size: 0.6em; padding: 9px 13px; margin-bottom: 6px; }
+.reveal section.tight-calc .examplebox .label { margin-bottom: 1px; }
+.reveal section.tight-calc .two-col-wide { gap: 16px; }
+.reveal section.tight-calc .two-col { gap: 16px; margin-top: 4px; }
+.reveal section.tight-calc .thinkbox { font-size: 0.66em; padding: 9px 14px; margin-bottom: 0; }
 .reveal .intro-note, .reveal .intro-note p { font-size: 0.74em; margin-bottom: 6px; }
 .reveal section.quiz-question {
   display: flex !important;
@@ -1016,7 +1023,7 @@ which, under $H_0$, follows the standard normal reference distribution $Z\sim N(
 :::: {.two-col}
 ::: {.notebox .fragment}
 <span class="label">Reference distribution</span>
-$Z^*\sim N(0,1)$.
+$z^*\sim N(0,1)$.
 :::
 
 ::: {.notebox .fragment}
@@ -1548,7 +1555,7 @@ which, under $H_0$, follows the standard normal reference distribution $Z\sim N(
 :::: {.two-col}
 ::: {.notebox .fragment}
 <span class="label">Reference distribution</span>
-$Z^*\sim N(0,1)$.
+$z^*\sim N(0,1)$.
 :::
 
 ::: {.notebox .fragment}
@@ -1603,6 +1610,47 @@ Both population SDs are **known**, so use a two-sample $z$ test.
 
 ---
 
+## Download Speeds: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\mu_A-\mu_B=0 \qquad H_a:\mu_A-\mu_B>0 \quad (\alpha=0.05)$$
+
+<span class="label">Test statistic</span>
+$$z^*=\frac{(\bar{x}_A-\bar{x}_B)-0}{\sqrt{\sigma_A^2/n_A+\sigma_B^2/n_B}}=\frac{86-79}{\sqrt{12^2/40+15^2/45}}=2.387$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(Z\ge 2.387)=0.0085$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ztest_plot(zstar = 2.387, zcrit = 1.645, alternative = "greater",
+           shade = "reject",
+           title = "z* falls in the rejection region (α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0085 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is evidence Provider A's mean download speed is higher than Provider B's.
+:::
+::::
+
+---
+
 ## Check in R: Download Speeds
 
 ```{webr}
@@ -1616,12 +1664,8 @@ z_star
 p_value
 ```
 
-::: {.mini-plot}
-```{r}
-ztest_plot(zstar = 2.39, zcrit = 1.645, alternative = "greater",
-           shade = "reject",
-           title = "z* falls in the rejection region (α = 0.05)")
-```
+::: {.thinkbox .fragment}
+The output gives $z^*=2.39$ and p-value $0.0085$. At $\alpha=0.05$, reject $H_0$.
 :::
 
 ---
@@ -1672,6 +1716,50 @@ Variances are unknown but the spreads look similar, so use a pooled two-sample $
 
 ---
 
+## Two Fertilizers: Calculation {.tight-calc}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\mu_A-\mu_B=0 \qquad H_a:\mu_A-\mu_B\neq 0 \quad (\alpha=0.05)$$
+
+<span class="label">Pooled variance</span>
+$$s_p^2=\frac{(n_A-1)s_A^2+(n_B-1)s_B^2}{n_A+n_B-2}=\frac{8(0.274^2)+9(0.221^2)}{17}=0.0612$$
+
+<span class="label">Test statistic</span>
+$$t^*=\frac{\bar{x}_A-\bar{x}_B}{s_p\sqrt{1/n_A+1/n_B}}=\frac{4.10-3.63}{0.2475\sqrt{1/9+1/10}}=4.13$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=2\,P(T_{17}\ge 4.13)=0.0007$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ttest_plot(tstar = 4.13, tcrit = 2.11, df = 17, alternative = "two.sided",
+           shade = "reject",
+           title = "t* falls in the rejection region (two-sided, α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0007 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is strong evidence the two fertilizers give different mean yields.
+:::
+::::
+
+---
+
 ## Check in R: Two Fertilizers
 
 ```{webr}
@@ -1682,12 +1770,8 @@ fert_b <- c(3.6, 3.9, 3.4, 3.8, 3.5, 3.7, 3.3, 4.0, 3.6, 3.5)
 t.test(fert_a, fert_b, var.equal = TRUE)
 ```
 
-::: {.mini-plot}
-```{r}
-ttest_plot(tstar = 4.13, tcrit = 2.11, df = 17, alternative = "two.sided",
-           shade = "reject",
-           title = "t* falls in the rejection region (two-sided, α = 0.05)")
-```
+::: {.thinkbox .fragment}
+The output gives $t^*=4.13$, $df=17$, and p-value $0.0007$. At $\alpha=0.05$, reject $H_0$.
 :::
 
 ---
@@ -1736,7 +1820,48 @@ Let $\mu_1$ be the active-recall mean and $\mu_2$ the rereading mean. Test $H_0:
 
 ---
 
-## Check in R: Two-Sample t Test
+## Active Recall vs Rereading: Calculation
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:\mu_1-\mu_2=0 \qquad H_a:\mu_1-\mu_2>0 \quad (\alpha=0.05)$$
+
+<span class="label">Test statistic (no pooling)</span>
+$$t^*=\frac{\bar{x}_1-\bar{x}_2}{\sqrt{s_1^2/n_1+s_2^2/n_2}}=\frac{86.92-84.60}{\sqrt{2.392^2/12+1.506^2/10}}=2.76$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(T_\nu\ge 2.76)=0.0062,\qquad \nu\approx 18.8$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ttest_plot(tstar = 2.76, tcrit = 1.73, df = 19, alternative = "greater",
+           shade = "reject",
+           title = "t* falls in the rejection region (α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0062 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is evidence active recall produces a higher mean quiz score than rereading.
+:::
+::::
+
+---
+
+## Check in R: Active Recall vs Rereading
 
 ```{webr}
 active <- c(88, 84, 90, 86, 89, 85, 88, 83, 90, 86, 89, 85)
@@ -1745,12 +1870,8 @@ review <- c(84, 86, 83, 85, 84, 82, 87, 84, 86, 85)
 t.test(active, review, alternative = "greater", var.equal = FALSE)
 ```
 
-::: {.mini-plot}
-```{r}
-ttest_plot(tstar = 2.76, tcrit = 1.73, df = 19, alternative = "greater",
-           shade = "reject",
-           title = "t* falls in the rejection region (α = 0.05)")
-```
+::: {.thinkbox .fragment}
+Welch's test reports $t^*=2.76$ with $\nu\approx 18.8$ and p-value $0.0062$. At $\alpha=0.05$, reject $H_0$.
 :::
 
 ---
@@ -1772,7 +1893,7 @@ which, under $H_0$, follows the standard normal reference distribution $Z\sim N(
 :::: {.two-col}
 ::: {.notebox .fragment}
 <span class="label">Reference distribution</span>
-$Z^*\sim N(0,1)$.
+$z^*\sim N(0,1)$.
 :::
 
 ::: {.notebox .fragment}
@@ -1827,6 +1948,50 @@ $$
 
 ---
 
+## Push Notifications: Calculation {.tight-calc}
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+<span class="label">Hypotheses</span>
+$$H_0:p_1-p_2=0 \qquad H_a:p_1-p_2>0 \quad (\alpha=0.05)$$
+
+<span class="label">Sample and pooled proportions</span>
+$$\hat p_1=\tfrac{142}{360}=0.394,\quad \hat p_2=\tfrac{118}{370}=0.319,\quad \hat p=\tfrac{142+118}{360+370}=0.356$$
+
+<span class="label">Test statistic</span>
+$$z^*=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}=\frac{0.0756}{0.0354}=2.13$$
+
+<span class="label">p-value</span>
+$$\text{p-value}=P(Z\ge 2.13)=0.0166$$
+:::
+:::
+
+::: {.col}
+::: {.mini-plot}
+```{r}
+ztest_plot(zstar = 2.13, zcrit = 1.645, alternative = "greater",
+           shade = "reject",
+           title = "z* falls in the rejection region (α = 0.05)")
+```
+:::
+:::
+::::
+
+:::: {.two-col}
+::: {.thinkbox .fragment}
+<span class="label">Decision</span>
+$0.0166 \le 0.05$, so reject $H_0$.
+:::
+
+::: {.thinkbox .fragment}
+<span class="label">Conclusion</span>
+There is evidence the daily push notification increases the check-in rate.
+:::
+::::
+
+---
+
 ## Check in R: Two Proportions
 
 ```{webr}
@@ -1836,16 +2001,8 @@ totals <- c(360, 370)
 prop.test(successes, totals, alternative = "greater", correct = FALSE)
 ```
 
-::: {.mini-plot}
-```{r}
-ztest_plot(zstar = 2.13, zcrit = 1.645, alternative = "greater",
-           shade = "reject",
-           title = "z* falls in the rejection region (α = 0.05)")
-```
-:::
-
 ::: {.thinkbox .fragment}
-The output gives p-value about $0.0166$, so there is evidence that the daily push notification increases the check-in rate.
+`prop.test` reports the **chi-square** form ($\chi^2=(z^*)^2$) with p-value $0.0166$, so there is evidence the daily push notification increases the check-in rate.
 :::
 
 ---
@@ -2174,14 +2331,17 @@ A problem gives raw before-and-after blood pressure measurements on the same 12 
 
 | Situation | Test statistic |
 |---|---|
-| One mean, $\sigma$ known | $\displaystyle z^*=\frac{\bar{x}-\mu_0}{\sigma/\sqrt n}$ |
-| One mean, $\sigma$ unknown | $\displaystyle t^*=\frac{\bar{x}-\mu_0}{s/\sqrt n}$ |
-| One proportion | $\displaystyle z^*=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}$ |
-| One variance | $\displaystyle \chi^{2*}=\frac{(n-1)s^2}{\sigma_0^2}$ |
-| Difference of means | $\displaystyle t^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{\sqrt{s_1^2/n_1+s_2^2/n_2}}$ |
-| Difference of proportions | $\displaystyle z^*=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}$ |
-| Ratio of variances | $\displaystyle F^*=\frac{s_1^2}{s_2^2}$ |
-| Paired differences | $\displaystyle t^*=\frac{\bar{d}-\mu_{d0}}{s_d/\sqrt n}$ |
+| One mean, $\sigma$ known | $z^*=\frac{\bar{x}-\mu_0}{\sigma/\sqrt n}$ |
+| One mean, $\sigma$ unknown | $t^*=\frac{\bar{x}-\mu_0}{s/\sqrt n}$ |
+| One proportion | $z^*=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}$ |
+| One variance | $\chi^{2*}=\frac{(n-1)s^2}{\sigma_0^2}$ |
+| Two means, $\sigma_1,\sigma_2$ known | $z^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}$ |
+| Two means, pooled $t$ | $t^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{s_p\sqrt{1/n_1+1/n_2}}$ |
+| Pooled variance ($s_p^2$) | $s_p^2=\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}$ |
+| Two means, Welch $t$ | $t^*=\frac{(\bar{x}_1-\bar{x}_2)-D_0}{\sqrt{s_1^2/n_1+s_2^2/n_2}}$ |
+| Two proportions | $z^*=\frac{\hat p_1-\hat p_2}{\sqrt{\hat p(1-\hat p)(1/n_1+1/n_2)}}$ |
+| Ratio of variances | $F^*=\frac{s_1^2}{s_2^2}$ |
+| Paired differences | $t^*=\frac{\bar{d}-\mu_{d0}}{s_d/\sqrt n}$ |
 
 ---
 

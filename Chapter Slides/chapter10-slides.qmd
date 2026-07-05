@@ -642,7 +642,7 @@ The statistic gets large when observed counts are far from expected counts.
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox .fragment style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;" data-fragment-index="1"}
 A campus media club asks $n=240$ students which streaming app they would keep if they could keep only one.
 
 The club wants to test whether the four apps are equally preferred.
@@ -656,7 +656,19 @@ The club wants to test whether the four apps are equally preferred.
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;" data-fragment-index="2"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:p_1=p_2=p_3=p_4=\frac14
+$$
+
+$$
+H_a:\text{the four probabilities are not all equal}
+$$
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;" data-fragment-index="3"}
 <span class="label">Calculation</span>
 
 If all four apps are equally preferred:
@@ -685,19 +697,7 @@ $$
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Hypotheses</span>
-
-$$
-H_0:p_1=p_2=p_3=p_4=\frac14
-$$
-
-$$
-H_a:\text{the four probabilities are not all equal}
-$$
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;" data-fragment-index="4"}
 Since the P-value is very small, we reject $H_0$. The sample gives strong evidence that the four streaming apps are **not equally preferred**.
 :::
 
@@ -709,7 +709,7 @@ Since the P-value is very small, we reject $H_0$. The sample gives strong eviden
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox .fragment style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;" data-fragment-index="1"}
 A campus café wants to know whether three cold drink options are equally preferred by students.
 
 A random sample of $n=180$ student purchases gives:
@@ -723,7 +723,19 @@ A random sample of $n=180$ student purchases gives:
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;" data-fragment-index="2"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:p_1=p_2=p_3=\frac13
+$$
+
+$$
+H_a:\text{the three probabilities are not all equal}
+$$
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;" data-fragment-index="3"}
 <span class="label">Calculation</span>
 
 If all three drinks are equally preferred:
@@ -754,19 +766,7 @@ p\text{-value}\approx0.031
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Hypotheses</span>
-
-$$
-H_0:p_1=p_2=p_3=\frac13
-$$
-
-$$
-H_a:\text{the three probabilities are not all equal}
-$$
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;" data-fragment-index="4"}
 Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café drinks are not equally preferred.
 :::
 
@@ -914,7 +914,7 @@ This is always a **right-tail test**. Large $\chi^2$ values mean the observed co
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox .fragment style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;" data-fragment-index="1"}
 A campus food hall predicts how mobile pickup orders are distributed across four time slots.
 
 The historical model is:
@@ -932,7 +932,21 @@ A random sample of $n=200$ orders gives:
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;" data-fragment-index="2"}
+<span class="label">Hypotheses</span>
+
+$$
+H_0:(p_1,p_2,p_3,p_4)
+=
+(0.15,0.35,0.30,0.20)
+$$
+
+$$
+H_a:\text{at least one probability differs}
+$$
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;" data-fragment-index="3"}
 <span class="label">Calculation</span>
 
 Expected counts:
@@ -963,21 +977,7 @@ p\text{-value}\approx0.277
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Hypotheses</span>
-
-$$
-H_0:(p_1,p_2,p_3,p_4)
-=
-(0.15,0.35,0.30,0.20)
-$$
-
-$$
-H_a:\text{at least one probability differs}
-$$
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;" data-fragment-index="4"}
 Since $0.277>0.05$, we do not reject $H_0$. The observed pickup counts are reasonably consistent with the historical time-slot model.
 :::
 
@@ -989,7 +989,7 @@ Since $0.277>0.05$, we do not reject $H_0$. The observed pickup counts are reaso
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox .fragment style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;" data-fragment-index="1"}
 A phone accessory shop expects case colour demand to follow:
 
 $$
@@ -1007,7 +1007,19 @@ A sample of $n=150$ recent purchases gives:
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;" data-fragment-index="2"}
+<span class="label">Interpretation setup</span>
+
+One term of the statistic is especially large:
+
+$$
+\frac{(63-45)^2}{45}=7.20
+$$
+
+This shows that black case purchases are far above what the model expected.
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;" data-fragment-index="3"}
 <span class="label">Calculation</span>
 
 Expected counts:
@@ -1038,19 +1050,7 @@ p\text{-value}\approx0.0102
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Interpretation setup</span>
-
-One term of the statistic is especially large:
-
-$$
-\frac{(63-45)^2}{45}=7.20
-$$
-
-This shows that black case purchases are far above what the model expected.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;" data-fragment-index="4"}
 Since $0.0102<0.05$, we reject $H_0$. The colour demand pattern does not fit the shop's expected distribution well.
 :::
 
@@ -1238,7 +1238,7 @@ Which statement is best?
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox .fragment style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;" data-fragment-index="1"}
 A student group claims food delivery app choices on campus follow:
 
 $$
@@ -1254,7 +1254,13 @@ A random sample of $n=150$ students gives:
 Test the model at the 1% significance level.
 :::
 
-::: {.stat-card .calc-left style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;" data-fragment-index="2"}
+<span class="label">Decision rule</span>
+
+At the 1% level, reject $H_0$ only if the P-value is less than $0.01$.
+:::
+
+::: {.stat-card .calc-left .fragment style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;" data-fragment-index="3"}
 <span class="label">Calculation</span>
 
 Expected counts:
@@ -1287,13 +1293,7 @@ p\text{-value}\approx0.687
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Decision rule</span>
-
-At the 1% level, reject $H_0$ only if the P-value is less than $0.01$.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;" data-fragment-index="4"}
 Since $0.687>0.01$, we do not reject $H_0$. The observed app choices are consistent with the claimed distribution.
 :::
 

@@ -31,87 +31,135 @@ live:
 # Chapter 1: Introduction {.title-slide}
 
 <style>
+:root {
+  --sta-teal: #00695c;
+  --sta-teal-dark: #004d40;
+  --sta-text: #2f3437;
+  --sta-muted: #5f6b73;
+  --sta-blue-bg: #c8e6f3;
+  --sta-blue-soft: #eef8fb;
+  --sta-grey-bg: #eeeeee;
+  --sta-yellow-bg: #fff8e1;
+  --sta-yellow-border: #f9a825;
+  --sta-red-bg: #ffebee;
+  --sta-red-border: #c62828;
+  --sta-border: #d8dee2;
+}
+
 .reveal {
   font-family: Arial, sans-serif;
-  color: #2f3437;
+  color: var(--sta-text);
 }
 
 .reveal h1,
 .reveal h2,
 .reveal h3 {
-  color: #2f3437;
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+
+.reveal h1 {
+  font-size: 1.72em !important;
 }
 
 .reveal h2 {
-  border-bottom: 3px solid #00695c;
+  border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
-  font-size: 1.6em;
+  font-size: 1.50em !important;
+}
+
+.reveal h3 {
+  font-size: 1.12em !important;
 }
 
 .title-slide {
   text-align: center;
 }
 
-.reveal p, .reveal li {
+.reveal p,
+.reveal li {
   font-size: 0.78em;
-  line-height: 1.35;
+  line-height: 1.34;
+}
+
+.defbox,
+.examplebox,
+.thinkbox,
+.warnbox,
+.card,
+.stat-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 0.72em;
+  line-height: 1.24;
+  box-sizing: border-box;
+  margin-bottom: 8px;
 }
 
 .defbox {
-  background: #c8e6f3;
-  padding: 10px 14px;
-  border-left: 6px solid #00695c;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-blue-bg);
+  border-left: 7px solid var(--sta-teal);
 }
 
 .examplebox {
-  background: #eeeeee;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-grey-bg);
 }
 
 .thinkbox {
-  background: #fff8e1;
-  padding: 10px 14px;
-  border-left: 6px solid #f9a825;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-yellow-bg);
+  border-left: 7px solid var(--sta-yellow-border);
 }
 
 .warnbox {
-  background: #ffebee;
-  padding: 10px 14px;
-  border-left: 6px solid #c62828;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-red-bg);
+  border-left: 7px solid var(--sta-red-border);
+}
+
+.card {
+  background: linear-gradient(160deg, var(--sta-blue-bg), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.card .label,
+.stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 
 .big {
-  font-size: 1.05em;
+  font-size: 1.08em;
   font-weight: bold;
-  color: #00695c;
+  color: var(--sta-teal);
 }
 
-.defbox p, .examplebox p, .thinkbox p, .warnbox p,
-.defbox li, .examplebox li, .thinkbox li, .warnbox li {
+.defbox p,
+.examplebox p,
+.thinkbox p,
+.warnbox p,
+.card p,
+.stat-card p,
+.defbox li,
+.examplebox li,
+.thinkbox li,
+.warnbox li,
+.card li,
+.stat-card li {
   font-size: 1em;
   margin-bottom: 4px;
 }
 
 .footer-note {
   font-size: 0.65em;
-  color: #666666;
+  color: var(--sta-muted);
 }
 
 .center {
@@ -127,10 +175,11 @@ live:
 }
 
 .answer-table td {
-  background: #eeeeee;
+  background: var(--sta-grey-bg);
 }
+
 .answer-table th {
-  background: #c8e6f3;
+  background: var(--sta-blue-bg);
 }
 
 .scrollable .defbox,
@@ -148,55 +197,35 @@ live:
   align-items: start;
 }
 
-/* ── Cards ────────────────────────────────────────────── */
-.card, .stat-card {
-  padding: 16px 18px;
-  border-radius: 10px;
-  font-size: 0.74em;
-  line-height: 1.28;
-  box-sizing: border-box;
-  margin-bottom: 8px;
-}
-.card {
-  background: linear-gradient(160deg, #c8e6f3, #eef8fb);
-  border-left: 7px solid #00695c;
-}
-.stat-card {
-  background: white;
-  border: 1px solid #d8dee2;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-}
-.card .label, .stat-card .label {
-  display: block;
-  color: #004d40;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
 /* ── Home button ──────────────────────────────────────── */
 .reveal a.home-button,
 .reveal a.home-button:visited,
 .reveal a.home-button:link {
   display: inline-block !important;
-  background: #00695c !important;
-  background-color: #00695c !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
   color: white !important;
   padding: 12px 28px !important;
   border-radius: 10px !important;
   text-decoration: none !important;
   font-weight: 700 !important;
   font-size: 0.9em !important;
-  border: 2px solid #004d40 !important;
+  border: 2px solid var(--sta-teal-dark) !important;
   margin-top: 24px !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
+
 .reveal a.home-button:hover {
-  background: #004d40 !important;
-  background-color: #004d40 !important;
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
   color: white !important;
 }
-.home-button-row { text-align: center; margin-top: 32px; }
+
+.home-button-row {
+  text-align: center;
+  margin-top: 32px;
+}
 </style>
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}

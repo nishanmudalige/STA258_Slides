@@ -24,6 +24,7 @@ webr:
   packages:
     - tibble
     - ggplot2
+    - plotly
 live:
   show-solutions: true
 ---
@@ -365,35 +366,97 @@ A <strong>subset</strong> selected from the population.
 
 ```{r}
 #| echo: false
-#| fig-width: 9
-#| fig-height: 4.5
+#| warning: false
+#| message: false
+
+library(plotly)
+
 set.seed(1)
+
 N <- 400
+
 pop <- data.frame(
-  id    = 1:N,
-  x     = runif(N, 0, 10),
-  y     = runif(N, 0, 5),
+  id = 1:N,
+  x = runif(N, 0, 10),
+  y = runif(N, 0, 5),
   group = "Population"
 )
+
 samp_idx <- sample(N, 30)
 pop$group[samp_idx] <- "Sample"
 
-library(ggplot2)
-library(plotly)
-p <- ggplot(pop, aes(x, y, colour = group, size = group,
-                     text = paste0("Unit #", id, "<br>", group))) +
-  geom_point(alpha = 0.85) +
-  scale_colour_manual(values = c("Population" = "#bdbdbd", "Sample" = "#00695c")) +
-  scale_size_manual(values = c("Population" = 2, "Sample" = 4)) +
-  theme_void() +
-  theme(legend.title = element_blank(), legend.position = "bottom")
+pop_only <- pop[pop$group == "Population", ]
+samp_only <- pop[pop$group == "Sample", ]
 
-ggplotly(p, tooltip = "text", height = 380) |>
-  config(displayModeBar = FALSE)
+p <- plot_ly() |>
+  add_markers(
+    data = pop_only,
+    x = ~x,
+    y = ~y,
+    name = "Population",
+    marker = list(
+      size = 6,
+      color = "#bdbdbd",
+      opacity = 0.45,
+      line = list(color = "white", width = 0.5)
+    ),
+    text = ~paste0("Unit #", id, "<br>Population"),
+    hoverinfo = "text"
+  ) |>
+  add_markers(
+    data = samp_only,
+    x = ~x,
+    y = ~y,
+    name = "Sample",
+    marker = list(
+      size = 10,
+      color = "#b2182b",
+      opacity = 0.9,
+      line = list(color = "white", width = 0.8)
+    ),
+    text = ~paste0("Unit #", id, "<br>Sample"),
+    hoverinfo = "text"
+  ) |>
+  layout(
+    width = 900,
+    height = 390,
+    title = list(
+      text = "Population and Sample",
+      x = 0.5,
+      font = list(size = 20)
+    ),
+    xaxis = list(
+      title = "",
+      showticklabels = FALSE,
+      zeroline = FALSE,
+      showgrid = FALSE
+    ),
+    yaxis = list(
+      title = "",
+      showticklabels = FALSE,
+      zeroline = FALSE,
+      showgrid = FALSE
+    ),
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.08
+    ),
+    margin = list(l = 20, r = 20, t = 55, b = 45),
+    paper_bgcolor = "white",
+    plot_bgcolor = "white"
+  ) |>
+  config(displayModeBar = FALSE, scrollZoom = FALSE)
+
+htmltools::div(
+  style = "width: 900px; margin: 0 auto;",
+  p
+)
 ```
 
 ::: {.footer-note .center}
-Hover over any dot to see which unit it is. Grey = population, teal = the sample.
+Hover over any dot to see which unit it is. Grey = population, red = the sample.
 :::
 
 ---
@@ -854,23 +917,23 @@ Run it 5 times. Notice the sample mean changes each time - even though the true 
 
 How you collect your sample determines whether inference is honest.
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="1">
 <strong>Simple random sample (SRS)</strong> - every unit has an equal chance of being chosen.
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="2">
 <strong>Systematic</strong> - every $k$-th unit from an ordered list (e.g., every 50th student).
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="3">
 <strong>Stratified</strong> - divide into groups, sample from each group.
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="4">
 <strong>Cluster</strong> - randomly pick whole groups, survey everyone inside.
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="5">
 <strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. ⚠ Usually biased.
 </div>
 

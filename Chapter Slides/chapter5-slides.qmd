@@ -3755,17 +3755,16 @@ This is why an iterative approach is used:
 
 ------------------------------------------------------------------------
 
-## Example: Jordan vs LeBron GOAT Rating
+## Example: Tutorial Video Rating Estimate
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
-A sports media page wants to estimate the mean rating fans give to a
-Jordan vs LeBron GOAT debate video.
+An online learning platform wants to estimate the mean rating students give to a new tutorial video.
 
-Each fan rates the video on a **0 to 100 scale**.
+Each student rates the video on a **0 to 100 scale**.
 
-Since $\sigma$ is unknown, the page uses a pilot study:
+Since $\sigma$ is unknown, the platform uses a pilot study:
 
 $$
 s=14.5
@@ -3824,15 +3823,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-We are planning a confidence interval for the population mean fan rating.
+We are planning a confidence interval for the population mean student rating.
 
-Because $\sigma$ is unknown, the pilot-study standard deviation $s=14.5$
-is used as the preliminary estimate.
+Because $\sigma$ is unknown, the pilot-study standard deviation $s=14.5$ is used as the preliminary estimate.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-The sports media page should sample at least **53 fans** to estimate the
-mean GOAT-debate video rating within **4 points** at 95% confidence.
+The online learning platform should sample at least **53 students** to estimate the mean tutorial-video rating within **4 points** at 95% confidence.
 :::
 
 ::::

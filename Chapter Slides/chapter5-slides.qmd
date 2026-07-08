@@ -2234,27 +2234,27 @@ users.
 .reveal section.welch-r-check .cm-line,
 .reveal section.welch-r-check pre,
 .reveal section.welch-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.72em !important;
+  line-height: 1.02 !important;
 }
 
 .reveal section.welch-r-check .cell-output,
 .reveal section.welch-r-check .cell-output-stdout,
 .reveal section.welch-r-check .cell-output pre {
-  font-size: 0.68em !important;
-  line-height: 1.02 !important;
+  font-size: 0.62em !important;
+  line-height: 1.00 !important;
   white-space: pre !important;
 }
 
 .reveal section.welch-r-check .notebox {
-  margin-bottom: 5px !important;
+  margin-bottom: 4px !important;
 }
 </style>
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+::: {.notebox style="font-size: 0.56em; line-height: 1.08; padding: 7px 10px; margin-bottom: 5px;"}
 <span class="label">Food delivery vs meal prep example</span>
 :::
 
@@ -2270,19 +2270,17 @@ tt <- t.test(delivery, meal_prep,
              var.equal = FALSE,
              conf.level = 0.90)
 
-out <- data.frame(
-  diff = unname(tt$estimate[1] - tt$estimate[2]),
-  df = unname(tt$parameter),
-  lower = tt$conf.int[1],
-  upper = tt$conf.int[2]
+data.frame(
+  diff = round(unname(tt$estimate[1] - tt$estimate[2]), 3),
+  df = round(unname(tt$parameter), 3),
+  lower = round(tt$conf.int[1], 3),
+  upper = round(tt$conf.int[2], 3)
 )
-
-print(round(out, 3), row.names = FALSE)
 ```
 :::
 
 ::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+::: {.notebox style="font-size: 0.56em; line-height: 1.08; padding: 7px 10px; margin-bottom: 5px;"}
 <span class="label">Sports highlight watch-time example</span>
 :::
 
@@ -2291,21 +2289,19 @@ print(round(out, 3), row.names = FALSE)
 
 samp <- function(n, m, s) m + s * as.numeric(scale(1:n))
 
-khabib <- samp(24, 9.8, 3.1)
-jon_jones <- samp(20, 12.6, 5.8)
+short <- samp(24, 9.8, 3.1)
+long <- samp(20, 12.6, 5.8)
 
-tt <- t.test(khabib, jon_jones,
+tt <- t.test(short, long,
              var.equal = FALSE,
              conf.level = 0.95)
 
-out <- data.frame(
-  diff = unname(tt$estimate[1] - tt$estimate[2]),
-  df = unname(tt$parameter),
-  lower = tt$conf.int[1],
-  upper = tt$conf.int[2]
+data.frame(
+  diff = round(unname(tt$estimate[1] - tt$estimate[2]), 3),
+  df = round(unname(tt$parameter), 3),
+  lower = round(tt$conf.int[1], 3),
+  upper = round(tt$conf.int[2], 3)
 )
-
-print(round(out, 3), row.names = FALSE)
 ```
 :::
 

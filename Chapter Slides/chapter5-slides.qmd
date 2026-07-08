@@ -2708,20 +2708,19 @@ intervals.
 
 ------------------------------------------------------------------------
 
-## Example: PS5 Restock Checkout-Time Variability
+## Example: Sale Checkout-Time Variability
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A retailer wants to compare how inconsistent checkout times are during a
-PS5 console restock versus a normal PlayStation accessory purchase.
+An online retailer wants to compare how inconsistent checkout times are during a normal purchase period versus a limited-time sale period.
 
 <br>
 
-**Group 1: Regular accessory checkout**  
+**Group 1: Regular checkout period**  
 $n_1=18,\quad s_1=6$ minutes
 
-**Group 2: PS5 restock checkout**  
+**Group 2: Limited-time sale checkout period**  
 $n_2=16,\quad s_2=14$ minutes
 
 Construct a 95% confidence interval for:
@@ -2743,12 +2742,6 @@ $$
 $$
 
 $$
-df_{\text{num}}=n_2-1=15,
-\qquad
-df_{\text{den}}=n_1-1=17
-$$
-
-$$
 F_{0.975,15,17}=2.723,
 \qquad
 F_{0.025,15,17}=0.356
@@ -2767,20 +2760,16 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-The order is **PS5 restock variability divided by regular accessory
-checkout variability**.
+The order is **limited-time sale checkout variability divided by regular checkout variability**.
 
-Values above 1 mean the PS5 restock checkout times are more variable.
+Values above 1 mean the limited-time sale checkout times are more variable.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the PS5 restock checkout-time variance is
-between **2.00 and 15.31 times** the regular accessory checkout-time
-variance. This suggests the PS5 restock process is much less consistent.
+We are 95% confident that the limited-time sale checkout-time variance is between **2.00 and 15.31 times** the regular checkout-time variance. This suggests the sale checkout process is much less consistent.
 :::
 
 ::::
-
 ---
 
 ## Example: Charging-Time Variability

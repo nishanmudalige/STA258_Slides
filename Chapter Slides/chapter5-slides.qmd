@@ -2467,24 +2467,22 @@ general notification's population continuation rate.
 
 ------------------------------------------------------------------------
 
-## Example: GTA VI Trailer Alert Comparison
+## Example: App Notification Click-Through Comparison
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A gaming news app wants to compare two ways of promoting a GTA VI trailer
-drop.
+A mobile app wants to compare two ways of encouraging users to open a new feature.
 
-One group receives a direct push notification about the trailer. The
-other group only sees a generic homepage banner.
+One group receives a direct push notification about the feature. The other group only sees a generic homepage banner.
 
 <br>
 
 **Group 1: Push notification users**  
-$x_1=210$ of $n_1=500$ watched the trailer within 24 hours
+$x_1=210$ of $n_1=500$ opened the feature within 24 hours
 
 **Group 2: Homepage banner users**  
-$x_2=170$ of $n_2=450$ watched the trailer within 24 hours
+$x_2=170$ of $n_2=450$ opened the feature within 24 hours
 :::
 
 ::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
@@ -2523,15 +2521,11 @@ $$
 
 Construct a 90% confidence interval for $p_1-p_2$.
 
-The order is **push notification minus homepage banner**, so positive
-values mean the push notification has the higher population proportion of
-users who watch the trailer.
+The order is **push notification minus homepage banner**, so positive values mean the push notification has the higher population proportion of users who open the feature.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the push notification's population proportion
-is between **1.00 percentage point lower and 9.45 percentage points
-higher** than the homepage banner's population proportion.
+We are 90% confident that the push notification's population proportion is between **1.00 percentage point lower and 9.45 percentage points higher** than the homepage banner's population proportion.
 :::
 
 ::::

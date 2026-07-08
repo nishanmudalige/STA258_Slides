@@ -5521,5 +5521,12 @@
     "title": "STA258",
     "section": "Interactive: Watch Power Climb with \\(n\\)",
     "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-app-notification-click-through-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-app-notification-click-through-comparison",
+    "title": "STA258",
+    "section": "Example: App Notification Click-Through Comparison",
+    "text": "Example: App Notification Click-Through Comparison\n\n\nA mobile app wants to compare two ways of encouraging users to open a new feature.\nOne group receives a direct push notification about the feature. The other group only sees a generic homepage banner.\n\nGroup 1: Push notification users\n\\(x_1=210\\) of \\(n_1=500\\) opened the feature within 24 hours\nGroup 2: Homepage banner users\n\\(x_2=170\\) of \\(n_2=450\\) opened the feature within 24 hours\n\n\nCalculation\n\\[\n\\hat p_1=\\frac{210}{500}=0.4200,\n\\qquad\n\\hat p_2=\\frac{170}{450}=0.3778\n\\]\n\\[\n\\hat p_1-\\hat p_2=0.4200-0.3778=0.0422\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{0.4200(0.5800)}{500}\n+\n\\frac{0.3778(0.6222)}{450}\n}\n=\n0.0318\n\\]\n\\[\n0.0422\\pm1.645(0.0318)\n=\n(-0.0100,\\;0.0945)\n\\]\n\n\nTarget parameter\nConstruct a 90% confidence interval for \\(p_1-p_2\\).\nThe order is push notification minus homepage banner, so positive values mean the push notification has the higher population proportion of users who open the feature.\n\n\nWe are 90% confident that the push notification’s population proportion is between 1.00 percentage point lower and 9.45 percentage points higher than the homepage banner’s population proportion."
   }
 ]

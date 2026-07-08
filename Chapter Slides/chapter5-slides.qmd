@@ -2061,24 +2061,21 @@ For exams in this course, use the conservative version unless told otherwise.
 
 ------------------------------------------------------------------------
 
-## Example: UFC Highlight Watch-Time Comparison
+## Example: Sports Highlight Watch-Time Comparison
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A UFC media team compares how long viewers spend watching two fighter
-highlight playlists.
+A sports media team compares how long viewers spend watching two types of highlight playlists.
 
-The Khabib playlist has shorter, more focused grappling highlights, while
-the Jon Jones playlist has longer mixed striking, wrestling, and title-fight
-clips.
+One playlist has shorter, fast-paced clips, while the other has longer, more detailed highlight clips.
 
 <br>
 
-**Group 1: Khabib highlight viewers**  
+**Group 1: Short-highlight viewers**  
 $n_1=24,\quad \bar{x}_1=9.8,\quad s_1=3.1$ minutes
 
-**Group 2: Jon Jones highlight viewers**  
+**Group 2: Long-highlight viewers**  
 $n_2=20,\quad \bar{x}_2=12.6,\quad s_2=5.8$ minutes
 
 Construct a 95% CI for $\mu_1-\mu_2$ using Welch's method.
@@ -2130,18 +2127,15 @@ $$
 
 We are estimating $\mu_1-\mu_2$, where:
 
-$\mu_1=$ mean watch time for Khabib highlight viewers
+$\mu_1=$ mean watch time for short-highlight viewers
 
-$\mu_2=$ mean watch time for Jon Jones highlight viewers
+$\mu_2=$ mean watch time for long-highlight viewers
 
-The order is **Khabib minus Jon Jones**.
+The order is **short highlights minus long highlights**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the Khabib playlist's population mean watch time
-is between **5.82 minutes lower and 0.22 minutes higher** than the Jon Jones
-playlist's population mean watch time. Since the interval crosses 0, the
-data do not show a clear difference in mean watch time.
+We are 95% confident that the short-highlight playlist's population mean watch time is between **5.82 minutes lower and 0.22 minutes higher** than the long-highlight playlist's population mean watch time. Since the interval crosses 0, the data do not show a clear difference in mean watch time.
 :::
 
 ::::

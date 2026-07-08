@@ -3485,18 +3485,16 @@ margin of error too large.
 
 ------------------------------------------------------------------------
 
-## Example: MrBeast 500M Giveaway Entry-Time Estimate
+## Example: Online Entry-Form Completion Time
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A media analytics team is planning a large MrBeast 500M giveaway page.
+A website team is planning a large online registration page.
 
-Before launch, they want to estimate the **mean time** it takes a subscriber
-to complete the giveaway entry form.
+Before launch, they want to estimate the **mean time** it takes a user to complete the entry form.
 
-From previous giveaway launches, the population standard deviation is
-treated as known:
+From previous launches, the population standard deviation is treated as known:
 
 $$
 \sigma = 24 \text{ seconds}
@@ -3549,15 +3547,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a confidence interval for the population
-mean giveaway entry time.
+Find the sample size needed for a confidence interval for the population mean entry-form completion time.
 
 The margin of error should be no more than **5 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The team should sample at least **89 subscribers** to estimate the mean
-giveaway entry time within **5 seconds** at 95% confidence.
+The team should sample at least **89 users** to estimate the mean entry-form completion time within **5 seconds** at 95% confidence.
 :::
 
 ::::

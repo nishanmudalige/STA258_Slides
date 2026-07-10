@@ -485,10 +485,12 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   margin: 10px auto 18px auto;
 }
 .reveal .tbl-center th, .reveal .tbl-center td { padding: 8px 22px; }
-.power-lab { display: grid; grid-template-columns: 0.45fr 1.55fr; gap: 26px; align-items: start; }
+.power-lab { display: grid; grid-template-columns: 0.42fr 1.58fr; gap: 24px; align-items: start; }
 .reveal .power-lab form { font-size: 0.5em; max-width: 100%; margin-bottom: 12px; }
 .reveal .power-lab form label { font-weight: 600; }
-.power-tiles { display: flex; gap: 14px; margin-top: 10px; }
+.reveal .power-lab form input[type="number"] { width: 64px !important; font-size: 1.15em; }
+.power-plot-row { display: flex; gap: 20px; align-items: center; }
+.power-tiles { display: flex; gap: 14px; margin-top: 10px; justify-content: center; }
 .ptile {
   background: white;
   border: 1px solid var(--sta-border);
@@ -500,7 +502,14 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
 }
 .ptile .pt-label { display: block; color: var(--sta-muted); font-size: 0.82em; margin-bottom: 2px; }
 .ptile .pt-val { font-weight: 700; }
-.power-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.5em; margin-top: 10px; align-items: center; }
+.power-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.5em;
+  align-items: flex-start;
+  white-space: nowrap;
+}
 .power-legend .sw {
   display: inline-block;
   width: 13px; height: 13px;
@@ -1016,7 +1025,7 @@ Same 1 mg shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 
 
 ## Interactive: Change Everything {.compact}
 
-A generic mean test — nothing tied to the earlier examples. Choose the direction of $H_a$, then drag $\mu_0$, $\mu_a$, $\sigma$, and $n$ ($\alpha$ stays at $0.05$) and watch the cutoff, $\beta$, and power react.
+Choose the direction of $H_a$, then drag $\mu_0$, $\mu_a$, $\sigma$, and $n$ ($\alpha$ stays at $0.05$) and watch the cutoff, $\beta$, and power react.
 
 :::: {.power-lab}
 ::: {.col}
@@ -1069,24 +1078,32 @@ res = {
   return {se, cuts, inReject, pow, data};
 }
 
-Plot.plot({
-  width: 680, height: 300,
-  y: {axis: null},
-  x: {label: "sample mean x̄"},
-  marks: [
-    Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.ha : 0,
-                          fill: "rgba(46,125,50,0.40)"}),
-    Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? 0 : d.ha,
-                          fill: "rgba(198,40,40,0.15)"}),
-    Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.h0 : 0,
-                          fill: "rgba(249,168,37,0.60)"}),
-    Plot.lineY(res.data, {x: "x", y: "h0", stroke: "#1f4e79", strokeWidth: 2.5}),
-    Plot.lineY(res.data, {x: "x", y: "ha", stroke: "#c62828", strokeWidth: 2.5}),
-    Plot.ruleX(res.cuts, {stroke: "#4d5659", strokeDasharray: "5,4", strokeWidth: 1.5})
-  ]
-})
-
-html`<div class="power-tiles">
+html`<div class="power-plot-row">
+  ${Plot.plot({
+    width: 620, height: 320,
+    y: {axis: null},
+    x: {label: "sample mean x̄"},
+    marks: [
+      Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.ha : 0,
+                            fill: "rgba(46,125,50,0.40)"}),
+      Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? 0 : d.ha,
+                            fill: "rgba(198,40,40,0.15)"}),
+      Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.h0 : 0,
+                            fill: "rgba(249,168,37,0.60)"}),
+      Plot.lineY(res.data, {x: "x", y: "h0", stroke: "#1f4e79", strokeWidth: 2.5}),
+      Plot.lineY(res.data, {x: "x", y: "ha", stroke: "#c62828", strokeWidth: 2.5}),
+      Plot.ruleX(res.cuts, {stroke: "#4d5659", strokeDasharray: "5,4", strokeWidth: 1.5})
+    ]
+  })}
+  <div class="power-legend">
+    <span><span class="sw line" style="background:#1f4e79"></span>H₀ sampling dist.</span>
+    <span><span class="sw line" style="background:#c62828"></span>Hₐ sampling dist.</span>
+    <span><span class="sw" style="background:rgba(249,168,37,0.85)"></span>α (Type I)</span>
+    <span><span class="sw" style="background:rgba(46,125,50,0.55)"></span>power</span>
+    <span><span class="sw" style="background:rgba(198,40,40,0.30)"></span>β (Type II)</span>
+  </div>
+</div>
+<div class="power-tiles">
   <div class="ptile">
     <span class="pt-label">power</span>
     <span class="pt-val" style="color:#2e7d32">${(res.pow * 100).toFixed(1)}%</span>
@@ -1095,17 +1112,6 @@ html`<div class="power-tiles">
     <span class="pt-label">β (Type II)</span>
     <span class="pt-val" style="color:#c62828">${((1 - res.pow) * 100).toFixed(1)}%</span>
   </div>
-  <div class="ptile">
-    <span class="pt-label">cutoff${res.cuts.length > 1 ? "s" : ""}</span>
-    <span class="pt-val">${res.cuts.map((c) => c.toFixed(2)).join("  ,  ")}</span>
-  </div>
-</div>
-<div class="power-legend">
-  <span><span class="sw line" style="background:#1f4e79"></span>H₀ sampling dist.</span>
-  <span><span class="sw line" style="background:#c62828"></span>Hₐ sampling dist.</span>
-  <span><span class="sw" style="background:rgba(249,168,37,0.85)"></span>α (Type I)</span>
-  <span><span class="sw" style="background:rgba(46,125,50,0.55)"></span>power</span>
-  <span><span class="sw" style="background:rgba(198,40,40,0.30)"></span>β (Type II)</span>
 </div>`
 ```
 :::

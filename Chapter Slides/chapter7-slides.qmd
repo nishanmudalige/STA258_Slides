@@ -480,6 +480,11 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   border: 1.25px solid #4d5659;
   font-size: 0.6em;
 }
+.reveal .tbl-center table {
+  width: auto;
+  margin: 10px auto 18px auto;
+}
+.reveal .tbl-center th, .reveal .tbl-center td { padding: 8px 22px; }
 .reveal th, .reveal td {
   border: 1.25px solid #4d5659;
   padding: 6px 8px;
@@ -700,12 +705,18 @@ Holding the effect size, $\sigma$, and $n$ fixed, you raise the significance lev
 
 ## 7.2 Type I and Type II Errors
 
-:::: {.two-col-wide}
-::: {.col}
 ::: {.notebox}
 A hypothesis test can reach the **wrong** conclusion in two ways.
 :::
 
+::: {.tbl-center}
+| | $H_0$ True | $H_0$ False |
+|---|:---:|:---:|
+| **Reject $H_0$** | [Type I ($\alpha$)]{.nw} | [Correct (power)]{.nw} |
+| **Fail to reject $H_0$** | Correct | [Type II ($\beta$)]{.nw} |
+:::
+
+:::: {.two-col}
 ::: {.warnbox .fragment}
 <span class="label">Type I error ($\alpha$)</span>
 Reject $H_0$ when $H_0$ is **true**.
@@ -715,19 +726,11 @@ Reject $H_0$ when $H_0$ is **true**.
 <span class="label">Type II error ($\beta$)</span>
 Fail to reject $H_0$ when $H_0$ is **false**.
 :::
-:::
+::::
 
-::: {.col}
-| | $H_0$ True | $H_0$ False |
-|---|---|---|
-| **Reject $H_0$** | [Type I ($\alpha$)]{.nw} | [Correct (power)]{.nw} |
-| **Fail to reject $H_0$** | Correct | [Type II ($\beta$)]{.nw} |
-
-::: {.thinkbox .fragment .table-note}
+::: {.thinkbox .fragment}
 A Type I error is usually treated as the more serious mistake, which is why we fix $\alpha$ in advance (often $0.05$).
 :::
-:::
-::::
 
 ---
 

@@ -933,11 +933,11 @@ On the power curve for a one-sided test, what happens to the power as the true m
 
 ---
 
-## Example: Underfilled Bottling Line
+## Example: Under-Dosed Medicine Vials
 
 ::: {.slide-stack}
 ::: {.card}
-A craft-soda line should fill bottles to $\mu_0=300$ ml, with **known** $\sigma=3$ ml. Inspecting only $n=6$ bottles, will a 5% test catch a true mean of $\mu=299$ ml?
+A pharmaceutical filling machine should dispense $\mu_0=300$ mg of active drug per vial, with **known** $\sigma=3$ mg from the validated assay. A routine quality check tests only $n=6$ vials — will a 5% test catch a machine that has drifted to a true mean of $\mu=299$ mg?
 $$H_0:\mu = 300 \qquad H_a:\mu<300 \qquad (\alpha=0.05)$$
 :::
 
@@ -947,13 +947,13 @@ $$\text{power}=P\!\left(Z<\frac{297.985-299}{3/\sqrt6}\right)=P(Z<-0.83)=\mathbf
 :::
 
 ::: {.warnbox .fragment}
-Only **20%** power. With just 6 bottles this test will usually miss a 1 ml shortfall, the sample is too small.
+Only **20%** power. With just 6 vials, this check will usually **miss** an under-dosing machine — the sample is too small.
 :::
 :::
 
 ---
 
-## Check in R: Bottling Power
+## Check in R: Vial Power
 
 ```{webr}
 n <- 6; sigma <- 3; mu0 <- 300; mua <- 299; alpha <- 0.05
@@ -972,7 +972,7 @@ Try bumping `n` to 30 or 60 and re-run, then watch the power climb as the standa
 
 ## Interactive: Watch Power Climb with $n$ {.compact}
 
-Use the dropdown to change the sample size for the bottling test ($\mu_0=300$, $\mu_a=299$, $\sigma=3$, left-tailed $\alpha=0.05$). As $n$ grows, both curves sharpen, they separate more cleanly, and the green **power** area past the cutoff expands.
+Use the dropdown to change the sample size for the vial check ($\mu_0=300$, $\mu_a=299$, $\sigma=3$, left-tailed $\alpha=0.05$). As $n$ grows, both curves sharpen, they separate more cleanly, and the green **power** area past the cutoff expands.
 
 :::{style="max-width:840px; margin:0 auto;"}
 ```{r}
@@ -983,7 +983,7 @@ explore_power_n(mu0 = 300, mua = 299, sigma = 3,
 :::
 
 ::: {.thinkbox}
-Same 1 ml shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 0.20$ at $n=6$ to $\approx 0.83$ at $n=60$. That is why sample size is your main planning lever.
+Same 1 mg shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 0.20$ at $n=6$ to $\approx 0.83$ at $n=60$. That is why sample size is your main planning lever.
 :::
 
 ---
@@ -993,7 +993,7 @@ Same 1 ml shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 
 :::: {.callout-note icon="false"}
 ## Question
 
-The bottling test has only 20% power against $\mu=299$. Which single change raises power the **most** without touching $\alpha$ or the true process?
+The vial check has only 20% power against $\mu=299$. Which single change raises power the **most** without touching $\alpha$ or the true process?
 ::::
 
 - Use a smaller sample to save money

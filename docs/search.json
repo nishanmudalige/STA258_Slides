@@ -4799,7 +4799,7 @@
     "href": "Chapter Slides/chapter7-slides.html#section-4",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nThe bottling test has only 20% power against \\(\\mu=299\\). Which single change raises power the most without touching \\(\\alpha\\) or the true process?\n\n\n\n\nUse a smaller sample to save money\nIncrease the sample size \\(n\\)\nRe-label the hypotheses\nHope the next sample looks different"
+    "text": "Question\n\n\nThe vial check has only 20% power against \\(\\mu=299\\). Which single change raises power the most without touching \\(\\alpha\\) or the true process?\n\n\n\n\nUse a smaller sample to save money\nIncrease the sample size \\(n\\)\nRe-label the hypotheses\nHope the next sample looks different"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#section-5",
@@ -5520,7 +5520,7 @@
     "href": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
     "title": "STA258",
     "section": "Interactive: Watch Power Climb with \\(n\\)",
-    "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+    "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the vial check (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 mg shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-a-better-espresso-blend",
@@ -5542,5 +5542,19 @@
     "title": "STA258",
     "section": "Check in R: Espresso Power",
     "text": "Check in R: Espresso Power"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-under-dosed-medicine-vials",
+    "href": "Chapter Slides/chapter7-slides.html#example-under-dosed-medicine-vials",
+    "title": "STA258",
+    "section": "Example: Under-Dosed Medicine Vials",
+    "text": "Example: Under-Dosed Medicine Vials\n\n\nA pharmaceutical filling machine should dispense \\(\\mu_0=300\\) mg of active drug per vial, with known \\(\\sigma=3\\) mg from the validated assay. A routine quality check tests only \\(n=6\\) vials — will a 5% test catch a machine that has drifted to a true mean of \\(\\mu=299\\) mg? \\[H_0:\\mu = 300 \\qquad H_a:\\mu&lt;300 \\qquad (\\alpha=0.05)\\]\n\n\n\\[\\bar{x}_*=300-1.645\\cdot\\tfrac{3}{\\sqrt6}=297.985 \\quad(\\text{reject if } \\bar{x}&lt;297.985)\\] \\[\\text{power}=P\\!\\left(Z&lt;\\frac{297.985-299}{3/\\sqrt6}\\right)=P(Z&lt;-0.83)=\\mathbf{0.2033}\\]\n\n\nOnly 20% power. With just 6 vials, this check will usually miss an under-dosing machine — the sample is too small."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-vial-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-vial-power",
+    "title": "STA258",
+    "section": "Check in R: Vial Power",
+    "text": "Check in R: Vial Power\n\n\n\n\n\n\n\n\n\nTry bumping n to 30 or 60 and re-run, then watch the power climb as the standard error shrinks."
   }
 ]

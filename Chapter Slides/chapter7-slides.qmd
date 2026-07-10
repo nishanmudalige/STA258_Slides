@@ -485,6 +485,18 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   margin: 10px auto 18px auto;
 }
 .reveal .tbl-center th, .reveal .tbl-center td { padding: 8px 22px; }
+.power-lab { display: grid; grid-template-columns: 0.55fr 1.45fr; gap: 24px; align-items: start; }
+.reveal .power-lab form { font-size: 0.52em; max-width: 100%; }
+.reveal .power-lab form label { font-weight: 600; }
+.power-readout {
+  font-size: 0.6em;
+  margin-top: 6px;
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+.power-readout b { color: #2e7d32; }
 .reveal th, .reveal td {
   border: 1.25px solid #4d5659;
   padding: 6px 8px;
@@ -985,6 +997,95 @@ explore_power_n(mu0 = 300, mua = 299, sigma = 3,
 ::: {.thinkbox}
 Same 1 mg shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 0.20$ at $n=6$ to $\approx 0.83$ at $n=60$. That is why sample size is your main planning lever.
 :::
+
+---
+
+## Interactive: Change Everything {.compact}
+
+Now free up **all** the ingredients ($\alpha$ stays at $0.05$). It starts at the vial-check settings — pick a direction for $H_a$, then drag $\mu_0$, $\mu_a$, $\sigma$, and $n$ and watch the cutoff, $\beta$, and power react.
+
+:::: {.power-lab}
+::: {.col}
+```{ojs}
+//| echo: false
+viewof alt = Inputs.select(
+  new Map([["μ > μ₀ (greater)", "greater"],
+           ["μ < μ₀ (less)", "less"],
+           ["μ ≠ μ₀ (two-sided)", "two.sided"]]),
+  {value: "less", label: "Alternative Hₐ"}
+)
+viewof mu0 = Inputs.range([290, 310], {value: 300, step: 0.5, label: "μ₀ (null mean)"})
+viewof mua = Inputs.range([290, 310], {value: 299, step: 0.5, label: "μₐ (true mean)"})
+viewof sigma = Inputs.range([0.5, 10], {value: 3, step: 0.5, label: "σ (std dev)"})
+viewof n = Inputs.range([2, 100], {value: 6, step: 1, label: "n (sample size)"})
+```
+:::
+
+::: {.col}
+```{ojs}
+//| echo: false
+res = {
+  const pnorm = (z) => {
+    const t = 1 / (1 + 0.2316419 * Math.abs(z));
+    const d = Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI);
+    const p = d * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 +
+              t * (-1.821255978 + t * 1.330274429))));
+    return z >= 0 ? 1 - p : p;
+  };
+  const se = sigma / Math.sqrt(n);
+  let cuts, inReject, pow;
+  if (alt === "greater") {
+    cuts = [mu0 + 1.6449 * se];
+    inReject = (x) => x > cuts[0];
+    pow = 1 - pnorm((cuts[0] - mua) / se);
+  } else if (alt === "less") {
+    cuts = [mu0 - 1.6449 * se];
+    inReject = (x) => x < cuts[0];
+    pow = pnorm((cuts[0] - mua) / se);
+  } else {
+    cuts = [mu0 - 1.96 * se, mu0 + 1.96 * se];
+    inReject = (x) => x < cuts[0] || x > cuts[1];
+    pow = pnorm((cuts[0] - mua) / se) + 1 - pnorm((cuts[1] - mua) / se);
+  }
+  const lo = Math.min(mu0, mua) - 4.2 * se;
+  const hi = Math.max(mu0, mua) + 4.2 * se;
+  const dnorm = (x, m) => Math.exp(-0.5 * ((x - m) / se) ** 2) / (se * Math.sqrt(2 * Math.PI));
+  const data = d3.range(lo, hi, (hi - lo) / 500).map((x) =>
+    ({x, h0: dnorm(x, mu0), ha: dnorm(x, mua)}));
+  return {se, cuts, inReject, pow, data};
+}
+
+Plot.plot({
+  width: 680, height: 300,
+  y: {axis: null},
+  x: {label: "sample mean x̄"},
+  marks: [
+    Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.ha : 0,
+                          fill: "rgba(46,125,50,0.40)"}),
+    Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? 0 : d.ha,
+                          fill: "rgba(198,40,40,0.15)"}),
+    Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.h0 : 0,
+                          fill: "rgba(249,168,37,0.60)"}),
+    Plot.lineY(res.data, {x: "x", y: "h0", stroke: "#1f4e79", strokeWidth: 2.5}),
+    Plot.lineY(res.data, {x: "x", y: "ha", stroke: "#c62828", strokeWidth: 2.5}),
+    Plot.ruleX(res.cuts, {stroke: "#4d5659", strokeDasharray: "5,4", strokeWidth: 1.5})
+  ]
+})
+
+html`<div class="power-readout">
+  power = <b>${(res.pow * 100).toFixed(1)}%</b> &nbsp;|&nbsp;
+  β = ${((1 - res.pow) * 100).toFixed(1)}% &nbsp;|&nbsp;
+  cutoff${res.cuts.length > 1 ? "s" : ""}:
+  ${res.cuts.map((c) => c.toFixed(2)).join(", ")} &nbsp;|&nbsp;
+  <span style="color:#1f4e79">— H₀</span>&ensp;
+  <span style="color:#c62828">— Hₐ</span>&ensp;
+  <span style="color:#b28704">■ α</span>&ensp;
+  <span style="color:#2e7d32">■ power</span>&ensp;
+  <span style="color:#c62828">■ β</span>
+</div>`
+```
+:::
+::::
 
 ---
 

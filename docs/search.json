@@ -4302,7 +4302,7 @@
     "href": "Chapter Slides/chapter7-slides.html#visualizing-power-the-power-curve",
     "title": "STA258",
     "section": "Visualizing Power: The Power Curve",
-    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number, it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=0.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=1.1\\) (power \\(\\approx 0.97\\))."
+    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number, it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=7.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=8.1\\) (power \\(\\approx 0.97\\))."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-underfilled-bottling-line",
@@ -5521,5 +5521,26 @@
     "title": "STA258",
     "section": "Interactive: Watch Power Climb with \\(n\\)",
     "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-a-better-espresso-blend",
+    "href": "Chapter Slides/chapter7-slides.html#example-a-better-espresso-blend",
+    "title": "STA258",
+    "section": "Example: A Better Espresso Blend",
+    "text": "Example: A Better Espresso Blend\n\n\n\nA specialty coffee roaster’s house espresso has scored a long-run average of 7.0 on a 10-point flavour scale. A new blend is developed, and the roaster will switch only if it truly scores higher. If the new blend’s true mean score is \\(\\mu=8.1\\), will a 5% test reliably detect the improvement?\nA panel of \\(n=10\\) trained graders scores the new blend; from years of calibration, grader scores have \\(\\sigma=1\\).\n\n\n\\(\\sigma\\) is known \\(\\Rightarrow\\) one-sample \\(z\\) test, reference \\(N(0,1)\\).\n\n\n\n\nSet-up\n\\[H_0:\\mu = 7 \\qquad H_a:\\mu&gt;7\\]\n\n\\(n = 10,\\quad \\sigma = 1,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 8.1\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#espresso-cutoff-to-power",
+    "href": "Chapter Slides/chapter7-slides.html#espresso-cutoff-to-power",
+    "title": "STA258",
+    "section": "Espresso: Cutoff to Power",
+    "text": "Espresso: Cutoff to Power\n\n\n\nRejection Rule One-sided \\(\\alpha=0.05\\) gives \\(z_{\\text{crit}}=1.645\\). On the \\(\\bar{x}\\) scale (since \\(\\sigma\\) is known): \\[\\bar{x}_*=7+1.645\\cdot\\tfrac{1}{\\sqrt{10}}\\approx 7.520 \\;\\Rightarrow\\; \\text{reject if } \\bar{x}&gt;7.520\\]\n\n\nFind the Power Assume \\(\\mu=8.1\\) is true and find \\(P(\\bar{x}&gt;7.520)\\): \\[\\text{power}=P\\!\\left(Z&gt;\\tfrac{7.520-8.1}{1/\\sqrt{10}}\\right)=P(Z&gt;-1.83)=\\mathbf{0.9664}\\]\n\n\n\n\n\n\n\n\n\n\n\n\nA 96.6% chance of correctly detecting \\(\\mu=8.1\\). Since power \\(=1-\\beta\\), the green and red areas add to 1: \\[\\text{power}=1-\\beta=1-0.034=0.966\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-espresso-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-espresso-power",
+    "title": "STA258",
+    "section": "Check in R: Espresso Power",
+    "text": "Check in R: Espresso Power"
   }
 ]

@@ -485,18 +485,32 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   margin: 10px auto 18px auto;
 }
 .reveal .tbl-center th, .reveal .tbl-center td { padding: 8px 22px; }
-.power-lab { display: grid; grid-template-columns: 0.55fr 1.45fr; gap: 24px; align-items: start; }
-.reveal .power-lab form { font-size: 0.52em; max-width: 100%; }
+.power-lab { display: grid; grid-template-columns: 0.45fr 1.55fr; gap: 26px; align-items: start; }
+.reveal .power-lab form { font-size: 0.5em; max-width: 100%; margin-bottom: 12px; }
 .reveal .power-lab form label { font-weight: 600; }
-.power-readout {
-  font-size: 0.6em;
-  margin-top: 6px;
-  background: var(--sta-grey);
+.power-tiles { display: flex; gap: 14px; margin-top: 10px; }
+.ptile {
+  background: white;
   border: 1px solid var(--sta-border);
   border-radius: 8px;
-  padding: 6px 12px;
+  padding: 6px 18px;
+  font-size: 0.56em;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-.power-readout b { color: #2e7d32; }
+.ptile .pt-label { display: block; color: var(--sta-muted); font-size: 0.82em; margin-bottom: 2px; }
+.ptile .pt-val { font-weight: 700; }
+.power-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 0.5em; margin-top: 10px; align-items: center; }
+.power-legend .sw {
+  display: inline-block;
+  width: 13px; height: 13px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: -2px;
+}
+.power-legend .sw.line { height: 4px; border-radius: 2px; vertical-align: 2px; }
+#interactive-change-everything .code-copy-button,
+#interactive-change-everything .code-copy-outer-scaffold { display: none !important; }
 .reveal th, .reveal td {
   border: 1.25px solid #4d5659;
   padding: 6px 8px;
@@ -1002,7 +1016,7 @@ Same 1 mg shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 
 
 ## Interactive: Change Everything {.compact}
 
-Now free up **all** the ingredients ($\alpha$ stays at $0.05$). It starts at the vial-check settings — pick a direction for $H_a$, then drag $\mu_0$, $\mu_a$, $\sigma$, and $n$ and watch the cutoff, $\beta$, and power react.
+A generic mean test — nothing tied to the earlier examples. Choose the direction of $H_a$, then drag $\mu_0$, $\mu_a$, $\sigma$, and $n$ ($\alpha$ stays at $0.05$) and watch the cutoff, $\beta$, and power react.
 
 :::: {.power-lab}
 ::: {.col}
@@ -1012,12 +1026,12 @@ viewof alt = Inputs.select(
   new Map([["μ > μ₀ (greater)", "greater"],
            ["μ < μ₀ (less)", "less"],
            ["μ ≠ μ₀ (two-sided)", "two.sided"]]),
-  {value: "less", label: "Alternative Hₐ"}
+  {value: "greater", label: "Hₐ"}
 )
-viewof mu0 = Inputs.range([290, 310], {value: 300, step: 0.5, label: "μ₀ (null mean)"})
-viewof mua = Inputs.range([290, 310], {value: 299, step: 0.5, label: "μₐ (true mean)"})
-viewof sigma = Inputs.range([0.5, 10], {value: 3, step: 0.5, label: "σ (std dev)"})
-viewof n = Inputs.range([2, 100], {value: 6, step: 1, label: "n (sample size)"})
+viewof mu0 = Inputs.range([5, 15], {value: 10, step: 0.5, label: "μ₀"})
+viewof mua = Inputs.range([5, 15], {value: 12, step: 0.5, label: "μₐ"})
+viewof sigma = Inputs.range([1, 4], {value: 2, step: 0.5, label: "σ"})
+viewof n = Inputs.range([2, 60], {value: 10, step: 1, label: "n"})
 ```
 :::
 
@@ -1072,16 +1086,26 @@ Plot.plot({
   ]
 })
 
-html`<div class="power-readout">
-  power = <b>${(res.pow * 100).toFixed(1)}%</b> &nbsp;|&nbsp;
-  β = ${((1 - res.pow) * 100).toFixed(1)}% &nbsp;|&nbsp;
-  cutoff${res.cuts.length > 1 ? "s" : ""}:
-  ${res.cuts.map((c) => c.toFixed(2)).join(", ")} &nbsp;|&nbsp;
-  <span style="color:#1f4e79">— H₀</span>&ensp;
-  <span style="color:#c62828">— Hₐ</span>&ensp;
-  <span style="color:#b28704">■ α</span>&ensp;
-  <span style="color:#2e7d32">■ power</span>&ensp;
-  <span style="color:#c62828">■ β</span>
+html`<div class="power-tiles">
+  <div class="ptile">
+    <span class="pt-label">power</span>
+    <span class="pt-val" style="color:#2e7d32">${(res.pow * 100).toFixed(1)}%</span>
+  </div>
+  <div class="ptile">
+    <span class="pt-label">β (Type II)</span>
+    <span class="pt-val" style="color:#c62828">${((1 - res.pow) * 100).toFixed(1)}%</span>
+  </div>
+  <div class="ptile">
+    <span class="pt-label">cutoff${res.cuts.length > 1 ? "s" : ""}</span>
+    <span class="pt-val">${res.cuts.map((c) => c.toFixed(2)).join("  ,  ")}</span>
+  </div>
+</div>
+<div class="power-legend">
+  <span><span class="sw line" style="background:#1f4e79"></span>H₀ sampling dist.</span>
+  <span><span class="sw line" style="background:#c62828"></span>Hₐ sampling dist.</span>
+  <span><span class="sw" style="background:rgba(249,168,37,0.85)"></span>α (Type I)</span>
+  <span><span class="sw" style="background:rgba(46,125,50,0.55)"></span>power</span>
+  <span><span class="sw" style="background:rgba(198,40,40,0.30)"></span>β (Type II)</span>
 </div>`
 ```
 :::

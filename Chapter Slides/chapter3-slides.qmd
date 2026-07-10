@@ -24,6 +24,7 @@ webr:
   packages:
     - ggplot2
     - dplyr
+    - plotly
 live:
   show-solutions: true
 ---
@@ -32,6 +33,8 @@ live:
 #| include: false
 library(ggplot2)
 library(dplyr)
+library(plotly)
+
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
 ```
@@ -371,9 +374,12 @@ Once we write data as $x_1, \ldots, x_n$, every formula in this chapter (mean, v
 ## Example: Commute Methods {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 A survey asked 40 STA258 students how they usually commute to campus.
 
 | Method | Bus | Car | Walk | Train | Other |
@@ -388,30 +394,114 @@ A survey asked 40 STA258 students how they usually commute to campus.
 
 **(d)** What percentage use **public transport** (Bus and Train)?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 commute <- data.frame(
-  Method = factor(c("Bus", "Car", "Walk", "Train", "Other"),
-                  levels = c("Bus", "Car", "Walk", "Train", "Other")),
+  Method = factor(
+    c("Bus", "Car", "Walk", "Train", "Other"),
+    levels = c("Bus", "Car", "Walk", "Train", "Other")
+  ),
   Frequency = c(14, 9, 5, 8, 4)
 )
 
-ggplot(commute, aes(x = Method, y = Frequency)) +
-  geom_col(fill = "#00695c", width = 0.72) +
-  geom_text(aes(label = Frequency), vjust = -0.35, size = 4) +
-  labs(title = "Commute methods", x = NULL, y = "Frequency") +
-  ylim(0, 16) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+commute$Percentage <- 100 * commute$Frequency / sum(commute$Frequency)
+
+commute_plot <- plot_ly(
+  data = commute,
+  x = ~Method,
+  y = ~Frequency,
+  type = "bar",
+  height = 340,
+  
+  marker = list(
+    color = "#B32025",
+    line = list(color = "#111111", width = 0.8)
+  ),
+  
+  text = ~Frequency,
+  textposition = "outside",
+  cliponaxis = FALSE,
+  textfont = list(
+    family = "Arial",
+    size = 14,
+    color = "#111111"
+  ),
+  
+  customdata = ~Percentage,
+  hovertemplate = paste0(
+    "<b>%{x}</b>",
+    "<br>Frequency: %{y}",
+    "<br>Percentage: %{customdata:.1f}%",
+    "<extra></extra>"
+  ),
+  
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(color = "white", size = 13)
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    bargap = 0.34,
+    font = list(family = "Arial", color = "#111111"),
+    
+    xaxis = list(
+      title = "",
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+      tickfont = list(size = 13, color = "#111111"),
+      fixedrange = TRUE
+    ),
+    
+    yaxis = list(
+      title = list(text = "Frequency", font = list(size = 13, color = "#111111")),
+      range = c(0, 16.5),
+      tick0 = 0,
+      dtick = 2,
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.10)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+      tickfont = list(size = 12, color = "#111111"),
+      fixedrange = TRUE
+    ),
+    
+    margin = list(l = 70, r = 20, t = 20, b = 55),
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+commute_plot
 ```
+
 :::
+
 ::::
 
 ---

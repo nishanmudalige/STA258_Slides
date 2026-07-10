@@ -24,6 +24,7 @@ webr:
   packages:
     - ggplot2
     - dplyr
+    - plotly
 live:
   show-solutions: true
 ---
@@ -32,6 +33,8 @@ live:
 #| include: false
 library(ggplot2)
 library(dplyr)
+library(plotly)
+
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
 ```
@@ -286,15 +289,15 @@ University of Toronto Mississauga
 
 :::: {.three-col}
 ::: {.card .fragment}
-<span class="label">1 - Numerical Summaries</span>
+<span class="label">3.1 - Numerical Summaries</span>
 Centre (mean, median, mode), spread (variance, SD, range, IQR), and position (percentiles, quartiles).
 :::
 ::: {.card .fragment}
-<span class="label">2 - Graphical Summaries</span>
+<span class="label">3.2 - Graphical Summaries</span>
 Histograms and boxplots. Read shape, spread, and outliers from a plot.
 :::
 ::: {.card .fragment}
-<span class="label">3 - Reading & Comparing</span>
+<span class="label">3.3 - Reading & Comparing</span>
 Decide which summary tells the right story and compare distributions side by side.
 :::
 ::::
@@ -371,9 +374,12 @@ Once we write data as $x_1, \ldots, x_n$, every formula in this chapter (mean, v
 ## Example: Commute Methods {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 A survey asked 40 STA258 students how they usually commute to campus.
 
 | Method | Bus | Car | Walk | Train | Other |
@@ -388,30 +394,114 @@ A survey asked 40 STA258 students how they usually commute to campus.
 
 **(d)** What percentage use **public transport** (Bus and Train)?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 commute <- data.frame(
-  Method = factor(c("Bus", "Car", "Walk", "Train", "Other"),
-                  levels = c("Bus", "Car", "Walk", "Train", "Other")),
+  Method = factor(
+    c("Bus", "Car", "Walk", "Train", "Other"),
+    levels = c("Bus", "Car", "Walk", "Train", "Other")
+  ),
   Frequency = c(14, 9, 5, 8, 4)
 )
 
-ggplot(commute, aes(x = Method, y = Frequency)) +
-  geom_col(fill = "#00695c", width = 0.72) +
-  geom_text(aes(label = Frequency), vjust = -0.35, size = 4) +
-  labs(title = "Commute methods", x = NULL, y = "Frequency") +
-  ylim(0, 16) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+commute$Percentage <- 100 * commute$Frequency / sum(commute$Frequency)
+
+commute_plot <- plot_ly(
+  data = commute,
+  x = ~Method,
+  y = ~Frequency,
+  type = "bar",
+  height = 340,
+  
+  marker = list(
+    color = "#B32025",
+    line = list(color = "#111111", width = 0.8)
+  ),
+  
+  text = ~Frequency,
+  textposition = "outside",
+  cliponaxis = FALSE,
+  textfont = list(
+    family = "Arial",
+    size = 14,
+    color = "#111111"
+  ),
+  
+  customdata = ~Percentage,
+  hovertemplate = paste0(
+    "<b>%{x}</b>",
+    "<br>Frequency: %{y}",
+    "<br>Percentage: %{customdata:.1f}%",
+    "<extra></extra>"
+  ),
+  
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(color = "white", size = 13)
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    bargap = 0.34,
+    font = list(family = "Arial", color = "#111111"),
+    
+    xaxis = list(
+      title = "",
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+      tickfont = list(size = 13, color = "#111111"),
+      fixedrange = TRUE
+    ),
+    
+    yaxis = list(
+      title = list(text = "Frequency", font = list(size = 13, color = "#111111")),
+      range = c(0, 16.5),
+      tick0 = 0,
+      dtick = 2,
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.10)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+      tickfont = list(size = 12, color = "#111111"),
+      fixedrange = TRUE
+    ),
+    
+    margin = list(l = 70, r = 20, t = 20, b = 55),
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+commute_plot
 ```
+
 :::
+
 ::::
 
 ---
@@ -438,34 +528,197 @@ names(freq)[which.max(freq)]                  # most common
 The plot shows daily steps for a sample of students. In the notation $x_1, x_2, \ldots, x_n$, what is $n$?
 ::::
 
+<div style="
+  margin: 7px 0 0 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <div style="
+    font-size: 24px;
+    font-weight: 700;
+  ">
+    Daily steps data
+  </div>
+
+  <div style="
+    margin-top: 3px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333333;
+  ">
+    Each point represents one observation
+  </div>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.05
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 steps_q <- data.frame(
   student = 1:10,
   steps = c(4, 6, 6, 7, 8, 8, 9, 10, 11, 12)
 )
 
-ggplot(steps_q, aes(x = student, y = steps)) +
-  geom_line(colour = "#d8dee2", linewidth = 1) +
-  geom_point(size = 3.4, colour = "#00695c") +
-  geom_text(aes(label = paste0("x", student)), vjust = -1.05, size = 3.4,
-            colour = "#004d40", fontface = "bold") +
-  scale_x_continuous(breaks = 1:10) +
-  labs(title = "Daily steps data",
-       subtitle = "Each dot is one observation",
-       x = "Student index", y = "Steps (thousands)") +
-  coord_cartesian(ylim = c(3, 13)) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+steps_q$observation <- paste0("x", steps_q$student)
+
+steps_plot <- plot_ly(
+  data = steps_q,
+  x = ~student,
+  y = ~steps,
+  type = "scatter",
+  mode = "lines+markers+text",
+  height = 220,
+
+  line = list(
+    color = "#B32025",
+    width = 2
+  ),
+
+  marker = list(
+    color = "#B32025",
+    size = 9,
+    line = list(
+      color = "#111111",
+      width = 0.8
+    )
+  ),
+
+  text = ~observation,
+  textposition = "top center",
+  cliponaxis = FALSE,
+
+  textfont = list(
+    family = "Arial",
+    size = 13,
+    color = "#111111"
+  ),
+
+  customdata = ~observation,
+
+  hovertemplate = paste0(
+    "<b>Observation %{customdata}</b>",
+    "<br>Student index: %{x}",
+    "<br>Daily steps: %{y} thousand",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Student index",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0.55, 10.45),
+
+      tickmode = "array",
+      tickvals = 1:10,
+      ticktext = as.character(1:10),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.3,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Steps (thousands)",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(2.2, 13.8),
+      tick0 = 2.5,
+      dtick = 2.5,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.10)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.3,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 82,
+      r = 24,
+      t = 12,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+steps_plot
 ```
 
 - 4
 - 8
-- [10]{.correct data-explanation="n is the sample size — the number of observations. There are 10 dots, so n = 10."}
+- [10]{.correct data-explanation="$n$ is the sample size — the number of observations. There are 10 points, so $n = 10$."}
 - 12
 
 ---

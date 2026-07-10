@@ -13,99 +13,154 @@ format:
     html-math-method: mathjax
     code-copy: true
     code-fold: false
-    incremental: true
-    webr:
-      packages:
-        - tibble
-        - ggplot2
-    live:
-      show-solutions: true
+    incremental: false
+    width: 1280
+    height: 720
+    margin: 0.055
+    center: false
+revealjs-plugins:
+  - quiz
+webr:
+  packages:
+    - tibble
+    - ggplot2
+    - plotly
+live:
+  show-solutions: true
 ---
 
 # Chapter 1: Introduction {.title-slide}
 
 <style>
+:root {
+  --sta-teal: #00695c;
+  --sta-teal-dark: #004d40;
+  --sta-text: #2f3437;
+  --sta-muted: #5f6b73;
+  --sta-blue-bg: #c8e6f3;
+  --sta-blue-soft: #eef8fb;
+  --sta-grey-bg: #eeeeee;
+  --sta-yellow-bg: #fff8e1;
+  --sta-yellow-border: #f9a825;
+  --sta-red-bg: #ffebee;
+  --sta-red-border: #c62828;
+  --sta-border: #d8dee2;
+}
+
 .reveal {
   font-family: Arial, sans-serif;
-  color: #2f3437;
+  color: var(--sta-text);
 }
 
 .reveal h1,
 .reveal h2,
 .reveal h3 {
-  color: #2f3437;
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+
+.reveal h1 {
+  font-size: 1.72em !important;
 }
 
 .reveal h2 {
-  border-bottom: 3px solid #00695c;
+  border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
-  font-size: 1.6em;
+  font-size: 1.50em !important;
+}
+
+.reveal h3 {
+  font-size: 1.12em !important;
 }
 
 .title-slide {
   text-align: center;
 }
 
-.reveal p, .reveal li {
+.reveal p,
+.reveal li {
   font-size: 0.78em;
-  line-height: 1.35;
+  line-height: 1.34;
+}
+
+.defbox,
+.examplebox,
+.thinkbox,
+.warnbox,
+.card,
+.stat-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 0.72em;
+  line-height: 1.24;
+  box-sizing: border-box;
+  margin-bottom: 8px;
 }
 
 .defbox {
-  background: #c8e6f3;
-  padding: 10px 14px;
-  border-left: 6px solid #00695c;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-blue-bg);
+  border-left: 7px solid var(--sta-teal);
 }
 
 .examplebox {
-  background: #eeeeee;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-grey-bg);
 }
 
 .thinkbox {
-  background: #fff8e1;
-  padding: 10px 14px;
-  border-left: 6px solid #f9a825;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-yellow-bg);
+  border-left: 7px solid var(--sta-yellow-border);
 }
 
 .warnbox {
-  background: #ffebee;
-  padding: 10px 14px;
-  border-left: 6px solid #c62828;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: var(--sta-red-bg);
+  border-left: 7px solid var(--sta-red-border);
+}
+
+.card {
+  background: linear-gradient(160deg, var(--sta-blue-bg), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.card .label,
+.stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 
 .big {
-  font-size: 1.05em;
+  font-size: 1.08em;
   font-weight: bold;
-  color: #00695c;
+  color: var(--sta-teal);
 }
 
-.defbox p, .examplebox p, .thinkbox p, .warnbox p,
-.defbox li, .examplebox li, .thinkbox li, .warnbox li {
+.defbox p,
+.examplebox p,
+.thinkbox p,
+.warnbox p,
+.card p,
+.stat-card p,
+.defbox li,
+.examplebox li,
+.thinkbox li,
+.warnbox li,
+.card li,
+.stat-card li {
   font-size: 1em;
   margin-bottom: 4px;
 }
 
 .footer-note {
   font-size: 0.65em;
-  color: #666666;
+  color: var(--sta-muted);
 }
 
 .center {
@@ -121,10 +176,11 @@ format:
 }
 
 .answer-table td {
-  background: #eeeeee;
+  background: var(--sta-grey-bg);
 }
+
 .answer-table th {
-  background: #c8e6f3;
+  background: var(--sta-blue-bg);
 }
 
 .scrollable .defbox,
@@ -142,55 +198,35 @@ format:
   align-items: start;
 }
 
-/* ── Cards ────────────────────────────────────────────── */
-.card, .stat-card {
-  padding: 16px 18px;
-  border-radius: 10px;
-  font-size: 0.74em;
-  line-height: 1.28;
-  box-sizing: border-box;
-  margin-bottom: 8px;
-}
-.card {
-  background: linear-gradient(160deg, #c8e6f3, #eef8fb);
-  border-left: 7px solid #00695c;
-}
-.stat-card {
-  background: white;
-  border: 1px solid #d8dee2;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-}
-.card .label, .stat-card .label {
-  display: block;
-  color: #004d40;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
 /* ── Home button ──────────────────────────────────────── */
 .reveal a.home-button,
 .reveal a.home-button:visited,
 .reveal a.home-button:link {
   display: inline-block !important;
-  background: #00695c !important;
-  background-color: #00695c !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
   color: white !important;
   padding: 12px 28px !important;
   border-radius: 10px !important;
   text-decoration: none !important;
   font-weight: 700 !important;
   font-size: 0.9em !important;
-  border: 2px solid #004d40 !important;
+  border: 2px solid var(--sta-teal-dark) !important;
   margin-top: 24px !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
+
 .reveal a.home-button:hover {
-  background: #004d40 !important;
-  background-color: #004d40 !important;
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
   color: white !important;
 }
-.home-button-row { text-align: center; margin-top: 32px; }
+
+.home-button-row {
+  text-align: center;
+  margin-top: 32px;
+}
 </style>
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -198,7 +234,7 @@ format:
 STA258: Statistics with Applied Probability
 University of Toronto Mississauga
 
-![](../images/cat.png){width="300"}
+![](../images/cat.png){width="245" fig-alt="Course mascot"}
 
 ::: notes
 Welcome students. Set the tone: this course is about reasoning under uncertainty, not just plugging numbers into formulas.
@@ -214,17 +250,13 @@ Welcome students. Set the tone: this course is about reasoning under uncertainty
 
 <br>
 
-. . .
-
-<div class="examplebox">
+<div class="examplebox fragment">
 Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
 Doctors test a drug on 500 patients and recommend it for everyone.<br>
 Netflix watches a sample of users and decides what shows to make.
 </div>
 
-. . .
-
-<div class="thinkbox">
+<div class="thinkbox fragment">
 That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
 </div>
 
@@ -234,15 +266,15 @@ That gap between "what we measured" and "what we want to know" - that's what thi
 
 :::: {.three-col}
 ::: {.card .fragment}
-<span class="label">1 - Foundations</span>
+<span class="label">1.1 - Foundations</span>
 Statistics, population, sample, unit, observation, variable, and the difference between descriptive and inferential ideas.
 :::
 ::: {.card .fragment}
-<span class="label">2 - Types of Data</span>
+<span class="label">1.2 - Types of Data</span>
 Quantitative vs qualitative data, plus discrete vs continuous and nominal vs ordinal categories.
 :::
 ::: {.card .fragment}
-<span class="label">3 - Inference Preview</span>
+<span class="label">1.3 - Inference Preview</span>
 Sampling, bias, study types, and the first ideas behind drawing conclusions from data.
 :::
 ::::
@@ -275,9 +307,7 @@ The science of <strong>collecting, classifying, summarizing, analyzing, and inte
 
 <br>
 
-. . .
-
-<div class="examplebox">
+<div class="examplebox fragment">
 Think of statistics as a pipeline:
 <br><br>
 <span class="big">Question → Data → Analysis → Decision</span>
@@ -296,8 +326,6 @@ The five verbs in the definition map roughly to the chapters of the course.
 The <strong>entire group</strong> of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.
 </div>
 
-. . .
-
 ::: {.examplebox .fragment}
 **Examples:**
 
@@ -307,9 +335,7 @@ The <strong>entire group</strong> of individuals, items, or measurements that sh
 - Every battery a factory will ever produce
 :::
 
-. . .
-
-<div class="thinkbox">
+<div class="thinkbox fragment">
 A population can be real or hypothetical, finite or essentially infinite. What matters is that it's the group you actually want to learn about.
 </div>
 
@@ -330,9 +356,7 @@ A <strong>subset</strong> selected from the population.
 - 30 batteries pulled off the production line today
 :::
 
-. . .
-
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <strong>Why sample?</strong> Measuring everyone is usually too slow, too expensive, or simply impossible.
 </div>
 
@@ -342,35 +366,97 @@ A <strong>subset</strong> selected from the population.
 
 ```{r}
 #| echo: false
-#| fig-width: 9
-#| fig-height: 4.5
+#| warning: false
+#| message: false
+
+library(plotly)
+
 set.seed(1)
+
 N <- 400
+
 pop <- data.frame(
-  id    = 1:N,
-  x     = runif(N, 0, 10),
-  y     = runif(N, 0, 5),
+  id = 1:N,
+  x = runif(N, 0, 10),
+  y = runif(N, 0, 5),
   group = "Population"
 )
+
 samp_idx <- sample(N, 30)
 pop$group[samp_idx] <- "Sample"
 
-library(ggplot2)
-library(plotly)
-p <- ggplot(pop, aes(x, y, colour = group, size = group,
-                     text = paste0("Unit #", id, "<br>", group))) +
-  geom_point(alpha = 0.85) +
-  scale_colour_manual(values = c("Population" = "#bdbdbd", "Sample" = "#00695c")) +
-  scale_size_manual(values = c("Population" = 2, "Sample" = 4)) +
-  theme_void() +
-  theme(legend.title = element_blank(), legend.position = "bottom")
+pop_only <- pop[pop$group == "Population", ]
+samp_only <- pop[pop$group == "Sample", ]
 
-ggplotly(p, tooltip = "text", height = 380) |>
-  config(displayModeBar = FALSE)
+p <- plot_ly() |>
+  add_markers(
+    data = pop_only,
+    x = ~x,
+    y = ~y,
+    name = "Population",
+    marker = list(
+      size = 6,
+      color = "#bdbdbd",
+      opacity = 0.45,
+      line = list(color = "white", width = 0.5)
+    ),
+    text = ~paste0("Unit #", id, "<br>Population"),
+    hoverinfo = "text"
+  ) |>
+  add_markers(
+    data = samp_only,
+    x = ~x,
+    y = ~y,
+    name = "Sample",
+    marker = list(
+      size = 10,
+      color = "#b2182b",
+      opacity = 0.9,
+      line = list(color = "white", width = 0.8)
+    ),
+    text = ~paste0("Unit #", id, "<br>Sample"),
+    hoverinfo = "text"
+  ) |>
+  layout(
+    width = 900,
+    height = 390,
+    title = list(
+      text = "Population and Sample",
+      x = 0.5,
+      font = list(size = 20)
+    ),
+    xaxis = list(
+      title = "",
+      showticklabels = FALSE,
+      zeroline = FALSE,
+      showgrid = FALSE
+    ),
+    yaxis = list(
+      title = "",
+      showticklabels = FALSE,
+      zeroline = FALSE,
+      showgrid = FALSE
+    ),
+    legend = list(
+      orientation = "h",
+      x = 0.5,
+      xanchor = "center",
+      y = -0.08
+    ),
+    margin = list(l = 20, r = 20, t = 55, b = 45),
+    paper_bgcolor = "white",
+    plot_bgcolor = "white"
+  ) |>
+  config(displayModeBar = FALSE, scrollZoom = FALSE)
+
+htmltools::div(
+  style = "width: 900px; margin: 0 auto;",
+  p
+)
 ```
 
 ::: {.footer-note .center}
-Hover over any dot to see which unit it is. Grey = population, teal = the sample.
+Hover over any dot to see which unit it is. Grey = population, red = the sample.
 :::
 
 ---
@@ -383,9 +469,7 @@ A researcher wants to know the average sleep of all UTM students. She randomly s
 What is the <strong>population</strong>?  What is the <strong>sample</strong>?
 </div>
 
-. . .
-
-<div class="examplebox">
+<div class="examplebox fragment">
 <strong>Population:</strong> All UTM students.<br>
 <strong>Sample:</strong> The 200 surveyed UTM students.
 </div>
@@ -420,8 +504,6 @@ Pause and have students answer aloud before revealing.
 | 2 | 22 | Computer Science | 15 | No |
 | 3 | 20 | Biology | 28 | Yes |
 | 4 | 21 | Psychology | 18 | No |
-
-. . .
 
 ::: {.examplebox .fragment}
 - Each **row** is one observation (one student)
@@ -481,9 +563,7 @@ One of the 50 students you actually surveyed.
 :::
 :::::
 
-. . .
-
-<div class="thinkbox">
+<div class="thinkbox fragment">
 Every sample unit is also a population unit - but not the other way around.
 </div>
 
@@ -509,9 +589,7 @@ Calculated from data - <strong>known</strong>.
 :::
 :::::
 
-. . .
-
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <strong>Memory trick:</strong> &nbsp; Parameter ↔ Population &nbsp;|&nbsp; Statistic ↔ Sample &nbsp;(both start with the same letter).
 </div>
 
@@ -550,9 +628,7 @@ For each, decide: <strong>parameter</strong> or <strong>statistic</strong>?
 </ol>
 </div>
 
-. . .
-
-<div class="examplebox">
+<div class="examplebox fragment">
 1 - parameter (all NBA players)<br>
 2 - statistic (500 surveyed)<br>
 3 - statistic (80 students)<br>
@@ -640,9 +716,7 @@ Using a sample to <strong>generalize</strong> to a larger population.
 :::
 :::::
 
-. . .
-
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <strong>Tell:</strong> descriptive describes <em>this data</em>. Inferential makes a claim <em>beyond</em> the data.
 </div>
 
@@ -660,9 +734,7 @@ Numerical measurements where arithmetic is meaningful.
 Values fall into <strong>categories</strong>; arithmetic doesn't make sense.
 </div>
 
-. . .
-
-<div class="warnbox">
+<div class="warnbox fragment">
 <strong>Trap:</strong> a number doesn't automatically mean quantitative.<br>
 Postal codes, jersey numbers, and student IDs <em>look</em> numeric but are categorical.
 </div>
@@ -813,8 +885,6 @@ Two different samples of 100 UTM students will give two <strong>different</stron
 So any estimate must come with a measure of how much it might be off.
 </div>
 
-. . .
-
 ::: {.thinkbox .fragment}
 This is where the tools in later chapters come from:
 
@@ -847,23 +917,23 @@ Run it 5 times. Notice the sample mean changes each time - even though the true 
 
 How you collect your sample determines whether inference is honest.
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="1">
 <strong>Simple random sample (SRS)</strong> - every unit has an equal chance of being chosen.
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="2">
 <strong>Systematic</strong> - every $k$-th unit from an ordered list (e.g., every 50th student).
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="3">
 <strong>Stratified</strong> - divide into groups, sample from each group.
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="4">
 <strong>Cluster</strong> - randomly pick whole groups, survey everyone inside.
 </div>
 
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="5">
 <strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. ⚠ Usually biased.
 </div>
 
@@ -876,8 +946,6 @@ How you collect your sample determines whether inference is honest.
 </div>
 
 <br>
-
-. . .
 
 ::: {.warnbox .fragment}
 **Classic bias traps:**
@@ -932,9 +1000,7 @@ Randomly give half the volunteers Vitamin C, half a placebo, and compare cold ra
 :::
 :::::
 
-. . .
-
-<div class="thinkbox">
+<div class="thinkbox fragment">
 Only well-designed <strong>experiments</strong> can establish cause and effect.
 </div>
 
@@ -982,7 +1048,7 @@ Classify each as an <strong>observational study</strong>, <strong>experimental s
 <div class="center">
 <span class="big">End of Chapter 1</span><br><br>
 <div class="home-button-row">
-<a href="../index.html" class="home-button">Back to Homepage</a>
+<a href="../index.html" class="home-button">Back to Course Home</a>
 </div>
 </div>
 

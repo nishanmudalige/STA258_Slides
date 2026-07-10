@@ -5,17 +5,16 @@ Slides for STA258
 
 ## By August 13 
 
-- Update CH10 based on feedback (Exmaples)
+- Update CH10 based on feedback (Examples)
 - Update CH7 examples (add one for not equal to)
 - Fix interactive dropdown in CH6 based on feedback
   - See if there's a package for chi-sq test for one variance, z test for proportions, and z test for difference of means (when sigma1,2 known), z test for difference of proportions [BSDA?]
 - Update CH5 examples (after 5.4)
 
 - Make all content consistent
-- Update the help file as issues arse (specifically loading packages that are not common - multcomp)
+- Update the help file as issues arise (specifically loading packages that are not common - multcomp)
   - list all packages at top of each .qmd
 
-- 
 
 ## For July 2
 

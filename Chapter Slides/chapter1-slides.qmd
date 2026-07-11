@@ -35,21 +35,27 @@ live:
 :root {
   --sta-teal: #00695c;
   --sta-teal-dark: #004d40;
-  --sta-text: #2f3437;
-  --sta-muted: #5f6b73;
-  --sta-blue-bg: #c8e6f3;
+  --sta-teal-light: #e0f2f1;
+  --sta-blue: #c8e6f3;
   --sta-blue-soft: #eef8fb;
-  --sta-grey-bg: #eeeeee;
-  --sta-yellow-bg: #fff8e1;
-  --sta-yellow-border: #f9a825;
-  --sta-red-bg: #ffebee;
-  --sta-red-border: #c62828;
+  --sta-grey: #f5f6f7;
+  --sta-yellow: #fff8e1;
+  --sta-orange: #f9a825;
+  --sta-text: #2f3437;
+  --sta-muted: #667174;
   --sta-border: #d8dee2;
+  --sta-code: #f3f4f5;
 }
 
 .reveal {
   font-family: Arial, sans-serif;
   color: var(--sta-text);
+}
+
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
 }
 
 .reveal h1,
@@ -75,7 +81,7 @@ live:
 }
 
 .title-slide {
-  text-align: center;
+  text-align: center !important;
 }
 
 .reveal p,
@@ -89,6 +95,9 @@ live:
 .thinkbox,
 .warnbox,
 .card,
+.taskbox,
+.notebox,
+.mini-card,
 .stat-card {
   padding: 14px 16px;
   border-radius: 10px;
@@ -99,26 +108,30 @@ live:
 }
 
 .defbox {
-  background: var(--sta-blue-bg);
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
 
-.examplebox {
-  background: var(--sta-grey-bg);
+.examplebox,
+.notebox,
+.mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
 }
 
-.thinkbox {
-  background: var(--sta-yellow-bg);
-  border-left: 7px solid var(--sta-yellow-border);
+.thinkbox,
+.taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
 }
 
 .warnbox {
-  background: var(--sta-red-bg);
-  border-left: 7px solid var(--sta-red-border);
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
 }
 
 .card {
-  background: linear-gradient(160deg, var(--sta-blue-bg), var(--sta-blue-soft));
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
 
@@ -171,16 +184,20 @@ live:
   font-size: 0.75em;
 }
 
-.reveal table {
-  font-size: 0.85em;
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
 }
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
 
 .answer-table td {
-  background: var(--sta-grey-bg);
+  background: var(--sta-grey);
 }
 
 .answer-table th {
-  background: var(--sta-blue-bg);
+  background: var(--sta-blue);
 }
 
 .scrollable .defbox,
@@ -191,11 +208,92 @@ live:
 }
 
 /* ── Grid layouts ─────────────────────────────────────── */
-.three-col {
+.two-col,
+.two-col-wide,
+.three-col,
+.four-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
   align-items: start;
+}
+.two-col { grid-template-columns: 1fr 1fr; }
+.two-col-wide { grid-template-columns: 1.08fr 0.92fr; }
+.three-col { grid-template-columns: repeat(3, 1fr); }
+.four-grid { grid-template-columns: repeat(2, 1fr); }
+.col { min-width: 0; }
+
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
+/* ── Quiz slides ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.reveal .quiz-question .callout-note {
+  margin: 4px 0 12px 0 !important;
+  text-align: left;
+}
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+.reveal .quiz-question ul {
+  margin: 4px 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
 }
 
 /* ── Home button ──────────────────────────────────────── */
@@ -242,27 +340,7 @@ Welcome students. Set the tone: this course is about reasoning under uncertainty
 
 ---
 
-## The Big Question {#big-question .scrollable}
-
-<div class="center">
-<span class="big">How can we say something true about<br>millions of people we've never met?</span>
-</div>
-
-<br>
-
-<div class="examplebox fragment">
-Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
-Doctors test a drug on 500 patients and recommend it for everyone.<br>
-Netflix watches a sample of users and decides what shows to make.
-</div>
-
-<div class="thinkbox fragment">
-That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
-</div>
-
----
-
-## Roadmap {#roadmap .scrollable}
+## Chapter Roadmap {.compact}
 
 :::: {.three-col}
 ::: {.card .fragment}
@@ -295,6 +373,26 @@ Vocabulary like population, sample, parameter, statistic, and variable.
 Match every numerical claim with the correct data context.
 :::
 ::::
+
+---
+
+## The Big Question {#big-question .scrollable}
+
+<div class="center">
+<span class="big">How can we say something true about<br>millions of people we've never met?</span>
+</div>
+
+<br>
+
+<div class="examplebox fragment">
+Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
+Doctors test a drug on 500 patients and recommend it for everyone.<br>
+Netflix watches a sample of users and decides what shows to make.
+</div>
+
+<div class="thinkbox fragment">
+That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
+</div>
 
 ---
 
@@ -513,7 +611,7 @@ Pause and have students answer aloud before revealing.
 
 ---
 
-## Try It in R {#try-data .scrollable}
+## Check in R: A Small Data Set {#try-data .scrollable}
 
 ```{webr}
 #| autorun: true
@@ -662,7 +760,7 @@ This is $\bar{x}$, our estimate of the unknown population mean $\mu$.
 
 ---
 
-## Exercise: Inference {.scrollable}
+## Example: Inference {.scrollable}
 
 <div class="thinkbox">
 A student wellness survey is sent to <strong>500 randomly selected undergraduates</strong> on campus, out of a total enrolled population of roughly <strong>15,000 students</strong>. The survey asks whether the student reports <strong>high levels of academic stress</strong>.
@@ -820,7 +918,7 @@ Try classifying each one. Then click for the answer.
 
 ---
 
-## Exercise: Types of Data {.scrollable}
+## Example: Types of Data {.scrollable}
 
 <div class="thinkbox">
 Classify each variable as <strong>quantitative</strong> or <strong>qualitative</strong>. For each quantitative one, also say whether it is <strong>discrete</strong> or <strong>continuous</strong>. We will go through these together in class.
@@ -846,7 +944,7 @@ Classify each variable as <strong>quantitative</strong> or <strong>qualitative</
 
 ---
 
-## Check Data Types in R {#check-types .scrollable}
+## Check in R: Data Types {#check-types .scrollable}
 
 R can tell you what type each variable is. Run it, then change a value.
 
@@ -958,7 +1056,7 @@ How you collect your sample determines whether inference is honest.
 
 ---
 
-## Exercise: Identify the Bias {.scrollable}
+## Example: Identify the Bias {.scrollable}
 
 <div class="thinkbox">
 For each scenario, identify the type of bias present and explain why it is a problem. We will discuss in class.
@@ -1006,7 +1104,7 @@ Only well-designed <strong>experiments</strong> can establish cause and effect.
 
 ---
 
-## Exercise: Types of Studies {.scrollable}
+## Example: Types of Studies {.scrollable}
 
 <div class="thinkbox">
 Classify each as an <strong>observational study</strong>, <strong>experimental study</strong>, or <strong>sample survey</strong>. Briefly justify your answer. We will take these up in class.
@@ -1022,7 +1120,7 @@ Classify each as an <strong>observational study</strong>, <strong>experimental s
 
 ---
 
-## Chapter 1 Summary {#chapter-1-summary .scrollable}
+## Chapter Summary {.scrollable}
 
 <div class="examplebox">
 <ol>
@@ -1033,23 +1131,6 @@ Classify each as an <strong>observational study</strong>, <strong>experimental s
 <li>Inference uses a sample statistic to estimate an unknown population parameter - with a measure of uncertainty.</li>
 <li><strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.</li>
 </ol>
-</div>
-
----
-
-## What's Next {.scrollable}
-
-<div class="thinkbox">
-<strong>Chapter 2:</strong> we move into R - the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
-</div>
-
-<br>
-
-<div class="center">
-<span class="big">End of Chapter 1</span><br><br>
-<div class="home-button-row">
-<a href="../index.html" class="home-button">Back to Course Home</a>
-</div>
 </div>
 
 ---
@@ -1085,3 +1166,20 @@ s    <- sd(ages)
 $n = 12$, $\bar{x} \approx 20.83$, $s \approx 1.59$.
 :::
 :::
+
+---
+
+## Up Next
+
+<div class="thinkbox">
+<strong>Chapter 2:</strong> we move into R - the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
+</div>
+
+<br>
+
+<div class="center">
+<span class="big">End of Chapter 1</span><br><br>
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Course Home</a>
+</div>
+</div>

@@ -489,15 +489,21 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
 .reveal .power-lab form { font-size: 0.62em; max-width: 100%; margin-bottom: 14px; }
 .reveal .power-lab form label { font-weight: 600; }
 .reveal .power-lab form input[type="number"] {
-  width: 95px !important;
-  font-size: 0.9em;
-  padding: 5px 8px;
-  text-align: center;
+  width: 64px !important;
+  min-width: 64px !important;
+  flex: none !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  padding: 3px 6px !important;
+  box-sizing: border-box;
 }
 .reveal .power-lab form select {
-  min-width: 245px;
-  font-size: 0.85em;
-  padding: 5px 8px;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  flex: none !important;
+  font-size: 15px !important;
+  padding: 4px 6px;
 }
 .power-plot-row { display: flex; gap: 20px; align-items: center; }
 .power-tiles { display: flex; gap: 14px; margin-top: 10px; justify-content: center; }

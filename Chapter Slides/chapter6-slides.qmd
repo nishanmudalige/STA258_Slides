@@ -321,7 +321,10 @@ test_dropdown <- function() {
       });
       var anns = state.b.map(function(v, i){
         var lab = 'test statistic';
-        if (state.t === 'both' && dd.symmetric) lab = (i === 0 ? '−|test statistic|' : '|test statistic|');
+        if (dd.symmetric){
+          if (state.t === 'both') lab = (i === 0 ? '−|test statistic|' : '|test statistic|');
+          else if (state.t === 'left') lab = '−|test statistic|';
+        }
         return {x:v, y:0, xref:'x', yref:'y', text:lab, showarrow:false,
                 yanchor:'top', yshift:-20, font:{size:12, color:'#b26a00'},
                 bgcolor:'rgba(255,255,255,0.75)'};

@@ -109,7 +109,7 @@
     "href": "Chapter Slides/chapter3-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\n1 - Numerical Summaries Centre (mean, median, mode), spread (variance, SD, range, IQR), and position (percentiles, quartiles).\n\n\n2 - Graphical Summaries Histograms and boxplots. Read shape, spread, and outliers from a plot.\n\n\n3 - Reading & Comparing Decide which summary tells the right story and compare distributions side by side.\n\n\n\n\n\nCore skill Describing a dataset in numbers and in pictures.\n\n\nCore tool R functions like mean(), summary(), hist(), and boxplot().\n\n\nCore habit Pair a number with a plot - one rarely tells the whole story."
+    "text": "Chapter Roadmap\n\n\n3.1 - Numerical Summaries Centre (mean, median, mode), spread (variance, SD, range, IQR), and position (percentiles, quartiles).\n\n\n3.2 - Graphical Summaries Histograms and boxplots. Read shape, spread, and outliers from a plot.\n\n\n3.3 - Reading & Comparing Decide which summary tells the right story and compare distributions side by side.\n\n\n\n\n\nCore skill Describing a dataset in numbers and in pictures.\n\n\nCore tool R functions like mean(), summary(), hist(), and boxplot().\n\n\nCore habit Pair a number with a plot - one rarely tells the whole story."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#representing-data",
@@ -130,7 +130,7 @@
     "href": "Chapter Slides/chapter3-slides.html#example-commute-methods",
     "title": "STA258",
     "section": "Example: Commute Methods",
-    "text": "Example: Commute Methods\n\n\n\nExample A survey asked 40 STA258 students how they usually commute to campus.\n\n\n\nMethod\nBus\nCar\nWalk\nTrain\nOther\n\n\n\n\nFrequency\n14\n9\n5\n8\n4\n\n\n\n(a) Is this variable qualitative or quantitative?\n(b) Create a relative frequency table.\n(c) Which method is most common?\n(d) What percentage use public transport (Bus and Train)?"
+    "text": "Example: Commute Methods\n\n\n\nExample\nA survey asked 40 STA258 students how they usually commute to campus.\n\n\n\nMethod\nBus\nCar\nWalk\nTrain\nOther\n\n\n\n\nFrequency\n14\n9\n5\n8\n4\n\n\n\n(a) Is this variable qualitative or quantitative?\n(b) Create a relative frequency table.\n(c) Which method is most common?\n(d) What percentage use public transport (Bus and Train)?"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#commute-methods---check-in-r",
@@ -144,7 +144,7 @@
     "href": "Chapter Slides/chapter3-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Visual Question\n\n\nThe plot shows daily steps for a sample of students. In the notation \\(x_1, x_2, \\ldots, x_n\\), what is \\(n\\)?\n\n\n\n\n\n4\n8\n10\n12"
+    "text": "Visual Question\n\n\nThe plot shows daily steps for a sample of students. In the notation \\(x_1, x_2, \\ldots, x_n\\), what is \\(n\\)?\n\n\n\n\n\nDaily steps data\n\n\nEach point represents one observation\n\n\n\n\n\n\n\n\n\n4\n8\n10\n12"
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#numerical-measures",
@@ -487,49 +487,49 @@
     "href": "Chapter Slides/chapter1-slides.html#big-question",
     "title": "STA258",
     "section": "The Big Question",
-    "text": "The Big Question\n\nHow can we say something true aboutmillions of people we’ve never met?\n\n\n\n\nPollsters call ~1,000 Canadians and predict an election for 40 million. Doctors test a drug on 500 patients and recommend it for everyone. Netflix watches a sample of users and decides what shows to make.\n\n\n\n\nThat gap between “what we measured” and “what we want to know” - that’s what this whole course is about."
+    "text": "The Big Question\n\nHow can we say something true aboutmillions of people we’ve never met?\n\n\n\nPollsters call ~1,000 Canadians and predict an election for 40 million. Doctors test a drug on 500 patients and recommend it for everyone. Netflix watches a sample of users and decides what shows to make.\n\n\nThat gap between “what we measured” and “what we want to know” - that’s what this whole course is about."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#roadmap",
     "href": "Chapter Slides/chapter1-slides.html#roadmap",
     "title": "STA258",
     "section": "Roadmap",
-    "text": "Roadmap\n\n\n1 - Foundations Statistics, population, sample, unit, observation, variable, and the difference between descriptive and inferential ideas.\n\n\n2 - Types of Data Quantitative vs qualitative data, plus discrete vs continuous and nominal vs ordinal categories.\n\n\n3 - Inference Preview Sampling, bias, study types, and the first ideas behind drawing conclusions from data.\n\n\n\n\n\nCore skill Thinking carefully about what data represent before you compute anything.\n\n\nCore tool Vocabulary like population, sample, parameter, statistic, and variable.\n\n\nCore habit Match every numerical claim with the correct data context."
+    "text": "Roadmap\n\n\n1.1 - Foundations Statistics, population, sample, unit, observation, variable, and the difference between descriptive and inferential ideas.\n\n\n1.2 - Types of Data Quantitative vs qualitative data, plus discrete vs continuous and nominal vs ordinal categories.\n\n\n1.3 - Inference Preview Sampling, bias, study types, and the first ideas behind drawing conclusions from data.\n\n\n\n\n\nCore skill Thinking carefully about what data represent before you compute anything.\n\n\nCore tool Vocabulary like population, sample, parameter, statistic, and variable.\n\n\nCore habit Match every numerical claim with the correct data context."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#foundations",
     "href": "Chapter Slides/chapter1-slides.html#foundations",
     "title": "STA258",
     "section": "1.1 Foundations",
-    "text": "1.1 Foundations\n\nDefinition 1.1 - Statistics The science of collecting, classifying, summarizing, analyzing, and interpreting data.\n\n\n\n\nThink of statistics as a pipeline:  Question → Data → Analysis → Decision\n\n\nThe five verbs in the definition map roughly to the chapters of the course."
+    "text": "1.1 Foundations\n\nDefinition 1.1 - Statistics The science of collecting, classifying, summarizing, analyzing, and interpreting data.\n\n\n\nThink of statistics as a pipeline:  Question → Data → Analysis → Decision\n\n\nThe five verbs in the definition map roughly to the chapters of the course."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#population",
     "href": "Chapter Slides/chapter1-slides.html#population",
     "title": "STA258",
     "section": "Population",
-    "text": "Population\n\nDefinition 1.2 - Population The entire group of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.\n\n\n\nExamples:\n\nAll students at the University of Toronto\nAll residents of Mississauga\nEvery possible hand in a game of poker (hypothetical!)\nEvery battery a factory will ever produce\n\n\n\n\n\nA population can be real or hypothetical, finite or essentially infinite. What matters is that it’s the group you actually want to learn about."
+    "text": "Population\n\nDefinition 1.2 - Population The entire group of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.\n\n\nExamples:\n\nAll students at the University of Toronto\nAll residents of Mississauga\nEvery possible hand in a game of poker (hypothetical!)\nEvery battery a factory will ever produce\n\n\n\nA population can be real or hypothetical, finite or essentially infinite. What matters is that it’s the group you actually want to learn about."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#sample",
     "href": "Chapter Slides/chapter1-slides.html#sample",
     "title": "STA258",
     "section": "Sample",
-    "text": "Sample\n\nDefinition 1.3 - Sample A subset selected from the population.\n\n\nExamples:\n\n50 randomly selected U of T students\n100 randomly selected Mississauga residents\n30 batteries pulled off the production line today\n\n\n\n\nWhy sample? Measuring everyone is usually too slow, too expensive, or simply impossible."
+    "text": "Sample\n\nDefinition 1.3 - Sample A subset selected from the population.\n\n\nExamples:\n\n50 randomly selected U of T students\n100 randomly selected Mississauga residents\n30 batteries pulled off the production line today\n\n\n\nWhy sample? Measuring everyone is usually too slow, too expensive, or simply impossible."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#visualizing-population-vs-sample",
     "href": "Chapter Slides/chapter1-slides.html#visualizing-population-vs-sample",
     "title": "STA258",
     "section": "Visualizing Population vs Sample",
-    "text": "Visualizing Population vs Sample\n\n\n\n\n\n\n\nHover over any dot to see which unit it is. Grey = population, teal = the sample."
+    "text": "Visualizing Population vs Sample\n\n\n\n\n\n\n\n\n\nHover over any dot to see which unit it is. Grey = population, red = the sample."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#poll-pop-sample",
     "href": "Chapter Slides/chapter1-slides.html#poll-pop-sample",
     "title": "STA258",
     "section": "Your Turn: Identify Them",
-    "text": "Your Turn: Identify Them\n\nA researcher wants to know the average sleep of all UTM students. She randomly surveys 200 UTM students and finds they sleep 6.8 hours on average.  What is the population? What is the sample?\n\n\n\nPopulation: All UTM students. Sample: The 200 surveyed UTM students.\n\n\nPause and have students answer aloud before revealing."
+    "text": "Your Turn: Identify Them\n\nA researcher wants to know the average sleep of all UTM students. She randomly surveys 200 UTM students and finds they sleep 6.8 hours on average.  What is the population? What is the sample?\n\n\nPopulation: All UTM students. Sample: The 200 surveyed UTM students.\n\n\nPause and have students answer aloud before revealing."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#unit-observation-variable",
@@ -543,7 +543,7 @@
     "href": "Chapter Slides/chapter1-slides.html#reading-a-data-table",
     "title": "STA258",
     "section": "Reading a Data Table",
-    "text": "Reading a Data Table\n\n\n\nStudent\nAge\nProgram\nStudy Hours\nOn Campus\n\n\n\n\n1\n19\nStatistics\n20\nYes\n\n\n2\n22\nComputer Science\n15\nNo\n\n\n3\n20\nBiology\n28\nYes\n\n\n4\n21\nPsychology\n18\nNo\n\n\n\n\n\n\nEach row is one observation (one student)\nEach column is one variable\nThe unit is a single student"
+    "text": "Reading a Data Table\n\n\n\nStudent\nAge\nProgram\nStudy Hours\nOn Campus\n\n\n\n\n1\n19\nStatistics\n20\nYes\n\n\n2\n22\nComputer Science\n15\nNo\n\n\n3\n20\nBiology\n28\nYes\n\n\n4\n21\nPsychology\n18\nNo\n\n\n\n\n\nEach row is one observation (one student)\nEach column is one variable\nThe unit is a single student"
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#try-data",
@@ -557,14 +557,14 @@
     "href": "Chapter Slides/chapter1-slides.html#population-unit-vs-sample-unit",
     "title": "STA258",
     "section": "Population Unit vs Sample Unit",
-    "text": "Population Unit vs Sample Unit\n\n\n\nPopulation unit One member of the entire population.\n\n\nOne U of T student, when the population is all U of T students.\n\n\n\nSample unit One member of the selected sample.\n\n\nOne of the 50 students you actually surveyed.\n\n\n\n\nEvery sample unit is also a population unit - but not the other way around."
+    "text": "Population Unit vs Sample Unit\n\n\n\nPopulation unit One member of the entire population.\n\n\nOne U of T student, when the population is all U of T students.\n\n\n\nSample unit One member of the selected sample.\n\n\nOne of the 50 students you actually surveyed.\n\n\n\nEvery sample unit is also a population unit - but not the other way around."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#parameter-vs-statistic",
     "href": "Chapter Slides/chapter1-slides.html#parameter-vs-statistic",
     "title": "STA258",
     "section": "Parameter vs Statistic",
-    "text": "Parameter vs Statistic\n\n\n\nParameter A number that describes the population. Usually unknown.\n\n\n\nStatistic A number that describes the sample. Calculated from data - known.\n\n\n\n\nMemory trick:   Parameter ↔︎ Population  |  Statistic ↔︎ Sample  (both start with the same letter)."
+    "text": "Parameter vs Statistic\n\n\n\nParameter A number that describes the population. Usually unknown.\n\n\n\nStatistic A number that describes the sample. Calculated from data - known.\n\n\n\nMemory trick:   Parameter ↔︎ Population  |  Statistic ↔︎ Sample  (both start with the same letter)."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#notation-you-need-to-memorize",
@@ -578,7 +578,7 @@
     "href": "Chapter Slides/chapter1-slides.html#qc-param-stat",
     "title": "STA258",
     "section": "Quick Check",
-    "text": "Quick Check\n\nFor each, decide: parameter or statistic?\n\n\nThe average height of all NBA players.\n\n\n63% of 500 surveyed Canadians support a policy.\n\n\nThe sample mean GPA of 80 UTM students is 3.12.\n\n\nThe standard deviation of grades for every student who has ever taken STA258.\n\n\n\n\n\n1 - parameter (all NBA players) 2 - statistic (500 surveyed) 3 - statistic (80 students) 4 - parameter (every student ever)"
+    "text": "Quick Check\n\nFor each, decide: parameter or statistic?\n\n\nThe average height of all NBA players.\n\n\n63% of 500 surveyed Canadians support a policy.\n\n\nThe sample mean GPA of 80 UTM students is 3.12.\n\n\nThe standard deviation of grades for every student who has ever taken STA258.\n\n\n\n\n1 - parameter (all NBA players) 2 - statistic (500 surveyed) 3 - statistic (80 students) 4 - parameter (every student ever)"
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#compute-stat",
@@ -606,14 +606,14 @@
     "href": "Chapter Slides/chapter1-slides.html#spot-the-difference",
     "title": "STA258",
     "section": "Spot the Difference",
-    "text": "Spot the Difference\n\n\nDescriptive\n\n“The average mark in this lecture of 80 students is 72%.”  “63% of these 400 Torontonians support the plan.”\n\n\nInferential\n\n“We estimate the average STA258 mark across all sections is around 72%.”  “We estimate ~63% of all Toronto residents support the plan.”\n\n\n\n\nTell: descriptive describes this data. Inferential makes a claim beyond the data."
+    "text": "Spot the Difference\n\n\nDescriptive\n\n“The average mark in this lecture of 80 students is 72%.”  “63% of these 400 Torontonians support the plan.”\n\n\nInferential\n\n“We estimate the average STA258 mark across all sections is around 72%.”  “We estimate ~63% of all Toronto residents support the plan.”\n\n\n\nTell: descriptive describes this data. Inferential makes a claim beyond the data."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#types-of-data",
     "href": "Chapter Slides/chapter1-slides.html#types-of-data",
     "title": "STA258",
     "section": "1.2 Types of Data",
-    "text": "1.2 Types of Data\n\nQuantitative data Numerical measurements where arithmetic is meaningful.\n\n\nQualitative (categorical) data Values fall into categories; arithmetic doesn’t make sense.\n\n\n\nTrap: a number doesn’t automatically mean quantitative. Postal codes, jersey numbers, and student IDs look numeric but are categorical."
+    "text": "1.2 Types of Data\n\nQuantitative data Numerical measurements where arithmetic is meaningful.\n\n\nQualitative (categorical) data Values fall into categories; arithmetic doesn’t make sense.\n\n\nTrap: a number doesn’t automatically mean quantitative. Postal codes, jersey numbers, and student IDs look numeric but are categorical."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#quantitative-discrete-vs-continuous",
@@ -662,7 +662,7 @@
     "href": "Chapter Slides/chapter1-slides.html#why-uncertainty-is-built-in",
     "title": "STA258",
     "section": "Why Uncertainty Is Built In",
-    "text": "Why Uncertainty Is Built In\n\nTwo different samples of 100 UTM students will give two different sample means. So any estimate must come with a measure of how much it might be off.\n\n\n\nThis is where the tools in later chapters come from:\n\nConfidence intervals - a range of plausible parameter values\nHypothesis tests - checking whether data support a specific claim\nStatistical power - how likely we are to detect a real effect"
+    "text": "Why Uncertainty Is Built In\n\nTwo different samples of 100 UTM students will give two different sample means. So any estimate must come with a measure of how much it might be off.\n\n\nThis is where the tools in later chapters come from:\n\nConfidence intervals - a range of plausible parameter values\nHypothesis tests - checking whether data support a specific claim\nStatistical power - how likely we are to detect a real effect"
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#see-variability",
@@ -683,7 +683,7 @@
     "href": "Chapter Slides/chapter1-slides.html#bias-when-samples-lie",
     "title": "STA258",
     "section": "Bias: When Samples Lie",
-    "text": "Bias: When Samples Lie\n\nBias - a systematic tendency for a sample to differ from the population in a particular direction.\n\n\n\n\nClassic bias traps:\n\nSelection bias - surveying gym-goers about exercise habits\nVoluntary response - Instagram polls (only loud opinions answer)\nNon-response bias - the people who skip the survey are different from those who answer\nCoverage bias - your sampling frame misses parts of the population"
+    "text": "Bias: When Samples Lie\n\nBias - a systematic tendency for a sample to differ from the population in a particular direction.\n\n\n\nClassic bias traps:\n\nSelection bias - surveying gym-goers about exercise habits\nVoluntary response - Instagram polls (only loud opinions answer)\nNon-response bias - the people who skip the survey are different from those who answer\nCoverage bias - your sampling frame misses parts of the population"
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#exercise-identify-the-bias",
@@ -697,7 +697,7 @@
     "href": "Chapter Slides/chapter1-slides.html#study-types",
     "title": "STA258",
     "section": "Observational vs Experimental Studies",
-    "text": "Observational vs Experimental Studies\n\n\n\nObservational Record what’s already happening - no intervention.\n\n\nSurvey adults: do you take vitamins? Did you catch a cold?\n\n\n\nExperimental Randomly assign participants to treatments, then compare.\n\n\nRandomly give half the volunteers Vitamin C, half a placebo, and compare cold rates.\n\n\n\n\nOnly well-designed experiments can establish cause and effect."
+    "text": "Observational vs Experimental Studies\n\n\n\nObservational Record what’s already happening - no intervention.\n\n\nSurvey adults: do you take vitamins? Did you catch a cold?\n\n\n\nExperimental Randomly assign participants to treatments, then compare.\n\n\nRandomly give half the volunteers Vitamin C, half a placebo, and compare cold rates.\n\n\n\nOnly well-designed experiments can establish cause and effect."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#exercise-types-of-studies",
@@ -718,7 +718,7 @@
     "href": "Chapter Slides/chapter1-slides.html#whats-next",
     "title": "STA258",
     "section": "What’s Next",
-    "text": "What’s Next\n\nChapter 2: we move into R - the tool we’ll use to compute statistics, simulate samples, and visualize uncertainty.\n\n\n\nEnd of Chapter 1\n\nBack to Homepage"
+    "text": "What’s Next\n\nChapter 2: we move into R - the tool we’ll use to compute statistics, simulate samples, and visualize uncertainty.\n\n\n\nEnd of Chapter 1\n\nBack to Course Home"
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#bonus-practice",
@@ -1138,7 +1138,7 @@
     "href": "Chapter Slides/chapter2-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\n1 - Setup Install R and RStudio, understand the four RStudio panes, and learn about Positron.\n\n\n2 - R Basics Use R as a calculator, create variables, build vectors, and apply common built-in functions.\n\n\n3 - Data Work Read data frames, select rows and columns, make histograms, and use ggplot2.\n\n\n\n\n\nCore skill Writing commands that make statistical work clear and repeatable.\n\n\nCore tool RStudio - scripts, output, plots, and help pages in one place.\n\n\nCore habit Save work in scripts rather than relying on the Console alone."
+    "text": "Chapter Roadmap\n\n\n2.1 - Setup Install R and RStudio, understand the four RStudio panes, and learn about Positron.\n\n\n2.2 - R Basics Use R as a calculator, create variables, build vectors, and apply common built-in functions.\n\n\n2.3 - Data Work Read data frames, select rows and columns, make histograms, and use ggplot2.\n\n\n\n\n\nCore skill Writing commands that make statistical work clear and repeatable.\n\n\nCore tool RStudio - scripts, output, plots, and help pages in one place.\n\n\nCore habit Save work in scripts rather than relying on the Console alone."
   },
   {
     "objectID": "Chapter Slides/chapter2-slides.html#statistical-computing-language",
@@ -3126,21 +3126,21 @@
     "href": "Chapter Slides/chapter5-slides.html#check-in-r-welch-two-sample-t-intervals",
     "title": "STA258",
     "section": "Check in R: Welch Two-Sample t Intervals",
-    "text": "Check in R: Welch Two-Sample t Intervals\n\n\n\n\nFood delivery vs meal prep example\n\n\n\n\n\n\n\n\n\n\n\n\nUFC highlight watch-time example"
+    "text": "Check in R: Welch Two-Sample t Intervals\n\n\n\n\nFood delivery vs meal prep example\n\n\n\n\n\n\n\n\n\n\n\n\nSports highlight watch-time example"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-difference-of-proportions",
     "href": "Chapter Slides/chapter5-slides.html#check-in-r-difference-of-proportions",
     "title": "STA258",
     "section": "Check in R: Difference of Proportions",
-    "text": "Check in R: Difference of Proportions\n\n\n\n\nFree-trial reminder example\n\n\n\n\n\n\n\n\n\n\n\n\nGTA VI trailer alert example"
+    "text": "Check in R: Difference of Proportions\n\n\n\n\nFree-trial reminder example\n\n\n\n\n\n\n\n\n\n\n\n\nApp notification click-through example"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-ratio-of-variances",
     "href": "Chapter Slides/chapter5-slides.html#check-in-r-ratio-of-variances",
     "title": "STA258",
     "section": "Check in R: Ratio of Variances",
-    "text": "Check in R: Ratio of Variances\n\n\n\n\nCharging-time variability example\n\n\n\n\n\n\n\n\n\n\n\n\nPS5 restock checkout-time example"
+    "text": "Check in R: Ratio of Variances\n\n\n\n\nCharging-time variability example\n\n\n\n\n\n\n\n\n\n\n\n\nSale checkout-time variability example"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-paired-data",
@@ -3154,7 +3154,7 @@
     "href": "Chapter Slides/chapter5-slides.html#check-in-r-sample-size-for-a-mean",
     "title": "STA258",
     "section": "Check in R: Sample Size for a Mean",
-    "text": "Check in R: Sample Size for a Mean\n\n\n\n\nMrBeast entry-time example\n\n\n\n\n\n\n\n\n\n\n\n\nPickup-time estimate example"
+    "text": "Check in R: Sample Size for a Mean\n\n\n\n\nOnline entry-form completion-time example\n\n\n\n\n\n\n\n\n\n\n\n\nPickup-time estimate example"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-sample-size-when-sigma-is-unknown",
@@ -3168,14 +3168,14 @@
     "href": "Chapter Slides/chapter5-slides.html#check-in-r-sigma-unknown-sample-size",
     "title": "STA258",
     "section": "Check in R: Sigma Unknown Sample Size",
-    "text": "Check in R: Sigma Unknown Sample Size\n\n\n\n\nJordan vs LeBron GOAT rating example\n\n\n\n\n\n\n\n\n\n\n\n\nGrocery-delivery fee example"
+    "text": "Check in R: Sigma Unknown Sample Size\n\n\n\n\nTutorial video rating example\n\n\n\n\n\n\n\n\n\n\n\n\nGrocery-delivery fee example"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#check-in-r-proportion-sample-size",
     "href": "Chapter Slides/chapter5-slides.html#check-in-r-proportion-sample-size",
     "title": "STA258",
     "section": "Check in R: Proportion Sample Size",
-    "text": "Check in R: Proportion Sample Size\n\n\n\n\nAd-supported plan survey example\n\n\n\n\n\n\n\n\n\n\n\n\nSabrina Carpenter merch survey example"
+    "text": "Check in R: Proportion Sample Size\n\n\n\n\nAd-supported plan survey example\n\n\n\n\n\n\n\n\n\n\n\n\nOnline store waitlist survey example"
   },
   {
     "objectID": "Chapter Slides/chapter5-slides.html#example-mrbeast-500m-giveaway-entry-time-estimate",
@@ -4239,14 +4239,14 @@
     "href": "Chapter Slides/chapter7-slides.html#what-affects-power",
     "title": "STA258",
     "section": "What Affects Power?",
-    "text": "What Affects Power?\n\n\nEffect size  -  Larger gaps between reality and \\(H_0\\) are easier to detect \\(\\Rightarrow\\) more power.\n\n\nSample size \\(n\\)  -  Larger samples shrink the standard error \\(\\Rightarrow\\) more power.\n\n\nSignificance level \\(\\alpha\\)  -  A larger \\(\\alpha\\) makes \\(H_0\\) easier to reject \\(\\Rightarrow\\) more power (but more Type I risk).\n\n\nVariability \\(\\sigma\\)  -  Less spread in the data \\(\\Rightarrow\\) narrower sampling distribution \\(\\Rightarrow\\) more power.\n\n\n\nYou control \\(n\\) and \\(\\alpha\\). The effect size and \\(\\sigma\\) are set by the world, so sample size is your main planning lever."
+    "text": "What Affects Power?\n\n\nEffect size  -  Larger gaps between reality and \\(H_0\\) are easier to detect \\(\\Rightarrow\\) more power.\n\n\nSample size \\(n\\)  -  Larger samples shrink the standard error \\(\\Rightarrow\\) more power.\n\n\nSignificance level \\(\\alpha\\)  -  A larger \\(\\alpha\\) makes \\(H_0\\) easier to reject \\(\\Rightarrow\\) more power (but more Type I risk).\n\n\nVariability \\(\\sigma\\)  -  Less spread in the data \\(\\Rightarrow\\) narrower sampling distribution \\(\\Rightarrow\\) more power.\n\n\n\nYou control \\(n\\) and \\(\\alpha\\). The effect size and \\(\\sigma\\) are determined by the nature of the problem, so sample size is your main planning lever."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
     "href": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
     "title": "STA258",
     "section": "7.2 Type I and Type II Errors",
-    "text": "7.2 Type I and Type II Errors\n\n\n\nA hypothesis test can reach the wrong conclusion in two ways.\n\n\nType I error (\\(\\alpha\\)) Reject \\(H_0\\) when \\(H_0\\) is true.\n\n\nType II error (\\(\\beta\\)) Fail to reject \\(H_0\\) when \\(H_0\\) is false.\n\n\n\n\n\n\n\n\\(H_0\\) True\n\\(H_0\\) False\n\n\n\n\nReject \\(H_0\\)\nType I (\\(\\alpha\\))\nCorrect (power)\n\n\nFail to reject \\(H_0\\)\nCorrect\nType II (\\(\\beta\\))\n\n\n\n\nA Type I error is usually treated as the more serious mistake, which is why we fix \\(\\alpha\\) in advance (often \\(0.05\\))."
+    "text": "7.2 Type I and Type II Errors\n\nA hypothesis test can reach the wrong conclusion in two ways.\n\n\n\n\n\n\n\\(H_0\\) True\n\\(H_0\\) False\n\n\n\n\nReject \\(H_0\\)\nType I (\\(\\alpha\\))\nCorrect (power)\n\n\nFail to reject \\(H_0\\)\nCorrect\nType II (\\(\\beta\\))\n\n\n\n\n\n\nType I error (\\(\\alpha\\)) Reject \\(H_0\\) when \\(H_0\\) is true.\n\n\nType II error (\\(\\beta\\)) Fail to reject \\(H_0\\) when \\(H_0\\) is false.\n\n\n\nA Type I error is usually treated as the more serious mistake, which is why we fix \\(\\alpha\\) in advance (often \\(0.05\\))."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#power-connects-to-the-errors",
@@ -4302,7 +4302,7 @@
     "href": "Chapter Slides/chapter7-slides.html#visualizing-power-the-power-curve",
     "title": "STA258",
     "section": "Visualizing Power: The Power Curve",
-    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number, it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=0.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=1.1\\) (power \\(\\approx 0.97\\))."
+    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number, it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=7.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=8.1\\) (power \\(\\approx 0.97\\))."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-underfilled-bottling-line",
@@ -4344,7 +4344,7 @@
     "href": "Chapter Slides/chapter7-slides.html#the-sample-size-idea",
     "title": "STA258",
     "section": "The Sample-Size Idea",
-    "text": "The Sample-Size Idea\n\n\n\n1. Cutoff from \\(H_0\\). Write \\(\\bar{x}_*\\) using the null mean and \\(z_\\alpha\\).\n\n\n2. Cutoff from the target power. Write the same \\(\\bar{x}_*\\) using the alternative mean and \\(z_\\beta\\) (the \\(z\\) giving the desired power).\n\n\n3. Set the two expressions equal and solve for \\(n\\). Round up to the next whole observation.\n\n\n\nOne-sided sample-size formula \\[n=\\left(\\frac{(z_\\alpha+z_\\beta)\\,\\sigma}{\\mu_0-\\mu_a}\\right)^{2}\\] where \\(z_\\beta\\) is the standard-normal value matching the target power."
+    "text": "The Sample-Size Idea\n\n\n\n1. Cutoff from \\(H_0\\). The cutoff \\(\\bar{x}_*\\) is the borderline value of the sample mean that decides whether you reject \\(H_0\\) or not. Write it using the null mean and the critical value \\(z_\\alpha\\).\n\n\n2. Cutoff from the target power. Write the same \\(\\bar{x}_*\\) using the alternative mean and \\(z_\\beta\\) (the \\(z\\) giving the desired power).\n\n\n3. Set the two expressions equal and solve for \\(n\\). Round up to the next whole observation.\n\n\n\nOne-sided sample-size formula \\[n=\\left(\\frac{(z_\\alpha+z_\\beta)\\,\\sigma}{\\mu_0-\\mu_a}\\right)^{2}\\] where \\(z_\\beta\\) is the standard-normal value matching the target power."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-detecting-a-lift-in-daily-active-minutes",
@@ -4379,14 +4379,14 @@
     "href": "Chapter Slides/chapter7-slides.html#power-for-a-proportion-same-logic",
     "title": "STA258",
     "section": "Power for a Proportion: Same Logic",
-    "text": "Power for a Proportion: Same Logic\n\nFor a one-sided test of \\(p\\), the rejection cutoff uses the null standard error, but power is computed with the alternative standard error:\n\\[\\hat p^{\\,*}=p_0 \\mp z_\\alpha\\sqrt{\\tfrac{p_0(1-p_0)}{n}}, \\qquad\n\\text{power}=P\\!\\left(\\hat p \\text{ in reject region}\\;\\middle|\\; p=p_a\\right)\\]"
+    "text": "Power for a Proportion: Same Logic\n\nFor a one-sided test of \\(p\\), the rejection cutoff uses the null standard error, but power is computed with the alternative standard error:\n\\[\\hat p^{\\,*}=p_0 \\mathbin{\\substack{+\\\\[-4pt]-}} z_\\alpha\\sqrt{\\tfrac{p_0(1-p_0)}{n}}, \\qquad\n\\text{power}=P\\!\\left(\\hat p \\text{ in reject region}\\;\\middle|\\; p=p_a\\right)\\]\n\n\nWhich sign on \\(z_\\alpha\\)?\n\n\n\n\n\n\n\n\nTest\nCutoff \\(\\hat p^{\\,*}\\)\nReject when\n\n\n\n\n\\(H_a:p&lt;p_0\\)\n\\(p_0-z_\\alpha\\sqrt{p_0(1-p_0)/n}\\)\n\\(\\hat p&lt;\\hat p^{\\,*}\\)\n\n\n\\(H_a:p&gt;p_0\\)\n\\(p_0+z_\\alpha\\sqrt{p_0(1-p_0)/n}\\)\n\\(\\hat p&gt;\\hat p^{\\,*}\\)\n\n\n\n\n\nThree steps, same as the mean\n\nFind the cutoff \\(\\hat p^{\\,*}\\) from \\(p_0\\) and \\(z_\\alpha\\).\nStandardize that cutoff under \\(p=p_a\\) using \\(\\text{SE}_a\\).\nThe tail area past it is the power."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",
     "href": "Chapter Slides/chapter7-slides.html#streaming-example-power-grows-with-n",
     "title": "STA258",
     "section": "Streaming Example: Power Grows with \\(n\\)",
-    "text": "Streaming Example: Power Grows with \\(n\\)\n\n\n\n\n\n\\(n\\)\ncutoff \\(\\hat p^{\\,*}\\)\n\\(z\\) under \\(p=0.85\\)\nPower\n\n\n\n\n50\n0.8507\n\\(-0.39\\)\n0.347\n\n\n100\n0.8507\n\\(0.02\\)\n0.507\n\n\n200\n0.8651\n\\(0.60\\)\n0.725\n\n\n\n\nSame effect (a drop from 0.90 to 0.85), same \\(\\alpha\\), only \\(n\\) changes. Power climbs from 35% to 73%."
+    "text": "Streaming Example: Power Grows with \\(n\\)\n\n\n\n\n\n\\(n\\)\ncutoff \\(\\hat p^{\\,*}\\)\n\\(z\\) under \\(p=0.85\\)\nPower\n\n\n\n\n50\n0.8302\n\\(-0.39\\)\n0.347\n\n\n100\n0.8507\n\\(0.02\\)\n0.507\n\n\n200\n0.8651\n\\(0.60\\)\n0.725\n\n\n\n\nSame effect (a drop from 0.90 to 0.85), same \\(\\alpha\\), only \\(n\\) changes. Power climbs from 35% to 73%."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-proportion-power",
@@ -4715,7 +4715,7 @@
     "href": "Chapter Slides/chapter8-slides.html#section",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nA one-way ANOVA with \\(k=4\\) groups has a significant p-value. How many pairwise mean comparisons are possible?\n\n\n\n\n3\n6\n8\n16"
+    "text": "Question\n\n\nA one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?\n\n\n\n\n6\n16\n8\n3"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#final-checklist",
@@ -4799,7 +4799,7 @@
     "href": "Chapter Slides/chapter7-slides.html#section-4",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nThe bottling test has only 20% power against \\(\\mu=299\\). Which single change raises power the most without touching \\(\\alpha\\) or the true process?\n\n\n\n\nUse a smaller sample to save money\nIncrease the sample size \\(n\\)\nRe-label the hypotheses\nHope the next sample looks different"
+    "text": "Question\n\n\nA test has low power against the alternative it was designed to detect. Which single change raises power the most without touching \\(\\alpha\\) or the true process?\n\n\n\n\nUse a smaller sample to save money\nIncrease the sample size \\(n\\)\nRe-label the hypotheses\nHope the next sample looks different"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#section-5",
@@ -5295,8 +5295,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
     "href": "Chapter Slides/chapter8-slides.html#badminton-drills-fisher-lsd-results",
     "title": "STA258",
-    "section": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known",
-    "text": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known\n\nFor testing \\(H_0:\\mu=\\mu_0\\) when \\(\\sigma\\) is known, use the test statistic\n\\[\nz^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Testing a population mean with known \\(\\sigma\\) and an appropriate random/normal-or-large-sample setup."
+    "section": "Badminton Drills — Fisher LSD Results",
+    "text": "Badminton Drills — Fisher LSD Results\n\n\nProblem\nA badminton coach compares three drill programs for improving serve-target accuracy.\nAfter two months, each player completes the same accuracy test out of 40.\n\n\n\nBasic serve\nTarget serve\nMatch-play serve\n\n\n\n\n19\n24\n26\n\n\n20\n25\n27\n\n\n21\n26\n28\n\n\n23\n28\n29\n\n\n24\n29\n30\n\n\n25\n30\n31\n\n\n\nANOVA rejects \\(H_0\\). Which drill programs differ using Fisher’s LSD?\n\n\n\nRead the Fisher LSD intervals\nA pair is declared different when the interval does not contain 0.\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\qquad\n\\text{interval contains }0\n\\Rightarrow\n\\text{not clearly different}\n\\]\n\n\n\nBasic vs Target\n\\[\n(-7.72,\\,-2.28)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nBasic vs Match-play\n\\[\n(-9.22,\\,-3.78)\n\\]\nThis interval avoids 0.\nDifferent\n\n\nTarget vs Match-play\n\\[\n(-4.22,\\,1.22)\n\\]\nThis interval contains 0.\nNot clearly different\n\n\n\nAnswer\nUsing Fisher’s LSD, Basic serve has a lower mean accuracy score than both Target serve and Match-play serve.\nHowever, Target serve and Match-play serve are not clearly different from each other."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#example-phone-case-drop-test-costs-fishers-lsd",
@@ -5428,8 +5428,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
     "href": "Chapter Slides/chapter8-slides.html#check-in-r-fishers-lsd-comparisons",
     "title": "STA258",
-    "section": "6.3.1.1 Hypothesis Tests on Two Means",
-    "text": "6.3.1.1 Hypothesis Tests on Two Means\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
+    "section": "Check in R: Fisher’s LSD Comparisons",
+    "text": "Check in R: Fisher’s LSD Comparisons\n\n\n\nBadminton drill example\n\n\n\n\n\n\n\n\n\n\n\n\nPhone case example"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#check-in-r-bonferroni-comparisons",
@@ -5477,8 +5477,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
     "href": "Chapter Slides/chapter8-slides.html#visual-phone-case-fisher-lsd-pairwise-intervals",
     "title": "STA258",
-    "section": "Pomodoro: Difference Table",
-    "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"
+    "section": "Visual: Phone Case Fisher LSD Pairwise Intervals",
+    "text": "Visual: Phone Case Fisher LSD Pairwise Intervals\n\n\n\n\n\n\n\nThe red dots show the observed pairwise mean repair-cost differences. The red vertical intervals show the Fisher LSD intervals.\nThe black dashed line marks 0. Intervals that avoid 0 indicate pairs that are significantly different. Only Clear vs Slim contains 0, so that pair is not clearly different."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#download-speeds-calculation",
@@ -5647,5 +5647,130 @@
     "title": "STA258",
     "section": "Pomodoro: Difference Table",
     "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"
+    "objectID": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
+    "href": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
+    "title": "STA258",
+    "section": "Interactive: Watch Power Climb with \\(n\\)",
+    "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the vial check (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 mg shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-a-better-espresso-blend",
+    "href": "Chapter Slides/chapter7-slides.html#example-a-better-espresso-blend",
+    "title": "STA258",
+    "section": "Example: A Better Espresso Blend",
+    "text": "Example: A Better Espresso Blend\n\n\n\nA specialty coffee roaster’s house espresso has scored a long-run average of 7.0 on a 10-point flavour scale. A new blend is developed, and the roaster will switch only if it truly scores higher. If the new blend’s true mean score is \\(\\mu=8.1\\), will a 5% test reliably detect the improvement?\nA panel of \\(n=10\\) trained graders scores the new blend; from years of calibration, grader scores have \\(\\sigma=1\\).\n\n\n\\(\\sigma\\) is known \\(\\Rightarrow\\) one-sample \\(z\\) test, reference \\(N(0,1)\\).\n\n\n\n\nSet-up\n\\[H_0:\\mu = 7 \\qquad H_a:\\mu&gt;7\\]\n\n\\(n = 10,\\quad \\sigma = 1,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 8.1\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#espresso-cutoff-to-power",
+    "href": "Chapter Slides/chapter7-slides.html#espresso-cutoff-to-power",
+    "title": "STA258",
+    "section": "Espresso: Cutoff to Power",
+    "text": "Espresso: Cutoff to Power\n\n\n\nRejection Rule One-sided \\(\\alpha=0.05\\) gives \\(z_{\\text{crit}}=1.645\\). On the \\(\\bar{x}\\) scale (since \\(\\sigma\\) is known): \\[\\bar{x}_*=7+1.645\\cdot\\tfrac{1}{\\sqrt{10}}\\approx 7.520 \\;\\Rightarrow\\; \\text{reject if } \\bar{x}&gt;7.520\\]\n\n\nFind the Power Assume \\(\\mu=8.1\\) is true and find \\(P(\\bar{x}&gt;7.520)\\): \\[\\text{power}=P\\!\\left(Z&gt;\\tfrac{7.520-8.1}{1/\\sqrt{10}}\\right)=P(Z&gt;-1.83)=\\mathbf{0.9664}\\]\n\n\n\n\n\n\n\n\n\n\n\n\nA 96.6% chance of correctly detecting \\(\\mu=8.1\\). Since power \\(=1-\\beta\\), the green and red areas add to 1: \\[\\text{power}=1-\\beta=1-0.034=0.966\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-espresso-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-espresso-power",
+    "title": "STA258",
+    "section": "Check in R: Espresso Power",
+    "text": "Check in R: Espresso Power"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-under-dosed-medicine-vials",
+    "href": "Chapter Slides/chapter7-slides.html#example-under-dosed-medicine-vials",
+    "title": "STA258",
+    "section": "Example: Under-Dosed Medicine Vials",
+    "text": "Example: Under-Dosed Medicine Vials\n\n\nA pharmaceutical filling machine should dispense \\(\\mu_0=300\\) mg of active drug per vial, with known \\(\\sigma=3\\) mg from the validated assay. A routine quality check tests only \\(n=6\\) vials — will a 5% test catch a machine that has drifted to a true mean of \\(\\mu=299\\) mg? \\[H_0:\\mu = 300 \\qquad H_a:\\mu&lt;300 \\qquad (\\alpha=0.05)\\]\n\n\n\\[\\bar{x}_*=300-1.645\\cdot\\tfrac{3}{\\sqrt6}=297.985 \\quad(\\text{reject if } \\bar{x}&lt;297.985)\\] \\[\\text{power}=P\\!\\left(Z&lt;\\frac{297.985-299}{3/\\sqrt6}\\right)=P(Z&lt;-0.83)=\\mathbf{0.2033}\\]\n\n\nOnly 20% power. With just 6 vials, this check will usually miss an under-dosing machine — the sample is too small."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-vial-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-vial-power",
+    "title": "STA258",
+    "section": "Check in R: Vial Power",
+    "text": "Check in R: Vial Power\n\n\n\n\n\n\n\n\n\nTry bumping n to 30 or 60 and re-run, then watch the power climb as the standard error shrinks."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#interactive-change-everything",
+    "href": "Chapter Slides/chapter7-slides.html#interactive-change-everything",
+    "title": "STA258",
+    "section": "Interactive: Change Everything",
+    "text": "Interactive: Change Everything\nChoose the direction of \\(H_a\\), then drag \\(\\mu_0\\), \\(\\mu_a\\), \\(\\sigma\\), and \\(n\\) (\\(\\alpha\\) stays at \\(0.05\\)) and watch the cutoff, \\(\\beta\\), and power react.\n\n\n\nviewof alt = Inputs.select(\n  new Map([[\"μ &gt; μ₀ (greater)\", \"greater\"],\n           [\"μ &lt; μ₀ (less)\", \"less\"],\n           [\"μ ≠ μ₀ (two-sided)\", \"two.sided\"]]),\n  {value: \"greater\", label: \"Hₐ\"}\n)\nviewof mu0 = Inputs.range([5, 15], {value: 10, step: 0.5, label: \"μ₀\"})\nviewof mua = Inputs.range([5, 15], {value: 12, step: 0.5, label: \"μₐ\"})\nviewof sigma = Inputs.range([1, 4], {value: 2, step: 0.5, label: \"σ\"})\nviewof n = Inputs.range([2, 60], {value: 10, step: 1, label: \"n\"})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nres = {\n  const pnorm = (z) =&gt; {\n    const t = 1 / (1 + 0.2316419 * Math.abs(z));\n    const d = Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI);\n    const p = d * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 +\n              t * (-1.821255978 + t * 1.330274429))));\n    return z &gt;= 0 ? 1 - p : p;\n  };\n  const se = sigma / Math.sqrt(n);\n  let cuts, inReject, pow;\n  if (alt === \"greater\") {\n    cuts = [mu0 + 1.6449 * se];\n    inReject = (x) =&gt; x &gt; cuts[0];\n    pow = 1 - pnorm((cuts[0] - mua) / se);\n  } else if (alt === \"less\") {\n    cuts = [mu0 - 1.6449 * se];\n    inReject = (x) =&gt; x &lt; cuts[0];\n    pow = pnorm((cuts[0] - mua) / se);\n  } else {\n    cuts = [mu0 - 1.96 * se, mu0 + 1.96 * se];\n    inReject = (x) =&gt; x &lt; cuts[0] || x &gt; cuts[1];\n    pow = pnorm((cuts[0] - mua) / se) + 1 - pnorm((cuts[1] - mua) / se);\n  }\n  const lo = Math.min(mu0, mua) - 4.2 * se;\n  const hi = Math.max(mu0, mua) + 4.2 * se;\n  const dnorm = (x, m) =&gt; Math.exp(-0.5 * ((x - m) / se) ** 2) / (se * Math.sqrt(2 * Math.PI));\n  const data = d3.range(lo, hi, (hi - lo) / 500).map((x) =&gt;\n    ({x, h0: dnorm(x, mu0), ha: dnorm(x, mua)}));\n  return {se, cuts, inReject, pow, data};\n}\n\nhtml`&lt;div class=\"power-plot-row\"&gt;\n  &lt;div class=\"power-plot-col\"&gt;\n  ${Plot.plot({\n    width: 620, height: 320,\n    y: {axis: null},\n    x: {label: null},\n    marks: [\n      Plot.areaY(res.data, {x: \"x\", y: (d) =&gt; res.inReject(d.x) ? d.ha : 0,\n                            fill: \"rgba(46,125,50,0.40)\"}),\n      Plot.areaY(res.data, {x: \"x\", y: (d) =&gt; res.inReject(d.x) ? 0 : d.ha,\n                            fill: \"rgba(198,40,40,0.15)\"}),\n      Plot.areaY(res.data, {x: \"x\", y: (d) =&gt; res.inReject(d.x) ? d.h0 : 0,\n                            fill: \"rgba(249,168,37,0.60)\"}),\n      Plot.lineY(res.data, {x: \"x\", y: \"h0\", stroke: \"#1f4e79\", strokeWidth: 2.5}),\n      Plot.lineY(res.data, {x: \"x\", y: \"ha\", stroke: \"#c62828\", strokeWidth: 2.5}),\n      Plot.ruleX(res.cuts, {stroke: \"#4d5659\", strokeDasharray: \"5,4\", strokeWidth: 1.5})\n    ]\n  })}\n  &lt;div class=\"power-tiles\"&gt;\n    &lt;div class=\"ptile\"&gt;\n      &lt;span class=\"pt-label\"&gt;power&lt;/span&gt;\n      &lt;span class=\"pt-val\" style=\"color:#2e7d32\"&gt;${(res.pow * 100).toFixed(1)}%&lt;/span&gt;\n    &lt;/div&gt;\n    &lt;div class=\"ptile\"&gt;\n      &lt;span class=\"pt-label\"&gt;β (Type II)&lt;/span&gt;\n      &lt;span class=\"pt-val\" style=\"color:#c62828\"&gt;${((1 - res.pow) * 100).toFixed(1)}%&lt;/span&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n  &lt;/div&gt;\n  &lt;div class=\"power-legend\"&gt;\n    &lt;span&gt;&lt;span class=\"sw line\" style=\"background:#1f4e79\"&gt;&lt;/span&gt;H₀ sampling dist.&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw line\" style=\"background:#c62828\"&gt;&lt;/span&gt;Hₐ sampling dist.&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw\" style=\"background:rgba(249,168,37,0.85)\"&gt;&lt;/span&gt;α (Type I)&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw\" style=\"background:rgba(46,125,50,0.55)\"&gt;&lt;/span&gt;power&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw\" style=\"background:rgba(198,40,40,0.30)\"&gt;&lt;/span&gt;β (Type II)&lt;/span&gt;\n  &lt;/div&gt;\n&lt;/div&gt;`"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-machine-drifted",
+    "href": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-machine-drifted",
+    "title": "STA258",
+    "section": "Example: Monitoring a Server Room",
+    "text": "Example: Two-Sided — Has the Machine Drifted?\n\n\n\nThe roaster’s espresso machine is calibrated to brew at \\(\\mu_0=93\\)°C. Drifting hot or cold both ruin shots, so each month the shop checks \\(n=16\\) brew-temperature readings; from the machine’s specs, \\(\\sigma=2\\)°C. If the boiler has truly drifted to \\(\\mu=94\\)°C, how likely is the monthly check to catch it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 93 \\qquad H_a:\\mu \\neq 93\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 94\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#two-sided-two-cutoffs-two-power-pieces",
+    "href": "Chapter Slides/chapter7-slides.html#two-sided-two-cutoffs-two-power-pieces",
+    "title": "STA258",
+    "section": "Two-Sided: Two Cutoffs, Two Power Pieces",
+    "text": "Two-Sided: Two Cutoffs, Two Power Pieces\n\n\nRejection Rule Two cutoffs, using \\(z_{\\alpha/2}=1.96\\): \\[\\bar{x}_*=22 \\pm 1.96\\cdot\\tfrac{2}{\\sqrt{16}} = 22 \\pm 0.98\\] \\[\\text{reject if } \\bar{x}&lt;21.02 \\;\\text{ or }\\; \\bar{x}&gt;22.98\\]\n\n\nFind the Power Assume \\(\\mu=23\\) is true; add the two rejection pieces: \\[\\begin{aligned}\n\\text{power} &= P(\\bar{x}&lt;21.02)+P(\\bar{x}&gt;22.98)\\\\\n&= P(Z&lt;-3.96)+P(Z&gt;-0.04)\\\\\n&\\approx 0.000+0.516=\\mathbf{0.516}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-incubator-drifted",
+    "href": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-incubator-drifted",
+    "title": "STA258",
+    "section": "Example: Two-Sided — Has the Incubator Drifted?",
+    "text": "Example: Two-Sided — Has the Incubator Drifted?\n\n\n\nA biology lab’s incubator must hold cell cultures at \\(\\mu_0=37\\)°C — running warm or cool both kill the cultures. Each week a technician logs \\(n=16\\) temperature readings; from the manufacturer’s specs, \\(\\sigma=2\\)°C. If the incubator has truly drifted to \\(\\mu=38\\)°C, how likely is the weekly check to catch it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 37 \\qquad H_a:\\mu \\neq 37\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 38\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-two-sided-is-the-server-room-drifting",
+    "href": "Chapter Slides/chapter7-slides.html#example-two-sided-is-the-server-room-drifting",
+    "title": "STA258",
+    "section": "Example: Two-Sided — Is the Server Room Drifting?",
+    "text": "Example: Two-Sided — Is the Server Room Drifting?\n\n\n\nA data centre keeps its server hall at \\(\\mu_0=22\\)°C. Too hot and the servers overheat and fail; too cold and the cooling bill climbs for no benefit. Each day the monitoring system samples \\(n=16\\) sensor readings; from the sensors’ calibration, \\(\\sigma=2\\)°C. If the cooling has truly drifted to \\(\\mu=23\\)°C, how likely is the daily check to flag it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 22 \\qquad H_a:\\mu \\neq 22\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 23\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-monitoring-a-server-room",
+    "href": "Chapter Slides/chapter7-slides.html#example-monitoring-a-server-room",
+    "title": "STA258",
+    "section": "Example: Monitoring a Server Room",
+    "text": "Example: Monitoring a Server Room\n\n\n\nA data centre keeps its server hall at \\(\\mu_0=22\\)°C. Too hot and the servers overheat and fail; too cold and the cooling bill climbs for no benefit. Each day the monitoring system samples \\(n=16\\) sensor readings; from the sensors’ calibration, \\(\\sigma=2\\)°C. If the cooling has truly drifted to \\(\\mu=23\\)°C, how likely is the daily check to flag it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 22 \\qquad H_a:\\mu \\neq 22\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 23\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
+    "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-app-notification-click-through-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-app-notification-click-through-comparison",
+    "title": "STA258",
+    "section": "Example: App Notification Click-Through Comparison",
+    "text": "Example: App Notification Click-Through Comparison\n\n\nA mobile app wants to compare two ways of encouraging users to open a new feature.\nOne group receives a direct push notification about the feature. The other group only sees a generic homepage banner.\n\nGroup 1: Push notification users\n\\(x_1=210\\) of \\(n_1=500\\) opened the feature within 24 hours\nGroup 2: Homepage banner users\n\\(x_2=170\\) of \\(n_2=450\\) opened the feature within 24 hours\n\n\nCalculation\n\\[\n\\hat p_1=\\frac{210}{500}=0.4200,\n\\qquad\n\\hat p_2=\\frac{170}{450}=0.3778\n\\]\n\\[\n\\hat p_1-\\hat p_2=0.4200-0.3778=0.0422\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{0.4200(0.5800)}{500}\n+\n\\frac{0.3778(0.6222)}{450}\n}\n=\n0.0318\n\\]\n\\[\n0.0422\\pm1.645(0.0318)\n=\n(-0.0100,\\;0.0945)\n\\]\n\n\nTarget parameter\nConstruct a 90% confidence interval for \\(p_1-p_2\\).\nThe order is push notification minus homepage banner, so positive values mean the push notification has the higher population proportion of users who open the feature.\n\n\nWe are 90% confident that the push notification’s population proportion is between 1.00 percentage point lower and 9.45 percentage points higher than the homepage banner’s population proportion."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-sale-checkout-time-variability",
+    "href": "Chapter Slides/chapter5-slides.html#example-sale-checkout-time-variability",
+    "title": "STA258",
+    "section": "Example: Sale Checkout-Time Variability",
+    "text": "Example: Sale Checkout-Time Variability\n\n\nAn online retailer wants to compare how inconsistent checkout times are during a normal purchase period versus a limited-time sale period.\n\nGroup 1: Regular checkout period\n\\(n_1=18,\\quad s_1=6\\) minutes\nGroup 2: Limited-time sale checkout period\n\\(n_2=16,\\quad s_2=14\\) minutes\nConstruct a 95% confidence interval for:\n\\[\n\\frac{\\sigma_2^2}{\\sigma_1^2}\n\\]\n\n\nCalculation\n\\[\n\\frac{s_2^2}{s_1^2}\n=\n\\frac{14^2}{6^2}\n=\n5.444\n\\]\n\\[\nF_{0.975,15,17}=2.723,\n\\qquad\nF_{0.025,15,17}=0.356\n\\]\n\\[\n\\left(\n\\frac{5.444}{2.723},\n\\frac{5.444}{0.356}\n\\right)\n=\n(2.00,\\;15.31)\n\\]\n\n\nTarget parameter\nThe order is limited-time sale checkout variability divided by regular checkout variability.\nValues above 1 mean the limited-time sale checkout times are more variable.\n\n\nWe are 95% confident that the limited-time sale checkout-time variance is between 2.00 and 15.31 times the regular checkout-time variance. This suggests the sale checkout process is much less consistent."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-tutorial-video-rating-estimate",
+    "href": "Chapter Slides/chapter5-slides.html#example-tutorial-video-rating-estimate",
+    "title": "STA258",
+    "section": "Example: Tutorial Video Rating Estimate",
+    "text": "Example: Tutorial Video Rating Estimate\n\n\nAn online learning platform wants to estimate the mean rating students give to a new tutorial video.\nEach student rates the video on a 0 to 100 scale.\nSince \\(\\sigma\\) is unknown, the platform uses a pilot study:\n\\[\ns=14.5\n\\]\nThey want the margin of error to be at most:\n\\[\nE=4\n\\]\nFind the required sample size for 95% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{t^*s}{E}\n\\right)^2\n\\]\nStart with the \\(z\\) approximation:\n\\[\nn_0=\n\\left(\n\\frac{1.96(14.5)}{4}\n\\right)^2\n=\n50.48\n\\Rightarrow\n51\n\\]\nThen update using \\(t\\) critical values:\n\\[\n\\begin{array}{c|c|c|c}\n\\text{Use } n & df & t^* & \\text{New } n \\\\ \\hline\n51 & 50 & 2.009 & 53.04 \\Rightarrow 54 \\\\\n54 & 53 & 2.006 & 52.88 \\Rightarrow 53 \\\\\n53 & 52 & 2.007 & 52.94 \\Rightarrow 53\n\\end{array}\n\\]\nSo the sample size stabilizes at:\n\\[\nn=53\n\\]\n\n\nPlanning goal\nWe are planning a confidence interval for the population mean student rating.\nBecause \\(\\sigma\\) is unknown, the pilot-study standard deviation \\(s=14.5\\) is used as the preliminary estimate.\n\n\nThe online learning platform should sample at least 53 students to estimate the mean tutorial-video rating within 4 points at 95% confidence."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-online-store-waitlist-survey",
+    "href": "Chapter Slides/chapter5-slides.html#example-online-store-waitlist-survey",
+    "title": "STA258",
+    "section": "Example: Online Store Waitlist Survey",
+    "text": "Example: Online Store Waitlist Survey\n\n\nAn online store is planning a limited product release for customers on a waitlist.\nBefore the release, the company wants to estimate the proportion of waitlist users who plan to make a purchase when it goes live.\nA previous customer survey suggests a planning value of:\n\\[\np_0=0.156\n\\]\nThe company wants the margin of error to be at most:\n\\[\nE=0.03\n\\]\nFind the required sample size for 95% and 99% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{z^*}{E}\n\\right)^2\np_0(1-p_0)\n\\]\n\\[\np_0=0.156,\n\\qquad\n1-p_0=0.844,\n\\qquad\nE=0.03\n\\]\n\\[\nn_{95}=\n\\left(\n\\frac{1.96}{0.03}\n\\right)^2\n(0.156)(0.844)\n=\n562.54\n\\Rightarrow\n563\n\\]\n\\[\nn_{99}=\n\\left(\n\\frac{2.576}{0.03}\n\\right)^2\n(0.156)(0.844)\n=\n970.97\n\\Rightarrow\n971\n\\]\n\n\nPlanning goal\nFind the sample size needed for a confidence interval for the population proportion of waitlist users who plan to make a purchase.\nThe margin of error should be no more than 3 percentage points.\n\n\nThe company should survey at least 563 waitlist users for 95% confidence and 971 waitlist users for 99% confidence. Higher confidence requires a larger sample size when the margin of error stays fixed."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-online-entry-form-completion-time",
+    "href": "Chapter Slides/chapter5-slides.html#example-online-entry-form-completion-time",
+    "title": "STA258",
+    "section": "Example: Online Entry-Form Completion Time",
+    "text": "Example: Online Entry-Form Completion Time\n\n\nA website team is planning a large online registration page.\nBefore launch, they want to estimate the mean time it takes a user to complete the entry form.\nFrom previous launches, the population standard deviation is treated as known:\n\\[\n\\sigma = 24 \\text{ seconds}\n\\]\nThe team wants the estimate to be within:\n\\[\nE = 5 \\text{ seconds}\n\\]\nFind the required sample size for 95% confidence.\n\n\nCalculation\n\\[\nn=\n\\left(\n\\frac{z^*\\sigma}{E}\n\\right)^2\n\\]\n\\[\nz^*=1.96,\n\\qquad\n\\sigma=24,\n\\qquad\nE=5\n\\]\n\\[\nn=\n\\left(\n\\frac{1.96(24)}{5}\n\\right)^2\n\\]\n\\[\nn=\n88.51\n\\]\n\\[\nn=89\n\\]\n\n\nPlanning goal\nFind the sample size needed for a confidence interval for the population mean entry-form completion time.\nThe margin of error should be no more than 5 seconds.\n\n\nThe team should sample at least 89 users to estimate the mean entry-form completion time within 5 seconds at 95% confidence."
+  },
+  {
+    "objectID": "Chapter Slides/chapter5-slides.html#example-sports-highlight-watch-time-comparison",
+    "href": "Chapter Slides/chapter5-slides.html#example-sports-highlight-watch-time-comparison",
+    "title": "STA258",
+    "section": "Example: Sports Highlight Watch-Time Comparison",
+    "text": "Example: Sports Highlight Watch-Time Comparison\n\n\nA sports media team compares how long viewers spend watching two types of highlight playlists.\nOne playlist has shorter, fast-paced clips, while the other has longer, more detailed highlight clips.\n\nGroup 1: Short-highlight viewers\n\\(n_1=24,\\quad \\bar{x}_1=9.8,\\quad s_1=3.1\\) minutes\nGroup 2: Long-highlight viewers\n\\(n_2=20,\\quad \\bar{x}_2=12.6,\\quad s_2=5.8\\) minutes\nConstruct a 95% CI for \\(\\mu_1-\\mu_2\\) using Welch’s method.\n\n\nCalculation\n\\[\n\\bar{x}_1-\\bar{x}_2\n=\n9.8-12.6\n=\n-2.8\n\\]\n\\[\nSE=\n\\sqrt{\n\\frac{3.1^2}{24}\n+\n\\frac{5.8^2}{20}\n}\n=\n\\sqrt{0.4004+1.6820}\n=\n1.4431\n\\]\nUsing conservative degrees of freedom:\n\\[\ndf=\\min(24-1,\\;20-1)=19\n\\]\n\\[\n-2.8\\pm2.093(1.4431)\n=\n-2.8\\pm3.02\n\\]\n\\[\n(-5.82,\\;0.22)\n\\]\n\n\nTarget parameter\nWe are estimating \\(\\mu_1-\\mu_2\\), where:\n\\(\\mu_1=\\) mean watch time for short-highlight viewers\n\\(\\mu_2=\\) mean watch time for long-highlight viewers\nThe order is short highlights minus long highlights.\n\n\nWe are 95% confident that the short-highlight playlist’s population mean watch time is between 5.82 minutes lower and 0.22 minutes higher than the long-highlight playlist’s population mean watch time. Since the interval crosses 0, the data do not show a clear difference in mean watch time."
   }
 ]

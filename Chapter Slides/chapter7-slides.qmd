@@ -1226,12 +1226,12 @@ html`<div class="power-plot-row">
 
 ---
 
-## Example: Two-Sided — Has the Machine Drifted?
+## Example: Two-Sided — Is the Server Room Drifting?
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-The roaster's espresso machine is calibrated to brew at $\mu_0=93$°C. Drifting **hot or cold** both ruin shots, so each month the shop checks $n=16$ brew-temperature readings; from the machine's specs, $\sigma=2$°C. If the boiler has truly drifted to $\mu=94$°C, how likely is the monthly check to catch it?
+A data centre keeps its server hall at $\mu_0=22$°C. Too **hot** and the servers overheat and fail; too **cold** and the cooling bill climbs for no benefit. Each day the monitoring system samples $n=16$ sensor readings; from the sensors' calibration, $\sigma=2$°C. If the cooling has truly drifted to $\mu=23$°C, how likely is the daily check to flag it?
 :::
 
 ::: {.notebox .fragment}
@@ -1243,10 +1243,10 @@ A shift in **either** direction matters $\Rightarrow$ two-sided test: $\alpha$ s
 ::: {.card}
 <span class="label">Set-up</span>
 
-$$H_0:\mu = 93 \qquad H_a:\mu \neq 93$$
+$$H_0:\mu = 22 \qquad H_a:\mu \neq 22$$
 
 - $n = 16,\quad \sigma = 2,\quad \alpha = 0.05$
-- Detect the alternative $\mu = 94$
+- Detect the alternative $\mu = 23$
 - $\sigma$ known $\Rightarrow$ one-sample $z$ test
 :::
 :::
@@ -1258,14 +1258,14 @@ $$H_0:\mu = 93 \qquad H_a:\mu \neq 93$$
 
 ::: {.examplebox}
 <span class="label">Rejection Rule and Power</span>
-$\bar{x}_*=93 \pm 1.96\cdot\tfrac{2}{\sqrt{16}} = 93 \pm 0.98$ $\;\Rightarrow\;$ reject if $\bar{x}<92.02$ **or** $\bar{x}>93.98$. Assume $\mu=94$ is true and add the two rejection pieces:
-$$\text{power}=P(\bar{x}<92.02)+P(\bar{x}>93.98)=P(Z<-3.96)+P(Z>-0.04)\approx 0.000+0.516=\mathbf{0.516}$$
+$\bar{x}_*=22 \pm 1.96\cdot\tfrac{2}{\sqrt{16}} = 22 \pm 0.98$ $\;\Rightarrow\;$ reject if $\bar{x}<21.02$ **or** $\bar{x}>22.98$. Assume $\mu=23$ is true and add the two rejection pieces:
+$$\text{power}=P(\bar{x}<21.02)+P(\bar{x}>22.98)=P(Z<-3.96)+P(Z>-0.04)\approx 0.000+0.516=\mathbf{0.516}$$
 :::
 
 ::: {style="max-width:900px; margin:0 auto;"}
 ```{r}
-power_two_sided(mu0 = 93, mua = 94, se = 2 / sqrt(16), alpha = 0.05,
-                xlab = "mean brew temperature  x̄")
+power_two_sided(mu0 = 22, mua = 23, se = 2 / sqrt(16), alpha = 0.05,
+                xlab = "mean server-hall temperature  x̄")
 ```
 :::
 

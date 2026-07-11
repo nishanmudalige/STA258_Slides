@@ -513,6 +513,7 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234d5659'/%3E%3C/svg%3E") no-repeat right 10px center;
 }
 .power-plot-row { display: flex; gap: 20px; align-items: center; }
+.power-plot-col { display: flex; flex-direction: column; align-items: center; }
 .power-tiles { display: flex; gap: 14px; margin-top: 10px; justify-content: center; }
 .ptile {
   background: white;
@@ -1102,10 +1103,11 @@ res = {
 }
 
 html`<div class="power-plot-row">
+  <div class="power-plot-col">
   ${Plot.plot({
     width: 620, height: 320,
     y: {axis: null},
-    x: {label: "sample mean x̄"},
+    x: {label: null},
     marks: [
       Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.ha : 0,
                             fill: "rgba(46,125,50,0.40)"}),
@@ -1118,22 +1120,23 @@ html`<div class="power-plot-row">
       Plot.ruleX(res.cuts, {stroke: "#4d5659", strokeDasharray: "5,4", strokeWidth: 1.5})
     ]
   })}
+  <div class="power-tiles">
+    <div class="ptile">
+      <span class="pt-label">power</span>
+      <span class="pt-val" style="color:#2e7d32">${(res.pow * 100).toFixed(1)}%</span>
+    </div>
+    <div class="ptile">
+      <span class="pt-label">β (Type II)</span>
+      <span class="pt-val" style="color:#c62828">${((1 - res.pow) * 100).toFixed(1)}%</span>
+    </div>
+  </div>
+  </div>
   <div class="power-legend">
     <span><span class="sw line" style="background:#1f4e79"></span>H₀ sampling dist.</span>
     <span><span class="sw line" style="background:#c62828"></span>Hₐ sampling dist.</span>
     <span><span class="sw" style="background:rgba(249,168,37,0.85)"></span>α (Type I)</span>
     <span><span class="sw" style="background:rgba(46,125,50,0.55)"></span>power</span>
     <span><span class="sw" style="background:rgba(198,40,40,0.30)"></span>β (Type II)</span>
-  </div>
-</div>
-<div class="power-tiles">
-  <div class="ptile">
-    <span class="pt-label">power</span>
-    <span class="pt-val" style="color:#2e7d32">${(res.pow * 100).toFixed(1)}%</span>
-  </div>
-  <div class="ptile">
-    <span class="pt-label">β (Type II)</span>
-    <span class="pt-val" style="color:#c62828">${((1 - res.pow) * 100).toFixed(1)}%</span>
   </div>
 </div>`
 ```

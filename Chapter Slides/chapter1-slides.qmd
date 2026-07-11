@@ -35,16 +35,16 @@ live:
 :root {
   --sta-teal: #00695c;
   --sta-teal-dark: #004d40;
-  --sta-text: #2f3437;
-  --sta-muted: #5f6b73;
-  --sta-blue-bg: #c8e6f3;
+  --sta-teal-light: #e0f2f1;
+  --sta-blue: #c8e6f3;
   --sta-blue-soft: #eef8fb;
-  --sta-grey-bg: #eeeeee;
-  --sta-yellow-bg: #fff8e1;
-  --sta-yellow-border: #f9a825;
-  --sta-red-bg: #ffebee;
-  --sta-red-border: #c62828;
+  --sta-grey: #f5f6f7;
+  --sta-yellow: #fff8e1;
+  --sta-orange: #f9a825;
+  --sta-text: #2f3437;
+  --sta-muted: #667174;
   --sta-border: #d8dee2;
+  --sta-code: #f3f4f5;
 }
 
 .reveal {
@@ -99,26 +99,26 @@ live:
 }
 
 .defbox {
-  background: var(--sta-blue-bg);
+  background: var(--sta-blue);
   border-left: 7px solid var(--sta-teal);
 }
 
 .examplebox {
-  background: var(--sta-grey-bg);
+  background: var(--sta-grey);
 }
 
 .thinkbox {
-  background: var(--sta-yellow-bg);
-  border-left: 7px solid var(--sta-yellow-border);
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
 }
 
 .warnbox {
-  background: var(--sta-red-bg);
-  border-left: 7px solid var(--sta-red-border);
+  background: #ffebee;
+  border-left: 7px solid #c62828;
 }
 
 .card {
-  background: linear-gradient(160deg, var(--sta-blue-bg), var(--sta-blue-soft));
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
 
@@ -176,11 +176,11 @@ live:
 }
 
 .answer-table td {
-  background: var(--sta-grey-bg);
+  background: var(--sta-grey);
 }
 
 .answer-table th {
-  background: var(--sta-blue-bg);
+  background: var(--sta-blue);
 }
 
 .scrollable .defbox,

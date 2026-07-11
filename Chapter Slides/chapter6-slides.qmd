@@ -24,6 +24,7 @@ webr:
   packages:
     - dplyr
     - plotly
+    - BSDA
 live:
   show-solutions: true
 ---
@@ -1572,6 +1573,9 @@ p_value <- 1 - pchisq(chi_star, df = n - 1)
 
 chi_star
 p_value
+
+# TeachingDemos::sigma.test() runs this chi-square variance test,
+# but it needs the raw data vector, not just n and s.
 ```
 
 ::: {.thinkbox .fragment}
@@ -1716,6 +1720,12 @@ z_star <- (xbarA - xbarB) / se
 p_value <- 1 - pnorm(z_star)   # Ha: muA - muB > 0
 z_star
 p_value
+
+# Alternative Way: Same test straight from summary statistics with the BSDA package:
+library(BSDA)
+zsum.test(mean.x = xbarA, sigma.x = sigmaA, n.x = nA,
+          mean.y = xbarB, sigma.y = sigmaB, n.y = nB,
+          mu = 0, alternative = "greater")
 ```
 
 ::: {.thinkbox .fragment}

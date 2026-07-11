@@ -333,7 +333,7 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
                             font = list(size = 12), buttons = buttons)),
     annotations = list(list(x = 0.99, y = 1.30, xref = "paper", yref = "paper",
                             xanchor = "right", showarrow = FALSE,
-                            text = "choose sample size ↓",
+                            text = "choose sample size",
                             font = list(size = 11, color = "#667174")))
   ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }

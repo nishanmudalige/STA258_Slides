@@ -1435,11 +1435,12 @@ p_value <- 1 - pnorm(z_star)
 phat
 z_star
 p_value
-```
 
-::: {.thinkbox .fragment}
-The code above builds $z^*$ by hand and finds the p-value with `pnorm()`. An alternative is using `prop.test()`, but note that it runs the **chi-square** version of the test, so its output reports `X-squared`, not $z^*$, where $\chi^2 = (z^*)^2$.
-:::
+# Alternative: prop.test() runs the chi-square version of this test.
+# Its output reports X-squared (not z*), where X-squared = (z*)^2.
+# Uncomment to try it:
+# prop.test(x, n, p = p0, alternative = "greater", correct = FALSE)
+```
 
 ---
 

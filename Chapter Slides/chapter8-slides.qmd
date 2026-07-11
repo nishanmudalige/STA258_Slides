@@ -21,7 +21,8 @@ format:
 revealjs-plugins:
   - quiz
 webr:
-  packages: []
+  packages:
+    - multcomp
 live:
   show-solutions: true
 editor:
@@ -3062,21 +3063,28 @@ pairwise.t.test(score, drill,
 
 ```{webr}
 #| autorun: false
+library(multcomp)
 
 cost <- c(69, 71, 73, 75, 75, 77, 79, 81,
           73, 75, 77, 79, 79, 81, 83, 85,
           78, 80, 82, 84, 84, 86, 88, 90,
           85, 87, 89, 91, 91, 93, 95, 97)
 
-case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8))
+case <- factor(rep(c("Clear", "Slim", "Wallet", "Rugged"), each = 8),
+               levels = c("Clear", "Slim", "Wallet", "Rugged"))
 
 fit <- aov(cost ~ case)
 
-anova(fit)
+# all pairwise comparisons
+comp <- glht(fit, linfct = mcp(case = "Tukey"))
 
-pairwise.t.test(cost, case,
-                p.adjust.method = "bonferroni",
-                pool.sd = TRUE)
+# Bonferroni-adjusted p-values
+summary(comp, test = adjusted("bonferroni"))
+
+# Bonferroni confidence intervals (match the slide)
+m  <- 6                       # number of pairwise comparisons: choose(4, 2)
+df <- df.residual(fit)
+confint(comp, calpha = qt(1 - 0.05 / (2 * m), df))
 ```
 :::
 
@@ -3089,13 +3097,13 @@ pairwise.t.test(cost, case,
 :::: {.callout-note icon="false"}
 ## Question
 
-A one-way ANOVA with $k=4$ groups has a significant p-value. How many pairwise mean comparisons are possible?
+A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
 ::::
 
-- 3
-- [6]{.correct data-explanation="The number of pairwise comparisons is choose(k, 2). With k = 4, choose(4, 2) = 6."}
-- 8
+- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
 - 16
+- 8
+- 3
 
 ---
 

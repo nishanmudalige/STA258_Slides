@@ -1371,6 +1371,69 @@ The 90% CI is approximately $(0.2160,0.7437)$.
 
 /* ── Solution callouts ────────────────────────────────── */
 .callout { font-size: 0.75em; }
+
+/* ── Compact worked-example slides ────────────────────── */
+.reveal section:has(.example-grid) {
+  padding: 12px 28px !important;
+}
+
+.reveal section:has(.example-grid) h2 {
+  font-size: 1.42em !important;
+  line-height: 1.05 !important;
+  margin-bottom: 9px !important;
+  padding-bottom: 4px !important;
+}
+
+.reveal .example-grid {
+  gap: 9px 16px !important;
+  align-items: stretch !important;
+}
+
+.reveal .example-grid .taskbox,
+.reveal .example-grid .notebox,
+.reveal .example-grid .examplebox {
+  font-size: 0.64em !important;
+  line-height: 1.15 !important;
+  padding: 10px 13px !important;
+  margin-bottom: 0 !important;
+}
+
+.reveal .example-grid .stat-card {
+  font-size: 0.72em !important;
+  line-height: 1.12 !important;
+  padding: 11px 14px !important;
+  margin-bottom: 0 !important;
+}
+
+.reveal .example-grid .label {
+  margin-bottom: 4px !important;
+}
+
+.reveal .example-grid p {
+  margin: 0.20em 0 !important;
+  font-size: 1em !important;
+  line-height: 1.15 !important;
+}
+
+.reveal .example-grid mjx-container[display="true"] {
+  margin: 0.13em 0 !important;
+}
+
+.reveal .example-grid .stat-card mjx-container[display="true"] {
+  font-size: 0.90em !important;
+}
+
+.reveal .example-grid .taskbox mjx-container[display="true"],
+.reveal .example-grid .notebox mjx-container[display="true"],
+.reveal .example-grid .examplebox mjx-container[display="true"] {
+  font-size: 0.92em !important;
+}
+
+.reveal .example-grid br {
+  display: block;
+  content: "";
+  margin-top: 5px;
+}
 </style>
 ```
 
@@ -2061,24 +2124,21 @@ For exams in this course, use the conservative version unless told otherwise.
 
 ------------------------------------------------------------------------
 
-## Example: UFC Highlight Watch-Time Comparison
+## Example: Sports Highlight Watch-Time Comparison
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A UFC media team compares how long viewers spend watching two fighter
-highlight playlists.
+A sports media team compares how long viewers spend watching two types of highlight playlists.
 
-The Khabib playlist has shorter, more focused grappling highlights, while
-the Jon Jones playlist has longer mixed striking, wrestling, and title-fight
-clips.
+One playlist has shorter, fast-paced clips, while the other has longer, more detailed highlight clips.
 
 <br>
 
-**Group 1: Khabib highlight viewers**  
+**Group 1: Short-highlight viewers**  
 $n_1=24,\quad \bar{x}_1=9.8,\quad s_1=3.1$ minutes
 
-**Group 2: Jon Jones highlight viewers**  
+**Group 2: Long-highlight viewers**  
 $n_2=20,\quad \bar{x}_2=12.6,\quad s_2=5.8$ minutes
 
 Construct a 95% CI for $\mu_1-\mu_2$ using Welch's method.
@@ -2130,18 +2190,15 @@ $$
 
 We are estimating $\mu_1-\mu_2$, where:
 
-$\mu_1=$ mean watch time for Khabib highlight viewers
+$\mu_1=$ mean watch time for short-highlight viewers
 
-$\mu_2=$ mean watch time for Jon Jones highlight viewers
+$\mu_2=$ mean watch time for long-highlight viewers
 
-The order is **Khabib minus Jon Jones**.
+The order is **short highlights minus long highlights**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the Khabib playlist's population mean watch time
-is between **5.82 minutes lower and 0.22 minutes higher** than the Jon Jones
-playlist's population mean watch time. Since the interval crosses 0, the
-data do not show a clear difference in mean watch time.
+We are 95% confident that the short-highlight playlist's population mean watch time is between **5.82 minutes lower and 0.22 minutes higher** than the long-highlight playlist's population mean watch time. Since the interval crosses 0, the data do not show a clear difference in mean watch time.
 :::
 
 ::::
@@ -2240,27 +2297,27 @@ users.
 .reveal section.welch-r-check .cm-line,
 .reveal section.welch-r-check pre,
 .reveal section.welch-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.72em !important;
+  line-height: 1.02 !important;
 }
 
 .reveal section.welch-r-check .cell-output,
 .reveal section.welch-r-check .cell-output-stdout,
 .reveal section.welch-r-check .cell-output pre {
-  font-size: 0.68em !important;
-  line-height: 1.02 !important;
+  font-size: 0.62em !important;
+  line-height: 1.00 !important;
   white-space: pre !important;
 }
 
 .reveal section.welch-r-check .notebox {
-  margin-bottom: 5px !important;
+  margin-bottom: 4px !important;
 }
 </style>
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+::: {.notebox style="font-size: 0.56em; line-height: 1.08; padding: 7px 10px; margin-bottom: 5px;"}
 <span class="label">Food delivery vs meal prep example</span>
 :::
 
@@ -2276,20 +2333,18 @@ tt <- t.test(delivery, meal_prep,
              var.equal = FALSE,
              conf.level = 0.90)
 
-out <- data.frame(
-  diff = unname(tt$estimate[1] - tt$estimate[2]),
-  df = unname(tt$parameter),
-  lower = tt$conf.int[1],
-  upper = tt$conf.int[2]
+data.frame(
+  diff = round(unname(tt$estimate[1] - tt$estimate[2]), 3),
+  df = round(unname(tt$parameter), 3),
+  lower = round(tt$conf.int[1], 3),
+  upper = round(tt$conf.int[2], 3)
 )
-
-print(round(out, 3), row.names = FALSE)
 ```
 :::
 
 ::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">UFC highlight watch-time example</span>
+::: {.notebox style="font-size: 0.56em; line-height: 1.08; padding: 7px 10px; margin-bottom: 5px;"}
+<span class="label">Sports highlight watch-time example</span>
 :::
 
 ```{webr}
@@ -2297,21 +2352,19 @@ print(round(out, 3), row.names = FALSE)
 
 samp <- function(n, m, s) m + s * as.numeric(scale(1:n))
 
-khabib <- samp(24, 9.8, 3.1)
-jon_jones <- samp(20, 12.6, 5.8)
+short <- samp(24, 9.8, 3.1)
+long <- samp(20, 12.6, 5.8)
 
-tt <- t.test(khabib, jon_jones,
+tt <- t.test(short, long,
              var.equal = FALSE,
              conf.level = 0.95)
 
-out <- data.frame(
-  diff = unname(tt$estimate[1] - tt$estimate[2]),
-  df = unname(tt$parameter),
-  lower = tt$conf.int[1],
-  upper = tt$conf.int[2]
+data.frame(
+  diff = round(unname(tt$estimate[1] - tt$estimate[2]), 3),
+  df = round(unname(tt$parameter), 3),
+  lower = round(tt$conf.int[1], 3),
+  upper = round(tt$conf.int[2], 3)
 )
-
-print(round(out, 3), row.names = FALSE)
 ```
 :::
 
@@ -2467,24 +2520,22 @@ general notification's population continuation rate.
 
 ------------------------------------------------------------------------
 
-## Example: GTA VI Trailer Alert Comparison
+## Example: App Notification Click-Through Comparison
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A gaming news app wants to compare two ways of promoting a GTA VI trailer
-drop.
+A mobile app wants to compare two ways of encouraging users to open a new feature.
 
-One group receives a direct push notification about the trailer. The
-other group only sees a generic homepage banner.
+One group receives a direct push notification about the feature. The other group only sees a generic homepage banner.
 
 <br>
 
 **Group 1: Push notification users**  
-$x_1=210$ of $n_1=500$ watched the trailer within 24 hours
+$x_1=210$ of $n_1=500$ opened the feature within 24 hours
 
 **Group 2: Homepage banner users**  
-$x_2=170$ of $n_2=450$ watched the trailer within 24 hours
+$x_2=170$ of $n_2=450$ opened the feature within 24 hours
 :::
 
 ::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
@@ -2523,15 +2574,11 @@ $$
 
 Construct a 90% confidence interval for $p_1-p_2$.
 
-The order is **push notification minus homepage banner**, so positive
-values mean the push notification has the higher population proportion of
-users who watch the trailer.
+The order is **push notification minus homepage banner**, so positive values mean the push notification has the higher population proportion of users who open the feature.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the push notification's population proportion
-is between **1.00 percentage point lower and 9.45 percentage points
-higher** than the homepage banner's population proportion.
+We are 90% confident that the push notification's population proportion is between **1.00 percentage point lower and 9.45 percentage points higher** than the homepage banner's population proportion.
 :::
 
 ::::
@@ -2594,7 +2641,7 @@ print(out, row.names = FALSE)
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">GTA VI trailer alert example</span>
+<span class="label">App notification click-through example</span>
 :::
 
 ```{webr}
@@ -2714,20 +2761,19 @@ intervals.
 
 ------------------------------------------------------------------------
 
-## Example: PS5 Restock Checkout-Time Variability
+## Example: Sale Checkout-Time Variability
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A retailer wants to compare how inconsistent checkout times are during a
-PS5 console restock versus a normal PlayStation accessory purchase.
+An online retailer wants to compare how inconsistent checkout times are during a normal purchase period versus a limited-time sale period.
 
 <br>
 
-**Group 1: Regular accessory checkout**  
+**Group 1: Regular checkout period**  
 $n_1=18,\quad s_1=6$ minutes
 
-**Group 2: PS5 restock checkout**  
+**Group 2: Limited-time sale checkout period**  
 $n_2=16,\quad s_2=14$ minutes
 
 Construct a 95% confidence interval for:
@@ -2749,12 +2795,6 @@ $$
 $$
 
 $$
-df_{\text{num}}=n_2-1=15,
-\qquad
-df_{\text{den}}=n_1-1=17
-$$
-
-$$
 F_{0.975,15,17}=2.723,
 \qquad
 F_{0.025,15,17}=0.356
@@ -2773,16 +2813,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-The order is **PS5 restock variability divided by regular accessory
-checkout variability**.
+The order is **limited-time sale checkout variability divided by regular checkout variability**.
 
-Values above 1 mean the PS5 restock checkout times are more variable.
+Values above 1 mean the limited-time sale checkout times are more variable.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the PS5 restock checkout-time variance is
-between **2.00 and 15.31 times** the regular accessory checkout-time
-variance. This suggests the PS5 restock process is much less consistent.
+We are 95% confident that the limited-time sale checkout-time variance is between **2.00 and 15.31 times** the regular checkout-time variance. This suggests the sale checkout process is much less consistent.
 :::
 
 ::::
@@ -2910,7 +2947,7 @@ round(data.frame(
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">PS5 restock checkout-time example</span>
+<span class="label">Sale checkout-time variability example</span>
 :::
 
 ```{webr}
@@ -3501,18 +3538,16 @@ margin of error too large.
 
 ------------------------------------------------------------------------
 
-## Example: MrBeast 500M Giveaway Entry-Time Estimate
+## Example: Online Entry-Form Completion Time
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A media analytics team is planning a large MrBeast 500M giveaway page.
+A website team is planning a large online registration page.
 
-Before launch, they want to estimate the **mean time** it takes a subscriber
-to complete the giveaway entry form.
+Before launch, they want to estimate the **mean time** it takes a user to complete the entry form.
 
-From previous giveaway launches, the population standard deviation is
-treated as known:
+From previous launches, the population standard deviation is treated as known:
 
 $$
 \sigma = 24 \text{ seconds}
@@ -3565,15 +3600,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a confidence interval for the population
-mean giveaway entry time.
+Find the sample size needed for a confidence interval for the population mean entry-form completion time.
 
 The margin of error should be no more than **5 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The team should sample at least **89 subscribers** to estimate the mean
-giveaway entry time within **5 seconds** at 95% confidence.
+The team should sample at least **89 users** to estimate the mean entry-form completion time within **5 seconds** at 95% confidence.
 :::
 
 ::::
@@ -3682,7 +3715,7 @@ prediction error within **2 seconds** at 99% confidence.
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">MrBeast entry-time example</span>
+<span class="label">Online entry-form completion-time example</span>
 :::
 
 ```{webr}
@@ -3771,17 +3804,16 @@ This is why an iterative approach is used:
 
 ------------------------------------------------------------------------
 
-## Example: Jordan vs LeBron GOAT Rating
+## Example: Tutorial Video Rating Estimate
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
-A sports media page wants to estimate the mean rating fans give to a
-Jordan vs LeBron GOAT debate video.
+An online learning platform wants to estimate the mean rating students give to a new tutorial video.
 
-Each fan rates the video on a **0 to 100 scale**.
+Each student rates the video on a **0 to 100 scale**.
 
-Since $\sigma$ is unknown, the page uses a pilot study:
+Since $\sigma$ is unknown, the platform uses a pilot study:
 
 $$
 s=14.5
@@ -3840,15 +3872,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-We are planning a confidence interval for the population mean fan rating.
+We are planning a confidence interval for the population mean student rating.
 
-Because $\sigma$ is unknown, the pilot-study standard deviation $s=14.5$
-is used as the preliminary estimate.
+Because $\sigma$ is unknown, the pilot-study standard deviation $s=14.5$ is used as the preliminary estimate.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-The sports media page should sample at least **53 fans** to estimate the
-mean GOAT-debate video rating within **4 points** at 95% confidence.
+The online learning platform should sample at least **53 students** to estimate the mean tutorial-video rating within **4 points** at 95% confidence.
 :::
 
 ::::
@@ -3959,7 +3989,7 @@ The iteration stabilizes at **13**, so the app should sample at least
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Jordan vs LeBron GOAT rating example</span>
+<span class="label">Tutorial video rating example</span>
 :::
 
 ```{webr}
@@ -4125,18 +4155,16 @@ larger than 3 percentage points.
   
 ---
 
-## Example: Sabrina Carpenter Merch Survey
+## Example: Online Store Waitlist Survey
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A merch company is planning a limited online drop connected to a Sabrina
-Carpenter concert weekend.
+An online store is planning a limited product release for customers on a waitlist.
 
-Before the drop, the company wants to estimate the proportion of people
-on the waitlist who plan to buy merch when it goes live.
+Before the release, the company wants to estimate the proportion of waitlist users who plan to make a purchase when it goes live.
 
-A previous fan survey suggests a planning value of:
+A previous customer survey suggests a planning value of:
 
 $$
 p_0=0.156
@@ -4198,17 +4226,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a confidence interval for the population
-proportion of waitlist users who plan to buy Sabrina Carpenter merch.
+Find the sample size needed for a confidence interval for the population proportion of waitlist users who plan to make a purchase.
 
 The margin of error should be no more than **3 percentage points**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The company should survey at least **563 waitlist users** for 95%
-confidence and **971 waitlist users** for 99% confidence. Higher
-confidence requires a larger sample size when the margin of error stays
-fixed.
+The company should survey at least **563 waitlist users** for 95% confidence and **971 waitlist users** for 99% confidence. Higher confidence requires a larger sample size when the margin of error stays fixed.
 :::
 
 ::::
@@ -4272,7 +4296,7 @@ print(out, row.names = FALSE)
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Sabrina Carpenter merch survey example</span>
+<span class="label">Online store waitlist survey example</span>
 :::
 
 ```{webr}

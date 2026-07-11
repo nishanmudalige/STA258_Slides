@@ -356,35 +356,35 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
   ymax <- max(c(y0, ya))
   plot_ly(width = width, height = height) |>
     add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
-              name = "H₀", hoverinfo = "x+y") |>
+              name = "H₀", hoverinfo = "skip") |>
     add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
-              name = "Hₐ", hoverinfo = "x+y") |>
+              name = "Hₐ", hoverinfo = "skip") |>
     add_trace(x = x[L], y = ya[L], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_pow,
               line = list(color = line_pow, width = 1),
-              name = "power (left)", hoverinfo = "x+y") |>
+              name = "power (left)", hoverinfo = "skip") |>
     add_trace(x = x[R], y = ya[R], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_pow,
               line = list(color = line_pow, width = 1),
-              name = "power (right)", hoverinfo = "x+y") |>
+              name = "power (right)", hoverinfo = "skip") |>
     add_trace(x = x[M], y = ya[M], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_b,
               line = list(color = line_b, width = 1),
-              name = "β", hoverinfo = "x+y") |>
+              name = "β", hoverinfo = "skip") |>
     add_trace(x = x[L], y = y0[L], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_a,
               line = list(color = line_a, width = 1),
-              name = "α/2", hoverinfo = "x+y") |>
+              name = "α/2", hoverinfo = "skip") |>
     add_trace(x = x[R], y = y0[R], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_a,
               line = list(color = line_a, width = 1),
-              name = "α/2", hoverinfo = "x+y") |>
+              name = "α/2", hoverinfo = "skip") |>
     layout(
       xaxis = list(title = xlab, zeroline = FALSE, fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero",
                    range = c(0, ymax * 1.30), fixedrange = TRUE),
       margin = list(l = 28, r = 12, t = 30, b = 88),
-      showlegend = FALSE, hovermode = "x unified",
+      showlegend = FALSE, hovermode = FALSE,
       shapes = list(
         list(type = "line", x0 = c1, x1 = c1, y0 = 0, y1 = ymax * 1.12,
              line = list(color = "#333", width = 2, dash = "dash")),

@@ -4239,14 +4239,14 @@
     "href": "Chapter Slides/chapter7-slides.html#what-affects-power",
     "title": "STA258",
     "section": "What Affects Power?",
-    "text": "What Affects Power?\n\n\nEffect size  -  Larger gaps between reality and \\(H_0\\) are easier to detect \\(\\Rightarrow\\) more power.\n\n\nSample size \\(n\\)  -  Larger samples shrink the standard error \\(\\Rightarrow\\) more power.\n\n\nSignificance level \\(\\alpha\\)  -  A larger \\(\\alpha\\) makes \\(H_0\\) easier to reject \\(\\Rightarrow\\) more power (but more Type I risk).\n\n\nVariability \\(\\sigma\\)  -  Less spread in the data \\(\\Rightarrow\\) narrower sampling distribution \\(\\Rightarrow\\) more power.\n\n\n\nYou control \\(n\\) and \\(\\alpha\\). The effect size and \\(\\sigma\\) are set by the world, so sample size is your main planning lever."
+    "text": "What Affects Power?\n\n\nEffect size  -  Larger gaps between reality and \\(H_0\\) are easier to detect \\(\\Rightarrow\\) more power.\n\n\nSample size \\(n\\)  -  Larger samples shrink the standard error \\(\\Rightarrow\\) more power.\n\n\nSignificance level \\(\\alpha\\)  -  A larger \\(\\alpha\\) makes \\(H_0\\) easier to reject \\(\\Rightarrow\\) more power (but more Type I risk).\n\n\nVariability \\(\\sigma\\)  -  Less spread in the data \\(\\Rightarrow\\) narrower sampling distribution \\(\\Rightarrow\\) more power.\n\n\n\nYou control \\(n\\) and \\(\\alpha\\). The effect size and \\(\\sigma\\) are determined by the nature of the problem, so sample size is your main planning lever."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
     "href": "Chapter Slides/chapter7-slides.html#type-i-and-type-ii-errors",
     "title": "STA258",
     "section": "7.2 Type I and Type II Errors",
-    "text": "7.2 Type I and Type II Errors\n\n\n\nA hypothesis test can reach the wrong conclusion in two ways.\n\n\nType I error (\\(\\alpha\\)) Reject \\(H_0\\) when \\(H_0\\) is true.\n\n\nType II error (\\(\\beta\\)) Fail to reject \\(H_0\\) when \\(H_0\\) is false.\n\n\n\n\n\n\n\n\\(H_0\\) True\n\\(H_0\\) False\n\n\n\n\nReject \\(H_0\\)\nType I (\\(\\alpha\\))\nCorrect (power)\n\n\nFail to reject \\(H_0\\)\nCorrect\nType II (\\(\\beta\\))\n\n\n\n\nA Type I error is usually treated as the more serious mistake, which is why we fix \\(\\alpha\\) in advance (often \\(0.05\\))."
+    "text": "7.2 Type I and Type II Errors\n\nA hypothesis test can reach the wrong conclusion in two ways.\n\n\n\n\n\n\n\\(H_0\\) True\n\\(H_0\\) False\n\n\n\n\nReject \\(H_0\\)\nType I (\\(\\alpha\\))\nCorrect (power)\n\n\nFail to reject \\(H_0\\)\nCorrect\nType II (\\(\\beta\\))\n\n\n\n\n\n\nType I error (\\(\\alpha\\)) Reject \\(H_0\\) when \\(H_0\\) is true.\n\n\nType II error (\\(\\beta\\)) Fail to reject \\(H_0\\) when \\(H_0\\) is false.\n\n\n\nA Type I error is usually treated as the more serious mistake, which is why we fix \\(\\alpha\\) in advance (often \\(0.05\\))."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#power-connects-to-the-errors",
@@ -4302,7 +4302,7 @@
     "href": "Chapter Slides/chapter7-slides.html#visualizing-power-the-power-curve",
     "title": "STA258",
     "section": "Visualizing Power: The Power Curve",
-    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number, it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=0.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=1.1\\) (power \\(\\approx 0.97\\))."
+    "text": "Visualizing Power: The Power Curve\n\n\n\nPower is not a single number, it is a function of the true mean. Plotting power against \\(\\mu\\) gives the power curve.\n\n\nRead it like this\n\nNear \\(\\mu_0\\), power is close to \\(\\alpha\\) (hard to detect tiny effects).\nAs the true \\(\\mu\\) moves away from \\(\\mu_0\\), power climbs toward 1.\nThe orange dots mark \\(\\mu=7.52\\) (power \\(\\approx 0.5\\)) and \\(\\mu=8.1\\) (power \\(\\approx 0.97\\))."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-underfilled-bottling-line",
@@ -4344,7 +4344,7 @@
     "href": "Chapter Slides/chapter7-slides.html#the-sample-size-idea",
     "title": "STA258",
     "section": "The Sample-Size Idea",
-    "text": "The Sample-Size Idea\n\n\n\n1. Cutoff from \\(H_0\\). Write \\(\\bar{x}_*\\) using the null mean and \\(z_\\alpha\\).\n\n\n2. Cutoff from the target power. Write the same \\(\\bar{x}_*\\) using the alternative mean and \\(z_\\beta\\) (the \\(z\\) giving the desired power).\n\n\n3. Set the two expressions equal and solve for \\(n\\). Round up to the next whole observation.\n\n\n\nOne-sided sample-size formula \\[n=\\left(\\frac{(z_\\alpha+z_\\beta)\\,\\sigma}{\\mu_0-\\mu_a}\\right)^{2}\\] where \\(z_\\beta\\) is the standard-normal value matching the target power."
+    "text": "The Sample-Size Idea\n\n\n\n1. Cutoff from \\(H_0\\). The cutoff \\(\\bar{x}_*\\) is the borderline value of the sample mean that decides whether you reject \\(H_0\\) or not. Write it using the null mean and the critical value \\(z_\\alpha\\).\n\n\n2. Cutoff from the target power. Write the same \\(\\bar{x}_*\\) using the alternative mean and \\(z_\\beta\\) (the \\(z\\) giving the desired power).\n\n\n3. Set the two expressions equal and solve for \\(n\\). Round up to the next whole observation.\n\n\n\nOne-sided sample-size formula \\[n=\\left(\\frac{(z_\\alpha+z_\\beta)\\,\\sigma}{\\mu_0-\\mu_a}\\right)^{2}\\] where \\(z_\\beta\\) is the standard-normal value matching the target power."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-detecting-a-lift-in-daily-active-minutes",
@@ -4799,7 +4799,7 @@
     "href": "Chapter Slides/chapter7-slides.html#section-4",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nThe bottling test has only 20% power against \\(\\mu=299\\). Which single change raises power the most without touching \\(\\alpha\\) or the true process?\n\n\n\n\nUse a smaller sample to save money\nIncrease the sample size \\(n\\)\nRe-label the hypotheses\nHope the next sample looks different"
+    "text": "Question\n\n\nA test has low power against the alternative it was designed to detect. Which single change raises power the most without touching \\(\\alpha\\) or the true process?\n\n\n\n\nUse a smaller sample to save money\nIncrease the sample size \\(n\\)\nRe-label the hypotheses\nHope the next sample looks different"
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#section-5",
@@ -5520,6 +5520,84 @@
     "href": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
     "title": "STA258",
     "section": "Interactive: Watch Power Climb with \\(n\\)",
+    "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the vial check (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 mg shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-a-better-espresso-blend",
+    "href": "Chapter Slides/chapter7-slides.html#example-a-better-espresso-blend",
+    "title": "STA258",
+    "section": "Example: A Better Espresso Blend",
+    "text": "Example: A Better Espresso Blend\n\n\n\nA specialty coffee roaster’s house espresso has scored a long-run average of 7.0 on a 10-point flavour scale. A new blend is developed, and the roaster will switch only if it truly scores higher. If the new blend’s true mean score is \\(\\mu=8.1\\), will a 5% test reliably detect the improvement?\nA panel of \\(n=10\\) trained graders scores the new blend; from years of calibration, grader scores have \\(\\sigma=1\\).\n\n\n\\(\\sigma\\) is known \\(\\Rightarrow\\) one-sample \\(z\\) test, reference \\(N(0,1)\\).\n\n\n\n\nSet-up\n\\[H_0:\\mu = 7 \\qquad H_a:\\mu&gt;7\\]\n\n\\(n = 10,\\quad \\sigma = 1,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 8.1\\)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#espresso-cutoff-to-power",
+    "href": "Chapter Slides/chapter7-slides.html#espresso-cutoff-to-power",
+    "title": "STA258",
+    "section": "Espresso: Cutoff to Power",
+    "text": "Espresso: Cutoff to Power\n\n\n\nRejection Rule One-sided \\(\\alpha=0.05\\) gives \\(z_{\\text{crit}}=1.645\\). On the \\(\\bar{x}\\) scale (since \\(\\sigma\\) is known): \\[\\bar{x}_*=7+1.645\\cdot\\tfrac{1}{\\sqrt{10}}\\approx 7.520 \\;\\Rightarrow\\; \\text{reject if } \\bar{x}&gt;7.520\\]\n\n\nFind the Power Assume \\(\\mu=8.1\\) is true and find \\(P(\\bar{x}&gt;7.520)\\): \\[\\text{power}=P\\!\\left(Z&gt;\\tfrac{7.520-8.1}{1/\\sqrt{10}}\\right)=P(Z&gt;-1.83)=\\mathbf{0.9664}\\]\n\n\n\n\n\n\n\n\n\n\n\n\nA 96.6% chance of correctly detecting \\(\\mu=8.1\\). Since power \\(=1-\\beta\\), the green and red areas add to 1: \\[\\text{power}=1-\\beta=1-0.034=0.966\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-espresso-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-espresso-power",
+    "title": "STA258",
+    "section": "Check in R: Espresso Power",
+    "text": "Check in R: Espresso Power"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-under-dosed-medicine-vials",
+    "href": "Chapter Slides/chapter7-slides.html#example-under-dosed-medicine-vials",
+    "title": "STA258",
+    "section": "Example: Under-Dosed Medicine Vials",
+    "text": "Example: Under-Dosed Medicine Vials\n\n\nA pharmaceutical filling machine should dispense \\(\\mu_0=300\\) mg of active drug per vial, with known \\(\\sigma=3\\) mg from the validated assay. A routine quality check tests only \\(n=6\\) vials — will a 5% test catch a machine that has drifted to a true mean of \\(\\mu=299\\) mg? \\[H_0:\\mu = 300 \\qquad H_a:\\mu&lt;300 \\qquad (\\alpha=0.05)\\]\n\n\n\\[\\bar{x}_*=300-1.645\\cdot\\tfrac{3}{\\sqrt6}=297.985 \\quad(\\text{reject if } \\bar{x}&lt;297.985)\\] \\[\\text{power}=P\\!\\left(Z&lt;\\frac{297.985-299}{3/\\sqrt6}\\right)=P(Z&lt;-0.83)=\\mathbf{0.2033}\\]\n\n\nOnly 20% power. With just 6 vials, this check will usually miss an under-dosing machine — the sample is too small."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#check-in-r-vial-power",
+    "href": "Chapter Slides/chapter7-slides.html#check-in-r-vial-power",
+    "title": "STA258",
+    "section": "Check in R: Vial Power",
+    "text": "Check in R: Vial Power\n\n\n\n\n\n\n\n\n\nTry bumping n to 30 or 60 and re-run, then watch the power climb as the standard error shrinks."
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#interactive-change-everything",
+    "href": "Chapter Slides/chapter7-slides.html#interactive-change-everything",
+    "title": "STA258",
+    "section": "Interactive: Change Everything",
+    "text": "Interactive: Change Everything\nChoose the direction of \\(H_a\\), then drag \\(\\mu_0\\), \\(\\mu_a\\), \\(\\sigma\\), and \\(n\\) (\\(\\alpha\\) stays at \\(0.05\\)) and watch the cutoff, \\(\\beta\\), and power react.\n\n\n\nviewof alt = Inputs.select(\n  new Map([[\"μ &gt; μ₀ (greater)\", \"greater\"],\n           [\"μ &lt; μ₀ (less)\", \"less\"],\n           [\"μ ≠ μ₀ (two-sided)\", \"two.sided\"]]),\n  {value: \"greater\", label: \"Hₐ\"}\n)\nviewof mu0 = Inputs.range([5, 15], {value: 10, step: 0.5, label: \"μ₀\"})\nviewof mua = Inputs.range([5, 15], {value: 12, step: 0.5, label: \"μₐ\"})\nviewof sigma = Inputs.range([1, 4], {value: 2, step: 0.5, label: \"σ\"})\nviewof n = Inputs.range([2, 60], {value: 10, step: 1, label: \"n\"})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nres = {\n  const pnorm = (z) =&gt; {\n    const t = 1 / (1 + 0.2316419 * Math.abs(z));\n    const d = Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI);\n    const p = d * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 +\n              t * (-1.821255978 + t * 1.330274429))));\n    return z &gt;= 0 ? 1 - p : p;\n  };\n  const se = sigma / Math.sqrt(n);\n  let cuts, inReject, pow;\n  if (alt === \"greater\") {\n    cuts = [mu0 + 1.6449 * se];\n    inReject = (x) =&gt; x &gt; cuts[0];\n    pow = 1 - pnorm((cuts[0] - mua) / se);\n  } else if (alt === \"less\") {\n    cuts = [mu0 - 1.6449 * se];\n    inReject = (x) =&gt; x &lt; cuts[0];\n    pow = pnorm((cuts[0] - mua) / se);\n  } else {\n    cuts = [mu0 - 1.96 * se, mu0 + 1.96 * se];\n    inReject = (x) =&gt; x &lt; cuts[0] || x &gt; cuts[1];\n    pow = pnorm((cuts[0] - mua) / se) + 1 - pnorm((cuts[1] - mua) / se);\n  }\n  const lo = Math.min(mu0, mua) - 4.2 * se;\n  const hi = Math.max(mu0, mua) + 4.2 * se;\n  const dnorm = (x, m) =&gt; Math.exp(-0.5 * ((x - m) / se) ** 2) / (se * Math.sqrt(2 * Math.PI));\n  const data = d3.range(lo, hi, (hi - lo) / 500).map((x) =&gt;\n    ({x, h0: dnorm(x, mu0), ha: dnorm(x, mua)}));\n  return {se, cuts, inReject, pow, data};\n}\n\nhtml`&lt;div class=\"power-plot-row\"&gt;\n  &lt;div class=\"power-plot-col\"&gt;\n  ${Plot.plot({\n    width: 620, height: 320,\n    y: {axis: null},\n    x: {label: null},\n    marks: [\n      Plot.areaY(res.data, {x: \"x\", y: (d) =&gt; res.inReject(d.x) ? d.ha : 0,\n                            fill: \"rgba(46,125,50,0.40)\"}),\n      Plot.areaY(res.data, {x: \"x\", y: (d) =&gt; res.inReject(d.x) ? 0 : d.ha,\n                            fill: \"rgba(198,40,40,0.15)\"}),\n      Plot.areaY(res.data, {x: \"x\", y: (d) =&gt; res.inReject(d.x) ? d.h0 : 0,\n                            fill: \"rgba(249,168,37,0.60)\"}),\n      Plot.lineY(res.data, {x: \"x\", y: \"h0\", stroke: \"#1f4e79\", strokeWidth: 2.5}),\n      Plot.lineY(res.data, {x: \"x\", y: \"ha\", stroke: \"#c62828\", strokeWidth: 2.5}),\n      Plot.ruleX(res.cuts, {stroke: \"#4d5659\", strokeDasharray: \"5,4\", strokeWidth: 1.5})\n    ]\n  })}\n  &lt;div class=\"power-tiles\"&gt;\n    &lt;div class=\"ptile\"&gt;\n      &lt;span class=\"pt-label\"&gt;power&lt;/span&gt;\n      &lt;span class=\"pt-val\" style=\"color:#2e7d32\"&gt;${(res.pow * 100).toFixed(1)}%&lt;/span&gt;\n    &lt;/div&gt;\n    &lt;div class=\"ptile\"&gt;\n      &lt;span class=\"pt-label\"&gt;β (Type II)&lt;/span&gt;\n      &lt;span class=\"pt-val\" style=\"color:#c62828\"&gt;${((1 - res.pow) * 100).toFixed(1)}%&lt;/span&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n  &lt;/div&gt;\n  &lt;div class=\"power-legend\"&gt;\n    &lt;span&gt;&lt;span class=\"sw line\" style=\"background:#1f4e79\"&gt;&lt;/span&gt;H₀ sampling dist.&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw line\" style=\"background:#c62828\"&gt;&lt;/span&gt;Hₐ sampling dist.&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw\" style=\"background:rgba(249,168,37,0.85)\"&gt;&lt;/span&gt;α (Type I)&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw\" style=\"background:rgba(46,125,50,0.55)\"&gt;&lt;/span&gt;power&lt;/span&gt;\n    &lt;span&gt;&lt;span class=\"sw\" style=\"background:rgba(198,40,40,0.30)\"&gt;&lt;/span&gt;β (Type II)&lt;/span&gt;\n  &lt;/div&gt;\n&lt;/div&gt;`"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-machine-drifted",
+    "href": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-machine-drifted",
+    "title": "STA258",
+    "section": "Example: Monitoring a Server Room",
+    "text": "Example: Two-Sided — Has the Machine Drifted?\n\n\n\nThe roaster’s espresso machine is calibrated to brew at \\(\\mu_0=93\\)°C. Drifting hot or cold both ruin shots, so each month the shop checks \\(n=16\\) brew-temperature readings; from the machine’s specs, \\(\\sigma=2\\)°C. If the boiler has truly drifted to \\(\\mu=94\\)°C, how likely is the monthly check to catch it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 93 \\qquad H_a:\\mu \\neq 93\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 94\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#two-sided-two-cutoffs-two-power-pieces",
+    "href": "Chapter Slides/chapter7-slides.html#two-sided-two-cutoffs-two-power-pieces",
+    "title": "STA258",
+    "section": "Two-Sided: Two Cutoffs, Two Power Pieces",
+    "text": "Two-Sided: Two Cutoffs, Two Power Pieces\n\n\nRejection Rule Two cutoffs, using \\(z_{\\alpha/2}=1.96\\): \\[\\bar{x}_*=22 \\pm 1.96\\cdot\\tfrac{2}{\\sqrt{16}} = 22 \\pm 0.98\\] \\[\\text{reject if } \\bar{x}&lt;21.02 \\;\\text{ or }\\; \\bar{x}&gt;22.98\\]\n\n\nFind the Power Assume \\(\\mu=23\\) is true; add the two rejection pieces: \\[\\begin{aligned}\n\\text{power} &= P(\\bar{x}&lt;21.02)+P(\\bar{x}&gt;22.98)\\\\\n&= P(Z&lt;-3.96)+P(Z&gt;-0.04)\\\\\n&\\approx 0.000+0.516=\\mathbf{0.516}\n\\end{aligned}\\]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-incubator-drifted",
+    "href": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-incubator-drifted",
+    "title": "STA258",
+    "section": "Example: Two-Sided — Has the Incubator Drifted?",
+    "text": "Example: Two-Sided — Has the Incubator Drifted?\n\n\n\nA biology lab’s incubator must hold cell cultures at \\(\\mu_0=37\\)°C — running warm or cool both kill the cultures. Each week a technician logs \\(n=16\\) temperature readings; from the manufacturer’s specs, \\(\\sigma=2\\)°C. If the incubator has truly drifted to \\(\\mu=38\\)°C, how likely is the weekly check to catch it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 37 \\qquad H_a:\\mu \\neq 37\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 38\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-two-sided-is-the-server-room-drifting",
+    "href": "Chapter Slides/chapter7-slides.html#example-two-sided-is-the-server-room-drifting",
+    "title": "STA258",
+    "section": "Example: Two-Sided — Is the Server Room Drifting?",
+    "text": "Example: Two-Sided — Is the Server Room Drifting?\n\n\n\nA data centre keeps its server hall at \\(\\mu_0=22\\)°C. Too hot and the servers overheat and fail; too cold and the cooling bill climbs for no benefit. Each day the monitoring system samples \\(n=16\\) sensor readings; from the sensors’ calibration, \\(\\sigma=2\\)°C. If the cooling has truly drifted to \\(\\mu=23\\)°C, how likely is the daily check to flag it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 22 \\qquad H_a:\\mu \\neq 22\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 23\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
+  },
+  {
+    "objectID": "Chapter Slides/chapter7-slides.html#example-monitoring-a-server-room",
+    "href": "Chapter Slides/chapter7-slides.html#example-monitoring-a-server-room",
+    "title": "STA258",
+    "section": "Example: Monitoring a Server Room",
+    "text": "Example: Monitoring a Server Room\n\n\n\nA data centre keeps its server hall at \\(\\mu_0=22\\)°C. Too hot and the servers overheat and fail; too cold and the cooling bill climbs for no benefit. Each day the monitoring system samples \\(n=16\\) sensor readings; from the sensors’ calibration, \\(\\sigma=2\\)°C. If the cooling has truly drifted to \\(\\mu=23\\)°C, how likely is the daily check to flag it?\n\n\nA shift in either direction matters \\(\\Rightarrow\\) two-sided test: \\(\\alpha\\) splits into two tails of \\(\\alpha/2=0.025\\) each, so \\(z_{\\alpha/2}=1.96\\) and there are two cutoffs.\n\n\n\n\nSet-up\n\\[H_0:\\mu = 22 \\qquad H_a:\\mu \\neq 22\\]\n\n\\(n = 16,\\quad \\sigma = 2,\\quad \\alpha = 0.05\\)\nDetect the alternative \\(\\mu = 23\\)\n\\(\\sigma\\) known \\(\\Rightarrow\\) one-sample \\(z\\) test"
     "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
   },
   {

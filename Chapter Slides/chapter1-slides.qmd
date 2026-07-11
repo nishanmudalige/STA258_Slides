@@ -222,6 +222,10 @@ live:
 .four-grid { grid-template-columns: repeat(2, 1fr); }
 .col { min-width: 0; }
 
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
 /* ── Quiz slides ──────────────────────────────────────── */
 .reveal section.quiz-question {
   display: flex !important;
@@ -336,27 +340,7 @@ Welcome students. Set the tone: this course is about reasoning under uncertainty
 
 ---
 
-## The Big Question {#big-question .scrollable}
-
-<div class="center">
-<span class="big">How can we say something true about<br>millions of people we've never met?</span>
-</div>
-
-<br>
-
-<div class="examplebox fragment">
-Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
-Doctors test a drug on 500 patients and recommend it for everyone.<br>
-Netflix watches a sample of users and decides what shows to make.
-</div>
-
-<div class="thinkbox fragment">
-That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
-</div>
-
----
-
-## Roadmap {#roadmap .scrollable}
+## Chapter Roadmap {.compact}
 
 :::: {.three-col}
 ::: {.card .fragment}
@@ -389,6 +373,26 @@ Vocabulary like population, sample, parameter, statistic, and variable.
 Match every numerical claim with the correct data context.
 :::
 ::::
+
+---
+
+## The Big Question {#big-question .scrollable}
+
+<div class="center">
+<span class="big">How can we say something true about<br>millions of people we've never met?</span>
+</div>
+
+<br>
+
+<div class="examplebox fragment">
+Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
+Doctors test a drug on 500 patients and recommend it for everyone.<br>
+Netflix watches a sample of users and decides what shows to make.
+</div>
+
+<div class="thinkbox fragment">
+That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
+</div>
 
 ---
 

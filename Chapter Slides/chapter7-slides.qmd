@@ -485,10 +485,19 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   margin: 10px auto 18px auto;
 }
 .reveal .tbl-center th, .reveal .tbl-center td { padding: 8px 22px; }
-.power-lab { display: grid; grid-template-columns: 0.42fr 1.58fr; gap: 24px; align-items: start; }
-.reveal .power-lab form { font-size: 0.5em; max-width: 100%; margin-bottom: 12px; }
+.power-lab { display: grid; grid-template-columns: 0.52fr 1.48fr; gap: 24px; align-items: start; }
+.reveal .power-lab form { font-size: 0.62em; max-width: 100%; margin-bottom: 14px; }
 .reveal .power-lab form label { font-weight: 600; }
-.reveal .power-lab form input[type="number"] { width: 64px !important; font-size: 1.15em; }
+.reveal .power-lab form input[type="number"] {
+  width: 90px !important;
+  font-size: 1.2em;
+  padding: 4px 6px;
+}
+.reveal .power-lab form select {
+  min-width: 230px;
+  font-size: 1.1em;
+  padding: 4px 6px;
+}
 .power-plot-row { display: flex; gap: 20px; align-items: center; }
 .power-tiles { display: flex; gap: 14px; margin-top: 10px; justify-content: center; }
 .ptile {

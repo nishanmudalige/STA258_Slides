@@ -498,12 +498,19 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   box-sizing: border-box;
 }
 .reveal .power-lab form select {
+  -webkit-appearance: none !important;
+  appearance: none !important;
   width: auto !important;
   min-width: 0 !important;
   max-width: 100% !important;
   flex: none !important;
   font-size: 15px !important;
-  padding: 4px 6px;
+  line-height: 1.8 !important;
+  height: auto !important;
+  padding: 5px 30px 8px 10px !important;
+  border: 1px solid #767676;
+  border-radius: 5px;
+  background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234d5659'/%3E%3C/svg%3E") no-repeat right 10px center;
 }
 .power-plot-row { display: flex; gap: 20px; align-items: center; }
 .power-tiles { display: flex; gap: 14px; margin-top: 10px; justify-content: center; }

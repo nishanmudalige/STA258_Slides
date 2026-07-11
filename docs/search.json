@@ -5576,7 +5576,7 @@
     "href": "Chapter Slides/chapter7-slides.html#two-sided-two-cutoffs-two-power-pieces",
     "title": "STA258",
     "section": "Two-Sided: Two Cutoffs, Two Power Pieces",
-    "text": "Two-Sided: Two Cutoffs, Two Power Pieces\n\nRejection Rule and Power \\(\\bar{x}_*=22 \\pm 1.96\\cdot\\tfrac{2}{\\sqrt{16}} = 22 \\pm 0.98\\) \\(\\;\\Rightarrow\\;\\) reject if \\(\\bar{x}&lt;21.02\\) or \\(\\bar{x}&gt;22.98\\). Assume \\(\\mu=23\\) is true and add the two rejection pieces: \\[\\text{power}=P(\\bar{x}&lt;21.02)+P(\\bar{x}&gt;22.98)=P(Z&lt;-3.96)+P(Z&gt;-0.04)\\approx 0.000+0.516=\\mathbf{0.516}\\]\n\n\n\n\n\n\n\n\n\n\nNearly all the power comes from the rejection tail nearest the true mean — the far tail adds \\(\\approx 0\\). Even so, a full 1°C drift is caught only about half the time."
+    "text": "Two-Sided: Two Cutoffs, Two Power Pieces\n\n\nRejection Rule Two cutoffs, using \\(z_{\\alpha/2}=1.96\\): \\[\\bar{x}_*=22 \\pm 1.96\\cdot\\tfrac{2}{\\sqrt{16}} = 22 \\pm 0.98\\] \\[\\text{reject if } \\bar{x}&lt;21.02 \\;\\text{ or }\\; \\bar{x}&gt;22.98\\]\n\n\nFind the Power Assume \\(\\mu=23\\) is true; add the two rejection pieces: \\[\\begin{aligned}\n\\text{power} &= P(\\bar{x}&lt;21.02)+P(\\bar{x}&gt;22.98)\\\\\n&= P(Z&lt;-3.96)+P(Z&gt;-0.04)\\\\\n&\\approx 0.000+0.516=\\mathbf{0.516}\n\\end{aligned}\\]\n\n\n\n\n\n\n\n\n\n\n\nNearly all the power comes from the rejection tail nearest the true mean — the far tail adds \\(\\approx 0\\). Even so, a full 1°C drift is caught only about half the time."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#example-two-sided-has-the-incubator-drifted",

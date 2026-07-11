@@ -1859,7 +1859,7 @@
     "href": "Chapter Slides/chapter6-slides.html#the-five-step-procedure",
     "title": "STA258",
     "section": "The Five-Step Procedure",
-    "text": "The Five-Step Procedure\n\n\n\n1. Choose \\(\\alpha\\). Set the significance level before making the decision.\n\n\n2. State hypotheses. Use the correct population parameter.\n\n\n3. Compute statistic. Standardize the estimate with the correct standard error.\n\n\n4. Find the p-value. Use the tail area that matches \\(H_a\\).\n\n\n5. Conclude. Compare to \\(\\alpha\\) and write the conclusion in context.\n\n\n\n\n\n\n\n\n\n\n\nStep 4 and Step 5 are separate: first calculate evidence, then make the decision."
+    "text": "The Five-Step Procedure\n\n\n\n1. Choose \\(\\alpha\\). Set the significance level before making the decision.\n\n\n2. State hypotheses. Use the correct population parameter.\n\n\n3. Compute statistic. Standardize the estimate with the correct standard error.\n\n\n4. Find the p-value. Use the tail area that matches \\(H_a\\).\n\n\n5. Conclude. Compare to \\(\\alpha\\) and write the conclusion in context.\n\n\n\nStep 4 and Step 5 are separate: first calculate evidence, then make the decision."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#choosing-the-alternative",
@@ -1873,7 +1873,7 @@
     "href": "Chapter Slides/chapter6-slides.html#p-value-areas",
     "title": "STA258",
     "section": "P-Value Areas",
-    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(T \\le t^*)\\) or \\(P(Z \\le z^*)\\).\n\n\nRight-tailed: \\(P(T \\ge t^*)\\) or \\(P(Z \\ge z^*)\\).\n\n\nTwo-sided: double the matching one-tail area.\n\n\n\n\n\nUse the dropdown at the top-right of the plot to switch the shaded p-value area between the three alternative hypotheses."
+    "text": "P-Value Areas\n\n\n\n\nLeft-tailed: \\(P(W \\le w^*)\\).\n\n\nRight-tailed: \\(P(W \\ge w^*)\\).\n\n\nTwo-tailed: double the matching one-tail area.\n\n\n\n\\(W\\) is the test statistic from the chosen reference distribution (Z, t, chi-square, or F), with observed value \\(w^*\\).\n\n\n\n\nUse the two dropdowns at the top-right of the plot: first pick the type of test (\\(Z\\), \\(t\\), \\(\\chi^2\\), or \\(F\\)), then pick the alternative (left-tailed, right-tailed, or two-tailed). Then drag the dotted line to move the observed test statistic — the shaded area and the p-value label below the plot update as you drag (for two-tailed \\(Z\\) and \\(t\\), the two boundaries move together)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#decision-rule",
@@ -1978,7 +1978,7 @@
     "href": "Chapter Slides/chapter6-slides.html#section-2",
     "title": "STA258",
     "section": "",
-    "text": "Question\n\n\nFor the recycling test, why is the alternative \\(H_a:p&gt;0.10\\)?\n\n\n\n\nThe sample proportion is always greater than the null value\nThe research question asks whether participation has increased\nThe sample size is greater than 30\nProportion tests are always right-tailed"
+    "text": "Question\n\n\nFor the reusable-cup test, why is the alternative \\(H_a:p&gt;0.10\\)?\n\n\n\n\nThe sample proportion is always greater than the null value\nThe research question asks whether participation has increased\nThe sample size is greater than 30\nProportion tests are always right-tailed"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#one-variance-test",
@@ -2006,7 +2006,7 @@
     "href": "Chapter Slides/chapter6-slides.html#two-sample-test-targets",
     "title": "STA258",
     "section": "6.3 Two-Sample Test Targets",
-    "text": "6.3 Two-Sample Test Targets\n\n\n\n\n\n\n\n\nTarget parameter\nTypical question\nReference distribution\n\n\n\n\n\\(\\mu_1-\\mu_2\\)\nAre two population means different?\n\\(Z\\) or \\(t\\)\n\n\n\\(p_1-p_2\\)\nAre two population proportions different?\n\\(Z\\)\n\n\n\\(\\sigma_1^2/\\sigma_2^2\\)\nAre two population variances different?\n\\(F\\)\n\n\n\\(\\mu_d\\)\nIs the mean paired difference nonzero?\n\\(t\\)\n\n\n\n\nStart by deciding whether the samples are independent or paired. That choice changes the whole test."
+    "text": "6.3 Two-Sample Test Targets\n\n\n\n\n\n\n\n\nTarget parameter\nTypical question\nReference distribution\n\n\n\n\n\\(\\mu_1-\\mu_2\\)\nAre two population means different?\n\\(Z\\) or \\(t\\)\n\n\n\\(p_1-p_2\\)\nAre two population proportions different?\n\\(Z\\) or \\(\\chi^2\\)\n\n\n\\(\\sigma_1^2/\\sigma_2^2\\)\nAre two population variances different?\n\\(F\\)\n\n\n\n\nThese tests all compare two independent samples."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#two-means-known-sigma_1sigma_2",
@@ -2069,7 +2069,7 @@
     "href": "Chapter Slides/chapter6-slides.html#paired-data",
     "title": "STA258",
     "section": "6.4 Paired Data",
-    "text": "6.4 Paired Data\n\nFor matched pairs or before-after data, first reduce the data to differences:\n\\[\nd_i = \\text{new}_i-\\text{current}_i\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+    "text": "6.4 Paired Data"
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-paired-study-plan-test",
@@ -4155,28 +4155,28 @@
     "href": "Chapter Slides/chapter6-slides.html#example-food-delivery-eta",
     "title": "STA258",
     "section": "Example: Food Delivery ETA",
-    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test."
+    "text": "Example: Food Delivery ETA\n\n\n\nThe delivery app Uber Eats promises an average drop-off time of \\(16.5\\) minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:\n16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8\nTest whether the true mean delivery time is greater than the advertised 16.5 minutes.\n\n\n\\[H_0:\\mu=16.5,\\qquad H_a:\\mu&gt;16.5\\] \\(\\sigma\\) is unknown, so use a one-sample \\(t\\) test.\n\n\n\n\nWhat we are given\n\nAdvertised mean: \\(\\mu_0 = 16.5\\) min\nSample: \\(n = 12\\)\nSample mean: \\(\\bar{x} = 17.68\\) min\nSample SD: \\(s = 1.53\\) min\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? \\(\\sigma\\) is unknown and estimated by \\(s\\), so use a one-sample \\(t\\) test with reference distribution \\(t_{11}\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
     "href": "Chapter Slides/chapter6-slides.html#example-reusable-cup-discount",
     "title": "STA258",
     "section": "Example: Reusable Cup Discount",
-    "text": "Example: Reusable Cup Discount\n\n\n\nLast year only \\(10\\%\\) of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds \\(x=68\\) of \\(n=520\\) students bringing their own cup.\nIs this evidence that the participation rate has increased above \\(10\\%\\)?\n\n\n\\[H_0:p=0.10,\\qquad H_a:p&gt;0.10\\]\n\\[\\hat p=\\frac{68}{520}=0.1308\\]"
+    "text": "Example: Reusable Cup Discount\n\n\n\nLast year only \\(10\\%\\) of students used the reusable-cup discount at a campus cafe. After a sustainability campaign, a fresh random survey finds \\(x=68\\) of \\(n=520\\) students bringing their own cup.\nIs this evidence that the participation rate has increased above \\(10\\%\\)?\n\n\n\\[H_0:p=0.10,\\qquad H_a:p&gt;0.10\\]\n\\[\\hat p=\\frac{68}{520}=0.1308\\]\n\n\n\n\nWhat we are given\n\nNull proportion: \\(p_0 = 0.10\\)\nSample: \\(n = 520\\), \\(x = 68\\)\nSample proportion: \\(\\hat p = 0.1308\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Since \\(np_0 = 52\\) and \\(n(1-p_0) = 468\\) are both \\(\\ge 10\\), use a one-sample \\(z\\) test for a proportion with reference distribution \\(N(0,1)\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
     "href": "Chapter Slides/chapter6-slides.html#example-protein-scoop-consistency",
     "title": "STA258",
     "section": "Example: Protein Scoop Consistency",
-    "text": "Example: Protein Scoop Consistency\n\n\n\nA fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most \\(2.8\\) g. A reviewer weighs a random sample of \\(n=28\\) scoops and finds \\(s=3.4\\) g.\nDoes this undermine the consistency claim? Use \\(\\alpha=0.05\\) and assume scoop weights are normal.\n\n\n\\[H_0:\\sigma^2=2.8^2,\\qquad H_a:\\sigma^2&gt;2.8^2\\]\nA larger sample spread is evidence against the “at most 2.8 g” claim."
+    "text": "Example: Protein Scoop Consistency\n\n\n\nA fitness brand claims its protein powder is dosed so precisely that scoop weights have standard deviation at most \\(2.8\\) g. A reviewer weighs a random sample of \\(n=28\\) scoops and finds \\(s=3.4\\) g.\nDoes this undermine the consistency claim? Use \\(\\alpha=0.05\\) and assume scoop weights are normal.\n\n\n\\[H_0:\\sigma^2=2.8^2,\\qquad H_a:\\sigma^2&gt;2.8^2\\]\nA larger sample spread is evidence against the “at most 2.8 g” claim.\n\n\n\n\nWhat we are given\n\nClaimed SD: \\(\\sigma_0 = 2.8\\) g, so \\(\\sigma_0^2 = 7.84\\)\nSample: \\(n = 28\\), \\(s = 3.4\\) g\nDegrees of freedom: \\(df = n-1 = 27\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Testing a claim about a single variance (normal population), so use a one-sample \\(\\chi^2\\) test with reference distribution \\(\\chi^2_{27}\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "href": "Chapter Slides/chapter6-slides.html#example-active-recall-vs-rereading",
     "title": "STA258",
     "section": "Example: Active Recall vs Rereading",
-    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 91 85 94 89 90 87 92 86 93 89 90\nRereading: 84 86 82 88 85 83 81 87 84 86\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
+    "text": "Example: Active Recall vs Rereading\n\nDecades of memory research suggest active recall (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.\nActive recall: 88 84 90 86 89 85 88 83 90 86 89 85\nRereading: 84 86 83 85 84 82 87 84 86 85\nDoes active recall produce a higher mean quiz score?\n\n\nLet \\(\\mu_1\\) be the active-recall mean and \\(\\mu_2\\) the rereading mean. Test \\(H_0:\\mu_1-\\mu_2=0\\) against \\(H_a:\\mu_1-\\mu_2&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#example-push-notifications",
@@ -4190,14 +4190,14 @@
     "href": "Chapter Slides/chapter6-slides.html#example-pomodoro-focus-timer",
     "title": "STA258",
     "section": "Example: Pomodoro Focus Timer",
-    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 36 31 43 39 38 35 39 34 40 37 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
+    "text": "Example: Pomodoro Focus Timer\n\nEach of 12 students completes a timed practice set, then writes a comparable set after a week of studying with the Pomodoro technique (25-minute focus blocks). Scores are paired within each student.\nBefore: 34 29 41 38 36 33 40 31 37 35 39 32\nAfter: 37 28 45 39 38 33 38 34 38 39 41 33\nCan we conclude the technique improves scores?\n\n\nUse paired differences \\(d_i=\\text{after}_i-\\text{before}_i\\) and test \\(H_0:\\mu_d=0\\) against \\(H_a:\\mu_d&gt;0\\)."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
     "href": "Chapter Slides/chapter6-slides.html#check-in-r-scoop-variance-test",
     "title": "STA258",
     "section": "Check in R: Scoop Variance Test",
-    "text": "Check in R: Scoop Variance Test"
+    "text": "Check in R: Scoop Variance Test\n\n\n\n\n\n\n\n\n\nBase R has no one-sample variance test, so the code builds \\(\\chi^{2*}\\) by hand from \\(n\\) and \\(s\\) and finds the p-value with pchisq()."
   },
   {
     "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-paired-pomodoro-test",
@@ -4498,7 +4498,7 @@
     "href": "Chapter Slides/chapter6-slides.html#example-scoring-consistency",
     "title": "STA258",
     "section": "Example: Scoring Consistency",
-    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 78 85 72 91 68 88 75 82 95 70 84 77\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]"
+    "text": "Example: Scoring Consistency\n\n\n\nTwo basketball players average about the same points per game, but a scout suspects Player A is less consistent — more variable game to game.\nPlayer A: 76 87 74 86 81 83 77 88 79 84 75 82\nPlayer B: 82 84 79 85 81 83 80 86 82 84\nTest whether Player A has the larger scoring variance at \\(\\alpha=0.05\\).\n\n\n\\[H_0:\\sigma_A^2=\\sigma_B^2,\\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2\\]\n\\[F^*=\\frac{s_A^2}{s_B^2}\\sim F_{n_A-1,\\,n_B-1}\\]\n\n\n\n\nWhat we are given\n\nPlayer A: \\(n_A = 12\\), \\(s_A^2 = 23.09\\)\nPlayer B: \\(n_B = 10\\), \\(s_B^2 = 4.933\\)\nDegrees of freedom: \\(df = (11,\\ 9)\\)\nSignificance level: \\(\\alpha = 0.05\\)\n\n\n\nWhich test? Comparing two population variances (normal populations), so use an \\(F\\) test with the larger-variance group on top: \\(F^*=s_A^2/s_B^2 \\sim F_{11,\\,9}\\)."
   },
   {
     "objectID": "Chapter Slides/chapter7-slides.html#using-power-to-determine-sample-size",
@@ -5516,6 +5516,137 @@
     "text": "Push Notifications: Calculation\n\n\n\nHypotheses \\[H_0:p_1-p_2=0 \\qquad H_a:p_1-p_2&gt;0 \\quad (\\alpha=0.05)\\]\nSample and pooled proportions \\[\\hat p_1=\\tfrac{142}{360}=0.394,\\quad \\hat p_2=\\tfrac{118}{370}=0.319,\\quad \\hat p=\\tfrac{142+118}{360+370}=0.356\\]\nTest statistic \\[z^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}=\\frac{0.0756}{0.0354}=2.13\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.13)=0.0166\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0166 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the daily push notification increases the check-in rate."
   },
   {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-known",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-known",
+    "title": "STA258",
+    "section": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known",
+    "text": "6.2.1.1 Hypothesis Tests on the Mean, \\(\\sigma\\) Known\n\nFor testing \\(H_0:\\mu=\\mu_0\\) when \\(\\sigma\\) is known, use the test statistic\n\\[\nz^*=\\frac{\\bar{x}-\\mu_0}{\\sigma/\\sqrt n}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Testing a population mean with known \\(\\sigma\\) and an appropriate random/normal-or-large-sample setup."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-unknown",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-the-mean-sigma-unknown",
+    "title": "STA258",
+    "section": "6.2.1.2 Hypothesis Tests on the Mean, \\(\\sigma\\) Unknown",
+    "text": "6.2.1.2 Hypothesis Tests on the Mean, \\(\\sigma\\) Unknown\n\nFor testing \\(H_0:\\mu=\\mu_0\\) when \\(\\sigma\\) is unknown, replace it with \\(s\\) and use the test statistic\n\\[\nt^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}\n\\]\nwhich, under \\(H_0\\), follows the Student \\(t\\) distribution with \\(n-1\\) degrees of freedom.\n\n\n\nReference distribution \\(t^*\\sim t_{n-1}\\).\n\n\nAssumptions Random/independent observations; population normal or sample large enough for the \\(t\\) approximation."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#food-delivery-eta-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#food-delivery-eta-calculation",
+    "title": "STA258",
+    "section": "Food Delivery ETA: Calculation",
+    "text": "Food Delivery ETA: Calculation\n\n\n\nHypotheses \\[H_0:\\mu=16.5 \\qquad H_a:\\mu&gt;16.5 \\quad (\\alpha=0.05)\\]\nTest statistic \\[t^*=\\frac{\\bar{x}-\\mu_0}{s/\\sqrt n}=\\frac{17.68-16.5}{1.53/\\sqrt{12}}=2.682\\]\np-value \\[\\text{p-value}=P(T_{11}\\ge 2.682)=0.0107\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0107 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the true mean delivery time exceeds the advertised \\(16.5\\) minutes."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-proportion",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-proportion",
+    "title": "STA258",
+    "section": "6.2.2 Hypothesis Tests on a Proportion",
+    "text": "6.2.2 Hypothesis Tests on a Proportion\n\nFor testing \\(H_0:p=p_0\\), use the test statistic\n\\[\nz^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse the null value The standard error uses \\(p_0\\), not \\(\\hat p\\).\n\n\nLarge-count check Under \\(H_0\\), both \\(np_0\\) and \\(n(1-p_0)\\) should be at least 10."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#reusable-cup-discount-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#reusable-cup-discount-calculation",
+    "title": "STA258",
+    "section": "Reusable Cup Discount: Calculation",
+    "text": "Reusable Cup Discount: Calculation\n\n\n\nHypotheses \\[H_0:p=0.10 \\qquad H_a:p&gt;0.10 \\quad (\\alpha=0.05)\\]\nTest statistic \\[z^*=\\frac{\\hat p-p_0}{\\sqrt{p_0(1-p_0)/n}}=\\frac{0.1308-0.10}{\\sqrt{0.10\\cdot 0.90/520}}=2.339\\]\np-value \\[\\text{p-value}=P(Z\\ge 2.339)=0.0097\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0097 \\le 0.05\\), so reject \\(H_0\\).\n\n\nConclusion There is evidence the participation rate has increased above \\(10\\%\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-variance",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-a-variance",
+    "title": "STA258",
+    "section": "6.2.3 Hypothesis Tests on a Variance",
+    "text": "6.2.3 Hypothesis Tests on a Variance\n\nFor one normal population, test a variance using the chi-square statistic:\n\\[\n\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}\n\\]\n\n\n\nReference distribution \\(\\chi^2\\) with \\(n-1\\) degrees of freedom.\n\n\nImportant condition The population should be approximately normal. Variance tests are sensitive to non-normality."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#protein-scoop-consistency-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#protein-scoop-consistency-calculation",
+    "title": "STA258",
+    "section": "Protein Scoop Consistency: Calculation",
+    "text": "Protein Scoop Consistency: Calculation\n\n\n\nHypotheses \\[H_0:\\sigma^2=2.8^2 \\qquad H_a:\\sigma^2&gt;2.8^2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[\\chi^{2*}=\\frac{(n-1)s^2}{\\sigma_0^2}=\\frac{27\\cdot 3.4^2}{2.8^2}=39.81\\]\np-value \\[\\text{p-value}=P(\\chi^2_{27}\\ge 39.81)=0.0534\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.0534 &gt; 0.05\\) (and \\(39.81 &lt; 40.11\\)), so fail to reject \\(H_0\\).\n\n\nConclusion There is not enough evidence that the true SD of scoop weights exceeds \\(2.8\\) g."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means",
+    "title": "STA258",
+    "section": "6.3.1.1 Hypothesis Tests on Two Means",
+    "text": "6.3.1.1 Hypothesis Tests on Two Means\n\nWhen both population standard deviations, \\(\\sigma_1,\\sigma_2\\), are known, use the test statistic\n\\[\nz^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{\\sigma_1^2/n_1+\\sigma_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population means from independent samples with known \\(\\sigma_1,\\sigma_2\\). Usually \\(D_0=0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-comparing-download-speeds",
+    "href": "Chapter Slides/chapter6-slides.html#example-comparing-download-speeds",
+    "title": "STA258",
+    "section": "Example: Comparing Download Speeds",
+    "text": "Example: Comparing Download Speeds\n\nTwo campus internet providers both advertise fast service. From years of monitoring, download speeds (Mbps) are known to have \\(\\sigma_A=12\\) for Provider A and \\(\\sigma_B=15\\) for Provider B.\nA student runs independent speed tests and records:\n\nProvider A: \\(n_A=40\\), \\(\\bar{x}_A=86\\) Mbps\nProvider B: \\(n_B=45\\), \\(\\bar{x}_B=79\\) Mbps\n\nIs Provider A’s mean download speed higher than Provider B’s?\n\n\nLet \\(\\mu_A,\\mu_B\\) be the true mean speeds. Test \\(H_0:\\mu_A-\\mu_B=0\\) against \\(H_a:\\mu_A-\\mu_B&gt;0\\).\nBoth population SDs are known, so use a two-sample \\(z\\) test."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-download-speeds",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-download-speeds",
+    "title": "STA258",
+    "section": "Check in R: Download Speeds",
+    "text": "Check in R: Download Speeds\n\n\n\n\n\n\n\n\n\nThe output gives \\(z^*=2.39\\) and p-value \\(0.0085\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-1",
+    "title": "STA258",
+    "section": "6.3.1.2 Hypothesis Tests on Two Means",
+    "text": "6.3.1.2 Hypothesis Tests on Two Means\n\nWhen the population variances are unknown but can be assumed equal, pool the two sample variances into one estimate:\n\\[\ns_p^2=\\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2},\n\\qquad\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{s_p\\sqrt{\\dfrac{1}{n_1}+\\dfrac{1}{n_2}}}\n\\]\n\n\n\nDegrees of freedom \\(df=n_1+n_2-2\\) — exact, and larger than Welch’s.\n\n\nWhen to pool Reasonable when the sample spreads are similar — e.g. the fold rule \\(\\dfrac{\\max(s_1,s_2)}{\\min(s_1,s_2)}&lt;\\sqrt{2}\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#example-two-fertilizers-similar-spread",
+    "href": "Chapter Slides/chapter6-slides.html#example-two-fertilizers-similar-spread",
+    "title": "STA258",
+    "section": "Example: Two Fertilizers, Similar Spread",
+    "text": "Example: Two Fertilizers, Similar Spread\n\nA gardener compares two organic fertilizers on tomato plants and expects the two groups to have similar variability. Yields (kg per plant) from independent plots:\nFertilizer A: 4.2 3.8 4.5 4.0 3.9 4.3 4.1 3.7 4.4\nFertilizer B: 3.6 3.9 3.4 3.8 3.5 3.7 3.3 4.0 3.6 3.5\nDo the two fertilizers give different mean yields at \\(\\alpha=0.05\\)?\n\n\nLet \\(\\mu_A,\\mu_B\\) be the true mean yields. Test \\(H_0:\\mu_A-\\mu_B=0\\) against \\(H_a:\\mu_A-\\mu_B\\neq 0\\).\nVariances are unknown but the spreads look similar, so use a pooled two-sample \\(t\\) test."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
+    "href": "Chapter Slides/chapter6-slides.html#check-in-r-two-fertilizers",
+    "title": "STA258",
+    "section": "Check in R: Two Fertilizers",
+    "text": "Check in R: Two Fertilizers\n\n\n\n\n\n\n\n\n\nThe output gives \\(t^*=4.13\\), \\(df=17\\), and p-value \\(0.0007\\). At \\(\\alpha=0.05\\), reject \\(H_0\\)."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-2",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-means-2",
+    "title": "STA258",
+    "section": "6.3.1.3 Hypothesis Tests on Two Means",
+    "text": "6.3.1.3 Hypothesis Tests on Two Means\n\nFor unequal or unspecified population variances, use Welch’s two-sample \\(t\\) test (no pooling), with test statistic\n\\[\nt^*=\\frac{(\\bar{x}_1-\\bar{x}_2)-D_0}{\\sqrt{s_1^2/n_1+s_2^2/n_2}}\n\\]\nwhich, under \\(H_0\\), approximately follows a \\(t\\) reference distribution with the Welch–Satterthwaite degrees of freedom.\n\n\n\nReference distribution \\(T\\sim t_\\nu\\), with the Welch–Satterthwaite \\(\\nu\\).\n\n\nUse when Comparing two population means from independent samples when equal variances are not clearly justified."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-proportions",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-proportions",
+    "title": "STA258",
+    "section": "6.3.2 Hypothesis Tests on Two Proportions",
+    "text": "6.3.2 Hypothesis Tests on Two Proportions\n\nWhen testing \\(H_0:p_1-p_2=0\\), pool the sample proportions under the null and use the test statistic\n\\[\n\\hat p=\\frac{x_1+x_2}{n_1+n_2},\n\\qquad\nz^*=\\frac{\\hat p_1-\\hat p_2}{\\sqrt{\\hat p(1-\\hat p)(1/n_1+1/n_2)}}\n\\]\nwhich, under \\(H_0\\), follows the standard normal reference distribution \\(Z\\sim N(0,1)\\).\n\n\n\nReference distribution \\(z^*\\sim N(0,1)\\).\n\n\nUse when Comparing two population proportions from independent samples, with enough successes and failures in each group."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-variances",
+    "href": "Chapter Slides/chapter6-slides.html#hypothesis-tests-on-two-variances",
+    "title": "STA258",
+    "section": "6.3.3 Hypothesis Tests on Two Variances",
+    "text": "6.3.3 Hypothesis Tests on Two Variances\n\nFor two normal populations, test a ratio of variances with the test statistic\n\\[\nF^*=\\frac{s_1^2}{s_2^2}\n\\]\nwhich, under \\(H_0\\), follows an \\(F\\) reference distribution with \\(n_1-1\\) and \\(n_2-1\\) degrees of freedom.\n\n\n\nReference distribution \\(F^*\\sim F_{n_1-1,\\,n_2-1}\\).\n\n\nUse when Comparing two population variances from independent normal samples; the \\(F\\) test is sensitive to non-normality."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#scoring-consistency-calculation",
+    "href": "Chapter Slides/chapter6-slides.html#scoring-consistency-calculation",
+    "title": "STA258",
+    "section": "Scoring Consistency: Calculation",
+    "text": "Scoring Consistency: Calculation\n\n\n\nHypotheses \\[H_0:\\sigma_A^2=\\sigma_B^2 \\qquad H_a:\\sigma_A^2&gt;\\sigma_B^2 \\quad (\\alpha=0.05)\\]\nTest statistic \\[F^*=\\frac{s_A^2}{s_B^2}=\\frac{23.09}{4.933}=4.68\\]\np-value \\[\\text{p-value}=P(F_{11,9}\\ge 4.68)=0.014\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDecision \\(0.014 \\le 0.05\\) (and \\(4.68 &gt; 3.10\\)), so reject \\(H_0\\).\n\n\nConclusion There is strong evidence Player A has the larger scoring variance — i.e. is less consistent."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#paired-data-1",
+    "href": "Chapter Slides/chapter6-slides.html#paired-data-1",
+    "title": "STA258",
+    "section": "Paired Data",
+    "text": "Paired Data\n\nFor matched pairs or before-after data, reduce each pair to a difference (measurement 1 \\(-\\) measurement 2):\n\\[\nd_i = m_{1i}-m_{2i} \\quad (\\text{or } m_{2i}-m_{1i})\n\\]\nThen run a one-sample \\(t\\) test on \\(\\mu_d\\).\n\n\n\nNot independent groups The two measurements inside a pair are linked.\n\n\nReference distribution \\(t\\) with \\(n-1\\) degrees of freedom for the differences."
+  },
+  {
+    "objectID": "Chapter Slides/chapter6-slides.html#pomodoro-difference-table",
+    "href": "Chapter Slides/chapter6-slides.html#pomodoro-difference-table",
+    "title": "STA258",
+    "section": "Pomodoro: Difference Table",
+    "text": "Pomodoro: Difference Table\n\nReduce each pair (\\(M_1\\) = before, \\(M_2\\) = after) to \\(d_i = M_2 - M_1\\), then analyze the 12 differences as one sample.\n\n\n\n\n\n\nPerson\n\\(M_1\\)\n\\(M_2\\)\n\\(d_i = M_2-M_1\\)\n\n\n\n\n1\n34\n37\n3\n\n\n2\n29\n28\n−1\n\n\n3\n41\n45\n4\n\n\n4\n38\n39\n1\n\n\n5\n36\n38\n2\n\n\n6\n33\n33\n0\n\n\n7\n40\n38\n−2\n\n\n8\n31\n34\n3\n\n\n9\n37\n38\n1\n\n\n10\n35\n39\n4\n\n\n11\n39\n41\n2\n\n\n12\n32\n33\n1\n\n\n\n\n\n\nMean difference \\[\\bar d = \\frac{\\sum d_i}{n} = \\frac{18}{12} = 1.5\\]\nSD of differences \\[s_d = \\sqrt{\\frac{\\sum (d_i-\\bar d)^2}{n-1}} = \\sqrt{\\frac{39}{11}} = 1.88\\]\nTest statistic \\[t^* = \\frac{\\bar d}{s_d/\\sqrt n} = \\frac{1.5}{1.88/\\sqrt{12}} = 2.76\\]"
     "objectID": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
     "href": "Chapter Slides/chapter7-slides.html#interactive-watch-power-climb-with-n",
     "title": "STA258",

@@ -424,6 +424,16 @@ document.addEventListener(
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
+```{r setup}
+#| include: false
+library(plotly)
+set.seed(258)
+
+# ---- Colours ---------------------------------------------------------------
+col_sample <- "#c62828"   # highlighted sample (consensus red)
+col_pop    <- "#b0b7bb"   # de-emphasised population dots (neutral grey)
+```
+
 STA258: Statistics with Applied Probability
 University of Toronto Mississauga
 
@@ -562,10 +572,6 @@ A <strong>subset</strong> selected from the population.
 #| warning: false
 #| message: false
 
-library(plotly)
-
-set.seed(1)
-
 N <- 400
 
 pop <- data.frame(
@@ -589,7 +595,7 @@ p <- plot_ly() |>
     name = "Population",
     marker = list(
       size = 6,
-      color = "#bdbdbd",
+      color = col_pop,
       opacity = 0.45,
       line = list(color = "white", width = 0.5)
     ),
@@ -603,7 +609,7 @@ p <- plot_ly() |>
     name = "Sample",
     marker = list(
       size = 10,
-      color = "#b2182b",
+      color = col_sample,
       opacity = 0.9,
       line = list(color = "white", width = 0.8)
     ),

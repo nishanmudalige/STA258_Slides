@@ -22,8 +22,6 @@ revealjs-plugins:
   - quiz
 webr:
   packages:
-    - tibble
-    - ggplot2
     - plotly
 live:
   show-solutions: true
@@ -73,11 +71,11 @@ live:
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
-  font-size: 1.50em !important;
+  font-size: 1.6em !important;
 }
 
 .reveal h3 {
-  font-size: 1.12em !important;
+  font-size: 1.1em !important;
 }
 
 .title-slide {
@@ -87,7 +85,7 @@ live:
 .reveal p,
 .reveal li {
   font-size: 0.78em;
-  line-height: 1.34;
+  line-height: 1.35;
 }
 
 .defbox,
@@ -184,7 +182,7 @@ live:
   font-size: 0.75em;
 }
 
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; border: 1px solid var(--sta-border); }
 .reveal th, .reveal td {
   border: 1px solid var(--sta-border);
   padding: 7px 10px;
@@ -424,6 +422,16 @@ document.addEventListener(
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
+```{r setup}
+#| include: false
+library(plotly)
+set.seed(258)
+
+# ---- Colours ---------------------------------------------------------------
+col_sample <- "#c62828"   # highlighted sample (consensus red)
+col_pop    <- "#b0b7bb"   # de-emphasised population dots (neutral grey)
+```
+
 STA258: Statistics with Applied Probability
 University of Toronto Mississauga
 
@@ -562,10 +570,6 @@ A <strong>subset</strong> selected from the population.
 #| warning: false
 #| message: false
 
-library(plotly)
-
-set.seed(1)
-
 N <- 400
 
 pop <- data.frame(
@@ -589,7 +593,7 @@ p <- plot_ly() |>
     name = "Population",
     marker = list(
       size = 6,
-      color = "#bdbdbd",
+      color = col_pop,
       opacity = 0.45,
       line = list(color = "white", width = 0.5)
     ),
@@ -603,7 +607,7 @@ p <- plot_ly() |>
     name = "Sample",
     marker = list(
       size = 10,
-      color = "#b2182b",
+      color = col_sample,
       opacity = 0.9,
       line = list(color = "white", width = 0.8)
     ),
@@ -915,6 +919,21 @@ Using a sample to <strong>generalize</strong> to a larger population.
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A pollster surveys 1,200 Canadians and finds that 46% plan to vote for a certain party. The 46% is a:
+::::
+
+- [Statistic]{.correct data-explanation="46% is computed from the sample of 1,200 surveyed Canadians, so it is a statistic. The corresponding parameter would be the true percentage among all Canadian voters, which is unknown."}
+- Parameter
+- Population
+- Variable
+
+---
+
 ## 1.2 Types of Data {.scrollable}
 
 <div class="defbox">
@@ -1060,6 +1079,21 @@ class(pets)       # integer  → quantitative discrete
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A researcher records each participant's **number of siblings**. What type of variable is this?
+::::
+
+- Qualitative nominal
+- Qualitative ordinal
+- Quantitative continuous
+- [Quantitative discrete]{.correct data-explanation="Number of siblings is a count, so it is quantitative. Counts take whole-number values with gaps between them (you cannot have 2.5 siblings), which makes it discrete rather than continuous."}
+
+---
+
 ## 1.3 Introduction to Inferential Statistics {#introduction-to-inferential-statistics}
 
 <div class="center">
@@ -1127,7 +1161,7 @@ How you collect your sample determines whether inference is honest.
 </div>
 
 <div class="defbox fragment" style="font-size:0.85em" data-fragment-index="5">
-<strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. ⚠ Usually biased.
+<strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. Usually biased.
 </div>
 
 ---
@@ -1157,7 +1191,7 @@ How you collect your sample determines whether inference is honest.
 For each scenario, identify the type of bias present and explain why it is a problem. We will discuss in class.
 </div>
 
-::: {.nonincremental}
+::: {.incremental}
 1. The Office of the Registrar wants to estimate the average GPA of all undergraduates. They collect data by emailing only students who belong to an academic club.
 2. A student newspaper posts an online poll asking "How satisfied are you with library hours?" and reports the results as representative of all students.
 3. A course evaluation survey is sent to a random sample of 1,000 students, but only 200 respond.
@@ -1205,7 +1239,7 @@ Only well-designed <strong>experiments</strong> can establish cause and effect.
 Classify each as an <strong>observational study</strong>, <strong>experimental study</strong>, or <strong>sample survey</strong>. Briefly justify your answer. We will take these up in class.
 </div>
 
-::: {.nonincremental}
+::: {.incremental}
 1. A researcher records the GPA and weekly study hours of students in STA258 without intervening, to see whether there is an association between the two.
 2. First-year students are randomly assigned to either a weekly tutoring program or no tutoring. Their final exam grades are compared at the end of term.
 3. At the end of the semester, a random sample of students is emailed a questionnaire asking about teaching quality, workload, and course organization.
@@ -1218,14 +1252,14 @@ Classify each as an <strong>observational study</strong>, <strong>experimental s
 ## Chapter Summary {.scrollable}
 
 <div class="examplebox">
-<ol>
+<ul>
 <li>Statistics = science of learning from data under uncertainty.</li>
 <li>We study a <strong>sample</strong> to learn about a <strong>population</strong>.</li>
 <li><strong>Parameters</strong> describe populations (unknown); <strong>statistics</strong> describe samples (known).</li>
 <li>Data are <strong>quantitative</strong> (discrete/continuous) or <strong>qualitative</strong> (nominal/ordinal).</li>
 <li>Inference uses a sample statistic to estimate an unknown population parameter - with a measure of uncertainty.</li>
 <li><strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.</li>
-</ol>
+</ul>
 </div>
 
 ---
@@ -1275,6 +1309,6 @@ $n = 12$, $\bar{x} \approx 20.83$, $s \approx 1.59$.
 <div class="center">
 <span class="big">End of Chapter 1</span><br><br>
 <div class="home-button-row">
-<a href="../index.html" class="home-button">Back to Course Home</a>
+<a href="../index.html" class="home-button">Back to Homepage</a>
 </div>
 </div>

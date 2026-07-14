@@ -2222,40 +2222,291 @@ c(lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr)
 The plot shows $Q_1 = 5$, $Q_3 = 11$, the outlier fences, and a value of $25$. Would $25$ be flagged as a potential outlier?
 ::::
 
-```{r}
-#| fig-width: 8.6
-#| fig-height: 2.05
-#| fig-align: center
-#| echo: false
+<div style="
+  margin: 6px 0 2px 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    1.5 × IQR outlier rule
+  </span>
 
-iqr_q <- data.frame(
-  x = c(-4, 5, 11, 20, 25),
-  y = 0,
-  label = c("Lower\nfence = -4", "Q1 = 5", "Q3 = 11", "Upper\nfence = 20", "25"),
-  type = c("Fence", "Quartile", "Quartile", "Fence", "Possible outlier")
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Quartiles, fences, and a value to assess
+  </span>
+</div>
+
+```{r}
+#| echo: false
+#| out-width: "100%"
+
+iqr_fences <- data.frame(
+  value = c(-4, 20),
+  y = c(0, 0),
+  label = c("Lower fence", "Upper fence")
 )
 
-ggplot(iqr_q, aes(x = x, y = y)) +
-  geom_hline(yintercept = 0, colour = "#d8dee2", linewidth = 1.2) +
-  geom_point(aes(colour = type), size = 4) +
-  geom_text(aes(label = label), vjust = -1.15, size = 3.4, fontface = "bold") +
-  scale_colour_manual(values = c("Fence" = "#667174",
-                                 "Quartile" = "#00695c",
-                                 "Possible outlier" = "#f9a825"),
-                      guide = "none") +
-  scale_x_continuous(breaks = c(-4, 5, 11, 20, 25)) +
-  coord_cartesian(xlim = c(-6, 27), ylim = c(-0.15, 0.35)) +
-  labs(title = "1.5 × IQR outlier rule",
-       subtitle = "Values outside the fences are flagged",
-       x = "Value", y = NULL) +
-  scale_y_continuous(breaks = NULL) +
-  theme(panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+iqr_quartiles <- data.frame(
+  value = c(5, 11),
+  y = c(0, 0),
+  label = c("Q1", "Q3")
+)
+
+iqr_value <- data.frame(
+  value = 25,
+  y = 0,
+  label = "25"
+)
+
+iqr_plot <- plot_ly(
+  height = 215
+) |>
+  add_trace(
+    data = iqr_fences,
+    x = ~value,
+    y = ~y,
+    type = "scatter",
+    mode = "markers+text",
+
+    marker = list(
+      color = "#111111",
+      size = 10,
+      symbol = "circle",
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    text = ~label,
+    textposition = "top center",
+    cliponaxis = FALSE,
+
+    textfont = list(
+      family = "Arial",
+      size = 12,
+      color = "#111111"
+    ),
+
+    hovertemplate = paste0(
+      "<b>%{text}</b>",
+      "<br>Value: %{x}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = iqr_quartiles,
+    x = ~value,
+    y = ~y,
+    type = "scatter",
+    mode = "markers+text",
+
+    marker = list(
+      color = "#B32025",
+      size = 11,
+      line = list(
+        color = "#111111",
+        width = 0.9
+      )
+    ),
+
+    text = ~label,
+    textposition = "top center",
+    cliponaxis = FALSE,
+
+    textfont = list(
+      family = "Arial",
+      size = 12,
+      color = "#111111"
+    ),
+
+    hovertemplate = paste0(
+      "<b>%{text}</b>",
+      "<br>Value: %{x}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = iqr_value,
+    x = ~value,
+    y = ~y,
+    type = "scatter",
+    mode = "markers+text",
+
+    marker = list(
+      color = "#F0C419",
+      size = 12,
+      line = list(
+        color = "#111111",
+        width = 1
+      )
+    ),
+
+    text = ~label,
+    textposition = "top center",
+    cliponaxis = FALSE,
+
+    textfont = list(
+      family = "Arial",
+      size = 12,
+      color = "#111111"
+    ),
+
+    hovertemplate = paste0(
+      "<b>Value</b>",
+      "<br>%{x}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#666666",
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = -6,
+        x1 = 28,
+        y0 = 0,
+        y1 = 0,
+        layer = "below",
+        line = list(
+          color = "#D8DEE2",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = -4,
+        x1 = -4,
+        y0 = -0.07,
+        y1 = 0.07,
+        layer = "below",
+        line = list(
+          color = "#667174",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = 20,
+        x1 = 20,
+        y0 = -0.07,
+        y1 = 0.07,
+        layer = "below",
+        line = list(
+          color = "#667174",
+          width = 2
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(-6, 28),
+
+      tickmode = "array",
+      tickvals = c(-4, 5, 11, 20, 25),
+      ticktext = c("-4", "5", "11", "20", "25"),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      range = c(-0.13, 0.22),
+      showticklabels = FALSE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 72,
+      r = 38,
+      t = 40,
+      b = 45
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+iqr_plot
 ```
 
-- [Yes - it sits above the upper cutoff]{.correct data-explanation="IQR = 6. Upper cutoff = 11 + 1.5 times 6 = 20. Since 25 is greater than 20, the value is flagged as a high outlier."}
-- No - it sits inside the whiskers
+- [Yes — it sits above the upper fence]{.correct data-explanation="The IQR is 11 − 5 = 6. The upper fence is 11 + 1.5 × 6 = 20. Since 25 is greater than 20, it is flagged as a potential high outlier."}
+- No — it sits inside the fences
 - We cannot tell without the median
 - We cannot tell without the sample size
 

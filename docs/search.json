@@ -5528,5 +5528,61 @@
     "title": "STA258",
     "section": "2.3 Programming in R",
     "text": "2.3 Programming in R\nWhy R for statistics?\n\nBuilt specifically for data analysis, statistics, and visualization\nRich ecosystem of packages and built-in statistical functions\nOpen source and free on every major operating system\nStrong support for reproducible reporting through R Markdown and Quarto\nWidely used in academia, industry, and government"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-calculator-practice",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-calculator-practice",
+    "title": "STA258",
+    "section": "Check in R: Calculator Practice",
+    "text": "Check in R: Calculator Practice\n\n\nTask Translate this math expression into R and evaluate it:\n(12 + 8) ÷ 5\n\nThen try: 34 − √25\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\n(12 + 8) / 5\n3^4 - sqrt(25)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-variables",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-variables",
+    "title": "STA258",
+    "section": "Check in R: Variables",
+    "text": "Check in R: Variables\n\n\nTask Create a variable called mark storing the value 87, then display it.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmark &lt;- 87\n\nmark"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-vectors",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-vectors",
+    "title": "STA258",
+    "section": "Check in R: Vectors",
+    "text": "Check in R: Vectors\n\n\nTask Create a vector temps with:\n21, 23, 20, 25, 24\nThen compute its mean.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ntemps &lt;- c(21, 23, 20, 25, 24)\n\nmean(temps)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-vector-indexing",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-vector-indexing",
+    "title": "STA258",
+    "section": "Check in R: Vector Indexing",
+    "text": "Check in R: Vector Indexing\n\n\nTask Extract the second and fourth values from marks.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmarks &lt;- c(80, 75, 90, 88, 92)\n\nmarks[c(2, 4)]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-selecting-a-column",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-selecting-a-column",
+    "title": "STA258",
+    "section": "Check in R: Selecting a Column",
+    "text": "Check in R: Selecting a Column\n\n\nTask Find the average number of study hours.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nmean(class_data$hours)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-selecting-rows-and-columns",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-selecting-rows-and-columns",
+    "title": "STA258",
+    "section": "Check in R: Selecting Rows and Columns",
+    "text": "Check in R: Selecting Rows and Columns\n\n\nTask Select the first two rows and only the student and mark columns.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nclass_data[1:2, c(\"student\", \"mark\")]"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-histograms",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-histograms",
+    "title": "STA258",
+    "section": "Check in R: Histograms",
+    "text": "Check in R: Histograms\n\n\nTask Change the histogram to show eruption duration instead of waiting time. Update the title and x-axis label.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\ndata(faithful)\n\nhist(\n  faithful$eruptions,\n  main   = \"Duration of Old Faithful Eruptions\",\n  xlab   = \"Eruption duration (minutes)\",\n  col    = \"lightblue\",\n  border = \"white\"\n)"
+  },
+  {
+    "objectID": "Chapter Slides/chapter2-slides.html#check-in-r-ggplot2",
+    "href": "Chapter Slides/chapter2-slides.html#check-in-r-ggplot2",
+    "title": "STA258",
+    "section": "Check in R: ggplot2",
+    "text": "Check in R: ggplot2\n\n\nTask Change the plot so the x-axis shows student and the y-axis shows mark, using a bar chart instead of points.\nHint: replace geom_point() with geom_col().\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nlibrary(ggplot2)\n\ncsv_text &lt;- \"student,mark,hours\nA,80,6\nB,75,5\nC,90,8\nD,88,7\"\n\nclass_data &lt;- read.csv(text = csv_text)\n\nggplot(class_data, aes(x = student, y = mark)) +\n  geom_col(fill = \"#00695c\") +\n  labs(\n    title = \"Marks by Student\",\n    x     = \"Student\",\n    y     = \"Mark\"\n  ) +\n  theme_minimal(base_size = 14)"
   }
 ]

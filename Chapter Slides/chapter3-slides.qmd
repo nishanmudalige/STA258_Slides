@@ -4080,38 +4080,250 @@ boxplot(x, horizontal = TRUE, col = "#00695c")
 :::: {.callout-note icon="false"}
 ## Visual Question
 
-The boxplots compare delivery times for two restaurants. One restaurant has careful, consistent prep. Which one is most likely the sushi restaurant?
+The boxplots compare delivery times for two restaurants. Which restaurant has the **more consistent delivery times**?
 ::::
 
+<div style="
+  margin: 6px 0 2px 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Delivery time distributions
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Compare the spread and potential outliers
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.15
-#| fig-align: center
 #| echo: false
+#| results: asis
 
 set.seed(258)
-restaurant_q <- data.frame(
-  Restaurant = rep(c("A", "B"), each = 80),
-  Time = c(
-    rnorm(80, mean = 31, sd = 2.1),
-    c(rnorm(76, mean = 32, sd = 5.8), 55, 61, 72, 80)
+
+restaurant_a <- data.frame(
+  Restaurant = "Restaurant A",
+  Time = rnorm(
+    80,
+    mean = 31,
+    sd = 2.1
   )
 )
 
-ggplot(restaurant_q, aes(x = Restaurant, y = Time, fill = Restaurant)) +
-  geom_boxplot(width = 0.45, colour = "#004d40", outlier.colour = "#e34a6f") +
-  geom_jitter(width = 0.08, alpha = 0.35, size = 1.5) +
-  scale_fill_manual(values = c("#00695c", "#f9a825"), guide = "none") +
-  labs(title = "Delivery time distributions",
-       subtitle = "Shorter box and shorter whiskers = more consistent times",
-       x = "Restaurant", y = "Delivery time (minutes)") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+restaurant_b <- data.frame(
+  Restaurant = "Restaurant B",
+  Time = c(
+    rnorm(
+      76,
+      mean = 32,
+      sd = 5.8
+    ),
+    55,
+    61,
+    72,
+    80
+  )
+)
+
+restaurant_plot <- plot_ly(
+  height = 285
+) |>
+  add_trace(
+    data = restaurant_a,
+    x = ~Time,
+    y = ~Restaurant,
+    type = "box",
+    orientation = "h",
+    name = "Restaurant A",
+
+    boxpoints = "outliers",
+
+    fillcolor = "rgba(0,105,92,0.24)",
+
+    line = list(
+      color = "#00695C",
+      width = 2.2
+    ),
+
+    marker = list(
+      color = "#00695C",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.6
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Restaurant A</b>",
+      "<br>Delivery time: %{x:.1f} minutes",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = restaurant_b,
+    x = ~Time,
+    y = ~Restaurant,
+    type = "box",
+    orientation = "h",
+    name = "Restaurant B",
+
+    boxpoints = "outliers",
+
+    fillcolor = "rgba(249,168,37,0.26)",
+
+    line = list(
+      color = "#B36B00",
+      width = 2.2
+    ),
+
+    marker = list(
+      color = "#B36B00",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.6
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Restaurant B</b>",
+      "<br>Delivery time: %{x:.1f} minutes",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    boxgap = 0.42,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Delivery time (minutes)",
+        standoff = 8,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(18, 85),
+      tick0 = 20,
+      dtick = 10,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = "",
+
+      categoryorder = "array",
+      categoryarray = c(
+        "Restaurant B",
+        "Restaurant A"
+      ),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+
+      tickfont = list(
+        family = "Arial",
+        size = 13,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#666666",
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 115,
+      r = 36,
+      t = 8,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 90%;",
+    "margin: 4px auto 0 auto;"
+  ),
+  restaurant_plot
+)
 ```
 
-- [Restaurant A]{.correct data-explanation="Restaurant A has a tighter spread, shorter whiskers, and no high outliers. That matches careful, consistent prep. Restaurant B has more variation and high delays."}
+- [Restaurant A]{.correct data-explanation="Restaurant A has the smaller spread and no large high outliers, so its delivery times are more consistent. Restaurant B has a wider spread and several unusually long delivery times."}
 - Restaurant B
-- Both equally consistent
+- Both are equally consistent
 - Cannot tell
 
 ---
@@ -4124,29 +4336,332 @@ ggplot(restaurant_q, aes(x = Restaurant, y = Time, fill = Restaurant)) +
 Look at the boxplot. What kind of skewness does this shape suggest?
 ::::
 
+<div style="
+  width: 90%;
+  margin: 6px auto 0 auto;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Reading skewness from a boxplot
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Compare the median position and whisker lengths
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.05
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 set.seed(258)
-left_skew_q <- data.frame(value = 30 - rgamma(160, shape = 3, rate = 0.5))
 
-ggplot(left_skew_q, aes(x = value, y = "")) +
-  geom_boxplot(fill = "#00695c", colour = "#004d40",
-               outlier.colour = "#e34a6f", width = 0.36) +
-  labs(title = "Reading skewness from a boxplot",
-       subtitle = "The longer tail points toward the skew",
-       x = "Value", y = NULL) +
-  theme(panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.text.y = element_blank(),
-        plot.title = element_text(face = "bold"))
+left_skew_q <- data.frame(
+  value = 30 - rgamma(
+    160,
+    shape = 3,
+    rate = 0.5
+  )
+)
+
+box_summary <- boxplot.stats(
+  left_skew_q$value,
+  coef = 1.5
+)
+
+lower_whisker <- box_summary$stats[1]
+q1_value <- box_summary$stats[2]
+median_value <- box_summary$stats[3]
+q3_value <- box_summary$stats[4]
+upper_whisker <- box_summary$stats[5]
+outlier_values <- box_summary$out
+
+hover_values <- data.frame(
+  value = c(
+    lower_whisker,
+    q1_value,
+    median_value,
+    q3_value,
+    upper_whisker
+  ),
+  position = rep(1, 5)
+)
+
+value_range <- range(
+  left_skew_q$value,
+  finite = TRUE
+)
+
+axis_padding <- diff(value_range) * 0.08
+
+skew_boxplot <- plot_ly(
+  height = 225
+) |>
+  add_markers(
+    data = hover_values,
+    x = ~value,
+    y = ~position,
+
+    marker = list(
+      color = "rgba(0,0,0,0)",
+      size = 18
+    ),
+
+    hovertemplate = paste0(
+      "<b>Boxplot value</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_markers(
+    x = outlier_values,
+    y = rep(
+      1,
+      length(outlier_values)
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 8,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Potential outlier</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      # Lower whisker
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = lower_whisker,
+        x1 = q1_value,
+        y0 = 1,
+        y1 = 1,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Upper whisker
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = q3_value,
+        x1 = upper_whisker,
+        y0 = 1,
+        y1 = 1,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Lower whisker cap
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = lower_whisker,
+        x1 = lower_whisker,
+        y0 = 0.86,
+        y1 = 1.14,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Upper whisker cap
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = upper_whisker,
+        x1 = upper_whisker,
+        y0 = 0.86,
+        y1 = 1.14,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Interquartile-range box
+      list(
+        type = "rect",
+        xref = "x",
+        yref = "y",
+
+        x0 = q1_value,
+        x1 = q3_value,
+        y0 = 0.72,
+        y1 = 1.28,
+
+        fillcolor = "rgba(0,105,92,0.32)",
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Median
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = median_value,
+        x1 = median_value,
+        y0 = 0.72,
+        y1 = 1.28,
+
+        line = list(
+          color = "#111111",
+          width = 3
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 9,
+
+        font = list(
+          family = "Arial",
+          size = 14,
+          color = "#111111"
+        )
+      ),
+
+      range = c(
+        value_range[1] - axis_padding,
+        value_range[2] + axis_padding
+      ),
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      range = c(0.45, 1.55),
+
+      showticklabels = FALSE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#00695C",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 28,
+      r = 28,
+      t = 8,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 90%;",
+    "margin: 1px auto 0 auto;"
+  ),
+  skew_boxplot
+)
 ```
 
 - The distribution is right-skewed
-- [The distribution is left-skewed]{.correct data-explanation="The lower whisker is longer and the tail points left. That suggests left skew. The mean would usually be less than the median."}
+- [The distribution is left-skewed]{.correct data-explanation="The lower whisker and lower tail extend farther to the left. The longer tail points in the direction of the skew, so the distribution is left-skewed."}
 - The distribution is symmetric
 - There must be a high outlier
 

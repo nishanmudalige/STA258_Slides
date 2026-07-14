@@ -332,6 +332,35 @@ live:
   background: var(--sta-teal-dark) !important;
   background-color: var(--sta-teal-dark) !important;
 }
+/* ── Home button ──────────────────────────────────────── */
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+
+.home-button-row {
+  text-align: center;
+  margin-top: 32px;
+}
 
 .web-slide .examplebox,
 .web-slide .thinkbox,
@@ -1780,10 +1809,10 @@ ggplot(class_data, aes(x = student, y = mark)) +
 
 ## End of Chapter 2
 
-::: {.center}
-<span class="big">End of Chapter 2</span>
+<div class="center">
+<span class="big">End of Chapter 2</span><br><br>
 
-<br><br>
-
-[Back to Home](../index.html){.button-link}
-:::
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Homepage</a>
+</div>
+</div>

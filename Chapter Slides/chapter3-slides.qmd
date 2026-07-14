@@ -953,9 +953,12 @@ names(counts)[which.max(counts)]  # the mode
 ## Example: Study Hours {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 Ten students reported the number of hours they studied for a midterm:
 
 $$2, 4, 5, 5, 6, 7, 7, 7, 9, 12$$
@@ -968,31 +971,235 @@ $$2, 4, 5, 5, 6, 7, 7, 7, 9, 12$$
 
 **(d)** Which measure of centre is most affected by the value $12$? Explain briefly.
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
-study <- data.frame(hours = c(2, 4, 5, 5, 6, 7, 7, 7, 9, 12))
+study <- data.frame(
+  hours = c(2, 4, 5, 5, 6, 7, 7, 7, 9, 12)
+)
 
-ggplot(study, aes(x = hours)) +
-  geom_histogram(binwidth = 1, boundary = 0.5,
-                 fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = mean(study$hours),
-             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
-  geom_vline(xintercept = median(study$hours),
-             colour = "#004d40", linewidth = 1.2) +
-  labs(title = "Study hours",
-       subtitle = "Dashed line = mean; solid line = median",
-       x = "Hours studied", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+study_counts <- data.frame(
+  hours = 2:12
+)
+
+study_counts$frequency <- vapply(
+  study_counts$hours,
+  function(value) sum(study$hours == value),
+  integer(1)
+)
+
+study_mean <- mean(study$hours)
+study_median <- median(study$hours)
+
+study_plot <- plot_ly(
+  data = study_counts,
+  x = ~hours,
+  y = ~frequency,
+  type = "bar",
+  height = 335,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>%{x} hours</b>",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.10,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    annotations = list(
+      list(
+        text = "<b>Study hours</b>",
+        x = 0,
+        y = 1.19,
+        xref = "paper",
+        yref = "paper",
+        xanchor = "left",
+        yanchor = "top",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 18,
+          color = "#111111"
+        )
+      ),
+
+      list(
+        text = "Yellow dotted line = mean; black solid line = median",
+        x = 0,
+        y = 1.08,
+        xref = "paper",
+        yref = "paper",
+        xanchor = "left",
+        yanchor = "top",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#444444"
+        )
+      )
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = study_mean,
+        x1 = study_mean,
+        y0 = 0,
+        y1 = 3.35,
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = study_median,
+        x1 = study_median,
+        y0 = 0,
+        y1 = 3.35,
+        layer = "above",
+
+        line = list(
+          color = "#111111",
+          width = 2.4
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Hours studied",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(1.25, 12.85),
+
+      tickmode = "linear",
+      tick0 = 2,
+      dtick = 1,
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 3.65),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.10)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 70,
+      r = 38,
+      t = 94,
+      b = 55
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+study_plot
 ```
+
 :::
+
 ::::
 
 ---

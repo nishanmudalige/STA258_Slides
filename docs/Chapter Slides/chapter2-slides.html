@@ -351,10 +351,29 @@
 }
 
 /* ── Utility ──────────────────────────────────────────── */
-.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
-.center     { text-align: center; }
-.small-text { font-size: 0.64em; }
-.tight li   { margin-bottom: 0.18em; }
+/* ── Utility ──────────────────────────────────────────── */
+.big {
+  font-size: 1.08em;
+  font-weight: bold;
+  color: var(--sta-teal);
+}
+
+.center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.75em;
+}
+
+.footer-note {
+  font-size: 0.65em;
+  color: var(--sta-muted);
+}
+
+.tight li {
+  margin-bottom: 0.18em;
+}
 .formula {
   display: inline-block;
   background: white;
@@ -378,6 +397,12 @@
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.scrollable .defbox,
+.scrollable .examplebox,
+.scrollable .thinkbox,
+.scrollable .warnbox {
+  margin-bottom: 4px;
+}
 
 /* ── Code ─────────────────────────────────────────────── */
 .reveal pre {

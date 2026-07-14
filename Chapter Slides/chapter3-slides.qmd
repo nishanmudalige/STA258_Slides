@@ -5014,49 +5014,15 @@ $$s^2 = \frac{22}{6 - 1} = 4.4, \quad s = \sqrt{4.4} \approx 2.10$$
 
 ---
 
-##  {.quiz-question}
-
-:::: {.callout-note icon="false"}
-## Visual Question
-
-The raw scores below come from two tutorial sections. Which graph is best suited for comparing their distributions?
-::::
-
-```{r}
-#| fig-width: 8.6
-#| fig-height: 2.1
-#| fig-align: center
-#| echo: false
-
-compare_q <- data.frame(
-  Section = rep(c("A", "B"), each = 12),
-  Score = c(70, 72, 73, 74, 75, 75, 76, 77, 78, 78, 79, 80,
-            55, 60, 63, 68, 72, 75, 77, 82, 86, 90, 94, 98)
-)
-
-ggplot(compare_q, aes(x = Score, y = Section, colour = Section)) +
-  geom_jitter(height = 0.08, size = 2.8, alpha = 0.8) +
-  scale_colour_manual(values = c("#00695c", "#f9a825"), guide = "none") +
-  labs(title = "Scores from two tutorial sections",
-       subtitle = "We want to compare centre, spread, and possible outliers",
-       x = "Score", y = "Section") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
-```
-
-- A bar chart
-- Two separate histograms
-- [Side-by-side boxplots]{.correct data-explanation="Side-by-side boxplots are best for comparing distributions across groups because they show centre, spread, and possible outliers at once."}
-- A scatterplot
-
----
-
 ## Bonus Example: Textbooks Owned {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Bonus Example</span>
+
 The number of textbooks owned by $15$ students:
 
 $$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
@@ -5071,30 +5037,236 @@ $$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
 
 **(e)** Would a **boxplot** or **histogram** be more useful for detecting outliers?
 :::
+
 :::
 
 ::: {.col}
+
+<div style="
+  width: 94%;
+  margin: 38px auto 2px auto;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Textbooks owned
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 14px !important;
+    color: #444444 !important;
+  ">
+    Yellow dotted line = median
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
-books <- data.frame(textbooks = c(0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10))
+books <- data.frame(
+  textbooks = c(
+    0, 1, 1, 2, 2,
+    2, 3, 3, 4, 4,
+    4, 5, 6, 8, 10
+  )
+)
 
-ggplot(books, aes(x = textbooks)) +
-  geom_histogram(binwidth = 1, boundary = -0.5,
-                 fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = median(books$textbooks),
-             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
-  labs(title = "Textbooks owned",
-       subtitle = "Dashed line = median",
-       x = "Number of textbooks", y = "Frequency") +
-  scale_x_continuous(breaks = 0:10) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+books_median <- median(
+  books$textbooks
+)
+
+textbook_plot <- plot_ly(
+  data = books,
+  x = ~textbooks,
+
+  type = "histogram",
+  height = 305,
+
+  xbins = list(
+    start = -0.5,
+    end = 10.5,
+    size = 1
+  ),
+
+  marker = list(
+    color = "#00695C",
+
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Textbooks owned</b>",
+    "<br>Number of textbooks: %{x:.0f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  showlegend = FALSE
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.04,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        xref = "x",
+        yref = "paper",
+
+        x0 = books_median,
+        x1 = books_median,
+        y0 = 0,
+        y1 = 1,
+
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Number of textbooks",
+        standoff = 9,
+
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(-0.6, 10.6),
+
+      tickmode = "array",
+      tickvals = 0:10,
+      ticktext = as.character(0:10),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 8,
+
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 3.6),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#00695C",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 68,
+      r = 22,
+      t = 8,
+      b = 52
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 96%;",
+    "margin: 0 auto;"
+  ),
+  textbook_plot
+)
 ```
+
 :::
+
 ::::
 
 ---

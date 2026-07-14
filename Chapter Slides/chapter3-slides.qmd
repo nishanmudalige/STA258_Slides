@@ -1603,9 +1603,12 @@ diff(range(x))    # also gives the range
 ## Example: Quiz Scores {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 A student recorded their quiz scores out of $10$:
 
 $$6, 7, 7, 8, 9, 10$$
@@ -1618,30 +1621,220 @@ $$6, 7, 7, 8, 9, 10$$
 
 **(d)** What does the standard deviation tell us in this context?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| results: asis
 
-quiz <- data.frame(score = c(6, 7, 7, 8, 9, 10))
+quiz <- data.frame(
+  score = c(6, 7, 7, 8, 9, 10)
+)
 
-ggplot(quiz, aes(x = score)) +
-  geom_histogram(binwidth = 1, boundary = 5.5,
-                 fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = mean(quiz$score),
-             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
-  labs(title = "Quiz scores out of 10",
-       subtitle = "Dashed line = sample mean",
-       x = "Score", y = "Frequency") +
-  scale_x_continuous(breaks = 6:10) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+quiz_counts <- data.frame(
+  score = 6:10
+)
+
+quiz_counts$frequency <- vapply(
+  quiz_counts$score,
+  function(value) sum(quiz$score == value),
+  integer(1)
+)
+
+quiz_mean <- mean(quiz$score)
+
+quiz_plot <- plot_ly(
+  data = quiz_counts,
+  x = ~score,
+  y = ~frequency,
+  type = "bar",
+  height = 265,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Quiz score: %{x}</b>",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.12,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = quiz_mean,
+        x1 = quiz_mean,
+        y0 = 0,
+        y1 = 2.25,
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Score",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(5.5, 10.5),
+
+      tickmode = "array",
+      tickvals = 6:10,
+      ticktext = as.character(6:10),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 2.5),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.10)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 62,
+      r = 18,
+      t = 10,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 84%;",
+    "margin: 68px auto 0 auto;",
+    "transform: translateX(-18px);"
+  ),
+
+  htmltools::div(
+    style = paste0(
+      "font-family: Arial, sans-serif;",
+      "margin: 0 0 5px 62px;",
+      "line-height: 1.15;"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "font-size: 20px !important;",
+        "font-weight: 700;",
+        "color: #111111;"
+      ),
+      "Quiz scores out of 10"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "margin-top: 3px;",
+        "font-size: 14px !important;",
+        "color: #444444;"
+      ),
+      "Yellow dotted line = sample mean"
+    )
+  ),
+
+  quiz_plot
+)
 ```
+
 :::
+
 ::::
 
 ---

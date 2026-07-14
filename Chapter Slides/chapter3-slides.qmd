@@ -1922,9 +1922,12 @@ IQR(x)            # Q3 - Q1
 ## Example: Final Exam Scores {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 The final exam scores for $12$ students are:
 
 $$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
@@ -1939,29 +1942,258 @@ $$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
 
 **(e)** Using the $1.5 \times \text{IQR}$ rule, which scores would be flagged as unusually low or high?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| results: asis
 
-exam <- data.frame(score = c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96))
+exam <- data.frame(
+  score = c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96)
+)
 
-ggplot(exam, aes(x = score, y = "")) +
-  geom_boxplot(fill = "#00695c", colour = "#004d40",
-               width = 0.35, outlier.colour = "#e34a6f") +
-  geom_jitter(height = 0.08, size = 2.2, alpha = 0.75, colour = "#f9a825") +
-  labs(title = "Final exam scores",
-       x = "Score", y = NULL) +
-  theme(panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.text.y = element_blank(),
-        plot.title = element_text(face = "bold"))
+exam$q1 <- unname(quantile(exam$score, 0.25))
+exam$median <- median(exam$score)
+exam$q3 <- unname(quantile(exam$score, 0.75))
+exam$iqr <- exam$q3 - exam$q1
+
+lower_fence <- exam$q1[1] - 1.5 * exam$iqr[1]
+upper_fence <- exam$q3[1] + 1.5 * exam$iqr[1]
+
+whisker_low <- min(
+  exam$score[exam$score >= lower_fence]
+)
+
+whisker_high <- max(
+  exam$score[exam$score <= upper_fence]
+)
+
+q1_value <- exam$q1[1]
+median_value <- exam$median[1]
+q3_value <- exam$q3[1]
+
+exam$point_y <- c(
+  1.00, 0.95, 1.05, 0.97,
+  1.04, 0.94, 1.06, 0.96,
+  1.03, 0.95, 1.05, 1.00
+)
+
+exam_plot <- plot_ly(
+  data = exam,
+  x = ~score,
+  y = ~point_y,
+  type = "scatter",
+  mode = "markers",
+  height = 245,
+
+  marker = list(
+    color = "#B32025",
+    size = 10,
+    line = list(
+      color = "#111111",
+      width = 0.9
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Final exam score: %{x}</b>",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = whisker_low,
+        x1 = whisker_high,
+        y0 = 1,
+        y1 = 1,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "rect",
+        x0 = q1_value,
+        x1 = q3_value,
+        y0 = 0.87,
+        y1 = 1.13,
+        layer = "below",
+        fillcolor = "rgba(179,32,37,0.18)",
+        line = list(
+          color = "#B32025",
+          width = 2.2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = median_value,
+        x1 = median_value,
+        y0 = 0.87,
+        y1 = 1.13,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 3
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = whisker_low,
+        x1 = whisker_low,
+        y0 = 0.94,
+        y1 = 1.06,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = whisker_high,
+        x1 = whisker_high,
+        y0 = 0.94,
+        y1 = 1.06,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 2
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Final exam score",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(48, 100),
+      tick0 = 50,
+      dtick = 5,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      range = c(0.72, 1.28),
+      showticklabels = FALSE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 48,
+      r = 22,
+      t = 8,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 86%;",
+    "margin: 82px auto 0 auto;",
+    "transform: translateX(-12px);"
+  ),
+
+  htmltools::div(
+    style = paste0(
+      "font-family: Arial, sans-serif;",
+      "margin: 0 0 8px 48px;",
+      "line-height: 1.15;"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "font-size: 20px !important;",
+        "font-weight: 700;",
+        "color: #111111;"
+      ),
+      "Final exam scores"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "margin-top: 4px;",
+        "font-size: 14px !important;",
+        "color: #444444;"
+      ),
+      "Box = middle 50%; black line = median"
+    )
+  ),
+
+  exam_plot
+)
 ```
+
 :::
+
 ::::
 
 ---

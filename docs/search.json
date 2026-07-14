@@ -1145,7 +1145,7 @@
     "href": "Chapter Slides/chapter2-slides.html#statistical-computing-language",
     "title": "STA258",
     "section": "2.1 Getting Started with R",
-    "text": "2.1 Getting Started with R\n\nR\nR is used for data manipulation, statistics, and graphics. It supports a wide range of operations (+, −, /, &lt;, etc.) on vectors, arrays, and matrices, and includes a large collection of built-in functions and user-contributed packages.\n\n\n\n\nFree Open-source and free to install on any platform.\n\n\nVast 20,000+ contributed packages on CRAN.\n\n\nSpeaks Many Languages Interfaces with C, C++, FORTRAN, Python, and SQL."
+    "text": "2.1 Getting Started with R\n\nR\nR is used for data manipulation, statistics, and graphics. It supports a wide range of operations (+, −, /, &lt;, etc.) on vectors, arrays, and matrices, and includes a large collection of built-in functions and user-contributed packages.\n\n\n\n\nFree Open-source and free to install on any platform.\n\n\nExtensible A large ecosystem of contributed packages is available through CRAN.\n\n\nSpeaks Many Languages Interfaces with C, C++, FORTRAN, Python, and SQL."
   },
   {
     "objectID": "Chapter Slides/chapter2-slides.html#why-scripts-not-clicks",
@@ -1236,7 +1236,7 @@
     "href": "Chapter Slides/chapter2-slides.html#basic-r-data-structures",
     "title": "STA258",
     "section": "2.3.2 Basic R Data Structures",
-    "text": "2.3.2 Basic R Data Structures\nThe primary data structures in R are vectors, lists, matrices, arrays, factors, and data frames.\n\n\n\nStructure\nStores\nDimensions\nTypes mixed?\n\n\n\n\nVector\nOne type of value\n1-D\nNo\n\n\nList\nAny types\n1-D\nYes\n\n\nMatrix\nOne type of value\n2-D\nNo\n\n\nArray\nOne type of value\nn-D\nNo\n\n\nFactor\nCategorical values\n1-D\nNo\n\n\nData frame\nAny types per column\n2-D\nYes\n\n\n\n\nFor most applied statistics the main structure is the data frame, because it resembles a spreadsheet where each column can hold a different type."
+    "text": "2.3.2 Basic R Data Structures\nThe primary data structures in R are vectors, lists, matrices, arrays, factors, and data frames.\n\n\n\nStructure\nStores\nDimensions\nCan mix types?\n\n\n\n\nVector\nValues of one type\n1-D\nNo\n\n\nList\nValues or objects of different types\n1-D\nYes\n\n\nMatrix\nValues of one type\n2-D\nNo\n\n\nArray\nValues of one type\nn-D\nNo\n\n\nFactor\nCategorical values stored as levels\n1-D\nNo\n\n\nData frame\nOne type within each column\n2-D\nYes, across columns\n\n\n\n\nFor most applied statistics the main structure is the data frame, because it resembles a spreadsheet where each column can hold a different type."
   },
   {
     "objectID": "Chapter Slides/chapter2-slides.html#vectors",
@@ -1285,7 +1285,7 @@
     "href": "Chapter Slides/chapter2-slides.html#arrays-and-factors",
     "title": "STA258",
     "section": "Arrays and Factors",
-    "text": "Arrays and Factors\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nArrays extend matrices to n dimensions. Useful for simulations and higher-dimensional data.\n\n\nFactors store unique values (called levels) efficiently. Automatically treated as categorical in models."
+    "text": "Arrays and Factors\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nArrays extend matrices to n dimensions. Useful for simulations and higher-dimensional data.\n\n\nFactors store categorical values using predefined categories called levels. They are treated as categorical variables in statistical models."
   },
   {
     "objectID": "Chapter Slides/chapter2-slides.html#data-frames",
@@ -1334,7 +1334,7 @@
     "href": "Chapter Slides/chapter2-slides.html#using-basic-functions-in-r",
     "title": "STA258",
     "section": "2.3.3 Using Basic Functions in R",
-    "text": "2.3.3 Using Basic Functions in R\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunction\nPurpose\n\n\n\n\nmax(), min()\nLargest and smallest values\n\n\nmean(), sum()\nAverage and total\n\n\nsort()\nSorted values\n\n\norder()\nRank positions\n\n\n\n\nThese functions work on vectors, and many also apply to data-frame columns or matrices with additional arguments."
+    "text": "2.3.3 Using Basic Functions in R\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFunction\nPurpose\n\n\n\n\nmax(), min()\nLargest and smallest values\n\n\nmean(), sum()\nAverage and total\n\n\nsort()\nSorted values\n\n\norder()\nIndices that sort the values\n\n\n\n\nThese functions work on vectors, and many also apply to data-frame columns or matrices with additional arguments."
   },
   {
     "objectID": "Chapter Slides/chapter2-slides.html#histogram-the-faithful-dataset",

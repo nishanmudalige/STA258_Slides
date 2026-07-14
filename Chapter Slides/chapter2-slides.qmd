@@ -227,6 +227,92 @@ live:
 .reveal section.compact p,
 .reveal section.compact li  { font-size: 0.74em; }
 
+/* ── Quiz slides ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+
+.reveal .quiz-question > * {
+  width: 100%;
+  max-width: 1080px;
+}
+
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.reveal .quiz-question .callout-note {
+  margin: 4px 0 12px 0 !important;
+  text-align: left;
+}
+
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+
+.reveal .quiz-question ul {
+  margin: 4px 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+.reveal .quiz-question li {
+  margin-bottom: 6px !important;
+}
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
+
 /* ── Web slides ───────────────────────────────────────── */
 .reveal section.web-slide h2 { font-size: 1.12em !important; margin-bottom: 0.3em; }
 .button-link {
@@ -489,8 +575,8 @@ R is used for data manipulation, statistics, and graphics. It supports a wide ra
 Open-source and free to install on any platform.
 :::
 ::: {.stat-card .fragment}
-<span class="label">Vast</span>
-20,000+ contributed packages on CRAN.
+<span class="label">Extensible</span>
+A large ecosystem of contributed packages is available through CRAN.
 :::
 ::: {.stat-card .fragment}
 <span class="label">Speaks Many Languages</span>
@@ -858,14 +944,14 @@ mark
 
 The primary data structures in R are **vectors**, **lists**, **matrices**, **arrays**, **factors**, and **data frames**.
 
-| Structure | Stores | Dimensions | Types mixed? |
+| Structure | Stores | Dimensions | Can mix types? |
 |---|---|---|---|
-| Vector | One type of value | 1-D | No |
-| List | Any types | 1-D | Yes |
-| Matrix | One type of value | 2-D | No |
-| Array | One type of value | n-D | No |
-| Factor | Categorical values | 1-D | No |
-| Data frame | Any types per column | 2-D | Yes |
+| Vector | Values of one type | 1-D | No |
+| List | Values or objects of different types | 1-D | Yes |
+| Matrix | Values of one type | 2-D | No |
+| Array | Values of one type | n-D | No |
+| Factor | Categorical values stored as levels | 1-D | No |
+| Data frame | One type within each column | 2-D | Yes, across columns |
 
 ::: {.thinkbox .fragment}
 For most applied statistics the main structure is the **data frame**, because it resembles a spreadsheet where each column can hold a different type.
@@ -1104,7 +1190,7 @@ levels(gender)   # [1] "Female" "Male"
 **Arrays** extend matrices to n dimensions. Useful for simulations and higher-dimensional data.
 :::
 ::: {.examplebox}
-**Factors** store unique values (called **levels**) efficiently. Automatically treated as categorical in models.
+**Factors** store categorical values using predefined categories called **levels**. They are treated as categorical variables in statistical models.
 :::
 ::::
 
@@ -1352,7 +1438,7 @@ min(x)
 sort(x)                       # ascending order
 sort(x, decreasing = TRUE)    # descending order
 
-# Find the order (ranks) of elements
+# Find the indices that would sort the vector
 order(x)
 ```
 :::
@@ -1363,7 +1449,7 @@ order(x)
 | `max()`, `min()` | Largest and smallest values |
 | `mean()`, `sum()` | Average and total |
 | `sort()` | Sorted values |
-| `order()` | Rank positions |
+| `order()` | Indices that sort the values |
 
 ::: {.thinkbox}
 These functions work on vectors, and many also apply to data-frame columns or matrices with additional arguments.

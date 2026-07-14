@@ -79,7 +79,7 @@ live:
 .two-col, .two-col-lean, .two-col-wide,
 .three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
   display: grid;
-  gap: 36px;
+  gap: 28px;
   align-items: start;
 }
 .two-col       { grid-template-columns: 1fr 1fr; }
@@ -99,42 +99,84 @@ live:
 .install-panel { display: flex; flex-direction: column; gap: 10px; }
 
 /* ── Boxes ────────────────────────────────────────────── */
-.defbox, .examplebox, .thinkbox, .card,
-.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 16px 18px;
+.defbox,
+.examplebox,
+.thinkbox,
+.card,
+.warnbox,
+.taskbox,
+.notebox,
+.mini-card,
+.stat-card {
+  padding: 14px 16px;
   border-radius: 10px;
-  font-size: 0.74em;
-  line-height: 1.28;
+  font-size: 0.72em;
+  line-height: 1.24;
   box-sizing: border-box;
   margin-bottom: 8px;
 }
-.defbox, .card {
+
+.defbox,
+.card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
-.examplebox, .notebox, .mini-card {
+
+.examplebox,
+.notebox,
+.mini-card {
   background: var(--sta-grey);
   border: 1px solid var(--sta-border);
 }
-.thinkbox, .taskbox {
+
+.thinkbox,
+.taskbox {
   background: var(--sta-yellow);
   border-left: 7px solid var(--sta-orange);
 }
+
 .warnbox {
   background: #fff3e0;
   border-left: 7px solid #ef6c00;
 }
+
 .stat-card {
   background: white;
   border: 1px solid var(--sta-border);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
 }
-.card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+
+.card .label,
+.taskbox .label,
+.notebox .label,
+.mini-card .label,
+.stat-card .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
   margin-bottom: 5px;
+}
+
+.defbox p,
+.examplebox p,
+.thinkbox p,
+.warnbox p,
+.card p,
+.taskbox p,
+.notebox p,
+.mini-card p,
+.stat-card p,
+.defbox li,
+.examplebox li,
+.thinkbox li,
+.warnbox li,
+.card li,
+.taskbox li,
+.notebox li,
+.mini-card li,
+.stat-card li {
+  font-size: 1em;
+  margin-bottom: 4px;
 }
 
 /* ── Utility ──────────────────────────────────────────── */

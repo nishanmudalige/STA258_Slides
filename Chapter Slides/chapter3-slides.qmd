@@ -1266,11 +1266,11 @@ sd(x)            # sample standard deviation
 ::: {.defbox .fragment}
 **$p^{\text{th}}$ percentile**
 
-In an ordered data set, the $p^{\text{th}}$ percentile is the value such that $p\%$ of all observations lie **below** it.
+In an ordered data set, the $p^{\text{th}}$ percentile is a value at or below which approximately $p\%$ of the observations fall.
 :::
 
 ::: {.examplebox .fragment}
-**Example.** A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the **90th percentile** for this test - the student scored higher than 90% of the class.
+**Example.** A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the **90th percentile** for this test - approximately 90% of the class scored at or below 72%.
 
 A relative position can matter more than the raw mark.
 :::
@@ -1308,7 +1308,7 @@ The width of the middle 50% of the data.
 :::
 
 ::: {.examplebox .fragment}
-Unlike the range, the IQR is **resistant to outliers** because the bottom 25% and top 25% of the data are ignored.
+Unlike the range, the IQR is **resistant to outliers** because it depends on $Q_1$ and $Q_3$ rather than directly using the minimum and maximum.
 :::
 :::
 
@@ -2121,7 +2121,7 @@ ggplot(compare_q, aes(x = Score, y = Section, colour = Section)) +
 :::: {.three-col}
 ::: {.card .fragment}
 <span class="label">Centre</span>
-**Mean** uses every value. **Median** ignores extremes. **Mode** is the most common value.
+**Mean** uses every value. **Median** is resistant to extremes. **Mode** is the most common value.
 :::
 ::: {.card .fragment}
 <span class="label">Spread</span>

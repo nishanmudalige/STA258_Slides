@@ -256,7 +256,7 @@
     "href": "Chapter Slides/chapter3-slides.html#percentiles",
     "title": "STA258",
     "section": "3.2.7 Percentiles",
-    "text": "3.2.7 Percentiles\n\n\\(p^{\\text{th}}\\) percentile\nIn an ordered data set, the \\(p^{\\text{th}}\\) percentile is the value such that \\(p\\%\\) of all observations lie below it.\n\n\nExample. A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the 90th percentile for this test - the student scored higher than 90% of the class.\nA relative position can matter more than the raw mark."
+    "text": "3.2.7 Percentiles\n\n\\(p^{\\text{th}}\\) percentile\nIn an ordered data set, the \\(p^{\\text{th}}\\) percentile is a value at or below which approximately \\(p\\%\\) of the observations fall.\n\n\nExample. A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the 90th percentile for this test - approximately 90% of the class scored at or below 72%.\nA relative position can matter more than the raw mark."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#quartiles",
@@ -270,7 +270,7 @@
     "href": "Chapter Slides/chapter3-slides.html#interquartile-range-iqr",
     "title": "STA258",
     "section": "Interquartile Range (IQR)",
-    "text": "Interquartile Range (IQR)\n\n\n\nIQR\n\\[\\text{IQR} \\; = \\; Q_3 - Q_1\\]\nThe width of the middle 50% of the data.\n\n\nUnlike the range, the IQR is resistant to outliers because the bottom 25% and top 25% of the data are ignored."
+    "text": "Interquartile Range (IQR)\n\n\n\nIQR\n\\[\\text{IQR} \\; = \\; Q_3 - Q_1\\]\nThe width of the middle 50% of the data.\n\n\nUnlike the range, the IQR is resistant to outliers because it depends on \\(Q_1\\) and \\(Q_3\\) rather than directly using the minimum and maximum."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#example-final-exam-scores",
@@ -459,7 +459,7 @@
     "href": "Chapter Slides/chapter3-slides.html#chapter-summary",
     "title": "STA258",
     "section": "Chapter Summary",
-    "text": "Chapter Summary\n\n\nCentre Mean uses every value. Median ignores extremes. Mode is the most common value.\n\n\nSpread Range = max − min (sensitive). IQR = \\(Q_3 - Q_1\\) (resistant). SD \\(s\\) is the typical distance from \\(\\bar{x}\\).\n\n\nShape Read skewness from a histogram (which way does the tail point?) or a boxplot (which whisker is longer?).\n\n\n\n\nOne slide takeaway. Always report a number and a picture. A mean without a histogram, or a histogram without a summary, leaves half the story untold."
+    "text": "Chapter Summary\n\n\nCentre Mean uses every value. Median is resistant to extremes. Mode is the most common value.\n\n\nSpread Range = max − min (sensitive). IQR = \\(Q_3 - Q_1\\) (resistant). SD \\(s\\) is the typical distance from \\(\\bar{x}\\).\n\n\nShape Read skewness from a histogram (which way does the tail point?) or a boxplot (which whisker is longer?).\n\n\n\n\nOne slide takeaway. Always report a number and a picture. A mean without a histogram, or a histogram without a summary, leaves half the story untold."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#bonus-example-textbooks-owned",

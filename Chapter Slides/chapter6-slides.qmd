@@ -24,6 +24,7 @@ webr:
   packages:
     - dplyr
     - plotly
+    - BSDA
 live:
   show-solutions: true
 ---
@@ -218,77 +219,46 @@ test_dropdown <- function() {
   f_max <- qf(0.995, f1, f2)
   f_x <- seq(0, f_max, length.out = np); f_y <- df(f_x, f1, f2)
 
-  shade_y <- function(y, keep) ifelse(keep, y, 0)  # 0 baseline outside region -> clean multi-region fill
-  s_sym <- 1.3
-  c_lo  <- qchisq(0.12, df_c); c_hi  <- qchisq(0.88, df_c)
-  c_lo2 <- qchisq(0.05, df_c); c_hi2 <- qchisq(0.95, df_c)
-  f_lo  <- qf(0.12, f1, f2);  f_hi  <- qf(0.88, f1, f2)
-  f_lo2 <- qf(0.05, f1, f2);  f_hi2 <- qf(0.95, f1, f2)
-
+  # cdf grids let the JS side compute p-values by interpolation while dragging
   dists <- list(
-    z     = list(x = z_x, y = z_y),
-    t     = list(x = t_x, y = t_y),
-    chisq = list(x = c_x, y = c_y),
-    F     = list(x = f_x, y = f_y)
+    z     = list(x = z_x, y = z_y, cdf = pnorm(z_x),        symmetric = TRUE,  wname = "Z"),
+    t     = list(x = t_x, y = t_y, cdf = pt(t_x, df_t),     symmetric = TRUE,  wname = "t"),
+    chisq = list(x = c_x, y = c_y, cdf = pchisq(c_x, df_c), symmetric = FALSE, wname = "χ²"),
+    F     = list(x = f_x, y = f_y, cdf = pf(f_x, f1, f2),   symmetric = FALSE, wname = "F")
   )
-  shades <- list(
-    z = list(
-      left  = list(x = z_x, y = shade_y(z_y, z_x <= -s_sym)),
-      right = list(x = z_x, y = shade_y(z_y, z_x >=  s_sym)),
-      both  = list(x = z_x, y = shade_y(z_y, abs(z_x) >= s_sym))),
-    t = list(
-      left  = list(x = t_x, y = shade_y(t_y, t_x <= -s_sym)),
-      right = list(x = t_x, y = shade_y(t_y, t_x >=  s_sym)),
-      both  = list(x = t_x, y = shade_y(t_y, abs(t_x) >= s_sym))),
-    chisq = list(
-      left  = list(x = c_x, y = shade_y(c_y, c_x <= c_lo)),
-      right = list(x = c_x, y = shade_y(c_y, c_x >= c_hi)),
-      both  = list(x = c_x, y = shade_y(c_y, c_x <= c_lo2 | c_x >= c_hi2))),
-    F = list(
-      left  = list(x = f_x, y = shade_y(f_y, f_x <= f_lo)),
-      right = list(x = f_x, y = shade_y(f_y, f_x >= f_hi)),
-      both  = list(x = f_x, y = shade_y(f_y, f_x <= f_lo2 | f_x >= f_hi2)))
+
+  # starting boundary position(s) for each (distribution, tail) combination
+  s_sym <- 1.3
+  inits <- list(
+    z     = list(left = -s_sym, right = s_sym, both = c(-s_sym, s_sym)),
+    t     = list(left = -s_sym, right = s_sym, both = c(-s_sym, s_sym)),
+    chisq = list(left = qchisq(0.12, df_c), right = qchisq(0.88, df_c),
+                 both = c(qchisq(0.05, df_c), qchisq(0.95, df_c))),
+    F     = list(left = qf(0.12, f1, f2), right = qf(0.88, f1, f2),
+                 both = c(qf(0.05, f1, f2), qf(0.95, f1, f2)))
   )
 
   tl <- function(dist, tail) {
     nm   <- switch(dist, z = "Z", t = "t", chisq = "Chi-square", F = "F")
     side <- switch(tail, left = "Left-tailed", right = "Right-tailed", both = "Two-tailed")
-    paste0(side, " ", nm, " test")
+    paste0(side, " ", nm, " test — drag the dotted line")
   }
   titles <- list()
   for (d in names(dists))
     titles[[d]] <- list(left = tl(d, "left"), right = tl(d, "right"), both = tl(d, "both"))
   ranges <- list(z = c(-4, 4), t = c(-4, 4), chisq = c(0, c_max), F = c(0, f_max))
 
-  # cutoff markers where the shaded tail starts: x position, curve height there, and an
-  # |w*| / -|w*| symbol (not a number) placed on the axis in place of the tick value
-  # neg = TRUE for the left/lower boundary (gets a leading minus), FALSE for right/upper
-  mk1 <- function(v, dens, neg) list(x = v, y = dens(v),
-                                     label = paste0(if (neg) "-" else "", "|test statistic|"))
-  dn_z <- function(v) dnorm(v); dn_t <- function(v) dt(v, df_t)
-  dn_c <- function(v) dchisq(v, df_c); dn_f <- function(v) df(v, f1, f2)
-  marks <- list(
-    z = list(left = list(mk1(-s_sym, dn_z, TRUE)), right = list(mk1(s_sym, dn_z, FALSE)),
-             both = list(mk1(-s_sym, dn_z, TRUE), mk1(s_sym, dn_z, FALSE))),
-    t = list(left = list(mk1(-s_sym, dn_t, TRUE)), right = list(mk1(s_sym, dn_t, FALSE)),
-             both = list(mk1(-s_sym, dn_t, TRUE), mk1(s_sym, dn_t, FALSE))),
-    chisq = list(left = list(mk1(c_lo, dn_c, TRUE)), right = list(mk1(c_hi, dn_c, FALSE)),
-                 both = list(mk1(c_lo2, dn_c, TRUE), mk1(c_hi2, dn_c, FALSE))),
-    F = list(left = list(mk1(f_lo, dn_f, TRUE)), right = list(mk1(f_hi, dn_f, FALSE)),
-             both = list(mk1(f_lo2, dn_f, TRUE), mk1(f_hi2, dn_f, FALSE)))
-  )
+  pdata <- list(dists = dists, inits = inits, titles = titles, ranges = ranges)
 
-  pdata <- list(dists = dists, shades = shades, titles = titles,
-                ranges = ranges, marks = marks)
-
-  init_d <- dists$t; init_s <- shades$t$right
+  init_d <- dists$t
   fill_col <- "rgba(249,168,37,0.55)"; line_col <- "rgba(249,168,37,0.95)"
 
-  p <- plot_ly(width = 1040, height = 320) |>
+  p <- plot_ly(width = 1040, height = 330) |>
     add_lines(x = init_d$x, y = init_d$y,
               line = list(color = "#1f4e79", width = 4),
               name = "reference", hoverinfo = "skip") |>
-    add_trace(x = init_s$x, y = init_s$y, type = "scatter", mode = "lines",
+    add_trace(x = init_d$x, y = ifelse(init_d$x >= s_sym, init_d$y, 0),
+              type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_col,
               line = list(color = line_col, width = 0),
               name = "p-value area", hoverinfo = "skip") |>
@@ -297,10 +267,11 @@ test_dropdown <- function() {
       xaxis = list(title = "", range = c(-4, 4), zeroline = TRUE,
                    zerolinecolor = "#222", fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
-      margin = list(l = 42, r = 12, t = 30, b = 60),
+      margin = list(l = 42, r = 12, t = 30, b = 92),
       showlegend = FALSE
     ) |>
-    config(displayModeBar = FALSE, responsive = TRUE)
+    config(displayModeBar = FALSE, responsive = TRUE,
+           edits = list(shapePosition = TRUE))
 
   js <- "
   function(el, x, data) {
@@ -319,22 +290,105 @@ test_dropdown <- function() {
     var tsel = mk('Alternative:', [{v:'left',t:'Left-tailed'},{v:'right',t:'Right-tailed'},{v:'both',t:'Two-tailed'}], 'right');
     wrap.appendChild(dsel.lab); wrap.appendChild(tsel.lab);
     el.parentNode.insertBefore(wrap, el);
-    var redraw = function(){
-      var d = dsel.sel.value, t = tsel.sel.value;
-      var dd = data.dists[d], sh = data.shades[d][t], ms = data.marks[d][t];
-      var anns = ms.map(function(m){ return {x:m.x, y:0, xref:'x', yref:'y', text:m.label,
-        showarrow:false, yanchor:'top', yshift:-20, font:{size:12, color:'#b26a00'},
-        bgcolor:'rgba(255,255,255,0.75)'}; });
-      var shps = ms.map(function(m){ return {type:'line', x0:m.x, x1:m.x, y0:0, y1:m.y,
-        line:{color:'#b26a00', width:1.5, dash:'dot'}}; });
-      Plotly.restyle(el, {x:[dd.x], y:[dd.y]}, [0]);
-      Plotly.restyle(el, {x:[sh.x], y:[sh.y]}, [1]);
-      Plotly.relayout(el, {'title.text': data.titles[d][t], 'xaxis.range': data.ranges[d],
-        annotations: anns, shapes: shps});
+
+    var interp = function(xs, ys, v){
+      if (v <= xs[0]) return ys[0];
+      if (v >= xs[xs.length-1]) return ys[ys.length-1];
+      var lo = 0, hi = xs.length - 1;
+      while (hi - lo > 1){ var m = (hi + lo) >> 1; if (xs[m] <= v) lo = m; else hi = m; }
+      var f = (v - xs[lo]) / (xs[hi] - xs[lo]);
+      return ys[lo] + f * (ys[hi] - ys[lo]);
     };
-    dsel.sel.addEventListener('change', redraw);
-    tsel.sel.addEventListener('change', redraw);
-    redraw();
+    var fmt  = function(v){ return (v < 0 ? '−' : '') + Math.abs(v).toFixed(2); };
+    var fmtp = function(v){ return Math.max(0, Math.min(1, v)).toFixed(4); };
+
+    var state = {d:'t', t:'right', b:[1.3]};
+    var setDefaults = function(){
+      var i = data.inits[state.d][state.t];
+      state.b = Array.isArray(i) ? i.slice() : [i];
+    };
+
+    var redraw = function(){
+      var dd = data.dists[state.d], xs = dd.x, ys = dd.y, cdf = dd.cdf;
+      var keep;
+      if (state.t === 'left'){ var vl = state.b[0]; keep = function(q){ return q <= vl; }; }
+      else if (state.t === 'right'){ var vr = state.b[0]; keep = function(q){ return q >= vr; }; }
+      else { var lo2 = state.b[0], hi2 = state.b[1]; keep = function(q){ return q <= lo2 || q >= hi2; }; }
+      var sy = xs.map(function(q, i){ return keep(q) ? ys[i] : 0; });
+
+      var shps = state.b.map(function(v){
+        return {type:'line', x0:v, x1:v, y0:0, y1:interp(xs, ys, v),
+                line:{color:'#b26a00', width:2.5, dash:'dot'}};
+      });
+      var anns = state.b.map(function(v, i){
+        var lab = 'test statistic';
+        if (dd.symmetric){
+          if (state.t === 'both') lab = (i === 0 ? '−|test statistic|' : '|test statistic|');
+          else if (state.t === 'left') lab = '−|test statistic|';
+        }
+        return {x:v, y:0, xref:'x', yref:'y', text:lab, showarrow:false,
+                yanchor:'top', yshift:-20, font:{size:12, color:'#b26a00'},
+                bgcolor:'rgba(255,255,255,0.75)'};
+      });
+
+      var w = dd.wname, txt;
+      if (state.t === 'left'){
+        var v1 = state.b[0], p1l = interp(xs, cdf, v1);
+        txt = 'w* = ' + fmt(v1) + '    p-value = P(' + w + ' ≤ ' + fmt(v1) + ') = ' + fmtp(p1l);
+      } else if (state.t === 'right'){
+        var v2 = state.b[0], p1r = 1 - interp(xs, cdf, v2);
+        txt = 'w* = ' + fmt(v2) + '    p-value = P(' + w + ' ≥ ' + fmt(v2) + ') = ' + fmtp(p1r);
+      } else if (dd.symmetric){
+        var sB = Math.abs(state.b[1]), pB = 2 * (1 - interp(xs, cdf, sB));
+        txt = '|w*| = ' + fmt(sB) + '    p-value = 2·P(' + w + ' ≥ ' + fmt(sB) + ') = ' + fmtp(pB);
+      } else {
+        var loB = state.b[0], hiB = state.b[1];
+        var pl = interp(xs, cdf, loB), pu = 1 - interp(xs, cdf, hiB);
+        txt = 'p-value = P(' + w + ' ≤ ' + fmt(loB) + ') + P(' + w + ' ≥ ' + fmt(hiB) + ') = ' +
+              fmtp(pl) + ' + ' + fmtp(pu) + ' = ' + fmtp(pl + pu);
+      }
+      anns.push({x:0.5, y:-0.36, xref:'paper', yref:'paper', text:txt, showarrow:false,
+                 font:{size:14, color:'#2f3437'}, bgcolor:'rgba(245,246,247,0.95)',
+                 bordercolor:'#d8dee2', borderwidth:1, borderpad:5});
+
+      Plotly.restyle(el, {x:[xs], y:[ys]}, [0]);
+      Plotly.restyle(el, {x:[xs], y:[sy]}, [1]);
+      Plotly.relayout(el, {'title.text': data.titles[state.d][state.t],
+                           'xaxis.range': data.ranges[state.d],
+                           shapes: shps, annotations: anns});
+    };
+
+    el.on('plotly_relayout', function(ev){
+      var moved = null, nx = null;
+      Object.keys(ev || {}).forEach(function(k){
+        var m = k.match(/^shapes\\[(\\d+)\\]\\.x0$/);
+        if (m){ moved = +m[1]; nx = +ev[k]; }
+      });
+      if (moved === null || isNaN(nx)) return;
+      var r = data.ranges[state.d];
+      nx = Math.max(r[0] + 0.02, Math.min(r[1] - 0.02, nx));
+      var dd = data.dists[state.d];
+      if (state.t === 'both'){
+        if (dd.symmetric){
+          var s = Math.max(0.02, Math.abs(nx));
+          state.b = [-s, s];
+        } else {
+          state.b[moved] = nx;
+          if (state.b[0] > state.b[1] - 0.1){
+            if (moved === 0) state.b[0] = state.b[1] - 0.1;
+            else state.b[1] = state.b[0] + 0.1;
+          }
+        }
+      } else {
+        state.b[0] = nx;
+      }
+      redraw();
+    });
+
+    var onpick = function(){ state.d = dsel.sel.value; state.t = tsel.sel.value; setDefaults(); redraw(); };
+    dsel.sel.addEventListener('change', onpick);
+    tsel.sel.addEventListener('change', onpick);
+    setDefaults(); redraw();
   }
   "
   htmlwidgets::onRender(p, js, data = pdata)
@@ -936,7 +990,7 @@ Use when the research question asks whether the parameter changed in either dire
 
 ::: {.col}
 ::: {.thinkbox}
-Use the **two dropdowns** at the top-right of the plot: first pick the **type of test** ($Z$, $t$, $\chi^2$, or $F$), then pick the **alternative** (left-tailed, right-tailed, or two-tailed). The shaded p-value area updates for that combination.
+Use the **two dropdowns** at the top-right of the plot: first pick the **type of test** ($Z$, $t$, $\chi^2$, or $F$), then pick the **alternative** (left-tailed, right-tailed, or two-tailed). Then **drag the dotted line** to move the observed test statistic — the shaded area and the p-value label below the plot update as you drag (for two-tailed $Z$ and $t$, the two boundaries move together).
 :::
 :::
 ::::
@@ -1382,11 +1436,12 @@ p_value <- 1 - pnorm(z_star)
 phat
 z_star
 p_value
-```
 
-::: {.thinkbox .fragment}
-The code above builds $z^*$ by hand and finds the p-value with `pnorm()`. An alternative is using `prop.test()`, but note that it runs the **chi-square** version of the test, so its output reports `X-squared`, not $z^*$, where $\chi^2 = (z^*)^2$.
-:::
+# Alternative Way: prop.test() runs the chi-square version of this test.
+# Its output reports X-squared (not z*), where X-squared = (z*)^2.
+# Uncomment to try it:
+# prop.test(x, n, p = p0, alternative = "greater", correct = FALSE)
+```
 
 ---
 
@@ -1662,6 +1717,12 @@ z_star <- (xbarA - xbarB) / se
 p_value <- 1 - pnorm(z_star)   # Ha: muA - muB > 0
 z_star
 p_value
+
+# Alternative Way: Same test straight from summary statistics with the BSDA package:
+library(BSDA)
+zsum.test(mean.x = xbarA, sigma.x = sigmaA, n.x = nA,
+          mean.y = xbarB, sigma.y = sigmaB, n.y = nB,
+          mu = 0, alternative = "greater")
 ```
 
 ::: {.thinkbox .fragment}

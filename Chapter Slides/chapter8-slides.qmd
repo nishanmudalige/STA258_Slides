@@ -3097,13 +3097,13 @@ confint(comp, calpha = qt(1 - 0.05 / (2 * m), df))
 :::: {.callout-note icon="false"}
 ## Question
 
-A one-way ANOVA with $k=4$ groups has a significant p-value. How many pairwise mean comparisons are possible?
+A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
 ::::
 
-- 3
-- [6]{.correct data-explanation="The number of pairwise comparisons is choose(k, 2). With k = 4, choose(4, 2) = 6."}
-- 8
+- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
 - 16
+- 8
+- 3
 
 ---
 

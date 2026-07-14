@@ -3805,9 +3805,12 @@ htmltools::div(
 ## Example: Online Quiz Times {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 A professor records the time, in minutes, that students spent completing an online quiz:
 
 $$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
@@ -3820,27 +3823,240 @@ $$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
 
 **(d)** Which value seems most likely to be an outlier?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| results: asis
 
-times <- data.frame(minutes = c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42))
+times <- data.frame(
+  minutes = c(
+    12, 14, 15, 15, 16, 18,
+    20, 22, 25, 28, 35, 42
+  )
+)
 
-ggplot(times, aes(x = minutes)) +
-  geom_histogram(binwidth = 5, boundary = 10,
-                 fill = "#00695c", colour = "white") +
-  geom_rug(colour = "#f9a825", linewidth = 1) +
-  labs(title = "Online quiz completion times",
-       x = "Minutes", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+times$observation <- paste0(
+  "Observation ",
+  seq_len(nrow(times))
+)
+
+quiz_time_plot <- plot_ly(
+  data = times,
+  x = ~minutes,
+  type = "histogram",
+  height = 275,
+
+  xbins = list(
+    start = 10,
+    end = 45,
+    size = 5
+  ),
+
+  marker = list(
+    color = "#00695C",
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Completion-time bin</b>",
+    "<br>Time: approximately %{x:.0f} minutes",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  showlegend = FALSE
+) |>
+  add_trace(
+    data = times,
+    x = ~minutes,
+    y = rep(0.09, nrow(times)),
+    customdata = ~observation,
+
+    type = "scatter",
+    mode = "markers",
+
+    marker = list(
+      color = "#FFD000",
+      size = 8,
+      line = list(
+        color = "#111111",
+        width = 0.9
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>%{customdata}</b>",
+      "<br>Completion time: %{x} minutes",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE,
+    inherit = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.035,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Completion time (minutes)",
+        standoff = 9,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(9.5, 45),
+
+      tickmode = "array",
+      tickvals = seq(10, 45, by = 5),
+      ticktext = as.character(
+        seq(10, 45, by = 5)
+      ),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 8,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 4.7),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#00695C",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 68,
+      r = 22,
+      t = 8,
+      b = 55
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 86%;",
+    "margin: 62px auto 0 auto;"
+  ),
+
+  htmltools::div(
+    style = paste0(
+      "font-family: Arial, sans-serif;",
+      "margin: 0 0 7px 68px;",
+      "line-height: 1.15;"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "font-size: 20px !important;",
+        "font-weight: 700;",
+        "color: #111111;"
+      ),
+      "Online quiz completion times"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "margin-top: 4px;",
+        "font-size: 14px !important;",
+        "color: #444444;"
+      ),
+      "Yellow points show the individual observations"
+    )
+  ),
+
+  quiz_time_plot
+)
 ```
+
 :::
+
 ::::
 
 ---

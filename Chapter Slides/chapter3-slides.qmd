@@ -2561,33 +2561,294 @@ Long tail on the **right**. Most values bunched on the left. Also called **posit
 ## Skewness Illustrated {.compact}
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 3.6
-#| fig-align: center
 #| echo: false
+#| results: asis
 
 set.seed(1)
-left  <- 100 - rgamma(3000, shape = 3, rate = 0.6)
-sym   <- rnorm(3000, mean = 60, sd = 15)
-right <- rgamma(3000, shape = 3, rate = 0.15)
 
-df <- rbind(
-  data.frame(value = left,  shape = "Left skew"),
-  data.frame(value = sym,   shape = "Symmetric"),
-  data.frame(value = right, shape = "Right skew")
+left_values  <- 100 - rgamma(3000, shape = 3, rate = 0.6)
+sym_values   <- rnorm(3000, mean = 60, sd = 15)
+right_values <- rgamma(3000, shape = 3, rate = 0.15)
+
+left_plot <- plot_ly(
+  x = left_values,
+  type = "histogram",
+  nbinsx = 30,
+  height = 285,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Left-skewed distribution</b>",
+    "<br>Value: %{x:.1f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  )
+) |>
+  layout(
+    bargap = 0.03,
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    )
+  )
+
+symmetric_plot <- plot_ly(
+  x = sym_values,
+  type = "histogram",
+  nbinsx = 30,
+  height = 285,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Symmetric distribution</b>",
+    "<br>Value: %{x:.1f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  )
+) |>
+  layout(
+    bargap = 0.03,
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = "",
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    )
+  )
+
+right_plot <- plot_ly(
+  x = right_values,
+  type = "histogram",
+  nbinsx = 30,
+  height = 285,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Right-skewed distribution</b>",
+    "<br>Value: %{x:.1f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  )
+) |>
+  layout(
+    bargap = 0.03,
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = "",
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    )
+  )
+
+skewness_plot <- subplot(
+  left_plot,
+  symmetric_plot,
+  right_plot,
+  nrows = 1,
+  shareY = TRUE,
+  margin = 0.055,
+  titleX = TRUE,
+  titleY = TRUE
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    annotations = list(
+      list(
+        text = "<b>Left-skewed</b>",
+        x = 0.145,
+        y = 1.10,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      ),
+      list(
+        text = "<b>Symmetric</b>",
+        x = 0.500,
+        y = 1.10,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      ),
+      list(
+        text = "<b>Right-skewed</b>",
+        x = 0.855,
+        y = 1.10,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      )
+    ),
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#B32025",
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 68,
+      r = 22,
+      t = 48,
+      b = 50
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 94%;",
+    "margin: 2px auto 0 auto;"
+  ),
+  skewness_plot
 )
-df$shape <- factor(df$shape, levels = c("Left skew", "Symmetric", "Right skew"))
-
-ggplot(df, aes(value)) +
-  geom_histogram(bins = 30, fill = "#9c8cd4", colour = "white") +
-  facet_wrap(~ shape, scales = "free", ncol = 3) +
-  labs(x = "Value", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        strip.text = element_text(face = "bold"))
 ```
 
 ::: {.thinkbox}
-The **tail** points in the direction of the skew. "Right-skewed" = tail to the right. The mean is pulled toward the tail; the median stays near the bulk.
+The **tail** points in the direction of the skew. “Right-skewed” means the tail extends to the right. The mean is pulled toward the tail, while the median remains closer to the bulk of the data.
 :::
 
 ---

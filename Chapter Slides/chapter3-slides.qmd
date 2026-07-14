@@ -105,10 +105,10 @@ set.seed(258)
 /* ── Boxes ────────────────────────────────────────────── */
 .defbox, .examplebox, .thinkbox, .card,
 .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 16px 18px;
+  padding: 14px 16px;
   border-radius: 10px;
-  font-size: 0.74em;
-  line-height: 1.28;
+  font-size: 0.72em;
+  line-height: 1.24;
   box-sizing: border-box;
   margin-bottom: 8px;
 }
@@ -157,7 +157,12 @@ set.seed(258)
 }
 
 /* ── Tables ───────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.66em;
+  border: 1px solid var(--sta-border);
+}
 .reveal th, .reveal td {
   border: 1px solid var(--sta-border);
   padding: 7px 10px;
@@ -276,6 +281,98 @@ set.seed(258)
 .home-button-row { text-align: center; margin-top: 32px; }
 </style>
 
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability
@@ -289,16 +386,16 @@ University of Toronto Mississauga
 
 :::: {.three-col}
 ::: {.card .fragment}
-<span class="label">3.1 - Numerical Summaries</span>
-Centre (mean, median, mode), spread (variance, SD, range, IQR), and position (percentiles, quartiles).
+<span class="label">3.1 - Representing Data</span>
+Use statistical notation, tables, frequencies, and relative frequencies to organize and describe observations.
 :::
 ::: {.card .fragment}
-<span class="label">3.2 - Graphical Summaries</span>
-Histograms and boxplots. Read shape, spread, and outliers from a plot.
+<span class="label">3.2 - Numerical Measures</span>
+Measure centre, spread, and position using the mean, median, variance, standard deviation, range, quartiles, and IQR.
 :::
 ::: {.card .fragment}
-<span class="label">3.3 - Reading & Comparing</span>
-Decide which summary tells the right story and compare distributions side by side.
+<span class="label">3.3 - Graphical Techniques</span>
+Use histograms and boxplots to examine shape, spread, skewness, group differences, and potential outliers.
 :::
 ::::
 
@@ -506,7 +603,7 @@ commute_plot
 
 ---
 
-## Commute Methods - Check in R
+## Check in R: Commute Methods
 
 ```{webr}
 #| autorun: false
@@ -900,7 +997,7 @@ ggplot(study, aes(x = hours)) +
 
 ---
 
-## Study Hours - Check in R
+## Check in R: Study Hours
 
 ```{webr}
 #| autorun: false
@@ -971,7 +1068,7 @@ ggplot(scores_q, aes(x = score, y = y)) +
 ::: {.defbox .fragment}
 **Sample variance** $s^2$
 
-The average squared deviation from the mean:
+A measure of spread based on the squared deviations from the sample mean:
 
 $$s^{2} \; = \; \frac{\displaystyle\sum_{i=1}^{n} (x_i - \bar{x})^2}{n - 1}$$
 
@@ -1150,7 +1247,7 @@ ggplot(quiz, aes(x = score)) +
 
 ---
 
-## Quiz Scores - Check in R
+## Check in R: Quiz Scores
 
 ```{webr}
 #| autorun: false
@@ -1169,11 +1266,11 @@ sd(x)            # sample standard deviation
 ::: {.defbox .fragment}
 **$p^{\text{th}}$ percentile**
 
-In an ordered data set, the $p^{\text{th}}$ percentile is the value such that $p\%$ of all observations lie **below** it.
+In an ordered data set, the $p^{\text{th}}$ percentile is a value at or below which approximately $p\%$ of the observations fall.
 :::
 
 ::: {.examplebox .fragment}
-**Example.** A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the **90th percentile** for this test - the student scored higher than 90% of the class.
+**Example.** A class writes a difficult test and a student scores 72%. Although 72% is a B-, the test was hard. In fact, this mark sits at the **90th percentile** for this test - approximately 90% of the class scored at or below 72%.
 
 A relative position can matter more than the raw mark.
 :::
@@ -1211,7 +1308,7 @@ The width of the middle 50% of the data.
 :::
 
 ::: {.examplebox .fragment}
-Unlike the range, the IQR is **resistant to outliers** because the bottom 25% and top 25% of the data are ignored.
+Unlike the range, the IQR is **resistant to outliers** because it depends on $Q_1$ and $Q_3$ rather than directly using the minimum and maximum.
 :::
 :::
 
@@ -1277,7 +1374,7 @@ ggplot(exam, aes(x = score, y = "")) +
 
 ---
 
-## Final Exam Scores - Check in R
+## Check in R: Final Exam Scores
 
 ```{webr}
 #| autorun: false
@@ -1780,7 +1877,7 @@ ggplot(times, aes(x = minutes)) +
 
 ---
 
-## Online Quiz Times - Check in R
+## Check in R: Online Quiz Times
 
 ```{webr}
 #| autorun: false
@@ -1946,7 +2043,7 @@ ggplot(sections, aes(x = Section, y = Mark, fill = Section)) +
 
 ---
 
-## Two Sections - Check in R
+## Check in R: Two Sections
 
 ```{webr}
 #| autorun: false
@@ -2019,31 +2116,6 @@ ggplot(compare_q, aes(x = Score, y = Section, colour = Section)) +
 
 ---
 
-## Chapter Summary {.compact}
-
-:::: {.three-col}
-::: {.card .fragment}
-<span class="label">Centre</span>
-**Mean** uses every value. **Median** ignores extremes. **Mode** is the most common value.
-:::
-::: {.card .fragment}
-<span class="label">Spread</span>
-**Range** = max − min (sensitive). **IQR** = $Q_3 - Q_1$ (resistant). **SD** $s$ is the typical distance from $\bar{x}$.
-:::
-::: {.card .fragment}
-<span class="label">Shape</span>
-Read **skewness** from a histogram (which way does the tail point?) or a boxplot (which whisker is longer?).
-:::
-::::
-
-<br>
-
-::: {.thinkbox .fragment}
-**One slide takeaway.** Always report a number **and** a picture. A mean without a histogram, or a histogram without a summary, leaves half the story untold.
-:::
-
----
-
 ## Bonus Example: Textbooks Owned {.scrollable}
 
 :::: {.two-col-lean}
@@ -2092,7 +2164,7 @@ ggplot(books, aes(x = textbooks)) +
 
 ---
 
-## Bonus Example: Textbooks Owned - Check in R
+## Check in R: Bonus Example — Textbooks Owned
 
 ```{webr}
 #| autorun: false
@@ -2120,3 +2192,32 @@ We move from describing **the data we have** (this chapter) to making statements
 <div class="home-button-row">
 <a href="../index.html" class="home-button">Back to Homepage</a>
 </div>
+
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Centre</span>
+**Mean** uses every value. **Median** is resistant to extremes. **Mode** is the most common value.
+:::
+::: {.card .fragment}
+<span class="label">Spread</span>
+**Range** = max − min (sensitive). **IQR** = $Q_3 - Q_1$ (resistant). **SD** $s$ is the typical distance from $\bar{x}$.
+:::
+::: {.card .fragment}
+<span class="label">Shape</span>
+Read **skewness** from a histogram (which way does the tail point?) or a boxplot (which whisker is longer?).
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Always report a number **and** a picture. A mean without a histogram, or a histogram without a summary, leaves half the story untold.
+:::
+
+---
+

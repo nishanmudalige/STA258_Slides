@@ -102,6 +102,7 @@
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -656,11 +657,11 @@ University of Toronto Mississauga</p>
 <h2>2.3 An Introduction to Programming in R</h2>
 <p><strong>Why R for statistics?</strong></p>
 <ul>
-<li class="fragment">Built specifically for data analysis, statistics, and visualization</li>
-<li class="fragment">Rich ecosystem of packages and built-in statistical functions</li>
-<li class="fragment">Open source and free on every major operating system</li>
-<li class="fragment">Strong support for reproducible reporting through R Markdown and Quarto</li>
-<li class="fragment">Widely used in academia, industry, and government</li>
+<li>Built specifically for data analysis, statistics, and visualization</li>
+<li>Rich ecosystem of packages and built-in statistical functions</li>
+<li>Open source and free on every major operating system</li>
+<li>Strong support for reproducible reporting through R Markdown and Quarto</li>
+<li>Widely used in academia, industry, and government</li>
 </ul>
 </section>
 <section id="calculator" class="slide level2">
@@ -1159,11 +1160,11 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <div class="thinkbox">
 <p><strong>Where to find datasets:</strong></p>
 <ul>
-<li class="fragment"><a href="https://www.kaggle.com/datasets">Kaggle</a></li>
-<li class="fragment"><a href="https://archive.ics.uci.edu/">UCI Machine Learning Repository</a></li>
-<li class="fragment"><a href="https://www.statcan.gc.ca/en/data">Statistics Canada</a></li>
-<li class="fragment"><a href="https://www.data.gov/">data.gov</a></li>
-<li class="fragment"><a href="https://datasetsearch.research.google.com/">Google Dataset Search</a></li>
+<li><a href="https://www.kaggle.com/datasets">Kaggle</a></li>
+<li><a href="https://archive.ics.uci.edu/">UCI Machine Learning Repository</a></li>
+<li><a href="https://www.statcan.gc.ca/en/data">Statistics Canada</a></li>
+<li><a href="https://www.data.gov/">data.gov</a></li>
+<li><a href="https://datasetsearch.research.google.com/">Google Dataset Search</a></li>
 </ul>
 </div>
 </div>
@@ -1684,6 +1685,7 @@ W10=
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -1707,6 +1709,7 @@ W10=
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"","defaultIncorrect":"","includeScore":false,"disableReset":false},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -1877,7 +1880,7 @@ W10=
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealQuiz, QuartoSupport,
 
           RevealMath,
           RevealNotes,

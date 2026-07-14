@@ -3239,44 +3239,242 @@ Too few bins hide the **bimodal** shape, while too many bins make the distributi
 :::: {.callout-note icon="false"}
 ## Visual Question
 
-The histogram shows a right-skewed salary distribution. Which summary better describes a typical employee's salary?
+The histogram shows a right-skewed salary distribution. Which summary better describes a typical employee’s salary?
 ::::
 
+<div style="
+  margin: 6px 0 2px 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Annual salaries at a tech company
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Yellow dotted line = mean; black solid line = median
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.1
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 set.seed(258)
+
 salary_q <- data.frame(
-  salary = c(rlnorm(220, meanlog = log(65), sdlog = 0.35), 160, 190, 230)
+  salary = c(
+    rlnorm(
+      220,
+      meanlog = log(65),
+      sdlog = 0.35
+    ),
+    160,
+    190,
+    230
+  )
 )
 
-ggplot(salary_q, aes(x = salary)) +
-  geom_histogram(bins = 28, fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = mean(salary_q$salary),
-             colour = "#f9a825", linewidth = 1.15, linetype = "dashed") +
-  geom_vline(xintercept = median(salary_q$salary),
-             colour = "#004d40", linewidth = 1.15) +
-  annotate("text", x = mean(salary_q$salary) + 18, y = 24,
-           label = "mean pulled right", colour = "#f9a825",
-           fontface = "bold", size = 3.4) +
-  annotate("text", x = median(salary_q$salary) - 6, y = 29,
-           label = "median near bulk", colour = "#004d40",
-           fontface = "bold", size = 3.4, hjust = 1) +
-  labs(title = "Annual salaries at a tech company",
-       subtitle = "Dashed line = mean; solid line = median",
-       x = "Salary ($000s)", y = "Frequency") +
-  coord_cartesian(xlim = c(20, 240)) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+salary_mean <- mean(salary_q$salary)
+salary_median <- median(salary_q$salary)
+
+salary_bin_width <- (
+  max(salary_q$salary) - min(salary_q$salary)
+) / 28
+
+salary_plot <- plot_ly(
+  data = salary_q,
+  x = ~salary,
+  type = "histogram",
+  height = 225,
+
+  xbins = list(
+    start = min(salary_q$salary),
+    end = max(salary_q$salary) + 0.001,
+    size = salary_bin_width
+  ),
+
+  marker = list(
+    color = "#00695C",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Salary bin</b>",
+    "<br>Salary: approximately $%{x:.0f}k",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#00695C",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.025,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        xref = "x",
+        yref = "paper",
+
+        x0 = salary_mean,
+        x1 = salary_mean,
+        y0 = 0,
+        y1 = 1,
+
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      ),
+
+      list(
+        type = "line",
+        xref = "x",
+        yref = "paper",
+
+        x0 = salary_median,
+        x1 = salary_median,
+        y0 = 0,
+        y1 = 1,
+
+        layer = "above",
+
+        line = list(
+          color = "#111111",
+          width = 2.4
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Salary ($000s)",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(20, 240),
+      tick0 = 20,
+      dtick = 20,
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 76,
+      r = 34,
+      t = 12,
+      b = 50
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+salary_plot
 ```
 
 - The mean
-- [The median]{.correct data-explanation="The distribution is right-skewed, so a few very high salaries pull the mean to the right. The median stays closer to where most employees actually are."}
+- [The median]{.correct data-explanation="The distribution is right-skewed, so a few very high salaries pull the mean toward the right tail. The median remains closer to the centre of the main group of salaries and better represents a typical employee."}
 - They give the same answer
-- Neither - use the mode
+- Neither — use the mode
 
 ---
 

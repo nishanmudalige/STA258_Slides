@@ -3556,28 +3556,248 @@ boxplot(x,
 ## Skewness from a Boxplot
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 3.6
-#| fig-align: center
 #| echo: false
+#| results: asis
 
 set.seed(3)
-df_box <- rbind(
-  data.frame(value = 30 - rgamma(150, shape = 3, rate = 0.5),  shape = "Left skew"),
-  data.frame(value = rnorm(150, mean = 10, sd = 3),            shape = "Symmetric"),
-  data.frame(value = rgamma(150, shape = 3, rate = 0.5),       shape = "Right skew")
-)
-df_box$shape <- factor(df_box$shape, levels = c("Left skew", "Symmetric", "Right skew"))
 
-ggplot(df_box, aes(x = value, y = shape, fill = shape)) +
-  geom_boxplot(width = 0.5, colour = "#004d40", outlier.colour = "#e34a6f") +
-  scale_fill_manual(values = c("#9c8cd4", "#00aa88", "#f9a825"), guide = "none") +
-  labs(x = "Value", y = NULL) +
-  theme(panel.grid.major.y = element_blank())
+left_box_values <- 30 - rgamma(
+  150,
+  shape = 3,
+  rate = 0.5
+)
+
+symmetric_box_values <- rnorm(
+  150,
+  mean = 10,
+  sd = 3
+)
+
+right_box_values <- rgamma(
+  150,
+  shape = 3,
+  rate = 0.5
+)
+
+box_skew_plot <- plot_ly(
+  height = 300
+) |>
+  add_trace(
+    x = left_box_values,
+    y = rep(
+      "Left-skewed",
+      length(left_box_values)
+    ),
+
+    type = "box",
+    orientation = "h",
+    name = "Left-skewed",
+
+    boxpoints = "outliers",
+    fillcolor = "#9C8CD4",
+
+    line = list(
+      color = "#111111",
+      width = 1.5
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Left-skewed distribution</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    x = symmetric_box_values,
+    y = rep(
+      "Symmetric",
+      length(symmetric_box_values)
+    ),
+
+    type = "box",
+    orientation = "h",
+    name = "Symmetric",
+
+    boxpoints = "outliers",
+    fillcolor = "#00AA88",
+
+    line = list(
+      color = "#111111",
+      width = 1.5
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Symmetric distribution</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    x = right_box_values,
+    y = rep(
+      "Right-skewed",
+      length(right_box_values)
+    ),
+
+    type = "box",
+    orientation = "h",
+    name = "Right-skewed",
+
+    boxpoints = "outliers",
+    fillcolor = "#F9A825",
+
+    line = list(
+      color = "#111111",
+      width = 1.5
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Right-skewed distribution</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    boxgap = 0.38,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 10,
+        font = list(
+          family = "Arial",
+          size = 14,
+          color = "#111111"
+        )
+      ),
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      categoryorder = "array",
+      categoryarray = c(
+        "Right-skewed",
+        "Symmetric",
+        "Left-skewed"
+      ),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+
+      tickfont = list(
+        family = "Arial",
+        size = 14,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#B32025",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 130,
+      r = 34,
+      t = 16,
+      b = 55
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 92%;",
+    "margin: 4px auto 0 auto;"
+  ),
+  box_skew_plot
+)
 ```
 
 ::: {.thinkbox .fragment}
-**Reading skew from a box.** Median **closer to $Q_3$** + long lower whisker → left skew. Median **closer to $Q_1$** + long upper whisker → right skew. The longer tail points in the direction of the skew.
+**Reading skew from a box.** Median **closer to $Q_3$** with a long lower whisker suggests left skew. Median **closer to $Q_1$** with a long upper whisker suggests right skew. The longer tail points in the direction of the skew.
 :::
 
 ---

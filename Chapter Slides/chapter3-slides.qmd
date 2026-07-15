@@ -2951,7 +2951,7 @@ The $x$-axis shows the bins, and the $y$-axis shows frequency (or relative frequ
 | **Total** | $F = \sum_{i=1}^{m} f_i$ | $1$ |
 
 ::: {.examplebox .fragment}
-**Bin widths are usually equal** but do not have to be. We choose a width that shows the structure of the data without too much noise.
+**The histograms in this chapter use equal-width bins.** We choose a width that shows the structure of the data without too much noise.
 :::
 
 ---
@@ -3813,7 +3813,7 @@ htmltools::div(
 
 A professor records the time, in minutes, that students spent completing an online quiz:
 
-$$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
+$$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 50$$
 
 **(a)** Would a **histogram** or **boxplot** better show the **shape** of the distribution?
 
@@ -3835,7 +3835,7 @@ $$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
 times <- data.frame(
   minutes = c(
     12, 14, 15, 15, 16, 18,
-    20, 22, 25, 28, 35, 42
+    20, 22, 25, 28, 35, 50
   )
 )
 
@@ -3852,7 +3852,7 @@ quiz_time_plot <- plot_ly(
 
   xbins = list(
     start = 10,
-    end = 45,
+    end = 55,
     size = 5
   ),
 
@@ -3922,13 +3922,13 @@ quiz_time_plot <- plot_ly(
         )
       ),
 
-      range = c(9.5, 45),
+      range = c(9.5, 52.5),
 
-      tickmode = "array",
-      tickvals = seq(10, 45, by = 5),
-      ticktext = as.character(
-        seq(10, 45, by = 5)
-      ),
+tickmode = "array",
+tickvals = seq(10, 50, by = 5),
+ticktext = as.character(
+  seq(10, 50, by = 5)
+),
 
       showgrid = FALSE,
       zeroline = FALSE,
@@ -4066,7 +4066,7 @@ htmltools::div(
 ```{webr}
 #| autorun: false
 
-x <- c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42)
+x <- c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 50)
 
 summary(x)
 hist(x, col = "#00695c", border = "white", main = NULL, xlab = "Minutes")

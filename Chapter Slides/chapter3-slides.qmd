@@ -930,7 +930,7 @@ median(even_data)      # average of the two middle values
 
 The most frequently occurring value in a data set.
 
-A data set can be **unimodal**, **bimodal**, or have no mode if every value appears the same number of times.
+A data set can have one mode (**unimodal**), two modes (**bimodal**), more than two modes (**multimodal**), or no mode if every value occurs equally often.
 :::
 :::
 
@@ -953,9 +953,12 @@ names(counts)[which.max(counts)]  # the mode
 ## Example: Study Hours {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 Ten students reported the number of hours they studied for a midterm:
 
 $$2, 4, 5, 5, 6, 7, 7, 7, 9, 12$$
@@ -968,31 +971,235 @@ $$2, 4, 5, 5, 6, 7, 7, 7, 9, 12$$
 
 **(d)** Which measure of centre is most affected by the value $12$? Explain briefly.
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
-study <- data.frame(hours = c(2, 4, 5, 5, 6, 7, 7, 7, 9, 12))
+study <- data.frame(
+  hours = c(2, 4, 5, 5, 6, 7, 7, 7, 9, 12)
+)
 
-ggplot(study, aes(x = hours)) +
-  geom_histogram(binwidth = 1, boundary = 0.5,
-                 fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = mean(study$hours),
-             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
-  geom_vline(xintercept = median(study$hours),
-             colour = "#004d40", linewidth = 1.2) +
-  labs(title = "Study hours",
-       subtitle = "Dashed line = mean; solid line = median",
-       x = "Hours studied", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+study_counts <- data.frame(
+  hours = 2:12
+)
+
+study_counts$frequency <- vapply(
+  study_counts$hours,
+  function(value) sum(study$hours == value),
+  integer(1)
+)
+
+study_mean <- mean(study$hours)
+study_median <- median(study$hours)
+
+study_plot <- plot_ly(
+  data = study_counts,
+  x = ~hours,
+  y = ~frequency,
+  type = "bar",
+  height = 335,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>%{x} hours</b>",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.10,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    annotations = list(
+      list(
+        text = "<b>Study hours</b>",
+        x = 0,
+        y = 1.19,
+        xref = "paper",
+        yref = "paper",
+        xanchor = "left",
+        yanchor = "top",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 18,
+          color = "#111111"
+        )
+      ),
+
+      list(
+        text = "Yellow dotted line = mean; black solid line = median",
+        x = 0,
+        y = 1.08,
+        xref = "paper",
+        yref = "paper",
+        xanchor = "left",
+        yanchor = "top",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#444444"
+        )
+      )
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = study_mean,
+        x1 = study_mean,
+        y0 = 0,
+        y1 = 3.35,
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = study_median,
+        x1 = study_median,
+        y0 = 0,
+        y1 = 3.35,
+        layer = "above",
+
+        line = list(
+          color = "#111111",
+          width = 2.4
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Hours studied",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(1.25, 12.85),
+
+      tickmode = "linear",
+      tick0 = 2,
+      dtick = 1,
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 3.65),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.10)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 70,
+      r = 38,
+      t = 94,
+      b = 55
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+study_plot
 ```
+
 :::
+
 ::::
 
 ---
@@ -1018,44 +1225,236 @@ names(counts)[which.max(counts)]   # mode
 :::: {.callout-note icon="false"}
 ## Visual Question
 
-The plot shows test scores for one class. Which measure best describes a "typical" score?
+The plot shows test scores for one class, including one unusually low **outlier**. Which measure best describes a “typical” score for the class?
+
 ::::
 
+<div style="
+  margin: 8px 0 4px 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Test scores out of 100
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Yellow dotted line = mean; black solid line = median
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.1
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 scores_q <- data.frame(
   score = c(72, 75, 78, 80, 82, 85, 12),
   y = 1
 )
 
-ggplot(scores_q, aes(x = score, y = y)) +
-  geom_hline(yintercept = 1, colour = "#d8dee2", linewidth = 1) +
-  geom_point(size = 4, colour = "#00695c") +
-  geom_point(data = subset(scores_q, score == 12),
-             aes(x = score, y = y), size = 4.6, colour = "#f9a825") +
-  geom_text(data = subset(scores_q, score == 12),
-            aes(label = "extreme low score"), vjust = -1.25,
-            colour = "#004d40", fontface = "bold", size = 3.5) +
-  geom_vline(xintercept = mean(scores_q$score),
-             colour = "#f9a825", linewidth = 1.1, linetype = "dashed") +
-  geom_vline(xintercept = median(scores_q$score),
-             colour = "#004d40", linewidth = 1.1) +
-  labs(title = "Test scores out of 100",
-       subtitle = "Dashed line = mean; solid line = median",
-       x = "Score", y = NULL) +
-  scale_y_continuous(breaks = NULL) +
-  coord_cartesian(xlim = c(5, 90), ylim = c(0.75, 1.3)) +
-  theme(panel.grid.minor = element_blank(),
-        panel.grid.major.y = element_blank(),
-        plot.title = element_text(face = "bold"))
+regular_scores <- subset(scores_q, score != 12)
+extreme_score  <- subset(scores_q, score == 12)
+
+score_mean   <- mean(scores_q$score)
+score_median <- median(scores_q$score)
+
+scores_plot <- plot_ly(
+  height = 250
+) |>
+  add_trace(
+    data = regular_scores,
+    x = ~score,
+    y = ~y,
+    type = "scatter",
+    mode = "markers",
+    marker = list(
+      color = "#B32025",
+      size = 11,
+      line = list(
+        color = "#111111",
+        width = 0.9
+      )
+    ),
+    hovertemplate = paste0(
+      "<b>Test score: %{x}</b>",
+      "<br>Score in the main cluster",
+      "<extra></extra>"
+    ),
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = extreme_score,
+    x = ~score,
+    y = ~y,
+    type = "scatter",
+    mode = "markers",
+    marker = list(
+      color = "#FFD000",
+      size = 14,
+      line = list(
+        color = "#111111",
+        width = 1.2
+      )
+    ),
+    hovertemplate = paste0(
+      "<b>Test score: %{x}</b>",
+      "<br>Extreme low score",
+      "<extra></extra>"
+    ),
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#B32025",
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    annotations = list(
+      list(
+        x = 12,
+        y = 1.13,
+        xref = "x",
+        yref = "y",
+        text = "<b>Extreme low score</b>",
+        showarrow = FALSE,
+        xanchor = "left",
+        font = list(
+          family = "Arial",
+          size = 12,
+          color = "#111111"
+        )
+      )
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = 5,
+        x1 = 90,
+        y0 = 1,
+        y1 = 1,
+        layer = "below",
+        line = list(
+          color = "#D8DEE2",
+          width = 2
+        )
+      ),
+      list(
+        type = "line",
+        x0 = score_mean,
+        x1 = score_mean,
+        y0 = 0.88,
+        y1 = 1.14,
+        layer = "above",
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      ),
+      list(
+        type = "line",
+        x0 = score_median,
+        x1 = score_median,
+        y0 = 0.88,
+        y1 = 1.14,
+        layer = "above",
+        line = list(
+          color = "#111111",
+          width = 2.4
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Score",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+      range = c(5, 90),
+      tick0 = 10,
+      dtick = 10,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = "",
+      range = c(0.84, 1.22),
+      showticklabels = FALSE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 76,
+      r = 35,
+      t = 6,
+      b = 45
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+scores_plot
 ```
 
 - Mean
-- [Median]{.correct data-explanation="The mean is dragged down by the extreme low score. The median sits in the middle of the main cluster and is resistant to that one extreme value."}
+- [Median]{.correct data-explanation="The mean is dragged down by the extreme low score. The median stays in the middle of the main cluster and is therefore the better measure of a typical score here."}
 - Mode
 - Range
 
@@ -1141,7 +1540,7 @@ var(x)                    # built-in (same answer)
 ::: {.defbox}
 **Sample standard deviation** $s$
 
-$$s \; = \; +\sqrt{s^{2}}$$
+$$s \; = \; \sqrt{s^{2}}$$
 
 where $s^2$ is the sample variance.
 :::
@@ -1204,9 +1603,12 @@ diff(range(x))    # also gives the range
 ## Example: Quiz Scores {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 A student recorded their quiz scores out of $10$:
 
 $$6, 7, 7, 8, 9, 10$$
@@ -1219,30 +1621,220 @@ $$6, 7, 7, 8, 9, 10$$
 
 **(d)** What does the standard deviation tell us in this context?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| results: asis
 
-quiz <- data.frame(score = c(6, 7, 7, 8, 9, 10))
+quiz <- data.frame(
+  score = c(6, 7, 7, 8, 9, 10)
+)
 
-ggplot(quiz, aes(x = score)) +
-  geom_histogram(binwidth = 1, boundary = 5.5,
-                 fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = mean(quiz$score),
-             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
-  labs(title = "Quiz scores out of 10",
-       subtitle = "Dashed line = sample mean",
-       x = "Score", y = "Frequency") +
-  scale_x_continuous(breaks = 6:10) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+quiz_counts <- data.frame(
+  score = 6:10
+)
+
+quiz_counts$frequency <- vapply(
+  quiz_counts$score,
+  function(value) sum(quiz$score == value),
+  integer(1)
+)
+
+quiz_mean <- mean(quiz$score)
+
+quiz_plot <- plot_ly(
+  data = quiz_counts,
+  x = ~score,
+  y = ~frequency,
+  type = "bar",
+  height = 265,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Quiz score: %{x}</b>",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.12,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = quiz_mean,
+        x1 = quiz_mean,
+        y0 = 0,
+        y1 = 2.25,
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Score",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(5.5, 10.5),
+
+      tickmode = "array",
+      tickvals = 6:10,
+      ticktext = as.character(6:10),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 2.5),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.10)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 62,
+      r = 18,
+      t = 10,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 84%;",
+    "margin: 68px auto 0 auto;",
+    "transform: translateX(-18px);"
+  ),
+
+  htmltools::div(
+    style = paste0(
+      "font-family: Arial, sans-serif;",
+      "margin: 0 0 5px 62px;",
+      "line-height: 1.15;"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "font-size: 20px !important;",
+        "font-weight: 700;",
+        "color: #111111;"
+      ),
+      "Quiz scores out of 10"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "margin-top: 3px;",
+        "font-size: 14px !important;",
+        "color: #444444;"
+      ),
+      "Yellow dotted line = sample mean"
+    )
+  ),
+
+  quiz_plot
+)
 ```
+
 :::
+
 ::::
 
 ---
@@ -1330,9 +1922,12 @@ IQR(x)            # Q3 - Q1
 ## Example: Final Exam Scores {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 The final exam scores for $12$ students are:
 
 $$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
@@ -1347,29 +1942,258 @@ $$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
 
 **(e)** Using the $1.5 \times \text{IQR}$ rule, which scores would be flagged as unusually low or high?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| results: asis
 
-exam <- data.frame(score = c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96))
+exam <- data.frame(
+  score = c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96)
+)
 
-ggplot(exam, aes(x = score, y = "")) +
-  geom_boxplot(fill = "#00695c", colour = "#004d40",
-               width = 0.35, outlier.colour = "#e34a6f") +
-  geom_jitter(height = 0.08, size = 2.2, alpha = 0.75, colour = "#f9a825") +
-  labs(title = "Final exam scores",
-       x = "Score", y = NULL) +
-  theme(panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.text.y = element_blank(),
-        plot.title = element_text(face = "bold"))
+exam$q1 <- unname(quantile(exam$score, 0.25))
+exam$median <- median(exam$score)
+exam$q3 <- unname(quantile(exam$score, 0.75))
+exam$iqr <- exam$q3 - exam$q1
+
+lower_fence <- exam$q1[1] - 1.5 * exam$iqr[1]
+upper_fence <- exam$q3[1] + 1.5 * exam$iqr[1]
+
+whisker_low <- min(
+  exam$score[exam$score >= lower_fence]
+)
+
+whisker_high <- max(
+  exam$score[exam$score <= upper_fence]
+)
+
+q1_value <- exam$q1[1]
+median_value <- exam$median[1]
+q3_value <- exam$q3[1]
+
+exam$point_y <- c(
+  1.00, 0.95, 1.05, 0.97,
+  1.04, 0.94, 1.06, 0.96,
+  1.03, 0.95, 1.05, 1.00
+)
+
+exam_plot <- plot_ly(
+  data = exam,
+  x = ~score,
+  y = ~point_y,
+  type = "scatter",
+  mode = "markers",
+  height = 245,
+
+  marker = list(
+    color = "#B32025",
+    size = 10,
+    line = list(
+      color = "#111111",
+      width = 0.9
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Final exam score: %{x}</b>",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#B32025",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = whisker_low,
+        x1 = whisker_high,
+        y0 = 1,
+        y1 = 1,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "rect",
+        x0 = q1_value,
+        x1 = q3_value,
+        y0 = 0.87,
+        y1 = 1.13,
+        layer = "below",
+        fillcolor = "rgba(179,32,37,0.18)",
+        line = list(
+          color = "#B32025",
+          width = 2.2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = median_value,
+        x1 = median_value,
+        y0 = 0.87,
+        y1 = 1.13,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 3
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = whisker_low,
+        x1 = whisker_low,
+        y0 = 0.94,
+        y1 = 1.06,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = whisker_high,
+        x1 = whisker_high,
+        y0 = 0.94,
+        y1 = 1.06,
+        layer = "below",
+        line = list(
+          color = "#111111",
+          width = 2
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Final exam score",
+        standoff = 8,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(48, 100),
+      tick0 = 50,
+      dtick = 5,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      range = c(0.72, 1.28),
+      showticklabels = FALSE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 48,
+      r = 22,
+      t = 8,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 86%;",
+    "margin: 82px auto 0 auto;",
+    "transform: translateX(-12px);"
+  ),
+
+  htmltools::div(
+    style = paste0(
+      "font-family: Arial, sans-serif;",
+      "margin: 0 0 8px 48px;",
+      "line-height: 1.15;"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "font-size: 20px !important;",
+        "font-weight: 700;",
+        "color: #111111;"
+      ),
+      "Final exam scores"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "margin-top: 4px;",
+        "font-size: 14px !important;",
+        "color: #444444;"
+      ),
+      "Box = middle 50%; black line = median"
+    )
+  ),
+
+  exam_plot
+)
 ```
+
 :::
+
 ::::
 
 ---
@@ -1398,40 +2222,291 @@ c(lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr)
 The plot shows $Q_1 = 5$, $Q_3 = 11$, the outlier fences, and a value of $25$. Would $25$ be flagged as a potential outlier?
 ::::
 
-```{r}
-#| fig-width: 8.6
-#| fig-height: 2.05
-#| fig-align: center
-#| echo: false
+<div style="
+  margin: 6px 0 2px 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    1.5 × IQR outlier rule
+  </span>
 
-iqr_q <- data.frame(
-  x = c(-4, 5, 11, 20, 25),
-  y = 0,
-  label = c("Lower\nfence = -4", "Q1 = 5", "Q3 = 11", "Upper\nfence = 20", "25"),
-  type = c("Fence", "Quartile", "Quartile", "Fence", "Possible outlier")
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Quartiles, fences, and a value to assess
+  </span>
+</div>
+
+```{r}
+#| echo: false
+#| out-width: "100%"
+
+iqr_fences <- data.frame(
+  value = c(-4, 20),
+  y = c(0, 0),
+  label = c("Lower fence", "Upper fence")
 )
 
-ggplot(iqr_q, aes(x = x, y = y)) +
-  geom_hline(yintercept = 0, colour = "#d8dee2", linewidth = 1.2) +
-  geom_point(aes(colour = type), size = 4) +
-  geom_text(aes(label = label), vjust = -1.15, size = 3.4, fontface = "bold") +
-  scale_colour_manual(values = c("Fence" = "#667174",
-                                 "Quartile" = "#00695c",
-                                 "Possible outlier" = "#f9a825"),
-                      guide = "none") +
-  scale_x_continuous(breaks = c(-4, 5, 11, 20, 25)) +
-  coord_cartesian(xlim = c(-6, 27), ylim = c(-0.15, 0.35)) +
-  labs(title = "1.5 × IQR outlier rule",
-       subtitle = "Values outside the fences are flagged",
-       x = "Value", y = NULL) +
-  scale_y_continuous(breaks = NULL) +
-  theme(panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+iqr_quartiles <- data.frame(
+  value = c(5, 11),
+  y = c(0, 0),
+  label = c("Q1", "Q3")
+)
+
+iqr_value <- data.frame(
+  value = 25,
+  y = 0,
+  label = "25"
+)
+
+iqr_plot <- plot_ly(
+  height = 215
+) |>
+  add_trace(
+    data = iqr_fences,
+    x = ~value,
+    y = ~y,
+    type = "scatter",
+    mode = "markers+text",
+
+    marker = list(
+      color = "#111111",
+      size = 10,
+      symbol = "circle",
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    text = ~label,
+    textposition = "top center",
+    cliponaxis = FALSE,
+
+    textfont = list(
+      family = "Arial",
+      size = 12,
+      color = "#111111"
+    ),
+
+    hovertemplate = paste0(
+      "<b>%{text}</b>",
+      "<br>Value: %{x}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = iqr_quartiles,
+    x = ~value,
+    y = ~y,
+    type = "scatter",
+    mode = "markers+text",
+
+    marker = list(
+      color = "#B32025",
+      size = 11,
+      line = list(
+        color = "#111111",
+        width = 0.9
+      )
+    ),
+
+    text = ~label,
+    textposition = "top center",
+    cliponaxis = FALSE,
+
+    textfont = list(
+      family = "Arial",
+      size = 12,
+      color = "#111111"
+    ),
+
+    hovertemplate = paste0(
+      "<b>%{text}</b>",
+      "<br>Value: %{x}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = iqr_value,
+    x = ~value,
+    y = ~y,
+    type = "scatter",
+    mode = "markers+text",
+
+    marker = list(
+      color = "#F0C419",
+      size = 12,
+      line = list(
+        color = "#111111",
+        width = 1
+      )
+    ),
+
+    text = ~label,
+    textposition = "top center",
+    cliponaxis = FALSE,
+
+    textfont = list(
+      family = "Arial",
+      size = 12,
+      color = "#111111"
+    ),
+
+    hovertemplate = paste0(
+      "<b>Value</b>",
+      "<br>%{x}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#666666",
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        x0 = -6,
+        x1 = 28,
+        y0 = 0,
+        y1 = 0,
+        layer = "below",
+        line = list(
+          color = "#D8DEE2",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = -4,
+        x1 = -4,
+        y0 = -0.07,
+        y1 = 0.07,
+        layer = "below",
+        line = list(
+          color = "#667174",
+          width = 2
+        )
+      ),
+
+      list(
+        type = "line",
+        x0 = 20,
+        x1 = 20,
+        y0 = -0.07,
+        y1 = 0.07,
+        layer = "below",
+        line = list(
+          color = "#667174",
+          width = 2
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(-6, 28),
+
+      tickmode = "array",
+      tickvals = c(-4, 5, 11, 20, 25),
+      ticktext = c("-4", "5", "11", "20", "25"),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      range = c(-0.13, 0.22),
+      showticklabels = FALSE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 72,
+      r = 38,
+      t = 40,
+      b = 45
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+iqr_plot
 ```
 
-- [Yes - it sits above the upper cutoff]{.correct data-explanation="IQR = 6. Upper cutoff = 11 + 1.5 times 6 = 20. Since 25 is greater than 20, the value is flagged as a high outlier."}
-- No - it sits inside the whiskers
+- [Yes — it sits above the upper fence]{.correct data-explanation="The IQR is 11 − 5 = 6. The upper fence is 11 + 1.5 × 6 = 20. Since 25 is greater than 20, it is flagged as a potential high outlier."}
+- No — it sits inside the fences
 - We cannot tell without the median
 - We cannot tell without the sample size
 
@@ -1486,33 +2561,294 @@ Long tail on the **right**. Most values bunched on the left. Also called **posit
 ## Skewness Illustrated {.compact}
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 3.6
-#| fig-align: center
 #| echo: false
+#| results: asis
 
 set.seed(1)
-left  <- 100 - rgamma(3000, shape = 3, rate = 0.6)
-sym   <- rnorm(3000, mean = 60, sd = 15)
-right <- rgamma(3000, shape = 3, rate = 0.15)
 
-df <- rbind(
-  data.frame(value = left,  shape = "Left skew"),
-  data.frame(value = sym,   shape = "Symmetric"),
-  data.frame(value = right, shape = "Right skew")
+left_values  <- 100 - rgamma(3000, shape = 3, rate = 0.6)
+sym_values   <- rnorm(3000, mean = 60, sd = 15)
+right_values <- rgamma(3000, shape = 3, rate = 0.15)
+
+left_plot <- plot_ly(
+  x = left_values,
+  type = "histogram",
+  nbinsx = 30,
+  height = 285,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Left-skewed distribution</b>",
+    "<br>Value: %{x:.1f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  )
+) |>
+  layout(
+    bargap = 0.03,
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    )
+  )
+
+symmetric_plot <- plot_ly(
+  x = sym_values,
+  type = "histogram",
+  nbinsx = 30,
+  height = 285,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Symmetric distribution</b>",
+    "<br>Value: %{x:.1f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  )
+) |>
+  layout(
+    bargap = 0.03,
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = "",
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    )
+  )
+
+right_plot <- plot_ly(
+  x = right_values,
+  type = "histogram",
+  nbinsx = 30,
+  height = 285,
+
+  marker = list(
+    color = "#B32025",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Right-skewed distribution</b>",
+    "<br>Value: %{x:.1f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  )
+) |>
+  layout(
+    bargap = 0.03,
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 7,
+        font = list(size = 13, color = "#111111")
+      ),
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = "",
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.3,
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 4,
+      tickfont = list(size = 11, color = "#111111"),
+      fixedrange = TRUE
+    )
+  )
+
+skewness_plot <- subplot(
+  left_plot,
+  symmetric_plot,
+  right_plot,
+  nrows = 1,
+  shareY = TRUE,
+  margin = 0.055,
+  titleX = TRUE,
+  titleY = TRUE
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    annotations = list(
+      list(
+        text = "<b>Left-skewed</b>",
+        x = 0.145,
+        y = 1.10,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      ),
+      list(
+        text = "<b>Symmetric</b>",
+        x = 0.500,
+        y = 1.10,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      ),
+      list(
+        text = "<b>Right-skewed</b>",
+        x = 0.855,
+        y = 1.10,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      )
+    ),
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#B32025",
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 68,
+      r = 22,
+      t = 48,
+      b = 50
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 94%;",
+    "margin: 2px auto 0 auto;"
+  ),
+  skewness_plot
 )
-df$shape <- factor(df$shape, levels = c("Left skew", "Symmetric", "Right skew"))
-
-ggplot(df, aes(value)) +
-  geom_histogram(bins = 30, fill = "#9c8cd4", colour = "white") +
-  facet_wrap(~ shape, scales = "free", ncol = 3) +
-  labs(x = "Value", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        strip.text = element_text(face = "bold"))
 ```
 
 ::: {.thinkbox}
-The **tail** points in the direction of the skew. "Right-skewed" = tail to the right. The mean is pulled toward the tail; the median stays near the bulk.
+The **tail** points in the direction of the skew. “Right-skewed” means the tail extends to the right. The mean is pulled toward the tail, while the median remains closer to the bulk of the data.
 :::
 
 ---
@@ -1615,7 +2951,7 @@ The $x$-axis shows the bins, and the $y$-axis shows frequency (or relative frequ
 | **Total** | $F = \sum_{i=1}^{m} f_i$ | $1$ |
 
 ::: {.examplebox .fragment}
-**Bin widths are usually equal** but do not have to be. We choose a width that shows the structure of the data without too much noise.
+**The histograms in this chapter use equal-width bins.** We choose a width that shows the structure of the data without too much noise.
 :::
 
 ---
@@ -1654,32 +2990,246 @@ The faithful waiting times are **bimodal** - two distinct clusters around 55 and
 ## Bin Width Matters {.compact}
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 3.6
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 data(faithful)
-w <- faithful$waiting
 
-df_b <- rbind(
-  data.frame(value = w, panel = "breaks = 5"),
-  data.frame(value = w, panel = "breaks = 15"),
-  data.frame(value = w, panel = "breaks = 40")
+waiting_times <- faithful$waiting
+waiting_range <- range(waiting_times)
+
+make_bin_plot <- function(number_of_bins, panel_label) {
+
+  bin_size <- diff(waiting_range) / number_of_bins
+
+  plot_ly(
+    x = waiting_times,
+    type = "histogram",
+
+    xbins = list(
+      start = waiting_range[1],
+      end = waiting_range[2] + 0.001,
+      size = bin_size
+    ),
+
+    marker = list(
+      color = "#00695C",
+      line = list(
+        color = "#FFFFFF",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>", panel_label, "</b>",
+      "<br>Bin position: %{x:.1f} minutes",
+      "<br>Frequency: %{y}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+    layout(
+      bargap = 0.03,
+
+      xaxis = list(
+        range = c(42, 100),
+
+        showgrid = FALSE,
+        zeroline = FALSE,
+        showline = TRUE,
+
+        linecolor = "#111111",
+        linewidth = 1.3,
+
+        ticks = "outside",
+        tickcolor = "#111111",
+        ticklen = 4,
+
+        tickfont = list(
+          family = "Arial",
+          size = 11,
+          color = "#111111"
+        ),
+
+        fixedrange = TRUE
+      ),
+
+      yaxis = list(
+        showgrid = TRUE,
+        gridcolor = "rgba(0,0,0,0.09)",
+        gridwidth = 1,
+
+        zeroline = FALSE,
+        showline = TRUE,
+
+        linecolor = "#111111",
+        linewidth = 1.3,
+
+        ticks = "outside",
+        tickcolor = "#111111",
+        ticklen = 4,
+
+        tickfont = list(
+          family = "Arial",
+          size = 11,
+          color = "#111111"
+        ),
+
+        fixedrange = TRUE
+      ),
+
+      plot_bgcolor = "#FFFFFF",
+      paper_bgcolor = "rgba(0,0,0,0)"
+    )
+}
+
+plot_5_bins <- make_bin_plot(
+  number_of_bins = 5,
+  panel_label = "5 bins"
 )
-df_b$panel <- factor(df_b$panel, levels = c("breaks = 5", "breaks = 15", "breaks = 40"))
 
-ggplot(df_b, aes(value)) +
-  geom_histogram(data = subset(df_b, panel == "breaks = 5"),  bins = 5,  fill = "#00695c", colour = "white") +
-  geom_histogram(data = subset(df_b, panel == "breaks = 15"), bins = 15, fill = "#00695c", colour = "white") +
-  geom_histogram(data = subset(df_b, panel == "breaks = 40"), bins = 40, fill = "#00695c", colour = "white") +
-  facet_wrap(~ panel, ncol = 3) +
-  labs(x = "Waiting time (minutes)", y = "Frequency") +
-  theme(strip.text = element_text(face = "bold"))
+plot_15_bins <- make_bin_plot(
+  number_of_bins = 15,
+  panel_label = "15 bins"
+)
+
+plot_40_bins <- make_bin_plot(
+  number_of_bins = 40,
+  panel_label = "40 bins"
+)
+
+bin_width_plot <- subplot(
+  plot_5_bins,
+  plot_15_bins,
+  plot_40_bins,
+  nrows = 1,
+  shareY = TRUE,
+  margin = 0.055
+) |>
+  layout(
+    height = 300,
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    annotations = list(
+      list(
+        text = "<b>5 bins</b>",
+        x = 0.145,
+        y = 1.11,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      ),
+
+      list(
+        text = "<b>15 bins</b>",
+        x = 0.500,
+        y = 1.11,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      ),
+
+      list(
+        text = "<b>40 bins</b>",
+        x = 0.855,
+        y = 1.11,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 17,
+          color = "#111111"
+        )
+      ),
+
+      list(
+        text = "Waiting time (minutes)",
+        x = 0.500,
+        y = -0.24,
+        xref = "paper",
+        yref = "paper",
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      list(
+        text = "Frequency",
+        x = -0.055,
+        y = 0.500,
+        xref = "paper",
+        yref = "paper",
+        textangle = -90,
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      )
+    ),
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#00695C",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 78,
+      r = 24,
+      t = 52,
+      b = 76
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+bin_width_plot
 ```
 
 ::: {.thinkbox}
-Too few bins hide the **bimodal** shape; too many bins make it look noisy. The middle picture (15 bins) shows both clusters clearly.
+Too few bins hide the **bimodal** shape, while too many bins make the distribution look noisy. The middle histogram with **15 bins** shows both clusters most clearly.
 :::
 
 ---
@@ -1689,44 +3239,242 @@ Too few bins hide the **bimodal** shape; too many bins make it look noisy. The m
 :::: {.callout-note icon="false"}
 ## Visual Question
 
-The histogram shows a right-skewed salary distribution. Which summary better describes a typical employee's salary?
+The histogram shows a right-skewed salary distribution. Which summary better describes a typical employee’s salary?
 ::::
 
+<div style="
+  margin: 6px 0 2px 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Annual salaries at a tech company
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Yellow dotted line = mean; black solid line = median
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.1
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 set.seed(258)
+
 salary_q <- data.frame(
-  salary = c(rlnorm(220, meanlog = log(65), sdlog = 0.35), 160, 190, 230)
+  salary = c(
+    rlnorm(
+      220,
+      meanlog = log(65),
+      sdlog = 0.35
+    ),
+    160,
+    190,
+    230
+  )
 )
 
-ggplot(salary_q, aes(x = salary)) +
-  geom_histogram(bins = 28, fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = mean(salary_q$salary),
-             colour = "#f9a825", linewidth = 1.15, linetype = "dashed") +
-  geom_vline(xintercept = median(salary_q$salary),
-             colour = "#004d40", linewidth = 1.15) +
-  annotate("text", x = mean(salary_q$salary) + 18, y = 24,
-           label = "mean pulled right", colour = "#f9a825",
-           fontface = "bold", size = 3.4) +
-  annotate("text", x = median(salary_q$salary) - 6, y = 29,
-           label = "median near bulk", colour = "#004d40",
-           fontface = "bold", size = 3.4, hjust = 1) +
-  labs(title = "Annual salaries at a tech company",
-       subtitle = "Dashed line = mean; solid line = median",
-       x = "Salary ($000s)", y = "Frequency") +
-  coord_cartesian(xlim = c(20, 240)) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+salary_mean <- mean(salary_q$salary)
+salary_median <- median(salary_q$salary)
+
+salary_bin_width <- (
+  max(salary_q$salary) - min(salary_q$salary)
+) / 28
+
+salary_plot <- plot_ly(
+  data = salary_q,
+  x = ~salary,
+  type = "histogram",
+  height = 225,
+
+  xbins = list(
+    start = min(salary_q$salary),
+    end = max(salary_q$salary) + 0.001,
+    size = salary_bin_width
+  ),
+
+  marker = list(
+    color = "#00695C",
+    line = list(
+      color = "#FFFFFF",
+      width = 0.8
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Salary bin</b>",
+    "<br>Salary: approximately $%{x:.0f}k",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  hoverlabel = list(
+    bgcolor = "#111111",
+    bordercolor = "#00695C",
+    font = list(
+      family = "Arial",
+      size = 13,
+      color = "#FFFFFF"
+    )
+  )
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.025,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        xref = "x",
+        yref = "paper",
+
+        x0 = salary_mean,
+        x1 = salary_mean,
+        y0 = 0,
+        y1 = 1,
+
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      ),
+
+      list(
+        type = "line",
+        xref = "x",
+        yref = "paper",
+
+        x0 = salary_median,
+        x1 = salary_median,
+        y0 = 0,
+        y1 = 1,
+
+        layer = "above",
+
+        line = list(
+          color = "#111111",
+          width = 2.4
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Salary ($000s)",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(20, 240),
+      tick0 = 20,
+      dtick = 20,
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 7,
+        font = list(
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    margin = list(
+      l = 76,
+      r = 34,
+      t = 12,
+      b = 50
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+salary_plot
 ```
 
 - The mean
-- [The median]{.correct data-explanation="The distribution is right-skewed, so a few very high salaries pull the mean to the right. The median stays closer to where most employees actually are."}
+- [The median]{.correct data-explanation="The distribution is right-skewed, so a few very high salaries pull the mean toward the right tail. The median remains closer to the centre of the main group of salaries and better represents a typical employee."}
 - They give the same answer
-- Neither - use the mode
+- Neither — use the mode
 
 ---
 
@@ -1808,28 +3556,248 @@ boxplot(x,
 ## Skewness from a Boxplot
 
 ```{r}
-#| fig-width: 12
-#| fig-height: 3.6
-#| fig-align: center
 #| echo: false
+#| results: asis
 
 set.seed(3)
-df_box <- rbind(
-  data.frame(value = 30 - rgamma(150, shape = 3, rate = 0.5),  shape = "Left skew"),
-  data.frame(value = rnorm(150, mean = 10, sd = 3),            shape = "Symmetric"),
-  data.frame(value = rgamma(150, shape = 3, rate = 0.5),       shape = "Right skew")
-)
-df_box$shape <- factor(df_box$shape, levels = c("Left skew", "Symmetric", "Right skew"))
 
-ggplot(df_box, aes(x = value, y = shape, fill = shape)) +
-  geom_boxplot(width = 0.5, colour = "#004d40", outlier.colour = "#e34a6f") +
-  scale_fill_manual(values = c("#9c8cd4", "#00aa88", "#f9a825"), guide = "none") +
-  labs(x = "Value", y = NULL) +
-  theme(panel.grid.major.y = element_blank())
+left_box_values <- 30 - rgamma(
+  150,
+  shape = 3,
+  rate = 0.5
+)
+
+symmetric_box_values <- rnorm(
+  150,
+  mean = 10,
+  sd = 3
+)
+
+right_box_values <- rgamma(
+  150,
+  shape = 3,
+  rate = 0.5
+)
+
+box_skew_plot <- plot_ly(
+  height = 300
+) |>
+  add_trace(
+    x = left_box_values,
+    y = rep(
+      "Left-skewed",
+      length(left_box_values)
+    ),
+
+    type = "box",
+    orientation = "h",
+    name = "Left-skewed",
+
+    boxpoints = "outliers",
+    fillcolor = "#9C8CD4",
+
+    line = list(
+      color = "#111111",
+      width = 1.5
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Left-skewed distribution</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    x = symmetric_box_values,
+    y = rep(
+      "Symmetric",
+      length(symmetric_box_values)
+    ),
+
+    type = "box",
+    orientation = "h",
+    name = "Symmetric",
+
+    boxpoints = "outliers",
+    fillcolor = "#00AA88",
+
+    line = list(
+      color = "#111111",
+      width = 1.5
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Symmetric distribution</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    x = right_box_values,
+    y = rep(
+      "Right-skewed",
+      length(right_box_values)
+    ),
+
+    type = "box",
+    orientation = "h",
+    name = "Right-skewed",
+
+    boxpoints = "outliers",
+    fillcolor = "#F9A825",
+
+    line = list(
+      color = "#111111",
+      width = 1.5
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Right-skewed distribution</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    boxgap = 0.38,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 10,
+        font = list(
+          family = "Arial",
+          size = 14,
+          color = "#111111"
+        )
+      ),
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      categoryorder = "array",
+      categoryarray = c(
+        "Right-skewed",
+        "Symmetric",
+        "Left-skewed"
+      ),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+
+      tickfont = list(
+        family = "Arial",
+        size = 14,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#B32025",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 130,
+      r = 34,
+      t = 16,
+      b = 55
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 92%;",
+    "margin: 4px auto 0 auto;"
+  ),
+  box_skew_plot
+)
 ```
 
 ::: {.thinkbox .fragment}
-**Reading skew from a box.** Median **closer to $Q_3$** + long lower whisker → left skew. Median **closer to $Q_1$** + long upper whisker → right skew. The longer tail points in the direction of the skew.
+**Reading skew from a box.** Median **closer to $Q_3$** with a long lower whisker suggests left skew. Median **closer to $Q_1$** with a long upper whisker suggests right skew. The longer tail points in the direction of the skew.
 :::
 
 ---
@@ -1837,12 +3805,15 @@ ggplot(df_box, aes(x = value, y = shape, fill = shape)) +
 ## Example: Online Quiz Times {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
+
 A professor records the time, in minutes, that students spent completing an online quiz:
 
-$$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
+$$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 50$$
 
 **(a)** Would a **histogram** or **boxplot** better show the **shape** of the distribution?
 
@@ -1852,27 +3823,240 @@ $$12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42$$
 
 **(d)** Which value seems most likely to be an outlier?
 :::
+
 :::
 
 ::: {.col}
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| results: asis
 
-times <- data.frame(minutes = c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42))
+times <- data.frame(
+  minutes = c(
+    12, 14, 15, 15, 16, 18,
+    20, 22, 25, 28, 35, 50
+  )
+)
 
-ggplot(times, aes(x = minutes)) +
-  geom_histogram(binwidth = 5, boundary = 10,
-                 fill = "#00695c", colour = "white") +
-  geom_rug(colour = "#f9a825", linewidth = 1) +
-  labs(title = "Online quiz completion times",
-       x = "Minutes", y = "Frequency") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+times$observation <- paste0(
+  "Observation ",
+  seq_len(nrow(times))
+)
+
+quiz_time_plot <- plot_ly(
+  data = times,
+  x = ~minutes,
+  type = "histogram",
+  height = 275,
+
+  xbins = list(
+    start = 10,
+    end = 55,
+    size = 5
+  ),
+
+  marker = list(
+    color = "#00695C",
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Completion-time bin</b>",
+    "<br>Time: approximately %{x:.0f} minutes",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  showlegend = FALSE
+) |>
+  add_trace(
+    data = times,
+    x = ~minutes,
+    y = rep(0.09, nrow(times)),
+    customdata = ~observation,
+
+    type = "scatter",
+    mode = "markers",
+
+    marker = list(
+      color = "#FFD000",
+      size = 8,
+      line = list(
+        color = "#111111",
+        width = 0.9
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>%{customdata}</b>",
+      "<br>Completion time: %{x} minutes",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE,
+    inherit = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.035,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Completion time (minutes)",
+        standoff = 9,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(9.5, 52.5),
+
+tickmode = "array",
+tickvals = seq(10, 50, by = 5),
+ticktext = as.character(
+  seq(10, 50, by = 5)
+),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 8,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 4.7),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#00695C",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 68,
+      r = 22,
+      t = 8,
+      b = 55
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 86%;",
+    "margin: 62px auto 0 auto;"
+  ),
+
+  htmltools::div(
+    style = paste0(
+      "font-family: Arial, sans-serif;",
+      "margin: 0 0 7px 68px;",
+      "line-height: 1.15;"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "font-size: 20px !important;",
+        "font-weight: 700;",
+        "color: #111111;"
+      ),
+      "Online quiz completion times"
+    ),
+
+    htmltools::tags$div(
+      style = paste0(
+        "margin-top: 4px;",
+        "font-size: 14px !important;",
+        "color: #444444;"
+      ),
+      "Yellow points show the individual observations"
+    )
+  ),
+
+  quiz_time_plot
+)
 ```
+
 :::
+
 ::::
 
 ---
@@ -1882,7 +4066,7 @@ ggplot(times, aes(x = minutes)) +
 ```{webr}
 #| autorun: false
 
-x <- c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 42)
+x <- c(12, 14, 15, 15, 16, 18, 20, 22, 25, 28, 35, 50)
 
 summary(x)
 hist(x, col = "#00695c", border = "white", main = NULL, xlab = "Minutes")
@@ -1896,38 +4080,250 @@ boxplot(x, horizontal = TRUE, col = "#00695c")
 :::: {.callout-note icon="false"}
 ## Visual Question
 
-The boxplots compare delivery times for two restaurants. One restaurant has careful, consistent prep. Which one is most likely the sushi restaurant?
+The boxplots compare delivery times for two restaurants. Which restaurant has the **more consistent delivery times**?
 ::::
 
+<div style="
+  margin: 6px 0 2px 84px;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Delivery time distributions
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Compare the spread and potential outliers
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.15
-#| fig-align: center
 #| echo: false
+#| results: asis
 
 set.seed(258)
-restaurant_q <- data.frame(
-  Restaurant = rep(c("A", "B"), each = 80),
-  Time = c(
-    rnorm(80, mean = 31, sd = 2.1),
-    c(rnorm(76, mean = 32, sd = 5.8), 55, 61, 72, 80)
+
+restaurant_a <- data.frame(
+  Restaurant = "Restaurant A",
+  Time = rnorm(
+    80,
+    mean = 31,
+    sd = 2.1
   )
 )
 
-ggplot(restaurant_q, aes(x = Restaurant, y = Time, fill = Restaurant)) +
-  geom_boxplot(width = 0.45, colour = "#004d40", outlier.colour = "#e34a6f") +
-  geom_jitter(width = 0.08, alpha = 0.35, size = 1.5) +
-  scale_fill_manual(values = c("#00695c", "#f9a825"), guide = "none") +
-  labs(title = "Delivery time distributions",
-       subtitle = "Shorter box and shorter whiskers = more consistent times",
-       x = "Restaurant", y = "Delivery time (minutes)") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+restaurant_b <- data.frame(
+  Restaurant = "Restaurant B",
+  Time = c(
+    rnorm(
+      76,
+      mean = 32,
+      sd = 5.8
+    ),
+    55,
+    61,
+    72,
+    80
+  )
+)
+
+restaurant_plot <- plot_ly(
+  height = 285
+) |>
+  add_trace(
+    data = restaurant_a,
+    x = ~Time,
+    y = ~Restaurant,
+    type = "box",
+    orientation = "h",
+    name = "Restaurant A",
+
+    boxpoints = "outliers",
+
+    fillcolor = "rgba(0,105,92,0.24)",
+
+    line = list(
+      color = "#00695C",
+      width = 2.2
+    ),
+
+    marker = list(
+      color = "#00695C",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.6
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Restaurant A</b>",
+      "<br>Delivery time: %{x:.1f} minutes",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = restaurant_b,
+    x = ~Time,
+    y = ~Restaurant,
+    type = "box",
+    orientation = "h",
+    name = "Restaurant B",
+
+    boxpoints = "outliers",
+
+    fillcolor = "rgba(249,168,37,0.26)",
+
+    line = list(
+      color = "#B36B00",
+      width = 2.2
+    ),
+
+    marker = list(
+      color = "#B36B00",
+      size = 7,
+      line = list(
+        color = "#111111",
+        width = 0.6
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Restaurant B</b>",
+      "<br>Delivery time: %{x:.1f} minutes",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    boxgap = 0.42,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Delivery time (minutes)",
+        standoff = 8,
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(18, 85),
+      tick0 = 20,
+      dtick = 10,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = "",
+
+      categoryorder = "array",
+      categoryarray = c(
+        "Restaurant B",
+        "Restaurant A"
+      ),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+
+      tickfont = list(
+        family = "Arial",
+        size = 13,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#666666",
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 115,
+      r = 36,
+      t = 8,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 90%;",
+    "margin: 4px auto 0 auto;"
+  ),
+  restaurant_plot
+)
 ```
 
-- [Restaurant A]{.correct data-explanation="Restaurant A has a tighter spread, shorter whiskers, and no high outliers. That matches careful, consistent prep. Restaurant B has more variation and high delays."}
+- [Restaurant A]{.correct data-explanation="Restaurant A has the smaller spread and no large high outliers, so its delivery times are more consistent. Restaurant B has a wider spread and several unusually long delivery times."}
 - Restaurant B
-- Both equally consistent
+- Both are equally consistent
 - Cannot tell
 
 ---
@@ -1940,29 +4336,332 @@ ggplot(restaurant_q, aes(x = Restaurant, y = Time, fill = Restaurant)) +
 Look at the boxplot. What kind of skewness does this shape suggest?
 ::::
 
+<div style="
+  width: 90%;
+  margin: 6px auto 0 auto;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Reading skewness from a boxplot
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    color: #444444 !important;
+  ">
+    Compare the median position and whisker lengths
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 8.6
-#| fig-height: 2.05
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
 set.seed(258)
-left_skew_q <- data.frame(value = 30 - rgamma(160, shape = 3, rate = 0.5))
 
-ggplot(left_skew_q, aes(x = value, y = "")) +
-  geom_boxplot(fill = "#00695c", colour = "#004d40",
-               outlier.colour = "#e34a6f", width = 0.36) +
-  labs(title = "Reading skewness from a boxplot",
-       subtitle = "The longer tail points toward the skew",
-       x = "Value", y = NULL) +
-  theme(panel.grid.major.y = element_blank(),
-        panel.grid.minor = element_blank(),
-        axis.text.y = element_blank(),
-        plot.title = element_text(face = "bold"))
+left_skew_q <- data.frame(
+  value = 30 - rgamma(
+    160,
+    shape = 3,
+    rate = 0.5
+  )
+)
+
+box_summary <- boxplot.stats(
+  left_skew_q$value,
+  coef = 1.5
+)
+
+lower_whisker <- box_summary$stats[1]
+q1_value <- box_summary$stats[2]
+median_value <- box_summary$stats[3]
+q3_value <- box_summary$stats[4]
+upper_whisker <- box_summary$stats[5]
+outlier_values <- box_summary$out
+
+hover_values <- data.frame(
+  value = c(
+    lower_whisker,
+    q1_value,
+    median_value,
+    q3_value,
+    upper_whisker
+  ),
+  position = rep(1, 5)
+)
+
+value_range <- range(
+  left_skew_q$value,
+  finite = TRUE
+)
+
+axis_padding <- diff(value_range) * 0.08
+
+skew_boxplot <- plot_ly(
+  height = 225
+) |>
+  add_markers(
+    data = hover_values,
+    x = ~value,
+    y = ~position,
+
+    marker = list(
+      color = "rgba(0,0,0,0)",
+      size = 18
+    ),
+
+    hovertemplate = paste0(
+      "<b>Boxplot value</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_markers(
+    x = outlier_values,
+    y = rep(
+      1,
+      length(outlier_values)
+    ),
+
+    marker = list(
+      color = "#B32025",
+      size = 8,
+      line = list(
+        color = "#111111",
+        width = 0.8
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Potential outlier</b>",
+      "<br>Value: %{x:.1f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      # Lower whisker
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = lower_whisker,
+        x1 = q1_value,
+        y0 = 1,
+        y1 = 1,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Upper whisker
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = q3_value,
+        x1 = upper_whisker,
+        y0 = 1,
+        y1 = 1,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Lower whisker cap
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = lower_whisker,
+        x1 = lower_whisker,
+        y0 = 0.86,
+        y1 = 1.14,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Upper whisker cap
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = upper_whisker,
+        x1 = upper_whisker,
+        y0 = 0.86,
+        y1 = 1.14,
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Interquartile-range box
+      list(
+        type = "rect",
+        xref = "x",
+        yref = "y",
+
+        x0 = q1_value,
+        x1 = q3_value,
+        y0 = 0.72,
+        y1 = 1.28,
+
+        fillcolor = "rgba(0,105,92,0.32)",
+
+        line = list(
+          color = "#004D40",
+          width = 3
+        )
+      ),
+
+      # Median
+      list(
+        type = "line",
+        xref = "x",
+        yref = "y",
+
+        x0 = median_value,
+        x1 = median_value,
+        y0 = 0.72,
+        y1 = 1.28,
+
+        line = list(
+          color = "#111111",
+          width = 3
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Value",
+        standoff = 9,
+
+        font = list(
+          family = "Arial",
+          size = 14,
+          color = "#111111"
+        )
+      ),
+
+      range = c(
+        value_range[1] - axis_padding,
+        value_range[2] + axis_padding
+      ),
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      range = c(0.45, 1.55),
+
+      showticklabels = FALSE,
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = FALSE,
+
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#00695C",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 28,
+      r = 28,
+      t = 8,
+      b = 48
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 90%;",
+    "margin: 1px auto 0 auto;"
+  ),
+  skew_boxplot
+)
 ```
 
 - The distribution is right-skewed
-- [The distribution is left-skewed]{.correct data-explanation="The lower whisker is longer and the tail points left. That suggests left skew. The mean would usually be less than the median."}
+- [The distribution is left-skewed]{.correct data-explanation="The lower whisker and lower tail extend farther to the left. The longer tail points in the direction of the skew, so the distribution is left-skewed."}
 - The distribution is symmetric
 - There must be a high outlier
 
@@ -2001,10 +4700,17 @@ Both groups have $\bar{x} = 15$, but Group B is much more spread out. Mean alone
 ## Example: Two Sections {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Example</span>
-Two sections of a course report the following midterm marks. **Section A:** $62, 65, 68, 70, 72, 75, 78$. **Section B:** $45, 65, 68, 70, 72, 75, 95$.
+
+Two sections of a course report the following midterm marks.
+
+**Section A:** $62, 65, 68, 70, 72, 75, 78$
+
+**Section B:** $45, 65, 68, 70, 72, 75, 95$
 
 **(a)** Find the **mean** mark for each section.
 
@@ -2012,33 +4718,262 @@ Two sections of a course report the following midterm marks. **Section A:** $62,
 
 **(c)** Which section has more **spread**? Explain.
 
-**(d)** For Section B, would the mean or the median better represent a typical student? Explain.
+**(d)** The two sections have the same mean and median. Why do their distributions still tell different stories?
 :::
+
 :::
 
 ::: {.col}
-```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
-#| echo: false
 
-sections <- data.frame(
-  Section = rep(c("A", "B"), each = 7),
-  Mark = c(62, 65, 68, 70, 72, 75, 78,
-           45, 65, 68, 70, 72, 75, 95)
+<div style="
+  width: 94%;
+  margin: 35px auto 2px auto;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Midterm marks by section
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 14px !important;
+    color: #444444 !important;
+  ">
+    Each point represents one student
+  </span>
+</div>
+
+```{r}
+#| echo: false
+#| out-width: "100%"
+
+section_a <- data.frame(
+  Section = "Section A",
+  Mark = c(
+    62, 65, 68, 70, 72, 75, 78
+  )
 )
 
-ggplot(sections, aes(x = Section, y = Mark, fill = Section)) +
-  geom_boxplot(width = 0.45, colour = "#004d40", outlier.colour = "#e34a6f") +
-  geom_jitter(width = 0.08, size = 2.2, alpha = 0.75) +
-  scale_fill_manual(values = c("#00695c", "#f9a825"), guide = "none") +
-  labs(title = "Midterm marks by section",
-       x = "Section", y = "Mark") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+section_b <- data.frame(
+  Section = "Section B",
+  Mark = c(
+    45, 65, 68, 70, 72, 75, 95
+  )
+)
+
+section_plot <- plot_ly(
+  height = 325
+) |>
+  add_trace(
+    data = section_a,
+    x = ~Section,
+    y = ~Mark,
+
+    type = "box",
+    name = "Section A",
+
+    boxpoints = "all",
+    jitter = 0.18,
+    pointpos = 0,
+    hoveron = "points",
+
+    fillcolor = "rgba(0,105,92,0.24)",
+
+    line = list(
+      color = "#00695C",
+      width = 2.2
+    ),
+
+    marker = list(
+      color = "#00695C",
+      size = 7,
+      opacity = 0.82,
+
+      line = list(
+        color = "#111111",
+        width = 0.6
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Section A</b>",
+      "<br>Mark: %{y:.0f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  add_trace(
+    data = section_b,
+    x = ~Section,
+    y = ~Mark,
+
+    type = "box",
+    name = "Section B",
+
+    boxpoints = "all",
+    jitter = 0.18,
+    pointpos = 0,
+    hoveron = "points",
+
+    fillcolor = "rgba(249,168,37,0.26)",
+
+    line = list(
+      color = "#B36B00",
+      width = 2.2
+    ),
+
+    marker = list(
+      color = "#F9A825",
+      size = 7,
+      opacity = 0.86,
+
+      line = list(
+        color = "#111111",
+        width = 0.6
+      )
+    ),
+
+    hovertemplate = paste0(
+      "<b>Section B</b>",
+      "<br>Mark: %{y:.0f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  ) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    boxgap = 0.44,
+    boxgroupgap = 0.15,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    xaxis = list(
+      title = "",
+
+      categoryorder = "array",
+      categoryarray = c(
+        "Section A",
+        "Section B"
+      ),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 13,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Midterm mark",
+        standoff = 8,
+
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(43, 97),
+      tick0 = 45,
+      dtick = 5,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#666666",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 68,
+      r = 22,
+      t = 5,
+      b = 44
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 96%;",
+    "margin: 0 auto;"
+  ),
+  section_plot
+)
 ```
+
 :::
+
 ::::
 
 ---
@@ -2079,56 +5014,22 @@ $$s^2 = \frac{22}{6 - 1} = 4.4, \quad s = \sqrt{4.4} \approx 2.10$$
 
 ---
 
-##  {.quiz-question}
-
-:::: {.callout-note icon="false"}
-## Visual Question
-
-The raw scores below come from two tutorial sections. Which graph is best suited for comparing their distributions?
-::::
-
-```{r}
-#| fig-width: 8.6
-#| fig-height: 2.1
-#| fig-align: center
-#| echo: false
-
-compare_q <- data.frame(
-  Section = rep(c("A", "B"), each = 12),
-  Score = c(70, 72, 73, 74, 75, 75, 76, 77, 78, 78, 79, 80,
-            55, 60, 63, 68, 72, 75, 77, 82, 86, 90, 94, 98)
-)
-
-ggplot(compare_q, aes(x = Score, y = Section, colour = Section)) +
-  geom_jitter(height = 0.08, size = 2.8, alpha = 0.8) +
-  scale_colour_manual(values = c("#00695c", "#f9a825"), guide = "none") +
-  labs(title = "Scores from two tutorial sections",
-       subtitle = "We want to compare centre, spread, and possible outliers",
-       x = "Score", y = "Section") +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
-```
-
-- A bar chart
-- Two separate histograms
-- [Side-by-side boxplots]{.correct data-explanation="Side-by-side boxplots are best for comparing distributions across groups because they show centre, spread, and possible outliers at once."}
-- A scatterplot
-
----
-
 ## Bonus Example: Textbooks Owned {.scrollable}
 
 :::: {.two-col-lean}
+
 ::: {.col}
+
 ::: {.taskbox}
 <span class="label">Bonus Example</span>
+
 The number of textbooks owned by $15$ students:
 
 $$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
 
 **(a)** Is the variable **discrete** or **continuous**?
 
-**(b)** Find the **mean**, **median**, and **mode**.
+**(b)** Find the **mean**, **median**, and **mode or modes**.
 
 **(c)** Find the **range** and the **IQR**.
 
@@ -2136,30 +5037,236 @@ $$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
 
 **(e)** Would a **boxplot** or **histogram** be more useful for detecting outliers?
 :::
+
 :::
 
 ::: {.col}
+
+<div style="
+  width: 94%;
+  margin: 38px auto 2px auto;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  line-height: 1.15;
+">
+  <span style="
+    display: block;
+    font-size: 21px !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+    color: #111111;
+  ">
+    Textbooks owned
+  </span>
+
+  <span style="
+    display: block;
+    margin-top: 4px;
+    font-size: 14px !important;
+    color: #444444 !important;
+  ">
+    Yellow dotted line = median
+  </span>
+</div>
+
 ```{r}
-#| fig-width: 5.2
-#| fig-height: 3.4
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
-books <- data.frame(textbooks = c(0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10))
+books <- data.frame(
+  textbooks = c(
+    0, 1, 1, 2, 2,
+    2, 3, 3, 4, 4,
+    4, 5, 6, 8, 10
+  )
+)
 
-ggplot(books, aes(x = textbooks)) +
-  geom_histogram(binwidth = 1, boundary = -0.5,
-                 fill = "#00695c", colour = "white") +
-  geom_vline(xintercept = median(books$textbooks),
-             colour = "#f9a825", linewidth = 1.2, linetype = "dashed") +
-  labs(title = "Textbooks owned",
-       subtitle = "Dashed line = median",
-       x = "Number of textbooks", y = "Frequency") +
-  scale_x_continuous(breaks = 0:10) +
-  theme(panel.grid.minor = element_blank(),
-        plot.title = element_text(face = "bold"))
+books_median <- median(
+  books$textbooks
+)
+
+textbook_plot <- plot_ly(
+  data = books,
+  x = ~textbooks,
+
+  type = "histogram",
+  height = 305,
+
+  xbins = list(
+    start = -0.5,
+    end = 10.5,
+    size = 1
+  ),
+
+  marker = list(
+    color = "#00695C",
+
+    line = list(
+      color = "#FFFFFF",
+      width = 1
+    )
+  ),
+
+  hovertemplate = paste0(
+    "<b>Textbooks owned</b>",
+    "<br>Number of textbooks: %{x:.0f}",
+    "<br>Frequency: %{y}",
+    "<extra></extra>"
+  ),
+
+  showlegend = FALSE
+) |>
+  layout(
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+    bargap = 0.04,
+
+    font = list(
+      family = "Arial",
+      color = "#111111"
+    ),
+
+    shapes = list(
+      list(
+        type = "line",
+        xref = "x",
+        yref = "paper",
+
+        x0 = books_median,
+        x1 = books_median,
+        y0 = 0,
+        y1 = 1,
+
+        layer = "above",
+
+        line = list(
+          color = "#FFD000",
+          width = 4,
+          dash = "dot"
+        )
+      )
+    ),
+
+    xaxis = list(
+      title = list(
+        text = "Number of textbooks",
+        standoff = 9,
+
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(-0.6, 10.6),
+
+      tickmode = "array",
+      tickvals = 0:10,
+      ticktext = as.character(0:10),
+
+      showgrid = FALSE,
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    yaxis = list(
+      title = list(
+        text = "Frequency",
+        standoff = 8,
+
+        font = list(
+          family = "Arial",
+          size = 13,
+          color = "#111111"
+        )
+      ),
+
+      range = c(0, 3.6),
+      tick0 = 0,
+      dtick = 1,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(0,0,0,0.09)",
+      gridwidth = 1,
+
+      zeroline = FALSE,
+      showline = TRUE,
+
+      linecolor = "#111111",
+      linewidth = 1.4,
+
+      ticks = "outside",
+      tickcolor = "#111111",
+      ticklen = 5,
+
+      tickfont = list(
+        family = "Arial",
+        size = 12,
+        color = "#111111"
+      ),
+
+      automargin = TRUE,
+      fixedrange = TRUE
+    ),
+
+    hoverlabel = list(
+      bgcolor = "#111111",
+      bordercolor = "#00695C",
+
+      font = list(
+        family = "Arial",
+        size = 13,
+        color = "#FFFFFF"
+      )
+    ),
+
+    margin = list(
+      l = 68,
+      r = 22,
+      t = 8,
+      b = 52
+    ),
+
+    plot_bgcolor = "#FFFFFF",
+    paper_bgcolor = "rgba(0,0,0,0)"
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
+
+htmltools::div(
+  style = paste0(
+    "width: 96%;",
+    "margin: 0 auto;"
+  ),
+  textbook_plot
+)
 ```
+
 :::
+
 ::::
 
 ---

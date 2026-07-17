@@ -4706,19 +4706,19 @@ Both groups have $\bar{x} = 15$, but Group B is much more spread out. Mean alone
 ::: {.taskbox}
 <span class="label">Example</span>
 
-Two sections of a course report the following midterm marks.
+Students in two tutorial sections completed the same short data-analysis task. Their completion times, in minutes, were:
 
-**Section A:** $62, 65, 68, 70, 72, 75, 78$
+**Section A:** $6.4, 6.6, 6.7, 6.8, 6.9, 7.0, 7.1, 7.2, 7.3, 7.4, 7.6$
 
-**Section B:** $45, 65, 68, 70, 72, 75, 95$
+**Section B:** $5.6, 6.2, 6.5, 6.7, 6.9, 7.0, 7.2, 7.3, 7.5, 7.8, 8.3$
 
-**(a)** Find the **mean** mark for each section.
+**(a)** Find the **mean completion time** for each section.
 
-**(b)** Find the **median** mark for each section.
+**(b)** Find the **median completion time** for each section.
 
-**(c)** Which section has more **spread**? Explain.
+**(c)** Which section has more **spread**? Use the standard deviation to support your answer.
 
-**(d)** The two sections have the same mean and median. Why do their distributions still tell different stories?
+**(d)** The two sections have the same mean and median. What does the boxplot reveal that these measures of centre do not?
 :::
 
 :::
@@ -4739,7 +4739,7 @@ Two sections of a course report the following midterm marks.
     line-height: 1.15;
     color: #111111;
   ">
-    Midterm marks by section
+    Task completion times by section
   </span>
 
   <span style="
@@ -4758,15 +4758,17 @@ Two sections of a course report the following midterm marks.
 
 section_a <- data.frame(
   Section = "Section A",
-  Mark = c(
-    62, 65, 68, 70, 72, 75, 78
+  Time = c(
+    6.4, 6.6, 6.7, 6.8, 6.9, 7.0,
+    7.1, 7.2, 7.3, 7.4, 7.6
   )
 )
 
 section_b <- data.frame(
   Section = "Section B",
-  Mark = c(
-    45, 65, 68, 70, 72, 75, 95
+  Time = c(
+    5.6, 6.2, 6.5, 6.7, 6.9, 7.0,
+    7.2, 7.3, 7.5, 7.8, 8.3
   )
 )
 
@@ -4776,7 +4778,7 @@ section_plot <- plot_ly(
   add_trace(
     data = section_a,
     x = ~Section,
-    y = ~Mark,
+    y = ~Time,
 
     type = "box",
     name = "Section A",
@@ -4806,7 +4808,7 @@ section_plot <- plot_ly(
 
     hovertemplate = paste0(
       "<b>Section A</b>",
-      "<br>Mark: %{y:.0f}",
+      "<br>Completion time: %{y:.1f} minutes",
       "<extra></extra>"
     ),
 
@@ -4815,7 +4817,7 @@ section_plot <- plot_ly(
   add_trace(
     data = section_b,
     x = ~Section,
-    y = ~Mark,
+    y = ~Time,
 
     type = "box",
     name = "Section B",
@@ -4845,7 +4847,7 @@ section_plot <- plot_ly(
 
     hovertemplate = paste0(
       "<b>Section B</b>",
-      "<br>Mark: %{y:.0f}",
+      "<br>Completion time: %{y:.1f} minutes",
       "<extra></extra>"
     ),
 
@@ -4896,7 +4898,7 @@ section_plot <- plot_ly(
 
     yaxis = list(
       title = list(
-        text = "Midterm mark",
+        text = "Completion time (minutes)",
         standoff = 8,
 
         font = list(
@@ -4906,9 +4908,9 @@ section_plot <- plot_ly(
         )
       ),
 
-      range = c(43, 97),
-      tick0 = 45,
-      dtick = 5,
+      range = c(5.4, 8.5),
+      tick0 = 5.5,
+      dtick = 0.5,
 
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.09)",
@@ -4978,18 +4980,26 @@ htmltools::div(
 
 ---
 
-## Check in R: Two Sections
+## Check in R: Two Sections {.compact}
 
 ```{webr}
 #| autorun: false
 
-A <- c(62, 65, 68, 70, 72, 75, 78)
-B <- c(45, 65, 68, 70, 72, 75, 95)
+A <- c(6.4, 6.6, 6.7, 6.8, 6.9, 7.0, 7.1, 7.2, 7.3, 7.4, 7.6)
+B <- c(5.6, 6.2, 6.5, 6.7, 6.9, 7.0, 7.2, 7.3, 7.5, 7.8, 8.3)
 
-mean(A); median(A); sd(A)
-mean(B); median(B); sd(B)
+boxplot(
+  A, B,
+  names = c("Section A", "Section B"),
+  col = c("#00695c", "#f9a825"),
+  ylab = "Completion time (minutes)",
+  main = "Task completion times"
+)
 
-boxplot(list(A = A, B = B), col = c("#00695c", "#f9a825"), main = "Midterm marks")
+round(cbind(
+  A = c(summary(A), SD = sd(A)),
+  B = c(summary(B), SD = sd(B))
+), 2)
 ```
 
 ---

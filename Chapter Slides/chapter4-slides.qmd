@@ -4581,6 +4581,7 @@ plotly_slide_layout(
 ```
 :::
 ::::::
+
 ------------------------------------------------------------------------
 
 ## Law of Large Numbers - Check in R
@@ -4629,38 +4630,6 @@ WLLN at work.
 
 ------------------------------------------------------------------------
 
-## Chapter Summary {.compact}
-
-:::::: three-col
-::: {.card .fragment}
-[Key Distributions]{.label} $N(\mu,\sigma^2)$ for continuous data;
-$\chi^2_k$ for variance; $t_\nu$ for small-sample means;
-$F_{\nu_1,\nu_2}$ for variance ratios.
-:::
-
-::: {.card .fragment}
-[CLT]{.label} For i.i.d. data with finite variance, $\bar{X}_n$ is
-approximately $N(\mu, \sigma^2/n)$ for large $n$, regardless of the
-parent distribution.
-:::
-
-::: {.card .fragment}
-[LLN]{.label} $\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle
-near the population mean. Proof uses Chebyshev's inequality.
-:::
-::::::
-
-<br>
-
-::: {.thinkbox .fragment}
-**One slide takeaway.** The CLT and LLN together justify why
-normal-based inference (confidence intervals, $t$-tests) works in
-practice. Learn the distributions now — everything in Chapters 5+ builds
-on them.
-:::
-
-------------------------------------------------------------------------
-
 ## Bonus Example: Applying the CLT {.scrollable}
 
 ::: taskbox
@@ -4704,6 +4673,38 @@ hist(xbars, breaks=h$breaks, freq=FALSE, col="#00695c", border="white",
      yaxs="i")
 lines(x_curve, y_curve, col="#F8766D", lwd=2)
 ```
+
+------------------------------------------------------------------------
+
+## Chapter Summary {.compact}
+
+:::::: three-col
+::: {.card .fragment}
+[Key Distributions]{.label} $N(\mu,\sigma^2)$ for continuous data;
+$\chi^2_k$ for variance; $t_\nu$ for small-sample means;
+$F_{\nu_1,\nu_2}$ for variance ratios.
+:::
+
+::: {.card .fragment}
+[CLT]{.label} For i.i.d. data with finite variance, $\bar{X}_n$ is
+approximately $N(\mu, \sigma^2/n)$ for large $n$, regardless of the
+parent distribution.
+:::
+
+::: {.card .fragment}
+[LLN]{.label} $\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle
+near the population mean. Proof uses Chebyshev's inequality.
+:::
+::::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** The CLT and LLN together justify why
+normal-based inference works in practice. Learn the distributions now —
+everything in Chapters 5+ builds on them.
+:::
+
 
 ------------------------------------------------------------------------
 

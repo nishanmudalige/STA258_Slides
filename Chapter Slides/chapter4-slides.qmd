@@ -3331,7 +3331,7 @@ plotly_slide_layout(
     margin = list(l = 62, r = 25, t = 72, b = 55)
   ) |>
   config(
-    displayModeBar = TRUE,
+    displayModeBar = FALSE,
     displaylogo = FALSE,
     scrollZoom = FALSE,
     doubleClick = "reset",
@@ -4735,9 +4735,11 @@ near the population mean. Proof uses Chebyshev's inequality.
 <br>
 
 ::: {.thinkbox .fragment}
-**One slide takeaway.** The CLT and LLN together justify why
-normal-based inference works in practice. Learn the distributions now —
-everything in Chapters 5+ builds on them.
+**One slide takeaway.** The LLN explains why sample averages settle near
+the population mean, while the CLT describes their approximate sampling
+distribution for large $n$. Together, these results provide the
+foundation for the estimation and inference methods introduced in the
+next chapters.
 :::
 
 

@@ -105,6 +105,7 @@
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -195,6 +196,7 @@
   </style>
   <script type="module" src="../site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
   <link href="../site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <link href="../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
   <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
   <script src="../site_libs/plotly-binding-4.12.0/plotly.js"></script>
   <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
@@ -213,87 +215,148 @@
 <section id="chapter-1-introduction" class="title-slide slide level1 center">
 <h1>Chapter 1: Introduction</h1>
 <style>
+:root {
+  --sta-teal: #00695c;
+  --sta-teal-dark: #004d40;
+  --sta-teal-light: #e0f2f1;
+  --sta-blue: #c8e6f3;
+  --sta-blue-soft: #eef8fb;
+  --sta-grey: #f5f6f7;
+  --sta-yellow: #fff8e1;
+  --sta-orange: #f9a825;
+  --sta-text: #2f3437;
+  --sta-muted: #667174;
+  --sta-border: #d8dee2;
+  --sta-code: #f3f4f5;
+}
+
 .reveal {
   font-family: Arial, sans-serif;
-  color: #2f3437;
+  color: var(--sta-text);
+}
+
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
 }
 
 .reveal h1,
 .reveal h2,
 .reveal h3 {
-  color: #2f3437;
+  color: var(--sta-text);
+  line-height: 1.1;
+}
+
+.reveal h1 {
+  font-size: 1.72em !important;
 }
 
 .reveal h2 {
-  border-bottom: 3px solid #00695c;
+  border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
-  font-size: 1.6em;
+  font-size: 1.6em !important;
+}
+
+.reveal h3 {
+  font-size: 1.1em !important;
 }
 
 .title-slide {
-  text-align: center;
+  text-align: center !important;
 }
 
-.reveal p, .reveal li {
+.reveal p,
+.reveal li {
   font-size: 0.78em;
   line-height: 1.35;
 }
 
+.defbox,
+.examplebox,
+.thinkbox,
+.warnbox,
+.card,
+.taskbox,
+.notebox,
+.mini-card,
+.stat-card {
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 0.72em;
+  line-height: 1.24;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+
 .defbox {
-  background: #c8e6f3;
-  padding: 10px 14px;
-  border-left: 6px solid #00695c;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
 }
 
-.examplebox {
-  background: #eeeeee;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+.examplebox,
+.notebox,
+.mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
 }
 
-.thinkbox {
-  background: #fff8e1;
-  padding: 10px 14px;
-  border-left: 6px solid #f9a825;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+.thinkbox,
+.taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
 }
 
 .warnbox {
-  background: #ffebee;
-  padding: 10px 14px;
-  border-left: 6px solid #c62828;
-  border-radius: 8px;
-  font-size: 0.72em;
-  margin-bottom: 8px;
-  line-height: 1.35;
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
+}
+
+.card {
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
+  border-left: 7px solid var(--sta-teal);
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid var(--sta-border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+
+.card .label,
+.stat-card .label {
+  display: block;
+  color: var(--sta-teal-dark);
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 
 .big {
-  font-size: 1.05em;
+  font-size: 1.08em;
   font-weight: bold;
-  color: #00695c;
+  color: var(--sta-teal);
 }
 
-.defbox p, .examplebox p, .thinkbox p, .warnbox p,
-.defbox li, .examplebox li, .thinkbox li, .warnbox li {
+.defbox p,
+.examplebox p,
+.thinkbox p,
+.warnbox p,
+.card p,
+.stat-card p,
+.defbox li,
+.examplebox li,
+.thinkbox li,
+.warnbox li,
+.card li,
+.stat-card li {
   font-size: 1em;
   margin-bottom: 4px;
 }
 
 .footer-note {
   font-size: 0.65em;
-  color: #666666;
+  color: var(--sta-muted);
 }
 
 .center {
@@ -304,15 +367,20 @@
   font-size: 0.75em;
 }
 
-.reveal table {
-  font-size: 0.85em;
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; border: 1px solid var(--sta-border); }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
 }
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
 
 .answer-table td {
-  background: #eeeeee;
+  background: var(--sta-grey);
 }
+
 .answer-table th {
-  background: #c8e6f3;
+  background: var(--sta-blue);
 }
 
 .scrollable .defbox,
@@ -323,36 +391,92 @@
 }
 
 /* ── Grid layouts ─────────────────────────────────────── */
-.three-col {
+.two-col,
+.two-col-wide,
+.three-col,
+.four-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
   align-items: start;
 }
+.two-col { grid-template-columns: 1fr 1fr; }
+.two-col-wide { grid-template-columns: 1.08fr 0.92fr; }
+.three-col { grid-template-columns: repeat(3, 1fr); }
+.four-grid { grid-template-columns: repeat(2, 1fr); }
+.col { min-width: 0; }
 
-/* ── Cards ────────────────────────────────────────────── */
-.card, .stat-card {
-  padding: 16px 18px;
-  border-radius: 10px;
-  font-size: 0.74em;
-  line-height: 1.28;
-  box-sizing: border-box;
-  margin-bottom: 8px;
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
+/* ── Quiz slides ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
 }
-.card {
-  background: linear-gradient(160deg, #c8e6f3, #eef8fb);
-  border-left: 7px solid #00695c;
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
 }
-.stat-card {
-  background: white;
-  border: 1px solid #d8dee2;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+.reveal .quiz-question .callout-note {
+  margin: 4px 0 12px 0 !important;
+  text-align: left;
 }
-.card .label, .stat-card .label {
-  display: block;
-  color: #004d40;
-  font-weight: 700;
-  margin-bottom: 5px;
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+.reveal .quiz-question ul {
+  margin: 4px 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
 }
 
 /* ── Home button ──────────────────────────────────────── */
@@ -360,29 +484,127 @@
 .reveal a.home-button:visited,
 .reveal a.home-button:link {
   display: inline-block !important;
-  background: #00695c !important;
-  background-color: #00695c !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
   color: white !important;
   padding: 12px 28px !important;
   border-radius: 10px !important;
   text-decoration: none !important;
   font-weight: 700 !important;
   font-size: 0.9em !important;
-  border: 2px solid #004d40 !important;
+  border: 2px solid var(--sta-teal-dark) !important;
   margin-top: 24px !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
+
 .reveal a.home-button:hover {
-  background: #004d40 !important;
-  background-color: #004d40 !important;
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
   color: white !important;
 }
-.home-button-row { text-align: center; margin-top: 32px; }
+
+.home-button-row {
+  text-align: center;
+  margin-top: 32px;
+}
+
+
 </style>
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
 <p>STA258: Statistics with Applied Probability University of Toronto Mississauga</p>
 
-<img data-src="../images/cat.png" width="300" class="r-stretch"><aside class="notes">
+<img data-src="../images/cat.png" alt="Course mascot" width="245" class="r-stretch"><aside class="notes">
 <p>Welcome students. Set the tone: this course is about reasoning under uncertainty, not just plugging numbers into formulas.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -396,34 +618,17 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="big-question" class="slide level2 scrollable">
-<h2>The Big Question</h2>
-<div class="center">
-<p><span class="big">How can we say something true about<br>millions of people we’ve never met?</span></p>
-</div>
-<p><br></p>
-<div class="fragment">
-<div class="examplebox">
-<p>Pollsters call ~1,000 Canadians and predict an election for 40 million.<br> Doctors test a drug on 500 patients and recommend it for everyone.<br> Netflix watches a sample of users and decides what shows to make.</p>
-</div>
-</div>
-<div class="fragment">
-<div class="thinkbox">
-<p>That gap between “what we measured” and “what we want to know” - that’s what this whole course is about.</p>
-</div>
-</div>
-</section>
-<section id="roadmap" class="slide level2 scrollable">
-<h2>Roadmap</h2>
+<section id="chapter-roadmap" class="slide level2 compact">
+<h2>Chapter Roadmap</h2>
 <div class="three-col">
 <div class="card fragment">
-<p><span class="label">1 - Foundations</span> Statistics, population, sample, unit, observation, variable, and the difference between descriptive and inferential ideas.</p>
+<p><span class="label">1.1 - Foundations</span> Statistics, population, sample, unit, observation, variable, and the difference between descriptive and inferential ideas.</p>
 </div>
 <div class="card fragment">
-<p><span class="label">2 - Types of Data</span> Quantitative vs qualitative data, plus discrete vs continuous and nominal vs ordinal categories.</p>
+<p><span class="label">1.2 - Types of Data</span> Quantitative vs qualitative data, plus discrete vs continuous and nominal vs ordinal categories.</p>
 </div>
 <div class="card fragment">
-<p><span class="label">3 - Inference Preview</span> Sampling, bias, study types, and the first ideas behind drawing conclusions from data.</p>
+<p><span class="label">1.3 - Inference Preview</span> Sampling, bias, study types, and the first ideas behind drawing conclusions from data.</p>
 </div>
 </div>
 <p><br></p>
@@ -439,14 +644,26 @@
 </div>
 </div>
 </section>
+<section id="big-question" class="slide level2 scrollable">
+<h2>The Big Question</h2>
+<div class="center">
+<p><span class="big">How can we say something true about<br>millions of people we’ve never met?</span></p>
+</div>
+<p><br></p>
+<div class="examplebox fragment">
+<p>Pollsters call ~1,000 Canadians and predict an election for 40 million.<br> Doctors test a drug on 500 patients and recommend it for everyone.<br> Netflix watches a sample of users and decides what shows to make.</p>
+</div>
+<div class="thinkbox fragment">
+<p>That gap between “what we measured” and “what we want to know” - that’s what this whole course is about.</p>
+</div>
+</section>
 <section id="foundations" class="slide level2 scrollable">
 <h2>1.1 Foundations</h2>
 <div class="defbox">
 <p><strong>Definition 1.1 - Statistics</strong><br> The science of <strong>collecting, classifying, summarizing, analyzing, and interpreting data</strong>.</p>
 </div>
 <p><br></p>
-<div class="fragment">
-<div class="examplebox">
+<div class="examplebox fragment">
 <p>Think of statistics as a pipeline: <br><br> <span class="big">Question → Data → Analysis → Decision</span></p>
 </div>
 <aside class="notes">
@@ -462,28 +679,23 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 </section>
 <section id="population" class="slide level2 scrollable">
 <h2>Population</h2>
 <div class="defbox">
 <p><strong>Definition 1.2 - Population</strong><br> The <strong>entire group</strong> of individuals, items, or measurements that share a characteristic of interest and about which conclusions are to be drawn.</p>
 </div>
-<div class="fragment">
 <div class="examplebox fragment">
 <p><strong>Examples:</strong></p>
 <ul>
-<li class="fragment">All students at the University of Toronto</li>
-<li class="fragment">All residents of Mississauga</li>
-<li class="fragment">Every possible hand in a game of poker (hypothetical!)</li>
-<li class="fragment">Every battery a factory will ever produce</li>
+<li>All students at the University of Toronto</li>
+<li>All residents of Mississauga</li>
+<li>Every possible hand in a game of poker (hypothetical!)</li>
+<li>Every battery a factory will ever produce</li>
 </ul>
 </div>
-</div>
-<div class="fragment">
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p>A population can be real or hypothetical, finite or essentially infinite. What matters is that it’s the group you actually want to learn about.</p>
-</div>
 </div>
 </section>
 <section id="sample" class="slide level2 scrollable">
@@ -494,27 +706,27 @@
 <div class="examplebox fragment">
 <p><strong>Examples:</strong></p>
 <ul>
-<li class="fragment">50 randomly selected U of T students</li>
-<li class="fragment">100 randomly selected Mississauga residents</li>
-<li class="fragment">30 batteries pulled off the production line today</li>
+<li>50 randomly selected U of T students</li>
+<li>100 randomly selected Mississauga residents</li>
+<li>30 batteries pulled off the production line today</li>
 </ul>
 </div>
-<div class="fragment">
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p><strong>Why sample?</strong> Measuring everyone is usually too slow, too expensive, or simply impossible.</p>
-</div>
 </div>
 </section>
 <section id="visualizing-population-vs-sample" class="slide level2 scrollable">
 <h2>Visualizing Population vs Sample</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="htmlwidget-6f1d6e5c5b0cf22f0651" style="width:864px;height:380px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6f1d6e5c5b0cf22f0651">{"x":{"data":[{"x":[2.6550866314209998,3.7212389963679016,5.7285336335189641,9.0820778999477625,2.016819310374558,8.9838968496769667,9.4467526860535145,6.6079779248684645,6.2911404389888048,0.61786270467564464,2.0597457489930093,1.7655675252899528,6.8702284665778279,3.8410371821373701,7.6984141999855638,4.9769924208521843,7.1761850826442242,9.919060948304832,3.8003517943434417,7.7744522131979465,9.3470523110590875,2.1214252128265798,6.5167376608587801,1.2555509596131742,2.6722066872753203,3.861140925437212,0.13390333158895373,3.8238795707002282,8.6969084572046995,3.4034899668768048,5.9956582542508841,4.9354130704887211,1.862176014110446,8.273733186069876,7.9423986072652042,1.0794362588785589,7.2371094604022801,4.1127442964352667,8.2094629411585629,6.4706019381992519,7.8293276228941977,5.5303631164133549,5.2971958019770682,7.8935623168945312,0.23331202333793044,4.7723006503656507,7.3231373867020011,6.9273155648261309,4.7761962213553488,4.3809710722416639,2.4479727703146636,0.70679047144949436,0.99466160172596574,3.1627170718275011,5.186342631932348,6.6200507641769946,4.0683018718846142,2.9360337276011705,4.5906572625972331,3.3239467418752611,6.5087046707049012,2.5801678071729839,7.6631067064590752,0.84246914368122816,8.7532133003696799,3.3907293784432113,8.3944035018794239,3.4668348915874958,3.337749307975173,4.763512450736016,8.9219833584502339,8.6433947063051164,3.8998954347334802,7.7732069883495569,9.606179972179234,4.3465948477387428,7.125146787147969,3.9999436889775097,7.5708714802749455,2.0269225514493883,7.1112122246995568,1.2169192102737725,2.4548851395957172,1.4330437942408025,2.3962941509671509,0.58934377273544669,6.4228825853206217,8.7626921269111335,7.7891467744484544,7.9730882588773966,4.5527445361949503,4.1008408204652369,8.1087024277076125,6.0493329027667642,6.5472392807714641,3.5319727193564177,2.7026014588773251,9.9268406117334962,6.3349326443858445,2.1320813521742821,1.2937234807759523,4.7811803431250155,9.2407446983270347,5.9876096714287996,9.761706949211657,3.5672691208310425,4.3147369055077434,1.48211560677737,0.13077575480565429,7.1556606609374285,1.0318423574790359,4.4628434861078858,6.4010104513727129,9.9183862004429102,4.8434952436946332,1.7344233486801386,7.5482094450853765,4.5389548921957612,5.1116978377103806,2.0754511328414083,2.2865814273245633,5.957119963131845,5.7487219828180969,0.77064380282536149,6.427954921964556,9.2861519963480532,5.980924223549664,5.6090074800886214,5.2602772391401231,9.8509522387757897,5.0764182233251631,6.8278807867318392,6.0154121764935553,2.3886867775581777,2.5816592667251825,7.293096233624965,4.5257083140313625,1.7512676841579378,1.0498764039948583,8.6454494902864099,6.1464497167617083,5.5715953884646297,3.2877731905318797,4.5313144545070827,5.0044097262434661,1.8086636113002896,5.2963060280308127,2.7775593264959753,2.1269951923750341,2.8479048097506166,4.4623532332479954,8.8061903486959636,4.1312420950271189,0.63808480510488153,3.3548749168403447,7.237259466201067,3.3761533349752426,6.3041412248276174,8.4061455400660634,8.5613166471011937,3.9135928102768958,3.8049388560466468,8.9544542599469423,7.4107864871621132,6.0530344652943313,9.0308161149732769,2.9373015509918332,1.9126010988838971,8.864509433042258,8.7705754302442074,1.8919362244196236,7.5810305238701403,7.2449889266863465,9.4372481829486787,5.4764658701606095,7.1174386772327125,1.0087312618270516,9.2730208858847618,2.8323250031098723,5.9057315881364048,1.1036060494370759,8.4050703211687505,3.1796368444338441,7.8285133698955178,2.675082073546946,2.1864528488367796,5.1679683639667928,2.6895059202797711,1.8116832734085619,5.185761374887079,5.6278293579816818,7.1793527598492801,9.6140993642620742,1.0014084656722844,7.6322268950752914,9.4796635466627777,8.1863468838855624,3.0829233070835471,6.4957946049980819,9.5335545111447573,9.5373265002854168,3.3997920341789722,2.6247411011718214,1.6545393317937851,3.2216805662028491,5.1012520655058324,9.2396847135387361,2.576212608255446,0.4646088695153594,4.1785625834017992,8.5400150227360427,3.4723067772574723,1.3144232053309679,3.7448686454445124,6.3142022839747369,3.9007893367670476,6.896278487984091,6.8941341247409582,5.5490062315948308,4.2962440778501332,4.5272006280720234,3.0644325888715684,5.7835394400171936,9.1037030424922705,1.4260408212430775,4.1504762531258166,2.1092575066722929,4.2875037086196244,1.3268997520208359,4.6009644586592913,7.6197386160492897,9.3290982884354889,4.7067849757149816,6.0358806769363582,4.8498968058265746,1.0880631650798023,2.477268329821527,4.9851453071460128,3.7286670808680356,9.3469137023203075,5.2398607786744833,3.1714467168785632,2.7796602947637439,7.8754050773568451,7.0246251253411174,1.6502763866446912,0.64457538770511746,7.5470562162809074,6.2041003303602338,1.6957676666788757,0.62214052304625511,1.0902926861308515,3.8171635172329843,1.6931091458536685,2.9865254205651581,2.5717002130113542,1.8123182281851768,4.7731370967812836,7.7073704288341105,0.27787122409790754,5.2731077698990703,3.7306337198242545,0.4795913165435195,1.3862824672833085,3.2149212039075792,1.5483161131851375,1.3222817215137184,2.263807961717248,1.3141653384082019,9.8156346031464636,3.2701372681185603,5.0693949707783759,6.8144251476041973,0.99169103195890784,1.18902558228001,0.50439659506082535,9.292539197485894,6.7371223284862936,0.94857855467125773,4.6155184064991772,3.7521653086878359,9.9109921953640878,1.7635071370750666,8.1343520851805806,0.68446637131273746,4.0044974675402045,1.4114432572387159,1.9330986239947379,8.4135171677917242,7.1991398837417364,2.6721208309754729,4.9500164482742548,0.83113897824659944,3.5388424061238766,9.6920880535617471,6.2471418967470527,6.646182497497648,3.1248965649865568,4.056896127294749,9.9607737152837217,8.5508235637098551,9.5354839600622654,8.1230509234592319,7.8218211582861841,2.6787812891416252,7.6215152954682708,9.8631158913485706,2.9360554902814329,3.9935110695660114,8.1213152385316789,3.6369680985808372,4.4259246718138456,1.5671413252130151,5.8220527018420398,9.7016217885538936,1.7645203648135066,3.8430389203131199,6.7616405081935227,2.6929377974011004,4.6925094234757125,1.7180008231662214,3.6918946239165962,7.2540527256205678,4.8614910431206226,0.63802466727793217,4.1832163580693305,9.8101808479987085,2.8288395586423576,8.4788214950822294,0.82239230861887336,8.864587505813688,4.7193073085509241,1.0910096345469356,3.3327798452228308,2.7684984169900417,5.8703514141961932,8.3673226973041892,0.71154023986309767,7.0277874334715307,6.9882453721947968,4.6396238100714982,4.3693111045286059,5.6217678776010871,9.2848322633653879,2.3046641424298286,2.2181375441141427,4.2021589330397546,3.3352080569602549,8.6480755032971501,1.7719453573226929,4.9331872863695025,5.6426384299993515,6.5616231551393867,9.7855406277813017,2.3216114845126867,2.4081159615889192,7.9683608398772776,8.3167171501554549,1.1350770643912256,9.6331201633438468,1.4732289966195822,1.4362694276496768,9.2522993520833552,5.0703560258261859,1.5485101705417037,3.4830205212347209,6.5982102579437196,3.1177237443625927,3.515734092798084,1.4784570690244436],"y":[3.2943880453240126,0.92534982250072062,4.7718906844966114,4.4892424601130188,4.7184852720238268,3.6184537562076002,1.8517853296361864,3.9050877012778074,0.055747543228790164,4.7015435609500855,4.9687461310531944,1.787028725957498,3.7381753174122423,3.9645451190881431,3.5292950319126248,2.3791251936927438,2.4732726300135255,1.5402622439432889,3.4750612312927842,4.1139665280934423,2.1735882037319243,2.5736632640473545,3.3150548383127898,0.71583293261937797,1.7224369687028229,2.028817911632359,0.42655502911657095,4.6628596412483603,4.1919203335419297,4.3971664807759225,0.36230316734872758,1.893797202501446,2.6893246138934046,0.52525069331750274,3.698208729038015,0.26074506691657007,2.4108478659763932,4.6025892032776028,0.207642144523561,1.4699589950032532,2.5042524363379925,3.0487446754705161,1.3212452479638159,2.1154930477496237,1.8328180816024542,4.7125266119837761,0.61861782567575574,0.35016339621506631,4.8215851897839457,1.851361901499331,0.8512179006356746,0.27095214696601033,3.2891403464600444,2.8908095834776759,4.9355088197626173,3.0189620074816048,0.32474959385581315,2.3769896023441106,0.0096641737036406994,2.2072957153432071,1.3046486862003803,4.6920687274541706,0.81542739178985357,2.3809400922618806,3.4512836148496717,2.3044758976902813,4.7757336916401982,3.562700612237677,1.9857396662700921,0.58860306045971811,1.2005813652649522,4.3181528325658292,2.1798820083495229,2.4893402599263936,3.4596383606549352,3.8015664089471102,0.77700611320324242,4.2472854652442038,2.9420959518756717,2.5112540763802826,0.948899588547647,0.0091842911206185818,4.3878903111908585,0.67055668914690614,0.11370612075552344,4.695683530298993,1.4647436141967773,0.82163287210278213,1.995512779103592,2.2978770604822785,2.1701542427763343,2.5850491318851709,4.2312287632375956,0.27582143200561404,2.7708853059448302,3.441376187838614,3.2902877684682608,3.3167136262636632,2.3611710127443075,4.8476408305577934,2.0109853136818856,4.2477605189196765,3.783224537037313,2.6630060968454927,4.3707483040634543,0.040642276871949434,3.6388350231572986,3.5829473938792944,0.93713185517117381,3.2303363841492683,2.7098963991738856,1.6766037989873439,3.1895436160266399,4.1460053191985935,1.7427517543546855,0.64163937466219068,1.9403924443759024,4.6408877416979522,4.0219538565725088,3.7934840354137123,4.7862494445871562,4.9695693934336305,3.0322049732785672,0.14688582741655409,1.388290433678776,0.5859877506736666,0.21609129500575364,1.8515489285346121,1.6843915439676493,0.86826276732608676,3.1088663975242525,1.9892181374598294,4.7783788433298469,3.2667472155299038,1.643718583509326,0.98573356750421226,0.57671162416227162,4.9798273935448378,2.8099404636304826,3.6635900882538408,4.3540277646388859,2.8608512983191758,0.055180354975163937,4.5315763063263148,3.8532681576907635,1.9125231169164181,0.47022944432683289,4.1058115905616432,4.1466215217951685,3.2736643787939101,1.7090495058801025,4.5364570803940296,3.4809849970042706,1.2078961113002151,3.220536143053323,1.4037510682828724,4.7881826036609709,0.79197978368028998,2.0916949585080147,1.2600489868782461,0.47195133869536221,4.138588848290965,2.6265275187324733,2.0413887989707291,4.2129495169501752,3.6865273397415876,1.7411220050416887,4.7446908871643245,3.2333959499374032,2.9822422785218805,2.0765900076366961,0.38448519073426723,2.6402443961706012,4.8116665426641703,3.5437002556864172,2.7673785178922117,3.8902126450557262,3.2597047172021121,4.1512285196222365,3.2427547371480614,2.3991789715364575,2.4753205280285329,1.8993629573378712,2.2524271858856082,4.0712587523739785,4.6438861289061606,0.73740522610023618,3.7491083249915391,4.878286748426035,4.8739623173605651,1.753127850824967,0.53324159816838801,4.6738005825318396,1.7308104992844164,2.6653030293527991,2.6939714967738837,3.5735897487029433,2.0289525005500764,0.76394070638343692,1.7011638067197055,3.1332742376253009,0.28686339152045548,4.2583381989970803,1.0632267291657627,2.6973101391922683,0.68243793095462024,1.624325702432543,1.279911242891103,3.1743789941538125,2.4283605348318815,4.6908845833968371,4.287507685367018,1.8544176884461194,1.571009149774909,4.1426717990543693,2.2592075658030808,1.5793920611031353,0.48904268769547343,0.32450268277898431,3.4472868323791772,3.3402530197054148,4.5227332389913499,1.5084663522429764,4.6640435233712196,1.0099150869064033,3.9618937799241394,1.1231525440234691,0.15378285548649728,4.310170206008479,3.4255375259090215,3.3792688022367656,4.2156007420271635,1.8094709247816354,1.9618294259998947,2.8384369879495353,0.47576066805049777,0.96892035799100995,2.9403319652192295,3.757520840736106,4.3361939361784607,1.8589786859229207,3.9940727478824556,0.29157196287997067,3.1171785469632596,1.7832070332951844,2.9396396619267762,4.5689232100266963,0.99721091450192034,1.8454181193374097,3.3570416388101876,3.8407227536663413,2.6112413802184165,4.1403750900644809,2.6354809734039009,2.5087741250172257,1.8114914163015783,0.61714455136097968,1.4908076473511755,1.3833824486937374,3.8511267781723291,3.8909065106417984,2.5776307529304177,2.9862024274189025,2.5292151200119406,1.9304981653112918,2.1304905042052269,0.058798673562705517,0.39719846565276384,2.5368712737690657,4.1008580848574638,2.9919770907144994,2.1207676304038614,2.7965513535309583,3.9454723603557795,0.83857628982514143,4.8522586503531784,2.3675154917873442,4.648716029478237,4.5046963519416749,3.3828438620548695,3.2400672289077193,0.3662343486212194,2.1177920920308679,2.6541218208149076,4.713523811660707,3.5611227969639003,3.6224528774619102,2.3506430885754526,0.60141127905808389,3.915488354396075,2.1907869854476303,2.1572798991110176,0.13748939498327672,0.73280921438708901,2.1129757899325341,3.8356858713086694,0.023832226870581508,3.0179784575011581,4.5278863026760519,3.5333076596725732,1.3126857962924987,4.2553810973186046,1.6680275753606111,2.8914213378448039,2.163865651236847,0.25797661510296166,3.6490164394490421,2.7408520714379847,3.7561099277809262,0.25385582353919744,1.4884722838178277,1.4173860487062484,4.1493856371380389,0.43197687598876655,0.21328559494577348,2.7116800507064909,1.3568604923784733,1.0261546599213034,1.9081607414409518,2.3627905768807977,4.1775897494517267,0.60735748149454594,3.3790406247135252,2.4834260996431112,4.5111887389793992,0.64282338251359761,2.2100489283911884,0.96148848184384406,2.174503110582009,1.1256670148577541,4.8054814105853438,2.2421373252291232,3.8857249263674021,0.79109887243248522,1.0307280288543552,0.88974841521121562,0.82445573178119957,2.8263448865618557,3.6359051056206226,4.3795949453487992,3.5421219188719988,2.3873160546645522,4.1013999679125845,0.08306105388328433,4.9805555061902851,3.1744741788133979,2.1423769043758512,0.14196466421708465,3.7666635029017925,1.0431698767933995,4.9972770258318633,3.5623251588549465,3.6546644195914268,2.3624396056402475,4.3125534348655492,0.82707561203278601,3.1021396280266345,1.4616569748613983,2.2807086689863354,0.22819604491814971,0.88830876047722995,0.28966033947654068,4.7220511676277965,1.7137173714581877,2.5897528533823788,3.1262266763951629,1.1863242683466524,2.5806195719633251,4.0327091387007385,1.7413236724678427],"text":["Unit #1<br>Population","Unit #2<br>Population","Unit #3<br>Population","Unit #4<br>Population","Unit #5<br>Population","Unit #6<br>Population","Unit #7<br>Population","Unit #8<br>Population","Unit #9<br>Population","Unit #10<br>Population","Unit #11<br>Population","Unit #12<br>Population","Unit #13<br>Population","Unit #14<br>Population","Unit #15<br>Population","Unit #16<br>Population","Unit #17<br>Population","Unit #18<br>Population","Unit #19<br>Population","Unit #20<br>Population","Unit #21<br>Population","Unit #22<br>Population","Unit #23<br>Population","Unit #24<br>Population","Unit #25<br>Population","Unit #26<br>Population","Unit #27<br>Population","Unit #28<br>Population","Unit #29<br>Population","Unit #30<br>Population","Unit #32<br>Population","Unit #33<br>Population","Unit #34<br>Population","Unit #35<br>Population","Unit #37<br>Population","Unit #38<br>Population","Unit #39<br>Population","Unit #40<br>Population","Unit #41<br>Population","Unit #42<br>Population","Unit #43<br>Population","Unit #44<br>Population","Unit #45<br>Population","Unit #46<br>Population","Unit #47<br>Population","Unit #48<br>Population","Unit #49<br>Population","Unit #50<br>Population","Unit #51<br>Population","Unit #53<br>Population","Unit #54<br>Population","Unit #55<br>Population","Unit #56<br>Population","Unit #57<br>Population","Unit #58<br>Population","Unit #59<br>Population","Unit #60<br>Population","Unit #62<br>Population","Unit #63<br>Population","Unit #64<br>Population","Unit #65<br>Population","Unit #66<br>Population","Unit #68<br>Population","Unit #69<br>Population","Unit #70<br>Population","Unit #71<br>Population","Unit #72<br>Population","Unit #73<br>Population","Unit #74<br>Population","Unit #75<br>Population","Unit #76<br>Population","Unit #77<br>Population","Unit #78<br>Population","Unit #79<br>Population","Unit #80<br>Population","Unit #81<br>Population","Unit #82<br>Population","Unit #83<br>Population","Unit #85<br>Population","Unit #86<br>Population","Unit #87<br>Population","Unit #88<br>Population","Unit #89<br>Population","Unit #90<br>Population","Unit #91<br>Population","Unit #92<br>Population","Unit #93<br>Population","Unit #94<br>Population","Unit #95<br>Population","Unit #96<br>Population","Unit #97<br>Population","Unit #98<br>Population","Unit #99<br>Population","Unit #100<br>Population","Unit #101<br>Population","Unit #102<br>Population","Unit #103<br>Population","Unit #104<br>Population","Unit #105<br>Population","Unit #106<br>Population","Unit #107<br>Population","Unit #108<br>Population","Unit #109<br>Population","Unit #110<br>Population","Unit #111<br>Population","Unit #113<br>Population","Unit #114<br>Population","Unit #115<br>Population","Unit #116<br>Population","Unit #117<br>Population","Unit #118<br>Population","Unit #119<br>Population","Unit #120<br>Population","Unit #121<br>Population","Unit #123<br>Population","Unit #124<br>Population","Unit #125<br>Population","Unit #126<br>Population","Unit #127<br>Population","Unit #128<br>Population","Unit #129<br>Population","Unit #130<br>Population","Unit #131<br>Population","Unit #132<br>Population","Unit #134<br>Population","Unit #135<br>Population","Unit #136<br>Population","Unit #137<br>Population","Unit #138<br>Population","Unit #139<br>Population","Unit #140<br>Population","Unit #141<br>Population","Unit #142<br>Population","Unit #143<br>Population","Unit #144<br>Population","Unit #145<br>Population","Unit #146<br>Population","Unit #147<br>Population","Unit #149<br>Population","Unit #150<br>Population","Unit #151<br>Population","Unit #152<br>Population","Unit #153<br>Population","Unit #154<br>Population","Unit #155<br>Population","Unit #156<br>Population","Unit #157<br>Population","Unit #159<br>Population","Unit #160<br>Population","Unit #161<br>Population","Unit #163<br>Population","Unit #165<br>Population","Unit #166<br>Population","Unit #167<br>Population","Unit #168<br>Population","Unit #169<br>Population","Unit #170<br>Population","Unit #171<br>Population","Unit #172<br>Population","Unit #173<br>Population","Unit #174<br>Population","Unit #175<br>Population","Unit #176<br>Population","Unit #178<br>Population","Unit #179<br>Population","Unit #180<br>Population","Unit #181<br>Population","Unit #182<br>Population","Unit #183<br>Population","Unit #185<br>Population","Unit #186<br>Population","Unit #187<br>Population","Unit #188<br>Population","Unit #189<br>Population","Unit #190<br>Population","Unit #191<br>Population","Unit #193<br>Population","Unit #194<br>Population","Unit #195<br>Population","Unit #196<br>Population","Unit #197<br>Population","Unit #198<br>Population","Unit #199<br>Population","Unit #200<br>Population","Unit #201<br>Population","Unit #202<br>Population","Unit #203<br>Population","Unit #204<br>Population","Unit #205<br>Population","Unit #206<br>Population","Unit #207<br>Population","Unit #210<br>Population","Unit #211<br>Population","Unit #212<br>Population","Unit #213<br>Population","Unit #214<br>Population","Unit #215<br>Population","Unit #216<br>Population","Unit #217<br>Population","Unit #218<br>Population","Unit #219<br>Population","Unit #220<br>Population","Unit #221<br>Population","Unit #222<br>Population","Unit #223<br>Population","Unit #224<br>Population","Unit #225<br>Population","Unit #227<br>Population","Unit #228<br>Population","Unit #229<br>Population","Unit #230<br>Population","Unit #231<br>Population","Unit #232<br>Population","Unit #233<br>Population","Unit #234<br>Population","Unit #235<br>Population","Unit #236<br>Population","Unit #237<br>Population","Unit #238<br>Population","Unit #239<br>Population","Unit #240<br>Population","Unit #241<br>Population","Unit #242<br>Population","Unit #243<br>Population","Unit #244<br>Population","Unit #245<br>Population","Unit #246<br>Population","Unit #247<br>Population","Unit #248<br>Population","Unit #249<br>Population","Unit #251<br>Population","Unit #252<br>Population","Unit #253<br>Population","Unit #254<br>Population","Unit #255<br>Population","Unit #256<br>Population","Unit #257<br>Population","Unit #258<br>Population","Unit #259<br>Population","Unit #260<br>Population","Unit #261<br>Population","Unit #262<br>Population","Unit #263<br>Population","Unit #264<br>Population","Unit #265<br>Population","Unit #266<br>Population","Unit #267<br>Population","Unit #268<br>Population","Unit #269<br>Population","Unit #270<br>Population","Unit #271<br>Population","Unit #272<br>Population","Unit #273<br>Population","Unit #274<br>Population","Unit #275<br>Population","Unit #277<br>Population","Unit #278<br>Population","Unit #279<br>Population","Unit #280<br>Population","Unit #281<br>Population","Unit #282<br>Population","Unit #284<br>Population","Unit #285<br>Population","Unit #286<br>Population","Unit #287<br>Population","Unit #288<br>Population","Unit #289<br>Population","Unit #291<br>Population","Unit #292<br>Population","Unit #293<br>Population","Unit #294<br>Population","Unit #295<br>Population","Unit #296<br>Population","Unit #297<br>Population","Unit #298<br>Population","Unit #299<br>Population","Unit #300<br>Population","Unit #301<br>Population","Unit #302<br>Population","Unit #304<br>Population","Unit #305<br>Population","Unit #306<br>Population","Unit #307<br>Population","Unit #308<br>Population","Unit #309<br>Population","Unit #310<br>Population","Unit #311<br>Population","Unit #312<br>Population","Unit #313<br>Population","Unit #314<br>Population","Unit #315<br>Population","Unit #316<br>Population","Unit #317<br>Population","Unit #318<br>Population","Unit #319<br>Population","Unit #320<br>Population","Unit #321<br>Population","Unit #322<br>Population","Unit #323<br>Population","Unit #324<br>Population","Unit #325<br>Population","Unit #326<br>Population","Unit #327<br>Population","Unit #328<br>Population","Unit #329<br>Population","Unit #330<br>Population","Unit #331<br>Population","Unit #332<br>Population","Unit #333<br>Population","Unit #334<br>Population","Unit #336<br>Population","Unit #337<br>Population","Unit #338<br>Population","Unit #339<br>Population","Unit #340<br>Population","Unit #342<br>Population","Unit #344<br>Population","Unit #345<br>Population","Unit #346<br>Population","Unit #347<br>Population","Unit #348<br>Population","Unit #349<br>Population","Unit #350<br>Population","Unit #351<br>Population","Unit #352<br>Population","Unit #354<br>Population","Unit #355<br>Population","Unit #356<br>Population","Unit #357<br>Population","Unit #358<br>Population","Unit #359<br>Population","Unit #360<br>Population","Unit #361<br>Population","Unit #362<br>Population","Unit #364<br>Population","Unit #365<br>Population","Unit #366<br>Population","Unit #367<br>Population","Unit #368<br>Population","Unit #369<br>Population","Unit #370<br>Population","Unit #371<br>Population","Unit #372<br>Population","Unit #373<br>Population","Unit #374<br>Population","Unit #375<br>Population","Unit #376<br>Population","Unit #377<br>Population","Unit #378<br>Population","Unit #379<br>Population","Unit #380<br>Population","Unit #382<br>Population","Unit #383<br>Population","Unit #384<br>Population","Unit #385<br>Population","Unit #386<br>Population","Unit #387<br>Population","Unit #388<br>Population","Unit #389<br>Population","Unit #390<br>Population","Unit #391<br>Population","Unit #392<br>Population","Unit #393<br>Population","Unit #394<br>Population","Unit #395<br>Population","Unit #396<br>Population","Unit #397<br>Population","Unit #398<br>Population","Unit #399<br>Population","Unit #400<br>Population"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(189,189,189,1)","opacity":0.84999999999999998,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(189,189,189,1)"}},"hoveron":"points","name":"Population","legendgroup":"Population","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.8208011547103524,6.6846673819236457,8.6120947683230042,9.1287592425942421,4.7854524827562273,3.2535215187817812,7.3179251188412309,4.9559357785619795,0.355405795853585,7.4669826962053776,0.75275745708495378,8.9509410294704139,7.7998488978482783,6.4431576291099191,5.0333948573097587,3.8890509982593358,1.2915685446932912,2.5636760401539505,5.1095969835296273,9.4295705924741924,1.9220953504554927,8.8031906890682876,2.2130592772737145,4.9259612080641091,0.77151669189333916,9.8949983343482018,5.4213042440824211,7.8454622998833656,8.3741656923666596,4.2971336678601801],"y":[4.6785623382311314,4.0084385278169066,2.2125505411531776,0.8105454093310982,3.579166418639943,4.7340890951454639,2.3355755780357867,3.5448759922292084,1.6822267894167453,1.8963836261536926,0.24826791952364147,0.66413906519301236,3.6568578949663788,3.3387381373904645,0.17638883437030017,1.2147830449976027,1.9697452848777175,4.7547550452873111,3.1053814687766135,4.7103745478671044,2.0998665993101895,0.71893640328198671,4.5966588519513607,3.7544109392911196,3.5748310619965196,1.7437040444929153,3.0473043175879866,2.7563198341522366,4.3340429128147662,4.5362459658645093],"text":["Unit #31<br>Sample","Unit #36<br>Sample","Unit #52<br>Sample","Unit #61<br>Sample","Unit #67<br>Sample","Unit #84<br>Sample","Unit #112<br>Sample","Unit #122<br>Sample","Unit #133<br>Sample","Unit #148<br>Sample","Unit #158<br>Sample","Unit #162<br>Sample","Unit #164<br>Sample","Unit #177<br>Sample","Unit #184<br>Sample","Unit #192<br>Sample","Unit #208<br>Sample","Unit #209<br>Sample","Unit #226<br>Sample","Unit #250<br>Sample","Unit #276<br>Sample","Unit #283<br>Sample","Unit #290<br>Sample","Unit #303<br>Sample","Unit #335<br>Sample","Unit #341<br>Sample","Unit #343<br>Sample","Unit #353<br>Sample","Unit #363<br>Sample","Unit #381<br>Sample"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,105,92,1)","opacity":0.84999999999999998,"size":15.118110236220474,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,105,92,1)"}},"hoveron":"points","name":"Sample","legendgroup":"Sample","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":16,"r":0,"b":0,"l":0},"paper_bgcolor":"rgba(0,0,0,0)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.36072414321824908,10.452273613307625],"tickmode":"array","ticktext":["0.0","2.5","5.0","7.5","10.0"],"tickvals":[0,2.4999999999999996,5,7.5,10],"categoryorder":"array","categoryarray":["0.0","2.5","5.0","7.5","10.0"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":0,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.24022034561494365,5.2466816625674255],"tickmode":"array","ticktext":["0","1","2","3","4","5"],"tickvals":[2.7755575615628914e-17,1,2,3,4,5],"categoryorder":"array","categoryarray":["0","1","2","3","4","5"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":0,"tickwidth":0,"showticklabels":false,"tickfont":{"color":null,"family":null,"size":0},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":null,"family":null,"size":0}},"hoverformat":".2f"},"shapes":[],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"orientation":"h","x":0.5,"y":-0.14999999999999999,"xanchor":"center","yanchor":"top","title":{"text":"group","font":{"color":null,"family":null,"size":0}}},"hovermode":"closest","height":380,"barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"source":"A","attrs":{"143c4e929263":{"x":{},"y":{},"colour":{},"size":{},"text":{},"type":"scatter"}},"cur_data":"143c4e929263","visdat":{"143c4e929263":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div style="width: 900px; margin: 0 auto;">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-bb993fb58571144a9c63" style="width:100%;height:400px;"></div>
+<script type="application/json" data-for="htmlwidget-bb993fb58571144a9c63">{"x":{"visdat":{"cd575d4a7a53":["function () ","plotlyVisDat"],"cd5744a50efe":["function () ","data"],"cd57307b68e7":["function () ","data"]},"cur_data":"cd57307b68e7","attrs":{"cd5744a50efe":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","name":"Population","marker":{"size":6,"color":"#b0b7bb","opacity":0.45000000000000001,"line":{"color":"white","width":0.5}},"text":{},"hoverinfo":"text","inherit":true},"cd57307b68e7":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"type":"scatter","mode":"markers","name":"Sample","marker":{"size":10,"color":"#c62828","opacity":0.90000000000000002,"line":{"color":"white","width":0.80000000000000004}},"text":{},"hoverinfo":"text","inherit":true}},"layout":{"width":900,"height":390,"margin":{"b":45,"l":20,"t":55,"r":20},"title":{"text":"Population and Sample","x":0.5,"font":{"size":20}},"xaxis":{"domain":[0,1],"automargin":true,"title":"","showticklabels":false,"zeroline":false,"showgrid":false},"yaxis":{"domain":[0,1],"automargin":true,"title":"","showticklabels":false,"zeroline":false,"showgrid":false},"legend":{"orientation":"h","x":0.5,"xanchor":"center","y":-0.080000000000000002},"paper_bgcolor":"white","plot_bgcolor":"white","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false,"scrollZoom":false},"data":[{"x":[8.2434885366819799,9.3079188745468855,4.6454569417983294,4.1171167837455869,8.0263532837852836,8.6571955238468945,8.2149062654934824,4.8062554514035583,1.8984233681112528,6.2204986484721303,3.5586384986527264,8.01322529790923,9.0039490745402873,7.0891239820048213,8.3113041892647743,7.3621660261414945,2.2514587850309908,2.1438641333952546,3.2312802644446492,5.6783309788443148,5.7565234671346843,5.5006397305987775,4.2598497634753585,0.15617606695741415,1.0992910293862224,3.2701379433274269,2.2539509041234851,5.1384082273580134,6.4083649264648557,1.2034772569313645,3.1303663295693696,0.33037432003766298,4.8750874097459018,5.0837015942670405,9.5706070633605123,8.2349164388142526,0.82792174536734819,9.4736707326956093,1.0709843691438437,7.0320009649731219,4.2407916975207627,3.5017325007356703,4.4089123606681824,9.3649384309537709,6.5781027474440634,6.021635967772454,0.6808152818121016,4.1730282315984368,7.6594775542616844,6.1301819747313857,7.1590746170841157,4.2682010098360479,1.9080042606219649,8.9196876203641295,1.8260551360435784,1.6991953505203128,0.96962043782696128,7.3780420189723372,4.5346982032060623,8.1197906285524368,0.56660325033590198,3.313300150912255,2.722973357886076,5.9158458188176155,6.0201218375004828,7.3430605768226087,9.8651178227737546,2.3950202669948339,6.2730067153461277,8.0209027626551688,3.0828837375156581,1.9589048204943538,3.2462843088433146,9.5019602542743087,7.0048018801026046,2.8124930593185127,2.9669469152577221,2.2380077862180769,7.8691027429886162,8.7505949498154223,4.3925486761145294,7.3825697368010879,8.6724686669185758,8.0565866990946233,7.253256649710238,2.3995807114988565,3.5645743971690536,9.877534934785217,4.9608075991272926,2.4908648198470473,6.4928297000005841,0.88245508493855596,4.2890036711469293,1.7007690644823015,9.0817858232185245,5.5170074664056301,7.8527292446233332,5.0374896707944572,3.3677835203707218,5.6505462201312184,4.7305373172275722,1.0223824623972178,2.2851467528380454,8.5478040250018239,8.3336473442614079,1.2689832272008061,1.186387431807816,0.50619337474927306,7.9278160841204226,8.8113257358781993,3.9532865863293409,5.612256289459765,0.37262116093188524,6.9972229446284473,5.8593503036536276,1.3553700363263488,5.7416153140366077,3.8861314975656569,9.5827276655472815,6.1756718088872731,5.6605002912692726,3.7507380964234471,8.4873165702447295,9.1694868402555585,6.1855999589897692,6.4455595868639648,8.5524315084330738,0.33943548100069165,9.979751156643033,7.7046475023962557,0.93394450843334198,7.0852890517562628,9.6981355641037226,2.2821427113376558,9.2190333665348589,0.39108708733692765,4.5994518953375518,2.075528958812356,5.4495250387117267,4.396143218036741,9.6656806999817491,2.2741738520562649,6.968218800611794,0.4844683688133955,6.1950582591816783,6.2846362171694636,5.7176417740993202,9.0750779118388891,2.4929107842035592,5.9475856437347829,2.6642918423749506,3.2131876610219479,6.5568209625780582,6.0666220472194254,3.9683809946291149,7.2573045222088695,7.736517540179193,6.822065666783601,8.3176151011139154,7.9583163559436798,8.6894971667788923,2.9460651078261435,0.67248158156871796,3.8668128731660545,6.0665990016423166,6.5248368796892464,9.5092608430422843,6.0062438203021884,8.1039247033186257,1.8891193252056837,7.721775050740689,4.7871925518848002,1.0668032988905907,1.7723352508619428,2.1514646196737885,6.9530768156982958,7.3811478936113417,8.6865354003384709,4.1122266184538603,4.4585024355910718,0.62427687691524625,6.4629220799542964,5.1076908060349524,6.4766718074679375,2.10593540687114,4.2737619648687541,4.6976582054048777,8.360365389380604,8.5195428552106023,7.845333106815815,2.7072510193102062,0.3708265139721334,8.5198562522418797,6.7345005413517356,1.5465807542204857,3.7203523563221097,7.6734356349334121,8.7674059392884374,5.0054831430315971,0.94540650490671396,5.8552143163979053,1.4269895176403224,9.8810181533917785,8.9995029335841537,9.5852260105311871,2.12162233190611,7.5165685289539397,7.6639510388486087,4.2751106899231672,8.0060091661289334,2.9380682716146111,5.3045017691329122,6.7453498300164938,2.9314307239837945,7.1079122531227767,6.0342479706741869,2.8316934336908162,2.2426606016233563,9.0083049144595861,4.1089950315654278,3.6519416305236518,6.2873375043272972,6.2529610423371196,1.7917642602697015,6.8953624181449413,0.17192214261740446,4.9541863729245961,5.8469473081640899,6.721536114346236,3.1180734164081514,8.6633977433666587,0.76134475646540523,1.494615226984024,9.6144445170648396,6.8396033905446529,6.3643833133392036,2.996802709531039,3.9850968774408102,3.3482579281553626,9.4324990268796682,5.1625961577519774,8.6168481805361807,5.4477067268453538,1.1649508494883776,9.7025256371125579,1.0990093485452235,7.1957330941222608,5.4574716929346323,8.9200985664501786,7.8385567222721875,1.6356769809499383,0.24666103301569819,7.5249192304909229,7.4135819985531271,5.4471461800858378,1.6585476091131568,2.2376793017610908,9.87231086473912,5.6798567203804851,6.4166306750848889,9.6922092186287045,8.9318126486614347,2.3274226207286119,1.4404709497466683,0.47201338456943631,1.3710918696597219,2.5784666510298848,4.4770032097585499,4.4071410573087633,6.4060126128606498,4.3091666977852583,2.090381991583854,9.6974459523335099,9.033978374209255,5.7399006420746446,0.52786713233217597,4.5067484839819372,6.6204822924919426,2.8602208127267659,3.6896392772905529,6.7646595160476863,0.84570402279496193,1.7257330450229347,0.73200025130063295,2.674122282769531,0.37259370787069201,9.6191628114320338,2.1702490327879786,9.2358127329498529,7.0467824721708894,1.2292335508391261,7.7914184448309243,6.1243231035768986,9.374641131144017,6.3064859714359045,7.2883435315452516,8.995214095339179,6.7983709601685405,6.1039143311791122,2.4215637147426605,1.9049552455544472,6.1925323586910963,3.2249093241989613,1.8382123508490622,4.3724635196849704,3.2177861779928207,4.8417790862731636,7.8269947622902691,0.88611410930752754,8.0787863209843636,5.5357405636459589,4.0038239094428718,1.1682333913631737,6.0495176864787936,5.4122181329876184,4.4915293413214386,1.4955138438381255,1.5519976732321084,5.3613350563682616,4.723409281577915,4.2496490105986595,1.0996357258409262,8.4397710836492479,0.14666813425719738,8.3095484296791255,3.8379937689751387,1.6562297893688083,9.2463827948085964,7.2065746458247304,1.1806276347488165,1.9752901117317379,2.2226081974804401,6.5066025452688336,9.500884001608938,7.630960401147604,1.5921250893734396,4.2044699261896312,3.9308510138653219,3.9625657955184579,9.1822589724324644,2.012915185187012,5.0528652709908783,9.0900744125247002,0.53238404216244817,8.4646465606056154,2.682845511008054,6.2391048134304583,7.4673066334798932,7.1951863705180585,6.7269612848758698,2.6088225375860929,0.61948327580466866,0.19996365066617727,3.2281362893991172,3.4389751451089978,8.7633542763069272,4.2618853761814535,5.7674535876139998,4.9300665687769651,8.6252214247360826,6.5772100863978267,4.6884143748320639,8.4533950313925743,3.9254830661229789,1.3353269267827272,3.3357451600022614,4.4201854104176164,3.5221888613887131,7.847327773924917,6.1539071961306036],"y":[3.1858995312359184,3.9998102735262364,0.092273008776828647,0.23765418562106788,3.060428851749748,3.6844342667609453,4.8547746136318892,3.0487199523486197,3.7024775613099337,4.3073350528720766,4.3435908399987966,3.7177521653939039,4.123878434766084,0.6122053146827966,4.3220386269968003,1.989149630535394,3.0692792776972055,1.0412255092523992,3.0251108505763113,2.3697319242637604,1.5864429040811956,1.3064957980532199,0.37169172428548336,1.6798177605960518,1.0660388262476772,1.3161924516316503,2.4578234716318548,2.0069698558654636,2.866410018177703,3.8939015893265605,1.7530754127074033,1.9982320663984865,1.0675062146037817,1.6032888030167669,2.079779194900766,2.4160806322470307,2.4286160373594612,3.9563414454460144,4.898257878376171,2.3867694975342602,1.0285526898223907,1.89646165817976,0.03817156539298594,3.2595684914849699,3.427726587979123,1.9417740008793771,2.0603459014091641,0.80474130343645811,0.49289207556284964,0.29564896831288934,2.6544259418733418,2.8871977014932781,1.360192863503471,0.18835333408787847,3.0567832989618182,2.9071667802054435,2.668698753695935,1.2991744419559836,0.072596458485350013,1.3476358936168253,1.4204118167981505,0.39565471466630697,0.38061843253672123,1.9675038708373904,1.2594177050050348,4.0431190526578575,1.7289645492564887,1.6982850397471339,1.8906827049795538,1.445226970827207,1.1874280439224094,2.0744750928133726,2.7451294416096061,1.1756387632340193,4.1634463984519243,1.4645727165043354,2.7594827592838556,4.6471805032342672,3.6319904739502817,4.3000293930526823,1.7834699526429176,4.1678375867195427,4.040800848742947,1.7998478340450674,4.006090818438679,2.0504495885688812,1.7545105586759746,3.8440830237232149,0.71356790722347796,0.019510709680616856,2.2295234492048621,4.3702548532746732,3.2167089742142707,4.1891054424922913,1.5784290549345315,0.043829074129462242,1.9149632449261844,3.451761914184317,1.5217898832634091,0.16388850286602974,3.4097511868458241,1.8742256355471909,4.8331739834975451,0.6466181727591902,2.8969697654247284,3.4500897314865142,1.854575740871951,4.3800102139357477,4.0782969247084111,4.1694370447658002,0.71923410287126899,2.4850366427563131,2.0827914390247315,3.212951491586864,3.9530702529009432,0.55828037555329502,1.1305042391177267,1.7251517053227872,2.8787302726414055,3.9260983152780682,2.6841522695031017,3.3771371631883085,3.15378108760342,3.0461754580028355,3.4809294273145497,3.0259975139051676,4.8229064024053514,3.3623400854412466,2.0295060926582664,3.8292839552741498,0.66145191434770823,2.0966485049575567,3.8418489648029208,0.25678065838292241,2.0587354118470103,4.5836601487826556,3.4444792603608221,0.71195396245457232,2.564004766754806,3.5961624688934535,3.6804338044021279,0.38951884489506483,3.3411326038185507,2.0998811942990869,4.6470827411394566,4.101519447285682,1.857894763816148,2.1808208210859448,2.8466332529205829,0.34677228191867471,1.6935804882086813,3.2095547718927264,2.7588181931059808,4.4840954791288823,3.6050888907629997,2.3827712109778076,1.4828349242452532,2.0339936157688498,3.169078869977966,0.3381957660894841,4.0540659183170646,2.5542240007780492,4.0404117852449417,4.1392569069284946,0.29558739275671542,3.7692894693464041,1.7110839067026973,1.7149732285179198,0.37268097279593349,1.7459087527822703,0.7932597678154707,0.73228324763476849,3.4103553439490497,1.4250598824582994,2.6616531214676797,3.157595475204289,3.5384646407328546,3.5573502467013896,0.07442825473845005,2.0622615178581327,1.9203168735839427,0.93324715155176818,3.9676700346171856,1.0513024579267949,3.1391324719879776,1.7649061244446784,4.6746165549848229,3.9122999890241772,0.064624118385836482,2.5671180663630366,2.7396666945423931,3.6086206394247711,2.2017657535616308,2.1764455793891102,0.94270485686138272,0.41527210385538638,0.4206206533126533,3.022739258594811,3.6426426621619612,4.9899284448474646,2.5600480346474797,0.62700307462364435,3.2716831157449633,1.1615492904093117,4.421040324959904,2.5977798039093614,3.4226990095339715,3.2202914089430124,3.4365346620324999,0.079448499018326402,3.3417086687404662,0.77550137531943619,3.3122857369016856,2.5821153586730361,1.1047860828693956,4.1513577802106738,3.6892336129676551,4.6796528750564903,1.2654684658627957,3.7071994505822659,1.6566732956562191,0.33910072757862508,0.28132722014561296,1.6611534461844712,4.3663223518524319,1.1591428832616657,1.4777684304863214,3.9271649555303156,3.9289684686809778,0.79729838413186371,0.92477644560858607,0.19738727249205112,3.0271478986833245,1.9146432704292238,4.3171886377967894,2.1708302176557481,2.1684232901316136,3.6592043784912676,1.1461188260000199,1.741012204438448,4.2381282208953053,0.57047277339734137,2.2132342972327024,2.3602636368013918,0.97871215315535665,3.8998686743434519,4.3348744208924472,0.4453896579798311,2.9473633004818112,2.9527614801190794,0.7444468280300498,3.0603049858473241,0.51893815863877535,0.8321663667447865,0.57777502806857228,3.6008194833993912,2.3886801826301962,0.76268463162705302,4.3704512272961438,1.3640541373752058,4.9108899175189435,3.2936600537505001,4.1961804707534611,2.7689185924828053,2.406728578498587,1.6828973300289363,3.0398849933408201,1.106093906564638,1.3410520658362657,3.8079792913049459,4.3939144792966545,4.0203990216832608,0.011891730828210711,1.6544485872145742,4.4548250385560095,1.5959357051178813,2.7581697178538889,0.81617131945677102,4.3263387144543231,4.6046955627389252,0.98636404378339648,4.8870997701305896,2.1929985529277474,3.5437684087082744,3.9029730123002082,4.7377014008816332,2.0770066766999662,1.7309552326332778,2.4944366177078336,1.1638386640697718,2.2486322792246938,4.2610837693791837,3.292798469774425,3.5815640492364764,1.8268069624900818,1.7545583099126816,0.12830355321057141,0.39174322155304253,0.9459416102617979,0.74648488545790315,3.6331317911390215,1.0963872785214335,3.2535968208685517,3.0462069693021476,2.9681121092289686,2.2201318852603436,1.2530395004432648,4.4977003068197519,4.8346908600069582,0.54229769273661077,3.3345504407770932,2.0975639682728797,0.59312362922355533,1.1338617105502635,3.6851482151541859,1.63401591591537,4.7381255601067096,1.4672264864202589,3.4691873635165393,4.872770516667515,0.56500772712752223,4.0538780367933214,1.3720278930850327,4.0220201527699828,1.9650743925012648,3.2077673997264355,4.2015122715383768,1.37760448618792,4.80953722842969,3.9260174345690757,3.0459504784084857,0.12950007221661508,1.9489061913918704,0.3514901374001056,3.2621313713025302,4.8514482472091913,3.2040341407991946,2.4759512103628367,1.9172015530057251,1.5395649417769164,4.2610707273706794,2.1231025096494704,3.7184865842573345,2.9486743174493313,4.7442389221396297,1.3801969133783132,1.3797904108650982,3.9755157672334462,3.8030494446866214,2.1429338178131729,3.3930393354967237,1.4549382892437279,4.1059573693200946,1.3211637490894645,1.2522483454085886,2.0075165422167629,0.3730485076084733,1.7615746730007231,0.31136315781623125,1.9177860580384731,3.0761839146725833,0.64371604239568114,3.4630575962364674,3.2340862439014018,1.2658816773910075,4.5767184218857437,2.9395484388805926,0.72157781687565148,1.4247013116255403,0.23243965930305421],"type":"scatter","mode":"markers","name":"Population","marker":{"color":"#b0b7bb","size":6,"opacity":0.45000000000000001,"line":{"color":"white","width":0.5}},"text":["Unit #1<br>Population","Unit #2<br>Population","Unit #3<br>Population","Unit #4<br>Population","Unit #5<br>Population","Unit #7<br>Population","Unit #8<br>Population","Unit #9<br>Population","Unit #10<br>Population","Unit #11<br>Population","Unit #12<br>Population","Unit #14<br>Population","Unit #15<br>Population","Unit #16<br>Population","Unit #17<br>Population","Unit #18<br>Population","Unit #20<br>Population","Unit #21<br>Population","Unit #22<br>Population","Unit #23<br>Population","Unit #24<br>Population","Unit #25<br>Population","Unit #26<br>Population","Unit #27<br>Population","Unit #28<br>Population","Unit #29<br>Population","Unit #30<br>Population","Unit #31<br>Population","Unit #32<br>Population","Unit #33<br>Population","Unit #34<br>Population","Unit #35<br>Population","Unit #36<br>Population","Unit #37<br>Population","Unit #38<br>Population","Unit #39<br>Population","Unit #40<br>Population","Unit #42<br>Population","Unit #43<br>Population","Unit #44<br>Population","Unit #45<br>Population","Unit #46<br>Population","Unit #48<br>Population","Unit #49<br>Population","Unit #50<br>Population","Unit #51<br>Population","Unit #52<br>Population","Unit #54<br>Population","Unit #55<br>Population","Unit #56<br>Population","Unit #57<br>Population","Unit #58<br>Population","Unit #59<br>Population","Unit #60<br>Population","Unit #61<br>Population","Unit #62<br>Population","Unit #63<br>Population","Unit #64<br>Population","Unit #65<br>Population","Unit #66<br>Population","Unit #67<br>Population","Unit #68<br>Population","Unit #69<br>Population","Unit #70<br>Population","Unit #71<br>Population","Unit #72<br>Population","Unit #73<br>Population","Unit #74<br>Population","Unit #75<br>Population","Unit #76<br>Population","Unit #77<br>Population","Unit #78<br>Population","Unit #79<br>Population","Unit #80<br>Population","Unit #81<br>Population","Unit #82<br>Population","Unit #83<br>Population","Unit #84<br>Population","Unit #85<br>Population","Unit #86<br>Population","Unit #87<br>Population","Unit #88<br>Population","Unit #89<br>Population","Unit #90<br>Population","Unit #91<br>Population","Unit #92<br>Population","Unit #93<br>Population","Unit #94<br>Population","Unit #95<br>Population","Unit #96<br>Population","Unit #97<br>Population","Unit #98<br>Population","Unit #99<br>Population","Unit #100<br>Population","Unit #101<br>Population","Unit #102<br>Population","Unit #103<br>Population","Unit #104<br>Population","Unit #105<br>Population","Unit #106<br>Population","Unit #107<br>Population","Unit #108<br>Population","Unit #109<br>Population","Unit #110<br>Population","Unit #111<br>Population","Unit #112<br>Population","Unit #113<br>Population","Unit #114<br>Population","Unit #115<br>Population","Unit #116<br>Population","Unit #118<br>Population","Unit #119<br>Population","Unit #120<br>Population","Unit #121<br>Population","Unit #122<br>Population","Unit #123<br>Population","Unit #124<br>Population","Unit #126<br>Population","Unit #127<br>Population","Unit #128<br>Population","Unit #129<br>Population","Unit #130<br>Population","Unit #132<br>Population","Unit #133<br>Population","Unit #134<br>Population","Unit #135<br>Population","Unit #136<br>Population","Unit #137<br>Population","Unit #138<br>Population","Unit #139<br>Population","Unit #141<br>Population","Unit #142<br>Population","Unit #143<br>Population","Unit #144<br>Population","Unit #145<br>Population","Unit #146<br>Population","Unit #147<br>Population","Unit #149<br>Population","Unit #150<br>Population","Unit #151<br>Population","Unit #152<br>Population","Unit #153<br>Population","Unit #154<br>Population","Unit #155<br>Population","Unit #156<br>Population","Unit #158<br>Population","Unit #159<br>Population","Unit #160<br>Population","Unit #161<br>Population","Unit #162<br>Population","Unit #164<br>Population","Unit #166<br>Population","Unit #167<br>Population","Unit #168<br>Population","Unit #169<br>Population","Unit #170<br>Population","Unit #171<br>Population","Unit #172<br>Population","Unit #173<br>Population","Unit #174<br>Population","Unit #175<br>Population","Unit #176<br>Population","Unit #177<br>Population","Unit #178<br>Population","Unit #179<br>Population","Unit #180<br>Population","Unit #181<br>Population","Unit #182<br>Population","Unit #185<br>Population","Unit #186<br>Population","Unit #187<br>Population","Unit #188<br>Population","Unit #190<br>Population","Unit #191<br>Population","Unit #192<br>Population","Unit #193<br>Population","Unit #194<br>Population","Unit #195<br>Population","Unit #196<br>Population","Unit #197<br>Population","Unit #198<br>Population","Unit #199<br>Population","Unit #200<br>Population","Unit #201<br>Population","Unit #202<br>Population","Unit #203<br>Population","Unit #204<br>Population","Unit #205<br>Population","Unit #206<br>Population","Unit #207<br>Population","Unit #208<br>Population","Unit #209<br>Population","Unit #210<br>Population","Unit #211<br>Population","Unit #212<br>Population","Unit #213<br>Population","Unit #214<br>Population","Unit #215<br>Population","Unit #216<br>Population","Unit #217<br>Population","Unit #218<br>Population","Unit #219<br>Population","Unit #220<br>Population","Unit #221<br>Population","Unit #222<br>Population","Unit #224<br>Population","Unit #225<br>Population","Unit #226<br>Population","Unit #227<br>Population","Unit #228<br>Population","Unit #229<br>Population","Unit #230<br>Population","Unit #231<br>Population","Unit #232<br>Population","Unit #233<br>Population","Unit #234<br>Population","Unit #235<br>Population","Unit #236<br>Population","Unit #237<br>Population","Unit #238<br>Population","Unit #239<br>Population","Unit #240<br>Population","Unit #241<br>Population","Unit #242<br>Population","Unit #243<br>Population","Unit #244<br>Population","Unit #245<br>Population","Unit #246<br>Population","Unit #247<br>Population","Unit #248<br>Population","Unit #249<br>Population","Unit #250<br>Population","Unit #251<br>Population","Unit #252<br>Population","Unit #253<br>Population","Unit #255<br>Population","Unit #256<br>Population","Unit #257<br>Population","Unit #258<br>Population","Unit #259<br>Population","Unit #260<br>Population","Unit #261<br>Population","Unit #262<br>Population","Unit #263<br>Population","Unit #264<br>Population","Unit #265<br>Population","Unit #266<br>Population","Unit #267<br>Population","Unit #270<br>Population","Unit #271<br>Population","Unit #272<br>Population","Unit #273<br>Population","Unit #274<br>Population","Unit #275<br>Population","Unit #276<br>Population","Unit #277<br>Population","Unit #278<br>Population","Unit #279<br>Population","Unit #280<br>Population","Unit #281<br>Population","Unit #282<br>Population","Unit #283<br>Population","Unit #284<br>Population","Unit #285<br>Population","Unit #286<br>Population","Unit #287<br>Population","Unit #288<br>Population","Unit #290<br>Population","Unit #291<br>Population","Unit #292<br>Population","Unit #293<br>Population","Unit #294<br>Population","Unit #295<br>Population","Unit #296<br>Population","Unit #297<br>Population","Unit #298<br>Population","Unit #299<br>Population","Unit #300<br>Population","Unit #301<br>Population","Unit #302<br>Population","Unit #303<br>Population","Unit #304<br>Population","Unit #305<br>Population","Unit #306<br>Population","Unit #307<br>Population","Unit #308<br>Population","Unit #309<br>Population","Unit #310<br>Population","Unit #311<br>Population","Unit #313<br>Population","Unit #314<br>Population","Unit #315<br>Population","Unit #316<br>Population","Unit #317<br>Population","Unit #318<br>Population","Unit #319<br>Population","Unit #320<br>Population","Unit #321<br>Population","Unit #322<br>Population","Unit #323<br>Population","Unit #324<br>Population","Unit #325<br>Population","Unit #326<br>Population","Unit #327<br>Population","Unit #328<br>Population","Unit #329<br>Population","Unit #330<br>Population","Unit #331<br>Population","Unit #332<br>Population","Unit #333<br>Population","Unit #334<br>Population","Unit #335<br>Population","Unit #336<br>Population","Unit #337<br>Population","Unit #338<br>Population","Unit #339<br>Population","Unit #340<br>Population","Unit #342<br>Population","Unit #343<br>Population","Unit #344<br>Population","Unit #345<br>Population","Unit #346<br>Population","Unit #347<br>Population","Unit #348<br>Population","Unit #349<br>Population","Unit #350<br>Population","Unit #351<br>Population","Unit #352<br>Population","Unit #353<br>Population","Unit #354<br>Population","Unit #355<br>Population","Unit #357<br>Population","Unit #358<br>Population","Unit #359<br>Population","Unit #360<br>Population","Unit #361<br>Population","Unit #362<br>Population","Unit #363<br>Population","Unit #364<br>Population","Unit #365<br>Population","Unit #366<br>Population","Unit #367<br>Population","Unit #368<br>Population","Unit #369<br>Population","Unit #370<br>Population","Unit #373<br>Population","Unit #374<br>Population","Unit #375<br>Population","Unit #376<br>Population","Unit #377<br>Population","Unit #378<br>Population","Unit #379<br>Population","Unit #380<br>Population","Unit #381<br>Population","Unit #382<br>Population","Unit #383<br>Population","Unit #384<br>Population","Unit #385<br>Population","Unit #386<br>Population","Unit #387<br>Population","Unit #388<br>Population","Unit #390<br>Population","Unit #391<br>Population","Unit #393<br>Population","Unit #394<br>Population","Unit #395<br>Population","Unit #396<br>Population","Unit #397<br>Population","Unit #399<br>Population","Unit #400<br>Population"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[3.1460752128623426,5.7882319646887481,7.8824539505876601,8.4851773339323699,2.0903364266268909,5.5814003013074398,6.1850320035591722,0.33491022884845734,6.4984762296080589,1.9148945529013872,2.8399557480588555,7.6571021764539182,3.0098061449825764,2.256114378105849,1.545971289742738,2.0867107482627034,5.2568552154116333,7.0402654050849378,6.1874741921201348,6.8622875888831913,8.5580671159550548,3.7116114795207977,4.5188775286078453,6.7434108001179993,0.61583847040310502,0.95725998282432556,8.9129534573294222,2.8398593259043992,2.165931761264801,7.4324681214056909],"y":[3.0381942784879357,4.740709395846352,3.7867564347106963,0.75242203543893993,0.12439524522051215,0.34440828138031065,1.4084705873392522,2.8988176514394581,3.8678045035339892,1.7426453623920679,3.9034690882544965,2.9372327344026417,2.5553505041170865,2.1589425124693662,3.8743731437716633,4.7119651408866048,0.6437870126683265,3.4751390141900629,1.4874404878355563,4.5977721898816526,4.8531325696967542,1.3941406505182385,1.5365101047791541,4.391624511918053,2.9601971944794059,0.86156933335587382,4.0795549366157502,2.0686280308291316,0.45262147905305028,2.1905884612351656],"type":"scatter","mode":"markers","name":"Sample","marker":{"color":"#c62828","size":10,"opacity":0.90000000000000002,"line":{"color":"white","width":0.80000000000000004}},"text":["Unit #6<br>Sample","Unit #13<br>Sample","Unit #19<br>Sample","Unit #41<br>Sample","Unit #47<br>Sample","Unit #53<br>Sample","Unit #117<br>Sample","Unit #125<br>Sample","Unit #131<br>Sample","Unit #140<br>Sample","Unit #148<br>Sample","Unit #157<br>Sample","Unit #163<br>Sample","Unit #165<br>Sample","Unit #183<br>Sample","Unit #184<br>Sample","Unit #189<br>Sample","Unit #223<br>Sample","Unit #254<br>Sample","Unit #268<br>Sample","Unit #269<br>Sample","Unit #289<br>Sample","Unit #312<br>Sample","Unit #341<br>Sample","Unit #356<br>Sample","Unit #371<br>Sample","Unit #372<br>Sample","Unit #389<br>Sample","Unit #392<br>Sample","Unit #398<br>Sample"],"hoverinfo":["text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text","text"],"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"line":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
 </div>
 </div>
 <div class="footer-note center">
-<p>Hover over any dot to see which unit it is. Grey = population, teal = the sample.</p>
+<p>Hover over any dot to see which unit it is. Grey = population, red = the sample.</p>
 </div>
 </section>
 <section id="poll-pop-sample" class="slide level2 scrollable">
@@ -522,8 +734,7 @@
 <div class="thinkbox">
 <p>A researcher wants to know the average sleep of all UTM students. She randomly surveys 200 UTM students and finds they sleep 6.8 hours on average. <br><br> What is the <strong>population</strong>? What is the <strong>sample</strong>?</p>
 </div>
-<div class="fragment">
-<div class="examplebox">
+<div class="examplebox fragment">
 <p><strong>Population:</strong> All UTM students.<br> <strong>Sample:</strong> The 200 surveyed UTM students.</p>
 </div>
 <aside class="notes">
@@ -539,7 +750,6 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</div>
 </section>
 <section id="unit-observation-variable" class="slide level2 scrollable">
 <h2>Unit, Observation, Variable</h2>
@@ -596,25 +806,23 @@
 </tr>
 </tbody>
 </table>
-<div class="fragment">
 <div class="examplebox fragment">
 <ul>
-<li class="fragment">Each <strong>row</strong> is one observation (one student)</li>
-<li class="fragment">Each <strong>column</strong> is one variable</li>
-<li class="fragment">The <strong>unit</strong> is a single student</li>
+<li>Each <strong>row</strong> is one observation (one student)</li>
+<li>Each <strong>column</strong> is one variable</li>
+<li>The <strong>unit</strong> is a single student</li>
 </ul>
-</div>
 </div>
 </section>
 <section id="try-data" class="slide level2 scrollable">
-<h2>Try It in R</h2>
-<div class="cell" data-autorun="true" data-caption="A small student data set">
+<h2>Check in R: A Small Data Set</h2>
+<div class="cell" data-autorun="false" data-caption="A small student data set">
 <div>
 <div id="webr-1" class="exercise-cell">
 
 </div>
 <script type="webr-1-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImNhcHRpb24iOiJBIHNtYWxsIHN0dWRlbnQgZGF0YSBzZXQiLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxuc3R1ZGVudHMgPC0gZGF0YS5mcmFtZShcbiAgYWdlICAgICAgICAgID0gYygxOSwgMjIsIDIwLCAyMSksXG4gIHByb2dyYW0gICAgICA9IGMoXCJTdGF0c1wiLCBcIkNTXCIsIFwiQmlvXCIsIFwiUHN5Y2hcIiksXG4gIHN0dWR5X2hvdXJzICA9IGMoMjAsIDE1LCAyOCwgMTgpLFxuICBvbl9jYW1wdXMgICAgPSBjKFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJOb1wiKVxuKVxuXG5zdHVkZW50c1xubnJvdyhzdHVkZW50cykgICAjIGhvdyBtYW55IG9ic2VydmF0aW9ucz9cbm5jb2woc3R1ZGVudHMpICAgIyBob3cgbWFueSB2YXJpYWJsZXM/In0=
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJjYXB0aW9uIjoiQSBzbWFsbCBzdHVkZW50IGRhdGEgc2V0IiwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZX0sImNvZGUiOiJcbnN0dWRlbnRzIDwtIGRhdGEuZnJhbWUoXG4gIGFnZSAgICAgICAgICA9IGMoMTksIDIyLCAyMCwgMjEpLFxuICBwcm9ncmFtICAgICAgPSBjKFwiU3RhdHNcIiwgXCJDU1wiLCBcIkJpb1wiLCBcIlBzeWNoXCIpLFxuICBzdHVkeV9ob3VycyAgPSBjKDIwLCAxNSwgMjgsIDE4KSxcbiAgb25fY2FtcHVzICAgID0gYyhcIlllc1wiLCBcIk5vXCIsIFwiWWVzXCIsIFwiTm9cIilcbilcblxuc3R1ZGVudHNcbm5yb3coc3R1ZGVudHMpICAgIyBob3cgbWFueSBvYnNlcnZhdGlvbnM/XG5uY29sKHN0dWRlbnRzKSAgICMgaG93IG1hbnkgdmFyaWFibGVzPyJ9
 </script>
 </div>
 </div>
@@ -640,10 +848,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImNhcHRpb24iOiJBIHNtYWxsIHN0dWRlbnQgZGF0YSBzZXQi
 <p>One of the 50 students you actually surveyed.</p>
 </div>
 </div></div>
-<div class="fragment">
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p>Every sample unit is also a population unit - but not the other way around.</p>
-</div>
 </div>
 </section>
 <section id="parameter-vs-statistic" class="slide level2 scrollable">
@@ -658,10 +864,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImNhcHRpb24iOiJBIHNtYWxsIHN0dWRlbnQgZGF0YSBzZXQi
 <p><strong>Statistic</strong><br> A number that describes the <strong>sample</strong>.<br><br> Calculated from data - <strong>known</strong>.</p>
 </div>
 </div></div>
-<div class="fragment">
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p><strong>Memory trick:</strong> &nbsp; Parameter ↔︎ Population &nbsp;|&nbsp; Statistic ↔︎ Sample &nbsp;(both start with the same letter).</p>
-</div>
 </div>
 </section>
 <section id="notation-you-need-to-memorize" class="slide level2 scrollable">
@@ -734,10 +938,8 @@ The standard deviation of grades for every student who has ever taken STA258.
 </li>
 </ol>
 </div>
-<div class="fragment">
-<div class="examplebox">
+<div class="examplebox fragment">
 <p>1 - parameter (all NBA players)<br> 2 - statistic (500 surveyed)<br> 3 - statistic (80 students)<br> 4 - parameter (every student ever)</p>
-</div>
 </div>
 </section>
 <section id="compute-stat" class="slide level2 scrollable">
@@ -772,8 +974,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 </div>
 </div>
 </section>
-<section id="exercise-inference" class="slide level2 scrollable">
-<h2>Exercise: Inference</h2>
+<section id="example-inference" class="slide level2 scrollable">
+<h2>Example: Inference</h2>
 <div class="thinkbox">
 <p>A student wellness survey is sent to <strong>500 randomly selected undergraduates</strong> on campus, out of a total enrolled population of roughly <strong>15,000 students</strong>. The survey asks whether the student reports <strong>high levels of academic stress</strong>.</p>
 </div>
@@ -808,11 +1010,28 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 <p>“We estimate the average STA258 mark <em>across all sections</em> is around 72%.” <br><br> “We estimate ~63% of <em>all</em> Toronto residents support the plan.”</p>
 </div>
 </div></div>
-<div class="fragment">
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p><strong>Tell:</strong> descriptive describes <em>this data</em>. Inferential makes a claim <em>beyond</em> the data.</p>
 </div>
+</section>
+<section id="section" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
 </div>
+<div class="callout-content">
+<p>A pollster surveys 1,200 Canadians and finds that 46% plan to vote for a certain party. The 46% is a:</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="correct" data-explanation="46% is computed from the sample of 1,200 surveyed Canadians, so it is a statistic. The corresponding parameter would be the true percentage among all Canadian voters, which is unknown.">Statistic</span></li>
+<li>Parameter</li>
+<li>Population</li>
+<li>Variable</li>
+</ul>
 </section>
 <section id="types-of-data" class="slide level2 scrollable">
 <h2>1.2 Types of Data</h2>
@@ -822,10 +1041,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 <div class="defbox">
 <p><strong>Qualitative (categorical) data</strong><br> Values fall into <strong>categories</strong>; arithmetic doesn’t make sense.</p>
 </div>
-<div class="fragment">
-<div class="warnbox">
+<div class="warnbox fragment">
 <p><strong>Trap:</strong> a number doesn’t automatically mean quantitative.<br> Postal codes, jersey numbers, and student IDs <em>look</em> numeric but are categorical.</p>
-</div>
 </div>
 </section>
 <section id="quantitative-discrete-vs-continuous" class="slide level2 scrollable">
@@ -837,9 +1054,9 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 </div>
 <div class="examplebox fragment">
 <ul>
-<li class="fragment">Number of siblings</li>
-<li class="fragment">Courses enrolled in</li>
-<li class="fragment">Defective items in a batch</li>
+<li>Number of siblings</li>
+<li>Courses enrolled in</li>
+<li>Defective items in a batch</li>
 </ul>
 </div>
 </div><div class="column" style="width:50%;">
@@ -848,9 +1065,9 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 </div>
 <div class="examplebox fragment">
 <ul>
-<li class="fragment">Height</li>
-<li class="fragment">Time spent studying</li>
-<li class="fragment">Temperature</li>
+<li>Height</li>
+<li>Time spent studying</li>
+<li>Temperature</li>
 </ul>
 </div>
 </div></div>
@@ -864,9 +1081,9 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 </div>
 <div class="examplebox fragment">
 <ul>
-<li class="fragment">Eye colour</li>
-<li class="fragment">Program of study</li>
-<li class="fragment">Primary device (phone/laptop/tablet)</li>
+<li>Eye colour</li>
+<li>Program of study</li>
+<li>Primary device (phone/laptop/tablet)</li>
 </ul>
 </div>
 </div><div class="column" style="width:50%;">
@@ -875,9 +1092,9 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 </div>
 <div class="examplebox fragment">
 <ul>
-<li class="fragment">Self-rated health (Poor → Excellent)</li>
-<li class="fragment">Movie rating (1–5 stars)</li>
-<li class="fragment">Education level</li>
+<li>Self-rated health (Poor → Excellent)</li>
+<li>Movie rating (1–5 stars)</li>
+<li>Education level</li>
 </ul>
 </div>
 </div></div>
@@ -924,8 +1141,8 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 </tbody>
 </table>
 </section>
-<section id="exercise-types-of-data" class="slide level2 scrollable">
-<h2>Exercise: Types of Data</h2>
+<section id="example-types-of-data" class="slide level2 scrollable">
+<h2>Example: Types of Data</h2>
 <div class="thinkbox">
 <p>Classify each variable as <strong>quantitative</strong> or <strong>qualitative</strong>. For each quantitative one, also say whether it is <strong>discrete</strong> or <strong>continuous</strong>. We will go through these together in class.</p>
 </div>
@@ -948,18 +1165,37 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoic2FtcGxlX21lYW4ifSwi
 </ul>
 </section>
 <section id="check-types" class="slide level2 scrollable">
-<h2>Check Data Types in R</h2>
+<h2>Check in R: Data Types</h2>
 <p>R can tell you what type each variable is. Run it, then change a value.</p>
-<div class="cell" data-autorun="true" data-caption="class() reports the data type R is storing">
+<div class="cell" data-autorun="false" data-caption="class() reports the data type R is storing">
 <div>
 <div id="webr-3" class="exercise-cell">
 
 </div>
 <script type="webr-3-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImNhcHRpb24iOiJjbGFzcygpIHJlcG9ydHMgdGhlIGRhdGEgdHlwZSBSIGlzIHN0b3JpbmciLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuYWdlICAgICAgPC0gMjBcbnByb2dyYW0gIDwtIFwiU3RhdGlzdGljc1wiXG5vbl9jYW1wdXMgPC0gVFJVRVxucGV0cyAgICAgPC0gMkxcblxuY2xhc3MoYWdlKSAgICAgICAgIyBudW1lcmljICDihpIgcXVhbnRpdGF0aXZlIGNvbnRpbnVvdXNcbmNsYXNzKHByb2dyYW0pICAgICMgY2hhcmFjdGVyIOKGkiBxdWFsaXRhdGl2ZVxuY2xhc3Mob25fY2FtcHVzKSAgIyBsb2dpY2FsICDihpIgcXVhbGl0YXRpdmUgKDIgY2F0ZWdvcmllcylcbmNsYXNzKHBldHMpICAgICAgICMgaW50ZWdlciAg4oaSIHF1YW50aXRhdGl2ZSBkaXNjcmV0ZSJ9
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJjYXB0aW9uIjoiY2xhc3MoKSByZXBvcnRzIHRoZSBkYXRhIHR5cGUgUiBpcyBzdG9yaW5nIiwiZWRpdCI6dHJ1ZSwiZXZhbCI6dHJ1ZX0sImNvZGUiOiJcbmFnZSAgICAgIDwtIDIwXG5wcm9ncmFtICA8LSBcIlN0YXRpc3RpY3NcIlxub25fY2FtcHVzIDwtIFRSVUVcbnBldHMgICAgIDwtIDJMXG5cbmNsYXNzKGFnZSkgICAgICAgICMgbnVtZXJpYyAg4oaSIHF1YW50aXRhdGl2ZSBjb250aW51b3VzXG5jbGFzcyhwcm9ncmFtKSAgICAjIGNoYXJhY3RlciDihpIgcXVhbGl0YXRpdmVcbmNsYXNzKG9uX2NhbXB1cykgICMgbG9naWNhbCAg4oaSIHF1YWxpdGF0aXZlICgyIGNhdGVnb3JpZXMpXG5jbGFzcyhwZXRzKSAgICAgICAjIGludGVnZXIgIOKGkiBxdWFudGl0YXRpdmUgZGlzY3JldGUifQ==
 </script>
 </div>
 </div>
+</section>
+<section id="section-1" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>A researcher records each participant’s <strong>number of siblings</strong>. What type of variable is this?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>Qualitative nominal</li>
+<li>Qualitative ordinal</li>
+<li>Quantitative continuous</li>
+<li><span class="correct" data-explanation="Number of siblings is a count, so it is quantitative. Counts take whole-number values with gaps between them (you cannot have 2.5 siblings), which makes it discrete rather than continuous.">Quantitative discrete</span></li>
+</ul>
 </section>
 <section id="introduction-to-inferential-statistics" class="slide level2">
 <h2>1.3 Introduction to Inferential Statistics</h2>
@@ -980,15 +1216,13 @@ eyJhdHRyIjp7ImF1dG9ydW4iOnRydWUsImNhcHRpb24iOiJjbGFzcygpIHJlcG9ydHMgdGhlIGRhdGEg
 <div class="examplebox">
 <p>Two different samples of 100 UTM students will give two <strong>different</strong> sample means.<br><br> So any estimate must come with a measure of how much it might be off.</p>
 </div>
-<div class="fragment">
 <div class="thinkbox fragment">
 <p>This is where the tools in later chapters come from:</p>
 <ul>
-<li class="fragment"><strong>Confidence intervals</strong> - a range of plausible parameter values</li>
-<li class="fragment"><strong>Hypothesis tests</strong> - checking whether data support a specific claim</li>
-<li class="fragment"><strong>Statistical power</strong> - how likely we are to detect a real effect</li>
+<li><strong>Confidence intervals</strong> - a range of plausible parameter values</li>
+<li><strong>Hypothesis tests</strong> - checking whether data support a specific claim</li>
+<li><strong>Statistical power</strong> - how likely we are to detect a real effect</li>
 </ul>
-</div>
 </div>
 </section>
 <section id="see-variability" class="slide level2 scrollable">
@@ -1010,20 +1244,20 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJjYXB0aW9uIjoiRWFjaCBjbGljayBkcmF3cyBhIG5ldyBz
 <section id="sampling-methods" class="slide level2 scrollable">
 <h2>A Closer Look at Sampling</h2>
 <p>How you collect your sample determines whether inference is honest.</p>
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="1">
 <p><strong>Simple random sample (SRS)</strong> - every unit has an equal chance of being chosen.</p>
 </div>
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="2">
 <p><strong>Systematic</strong> - every <span class="math inline">\(k\)</span>-th unit from an ordered list (e.g., every 50th student).</p>
 </div>
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="3">
 <p><strong>Stratified</strong> - divide into groups, sample from each group.</p>
 </div>
-<div class="defbox" style="font-size:0.85em">
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="4">
 <p><strong>Cluster</strong> - randomly pick whole groups, survey everyone inside.</p>
 </div>
-<div class="defbox" style="font-size:0.85em">
-<p><strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. ⚠ Usually biased.</p>
+<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="5">
+<p><strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. Usually biased.</p>
 </div>
 </section>
 <section id="bias-when-samples-lie" class="slide level2 scrollable">
@@ -1032,29 +1266,27 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJjYXB0aW9uIjoiRWFjaCBjbGljayBkcmF3cyBhIG5ldyBz
 <p><strong>Bias</strong> - a systematic tendency for a sample to differ from the population in a particular direction.</p>
 </div>
 <p><br></p>
-<div class="fragment">
 <div class="warnbox fragment">
 <p><strong>Classic bias traps:</strong></p>
 <ul>
-<li class="fragment"><strong>Selection bias</strong> - surveying gym-goers about exercise habits</li>
-<li class="fragment"><strong>Voluntary response</strong> - Instagram polls (only loud opinions answer)</li>
-<li class="fragment"><strong>Non-response bias</strong> - the people who skip the survey are different from those who answer</li>
-<li class="fragment"><strong>Coverage bias</strong> - your sampling frame misses parts of the population</li>
+<li><strong>Selection bias</strong> - surveying gym-goers about exercise habits</li>
+<li><strong>Voluntary response</strong> - Instagram polls (only loud opinions answer)</li>
+<li><strong>Non-response bias</strong> - the people who skip the survey are different from those who answer</li>
+<li><strong>Coverage bias</strong> - your sampling frame misses parts of the population</li>
 </ul>
 </div>
-</div>
 </section>
-<section id="exercise-identify-the-bias" class="slide level2 scrollable">
-<h2>Exercise: Identify the Bias</h2>
+<section id="example-identify-the-bias" class="slide level2 scrollable">
+<h2>Example: Identify the Bias</h2>
 <div class="thinkbox">
 <p>For each scenario, identify the type of bias present and explain why it is a problem. We will discuss in class.</p>
 </div>
 <ol type="1">
-<li>The Office of the Registrar wants to estimate the average GPA of all undergraduates. They collect data by emailing only students who belong to an academic club.</li>
-<li>A student newspaper posts an online poll asking “How satisfied are you with library hours?” and reports the results as representative of all students.</li>
-<li>A course evaluation survey is sent to a random sample of 1,000 students, but only 200 respond.</li>
-<li>A study on student commuting habits recruits participants by posting flyers only in on-campus residence buildings.</li>
-<li>A survey asks students to self-report how many hours per week they spend studying.</li>
+<li class="fragment">The Office of the Registrar wants to estimate the average GPA of all undergraduates. They collect data by emailing only students who belong to an academic club.</li>
+<li class="fragment">A student newspaper posts an online poll asking “How satisfied are you with library hours?” and reports the results as representative of all students.</li>
+<li class="fragment">A course evaluation survey is sent to a random sample of 1,000 students, but only 200 respond.</li>
+<li class="fragment">A study on student commuting habits recruits participants by posting flyers only in on-campus residence buildings.</li>
+<li class="fragment">A survey asks students to self-report how many hours per week they spend studying.</li>
 </ol>
 </section>
 <section id="study-types" class="slide level2 scrollable">
@@ -1075,29 +1307,27 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJjYXB0aW9uIjoiRWFjaCBjbGljayBkcmF3cyBhIG5ldyBz
 <p>Randomly give half the volunteers Vitamin C, half a placebo, and compare cold rates.</p>
 </div>
 </div></div>
-<div class="fragment">
-<div class="thinkbox">
+<div class="thinkbox fragment">
 <p>Only well-designed <strong>experiments</strong> can establish cause and effect.</p>
 </div>
-</div>
 </section>
-<section id="exercise-types-of-studies" class="slide level2 scrollable">
-<h2>Exercise: Types of Studies</h2>
+<section id="example-types-of-studies" class="slide level2 scrollable">
+<h2>Example: Types of Studies</h2>
 <div class="thinkbox">
 <p>Classify each as an <strong>observational study</strong>, <strong>experimental study</strong>, or <strong>sample survey</strong>. Briefly justify your answer. We will take these up in class.</p>
 </div>
 <ol type="1">
-<li>A researcher records the GPA and weekly study hours of students in STA258 without intervening, to see whether there is an association between the two.</li>
-<li>First-year students are randomly assigned to either a weekly tutoring program or no tutoring. Their final exam grades are compared at the end of term.</li>
-<li>At the end of the semester, a random sample of students is emailed a questionnaire asking about teaching quality, workload, and course organization.</li>
-<li>A study tracks whether students who commute more than 1 hour to campus report higher stress levels than those who live on campus.</li>
-<li>Students are randomly given one of two versions of a course syllabus (one with weekly deadlines, one with monthly deadlines) and their assignment submission rates are recorded.</li>
+<li class="fragment">A researcher records the GPA and weekly study hours of students in STA258 without intervening, to see whether there is an association between the two.</li>
+<li class="fragment">First-year students are randomly assigned to either a weekly tutoring program or no tutoring. Their final exam grades are compared at the end of term.</li>
+<li class="fragment">At the end of the semester, a random sample of students is emailed a questionnaire asking about teaching quality, workload, and course organization.</li>
+<li class="fragment">A study tracks whether students who commute more than 1 hour to campus report higher stress levels than those who live on campus.</li>
+<li class="fragment">Students are randomly given one of two versions of a course syllabus (one with weekly deadlines, one with monthly deadlines) and their assignment submission rates are recorded.</li>
 </ol>
 </section>
-<section id="chapter-1-summary" class="slide level2 scrollable">
-<h2>Chapter 1 Summary</h2>
+<section id="chapter-summary" class="slide level2 scrollable">
+<h2>Chapter Summary</h2>
 <div class="examplebox">
-<ol>
+<ul>
 <li>
 Statistics = science of learning from data under uncertainty.
 </li>
@@ -1116,29 +1346,16 @@ Inference uses a sample statistic to estimate an unknown population parameter - 
 <li>
 <strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.
 </li>
-</ol>
-</div>
-</section>
-<section id="whats-next" class="slide level2 scrollable">
-<h2>What’s Next</h2>
-<div class="thinkbox">
-<p><strong>Chapter 2:</strong> we move into R - the tool we’ll use to compute statistics, simulate samples, and visualize uncertainty.</p>
-</div>
-<p><br></p>
-<div class="center">
-<span class="big">End of Chapter 1</span><br><br>
-<div class="home-button-row">
-<p><a href="../index.html" class="home-button">Back to Homepage</a></p>
-</div>
+</ul>
 </div>
 </section>
 <section id="bonus-practice" class="slide level2 scrollable">
 <h2>Bonus Practice</h2>
 <p>Below are some ages of UTM students in a sample. Compute:</p>
 <ol type="1">
-<li class="fragment">The sample size <span class="math inline">\(n\)</span></li>
-<li class="fragment">The sample mean <span class="math inline">\(\bar{x}\)</span></li>
-<li class="fragment">The sample standard deviation <span class="math inline">\(s\)</span></li>
+<li>The sample size <span class="math inline">\(n\)</span></li>
+<li>The sample mean <span class="math inline">\(\bar{x}\)</span></li>
+<li>The sample standard deviation <span class="math inline">\(s\)</span></li>
 </ol>
 <div class="cell" data-exercise="bonus_practice">
 <div>
@@ -1170,10 +1387,23 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiYm9udXNfcHJhY3RpY2Ui
 </div>
 </div>
 </div>
+</section>
+<section id="up-next" class="slide level2">
+<h2>Up Next</h2>
+<div class="thinkbox">
+<p><strong>Chapter 2:</strong> we move into R - the tool we’ll use to compute statistics, simulate samples, and visualize uncertainty.</p>
+</div>
+<p><br></p>
+<div class="center">
+<span class="big">End of Chapter 1</span><br><br>
+<div class="home-button-row">
+<p><a href="../index.html" class="home-button">Back to Homepage</a></p>
+</div>
+</div>
 
 
 <script type="webr-data">
-eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsInRpYmJsZSIsImdncGxvdDIiXSwicmVwb3MiOltdfSwicmVuZGVyX2RmIjoiZGVmYXVsdCJ9
+eyJvcHRpb25zIjp7ImJhc2VVcmwiOiJodHRwczovL3dlYnIuci13YXNtLm9yZy92MC41LjgvIn0sInBhY2thZ2VzIjp7InBrZ3MiOlsiZXZhbHVhdGUiLCJrbml0ciIsImh0bWx0b29scyIsInBsb3RseSJdLCJyZXBvcyI6W119LCJyZW5kZXJfZGYiOiJkZWZhdWx0In0=
 </script>
 <script type="ojs-module-contents">
 eyJjb250ZW50cyI6W3siY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC01IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV81O1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItNSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzUgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici01LWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgLy8gRGVmYXVsdCBleGVyY2lzZSBjb25maWd1cmF0aW9uXG4gIGNvbnN0IG9wdGlvbnMgPSBPYmplY3QuYXNzaWduKFxuICAgIHtcbiAgICAgIGlkOiBcIndlYnItNS1jb250ZW50c1wiLFxuICAgICAgZW52aXI6IGBleGVyY2lzZS1lbnYtJHtibG9jay5hdHRyLmV4ZXJjaXNlfWAsXG4gICAgICBlcnJvcjogZmFsc2UsXG4gICAgICBjYXB0aW9uOiAnRXhlcmNpc2UnLFxuICAgIH0sXG4gICAgYmxvY2suYXR0clxuICApO1xuXG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG4gIHJldHVybiBlZGl0b3IuY29udGFpbmVyO1xufVxudmlld29mIF93ZWJyX3ZhbHVlXzUgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzUsIHt9KTtcbl93ZWJyX2ZlZWRiYWNrXzUgPSB7XG4gIGNvbnN0IHsgV2ViUkdyYWRlciB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3QgZW1wdHlGZWVkYmFjayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO1xuXG4gIGNvbnN0IGdyYWRlciA9IG5ldyBXZWJSR3JhZGVyKF93ZWJyX3ZhbHVlXzUuZXZhbHVhdG9yKTtcbiAgY29uc3QgZmVlZGJhY2sgPSBhd2FpdCBncmFkZXIuZ3JhZGVFeGVyY2lzZSgpO1xuICBpZiAoIWZlZWRiYWNrKSByZXR1cm4gZW1wdHlGZWVkYmFjaztcbiAgcmV0dXJuIGZlZWRiYWNrO1xufVxuIn0seyJjZWxsTmFtZSI6IndlYnItd2lkZ2V0LTQiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJ7XG4gIC8vIFdhaXQgZm9yIG91dHB1dCB0byBiZSB3cml0dGVuIHRvIHRoZSBET00sIHRoZW4gdHJpZ2dlciB3aWRnZXQgcmVuZGVyaW5nXG4gIGF3YWl0IF93ZWJyX3ZhbHVlXzQ7XG4gIGlmICh3aW5kb3cuSFRNTFdpZGdldHMpIHtcbiAgICB3aW5kb3cuSFRNTFdpZGdldHMuc3RhdGljUmVuZGVyKCk7XG4gIH1cbiAgaWYgKHdpbmRvdy5QYWdlZFRhYmxlRG9jKSB7XG4gICAgd2luZG93LlBhZ2VkVGFibGVEb2MuaW5pdEFsbCgpO1xuICB9XG59XG4ifSx7ImNlbGxOYW1lIjoid2Vici00IiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldCIsInNvdXJjZSI6InZpZXdvZiBfd2Vicl9lZGl0b3JfNCA9IHtcbiAgY29uc3QgeyBXZWJSRXhlcmNpc2VFZGl0b3IsIGI2NERlY29kZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZTtcbiAgY29uc3Qgc2NyaXB0Q29udGVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoYHNjcmlwdFt0eXBlPVxcXCJ3ZWJyLTQtY29udGVudHNcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBibG9jayA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKHNjcmlwdENvbnRlbnQpKTtcblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbih7IGlkOiBgd2Vici00LWNvbnRlbnRzYCB9LCBibG9jay5hdHRyKTtcbiAgY29uc3QgZWRpdG9yID0gbmV3IFdlYlJFeGVyY2lzZUVkaXRvcih3ZWJST2pzLndlYlJQcm9taXNlLCBibG9jay5jb2RlLCBvcHRpb25zKTtcblxuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbl93ZWJyX3ZhbHVlXzQgPSB3ZWJST2pzLnByb2Nlc3MoX3dlYnJfZWRpdG9yXzQsIHt9KTtcbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0zIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8zO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMyIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzMgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0zLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMy1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8zID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8zLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici13aWRnZXQtMiIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6IntcbiAgLy8gV2FpdCBmb3Igb3V0cHV0IHRvIGJlIHdyaXR0ZW4gdG8gdGhlIERPTSwgdGhlbiB0cmlnZ2VyIHdpZGdldCByZW5kZXJpbmdcbiAgYXdhaXQgX3dlYnJfdmFsdWVfMjtcbiAgaWYgKHdpbmRvdy5IVE1MV2lkZ2V0cykge1xuICAgIHdpbmRvdy5IVE1MV2lkZ2V0cy5zdGF0aWNSZW5kZXIoKTtcbiAgfVxuICBpZiAod2luZG93LlBhZ2VkVGFibGVEb2MpIHtcbiAgICB3aW5kb3cuUGFnZWRUYWJsZURvYy5pbml0QWxsKCk7XG4gIH1cbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLTIiLCJpbmxpbmUiOmZhbHNlLCJtZXRob2ROYW1lIjoiaW50ZXJwcmV0Iiwic291cmNlIjoidmlld29mIF93ZWJyX2VkaXRvcl8yID0ge1xuICBjb25zdCB7IFdlYlJFeGVyY2lzZUVkaXRvciwgYjY0RGVjb2RlIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuICBjb25zdCBzY3JpcHRDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItMi1jb250ZW50c1xcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGJsb2NrID0gSlNPTi5wYXJzZShiNjREZWNvZGUoc2NyaXB0Q29udGVudCkpO1xuXG4gIC8vIERlZmF1bHQgZXhlcmNpc2UgY29uZmlndXJhdGlvblxuICBjb25zdCBvcHRpb25zID0gT2JqZWN0LmFzc2lnbihcbiAgICB7XG4gICAgICBpZDogXCJ3ZWJyLTItY29udGVudHNcIixcbiAgICAgIGVudmlyOiBgZXhlcmNpc2UtZW52LSR7YmxvY2suYXR0ci5leGVyY2lzZX1gLFxuICAgICAgZXJyb3I6IGZhbHNlLFxuICAgICAgY2FwdGlvbjogJ0V4ZXJjaXNlJyxcbiAgICB9LFxuICAgIGJsb2NrLmF0dHJcbiAgKTtcblxuICBjb25zdCBlZGl0b3IgPSBuZXcgV2ViUkV4ZXJjaXNlRWRpdG9yKHdlYlJPanMud2ViUlByb21pc2UsIGJsb2NrLmNvZGUsIG9wdGlvbnMpO1xuICByZXR1cm4gZWRpdG9yLmNvbnRhaW5lcjtcbn1cbnZpZXdvZiBfd2Vicl92YWx1ZV8yID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8yLCB7fSk7XG5fd2Vicl9mZWVkYmFja18yID0ge1xuICBjb25zdCB7IFdlYlJHcmFkZXIgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IGVtcHR5RmVlZGJhY2sgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtcblxuICBjb25zdCBncmFkZXIgPSBuZXcgV2ViUkdyYWRlcihfd2Vicl92YWx1ZV8yLmV2YWx1YXRvcik7XG4gIGNvbnN0IGZlZWRiYWNrID0gYXdhaXQgZ3JhZGVyLmdyYWRlRXhlcmNpc2UoKTtcbiAgaWYgKCFmZWVkYmFjaykgcmV0dXJuIGVtcHR5RmVlZGJhY2s7XG4gIHJldHVybiBmZWVkYmFjaztcbn1cbiJ9LHsiY2VsbE5hbWUiOiJ3ZWJyLXdpZGdldC0xIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoie1xuICAvLyBXYWl0IGZvciBvdXRwdXQgdG8gYmUgd3JpdHRlbiB0byB0aGUgRE9NLCB0aGVuIHRyaWdnZXIgd2lkZ2V0IHJlbmRlcmluZ1xuICBhd2FpdCBfd2Vicl92YWx1ZV8xO1xuICBpZiAod2luZG93LkhUTUxXaWRnZXRzKSB7XG4gICAgd2luZG93LkhUTUxXaWRnZXRzLnN0YXRpY1JlbmRlcigpO1xuICB9XG4gIGlmICh3aW5kb3cuUGFnZWRUYWJsZURvYykge1xuICAgIHdpbmRvdy5QYWdlZFRhYmxlRG9jLmluaXRBbGwoKTtcbiAgfVxufVxuIn0seyJjZWxsTmFtZSI6IndlYnItMSIsImlubGluZSI6ZmFsc2UsIm1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJzb3VyY2UiOiJ2aWV3b2YgX3dlYnJfZWRpdG9yXzEgPSB7XG4gIGNvbnN0IHsgV2ViUkV4ZXJjaXNlRWRpdG9yLCBiNjREZWNvZGUgfSA9IHdpbmRvdy5fZXhlcmNpc2Vfb2pzX3J1bnRpbWU7XG4gIGNvbnN0IHNjcmlwdENvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwid2Vici0xLWNvbnRlbnRzXFxcIl1gKS50ZXh0Q29udGVudDtcbiAgY29uc3QgYmxvY2sgPSBKU09OLnBhcnNlKGI2NERlY29kZShzY3JpcHRDb250ZW50KSk7XG5cbiAgY29uc3Qgb3B0aW9ucyA9IE9iamVjdC5hc3NpZ24oeyBpZDogYHdlYnItMS1jb250ZW50c2AgfSwgYmxvY2suYXR0cik7XG4gIGNvbnN0IGVkaXRvciA9IG5ldyBXZWJSRXhlcmNpc2VFZGl0b3Iod2ViUk9qcy53ZWJSUHJvbWlzZSwgYmxvY2suY29kZSwgb3B0aW9ucyk7XG5cbiAgcmV0dXJuIGVkaXRvci5jb250YWluZXI7XG59XG5fd2Vicl92YWx1ZV8xID0gd2ViUk9qcy5wcm9jZXNzKF93ZWJyX2VkaXRvcl8xLCB7fSk7XG4ifSx7ImNlbGxOYW1lIjoid2Vici1wcmVsdWRlIiwiaW5saW5lIjpmYWxzZSwibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoid2ViUk9qcyA9IHtcbiAgY29uc3QgeyBXZWJSLCBDaGFubmVsVHlwZSB9ID0gd2luZG93Ll9leGVyY2lzZV9vanNfcnVudGltZS5XZWJSO1xuICBjb25zdCB7XG4gICAgV2ViUkV2YWx1YXRvcixcbiAgICBXZWJSRW52aXJvbm1lbnRNYW5hZ2VyLFxuICAgIHNldHVwUixcbiAgICBiNjREZWNvZGUsXG4gICAgY29sbGFwc2VQYXRoXG4gIH0gPSB3aW5kb3cuX2V4ZXJjaXNlX29qc19ydW50aW1lO1xuXG4gIGNvbnN0IHN0YXR1c0NvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1zdGF0dXNcIik7XG4gIGNvbnN0IGluZGljYXRvckNvbnRhaW5lciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwiZXhlcmNpc2UtbG9hZGluZy1pbmRpY2F0b3JcIik7XG4gIGluZGljYXRvckNvbnRhaW5lci5jbGFzc0xpc3QucmVtb3ZlKFwiZC1ub25lXCIpO1xuXG4gIGxldCBzdGF0dXNUZXh0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudChcImRpdlwiKVxuICBzdGF0dXNUZXh0LmNsYXNzTGlzdCA9IFwiZXhlcmNpc2UtbG9hZGluZy1kZXRhaWxzXCI7XG4gIHN0YXR1c1RleHQgPSBzdGF0dXNDb250YWluZXIuYXBwZW5kQ2hpbGQoc3RhdHVzVGV4dCk7XG4gIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgSW5pdGlhbGlzZWA7XG5cbiAgLy8gSG9pc3QgaW5kaWNhdG9yIG91dCBmcm9tIGZpbmFsIHNsaWRlIHdoZW4gcnVubmluZyB1bmRlciByZXZlYWxcbiAgY29uc3QgcmV2ZWFsU3RhdHVzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIi5yZXZlYWwgLmV4ZXJjaXNlLWxvYWRpbmctaW5kaWNhdG9yXCIpO1xuICBpZiAocmV2ZWFsU3RhdHVzKSB7XG4gICAgcmV2ZWFsU3RhdHVzLnJlbW92ZSgpO1xuICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIucmV2ZWFsID4gLnNsaWRlc1wiKS5hcHBlbmRDaGlsZChyZXZlYWxTdGF0dXMpO1xuICB9XG5cbiAgLy8gTWFrZSBhbnkgcmV2ZWFsIHNsaWRlcyB3aXRoIGxpdmUgY2VsbHMgc2Nyb2xsYWJsZVxuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLnJldmVhbCAuZXhlcmNpc2UtY2VsbFwiKS5mb3JFYWNoKChlbCkgPT4ge1xuICAgIGVsLmNsb3Nlc3QoJ3NlY3Rpb24uc2xpZGUnKS5jbGFzc0xpc3QuYWRkKFwic2Nyb2xsYWJsZVwiKTtcbiAgfSlcblxuICAvLyB3ZWJSIHN1cHBsZW1lbnRhbCBkYXRhIGFuZCBvcHRpb25zXG4gIGNvbnN0IGRhdGFDb250ZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3Rvcihgc2NyaXB0W3R5cGU9XFxcIndlYnItZGF0YVxcXCJdYCkudGV4dENvbnRlbnQ7XG4gIGNvbnN0IGRhdGEgPSBKU09OLnBhcnNlKGI2NERlY29kZShkYXRhQ29udGVudCkpO1xuXG4gIC8vIEdyYWIgbGlzdCBvZiByZXNvdXJjZXMgdG8gYmUgZG93bmxvYWRlZFxuICBjb25zdCBmaWxlc0NvbnRlbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKGBzY3JpcHRbdHlwZT1cXFwidmZzLWZpbGVcXFwiXWApLnRleHRDb250ZW50O1xuICBjb25zdCBmaWxlcyA9IEpTT04ucGFyc2UoYjY0RGVjb2RlKGZpbGVzQ29udGVudCkpO1xuXG4gIC8vIEluaXRpYWxpc2Ugd2ViUiBhbmQgc2V0dXAgZm9yIFIgY29kZSBldmFsdWF0aW9uXG4gIGxldCB3ZWJSUHJvbWlzZSA9IChhc3luYyAod2ViUikgPT4ge1xuICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgd2ViUmA7XG4gICAgYXdhaXQgd2ViUi5pbml0KCk7XG5cbiAgICAvLyBJbnN0YWxsIHByb3ZpZGVkIGxpc3Qgb2YgcGFja2FnZXNcbiAgICAvLyBFbnN1cmUgd2ViUiBkZWZhdWx0IHJlcG8gaXMgaW5jbHVkZWRcbiAgICBkYXRhLnBhY2thZ2VzLnJlcG9zLnB1c2goXCJodHRwczovL3JlcG8uci13YXNtLm9yZ1wiKVxuICAgIGF3YWl0IGRhdGEucGFja2FnZXMucGtncy5tYXAoKHBrZykgPT4gKCkgPT4ge1xuICAgICAgc3RhdHVzVGV4dC50ZXh0Q29udGVudCA9IGBEb3dubG9hZGluZyBwYWNrYWdlOiAke3BrZ31gO1xuICAgICAgcmV0dXJuIHdlYlIuZXZhbFJWb2lkKGBcbiAgICAgICAgd2Vicjo6aW5zdGFsbChwa2csIHJlcG9zID0gcmVwb3MpXG4gICAgICAgIGxpYnJhcnkocGtnLCBjaGFyYWN0ZXIub25seSA9IFRSVUUpXG4gICAgICBgLCB7IGVudjoge1xuICAgICAgICBwa2c6IHBrZyxcbiAgICAgICAgcmVwb3M6IGRhdGEucGFja2FnZXMucmVwb3MsXG4gICAgICB9fSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICAvLyBEb3dubG9hZCBhbmQgaW5zdGFsbCByZXNvdXJjZXNcbiAgICBhd2FpdCBmaWxlcy5tYXAoKGZpbGUpID0+IGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IG5hbWUgPSBmaWxlLnN1YnN0cmluZyhmaWxlLmxhc3RJbmRleE9mKCcvJykgKyAxKTtcbiAgICAgIHN0YXR1c1RleHQudGV4dENvbnRlbnQgPSBgRG93bmxvYWRpbmcgcmVzb3VyY2U6ICR7bmFtZX1gO1xuICAgICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmaWxlKTtcbiAgICAgIGlmICghcmVzcG9uc2Uub2spIHtcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKGBDYW4ndCBkb3dubG9hZCBcXGAke2ZpbGV9XFxgLiBFcnJvciAke3Jlc3BvbnNlLnN0YXR1c306IFwiJHtyZXNwb25zZS5zdGF0dXNUZXh0fVwiLmApO1xuICAgICAgfVxuICAgICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmFycmF5QnVmZmVyKCk7XG5cbiAgICAgIC8vIFN0b3JlIFVSTHMgaW4gdGhlIGN3ZCB3aXRob3V0IGFueSBzdWJkaXJlY3Rvcnkgc3RydWN0dXJlXG4gICAgICBpZiAoZmlsZS5pbmNsdWRlcyhcIjovL1wiKSkge1xuICAgICAgICBmaWxlID0gbmFtZTtcbiAgICAgIH1cblxuICAgICAgLy8gQ29sbGFwc2UgaGlnaGVyIGRpcmVjdG9yeSBzdHJ1Y3R1cmVcbiAgICAgIGZpbGUgPSBjb2xsYXBzZVBhdGgoZmlsZSk7XG5cbiAgICAgIC8vIENyZWF0ZSBkaXJlY3RvcnkgdHJlZSwgaWdub3JpbmcgXCJkaXJlY3RvcnkgZXhpc3RzXCIgVkZTIGVycm9yc1xuICAgICAgY29uc3QgcGFydHMgPSBmaWxlLnNwbGl0KCcvJykuc2xpY2UoMCwgLTEpO1xuICAgICAgbGV0IHBhdGggPSAnJztcbiAgICAgIHdoaWxlIChwYXJ0cy5sZW5ndGggPiAwKSB7XG4gICAgICAgIHBhdGggKz0gcGFydHMuc2hpZnQoKSArICcvJztcbiAgICAgICAgY29uc3QgYW5hbHlzaXMgPSBhd2FpdCB3ZWJSLkZTLmFuYWx5emVQYXRoKHBhdGgpO1xuICAgICAgICBpZiAoIWFuYWx5c2lzLmV4aXN0cykge1xuICAgICAgICAgIHRyeSB7XG4gICAgICAgICAgICBhd2FpdCB3ZWJSLkZTLm1rZGlyKHBhdGgpO1xuICAgICAgICAgIH0gY2F0Y2ggKGUpIHtcbiAgICAgICAgICAgIHRocm93IG5ldyBFcnJvcihgRmlsZXN5c3RlbSBFcnJvcjogXCIke2UubWVzc2FnZX1cIi5gKTtcbiAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgIH1cblxuICAgICAgLy8gV3JpdGUgdGhpcyBmaWxlIHRvIHRoZSBWRlNcbiAgICAgIHJldHVybiBhd2FpdCB3ZWJSLkZTLndyaXRlRmlsZShmaWxlLCBuZXcgVWludDhBcnJheShkYXRhKSk7XG4gICAgfSkucmVkdWNlKChjdXIsIG5leHQpID0+IGN1ci50aGVuKG5leHQpLCBQcm9taXNlLnJlc29sdmUoKSk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYEluc3RhbGxpbmcgd2ViUiBzaGltc2A7XG4gICAgYXdhaXQgd2ViUi5ldmFsUlZvaWQoYHdlYnI6OnNoaW1faW5zdGFsbCgpYCk7XG5cbiAgICBzdGF0dXNUZXh0LnRleHRDb250ZW50ID0gYFdlYlIgZW52aXJvbm1lbnQgc2V0dXBgO1xuICAgIGF3YWl0IHNldHVwUih3ZWJSLCBkYXRhKTtcblxuICAgIHN0YXR1c1RleHQucmVtb3ZlKCk7XG4gICAgaWYgKHN0YXR1c0NvbnRhaW5lci5jaGlsZHJlbi5sZW5ndGggPT0gMCkge1xuICAgICAgc3RhdHVzQ29udGFpbmVyLnBhcmVudE5vZGUucmVtb3ZlKCk7XG4gICAgfVxuICAgIHJldHVybiB3ZWJSO1xuICB9KShuZXcgV2ViUihkYXRhLm9wdGlvbnMpKTtcblxuICAvLyBLZWVwIHRyYWNrIG9mIGluaXRpYWwgT0pTIGJsb2NrIHJlbmRlclxuICBjb25zdCByZW5kZXJlZE9qcyA9IHt9O1xuXG4gIGNvbnN0IHByb2Nlc3MgPSBhc3luYyAoY29udGV4dCwgaW5wdXRzKSA9PiB7XG4gICAgY29uc3Qgd2ViUiA9IGF3YWl0IHdlYlJQcm9taXNlO1xuICAgIGNvbnN0IGV2YWx1YXRvciA9IG5ldyBXZWJSRXZhbHVhdG9yKHdlYlIsIGNvbnRleHQpXG4gICAgYXdhaXQgZXZhbHVhdG9yLnByb2Nlc3MoaW5wdXRzKTtcbiAgICByZXR1cm4gZXZhbHVhdG9yLmNvbnRhaW5lcjtcbiAgfVxuXG4gIHJldHVybiB7XG4gICAgcHJvY2VzcyxcbiAgICB3ZWJSUHJvbWlzZSxcbiAgICByZW5kZXJlZE9qcyxcbiAgfTtcbn1cbiJ9XX0=
@@ -1205,6 +1435,7 @@ W10=
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -1228,6 +1459,7 @@ W10=
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"","defaultIncorrect":"","includeScore":false,"disableReset":false},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -1373,12 +1605,12 @@ W10=
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1280,
 
-        height: 700,
+        height: 720,
 
         // Factor of the display size that should remain empty around the content
-        margin: 0.1,
+        margin: 5.5e-2,
 
         math: {
           mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
@@ -1398,7 +1630,7 @@ W10=
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealQuiz, QuartoSupport,
 
           RevealMath,
           RevealNotes,

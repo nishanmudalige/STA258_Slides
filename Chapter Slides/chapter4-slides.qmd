@@ -2608,8 +2608,15 @@ For $X \sim \chi^2_k$:
 
 $$E[X] = k, \qquad \text{Var}(X) = 2k$$
 
-As $k \to \infty$, the chi-square distribution approaches a normal
-distribution (by the CLT).
+For large $k$, the chi-square distribution is approximately
+
+$$X \;\dot{\sim}\; N(k, 2k).$$
+
+Equivalently,
+
+$$\frac{X-k}{\sqrt{2k}}
+\;\overset{d}{\longrightarrow}\;
+N(0,1).$$
 :::
 ::::
 ::::::

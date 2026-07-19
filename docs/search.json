@@ -1516,7 +1516,7 @@
     "href": "Chapter Slides/chapter4-slides.html#chi-square-in-r",
     "title": "STA258",
     "section": "Chi-Square in R",
-    "text": "Chi-Square in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nMean & Variance\nFor \\(X \\sim \\chi^2_k\\):\n\\[E[X] = k, \\qquad \\text{Var}(X) = 2k\\]\nAs \\(k \\to \\infty\\), the chi-square distribution approaches a normal distribution (by the CLT)."
+    "text": "Chi-Square in R\n\n\n\n\n\n\n\n\n\n\n\n\n\nMean & Variance\nFor \\(X \\sim \\chi^2_k\\):\n\\[E[X] = k, \\qquad \\text{Var}(X) = 2k\\]\nFor large \\(k\\), the chi-square distribution is approximately\n\\[X \\;\\dot{\\sim}\\; N(k, 2k).\\]\nEquivalently,\n\\[\\frac{X-k}{\\sqrt{2k}}\n\\;\\overset{d}{\\longrightarrow}\\;\nN(0,1).\\]"
   },
   {
     "objectID": "Chapter Slides/chapter4-slides.html#example-chi-square-probability",

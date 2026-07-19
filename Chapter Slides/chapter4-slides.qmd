@@ -2914,16 +2914,44 @@ window.tTailUpdate = function () {
     return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
   }
 
-  function approxTwoTailT(df, c) {
-    var step = 0.002;
-    var area = 0;
+function approxTwoTailT(df, c) {
+  /*
+   * Transform x from [c, infinity) to u in [0, 1).
+   * This prevents the heavy t tails beyond x = 20
+   * from being omitted.
+   */
+  var intervals = 4000;
+  var upper = 1 - 1e-8;
+  var step = upper / intervals;
 
-    for (var x = c; x <= 20; x += step) {
-      area += tDensity(x, df) * step;
-    }
+  function transformedDensity(u) {
+    var remaining = 1 - u;
+    var x = c + u / remaining;
 
-    return 2 * area;
+    return (
+      tDensity(x, df) /
+      (remaining * remaining)
+    );
   }
+
+  /*
+   * Simpson's rule over the transformed interval.
+   * intervals must remain an even number.
+   */
+  var total =
+    transformedDensity(0) +
+    transformedDensity(upper);
+
+  for (var i = 1; i < intervals; i++) {
+    total +=
+      (i % 2 === 0 ? 2 : 4) *
+      transformedDensity(i * step);
+  }
+
+  var oneTail = total * step / 3;
+
+  return 2 * oneTail;
+}
 
   function erf(x) {
     var sign = x >= 0 ? 1 : -1;
@@ -4154,7 +4182,7 @@ subplot(
 
 ------------------------------------------------------------------------
 
-## 4.4 Convergence in Probability
+## 4.4.1 Convergence in Probability
 
 ::: {.defbox .fragment}
 **Convergence in Probability**

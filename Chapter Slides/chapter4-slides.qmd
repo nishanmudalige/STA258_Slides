@@ -22,8 +22,7 @@ revealjs-plugins:
   - quiz
 webr:
   packages:
-    - ggplot2
-    - dplyr
+    - plotly
 live:
   show-solutions: true
 editor: 
@@ -34,11 +33,8 @@ editor:
 ```{r setup}
 #| include: false
 
-library(ggplot2)
-library(dplyr)
 library(plotly)
 
-theme_set(theme_minimal(base_size = 13))
 set.seed(258)
 
 plot_cols <- list(

@@ -784,7 +784,7 @@ setTimeout(updateCiCalc, 500);
 When the population standard deviation $\sigma$ is known:
 
 $$
-\bar{x} \pm z_{\alpha/2}\frac{\sigma}{\sqrt n}
+\bar{x} \pm z_{1-\alpha/2}\frac{\sigma}{\sqrt n}
 $$
 
 Use this for a population mean $\mu$ with known $\sigma$.
@@ -886,7 +886,7 @@ A sample has $\bar{x}=42$, $n=36$, and known $\sigma=12$. For a 95% CI, what is 
 When $\sigma$ is unknown, estimate it with $s$ and use the Student $t$ distribution:
 
 $$
-\bar{x} \pm t_{n-1,\alpha/2}\frac{s}{\sqrt n}
+\bar{x} \pm t_{1-\alpha/2,\;n-1}\frac{s}{\sqrt n}
 $$
 :::
 
@@ -972,7 +972,7 @@ $\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately
 For a population proportion $p$, with $\hat p=x/n$:
 
 $$
-\hat p \pm z_{\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\hat p \pm z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
 $$
 :::
 
@@ -1010,7 +1010,7 @@ $$SE=\sqrt{\frac{0.6150(0.3850)}{1200}}=0.01405$$
 :::
 
 ::: {.col}
-$$\hat p \pm z_{\alpha/2}\,SE$$
+$$\hat p \pm z_{1-\alpha/2}\,SE$$
 
 $$=0.6150\pm1.96(0.01405)$$
 
@@ -1077,8 +1077,8 @@ For a normally distributed population, a confidence interval for $\sigma^2$ is:
 
 $$
 \left(
-\frac{(n-1)s^2}{\chi^2_{\alpha/2,n-1}},
-\frac{(n-1)s^2}{\chi^2_{1-\alpha/2,n-1}}
+\frac{(n-1)s^2}{\chi^2_{1-\alpha/2,\;n-1}},
+\frac{(n-1)s^2}{\chi^2_{\alpha/2,\;n-1}}
 \right)
 $$
 :::

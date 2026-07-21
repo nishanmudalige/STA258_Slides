@@ -2789,9 +2789,11 @@ users.
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A mobile app wants to compare two ways of encouraging users to open a new feature.
+A mobile app randomly selects 950 eligible users and randomly assigns
+them to one of two independent notification groups.
 
-One group receives a direct push notification about the feature. The other group only sees a generic homepage banner.
+One group receives a direct push notification about a new feature. The
+other group sees only a generic homepage banner.
 
 <br>
 
@@ -2836,13 +2838,22 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-Construct a 90% confidence interval for $p_1-p_2$.
+Construct a 90% confidence interval for $p_1-p_2$ among eligible app
+users.
 
-The order is **push notification minus homepage banner**, so positive values mean the push notification has the higher population proportion of users who open the feature.
+The order is **push notification minus homepage banner**, so positive
+values mean the push notification has the higher population
+click-through rate.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the push notification's population proportion is between **1.00 percentage point lower and 9.45 percentage points higher** than the homepage banner's population proportion.
+We are 90% confident that the push-notification click-through rate is
+between **1.00 percentage point lower and 9.45 percentage points higher**
+than the homepage-banner click-through rate.
+
+Because the interval contains **0**, the data do not show a clear
+difference between the two notification methods at the 90% confidence
+level.
 :::
 
 ::::

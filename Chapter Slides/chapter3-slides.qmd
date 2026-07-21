@@ -1374,7 +1374,7 @@ score_mean   <- mean(scores_q$score)
 score_median <- median(scores_q$score)
 
 scores_plot <- plot_ly(
-  height = 250
+  height = 220
 ) |>
   add_trace(
     data = regular_scores,
@@ -2374,7 +2374,7 @@ iqr_value <- data.frame(
 )
 
 iqr_plot <- plot_ly(
-  height = 215
+  height = 185
 ) |>
   add_trace(
     data = iqr_fences,

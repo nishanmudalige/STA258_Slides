@@ -1636,67 +1636,84 @@ among students is between approximately **0.2160 and
 /* ── Solution callouts ────────────────────────────────── */
 .callout { font-size: 0.75em; }
 
-/* ── Compact worked-example slides ────────────────────── */
+/* ── Balanced worked-example slides ───────────────────── */
 .reveal section:has(.example-grid) {
-  padding: 12px 28px !important;
+  padding: 11px 25px !important;
 }
 
 .reveal section:has(.example-grid) h2 {
-  font-size: 1.42em !important;
-  line-height: 1.05 !important;
-  margin-bottom: 9px !important;
-  padding-bottom: 4px !important;
+  font-size: 1.34em !important;
+  line-height: 1.03 !important;
+  margin-bottom: 8px !important;
+  padding-bottom: 3px !important;
 }
 
 .reveal .example-grid {
-  gap: 9px 16px !important;
+  gap: 8px 15px !important;
   align-items: stretch !important;
 }
 
-.reveal .example-grid .taskbox,
-.reveal .example-grid .notebox,
-.reveal .example-grid .examplebox {
-  font-size: 0.64em !important;
-  line-height: 1.15 !important;
+/* Question/context box */
+.reveal .example-grid .taskbox {
+  font-size: 0.60em !important;
+  line-height: 1.12 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
 }
 
-.reveal .example-grid .stat-card {
-  font-size: 0.72em !important;
+/* Target-parameter box */
+.reveal .example-grid .notebox {
+  font-size: 0.59em !important;
   line-height: 1.12 !important;
+  padding: 9px 13px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Interpretation/conclusion box */
+.reveal .example-grid .examplebox {
+  font-size: 0.60em !important;
+  line-height: 1.13 !important;
+  padding: 10px 13px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Calculation box */
+.reveal .example-grid .stat-card {
+  font-size: 0.71em !important;
+  line-height: 1.10 !important;
   padding: 11px 14px !important;
   margin-bottom: 0 !important;
 }
 
 .reveal .example-grid .label {
-  margin-bottom: 4px !important;
+  margin-bottom: 3px !important;
 }
 
 .reveal .example-grid p {
-  margin: 0.20em 0 !important;
+  margin: 0.15em 0 !important;
   font-size: 1em !important;
-  line-height: 1.15 !important;
+  line-height: 1.12 !important;
 }
 
 .reveal .example-grid mjx-container[display="true"] {
-  margin: 0.13em 0 !important;
+  margin: 0.10em 0 !important;
 }
 
+/* Keep calculations comfortably readable */
 .reveal .example-grid .stat-card mjx-container[display="true"] {
-  font-size: 0.90em !important;
+  font-size: 0.97em !important;
 }
 
 .reveal .example-grid .taskbox mjx-container[display="true"],
 .reveal .example-grid .notebox mjx-container[display="true"],
 .reveal .example-grid .examplebox mjx-container[display="true"] {
-  font-size: 0.92em !important;
+  font-size: 0.96em !important;
 }
 
 .reveal .example-grid br {
   display: block;
   content: "";
-  margin-top: 5px;
+  margin-top: 3px;
 }
 </style>
 ```
@@ -4242,10 +4259,13 @@ This is why an iterative approach is used:
 
 ## Example: Tutorial Video Rating Estimate
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
+:::::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 8px 15px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
-An online learning platform wants to estimate the mean rating students give to a new tutorial video.
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.taskbox style="margin-bottom: 0;"}
+An online learning platform wants to estimate the mean rating students
+give to a new tutorial video.
 
 Each student rates the video on a **0 to 100 scale**.
 
@@ -4262,9 +4282,23 @@ E=4
 $$
 
 Find the required sample size for **95% confidence**.
-:::
+::::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
+:::: {.notebox style="margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+We are planning a confidence interval for the population mean student
+rating.
+
+Because $\sigma$ is unknown, the pilot-study standard deviation
+$s=14.5$ is used as the preliminary estimate.
+::::
+
+:::::
+
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.stat-card style="margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -4303,23 +4337,19 @@ So the sample size stabilizes at:
 $$
 n=53
 $$
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
-<span class="label">Planning goal</span>
-
-We are planning a confidence interval for the population mean student rating.
-
-Because $\sigma$ is unknown, the pilot-study standard deviation $s=14.5$ is used as the preliminary estimate.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-The online learning platform should sample at least **53 students** to estimate the mean tutorial-video rating within **4 points** at 95% confidence.
-:::
-
 ::::
 
---------------
+:::: {.examplebox style="margin-bottom: 0;"}
+The online learning platform should sample at least **53 students** to
+estimate the mean tutorial-video rating within **4 points** at 95%
+confidence.
+::::
+
+:::::
+
+::::::
+
+------------------------------------------------------------------------
 
 ## Example: Grocery-Delivery Fee Estimate
 

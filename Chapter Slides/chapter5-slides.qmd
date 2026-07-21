@@ -742,30 +742,62 @@ qf(c(0.025, 0.975), df1 = 9, df2 = 11)
   <option value="z">Known sigma: z interval</option>
   <option value="t">Unknown sigma: t interval</option>
 </select>
+
 <label for="ci-xbar">Sample mean</label>
-<input id="ci-xbar" type="number" value="68.6" step="0.1" oninput="updateCiCalc()">
-<label for="ci-spread">Sigma or sample sd</label>
-<input id="ci-spread" type="number" value="15" step="0.1" oninput="updateCiCalc()">
+<input
+  id="ci-xbar"
+  type="number"
+  value="68.6"
+  step="0.1"
+  oninput="updateCiCalc()"
+>
+
+<label id="ci-spread-label" for="ci-spread">
+Population standard deviation
+</label>
+<input
+  id="ci-spread"
+  type="number"
+  value="15"
+  step="0.1"
+  min="0.1"
+  oninput="updateCiCalc()"
+>
+
 <label for="ci-n">Sample size</label>
-<input id="ci-n" type="number" value="15" step="1" min="2" oninput="updateCiCalc()">
+<input
+  id="ci-n"
+  type="number"
+  value="15"
+  step="1"
+  min="2"
+  oninput="updateCiCalc()"
+>
+
 <label for="ci-conf">Confidence level</label>
 <select id="ci-conf" onchange="updateCiCalc()">
   <option value="0.90">90%</option>
   <option value="0.95" selected>95%</option>
   <option value="0.99">99%</option>
 </select>
+
 <div id="ci-output" class="ci-result"></div>
 :::
 :::
 
 ::: {.col}
 ::: {.thinkbox}
-Try changing the confidence level. The estimate stays fixed, but the critical value and margin of error change.
+Try changing the confidence level. The estimate stays fixed, but the
+critical value and margin of error change.
 :::
 
 ::: {.notebox}
 <span class="label">Calculator note</span>
-The $t$ option uses a small built-in table for common confidence levels and degrees of freedom. Use R for exact values.
+
+For a $t$ interval, the calculator uses exact tabulated critical values
+when $df\leq30$ and a large-$df$ approximation when $df>30$.
+
+Use `qt()` in R when an exact critical value is required.
 :::
 :::
 ::::
@@ -773,32 +805,158 @@ The $t$ option uses a small built-in table for common confidence levels and degr
 <script>
 function ciZ(conf) {
   if (conf === 0.90) return 1.645;
-  if (conf === 0.95) return 1.96;
+  if (conf === 0.95) return 1.960;
   return 2.576;
 }
+
 function ciT(conf, df) {
   var table = {
-    "0.90":[6.314,2.920,2.353,2.132,2.015,1.943,1.895,1.860,1.833,1.812,1.796,1.782,1.771,1.761,1.753,1.746,1.740,1.734,1.729,1.725,1.721,1.717,1.714,1.711,1.708,1.706,1.703,1.701,1.699,1.697],
-    "0.95":[12.706,4.303,3.182,2.776,2.571,2.447,2.365,2.306,2.262,2.228,2.201,2.179,2.160,2.145,2.131,2.120,2.110,2.101,2.093,2.086,2.080,2.074,2.069,2.064,2.060,2.056,2.052,2.048,2.045,2.042],
-    "0.99":[63.657,9.925,5.841,4.604,4.032,3.707,3.499,3.355,3.250,3.169,3.106,3.055,3.012,2.977,2.947,2.921,2.898,2.878,2.861,2.845,2.831,2.819,2.807,2.797,2.787,2.779,2.771,2.763,2.756,2.750]
+    "0.90": [
+      6.314, 2.920, 2.353, 2.132, 2.015,
+      1.943, 1.895, 1.860, 1.833, 1.812,
+      1.796, 1.782, 1.771, 1.761, 1.753,
+      1.746, 1.740, 1.734, 1.729, 1.725,
+      1.721, 1.717, 1.714, 1.711, 1.708,
+      1.706, 1.703, 1.701, 1.699, 1.697
+    ],
+    "0.95": [
+      12.706, 4.303, 3.182, 2.776, 2.571,
+      2.447, 2.365, 2.306, 2.262, 2.228,
+      2.201, 2.179, 2.160, 2.145, 2.131,
+      2.120, 2.110, 2.101, 2.093, 2.086,
+      2.080, 2.074, 2.069, 2.064, 2.060,
+      2.056, 2.052, 2.048, 2.045, 2.042
+    ],
+    "0.99": [
+      63.657, 9.925, 5.841, 4.604, 4.032,
+      3.707, 3.499, 3.355, 3.250, 3.169,
+      3.106, 3.055, 3.012, 2.977, 2.947,
+      2.921, 2.898, 2.878, 2.861, 2.845,
+      2.831, 2.819, 2.807, 2.797, 2.787,
+      2.779, 2.771, 2.763, 2.756, 2.750
+    ]
   };
-  if (df <= 30) return table[conf.toFixed(2)][df - 1];
-  return ciZ(conf);
+
+  if (df <= 30) {
+    return {
+      value: table[conf.toFixed(2)][df - 1],
+      approximate: false
+    };
+  }
+
+  /*
+   * Large-df approximation based on the corresponding
+   * standard-normal critical value.
+   */
+  var z = ciZ(conf);
+  var z3 = Math.pow(z, 3);
+  var z5 = Math.pow(z, 5);
+  var z7 = Math.pow(z, 7);
+
+  var critical =
+    z +
+    (z3 + z) / (4 * df) +
+    (5 * z5 + 16 * z3 + 3 * z) /
+      (96 * Math.pow(df, 2)) +
+    (3 * z7 + 19 * z5 + 17 * z3 - 15 * z) /
+      (384 * Math.pow(df, 3));
+
+  return {
+    value: critical,
+    approximate: true
+  };
 }
+
 window.updateCiCalc = function () {
   var mode = document.getElementById("ci-mode").value;
-  var xbar = Number(document.getElementById("ci-xbar").value);
-  var spread = Number(document.getElementById("ci-spread").value);
-  var n = Number(document.getElementById("ci-n").value);
-  var conf = Number(document.getElementById("ci-conf").value);
-  var critical = mode === "z" ? ciZ(conf) : ciT(conf, Math.max(1, Math.round(n - 1)));
+  var xbar = Number(
+    document.getElementById("ci-xbar").value
+  );
+  var spread = Number(
+    document.getElementById("ci-spread").value
+  );
+  var n = Number(
+    document.getElementById("ci-n").value
+  );
+  var conf = Number(
+    document.getElementById("ci-conf").value
+  );
+
+  var output =
+    document.getElementById("ci-output");
+
+  var spreadLabel =
+    document.getElementById("ci-spread-label");
+
+  spreadLabel.textContent =
+    mode === "z"
+      ? "Population standard deviation"
+      : "Sample standard deviation";
+
+  if (
+    !Number.isFinite(xbar) ||
+    !Number.isFinite(spread) ||
+    !Number.isFinite(n)
+  ) {
+    output.innerHTML =
+      "Enter a valid number in every field.";
+    return;
+  }
+
+  if (spread <= 0) {
+    output.innerHTML =
+      "The standard deviation must be greater than 0.";
+    return;
+  }
+
+  if (!Number.isInteger(n) || n < 2) {
+    output.innerHTML =
+      "The sample size must be a whole number of at least 2.";
+    return;
+  }
+
+  var df = n - 1;
+  var critical;
+  var criticalLabel;
+
+  if (mode === "z") {
+    critical = ciZ(conf);
+    criticalLabel = "z*";
+  } else {
+    var tResult = ciT(conf, df);
+    critical = tResult.value;
+
+    criticalLabel = tResult.approximate
+      ? "t* (approx.)"
+      : "t*";
+  }
+
   var se = spread / Math.sqrt(n);
   var moe = critical * se;
-  document.getElementById("ci-output").innerHTML =
-    "Critical value: " + critical.toFixed(3) + "<br>" +
-    "SE: " + se.toFixed(4) + "<br>" +
-    "CI: (" + (xbar - moe).toFixed(4) + ", " + (xbar + moe).toFixed(4) + ")";
+  var lower = xbar - moe;
+  var upper = xbar + moe;
+
+  var dfLine =
+    mode === "t"
+      ? "<br>Degrees of freedom: " + df
+      : "";
+
+  output.innerHTML =
+    criticalLabel +
+    ": " +
+    critical.toFixed(3) +
+    dfLine +
+    "<br>SE: " +
+    se.toFixed(4) +
+    "<br>Margin of error: " +
+    moe.toFixed(4) +
+    "<br>CI: (" +
+    lower.toFixed(4) +
+    ", " +
+    upper.toFixed(4) +
+    ")";
 };
+
 setTimeout(updateCiCalc, 500);
 </script>
 

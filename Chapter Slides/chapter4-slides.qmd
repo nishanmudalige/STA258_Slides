@@ -615,8 +615,14 @@ plotly_slide_layout <- function(
 <script>
 function resizeChapter4Plotly() {
   if (!window.Plotly) return;
-  document.querySelectorAll(".plotly.html-widget, .js-plotly-plot").forEach(function(el) {
-    var plot = el.classList.contains("js-plotly-plot") ? el : el.querySelector(".js-plotly-plot");
+
+  document.querySelectorAll(
+    ".plotly.html-widget, .js-plotly-plot"
+  ).forEach(function (el) {
+    var plot = el.classList.contains("js-plotly-plot")
+      ? el
+      : el.querySelector(".js-plotly-plot");
+
     if (plot) {
       window.Plotly.Plots.resize(plot);
     }
@@ -624,19 +630,135 @@ function resizeChapter4Plotly() {
 }
 
 function scheduleChapter4PlotlyResize() {
-  [0, 80, 250, 600].forEach(function(delay) {
-    window.setTimeout(resizeChapter4Plotly, delay);
+  [0, 80, 250, 600].forEach(function (delay) {
+    window.setTimeout(
+      resizeChapter4Plotly,
+      delay
+    );
   });
 }
 
-window.addEventListener("load", scheduleChapter4PlotlyResize);
-window.addEventListener("resize", scheduleChapter4PlotlyResize);
+window.addEventListener(
+  "load",
+  scheduleChapter4PlotlyResize
+);
+
+window.addEventListener(
+  "resize",
+  scheduleChapter4PlotlyResize
+);
 
 if (window.Reveal) {
-  Reveal.on("ready", scheduleChapter4PlotlyResize);
-  Reveal.on("slidechanged", scheduleChapter4PlotlyResize);
-  Reveal.on("fragmentshown", scheduleChapter4PlotlyResize);
+  Reveal.on(
+    "ready",
+    scheduleChapter4PlotlyResize
+  );
+
+  Reveal.on(
+    "slidechanged",
+    scheduleChapter4PlotlyResize
+  );
+
+  Reveal.on(
+    "fragmentshown",
+    scheduleChapter4PlotlyResize
+  );
 }
+
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide =
+      startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(
+          ".btn-exercise-solution"
+        ) ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder =
+        document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton =
+        holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
 </script>
 ```
 
@@ -653,19 +775,21 @@ Mississauga
 
 :::::: three-col
 ::: {.card .fragment}
-[1 - Key Distributions]{.label} Normal, Chi-square, Student's $t$, and
-$F$. Shape, parameters, and when each appears.
+<span class="label">4.1 - Key Distributions</span>
+Normal, chi-square, Student's $t$, and $F$ distributions: their shapes,
+parameters, and when each one appears.
 :::
 
 ::: {.card .fragment}
-[2 - Sampling Distributions]{.label} Statistics have distributions too.
-The CLT explains why the sample mean is (approximately) normal for large
-$n$.
+<span class="label">4.2–4.3 - Sampling Distributions and the CLT</span>
+Statistics have distributions too. The CLT explains why the sample mean
+is approximately normal for sufficiently large $n$.
 :::
 
 ::: {.card .fragment}
-[3 - Law of Large Numbers]{.label} Sample averages converge to the true
-mean. The mathematical bridge from data to probability.
+<span class="label">4.4 - Convergence and the LLN</span>
+Convergence in probability, Chebyshev's inequality, and why sample
+averages settle near the true population mean.
 :::
 ::::::
 
@@ -879,9 +1003,10 @@ plotly_slide_layout(
 ```
 :::
 ::::::
+
 ------------------------------------------------------------------------
 
-## Sampling Variability - Check in R
+## Check in R: Sampling Variability
 
 ```{webr}
 #| autorun: false
@@ -1485,9 +1610,10 @@ plotly_slide_layout(
 ```
 :::
 ::::::
+
 ------------------------------------------------------------------------
 
-## Normal Probability - Check in R
+## Check in R: Normal Probabilities
 
 ```{webr}
 #| autorun: false
@@ -1508,7 +1634,7 @@ pnorm(z)                              # same as P(X <= 84)
 
 ------------------------------------------------------------------------
 
-## Example: Heights with Probability Plot {.scrollable}
+## Example: Heights with a Probability Plot {.scrollable}
 
 :::::: two-col-wide
 :::: col
@@ -1972,7 +2098,7 @@ plotly_slide_layout(
 
 ------------------------------------------------------------------------
 
-## Heights — Check in R with Plot
+## Check in R: Heights with a Probability Plot
 
 ```{webr}
 #| autorun: false
@@ -2486,8 +2612,15 @@ For $X \sim \chi^2_k$:
 
 $$E[X] = k, \qquad \text{Var}(X) = 2k$$
 
-As $k \to \infty$, the chi-square distribution approaches a normal
-distribution (by the CLT).
+For large $k$, the chi-square distribution is approximately
+
+$$X \;\dot{\sim}\; N(k, 2k).$$
+
+Equivalently,
+
+$$\frac{X-k}{\sqrt{2k}}
+\;\overset{d}{\longrightarrow}\;
+N(0,1).$$
 :::
 ::::
 ::::::
@@ -2511,7 +2644,7 @@ the distribution of $Z_1^2 + Z_2^2 + Z_3^2$?
 
 ------------------------------------------------------------------------
 
-## Chi-Square Example — Check in R with Plot
+## Check in R: Chi-Square Probability
 
 ```{webr}
 #| autorun: false
@@ -2783,16 +2916,44 @@ window.tTailUpdate = function () {
     return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
   }
 
-  function approxTwoTailT(df, c) {
-    var step = 0.002;
-    var area = 0;
+function approxTwoTailT(df, c) {
+  /*
+   * Transform x from [c, infinity) to u in [0, 1).
+   * This prevents the heavy t tails beyond x = 20
+   * from being omitted.
+   */
+  var intervals = 4000;
+  var upper = 1 - 1e-8;
+  var step = upper / intervals;
 
-    for (var x = c; x <= 20; x += step) {
-      area += tDensity(x, df) * step;
-    }
+  function transformedDensity(u) {
+    var remaining = 1 - u;
+    var x = c + u / remaining;
 
-    return 2 * area;
+    return (
+      tDensity(x, df) /
+      (remaining * remaining)
+    );
   }
+
+  /*
+   * Simpson's rule over the transformed interval.
+   * intervals must remain an even number.
+   */
+  var total =
+    transformedDensity(0) +
+    transformedDensity(upper);
+
+  for (var i = 1; i < intervals; i++) {
+    total +=
+      (i % 2 === 0 ? 2 : 4) *
+      transformedDensity(i * step);
+  }
+
+  var oneTail = total * step / 3;
+
+  return 2 * oneTail;
+}
 
   function erf(x) {
     var sign = x >= 0 ? 1 : -1;
@@ -3021,7 +3182,7 @@ $N(0,1)$. What do you notice?
 
 ------------------------------------------------------------------------
 
-## $t$ Example — Check in R with Plot
+## Check in R: $t$ Critical Values
 
 ```{webr}
 #| autorun: false
@@ -3339,8 +3500,8 @@ $\chi^2$ and $F$ distributions?
 |---------------|---------------|---------------|---------------|---------------|
 | $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | General continuous |
 | $\chi^2_k$ | $k$ (df) | $(0,\infty)$ | $k$ | Variance tests |
-| $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ | Small-sample mean |
-| $F_{\nu_1,\nu_2}$ | $\nu_1, \nu_2$ | $(0,\infty)$ | $\dfrac{\nu_2}{\nu_2-2}$ | Variance ratios |
+| $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ if $\nu>1$;<br>undefined if $\nu\leq1$ | Small-sample mean |
+| $F_{\nu_1,\nu_2}$ | $\nu_1, \nu_2$ | $(0,\infty)$ | $\dfrac{\nu_2}{\nu_2-2}$ if $\nu_2>2$;<br>undefined if $\nu_2\leq2$ | Variance ratios |
 
 ::: {.thinkbox .fragment}
 **Connections.** $Z^2 \sim \chi^2_1$; $\;$ $t_\nu^2 \sim F_{1,\nu}$;
@@ -3804,7 +3965,7 @@ lines(x_curve, y_curve, lwd = 2)
 
 ------------------------------------------------------------------------
 
-## CLT Example: Poisson Sums {.scrollable}
+## Example: Poisson CLT {.scrollable}
 
 ::: taskbox
 [Example]{.label} Customers arrive at a bank at rate $\lambda = 4$ per
@@ -4023,7 +4184,7 @@ subplot(
 
 ------------------------------------------------------------------------
 
-## 4.4 Convergence in Probability
+## 4.4.1 Convergence in Probability
 
 ::: {.defbox .fragment}
 **Convergence in Probability**
@@ -4064,7 +4225,7 @@ the WLLN.
 
 ------------------------------------------------------------------------
 
-## Chebyshev Example {.scrollable}
+## Example: Chebyshev's Inequality {.scrollable}
 
 ::: taskbox
 [Example]{.label} $X$ has mean $\mu = 10$ and standard deviation
@@ -4080,7 +4241,7 @@ probability $P(1 < X < 19)$ and compare with the Chebyshev bound.
 
 ------------------------------------------------------------------------
 
-## Chebyshev — Check in R
+## Check in R: Chebyshev's Inequality
 
 ```{webr}
 #| autorun: false
@@ -4225,7 +4386,7 @@ $P(|\bar{X}_n - 3| \geq \varepsilon)$.
 
 ------------------------------------------------------------------------
 
-## Poisson WLLN — Check in R
+## Check in R: Poisson WLLN
 
 ```{webr}
 #| autorun: false
@@ -4459,9 +4620,10 @@ plotly_slide_layout(
 ```
 :::
 ::::::
+
 ------------------------------------------------------------------------
 
-## Law of Large Numbers - Check in R
+## Check in R: Law of Large Numbers
 
 ```{webr}
 #| autorun: false
@@ -4507,38 +4669,6 @@ WLLN at work.
 
 ------------------------------------------------------------------------
 
-## Chapter Summary {.compact}
-
-:::::: three-col
-::: {.card .fragment}
-[Key Distributions]{.label} $N(\mu,\sigma^2)$ for continuous data;
-$\chi^2_k$ for variance; $t_\nu$ for small-sample means;
-$F_{\nu_1,\nu_2}$ for variance ratios.
-:::
-
-::: {.card .fragment}
-[CLT]{.label} For i.i.d. data with finite variance, $\bar{X}_n$ is
-approximately $N(\mu, \sigma^2/n)$ for large $n$, regardless of the
-parent distribution.
-:::
-
-::: {.card .fragment}
-[LLN]{.label} $\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle
-near the population mean. Proof uses Chebyshev's inequality.
-:::
-::::::
-
-<br>
-
-::: {.thinkbox .fragment}
-**One slide takeaway.** The CLT and LLN together justify why
-normal-based inference (confidence intervals, $t$-tests) works in
-practice. Learn the distributions now — everything in Chapters 5+ builds
-on them.
-:::
-
-------------------------------------------------------------------------
-
 ## Bonus Example: Applying the CLT {.scrollable}
 
 ::: taskbox
@@ -4556,7 +4686,7 @@ approximation. Do they agree?
 
 ------------------------------------------------------------------------
 
-## Bonus Example — Check in R
+## Check in R: Applying the CLT
 
 ```{webr}
 #| autorun: false
@@ -4585,16 +4715,52 @@ lines(x_curve, y_curve, col="#F8766D", lwd=2)
 
 ------------------------------------------------------------------------
 
+## Chapter Summary {.compact}
+
+:::::: three-col
+::: {.card .fragment}
+[Key Distributions]{.label} $N(\mu,\sigma^2)$ for continuous data;
+$\chi^2_k$ for variance; $t_\nu$ for small-sample means;
+$F_{\nu_1,\nu_2}$ for variance ratios.
+:::
+
+::: {.card .fragment}
+[CLT]{.label} For i.i.d. data with finite variance, $\bar{X}_n$ is
+approximately $N(\mu, \sigma^2/n)$ for large $n$, regardless of the
+parent distribution.
+:::
+
+::: {.card .fragment}
+[LLN]{.label} $\bar{X}_n \overset{p}{\to} \mu$. Sample averages settle
+near the population mean. Proof uses Chebyshev's inequality.
+:::
+::::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** The CLT and LLN together justify why
+normal-based inference works in practice. Learn the distributions now —
+everything in Chapters 5+ builds on them.
+:::
+
+
+------------------------------------------------------------------------
+
 ## Up Next
 
-::: examplebox
-**Chapter 5 — Confidence Intervals**
+<div class="thinkbox">
+<strong>Chapter 5 — Confidence Intervals:</strong> We use the CLT and the
+$t$-distribution to build <strong>confidence intervals</strong> for
+unknown population means and proportions. You will finally answer:
+<em>"How sure are we that</em> $\bar{x}$ <em>is close to</em> $\mu$?"
+</div>
 
-We use the CLT and the $t$-distribution to build **confidence
-intervals** for unknown population means and proportions. You will
-finally answer: *"How sure are we that* $\bar{x}$ is close to $\mu$?"
-:::
+<br>
 
-::: home-button-row
+<div class="center">
+<span class="big">End of Chapter 4</span><br><br>
+<div class="home-button-row">
 <a href="../index.html" class="home-button">Back to Homepage</a>
-:::
+</div>
+</div>

@@ -1301,31 +1301,61 @@ This interval is asymmetric. Normality matters here much more than it does for l
 ## Example: Gym Hours {.scrollable}
 
 ::: {.taskbox}
-Exercise is proven to improve focus. The UTM gym logs the **weekly workout hours** of 25 students, with sample variance $s^2=12.5$ (hours$^2$). Assume weekly hours are normally distributed.
+A random sample of 25 UTM gym users reports their **weekly workout
+hours**. The sample variance is:
 
-Construct a 95% CI for $\sigma^2$.
+$$
+s^2=12.5\text{ hours}^2
+$$
+
+Assume weekly workout hours among UTM gym users are normally distributed.
+
+Construct a 95% confidence interval for the population variance
+$\sigma^2$.
 :::
 
 :::: {.two-col}
 ::: {.col}
-$$df=n-1=24$$
+$$
+df=n-1=24
+$$
 
-$$\chi^2_{0.975,24}=39.364$$
+$$
+\chi^2_{0.975,24}=39.364
+$$
 
-$$\chi^2_{0.025,24}=12.401$$
+$$
+\chi^2_{0.025,24}=12.401
+$$
 :::
 
 ::: {.col}
-$$\left(\frac{(n-1)s^2}{\chi^2_{0.975,24}},\ \frac{(n-1)s^2}{\chi^2_{0.025,24}}\right)$$
+$$
+\left(
+\frac{(n-1)s^2}{\chi^2_{0.975,24}},
+\frac{(n-1)s^2}{\chi^2_{0.025,24}}
+\right)
+$$
 
-$$=\left(\frac{24(12.5)}{39.364},\ \frac{24(12.5)}{12.401}\right)$$
+$$
+=
+\left(
+\frac{24(12.5)}{39.364},
+\frac{24(12.5)}{12.401}
+\right)
+$$
 
-$$=(7.62,\,24.19)$$
+$$
+=
+(7.62,\;24.19)
+$$
 :::
 ::::
 
 ::: {.examplebox}
-The 95% CI for the population variance is approximately $(7.62,24.19)$.
+We are 95% confident that the population variance of weekly workout
+hours among UTM gym users is between approximately **7.62 and
+24.19 hours$^2$**.
 :::
 
 ---

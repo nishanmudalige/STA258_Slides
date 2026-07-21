@@ -3366,29 +3366,37 @@ What does that mean?
 ::: defbox
 Paired data occur when observations are naturally matched.
 
-Instead of comparing two independent sample means, we compute differences:
+Instead of comparing two independent sample means, we compute one
+difference for each pair:
 
 $$
-d_i = x_{2i} - x_{1i}
+d_i=\text{first measurement}-\text{second measurement}
 $$
 
-Then we build a one-sample $t$ interval for the population mean
+or equivalently in the opposite order, as long as the order is clearly
+defined and used consistently.
+
+We then build a one-sample $t$ interval for the population mean
 difference $\mu_d$.
 :::
 
 ::::: two-col
 ::: {.examplebox .fragment}
-**Few Examples**
+**Examples**
 
 - Before and after measurements on the same person
 - Matched twins
-- Same student under two testing conditions
-- Same object measured by two devices
+- The same student under two testing conditions
+- The same object measured by two devices
 :::
 
 ::: {.warnbox .fragment}
 Do not treat paired data as two independent samples. The pairing is the
 main information.
+
+Reversing the order of subtraction reverses the signs of the differences
+and the confidence-interval endpoints, so always interpret the interval
+using the stated order.
 :::
 :::::
 

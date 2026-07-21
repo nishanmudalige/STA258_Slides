@@ -3644,10 +3644,11 @@ The team should sample at least **89 users** to estimate the mean entry-form com
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A ride-share app wants to estimate its average pickup-time prediction error.
+A ride-share app wants to estimate its average pickup-time prediction
+error.
 
-From past trip data, the population standard deviation of prediction error
-is treated as known:
+From past trip data, the population standard deviation of prediction
+error is treated as known:
 
 $$
 \sigma = 22.5 \text{ seconds}
@@ -3688,7 +3689,7 @@ n=
 $$
 
 $$
-n=839.45
+n=839.8404
 $$
 
 $$
@@ -3699,13 +3700,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Choose \(n\) so the confidence interval for the population mean prediction
+Choose $n$ so the confidence interval for the population mean prediction
 error has margin of error no more than **2 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The app should sample at least **840 trips** to estimate the mean pickup-time
-prediction error within **2 seconds** at 99% confidence.
+The app should sample at least **840 trips** to estimate the mean
+pickup-time prediction error within **2 seconds** at 99% confidence.
 :::
 
 ::::

@@ -440,6 +440,40 @@ document.addEventListener(
 );
 </script>
 
+<script>
+/*
+ * Plotly plots inside reveal.js can render at the wrong size (off-centre,
+ * too tall) until a resize event fires - which is why they only look right
+ * after a manual reload. Force a resize whenever a slide becomes active.
+ */
+(function () {
+  function resizePlots() {
+    if (window.Plotly && window.Plotly.Plots) {
+      document.querySelectorAll(".js-plotly-plot").forEach(function (gd) {
+        try {
+          window.Plotly.Plots.resize(gd);
+        } catch (e) {}
+      });
+    } else {
+      window.dispatchEvent(new Event("resize"));
+    }
+  }
+
+  function bind() {
+    if (window.Reveal && typeof window.Reveal.on === "function") {
+      window.Reveal.on("ready", resizePlots);
+      window.Reveal.on("slidechanged", resizePlots);
+      window.Reveal.on("slidetransitionend", resizePlots);
+    } else {
+      window.setTimeout(bind, 200);
+    }
+  }
+
+  bind();
+  window.addEventListener("load", resizePlots);
+})();
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability

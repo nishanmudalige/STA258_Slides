@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+  <meta name="generator" content="quarto-1.9.37">
 
   <title>STA258 – Chapter 2: An Introduction to R - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -96,12 +99,13 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-quiz/quiz.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -260,7 +264,7 @@
 .one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
 .web-grid      { grid-template-columns: 270px 1fr; }
-.exercise-grid { grid-template-columns: 340px 1fr; gap: 36px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col           {
   min-width: 0;
   display: flex;
@@ -1304,6 +1308,25 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiaW5kZXhpbmctcHJhY3Rp
 </div>
 </div>
 </section>
+<section id="section" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>Given <code>marks &lt;- c(80, 75, 90, 88, 92)</code>, what does <code>marks[c(2, 4)]</code> return?</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="correct" data-explanation="R indexes from 1, so position 2 is 75 and position 4 is 88. c(2, 4) selects both of those positions.">The 2nd and 4th elements: 75 and 88</span></li>
+<li>The 2nd through 4th elements: 75, 90, 88</li>
+<li>The values 2 and 4</li>
+<li>Elements 3 and 5: 90 and 92, because R counts from 0</li>
+</ul>
+</section>
 <section id="lists" class="slide level2">
 <h2>Lists</h2>
 <div class="two-col-lean">
@@ -1609,6 +1632,25 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoicm93LWNvbHVtbi1wcmFj
 </div>
 </div>
 </section>
+<section id="section-1" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>Which R data structure best holds a dataset where each column stores a different type - for example, student name (text), mark (number), and passed (TRUE/FALSE)?</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="correct" data-explanation="A data frame is a table where each row is one observation and each column is one variable, and columns may hold different types - the standard structure for applied statistics.">Data frame</span></li>
+<li>Numeric vector</li>
+<li>Matrix</li>
+<li>Factor</li>
+</ul>
+</section>
 <section id="using-basic-functions-in-r" class="slide level2 compact">
 <h2>2.3.3 Using Basic Functions in R</h2>
 <div class="two-col-lean">
@@ -1891,47 +1933,51 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZ2dwbG90LXByYWN0aWNl
 </div>
 </div>
 </section>
-<section id="chapter-summary" class="slide level2 scrollable">
-<h2>Chapter Summary</h2>
-<div class="examplebox">
+<section id="section-2" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>You ran <code>install.packages("ggplot2")</code> last week. What do you need to do to use <code>ggplot2</code> in a new R session today?</p>
+</div>
+</div>
+</div>
 <ul>
-<li>
-<strong>R</strong> is an open-source language used for statistical computing, data analysis, and graphics.
-</li>
-<li>
-<strong>RStudio</strong> provides an interface for writing scripts, running commands, viewing plots, and managing files.
-</li>
-<li>
-Scripts make analyses easier to save, reproduce, review, and rerun.
-</li>
-<li>
-Variables store values, while vectors store multiple values of the same type.
-</li>
-<li>
-Lists, matrices, arrays, factors, and data frames organize different forms of data.
-</li>
-<li>
-Indexing selects vector elements, data-frame rows, and data-frame columns.
-</li>
-<li>
-Functions such as <code>mean()</code>, <code>sort()</code>, <code>hist()</code>, and <code>summary()</code> perform reusable operations.
-</li>
-<li>
-Packages extend R with additional tools; install them once with <code>install.packages()</code> and load them each session with <code>library()</code>.
-</li>
-<li>
-Base R graphics and <code>ggplot2</code> can both be used to create statistical visualizations.
-</li>
+<li><span class="correct" data-explanation="install.packages() downloads a package once. library() loads it into each new session, and must be run before the package's functions are available.">Call <code>library(ggplot2)</code> - packages must be loaded each session</span></li>
+<li>Run <code>install.packages("ggplot2")</code> again</li>
+<li>Nothing - installed packages load automatically every session</li>
+<li>Reinstall R</li>
 </ul>
+</section>
+<section id="chapter-summary" class="slide level2 compact">
+<h2>Chapter Summary</h2>
+<div class="three-col">
+<div class="card fragment">
+<p><span class="label">R &amp; RStudio</span> <strong>R</strong> is an open-source language for statistics, data analysis, and graphics.<br><strong>RStudio</strong> is the interface for writing scripts, running code, and viewing plots.<br><strong>Scripts</strong> make analyses easy to save, reproduce, and rerun.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">Data Structures</span> <strong>Variables</strong> store one value; <strong>vectors</strong> store many of one type.<br><strong>Lists</strong>, <strong>matrices</strong>, <strong>arrays</strong>, <strong>factors</strong>, and <strong>data frames</strong> organize richer data.<br><strong>Indexing</strong> with <code>[ ]</code> selects elements, rows, and columns.</p>
+</div>
+<div class="card fragment">
+<p><span class="label">Functions &amp; Packages</span> <strong>Functions</strong> like <code>mean()</code>, <code>sort()</code>, and <code>summary()</code> reuse common operations.<br><strong>Packages</strong> extend R: <code>install.packages()</code> once, <code>library()</code> each session.<br><strong>Base graphics</strong> and <strong><code>ggplot2</code></strong> both create statistical plots.</p>
+</div>
+</div>
+<p><br></p>
+<div class="thinkbox fragment">
+<p><strong>One slide takeaway.</strong> R turns statistical work into reusable, shareable scripts - write the code once, then rerun, tweak, and visualize it on any dataset.</p>
 </div>
 </section>
-<section id="end-of-chapter-2" class="slide level2">
-<h2>End of Chapter 2</h2>
-<div class="center">
-<p><span class="big">End of Chapter 2</span><br><br></p>
+<section id="up-next" class="slide level2">
+<h2>Up Next</h2>
+<div class="examplebox">
+<p><strong>Chapter 3 - Descriptive Statistics</strong></p>
+<p>Now that you can run R, we use it to <strong>summarize data</strong> - measures of center and spread, and the plots that reveal the shape of a distribution.</p>
+</div>
 <div class="home-button-row">
 <p><a href="../index.html" class="home-button">Back to Homepage</a></p>
-</div>
 </div>
 
 
@@ -1968,6 +2014,7 @@ W10=
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-quiz/quiz.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -1991,6 +2038,7 @@ W10=
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
+'quiz': {"checkKey":"c","resetKey":"q","shuffleKey":"t","allowNumberKeys":true,"disableOnCheck":false,"shuffleOptions":true,"defaultCorrect":"","defaultIncorrect":"","includeScore":false,"disableReset":false},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -2161,7 +2209,7 @@ W10=
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, RevealQuiz, QuartoSupport,
 
           RevealMath,
           RevealNotes,

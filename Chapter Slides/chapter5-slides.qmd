@@ -2654,11 +2654,65 @@ proportions, not the difference between two sample counts.
 
 ------------------------
 
-## Example: Free-Trial Reminder Comparison
+## Example: Free-Trial Reminder Comparison {.free-trial-compact}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+<style>
+.reveal section.free-trial-compact {
+  padding: 10px 28px !important;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+.reveal section.free-trial-compact h2 {
+  font-size: 1.24em !important;
+  line-height: 1.03 !important;
+  margin-bottom: 8px !important;
+  padding-bottom: 3px !important;
+}
+
+.reveal section.free-trial-compact .free-trial-grid {
+  gap: 7px 16px !important;
+  align-items: stretch !important;
+}
+
+.reveal section.free-trial-compact .taskbox {
+  font-size: 0.55em !important;
+  line-height: 1.10 !important;
+  padding: 9px 12px !important;
+}
+
+.reveal section.free-trial-compact .stat-card {
+  font-size: 0.68em !important;
+  line-height: 1.08 !important;
+  padding: 10px 14px !important;
+}
+
+.reveal section.free-trial-compact .notebox {
+  font-size: 0.55em !important;
+  line-height: 1.10 !important;
+  padding: 8px 12px !important;
+}
+
+.reveal section.free-trial-compact .examplebox {
+  font-size: 0.58em !important;
+  line-height: 1.12 !important;
+  padding: 9px 13px !important;
+}
+
+.reveal section.free-trial-compact p {
+  margin: 0.16em 0 !important;
+}
+
+.reveal section.free-trial-compact mjx-container[display="true"] {
+  margin: 0.10em 0 !important;
+}
+
+.reveal section.free-trial-compact .label {
+  margin-bottom: 3px !important;
+}
+</style>
+
+:::: {.free-trial-grid style="display: grid; grid-template-columns: 0.82fr 1.18fr; grid-template-rows: auto auto; gap: 7px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
 A streaming app randomly assigns eligible free-trial users to one of two
 independent reminder groups before their trials end.
 
@@ -2674,7 +2728,7 @@ $x_1=78$ of $n_1=300$ continued the subscription
 $x_2=52$ of $n_2=280$ continued the subscription
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -2709,7 +2763,7 @@ $$
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
 Construct a 95% confidence interval for $p_1-p_2$ among eligible
@@ -2719,7 +2773,7 @@ The order is **direct reminder minus general notification**, so positive
 values mean the continuation rate is higher under the direct reminder.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0; display: flex; align-items: center;"}
 We are 95% confident that the continuation rate under the direct reminder
 is between **0.69 and 14.17 percentage points higher** than the
 continuation rate under the general notification for eligible free-trial

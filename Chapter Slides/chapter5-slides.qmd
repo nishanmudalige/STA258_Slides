@@ -1365,9 +1365,18 @@ hours among UTM gym users is between approximately **7.62 and
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-Staying hydrated is linked to sharper concentration. A study records the **daily water intake** of 16 students, with sample variance $s^2=0.36$ (litres$^2$). Assume daily intake is normally distributed.
+A random sample of 16 students reports their **daily water intake**. The
+sample variance is:
 
-Construct a 90% CI for $\sigma^2$.
+$$
+s^2=0.36\text{ litres}^2
+$$
+
+Assume daily water intake in the student population is normally
+distributed.
+
+Construct a 90% confidence interval for the population variance
+$\sigma^2$.
 :::
 :::
 
@@ -1387,7 +1396,9 @@ c(lower, upper)
 ::::
 
 ::: {.examplebox}
-The 90% CI is approximately $(0.2160,0.7437)$.
+We are 90% confident that the population variance of daily water intake
+among students is between approximately **0.2160 and
+0.7437 litres$^2$**.
 :::
 
 ---

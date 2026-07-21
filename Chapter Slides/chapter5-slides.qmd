@@ -3030,7 +3030,11 @@ intervals.
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-An online retailer wants to compare how inconsistent checkout times are during a normal purchase period versus a limited-time sale period.
+An online retailer wants to compare how inconsistent checkout times are
+during a regular purchase period versus a limited-time sale period.
+
+Assume checkout times in both periods are approximately normal and that
+the two samples are independent random samples.
 
 <br>
 
@@ -3077,13 +3081,17 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-The order is **limited-time sale checkout variability divided by regular checkout variability**.
+The order is **limited-time sale checkout variability divided by regular
+checkout variability**.
 
-Values above 1 mean the limited-time sale checkout times are more variable.
+Values above 1 mean the limited-time sale checkout times are more
+variable.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the limited-time sale checkout-time variance is between **2.00 and 15.31 times** the regular checkout-time variance. This suggests the sale checkout process is much less consistent.
+We are 95% confident that the limited-time sale checkout-time variance
+is between **2.00 and 15.31 times** the regular checkout-time variance.
+This suggests the sale checkout process is much less consistent.
 :::
 
 ::::

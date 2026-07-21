@@ -4530,31 +4530,38 @@ print(out, row.names = FALSE)
 
 ---
 
-## Final Checklist
+## Chapter Summary {.compact}
 
 :::: {.two-col}
 ::: {.card .fragment}
-<span class="label">Before calculating</span>
+<span class="label">Choose the correct interval</span>
 
-- Identify the parameter.
-- Check one sample vs two sample vs paired.
-- Check whether the target is a mean, proportion, or variance.
-- Pick the reference distribution.
+- Identify the population parameter.
+- Decide whether the data involve one sample, two independent samples,
+  or paired observations.
+- Determine whether the target is a mean, proportion, variance, or
+  difference between parameters.
+- Select the appropriate reference distribution: $Z$, $t$, $\chi^2$,
+  or $F$.
 :::
 
 ::: {.card .fragment}
-<span class="label">After calculating</span>
+<span class="label">Report the result correctly</span>
 
+- State the confidence level.
 - Include units when relevant.
-- Interpret in context.
-- Check whether 0 or 1 has a special meaning.
-- For sample size, round up.
+- Interpret the interval in the context of the population parameter.
+- Explain the meaning of 0 or 1 when interpreting differences or ratios.
+- Always round a required sample size up.
 :::
 ::::
 
+<br>
+
 ::: {.thinkbox .fragment}
-**One slide takeaway.** Confidence intervals are all the same basic idea:
-estimate the quantity, account for uncertainty, and report a reasonable range of values.
+**One-slide takeaway.** A confidence interval combines a sample estimate
+with a measure of uncertainty to give a plausible range of values for an
+unknown population parameter.
 :::
 
 ---

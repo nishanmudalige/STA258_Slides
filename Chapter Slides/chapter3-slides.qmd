@@ -3404,7 +3404,7 @@ salary_plot <- plot_ly(
   data = salary_q,
   x = ~salary,
   type = "histogram",
-  height = 225,
+  height = 200,
 
   xbins = list(
     start = min(salary_q$salary),
@@ -4246,7 +4246,7 @@ restaurant_b <- data.frame(
 )
 
 restaurant_plot <- plot_ly(
-  height = 285
+  height = 230
 ) |>
   add_trace(
     data = restaurant_a,
@@ -4514,7 +4514,7 @@ value_range <- range(
 axis_padding <- diff(value_range) * 0.08
 
 skew_boxplot <- plot_ly(
-  height = 225
+  height = 190
 ) |>
   add_markers(
     data = hover_values,

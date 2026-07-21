@@ -1720,21 +1720,54 @@ among students is between approximately **0.2160 and
 
 ```{=html}
 <script>
+function setupWorkedExampleFragments() {
+  document.querySelectorAll(".example-grid").forEach(function (grid) {
+    const targetCard = grid.querySelector(".notebox");
+    const calculationCard = grid.querySelector(".stat-card");
+    const interpretationCard = grid.querySelector(".examplebox");
+
+    const revealOrder = [
+      { card: targetCard, index: 1 },
+      { card: calculationCard, index: 2 },
+      { card: interpretationCard, index: 3 }
+    ];
+
+    revealOrder.forEach(function (item) {
+      if (!item.card) return;
+
+      item.card.classList.add("fragment");
+      item.card.setAttribute("data-fragment-index", item.index);
+    });
+  });
+}
+
 function resizePlotlyOnSlides() {
   if (!window.Plotly) return;
 
-  document.querySelectorAll(".js-plotly-plot").forEach(function(plot) {
+  document.querySelectorAll(".js-plotly-plot").forEach(function (plot) {
     Plotly.Plots.resize(plot);
   });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  /*
+   * Worked-example reveal order:
+   * 1. Target parameter or subtraction order
+   * 2. Calculation
+   * 3. Interpretation
+   *
+   * The task card remains visible when the slide first opens.
+   */
+  setupWorkedExampleFragments();
+
   setTimeout(resizePlotlyOnSlides, 250);
   setTimeout(resizePlotlyOnSlides, 750);
   setTimeout(resizePlotlyOnSlides, 1500);
 
   if (window.Reveal) {
     Reveal.on("ready", function () {
+      setupWorkedExampleFragments();
+      Reveal.sync();
       setTimeout(resizePlotlyOnSlides, 300);
     });
 
@@ -4359,9 +4392,11 @@ confidence.
 
 ## Example: Grocery-Delivery Fee Estimate
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
+:::::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 8px 15px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.taskbox style="margin-bottom: 0;"}
 A consumer app wants to estimate the average extra cost from grocery
 delivery fees, service charges, and tips.
 
@@ -4378,9 +4413,22 @@ E=10\text{ dollars}
 $$
 
 Since $\sigma$ is unknown, use the iterative $t$ approach.
-:::
+::::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.61em; line-height: 1.05; padding: 10px 15px; margin-bottom: 0;"}
+:::: {.notebox style="margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+Find the sample size needed for a 95% confidence interval for the
+population mean extra grocery-delivery cost.
+
+Because $\sigma$ is unknown, the pilot estimate $s=16$ is used.
+::::
+
+:::::
+
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.stat-card style="margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 Start with the $z$ approximation:
@@ -4411,26 +4459,19 @@ So the sample size stabilizes at:
 $$
 n=13
 $$
-:::
+::::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
-<span class="label">Planning goal</span>
-
-Find the sample size needed for a 95% confidence interval for the
-population mean extra grocery-delivery cost.
-
-Because $\sigma$ is unknown, the pilot estimate $s=16$ is used.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+:::: {.examplebox style="margin-bottom: 0;"}
 The iteration stabilizes at **13**, so the app should sample at least
 **13 grocery-delivery orders** to keep the margin of error at most
 10 dollars.
-:::
-
 ::::
 
----
+:::::
+
+::::::
+
+------------------------------------------------------------------------
 
 ## Check in R: Sigma Unknown Sample Size {.unknown-size-r-check}
 

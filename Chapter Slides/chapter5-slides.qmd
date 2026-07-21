@@ -561,35 +561,56 @@ The parameter is fixed. The random object is the interval produced by the sample
 #| fig-width: 4.5
 #| fig-height: 3.2
 #| out-width: "430px"
+
 set.seed(10)
+
 n <- 50
 num_sims <- 50
 true_mu <- 0
-z <- qnorm(0.975)
+known_sigma <- 1
+z_star <- qnorm(0.975)
+se <- known_sigma / sqrt(n)
+
 ci_df <- data.frame(sim = 1:num_sims) |>
   rowwise() |>
   mutate(
-    sample = list(rnorm(n, true_mu, 1)),
+    sample = list(
+      rnorm(
+        n,
+        mean = true_mu,
+        sd = known_sigma
+      )
+    ),
     mean = mean(unlist(sample)),
-    se = sd(unlist(sample)) / sqrt(n),
-    lower = mean - z * se,
-    upper = mean + z * se,
+    lower = mean - z_star * se,
+    upper = mean + z_star * se,
     misses = lower > true_mu | upper < true_mu
   ) |>
   ungroup()
 
 ci_df <- ci_df |>
   mutate(
-    colour = if_else(misses, "#c62828", "#00695c"),
-    status = if_else(misses, "Misses true mean", "Covers true mean"),
+    status = if_else(
+      misses,
+      "Misses true mean",
+      "Covers true mean"
+    ),
     hover = paste0(
       "<b>Simulation ", sim, "</b>",
-      "<br>Interval: [", round(lower, 3), ", ", round(upper, 3), "]",
-      "<br>Status: ", status
+      "<br>Interval: [",
+      round(lower, 3),
+      ", ",
+      round(upper, 3),
+      "]",
+      "<br>Status: ",
+      status
     )
   )
 
-plot_ly(width = 430, height = 320) |>
+plot_ly(
+  width = 430,
+  height = 320
+) |>
   add_segments(
     data = ci_df,
     x = ~lower,
@@ -597,7 +618,10 @@ plot_ly(width = 430, height = 320) |>
     y = ~sim,
     yend = ~sim,
     color = ~status,
-    colors = c("Covers true mean" = "#00695c", "Misses true mean" = "#c62828"),
+    colors = c(
+      "Covers true mean" = "#00695c",
+      "Misses true mean" = "#c62828"
+    ),
     line = list(width = 4),
     text = ~hover,
     hovertemplate = "%{text}<extra></extra>",
@@ -607,19 +631,26 @@ plot_ly(width = 430, height = 320) |>
     autosize = FALSE,
     width = 430,
     height = 320,
-    margin = list(l = 48, r = 8, t = 10, b = 42),
+    margin = list(
+      l = 48,
+      r = 8,
+      t = 10,
+      b = 42
+    ),
     xaxis = list(
       title = "Interval endpoints",
       zeroline = FALSE,
       showgrid = TRUE,
-      gridcolor = "#e8e8e8"
+      gridcolor = "#e8e8e8",
+      fixedrange = TRUE
     ),
     yaxis = list(
       title = "Simulation",
       showticklabels = FALSE,
       zeroline = FALSE,
       showgrid = TRUE,
-      gridcolor = "#e8e8e8"
+      gridcolor = "#e8e8e8",
+      fixedrange = TRUE
     ),
     shapes = list(
       list(
@@ -628,18 +659,17 @@ plot_ly(width = 430, height = 320) |>
         x1 = true_mu,
         y0 = 0.5,
         y1 = num_sims + 0.5,
-        line = list(color = "#004d40", width = 2, dash = "dash")
+        line = list(
+          color = "#004d40",
+          width = 2,
+          dash = "dash"
+        )
       )
     ),
     showlegend = FALSE,
+    dragmode = FALSE,
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "white"
-  ) |>
-  config(displayModeBar = FALSE, responsive = FALSE)|>
-  layout(
-    dragmode = FALSE,
-    xaxis = list(fixedrange = TRUE),
-    yaxis = list(fixedrange = TRUE)
   ) |>
   config(
     displayModeBar = FALSE,
@@ -648,7 +678,6 @@ plot_ly(width = 430, height = 320) |>
     scrollZoom = FALSE,
     doubleClick = FALSE
   )
-
 ```
 :::
 :::

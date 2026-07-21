@@ -37,6 +37,73 @@ library(plotly)
 
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
+
+plot_cols <- list(
+  main        = "#00695c",
+  teal        = "#00695c",
+  teal_dark   = "#004d40",
+  teal_light  = "#e0f2f1",
+  blue        = "#c8e6f3",
+  blue_soft   = "#eef8fb",
+  grey        = "#f5f6f7",
+  gray        = "#f5f6f7",
+  yellow      = "#fff8e1",
+  orange      = "#f9a825",
+  text        = "#2f3437",
+  muted       = "#667174",
+  border      = "#d8dee2",
+  code        = "#f3f4f5",
+  white       = "#ffffff"
+)
+
+plotly_slide_layout <- function(
+  p,
+  title = NULL,
+  x_title = NULL,
+  y_title = NULL,
+  width = NULL,
+  height = 390,
+  x_range = NULL,
+  y_range = NULL,
+  margin = list(l = 70, r = 25, t = 70, b = 60)
+) {
+  p |>
+    layout(
+      title = list(
+        text = title,
+        font = list(size = 16),
+        x = 0.02
+      ),
+      width = width,
+      height = height,
+      margin = margin,
+      xaxis = list(
+        title = x_title,
+        range = x_range,
+        zeroline = FALSE,
+        showline = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      yaxis = list(
+        title = y_title,
+        range = y_range,
+        zeroline = FALSE,
+        showline = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      paper_bgcolor = "rgba(0,0,0,0)",
+      plot_bgcolor = "white"
+    ) |>
+    config(
+      displayModeBar = TRUE,
+      displaylogo = FALSE,
+      scrollZoom = FALSE,
+      doubleClick = "reset",
+      modeBarButtonsToRemove = c("lasso2d", "select2d")
+    )
+}
 ```
 
 # Chapter 3: Descriptive Statistics {.title-slide}

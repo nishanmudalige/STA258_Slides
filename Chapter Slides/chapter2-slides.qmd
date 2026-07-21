@@ -1140,6 +1140,21 @@ marks[c(2, 4)]
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Given `marks <- c(80, 75, 90, 88, 92)`, what does `marks[c(2, 4)]` return?
+::::
+
+- [The 2nd and 4th elements: 75 and 88]{.correct data-explanation="R indexes from 1, so position 2 is 75 and position 4 is 88. c(2, 4) selects both of those positions."}
+- The 2nd through 4th elements: 75, 90, 88
+- The values 2 and 4
+- Elements 3 and 5: 90 and 92, because R counts from 0
+
+---
+
 ## Lists
 
 :::: {.two-col-lean}

@@ -3633,20 +3633,20 @@ Each grey line connects the same person from **before** to **after**. The colour
 
 ## Example: Vitamin C and Sick Days
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 8px 15px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A researcher studies a random sample of 12 people to examine whether
-regular Vitamin C use is associated with fewer sick days during cold
-season.
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
+A random sample of 12 people is observed during two comparable winter
+periods:
 
-The same people are observed across two comparable winter periods: one
-without regular Vitamin C use and one with regular Vitamin C use.
+- **without** regular Vitamin C
+- **with** regular Vitamin C
 
-For each person, define:
+For each person, define
 
 $$
-d=\text{sick days without Vitamin C}-\text{sick days with Vitamin C}
+d=\text{sick days without Vitamin C}
+-\text{sick days with Vitamin C}
 $$
 
 Observed differences:
@@ -3656,7 +3656,7 @@ $$
 $$
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -3677,41 +3677,43 @@ SE=
 $$
 
 $$
-df=n-1=11,
+df=11,
 \qquad
 t^*=2.201
 $$
 
 $$
-\bar d\pm t^*SE
-=
 1.750\pm2.201(0.351)
 =
 (0.98,\;2.52)
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target parameter</span>
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Order</span>
 
 Construct a 95% confidence interval for $\mu_d$.
 
-The order is **without Vitamin C minus with Vitamin C**, so positive
-values mean fewer sick days during the Vitamin C period.
+$$
+d=\text{without Vitamin C}-\text{with Vitamin C}
+$$
+
+Positive values mean fewer sick days during the Vitamin C period.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that regular Vitamin C use is associated with
-between **0.98 and 2.52 fewer sick days**, on average, in the population
-represented by this sample.
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Interpretation</span>
 
-Because Vitamin C use was not randomly assigned, this interval describes
-an association and does not by itself establish causation.
+We are 95% confident that the Vitamin C period had between **0.98 and
+2.52 fewer sick days on average**.
+
+Because Vitamin C use was not randomly assigned, this shows an
+**association**, not proof of causation.
 :::
 
 ::::
 
----
+------------------------------------------------------------------------
 
 ## Example: Phone-Free Bedtime Routine
 

@@ -2234,89 +2234,90 @@ population mean battery life.
 
 ------------------------------------------------------------------------
 
-## Example: Fitness App Calorie-Burn Comparison
+## Example: Fitness App Calorie Comparison
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.84fr 1.16fr; grid-template-rows: auto auto; gap: 8px 15px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
 A fitness reviewer randomly assigns 29 participants to one of two
-30-minute home workouts.
+30-minute workouts.
 
-One group follows a high-intensity workout app. The other group follows
-a lower-intensity guided stretching and strength routine.
-
-Assume calories burned are approximately normally distributed within
-each workout condition and that the two population variances are
-reasonable to treat as equal.
+Assume calories burned are approximately normal within each group and
+that the population variances can be treated as equal.
 
 <br>
 
-**Group 1: High-intensity app workout**  
-$n_1=15$, $\bar{x}_1=84.2$ calories, $s_1=7.5$
+**High-intensity app**  
+$n_1=15$, $\bar{x}_1=84.2$, $s_1=7.5$
 
-**Group 2: Guided strength/stretch routine**  
-$n_2=14$, $\bar{x}_2=78.6$ calories, $s_2=6.8$
+**Guided routine**  
+$n_2=14$, $\bar{x}_2=78.6$, $s_2=6.8$
+
+Construct a 90% confidence interval for $\mu_1-\mu_2$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
-{\large \bar{x}_1-\bar{x}_2=84.2-78.6=5.6}
+\bar{x}_1-\bar{x}_2
+=
+84.2-78.6
+=
+5.6
 $$
 
 $$
-{\large
-s_p^2=
+s_p^2
+=
 \frac{(14)(7.5^2)+(13)(6.8^2)}{27}
-=51.430,
+=
+51.430,
 \qquad
 s_p=7.171
-}
 $$
 
 $$
-{\large
-SE=
+SE
+=
 7.171\sqrt{\frac{1}{15}+\frac{1}{14}}
-=2.665
-}
+=
+2.665
 $$
 
 $$
-{\large
 df=27,
 \qquad
 t^*=1.703
-}
 $$
 
 $$
-{\large
-5.6\pm1.703(2.665)=(1.06,\;10.14)
-}
+5.6\pm1.703(2.665)
+=
+(1.06,\;10.14)
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target parameter</span>
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Order</span>
 
-Construct a 90% confidence interval for $\mu_1-\mu_2$.
+$$
+\mu_1-\mu_2
+=
+\mu_{\text{app}}-\mu_{\text{guided}}
+$$
 
-The order is **high-intensity app workout minus guided routine**, so
-positive values mean the high-intensity app workout has the higher
-population mean calories burned.
+Positive values favour the high-intensity app.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the high-intensity app workout burns between
-**1.06 and 10.14 more calories**, on average, than the guided
-strength/stretch routine.
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0;"}
+The high-intensity app burns between **1.06 and 10.14 more calories on
+average** than the guided routine, with 90% confidence.
 :::
 
 ::::
 
----
+------------------------------------------------------------------------
 
 ## Check in R: Pooled Two-Sample t Intervals {.pooled-r-check}
 
@@ -2922,27 +2923,26 @@ users.
 
 ------------------------------------------------------------------------
 
-## Example: App Notification Click-Through Comparison
+## Example: App Notification Click-Through Rates
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 8px 15px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
 A mobile app randomly selects 950 eligible users and randomly assigns
-them to one of two independent notification groups.
-
-One group receives a direct push notification about a new feature. The
-other group sees only a generic homepage banner.
+them to one of two notification methods.
 
 <br>
 
-**Group 1: Push notification users**  
-$x_1=210$ of $n_1=500$ opened the feature within 24 hours
+**Push notification**  
+$210$ of $500$ users opened the feature within 24 hours.
 
-**Group 2: Homepage banner users**  
-$x_2=170$ of $n_2=450$ opened the feature within 24 hours
+**Homepage banner**  
+$170$ of $450$ users opened the feature within 24 hours.
+
+Construct a 90% confidence interval for $p_1-p_2$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -2952,7 +2952,11 @@ $$
 $$
 
 $$
-\hat p_1-\hat p_2=0.4200-0.3778=0.0422
+\hat p_1-\hat p_2
+=
+0.4200-0.3778
+=
+0.0422
 $$
 
 $$
@@ -2973,30 +2977,30 @@ $$
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target parameter</span>
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Order</span>
 
-Construct a 90% confidence interval for $p_1-p_2$ among eligible app
-users.
+$$
+p_1-p_2
+=
+p_{\text{push}}-p_{\text{banner}}
+$$
 
-The order is **push notification minus homepage banner**, so positive
-values mean the push notification has the higher population
-click-through rate.
+Positive values favour the push notification.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the push-notification click-through rate is
-between **1.00 percentage point lower and 9.45 percentage points higher**
-than the homepage-banner click-through rate.
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0;"}
+The push-notification click-through rate could be between **1.00
+percentage point lower and 9.45 percentage points higher** than the
+homepage-banner rate.
 
-Because the interval contains **0**, the data do not show a clear
-difference between the two notification methods at the 90% confidence
-level.
+Because the interval includes **0**, neither method has a clearly higher
+click-through rate at the 90% confidence level.
 :::
 
 ::::
 
----
+------------------------------------------------------------------------
 
 ## Check in R: Difference of Proportions {.prop-r-check}
 

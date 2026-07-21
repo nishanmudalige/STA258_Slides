@@ -84,7 +84,7 @@ live:
 
 .reveal p,
 .reveal li {
-  font-size: 0.78em;
+  font-size: 0.73em;
   line-height: 1.35;
 }
 
@@ -131,6 +131,7 @@ live:
 .card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
+  font-size: 0.66em;
 }
 
 .stat-card {
@@ -1047,13 +1048,6 @@ Classify each variable as <strong>quantitative</strong> or <strong>qualitative</
 - Major at university
 - Classroom seating capacity
 - Interest rate
-- Average annual return of a stock
-- Shoe size
-- Year of university (by credits completed)
-- A student's academic program (e.g. Statistics, Economics)
-- The campus a student attends (UTM, UTSG, UTSC)
-- Letter grade received in a course (A+, A, A-, B+, ...)
-- Response on a course evaluation (Strongly Agree, ..., Strongly Disagree)
 :::
 
 ---
@@ -1144,23 +1138,23 @@ Run it 5 times. Notice the sample mean changes each time - even though the true 
 
 How you collect your sample determines whether inference is honest.
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="1">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="1">
 <strong>Simple random sample (SRS)</strong> - every unit has an equal chance of being chosen.
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="2">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="2">
 <strong>Systematic</strong> - every $k$-th unit from an ordered list (e.g., every 50th student).
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="3">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="3">
 <strong>Stratified</strong> - divide into groups, sample from each group.
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="4">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="4">
 <strong>Cluster</strong> - randomly pick whole groups, survey everyone inside.
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="5">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="5">
 <strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. Usually biased.
 </div>
 
@@ -1249,21 +1243,6 @@ Classify each as an <strong>observational study</strong>, <strong>experimental s
 
 ---
 
-## Chapter Summary {.scrollable}
-
-<div class="examplebox">
-<ul>
-<li>Statistics = science of learning from data under uncertainty.</li>
-<li>We study a <strong>sample</strong> to learn about a <strong>population</strong>.</li>
-<li><strong>Parameters</strong> describe populations (unknown); <strong>statistics</strong> describe samples (known).</li>
-<li>Data are <strong>quantitative</strong> (discrete/continuous) or <strong>qualitative</strong> (nominal/ordinal).</li>
-<li>Inference uses a sample statistic to estimate an unknown population parameter - with a measure of uncertainty.</li>
-<li><strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.</li>
-</ul>
-</div>
-
----
-
 ## Bonus Practice {.scrollable}
 
 Below are some ages of UTM students in a sample. Compute:
@@ -1298,17 +1277,39 @@ $n = 12$, $\bar{x} \approx 20.83$, $s \approx 1.59$.
 
 ---
 
-## Up Next
+## Chapter Summary {.compact}
 
-<div class="thinkbox">
-<strong>Chapter 2:</strong> we move into R - the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
-</div>
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Populations & Samples</span>
+**Population**: the whole group of interest.<br>**Sample**: the part we actually study.<br>**Parameter** is an unknown population value; a **statistic** is its known sample estimate.
+:::
+::: {.card .fragment}
+<span class="label">Types of Data</span>
+**Quantitative**: numeric, either discrete or continuous.<br>**Qualitative**: categorical, either nominal or ordinal.
+:::
+::: {.card .fragment}
+<span class="label">Inference & Sampling</span>
+**Estimate** an unknown parameter from a sample statistic, with a measure of uncertainty.<br>**Sampling method** decides whether that inference is trustworthy.
+:::
+::::
 
 <br>
 
-<div class="center">
-<span class="big">End of Chapter 1</span><br><br>
+::: {.thinkbox .fragment}
+**One slide takeaway.** Statistics is the science of learning from data under uncertainty - a known sample lets us make careful, measured statements about an unknown population.
+:::
+
+---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 2 - An Introduction to R**
+
+We move into R - the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
+:::
+
 <div class="home-button-row">
 <a href="../index.html" class="home-button">Back to Homepage</a>
-</div>
 </div>

@@ -2659,8 +2659,8 @@ proportions, not the difference between two sample counts.
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A streaming app wants to compare two ways of reminding users before a
-free trial ends.
+A streaming app randomly assigns eligible free-trial users to one of two
+independent reminder groups before their trials end.
 
 One group receives a direct reminder about the upcoming charge. The other
 group receives a general app notification.
@@ -2712,17 +2712,18 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-Construct a 95% confidence interval for $p_1-p_2$.
+Construct a 95% confidence interval for $p_1-p_2$ among eligible
+free-trial users.
 
 The order is **direct reminder minus general notification**, so positive
-values mean the direct reminder has the higher population continuation
-rate.
+values mean the continuation rate is higher under the direct reminder.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the direct reminder's population continuation
-rate is between **0.69 and 14.17 percentage points higher** than the
-general notification's population continuation rate.
+We are 95% confident that the continuation rate under the direct reminder
+is between **0.69 and 14.17 percentage points higher** than the
+continuation rate under the general notification for eligible free-trial
+users.
 :::
 
 ::::

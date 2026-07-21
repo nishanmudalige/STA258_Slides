@@ -97,11 +97,11 @@ plotly_slide_layout <- function(
       plot_bgcolor = "white"
     ) |>
     config(
-      displayModeBar = TRUE,
+      displayModeBar = FALSE,
       displaylogo = FALSE,
+      responsive = TRUE,
       scrollZoom = FALSE,
-      doubleClick = "reset",
-      modeBarButtonsToRemove = c("lasso2d", "select2d")
+      doubleClick = FALSE
     )
 }
 ```
@@ -631,16 +631,6 @@ plot_ly(width = 430, height = 320) |>
     plot_bgcolor = "white"
   ) |>
   config(displayModeBar = FALSE, responsive = FALSE)|>
-  config(
-    displayModeBar = TRUE,
-    displaylogo = FALSE,
-    scrollZoom = FALSE,
-    doubleClick = "reset",
-    modeBarButtonsToRemove = c(
-      "lasso2d",
-      "select2d"
-    )
-  ) |>
   layout(
     dragmode = FALSE,
     xaxis = list(fixedrange = TRUE),
@@ -648,6 +638,8 @@ plot_ly(width = 430, height = 320) |>
   ) |>
   config(
     displayModeBar = FALSE,
+    displaylogo = FALSE,
+    responsive = FALSE,
     scrollZoom = FALSE,
     doubleClick = FALSE
   )

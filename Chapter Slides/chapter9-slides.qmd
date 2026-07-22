@@ -4404,6 +4404,7 @@ Test whether the slope differs from 0.
 ::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
 <span class="label">Hypotheses and conclusion</span>
 
+::: {.fragment data-fragment-index="1"}
 $$
 H_0:\beta_1=0,
 \qquad
@@ -4411,13 +4412,16 @@ H_A:\beta_1\ne0
 $$
 
 The reference distribution is $t_3$.
+:::
 
+::: {.fragment data-fragment-index="3"}
 Since the p-value is about **0.035**, reject $H_0$ at the 5% level.
 
 There is evidence of a positive linear relationship.
 :::
+:::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.58em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.58em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0; height: 100%; overflow: hidden;"}
 <span class="label">Calculation</span>
 
 From least squares:  

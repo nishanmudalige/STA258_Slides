@@ -3861,7 +3861,8 @@ subplot(
       showgrid = TRUE,
       gridcolor = plot_cols$grid,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
       tickfont = list(size = 10)
     ),
     yaxis2 = list(
@@ -3870,7 +3871,8 @@ subplot(
       showgrid = TRUE,
       gridcolor = plot_cols$grid,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = plot_cols$border,
       tickfont = list(size = 10)
     ),
     annotations = list(

@@ -697,10 +697,12 @@ For observation $j$ in group $i$:
 $$
 Y_{ij}=\mu+\tau_i+\epsilon_{ij},
 \qquad
-\epsilon_{ij}\sim N(0,\sigma^2)
+\epsilon_{ij}\sim N(0,\sigma^2),
+\qquad
+\sum_{i=1}^{k}\tau_i=0
 $$
 
-Here, $Y_{ij}$ is the response value for observation $j$ in group $i$.
+Here, $Y_{ij}$ is the response value for observation $j$ in group $i$. The constraint $\sum_{i=1}^{k}\tau_i=0$ makes $\mu$ the overall population mean and uniquely defines the treatment effects.
 :::
 
 ::: {.defbox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 15px 18px; margin-bottom: 0;"}

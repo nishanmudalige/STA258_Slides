@@ -2661,7 +2661,8 @@ qchisq(0.95, df = df_value)
 # (c) sum of 3 squared standard normals is chi-square with 3 df
 
 # (d) mean = k, variance = 2k
-cat("Mean:", df_value, "  Variance:", 2 * df_value, "\n")
+df_value       # mean = k
+2 * df_value   # variance = 2k
 
 # Plot and shade P(X <= 15.507)
 x <- seq(0, 30, length.out = 1000)
@@ -4002,7 +4003,7 @@ pnorm(3.8, mean = mu, sd = se, lower.tail = FALSE)
 # 0.25/se_n >= 1.96  =>  se_n <= 0.25/1.96
 # sigma/sqrt(n) <= 0.25/1.96
 n_needed <- ceiling((2 * 1.96 / 0.25)^2)
-cat("Minimum n:", n_needed, "\n")
+n_needed   # minimum n
 ```
 
 ------------------------------------------------------------------------
@@ -4251,15 +4252,14 @@ mu <- 10; sigma <- 3
 # k = 9
 k <- 9
 cheb_upper <- sigma^2 / k^2
-cat("Chebyshev upper bound:", cheb_upper, "\n")
+cheb_upper   # upper bound
 
 # (b) Lower bound on P(1 < X < 19) = P(|X-10| < 9)
-cat("Chebyshev lower bound:", 1 - cheb_upper, "\n")
+1 - cheb_upper   # lower bound
 
 # (c) Exact (assuming X ~ N(10, 9))
 exact <- pnorm(19, mean=10, sd=3) - pnorm(1, mean=10, sd=3)
-cat("Exact (normal):", exact, "\n")
-cat("Chebyshev is conservative — exact probability is higher.\n")
+exact   # exact (normal); Chebyshev is conservative, so this is higher
 ```
 
 ------------------------------------------------------------------------

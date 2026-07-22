@@ -308,7 +308,7 @@ test_dropdown <- function() {
       state.b = Array.isArray(i) ? i.slice() : [i];
     };
 
-    var redraw = function(){
+    var redraw = function(live, moved){
       var dd = data.dists[state.d], xs = dd.x, ys = dd.y, cdf = dd.cdf;
       var keep;
       if (state.t === 'left'){ var vl = state.b[0]; keep = function(q){ return q <= vl; }; }
@@ -351,14 +351,29 @@ test_dropdown <- function() {
                  font:{size:14, color:'#2f3437'}, bgcolor:'rgba(245,246,247,0.95)',
                  bordercolor:'#d8dee2', borderwidth:1, borderpad:5});
 
-      Plotly.restyle(el, {x:[xs], y:[ys]}, [0]);
       Plotly.restyle(el, {x:[xs], y:[sy]}, [1]);
-      Plotly.relayout(el, {'title.text': data.titles[state.d][state.t],
-                           'xaxis.range': data.ranges[state.d],
-                           shapes: shps, annotations: anns});
+      if (live){
+        // During an active drag, only touch things that will not fight
+        // Plotly's own drag of the grabbed line: the shaded fill (restyled
+        // above), the p-value/labels, and — for symmetric two-tailed — the
+        // mirrored boundary (the line the user is NOT holding).
+        var upd = {annotations: anns};
+        if (state.t === 'both' && dd.symmetric && moved != null){
+          var other = 1 - moved;
+          upd['shapes[' + other + '].x0'] = state.b[other];
+          upd['shapes[' + other + '].x1'] = state.b[other];
+          upd['shapes[' + other + '].y1'] = interp(xs, ys, state.b[other]);
+        }
+        Plotly.relayout(el, upd);
+      } else {
+        Plotly.restyle(el, {x:[xs], y:[ys]}, [0]);
+        Plotly.relayout(el, {'title.text': data.titles[state.d][state.t],
+                             'xaxis.range': data.ranges[state.d],
+                             shapes: shps, annotations: anns});
+      }
     };
 
-    el.on('plotly_relayout', function(ev){
+    var handleMove = function(ev, live){
       var moved = null, nx = null;
       Object.keys(ev || {}).forEach(function(k){
         var m = k.match(/^shapes\\[(\\d+)\\]\\.x0$/);
@@ -382,8 +397,13 @@ test_dropdown <- function() {
       } else {
         state.b[0] = nx;
       }
-      redraw();
-    });
+      redraw(live, moved);
+    };
+    // plotly_relayouting fires continuously while the line is being dragged
+    // (smooth live updates); plotly_relayout fires once on release (final,
+    // full redraw that normalises every shape and label).
+    el.on('plotly_relayouting', function(ev){ handleMove(ev, true); });
+    el.on('plotly_relayout',    function(ev){ handleMove(ev, false); });
 
     var onpick = function(){ state.d = dsel.sel.value; state.t = tsel.sel.value; setDefaults(); redraw(); };
     dsel.sel.addEventListener('change', onpick);

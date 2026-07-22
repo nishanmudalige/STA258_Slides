@@ -646,22 +646,16 @@ window.addEventListener(
   scheduleChapter4PlotlyResize
 );
 
-if (window.Reveal) {
-  Reveal.on(
-    "ready",
-    scheduleChapter4PlotlyResize
-  );
-
-  Reveal.on(
-    "slidechanged",
-    scheduleChapter4PlotlyResize
-  );
-
-  Reveal.on(
-    "fragmentshown",
-    scheduleChapter4PlotlyResize
-  );
-}
+(function bindRevealResize() {
+  if (window.Reveal && typeof window.Reveal.on === "function") {
+    Reveal.on("ready", scheduleChapter4PlotlyResize);
+    Reveal.on("slidechanged", scheduleChapter4PlotlyResize);
+    Reveal.on("slidetransitionend", scheduleChapter4PlotlyResize);
+    Reveal.on("fragmentshown", scheduleChapter4PlotlyResize);
+  } else {
+    window.setTimeout(bindRevealResize, 200);
+  }
+})();
 
 document.addEventListener(
   "click",
@@ -1335,12 +1329,16 @@ window.addEventListener("load", window.empRuleScheduleUpdate);
 window.addEventListener("resize", window.empRuleScheduleUpdate);
 window.addEventListener("hashchange", window.empRuleScheduleUpdate);
 
-if (window.Reveal) {
-  Reveal.on("ready", window.empRuleScheduleUpdate);
-  Reveal.on("slidechanged", function () {
-    window.empRuleScheduleUpdate();
-  });
-}
+(function bindEmpRule() {
+  if (window.Reveal && typeof window.Reveal.on === "function") {
+    Reveal.on("ready", window.empRuleScheduleUpdate);
+    Reveal.on("slidechanged", function () {
+      window.empRuleScheduleUpdate();
+    });
+  } else {
+    window.setTimeout(bindEmpRule, 200);
+  }
+})();
 </script>
 ```
 
@@ -3120,12 +3118,16 @@ window.addEventListener("load", window.tTailScheduleUpdate);
 window.addEventListener("resize", window.tTailScheduleUpdate);
 window.addEventListener("hashchange", window.tTailScheduleUpdate);
 
-if (window.Reveal) {
-  Reveal.on("ready", window.tTailScheduleUpdate);
-  Reveal.on("slidechanged", function () {
-    window.tTailScheduleUpdate();
-  });
-}
+(function bindTTail() {
+  if (window.Reveal && typeof window.Reveal.on === "function") {
+    Reveal.on("ready", window.tTailScheduleUpdate);
+    Reveal.on("slidechanged", function () {
+      window.tTailScheduleUpdate();
+    });
+  } else {
+    window.setTimeout(bindTTail, 200);
+  }
+})();
 </script>
 ```
 

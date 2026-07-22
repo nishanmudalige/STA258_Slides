@@ -2831,13 +2831,15 @@ $$
 ::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
 <span class="label">2. Experiment-wise error</span>
 
-If each comparison uses error rate $\alpha$, then the chance of making at least one Type I error is
+As the number of pairwise comparisons increases, the chance of making at least one Type I error across the full set also increases.
+
+If the comparisons were independent, this probability would be
 
 $$
-\alpha_E=1-(1-\alpha)^m.
+1-(1-\alpha)^m.
 $$
 
-As $m$ increases, $\alpha_E$ increases.
+Bonferroni does not require independence.
 :::
 
 ::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}

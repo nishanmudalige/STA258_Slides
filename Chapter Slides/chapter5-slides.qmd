@@ -1521,7 +1521,7 @@ among students is between approximately **0.2160 and
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 .card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+.mini-card .label, .stat-card .label, .warnbox .label, .thinkbox .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -1670,7 +1670,7 @@ among students is between approximately **0.2160 and
 
 /* Question/context box */
 .reveal .example-grid .taskbox {
-  font-size: 0.55em !important;
+  font-size: 0.58em !important;
   line-height: 1.16 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
@@ -1678,7 +1678,7 @@ among students is between approximately **0.2160 and
 
 /* Target-parameter box */
 .reveal .example-grid .notebox {
-  font-size: 0.55em !important;
+  font-size: 0.58em !important;
   line-height: 1.16 !important;
   padding: 9px 13px !important;
   margin-bottom: 0 !important;
@@ -1686,7 +1686,7 @@ among students is between approximately **0.2160 and
 
 /* Interpretation/conclusion box */
 .reveal .example-grid .examplebox {
-  font-size: 0.55em !important;
+  font-size: 0.58em !important;
   line-height: 1.16 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
@@ -2530,7 +2530,7 @@ For exams in this course, use the conservative version unless told otherwise.
 
 ------------------------------------------------------------------------
 
-## Example: Sports Highlight Watch-Time Comparison
+## Example: Sports Highlight Watch-Time Comparison {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -2611,7 +2611,7 @@ We are 95% confident that the short-highlight playlist's population mean watch t
 
 ------------------------------------------------------------------------
 
-## Example: Food Delivery vs Meal Prep Spending
+## Example: Food Delivery vs Meal Prep Spending {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -3068,10 +3068,12 @@ click-through rate at the 90% confidence level.
 .reveal section.prop-r-check .cm-editor,
 .reveal section.prop-r-check .cm-content,
 .reveal section.prop-r-check .cm-line,
+.reveal section.prop-r-check .cm-gutters,
+.reveal section.prop-r-check .cm-gutterElement,
 .reveal section.prop-r-check pre,
 .reveal section.prop-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.prop-r-check .cell-output,
@@ -3238,7 +3240,7 @@ intervals.
 
 ------------------------------------------------------------------------
 
-## Example: Sale Checkout-Time Variability
+## Example: Sale Checkout-Time Variability {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -3393,10 +3395,12 @@ plausible.
 .reveal section.ratio-r-check .cm-editor,
 .reveal section.ratio-r-check .cm-content,
 .reveal section.ratio-r-check .cm-line,
+.reveal section.ratio-r-check .cm-gutters,
+.reveal section.ratio-r-check .cm-gutterElement,
 .reveal section.ratio-r-check pre,
 .reveal section.ratio-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.ratio-r-check .notebox {
@@ -3860,10 +3864,12 @@ people like those in this paired study.
 .reveal section.paired-r-check .cm-editor,
 .reveal section.paired-r-check .cm-content,
 .reveal section.paired-r-check .cm-line,
+.reveal section.paired-r-check .cm-gutters,
+.reveal section.paired-r-check .cm-gutterElement,
 .reveal section.paired-r-check pre,
 .reveal section.paired-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.paired-r-check .cell-output,
@@ -4211,10 +4217,12 @@ pickup-time prediction error within **2 seconds** at 99% confidence.
 .reveal section.mean-size-r-check .cm-editor,
 .reveal section.mean-size-r-check .cm-content,
 .reveal section.mean-size-r-check .cm-line,
+.reveal section.mean-size-r-check .cm-gutters,
+.reveal section.mean-size-r-check .cm-gutterElement,
 .reveal section.mean-size-r-check pre,
 .reveal section.mean-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.mean-size-r-check .cell-output,
@@ -4515,10 +4523,12 @@ The iteration stabilizes at **13**, so the app should sample at least
 .reveal section.unknown-size-r-check .cm-editor,
 .reveal section.unknown-size-r-check .cm-content,
 .reveal section.unknown-size-r-check .cm-line,
+.reveal section.unknown-size-r-check .cm-gutters,
+.reveal section.unknown-size-r-check .cm-gutterElement,
 .reveal section.unknown-size-r-check pre,
 .reveal section.unknown-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.unknown-size-r-check .cell-output,
@@ -4794,10 +4804,12 @@ The company should survey at least **563 waitlist users** for 95% confidence and
 .reveal section.prop-size-r-check .cm-editor,
 .reveal section.prop-size-r-check .cm-content,
 .reveal section.prop-size-r-check .cm-line,
+.reveal section.prop-size-r-check .cm-gutters,
+.reveal section.prop-size-r-check .cm-gutterElement,
 .reveal section.prop-size-r-check pre,
 .reveal section.prop-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.prop-size-r-check .cell-output,

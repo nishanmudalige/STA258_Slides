@@ -1670,7 +1670,7 @@ among students is between approximately **0.2160 and
 
 /* Question/context box */
 .reveal .example-grid .taskbox {
-  font-size: 0.54em !important;
+  font-size: 0.55em !important;
   line-height: 1.16 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
@@ -1678,7 +1678,7 @@ among students is between approximately **0.2160 and
 
 /* Target-parameter box */
 .reveal .example-grid .notebox {
-  font-size: 0.54em !important;
+  font-size: 0.55em !important;
   line-height: 1.16 !important;
   padding: 9px 13px !important;
   margin-bottom: 0 !important;
@@ -1686,7 +1686,7 @@ among students is between approximately **0.2160 and
 
 /* Interpretation/conclusion box */
 .reveal .example-grid .examplebox {
-  font-size: 0.54em !important;
+  font-size: 0.55em !important;
   line-height: 1.16 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
@@ -1694,7 +1694,7 @@ among students is between approximately **0.2160 and
 
 /* Calculation box */
 .reveal .example-grid .stat-card {
-  font-size: 0.64em !important;
+  font-size: 0.66em !important;
   line-height: 1.12 !important;
   padding: 11px 14px !important;
   margin-bottom: 0 !important;
@@ -1716,8 +1716,8 @@ among students is between approximately **0.2160 and
 
 /* Keep calculations comfortably readable */
 .reveal .example-grid .stat-card mjx-container[display="true"] {
-  font-size: 0.88em !important;
-  margin: 0.42em 0 !important;
+  font-size: 0.94em !important;
+  margin: 0.50em 0 !important;
 }
 
 .reveal .example-grid .taskbox mjx-container[display="true"],
@@ -2686,10 +2686,12 @@ users.
 .reveal section.welch-r-check .cm-editor,
 .reveal section.welch-r-check .cm-content,
 .reveal section.welch-r-check .cm-line,
+.reveal section.welch-r-check .cm-gutters,
+.reveal section.welch-r-check .cm-gutterElement,
 .reveal section.welch-r-check pre,
 .reveal section.welch-r-check code {
-  font-size: 0.72em !important;
-  line-height: 1.02 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.welch-r-check .cell-output,
@@ -4306,7 +4308,16 @@ This is why an iterative approach is used:
 
 ------------------------------------------------------------------------
 
-## Example: Tutorial Video Rating Estimate
+## Example: Tutorial Video Rating Estimate {.grid-compact}
+
+```{=html}
+<style>
+.reveal section.grid-compact .example-grid .taskbox,
+.reveal section.grid-compact .example-grid .notebox,
+.reveal section.grid-compact .example-grid .examplebox { font-size: 0.51em !important; line-height: 1.12 !important; }
+.reveal section.grid-compact .example-grid .stat-card { font-size: 0.61em !important; }
+</style>
+```
 
 :::::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 8px 15px;"}
 

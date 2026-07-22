@@ -333,9 +333,87 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
                             font = list(size = 12), buttons = buttons)),
     annotations = list(list(x = 0.99, y = 1.30, xref = "paper", yref = "paper",
                             xanchor = "right", showarrow = FALSE,
-                            text = "choose sample size ↓",
+                            text = "choose sample size",
                             font = list(size = 11, color = "#667174")))
   ) |> config(displayModeBar = FALSE, responsive = TRUE)
+}
+
+# ---- Two-sided test: both rejection tails, all regions shaded ---------------
+power_two_sided <- function(mu0, mua, se, alpha = 0.05,
+                            xlab = "sample mean  x̄",
+                            width = 880, height = 330) {
+  zc <- qnorm(1 - alpha / 2)
+  c1 <- mu0 - zc * se
+  c2 <- mu0 + zc * se
+  lo <- min(mu0, mua) - 4 * se
+  hi <- max(mu0, mua) + 4 * se
+  x  <- seq(lo, hi, length.out = 800)
+  y0 <- dnorm(x, mu0, se)
+  ya <- dnorm(x, mua, se)
+  L <- x <= c1
+  R <- x >= c2
+  M <- x >= c1 & x <= c2
+  ymax <- max(c(y0, ya))
+  plot_ly(width = width, height = height) |>
+    add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
+              name = "H₀", hoverinfo = "skip") |>
+    add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
+              name = "Hₐ", hoverinfo = "skip") |>
+    add_trace(x = x[L], y = ya[L], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_pow,
+              line = list(color = line_pow, width = 1),
+              name = "power (left)", hoverinfo = "skip") |>
+    add_trace(x = x[R], y = ya[R], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_pow,
+              line = list(color = line_pow, width = 1),
+              name = "power (right)", hoverinfo = "skip") |>
+    add_trace(x = x[M], y = ya[M], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_b,
+              line = list(color = line_b, width = 1),
+              name = "β", hoverinfo = "skip") |>
+    add_trace(x = x[L], y = y0[L], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_a,
+              line = list(color = line_a, width = 1),
+              name = "α/2", hoverinfo = "skip") |>
+    add_trace(x = x[R], y = y0[R], type = "scatter", mode = "lines",
+              fill = "tozeroy", fillcolor = fill_a,
+              line = list(color = line_a, width = 1),
+              name = "α/2", hoverinfo = "skip") |>
+    layout(
+      xaxis = list(title = xlab, zeroline = FALSE, fixedrange = TRUE),
+      yaxis = list(title = "", rangemode = "tozero",
+                   range = c(0, ymax * 1.30), fixedrange = TRUE),
+      margin = list(l = 28, r = 12, t = 30, b = 88),
+      showlegend = FALSE, hovermode = FALSE,
+      shapes = list(
+        list(type = "line", x0 = c1, x1 = c1, y0 = 0, y1 = ymax * 1.12,
+             line = list(color = "#333", width = 2, dash = "dash")),
+        list(type = "line", x0 = c2, x1 = c2, y0 = 0, y1 = ymax * 1.12,
+             line = list(color = "#333", width = 2, dash = "dash"))),
+      annotations = list(
+        list(x = mu0, y = max(y0) * 1.07, text = "H₀",
+             showarrow = FALSE, font = list(color = col_null, size = 14)),
+        list(x = mua, y = max(ya) * 1.07, text = "Hₐ",
+             showarrow = FALSE, font = list(color = col_alt, size = 14)),
+        list(x = c1, y = ymax * 1.12, text = paste0("cutoff = ", round(c1, 2)),
+             showarrow = FALSE, yanchor = "bottom",
+             font = list(color = "#333", size = 11)),
+        list(x = c2, y = ymax * 1.12, text = paste0("cutoff = ", round(c2, 2)),
+             showarrow = FALSE, yanchor = "bottom",
+             font = list(color = "#333", size = 11)),
+        list(x = c1 - 0.45 * se, y = 0.05, text = "α/2",
+             showarrow = TRUE, ax = 0, ay = 38, arrowhead = 2, arrowwidth = 1.3,
+             arrowcolor = line_a, font = list(color = "#b28704", size = 12)),
+        list(x = c2 + 0.45 * se, y = 0.05, text = "α/2",
+             showarrow = TRUE, ax = 0, ay = 38, arrowhead = 2, arrowwidth = 1.3,
+             arrowcolor = line_a, font = list(color = "#b28704", size = 12)),
+        list(x = c2 - 0.6 * se, y = 0.05, text = "β",
+             showarrow = TRUE, ax = 0, ay = 38, arrowhead = 2, arrowwidth = 1.3,
+             arrowcolor = "#c62828", font = list(color = "#c62828", size = 12)),
+        list(x = mua + 1.2 * se, y = 0.06, text = "power",
+             showarrow = TRUE, ax = 0, ay = 38, arrowhead = 2, arrowwidth = 1.3,
+             arrowcolor = line_pow, font = list(color = "#1b5e20", size = 12)))
+    ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
 ```
 
@@ -442,6 +520,9 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
 }
 .step-list li:last-child { margin-bottom: 0 !important; }
 .step-list li + li { margin-top: 0 !important; }
+.step-list.spaced-steps { gap: 8px; }
+.step-list.spaced-steps li { margin-bottom: 8px !important; }
+.step-list.spaced-steps li:last-child { margin-bottom: 0 !important; }
 .step-list.compact-steps {
   gap: 11px;
 }
@@ -480,6 +561,70 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
   border: 1.25px solid #4d5659;
   font-size: 0.6em;
 }
+.reveal .tbl-center table {
+  width: auto;
+  margin: 10px auto 18px auto;
+}
+.reveal .tbl-center th, .reveal .tbl-center td { padding: 8px 22px; }
+.power-lab { display: grid; grid-template-columns: 0.52fr 1.48fr; gap: 24px; align-items: start; margin-top: 34px; }
+.reveal .power-lab form { font-size: 0.62em; max-width: 100%; margin-bottom: 14px; }
+.reveal .power-lab form label { font-weight: 600; }
+.reveal .power-lab form input[type="number"] {
+  width: 64px !important;
+  min-width: 64px !important;
+  flex: none !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  padding: 3px 6px !important;
+  box-sizing: border-box;
+}
+.reveal .power-lab form select {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  flex: none !important;
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+  height: auto !important;
+  padding: 5px 30px 8px 10px !important;
+  border: 1px solid #767676;
+  border-radius: 5px;
+  background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234d5659'/%3E%3C/svg%3E") no-repeat right 10px center;
+}
+.power-plot-row { display: flex; gap: 20px; align-items: center; }
+.power-plot-col { display: flex; flex-direction: column; align-items: center; }
+.power-tiles { display: flex; gap: 14px; margin-top: 10px; justify-content: center; }
+.ptile {
+  background: white;
+  border: 1px solid var(--sta-border);
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 0.56em;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.ptile .pt-label { display: block; color: var(--sta-muted); font-size: 0.82em; margin-bottom: 2px; }
+.ptile .pt-val { font-weight: 700; }
+.power-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.5em;
+  align-items: flex-start;
+  white-space: nowrap;
+}
+.power-legend .sw {
+  display: inline-block;
+  width: 13px; height: 13px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: -2px;
+}
+.power-legend .sw.line { height: 4px; border-radius: 2px; vertical-align: 2px; }
+#interactive-change-everything .code-copy-button,
+#interactive-change-everything .code-copy-outer-scaffold { display: none !important; }
 .reveal th, .reveal td {
   border: 1.25px solid #4d5659;
   padding: 6px 8px;
@@ -574,6 +719,98 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
 }
 </style>
 
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability
@@ -625,7 +862,8 @@ A test is only useful if it can detect a real effect.
 <span class="label">Definition 7.1</span>
 The probability that a fixed-level significance test will reject $H_0$ when a particular **alternative** value of the parameter is true is called the **power** of the test against that alternative.
 
-$$\text{Power}=P(\text{reject } H_0 \mid H_0 \text{ false}), \qquad 0<\text{power}<1$$
+$$\text{Power at }\theta=\theta_a
+=P(\text{reject }H_0\mid \theta=\theta_a), \qquad 0\le \text{power}\le 1$$
 :::
 
 :::: {.two-col}
@@ -636,7 +874,7 @@ The test is good at detecting effects that are really there.
 
 ::: {.warnbox .fragment}
 <span class="label">Low power (near 0)</span>
-The test is unreliable, it usually fails to reject even when $H_0$ is false.
+The test has a high chance of failing to detect the specific alternative effect being considered.
 :::
 ::::
 
@@ -678,7 +916,7 @@ The **power** of a hypothesis test is the probability that the test will:
 ::::
 
 ::: {.thinkbox .fragment}
-You control $n$ and $\alpha$. The effect size and $\sigma$ are set by the world, so sample size is your main planning lever.
+Researchers choose $n$, $\alpha$, and the smallest effect worth detecting. Variability is usually estimated from prior information, so sample size is often the main planning lever.
 :::
 
 ---
@@ -700,12 +938,18 @@ Holding the effect size, $\sigma$, and $n$ fixed, you raise the significance lev
 
 ## 7.2 Type I and Type II Errors
 
-:::: {.two-col-wide}
-::: {.col}
 ::: {.notebox}
 A hypothesis test can reach the **wrong** conclusion in two ways.
 :::
 
+::: {.tbl-center}
+| | $H_0$ True | $H_0$ False |
+|---|:---:|:---:|
+| **Reject $H_0$** | [Type I ($\alpha$)]{.nw} | [Correct (power)]{.nw} |
+| **Fail to reject $H_0$** | Correct | [Type II ($\beta$)]{.nw} |
+:::
+
+:::: {.two-col}
 ::: {.warnbox .fragment}
 <span class="label">Type I error ($\alpha$)</span>
 Reject $H_0$ when $H_0$ is **true**.
@@ -715,19 +959,11 @@ Reject $H_0$ when $H_0$ is **true**.
 <span class="label">Type II error ($\beta$)</span>
 Fail to reject $H_0$ when $H_0$ is **false**.
 :::
-:::
-
-::: {.col}
-| | $H_0$ True | $H_0$ False |
-|---|---|---|
-| **Reject $H_0$** | [Type I ($\alpha$)]{.nw} | [Correct (power)]{.nw} |
-| **Fail to reject $H_0$** | Correct | [Type II ($\beta$)]{.nw} |
-
-::: {.thinkbox .fragment .table-note}
-A Type I error is usually treated as the more serious mistake, which is why we fix $\alpha$ in advance (often $0.05$).
-:::
-:::
 ::::
+
+::: {.thinkbox .fragment}
+The consequences of Type I and Type II errors depend on the context. We choose $\alpha$ in advance to control the probability of a Type I error when $H_0$ is true.
+:::
 
 ---
 
@@ -795,18 +1031,18 @@ power_overlap(mu0 = 0, mua = 1.1, se0 = 1 / sqrt(10),
 
 ---
 
-## Example: Detecting a Sweeter Reformulation
+## Example: A Better Espresso Blend
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-A meal-kit company quietly reformulates a sauce and asks a trained tasting panel to score the **change in sweetness** (positive = sweeter). If the true mean change is $\mu=1.1$ points, will a 5% test reliably catch it?
+A specialty coffee roaster's house espresso has scored a long-run average of **7.0** on a 10-point flavour scale. A new blend is developed, and the roaster will switch only if it truly scores higher. If the new blend's true mean score is $\mu=8.1$, will a 5% test reliably detect the improvement?
 
-A panel of $n=10$ tasters scores each batch; from calibration the scores have $\sigma=1$.
+A panel of $n=10$ trained graders scores the new blend; from years of calibration, grader scores have $\sigma=1$.
 :::
 
 ::: {.notebox .fragment}
-$\sigma$ is known $\Rightarrow$ one-sample $z$ test, reference [$N(0,1)$.]{.nw}
+$\sigma$ is known $\Rightarrow$ one-sample $z$ test with reference distribution $N(0,1)$.
 :::
 :::
 
@@ -814,40 +1050,40 @@ $\sigma$ is known $\Rightarrow$ one-sample $z$ test, reference [$N(0,1)$.]{.nw}
 ::: {.card}
 <span class="label">Set-up</span>
 
-$$H_0:\mu = 0 \qquad H_a:\mu>0$$
+$$H_0:\mu = 7 \qquad H_a:\mu>7$$
 
 - $n = 10,\quad \sigma = 1,\quad \alpha = 0.05$
-- Detect the alternative $\mu = 1.1$
+- Detect the alternative $\mu = 8.1$
 :::
 :::
 ::::
 
 ---
 
-## Sweetness: Cutoff to Power
+## Espresso: Cutoff to Power
 
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
 <span class="label">Rejection Rule</span>
 One-sided $\alpha=0.05$ gives $z_{\text{crit}}=1.645$. On the $\bar{x}$ scale (since $\sigma$ is known):
-$$\bar{x}_*=0+1.645\cdot\tfrac{1}{\sqrt{10}}\approx 0.520 \;\Rightarrow\; \text{reject if } \bar{x}>0.520$$
+$$\bar{x}_*=7+1.645\cdot\tfrac{1}{\sqrt{10}}\approx 7.520 \;\Rightarrow\; \text{reject if } \bar{x}>7.520$$
 :::
 
 ::: {.examplebox .fragment}
 <span class="label">Find the Power</span>
-Assume $\mu=1.1$ is true and find $P(\bar{x}>0.520)$:
-$$\text{power}=P\!\left(Z>\tfrac{0.520-1.1}{1/\sqrt{10}}\right)=P(Z>-1.83)=\mathbf{0.9664}$$
+Assume $\mu=8.1$ is true and find $P(\bar{x}>7.520)$:
+$$\text{power}=P\!\left(Z>\tfrac{7.520-8.1}{1/\sqrt{10}}\right)=P(Z>-1.83)=\mathbf{0.9664}$$
 :::
 :::
 
 ::: {.col}
 ::: {.mini-plot}
 ```{r}
-power_overlap(mu0 = 0, mua = 1.1, se0 = 1 / sqrt(10),
+power_overlap(mu0 = 7, mua = 8.1, se0 = 1 / sqrt(10),
               alpha = 0.05, alternative = "greater", show_beta = TRUE,
-              xlab = "mean sweetness change  x̄",
-              cutoff_label = "cutoff = 0.52",
+              xlab = "mean flavour score  x̄",
+              cutoff_label = "cutoff = 7.52",
               power_label = "power = 0.966",
               beta_label = "β = 0.034",
               width = 500, height = 270)
@@ -855,7 +1091,7 @@ power_overlap(mu0 = 0, mua = 1.1, se0 = 1 / sqrt(10),
 :::
 
 ::: {.thinkbox .fragment}
-A **96.6%** chance of correctly detecting $\mu=1.1$. Since power $=1-\beta$, the green and red areas add to 1:
+A **96.6%** chance of correctly detecting $\mu=8.1$. Since power $=1-\beta$, the green and red areas add to 1:
 $$\text{power}=1-\beta=1-0.034=0.966$$
 :::
 :::
@@ -863,19 +1099,19 @@ $$\text{power}=1-\beta=1-0.034=0.966$$
 
 ---
 
-## Check in R: Sweetness Power
+## Check in R: Espresso Power
 
 ```{webr}
 n     <- 10
 sigma <- 1
-mu0   <- 0
-mua   <- 1.1
+mu0   <- 7
+mua   <- 8.1
 alpha <- 0.05
 
 # Step 1: cutoff on the xbar scale, under H0
 xcrit <- mu0 + qnorm(1 - alpha) * sigma / sqrt(n)
 
-# Steps 2-3: rejection probability when mu = 1.1 is true
+# Steps 2-3: rejection probability when mu = 8.1 is true
 power <- 1 - pnorm((xcrit - mua) / (sigma / sqrt(n)))
 
 xcrit
@@ -897,16 +1133,16 @@ Power is not a single number, it is a **function** of the true mean. Plotting po
 
 - Near $\mu_0$, power is close to $\alpha$ (hard to detect tiny effects).
 - As the true $\mu$ moves away from $\mu_0$, power climbs toward 1.
-- The orange dots mark $\mu=0.52$ (power $\approx 0.5$) and $\mu=1.1$ (power $\approx 0.97$).
+- The orange dots mark $\mu=7.52$ (power $\approx 0.5$) and $\mu=8.1$ (power $\approx 0.97$).
 :::
 :::
 
 ::: {.col}
 ::: {.mini-plot}
 ```{r}
-power_curve(mu0 = 0, se = 1 / sqrt(10), alpha = 0.05,
-            alternative = "greater", mu_lo = 0, mu_hi = 3,
-            marks = c(0.52, 1.1),
+power_curve(mu0 = 7, se = 1 / sqrt(10), alpha = 0.05,
+            alternative = "greater", mu_lo = 7, mu_hi = 10,
+            marks = c(7.52, 8.1),
             title = "Power vs true mean μ")
 ```
 :::
@@ -930,11 +1166,11 @@ On the power curve for a one-sided test, what happens to the power as the true m
 
 ---
 
-## Example: Underfilled Bottling Line
+## Example: Under-Dosed Medicine Vials
 
 ::: {.slide-stack}
 ::: {.card}
-A craft-soda line should fill bottles to $\mu_0=300$ ml, with **known** $\sigma=3$ ml. Inspecting only $n=6$ bottles, will a 5% test catch a true mean of $\mu=299$ ml?
+A pharmaceutical filling machine should dispense $\mu_0=300$ mg of active drug per vial, with **known** $\sigma=3$ mg from the validated assay. A routine quality check tests only $n=6$ vials — will a 5% test catch a machine that has drifted to a true mean of $\mu=299$ mg?
 $$H_0:\mu = 300 \qquad H_a:\mu<300 \qquad (\alpha=0.05)$$
 :::
 
@@ -944,13 +1180,13 @@ $$\text{power}=P\!\left(Z<\frac{297.985-299}{3/\sqrt6}\right)=P(Z<-0.83)=\mathbf
 :::
 
 ::: {.warnbox .fragment}
-Only **20%** power. With just 6 bottles this test will usually miss a 1 ml shortfall, the sample is too small.
+Only **20%** power. With just 6 vials, this check will usually **miss** an under-dosing machine — the sample is too small.
 :::
 :::
 
 ---
 
-## Check in R: Bottling Power
+## Check in R: Vial Power
 
 ```{webr}
 n <- 6; sigma <- 3; mu0 <- 300; mua <- 299; alpha <- 0.05
@@ -969,7 +1205,7 @@ Try bumping `n` to 30 or 60 and re-run, then watch the power climb as the standa
 
 ## Interactive: Watch Power Climb with $n$ {.compact}
 
-Use the dropdown to change the sample size for the bottling test ($\mu_0=300$, $\mu_a=299$, $\sigma=3$, left-tailed $\alpha=0.05$). As $n$ grows, both curves sharpen, they separate more cleanly, and the green **power** area past the cutoff expands.
+Use the dropdown to change the sample size for the vial check ($\mu_0=300$, $\mu_a=299$, $\sigma=3$, left-tailed $\alpha=0.05$). As $n$ grows, both curves sharpen, they separate more cleanly, and the green **power** area past the cutoff expands.
 
 :::{style="max-width:840px; margin:0 auto;"}
 ```{r}
@@ -980,7 +1216,163 @@ explore_power_n(mu0 = 300, mua = 299, sigma = 3,
 :::
 
 ::: {.thinkbox}
-Same 1 ml shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 0.20$ at $n=6$ to $\approx 0.83$ at $n=60$. That is why sample size is your main planning lever.
+Same 1 mg shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 0.20$ at $n=6$ to $\approx 0.83$ at $n=60$. That is why sample size is your main planning lever.
+:::
+
+---
+
+## Interactive: Change Everything {.compact}
+
+Choose the direction of $H_a$, then drag $\mu_0$, $\mu_a$, $\sigma$, and $n$ ($\alpha$ stays at $0.05$) and watch the cutoff, $\beta$, and power react.
+
+:::: {.power-lab}
+::: {.col}
+```{ojs}
+//| echo: false
+viewof alt = Inputs.select(
+  new Map([["μ > μ₀ (greater)", "greater"],
+           ["μ < μ₀ (less)", "less"],
+           ["μ ≠ μ₀ (two-sided)", "two.sided"]]),
+  {value: "greater", label: "Hₐ"}
+)
+viewof mu0 = Inputs.range([5, 15], {value: 10, step: 0.5, label: "μ₀"})
+viewof mua = Inputs.range([5, 15], {value: 12, step: 0.5, label: "μₐ"})
+viewof sigma = Inputs.range([1, 4], {value: 2, step: 0.5, label: "σ"})
+viewof n = Inputs.range([2, 60], {value: 10, step: 1, label: "n"})
+```
+:::
+
+::: {.col}
+```{ojs}
+//| echo: false
+res = {
+  const pnorm = (z) => {
+    const t = 1 / (1 + 0.2316419 * Math.abs(z));
+    const d = Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI);
+    const p = d * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 +
+              t * (-1.821255978 + t * 1.330274429))));
+    return z >= 0 ? 1 - p : p;
+  };
+  const se = sigma / Math.sqrt(n);
+  let cuts, inReject, pow;
+  if (alt === "greater") {
+    cuts = [mu0 + 1.6449 * se];
+    inReject = (x) => x > cuts[0];
+    pow = 1 - pnorm((cuts[0] - mua) / se);
+  } else if (alt === "less") {
+    cuts = [mu0 - 1.6449 * se];
+    inReject = (x) => x < cuts[0];
+    pow = pnorm((cuts[0] - mua) / se);
+  } else {
+    cuts = [mu0 - 1.96 * se, mu0 + 1.96 * se];
+    inReject = (x) => x < cuts[0] || x > cuts[1];
+    pow = pnorm((cuts[0] - mua) / se) + 1 - pnorm((cuts[1] - mua) / se);
+  }
+  const lo = Math.min(mu0, mua) - 4.2 * se;
+  const hi = Math.max(mu0, mua) + 4.2 * se;
+  const dnorm = (x, m) => Math.exp(-0.5 * ((x - m) / se) ** 2) / (se * Math.sqrt(2 * Math.PI));
+  const data = d3.range(lo, hi, (hi - lo) / 500).map((x) =>
+    ({x, h0: dnorm(x, mu0), ha: dnorm(x, mua)}));
+  return {se, cuts, inReject, pow, data};
+}
+
+html`<div class="power-plot-row">
+  <div class="power-plot-col">
+  ${Plot.plot({
+    width: 620, height: 320,
+    y: {axis: null},
+    x: {label: null},
+    marks: [
+      Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.ha : 0,
+                            fill: "rgba(46,125,50,0.40)"}),
+      Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? 0 : d.ha,
+                            fill: "rgba(198,40,40,0.15)"}),
+      Plot.areaY(res.data, {x: "x", y: (d) => res.inReject(d.x) ? d.h0 : 0,
+                            fill: "rgba(249,168,37,0.60)"}),
+      Plot.lineY(res.data, {x: "x", y: "h0", stroke: "#1f4e79", strokeWidth: 2.5}),
+      Plot.lineY(res.data, {x: "x", y: "ha", stroke: "#c62828", strokeWidth: 2.5}),
+      Plot.ruleX(res.cuts, {stroke: "#4d5659", strokeDasharray: "5,4", strokeWidth: 1.5})
+    ]
+  })}
+  <div class="power-tiles">
+    <div class="ptile">
+      <span class="pt-label">power</span>
+      <span class="pt-val" style="color:#2e7d32">${(res.pow * 100).toFixed(1)}%</span>
+    </div>
+    <div class="ptile">
+      <span class="pt-label">β (Type II)</span>
+      <span class="pt-val" style="color:#c62828">${((1 - res.pow) * 100).toFixed(1)}%</span>
+    </div>
+  </div>
+  </div>
+  <div class="power-legend">
+    <span><span class="sw line" style="background:#1f4e79"></span>H₀ sampling dist.</span>
+    <span><span class="sw line" style="background:#c62828"></span>Hₐ sampling dist.</span>
+    <span><span class="sw" style="background:rgba(249,168,37,0.85)"></span>α (Type I)</span>
+    <span><span class="sw" style="background:rgba(46,125,50,0.55)"></span>power</span>
+    <span><span class="sw" style="background:rgba(198,40,40,0.30)"></span>β (Type II)</span>
+  </div>
+</div>`
+```
+:::
+::::
+
+---
+
+## Example: Monitoring a Server Room
+
+:::: {.two-col-wide}
+::: {.col}
+::: {.examplebox}
+A data centre keeps its server hall at $\mu_0=22$°C. Too **hot** and the servers overheat and fail; too **cold** and the cooling bill climbs for no benefit. Each day the monitoring system samples $n=16$ sensor readings; from the sensors' calibration, $\sigma=2$°C. If the cooling has truly drifted to $\mu=23$°C, how likely is the daily check to flag it?
+:::
+
+::: {.notebox .fragment}
+A shift in **either** direction matters $\Rightarrow$ two-sided test: $\alpha$ splits into two tails of $\alpha/2=0.025$ each, so $z_{\alpha/2}=1.96$ and there are **two** cutoffs.
+:::
+:::
+
+::: {.col}
+::: {.card}
+<span class="label">Set-up</span>
+
+$$H_0:\mu = 22 \qquad H_a:\mu \neq 22$$
+
+- $n = 16,\quad \sigma = 2,\quad \alpha = 0.05$
+- Detect the alternative $\mu = 23$
+- $\sigma$ known $\Rightarrow$ one-sample $z$ test
+:::
+:::
+::::
+
+---
+
+## Two-Sided: Two Cutoffs, Two Power Pieces {.compact}
+
+:::: {.two-col}
+::: {.examplebox}
+<span class="label">Rejection Rule</span>
+Two cutoffs, using $z_{\alpha/2}=1.96$:
+$$\bar{x}_*=22 \pm 1.96\cdot\tfrac{2}{\sqrt{16}} = 22 \pm 0.98$$
+$$\text{reject if } \bar{x}<21.02 \;\text{ or }\; \bar{x}>22.98$$
+:::
+
+::: {.examplebox}
+<span class="label">Find the Power</span>
+Assume $\mu=23$ is true; add the two rejection pieces:
+$$\begin{aligned}
+\text{power} &= P(\bar{x}<21.02)+P(\bar{x}>22.98)\\
+&= P(Z<-3.96)+P(Z>-0.04)\\
+&\approx 0.000+0.516=\mathbf{0.516}
+\end{aligned}$$
+:::
+::::
+
+::: {style="max-width:900px; margin:0 auto;"}
+```{r}
+power_two_sided(mu0 = 22, mua = 23, se = 2 / sqrt(16), alpha = 0.05,
+                xlab = "mean server-hall temperature  x̄")
+```
 :::
 
 ---
@@ -990,7 +1382,7 @@ Same 1 ml shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 
 :::: {.callout-note icon="false"}
 ## Question
 
-The bottling test has only 20% power against $\mu=299$. Which single change raises power the **most** without touching $\alpha$ or the true process?
+A test has low power against the alternative it was designed to detect. Which single change raises power the **most** without touching $\alpha$ or the true process?
 ::::
 
 - Use a smaller sample to save money
@@ -1005,7 +1397,7 @@ The bottling test has only 20% power against $\mu=299$. Which single change rais
 :::: {.two-col}
 ::: {.warnbox .fragment}
 <span class="label">Too small</span>
-Low power - real, meaningful effects slip through undetected. The study is wasted.
+Low power - real, meaningful effects are more likely to go undetected because the risk of a Type II error is higher.
 :::
 
 ::: {.warnbox .fragment}
@@ -1019,7 +1411,7 @@ Power analysis finds the **minimum $n$** that detects an effect of a given size 
 :::
 
 ::: {.thinkbox .fragment}
-To run it you must supply three ingredients: the standard deviation $\sigma$, the significance level $\alpha$, and the effect size $\mu_0-\mu_a$ you want to detect.
+To run it you must supply four ingredients: the standard deviation $\sigma$, the significance level $\alpha$, the target power, and the effect-size magnitude $|\mu_a-\mu_0|$ you want to detect.
 :::
 
 ---
@@ -1027,15 +1419,15 @@ To run it you must supply three ingredients: the standard deviation $\sigma$, th
 ## The Sample-Size Idea
 
 ::: {.slide-stack}
-<ol class="step-list">
-  <li class="fragment"><strong>1. Cutoff from $H_0$.</strong> Write $\bar{x}_*$ using the null mean and $z_\alpha$.</li>
-  <li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_\beta$ (the $z$ giving the desired power).</li>
+<ol class="step-list spaced-steps">
+  <li class="fragment"><strong>1. Cutoff from $H_0$.</strong> The cutoff $\bar{x}_*$ is the borderline value of the sample mean that decides whether you reject $H_0$ or not. Write it using the null mean and the critical value $z_\alpha$.</li>
+<li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_{\text{power}}$, the standard-normal quantile corresponding to the target power.</li>
   <li class="fragment"><strong>3. Set the two expressions equal and solve for $n$.</strong> Round <em>up</em> to the next whole observation.</li>
 </ol>
 
 ::: {.card .fragment}
 <span class="label">One-sided sample-size formula</span>
-$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{\mu_0-\mu_a}\right)^{2}$$
+$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{|\mu_a-\mu_0|}\right)^{2}$$
 where $z_\beta$ is the standard-normal value matching the target power.
 :::
 :::
@@ -1069,14 +1461,14 @@ $$100+1.645\cdot\tfrac{14}{\sqrt n}=103-0.25\cdot\tfrac{14}{\sqrt n}
 mu0 <- 100; mua <- 103; sigma <- 14; alpha <- 0.05; power <- 0.60
 
 z_alpha <- qnorm(1 - alpha)
-z_beta  <- qnorm(power)
+z_power <- qnorm(power)
 
-n <- ((z_alpha + z_beta) * sigma / (mua - mu0))^2
+n <- ((z_alpha + z_power) * sigma / abs(mua - mu0))^2
 ceiling(n)
 ```
 
 ::: {.thinkbox .fragment}
-$n\approx 78.2$, so a minimum of **79** observations guarantees power of at least 0.60. (Using the rounded $z_\beta=0.25$ from the table gives the same answer.)
+Using the full normal quantiles gives $n\approx 78.47$, so round up to **79** observations to obtain planned power of at least 0.60 under the assumed values of $\sigma$ and the target effect. Using the rounded value $z_{\text{power}}=0.25$ gives $n\approx 78.2$ and the same final answer.
 :::
 
 ---
@@ -1085,7 +1477,7 @@ $n\approx 78.2$, so a minimum of **79** observations guarantees power of at leas
 
 ::: {.slide-stack}
 ::: {.card}
-A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less**. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml? (Target: $P(Z<0.84)\approx0.80$, so $z_\beta=0.84$.)
+A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less**. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml? (Target: $P(Z<0.84)\approx0.80$, so $z_{\text{power}}=0.84$.)
 $$H_0:\mu=225 \qquad H_a:\mu<225 \qquad (\alpha=0.05)$$
 :::
 
@@ -1097,7 +1489,7 @@ $$n=\left(\frac{(1.645+0.84)\cdot 7}{225-223}\right)^2\approx 75.6 \;\Rightarrow
 :::
 
 ::: {.thinkbox .fragment}
-A minimum of **76 cups** delivers the desired 0.80 power against a 2 ml shortfall.
+Using the full normal quantiles gives $n\approx 75.74$, so round up to **76 cups** to obtain planned power of at least 0.80 against a 2 ml shortfall. The rounded values $1.645$ and $0.84$ give $n\approx 75.6$ and the same final answer.
 :::
 :::
 
@@ -1116,7 +1508,7 @@ ceiling(n)
 ```
 
 ::: {.notebox .fragment}
-`power.t.test` and `power.prop.test` automate these calculations once you know $\sigma$, $\alpha$, the effect size, and the target power.
+`power.t.test()` automates mean-based power calculations using the standard deviation, significance level, effect size, and target power. For two proportions, `power.prop.test()` uses the two target proportions instead of $\sigma$.
 :::
 
 ---
@@ -1265,13 +1657,9 @@ $\alpha$ - the fixed Type I error rate you are willing to tolerate.
 
 ::: {.stat-card .fragment}
 <span class="label">Effect size</span>
-$\mu_0-\mu_a$ - the smallest difference worth detecting.
+$|\mu_a-\mu_0|$ - the magnitude of the smallest difference worth detecting.
 :::
-::::
 
-::: {.thinkbox .fragment}
-With data in hand it is more common to report a **p-value** than a fixed reject/not-reject decision: it measures the strength of evidence against $H_0$ and leaves the action up to each reader.
-:::
 
 ---
 
@@ -1285,7 +1673,7 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 - It decreases
 - It stays the same
-- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / (μ0−μa))², the effect size μ0−μa is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
+- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / |μa−μ0|)², the effect-size magnitude is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
 - It becomes undefined
 
 ---
@@ -1294,15 +1682,42 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 | Quantity | Formula / idea |
 |---|---|
-| Power | $1-\beta=P(\text{reject } H_0\mid H_0 \text{ false})$ |
+| Power against $\theta_a$ | $1-\beta(\theta_a)=P(\text{reject }H_0\mid\theta=\theta_a)$ |
 | Type I error | $\alpha=P(\text{reject } H_0\mid H_0 \text{ true})$ |
 | Type II error | $\beta=P(\text{fail to reject}\mid H_0 \text{ false})$ |
 | Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt n$ |
 | Power (right-tailed) | $P\!\big(Z\ge z_\alpha+\sqrt n(\mu_0-\mu_a)/\sigma\big)$ |
-| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/(\mu_0-\mu_a)\big)^2$ |
+| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/|\mu_a-\mu_0|\big)^2$ |
 
 ::: {.thinkbox .fragment .spaced-note}
 Always round a computed sample size **up** to the next whole observation so the achieved power is at least the target.
+:::
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Power</span>
+Power is the probability of rejecting $H_0$ at a specific alternative value, and it equals $1-\beta$.
+:::
+
+::: {.card .fragment}
+<span class="label">What Changes Power</span>
+Power rises with a larger effect size, larger sample size, or larger $\alpha$, and falls with greater variability.
+:::
+
+::: {.card .fragment}
+<span class="label">Study Planning</span>
+Choose a meaningful effect and target power, solve for the required sample size, and always round $n$ up.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One-slide takeaway.** A hypothesis test should be planned to have enough power to detect an effect that matters.
 :::
 
 ---
@@ -1316,7 +1731,7 @@ We extend hypothesis testing from one or two groups to **several** group means a
 :::
 
 ::: {.thinkbox .fragment}
-**One-slide takeaway.** Power $=1-\beta$ is a test's ability to detect a real effect. It rises with effect size, sample size, and $\alpha$, and falls with variability, so planning $n$ in advance is how we guarantee a study can succeed.
+**One-slide takeaway.** Power $=1-\beta$ is a test's ability to detect a real effect. It rises with effect size, sample size, and $\alpha$, and falls with variability, so planning $n$ in advance helps ensure the study has a strong chance of detecting the target effect.
 :::
 
 ::: {.home-button-row}

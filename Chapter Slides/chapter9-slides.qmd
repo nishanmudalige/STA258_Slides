@@ -790,12 +790,12 @@ The part of $y_i$ not explained by the line.
 
 ## 9.1.1 Least Squares Method
 
-::: {.defbox .fragment style="margin-bottom: 10px;"}
+::: {.defbox style="margin-bottom: 10px;"}
 A **residual** is the difference between an observed data point and a
 fitted value from the regression model:
 
 $$
-e_i = y_i - \hat{y}_i.
+e_i=y_i-\hat{y}_i.
 $$
 
 It is the vertical distance from the observed value to the fitted line.
@@ -803,7 +803,7 @@ It is the vertical distance from the observed value to the fitted line.
 
 :::: {.two-col-wide style="grid-template-columns: 1.08fr 0.92fr; gap: 18px; align-items: start;"}
 
-::: {.col}
+::: {.col .fragment data-fragment-index="2"}
 
 ```{r}
 #| echo: false
@@ -818,7 +818,7 @@ resid_demo <- data.frame(
 
 resid_fit <- lm(y ~ x, data = resid_demo)
 
-resid_demo$fitted   <- fitted(resid_fit)
+resid_demo$fitted <- fitted(resid_fit)
 resid_demo$residual <- resid(resid_fit)
 
 pos_df <- subset(resid_demo, residual >= 0)
@@ -828,7 +828,10 @@ line_df <- data.frame(
   x = seq(0.5, 8.5, length.out = 300)
 )
 
-line_df$y <- predict(resid_fit, newdata = line_df)
+line_df$y <- predict(
+  resid_fit,
+  newdata = line_df
+)
 
 plot_ly() |>
   add_lines(
@@ -898,7 +901,10 @@ plot_ly() |>
     marker = list(
       color = "#111827",
       size = 11,
-      line = list(color = "white", width = 1.2)
+      line = list(
+        color = "white",
+        width = 1.2
+      )
     )
   ) |>
   add_markers(
@@ -915,7 +921,10 @@ plot_ly() |>
     marker = list(
       color = "white",
       size = 11,
-      line = list(color = plot_cols$main_dark, width = 2.2)
+      line = list(
+        color = plot_cols$main_dark,
+        width = 2.2
+      )
     )
   ) |>
   plotly_slide_layout(
@@ -926,14 +935,24 @@ plot_ly() |>
     x_range = c(0.4, 8.7),
     y_range = c(34, 82),
     showlegend = FALSE,
-    margin = list(l = 66, r = 18, t = 54, b = 56),
+    margin = list(
+      l = 66,
+      r = 18,
+      t = 54,
+      b = 56
+    ),
     annotations = list(
       list(
         x = 2.0,
         y = 55.0,
         xref = "x",
         yref = "y",
-        text = "positive residual<br><span style='font-size:12px;'>point above line</span>",
+        text = paste0(
+          "positive residual<br>",
+          "<span style='font-size:12px;'>",
+          "point above line",
+          "</span>"
+        ),
         showarrow = TRUE,
         arrowhead = 2,
         arrowsize = 1,
@@ -945,27 +964,38 @@ plot_ly() |>
         bordercolor = plot_cols$border,
         borderwidth = 1,
         borderpad = 5,
-        font = list(size = 13, color = plot_cols$text)
+        font = list(
+          size = 13,
+          color = plot_cols$text
+        )
       ),
       list(
-  x = 3.5,
-  y = 46.0,
-  xref = "x",
-  yref = "y",
-  text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
-  showarrow = TRUE,
-  arrowhead = 2,
-  arrowsize = 1,
-  arrowwidth = 1.5,
-  arrowcolor = plot_cols$red,
-  ax = 105,
-  ay = 4,
-  bgcolor = "rgba(255,255,255,0.96)",
-  bordercolor = plot_cols$border,
-  borderwidth = 1,
-  borderpad = 5,
-  font = list(size = 13, color = plot_cols$text)
-)
+        x = 3.5,
+        y = 46.0,
+        xref = "x",
+        yref = "y",
+        text = paste0(
+          "negative residual<br>",
+          "<span style='font-size:12px;'>",
+          "point below line",
+          "</span>"
+        ),
+        showarrow = TRUE,
+        arrowhead = 2,
+        arrowsize = 1,
+        arrowwidth = 1.5,
+        arrowcolor = plot_cols$red,
+        ax = 105,
+        ay = 4,
+        bgcolor = "rgba(255,255,255,0.96)",
+        bordercolor = plot_cols$border,
+        borderwidth = 1,
+        borderpad = 5,
+        font = list(
+          size = 13,
+          color = plot_cols$text
+        )
+      )
     )
   )
 ```
@@ -974,14 +1004,14 @@ plot_ly() |>
 
 ::: {.col}
 
-::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 12px;"}
-If $e_i > 0$, the point is **above** the fitted line.
+::: {.examplebox .fragment data-fragment-index="1" style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 12px;"}
+If $e_i>0$, the point is **above** the fitted line.
 
 The model underpredicted the response.
 :::
 
-::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 0;"}
-If $e_i < 0$, the point is **below** the fitted line.
+::: {.examplebox .fragment data-fragment-index="1" style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 0;"}
+If $e_i<0$, the point is **below** the fitted line.
 
 The model overpredicted the response.
 :::

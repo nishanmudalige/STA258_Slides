@@ -1421,7 +1421,7 @@ To run it you must supply three ingredients: the standard deviation $\sigma$, th
 ::: {.slide-stack}
 <ol class="step-list spaced-steps">
   <li class="fragment"><strong>1. Cutoff from $H_0$.</strong> The cutoff $\bar{x}_*$ is the borderline value of the sample mean that decides whether you reject $H_0$ or not. Write it using the null mean and the critical value $z_\alpha$.</li>
-  <li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_\beta$ (the $z$ giving the desired power).</li>
+<li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_{\text{power}}$, the standard-normal quantile corresponding to the target power.</li>
   <li class="fragment"><strong>3. Set the two expressions equal and solve for $n$.</strong> Round <em>up</em> to the next whole observation.</li>
 </ol>
 
@@ -1461,14 +1461,14 @@ $$100+1.645\cdot\tfrac{14}{\sqrt n}=103-0.25\cdot\tfrac{14}{\sqrt n}
 mu0 <- 100; mua <- 103; sigma <- 14; alpha <- 0.05; power <- 0.60
 
 z_alpha <- qnorm(1 - alpha)
-z_beta  <- qnorm(power)
+z_power <- qnorm(power)
 
-n <- ((z_alpha + z_beta) * sigma / (mua - mu0))^2
+n <- ((z_alpha + z_power) * sigma / abs(mua - mu0))^2
 ceiling(n)
 ```
 
 ::: {.thinkbox .fragment}
-$n\approx 78.2$, so round up to **79** observations to obtain planned power of at least 0.60 under the assumed values of $\sigma$ and the target effect. (Using the rounded $z_\beta=0.25$ from the table gives the same answer.)
+$n\approx 78.2$, so round up to **79** observations to obtain planned power of at least 0.60 under the assumed values of $\sigma$ and the target effect. (Using the rounded $z_{\text{power}}=0.25$ from the table gives the same answer.)
 :::
 
 ---
@@ -1477,7 +1477,7 @@ $n\approx 78.2$, so round up to **79** observations to obtain planned power of a
 
 ::: {.slide-stack}
 ::: {.card}
-A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less**. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml? (Target: $P(Z<0.84)\approx0.80$, so $z_\beta=0.84$.)
+A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less**. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml? (Target: $P(Z<0.84)\approx0.80$, so $z_{\text{power}}=0.84$.)
 $$H_0:\mu=225 \qquad H_a:\mu<225 \qquad (\alpha=0.05)$$
 :::
 

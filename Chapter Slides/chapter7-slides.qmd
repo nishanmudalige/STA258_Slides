@@ -1427,7 +1427,7 @@ To run it you must supply three ingredients: the standard deviation $\sigma$, th
 
 ::: {.card .fragment}
 <span class="label">One-sided sample-size formula</span>
-$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{\mu_0-\mu_a}\right)^{2}$$
+$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{|\mu_a-\mu_0|}\right)^{2}$$
 where $z_\beta$ is the standard-normal value matching the target power.
 :::
 :::
@@ -1657,9 +1657,8 @@ $\alpha$ - the fixed Type I error rate you are willing to tolerate.
 
 ::: {.stat-card .fragment}
 <span class="label">Effect size</span>
-$\mu_0-\mu_a$ - the smallest difference worth detecting.
+$|\mu_a-\mu_0|$ - the magnitude of the smallest difference worth detecting.
 :::
-::::
 
 ::: {.thinkbox .fragment}
 With data in hand it is more common to report a **p-value** than a fixed reject/not-reject decision: it measures the strength of evidence against $H_0$ and leaves the action up to each reader.
@@ -1677,7 +1676,7 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 - It decreases
 - It stays the same
-- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / (μ0−μa))², the effect size μ0−μa is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
+- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / |μa−μ0|)², the effect-size magnitude is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
 - It becomes undefined
 
 ---
@@ -1691,7 +1690,7 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 | Type II error | $\beta=P(\text{fail to reject}\mid H_0 \text{ false})$ |
 | Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt n$ |
 | Power (right-tailed) | $P\!\big(Z\ge z_\alpha+\sqrt n(\mu_0-\mu_a)/\sigma\big)$ |
-| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/(\mu_0-\mu_a)\big)^2$ |
+| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/|\mu_a-\mu_0|\big)^2$ |
 
 ::: {.thinkbox .fragment .spaced-note}
 Always round a computed sample size **up** to the next whole observation so the achieved power is at least the target.

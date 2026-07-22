@@ -3847,7 +3847,7 @@
     "href": "Chapter Slides/chapter10-slides.html#goodness-of-fit-test-statistic",
     "title": "STA258",
     "section": "Goodness-of-Fit Test Statistic",
-    "text": "Goodness-of-Fit Test Statistic\n\nThe test statistic is:\n\\[\n\\chi^2\n=\n\\sum\n\\frac{(\\text{observed count}-\\text{expected count})^2}\n{\\text{expected count}}\n\\]\nwhere:\n\\[\n\\text{expected count}=np_i\n\\]\nThe P-value is the area to the right of the observed \\(\\chi^2\\) statistic under a chi-square distribution with:\n\\[\ndf=k-1\n\\]\n\n\nThis is always a right-tail test. Large \\(\\chi^2\\) values mean the observed counts are too far from the hypothesized model."
+    "text": "Goodness-of-Fit Test Statistic\n\nThe test statistic is:\n\\[\n\\chi^2\n=\n\\sum\n\\frac{(\\text{observed count}-\\text{expected count})^2}\n{\\text{expected count}}\n\\]\nwhere:\n\\[\n\\text{expected count}=np_i\n\\]\nWhen all hypothesized category probabilities are specified before observing the data, the P-value is the area to the right of the observed \\(\\chi^2\\) statistic under a chi-square distribution with:\n\\[\ndf=k-1\n\\]\n\n\nThis is always a right-tail test. Large \\(\\chi^2\\) values mean the observed counts are too far from the hypothesized model."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#example-campus-food-pickup-slots",

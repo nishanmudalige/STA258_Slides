@@ -3133,6 +3133,8 @@ anova(fit)
 pairwise.t.test(score, drill,
                 p.adjust.method = "bonferroni",
                 pool.sd = TRUE)
+
+# Reports Bonferroni-adjusted p-values rather than confidence intervals
 ```
 :::
 

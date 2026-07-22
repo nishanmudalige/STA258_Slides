@@ -5276,7 +5276,7 @@ print(out, row.names = FALSE)
 
   <li><strong>Constant variance:</strong> The residuals should fall in a roughly horizontal band with similar spread.</li>
 
-  <li><strong>No clustering:</strong> Clusters may suggest separate groups or lack of independence.</li>
+<li><strong>No unexplained groups:</strong> Clusters may suggest that an important grouping variable is missing from the model.</li>
 
   <li><strong>No influential outliers:</strong> A few extreme points should not dominate the fitted line.</li>
 </ul>
@@ -5285,8 +5285,8 @@ print(out, row.names = FALSE)
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
 <span class="label">Textbook logic</span>
 
-Residual plots are used to judge whether the regression assumptions are
-reasonable before trusting inference.
+A residual-versus-fitted plot helps assess linearity, constant variance,
+and unusual observations. Normality and independence require separate checks.
 :::
 
 ------------------------------------------------------------------------

@@ -140,15 +140,15 @@ plotly_slide_layout <- function(
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
 .two-col, .two-col-lean, .two-col-wide, .three-col, .four-grid, .exercise-grid {
   display: grid;
-  gap: 24px;
+  gap: 28px;
   align-items: start;
 }
 .two-col { grid-template-columns: 1fr 1fr; }
-.two-col-lean { grid-template-columns: 0.9fr 1.1fr; }
-.two-col-wide { grid-template-columns: 1.12fr 0.88fr; }
+.two-col-lean { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide { grid-template-columns: 1.08fr 0.92fr; }
 .three-col { grid-template-columns: repeat(3, 1fr); }
 .four-grid { grid-template-columns: repeat(2, 1fr); }
-.exercise-grid { grid-template-columns: 360px 1fr; gap: 24px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col { min-width: 0; }
 .defbox, .examplebox, .thinkbox, .card, .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
   padding: 16px 18px;

@@ -1508,7 +1508,7 @@ ceiling(n)
 ```
 
 ::: {.notebox .fragment}
-`power.t.test` and `power.prop.test` automate these calculations once you know $\sigma$, $\alpha$, the effect size, and the target power.
+`power.t.test()` automates mean-based power calculations using the standard deviation, significance level, effect size, and target power. For two proportions, `power.prop.test()` uses the two target proportions instead of $\sigma$.
 :::
 
 ---

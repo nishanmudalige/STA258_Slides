@@ -1512,11 +1512,13 @@ linear relationship between two variables.
   border-left: 5px solid var(--sta-teal);
   border-radius: 9px;
   padding: 9px 14px 10px 14px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   text-align: center;
 }
 
-.reveal section.sunlight-seq .sunlight-formula-pill .sunlight-pill-label {
+.reveal section.sunlight-seq
+.sunlight-formula-pill
+.sunlight-pill-label {
   display: block;
   font-size: 12.5px;
   font-weight: 700;
@@ -1526,7 +1528,9 @@ linear relationship between two variables.
   margin-bottom: 3px;
 }
 
-.reveal section.sunlight-seq .sunlight-formula-pill mjx-container {
+.reveal section.sunlight-seq
+.sunlight-formula-pill
+mjx-container {
   font-size: 1.04em !important;
 }
 </style>
@@ -1537,9 +1541,11 @@ linear relationship between two variables.
 ::: {.taskbox style="font-size: 0.68em; line-height: 1.2; padding: 15px 18px; margin-bottom: 0;"}
 <span class="label">Context and question</span>
 
-A greenhouse records fictional data on how much sunlight different plants receive and how tall they are after several weeks.
+A greenhouse records fictional data on how much sunlight different plants
+receive and how tall they are after several weeks.
 
-We use **sunlight hours per day** to study its relationship with **plant height**.
+We use **sunlight hours per day** to study its relationship with
+**plant height**.
 
 $$
 x=\text{sunlight hours per day},
@@ -1550,7 +1556,7 @@ $$
 Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.examplebox style="font-size: 0.68em; line-height: 1.13; padding: 15px 18px; margin-bottom: 0;"}
+::: {.examplebox .fragment data-fragment-index="1" style="font-size: 0.68em; line-height: 1.13; padding: 15px 18px; margin-bottom: 0;"}
 <span class="label">Observed data</span>
 
 <table class="sunlight-obs-table">
@@ -1561,46 +1567,74 @@ Compute and interpret the sample correlation, $r$.
     </tr>
   </thead>
   <tbody>
-    <tr><td>1</td><td>18</td></tr>
-    <tr><td>2</td><td>21</td></tr>
-    <tr><td>4</td><td>34</td></tr>
-    <tr><td>6</td><td>43</td></tr>
-    <tr><td>7</td><td>48</td></tr>
+    <tr>
+      <td>1</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>48</td>
+    </tr>
   </tbody>
 </table>
 :::
 
 ::::
 
-::: {.notebox .sunlight-intro-bottom style="font-size: 0.66em; line-height: 1.18; padding: 14px 18px; margin-bottom: 0;"}
+::::: {.notebox .sunlight-intro-bottom .fragment data-fragment-index="2" style="font-size: 0.66em; line-height: 1.18; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Goal of the example</span>
 
 :::: {.sunlight-goal-grid}
 
 ::: {.sunlight-goal-text}
-<p>We want to measure the strength and direction of the linear relationship between sunlight and plant height. This means computing the covariance, then standardizing it into a correlation.</p>
-<p>The sign of $r$ tells us direction. The size of $r$ tells us strength.</p>
+We want to measure the strength and direction of the linear relationship
+between sunlight and plant height. This means computing the covariance,
+then standardizing it into a correlation.
+
+The sign of $r$ tells us direction. The size of $r$ tells us strength.
 :::
 
 ::: {.sunlight-formula-stack}
+
 <div class="sunlight-formula-pill">
 <span class="sunlight-pill-label">Covariance</span>
+
 $$
-s_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+s_{xy}
+=
+\frac{1}{n-1}
+\sum_{i=1}^{n}
+(x_i-\bar{x})(y_i-\bar{y})
 $$
+
 </div>
 
 <div class="sunlight-formula-pill">
 <span class="sunlight-pill-label">Correlation</span>
+
 $$
 r=\frac{s_{xy}}{s_xs_y}
 $$
+
 </div>
+
 :::
 
 ::::
 
-:::
+:::::
 
 ------------------------------------------------------------------------
 

@@ -863,6 +863,98 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 }
 </style>
 
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability  
@@ -874,18 +966,25 @@ University of Toronto Mississauga
 
 ## Chapter Roadmap {.compact}
 
-:::: {.three-col}
+:::: {.four-grid}
 ::: {.card .fragment}
 <span class="label">6.1 - Logic</span>
 Null and alternative hypotheses, test statistics, p-values, and decisions.
 :::
+
 ::: {.card .fragment}
-<span class="label">6.2 - One Sample</span>
+<span class="label">6.2 - One-Sample Tests</span>
 Tests for one mean, one proportion, and one variance.
 :::
+
 ::: {.card .fragment}
-<span class="label">6.3 - Two Sample</span>
-Tests for differences, ratios, and paired data.
+<span class="label">6.3 - Two-Sample Tests</span>
+Tests comparing two independent means, proportions, or variances.
+:::
+
+::: {.card .fragment}
+<span class="label">6.4 - Paired Data</span>
+Tests based on differences from matched or before-and-after observations.
 :::
 ::::
 
@@ -911,19 +1010,19 @@ State the conclusion in context, without overclaiming a p-value.
 ## 6.1 What a Hypothesis Test Does
 
 ::: {.defbox .fragment}
-<span class="label">High Level Idea</span>
-A hypothesis test uses sample evidence to decide whether there is enough evidence against a claim about a population parameter.
+<span class="label">High-Level Idea</span>
+A hypothesis test uses sample evidence to determine whether there is enough evidence against a claim about a population parameter.
 :::
 
 :::: {.two-col}
 ::: {.stat-card .fragment}
 <span class="label">Null hypothesis, $H_0$</span>
-The status quo, no-effect, or no-difference claim.
+The reference claim about the population parameter that is assumed true when calculating the test statistic and p-value.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">Alternative hypothesis, $H_a$</span>
-The direction of evidence we are trying to detect.
+The competing claim supported when the sample provides sufficient evidence against $H_0$.
 :::
 ::::
 
@@ -1062,7 +1161,7 @@ A test gives p-value $0.032$ and uses $\alpha=0.05$. What should we do?
 
 ---
 
-## 6.2.1.1 Hypothesis Tests on the Mean, $\sigma$ Known
+## 6.2.1 Hypothesis Tests on the Mean, $\sigma$ Known
 
 ::: {.defbox}
 For testing $H_0:\mu=\mu_0$ when $\sigma$ is **known**, use the test statistic
@@ -1193,7 +1292,7 @@ In the coffee example, the alternative is $H_a:\mu<7.2$. Which p-value formula m
 
 ---
 
-## 6.2.1.2 Hypothesis Tests on the Mean, $\sigma$ Unknown
+## 6.2.2 Hypothesis Tests on the Mean, $\sigma$ Unknown
 
 ::: {.defbox}
 For testing $H_0:\mu=\mu_0$ when $\sigma$ is **unknown**, replace it with $s$ and use the test statistic
@@ -1224,7 +1323,7 @@ Random/independent observations; population normal or sample large enough for th
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.examplebox}
-The delivery app **Uber Eats** promises an average drop-off time of $16.5$ minutes. Suspecting orders really take longer, a student logs the wait (in minutes) on 12 random orders:
+The delivery app **Uber Eats** promises an average drop-off time of $16.5$ minutes. Suspecting their orders usually take longer, a student randomly selects 12 of their recent orders and records the wait time (in minutes):
 
 `16.2, 18.4, 15.7, 19.1, 17.3, 16.9, 20.4, 18.2, 15.9, 17.6, 16.7, 19.8`
 
@@ -1292,7 +1391,7 @@ $0.0107 \le 0.05$, so reject $H_0$.
 
 ::: {.thinkbox .fragment}
 <span class="label">Conclusion</span>
-There is evidence the true mean delivery time exceeds the advertised $16.5$ minutes.
+There is evidence that the student's mean delivery time exceeds the advertised $16.5$ minutes.
 :::
 ::::
 
@@ -1313,7 +1412,7 @@ The output gives $t=2.682$, $df=11$, and p-value $0.0107$. At $\alpha=0.05$, rej
 
 ---
 
-## 6.2.2 Hypothesis Tests on a Proportion
+## 6.2.3 Hypothesis Tests on a Proportion
 
 ::: {.defbox}
 For testing $H_0:p=p_0$, use the test statistic
@@ -1421,7 +1520,7 @@ There is evidence the participation rate has increased above $10\%$.
 
 ---
 
-## Check in R: One Proportion
+## Check in R: Reusable Cup Discount
 
 ```{webr}
 x <- 68
@@ -1460,7 +1559,7 @@ For the reusable-cup test, why is the alternative $H_a:p>0.10$?
 
 ---
 
-## 6.2.3 Hypothesis Tests on a Variance
+## 6.2.4 Hypothesis Tests on a Variance
 
 ::: {.defbox}
 For one normal population, test a variance using the chi-square statistic:
@@ -1526,7 +1625,7 @@ Testing a claim about a single variance (normal population), so use a one-sample
 ::: {.col}
 ::: {.examplebox}
 <span class="label">Hypotheses</span>
-$$H_0:\sigma^2=2.8^2 \qquad H_a:\sigma^2>2.8^2 \quad (\alpha=0.05)$$
+$$H_0:\sigma^2\le 2.8^2 \qquad H_a:\sigma^2>2.8^2 \quad (\alpha=0.05)$$
 
 <span class="label">Test statistic</span>
 $$\chi^{2*}=\frac{(n-1)s^2}{\sigma_0^2}=\frac{27\cdot 3.4^2}{2.8^2}=39.81$$
@@ -1595,7 +1694,7 @@ These tests all compare **two independent samples**.
 
 ---
 
-## 6.3.1.1 Hypothesis Tests on Two Means
+## 6.3.1 Two Means, $\sigma_1$ and $\sigma_2$ Known
 
 ::: {.defbox}
 When both population standard deviations, $\sigma_1,\sigma_2$, are **known**, use the test statistic
@@ -1649,7 +1748,7 @@ Comparing two population means from independent samples with **known** $\sigma_1
 ::: {.examplebox}
 Two campus internet providers both advertise fast service. From years of monitoring, download speeds (Mbps) are known to have $\sigma_A=12$ for Provider A and $\sigma_B=15$ for Provider B.
 
-A student runs independent speed tests and records:
+A student runs independent speed tests at randomly selected times under comparable campus conditions and records:
 
 - Provider A: $n_A=40$, $\bar{x}_A=86$ Mbps
 - Provider B: $n_B=45$, $\bar{x}_B=79$ Mbps
@@ -1658,7 +1757,7 @@ Is Provider A's mean download speed **higher** than Provider B's?
 :::
 
 ::: {.defbox .fragment}
-Let $\mu_A,\mu_B$ be the true mean speeds. Test $H_0:\mu_A-\mu_B=0$ against $H_a:\mu_A-\mu_B>0$.
+Let $\mu_A$ and $\mu_B$ be the population mean download speeds under these campus testing conditions. Test $H_0:\mu_A-\mu_B=0$ against $H_a:\mu_A-\mu_B>0$.
 
 Both population SDs are **known**, so use a two-sample $z$ test.
 :::
@@ -1731,7 +1830,7 @@ The output gives $z^*=2.39$ and p-value $0.0085$. At $\alpha=0.05$, reject $H_0$
 
 ---
 
-## 6.3.1.2 Hypothesis Tests on Two Means
+## 6.3.2 Two Means, Equal Unknown Variances
 
 ::: {.defbox}
 When the population variances are unknown but can be assumed **equal**, pool the two sample variances into one estimate:
@@ -1760,7 +1859,7 @@ Reasonable when the sample spreads are similar — e.g. the fold rule $\dfrac{\m
 ## Example: Two Fertilizers, Similar Spread
 
 ::: {.examplebox}
-A gardener compares two organic fertilizers on tomato plants and expects the two groups to have **similar variability**. Yields (kg per plant) from independent plots:
+A gardener randomly assigns independent tomato plots to one of two organic fertilizers and expects the two groups to have **similar variability**. The resulting yields (kg per plant) are:
 
 Fertilizer A: `4.2 3.8 4.5 4.0 3.9 4.3 4.1 3.7 4.4`
 
@@ -1837,7 +1936,7 @@ The output gives $t^*=4.13$, $df=17$, and p-value $0.0007$. At $\alpha=0.05$, re
 
 ---
 
-## 6.3.1.3 Hypothesis Tests on Two Means
+## 6.3.3 Two Means, Unequal or Unspecified Variances
 
 ::: {.defbox}
 For unequal or unspecified population variances, use Welch's two-sample $t$ test (no pooling), with test statistic
@@ -1866,7 +1965,7 @@ Comparing two population means from independent samples when equal variances are
 ## Example: Active Recall vs Rereading
 
 ::: {.examplebox}
-Decades of memory research suggest **active recall** (self-testing) beats passively rereading notes. Two independent tutorial sections each prepare with one method, then write the same quiz.
+Twenty-two students are randomly assigned to prepare for the same quiz using either **active recall** (self-testing) or passive rereading.
 
 Active recall: `88 84 90 86 89 85 88 83 90 86 89 85`
 
@@ -1937,7 +2036,7 @@ Welch's test reports $t^*=2.76$ with $\nu\approx 18.8$ and p-value $0.0062$. At 
 
 ---
 
-## 6.3.2 Hypothesis Tests on Two Proportions
+## 6.3.4 Hypothesis Tests on Two Proportions
 
 ::: {.defbox}
 When testing $H_0:p_1-p_2=0$, pool the sample proportions under the null and use the test statistic
@@ -1992,13 +2091,13 @@ Comparing two population proportions from independent samples, with enough succe
 ## Example: Push Notifications
 
 ::: {.examplebox}
-A habit-tracking app runs an experiment: half of new users get a daily push notification, half get none. For each user the app records whether they completed a workout that day.
+A habit-tracking app runs an experiment by randomly assigning half of its new users to receive a daily push notification and the other half to receive none. For each user, the app records whether they completed a workout that day.
 
 Push notification: $142$ check-ins out of $360$ users
 
 No notification: $118$ check-ins out of $370$ users
 
-Test whether the daily push notification increases the check-in rate.
+There is evidence the daily push notification increases the check-in rate.
 :::
 
 ::: {.defbox .fragment}
@@ -2068,7 +2167,7 @@ prop.test(successes, totals, alternative = "greater", correct = FALSE)
 
 ---
 
-## 6.3.3 Hypothesis Tests on Two Variances
+## 6.3.5 Hypothesis Tests on Two Variances
 
 ::: {.defbox}
 For two normal populations, test a ratio of variances with the test statistic
@@ -2149,7 +2248,9 @@ $$F^*=\frac{s_A^2}{s_B^2}\sim F_{n_A-1,\,n_B-1}$$
 
 ::: {.notebox .fragment}
 <span class="label">Which test?</span>
-Comparing two population variances (normal populations), so use an $F$ test with the larger-variance group on top: $F^*=s_A^2/s_B^2 \sim F_{11,\,9}$.
+Comparing two population variances from normal populations, so use an $F$ test. Because the alternative is $H_a:\sigma_A^2>\sigma_B^2$, Player A is placed in the numerator:
+
+$$F^*=\frac{s_A^2}{s_B^2}\sim F_{11,\,9}.$$
 :::
 :::
 ::::
@@ -2212,11 +2313,7 @@ var.test(player_a, player_b, alternative = "greater")
 
 ---
 
-## 6.4 Paired Data {.center .divider-slide}
-
----
-
-## Paired Data
+## 6.4 Paired Data
 
 ::: {.defbox}
 For matched pairs or before-after data, reduce each pair to a difference (measurement 1 $-$ measurement 2):
@@ -2273,7 +2370,7 @@ Before: `34 29 41 38 36 33 40 31 37 35 39 32`
 
 After: `37 28 45 39 38 33 38 34 38 39 41 33`
 
-Can we conclude the technique improves scores?
+Is there evidence that the students' mean score is higher after the week of Pomodoro study than before?
 :::
 
 ::: {.defbox .fragment}
@@ -2429,7 +2526,37 @@ Name the population parameter and the direction of the claim.
 Good conclusion: "There is sufficient evidence at the 5% level that the mean fill volume for large coffees is below 7.2 oz."
 :::
 
+
 ---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Test Logic</span>
+State $H_0$ and $H_a$, calculate a test statistic, find the p-value, and compare it with $\alpha$ to make a decision.
+:::
+
+::: {.card .fragment}
+<span class="label">Test Selection</span>
+Choose the procedure from the parameter, the number and relationship of the samples, and whether the required assumptions are reasonable.
+:::
+
+::: {.card .fragment}
+<span class="label">Interpretation</span>
+Reject or fail to reject $H_0$, then state the evidence in context without claiming that $H_0$ was proved or disproved.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Identify the parameter and study design first, choose the correct reference distribution, and let the p-value guide a careful contextual conclusion.
+:::
+
+
+---
+
 
 ## Up Next
 

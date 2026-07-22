@@ -1110,7 +1110,7 @@ hours.
 :::
 
 ::: {.col}
-::: {.examplebox}
+::: {.examplebox .fragment}
 Using $n=9$, $\bar{x}=59.5889$, $s=6.2553$, and $t^*=1.8595$:
 
 $$
@@ -1125,12 +1125,14 @@ students is between approximately **55.71 and 63.47 hours**.
 :::
 ::::
 
+::: {.fragment}
 ```{webr}
 #| autorun: false
 
 sleep_hours <- c(63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0)
 t.test(sleep_hours, conf.level = 0.90)
 ```
+:::
 
 ---
 

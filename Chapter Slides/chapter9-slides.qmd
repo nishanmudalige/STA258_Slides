@@ -1968,15 +1968,20 @@ $r=0.997$
 
 ```{=html}
 <style>
+.reveal section.late-scroll-seq h2 {
+  font-size: 1.36em !important;
+  margin-bottom: 9px !important;
+}
+
 .reveal section.late-scroll-seq .scroll-intro-grid {
   display: grid;
-  grid-template-columns: 0.92fr 1.08fr;
-  gap: 16px;
+  grid-template-columns: 0.94fr 1.06fr;
+  gap: 14px;
   align-items: stretch;
 }
 
 .reveal section.late-scroll-seq .scroll-intro-bottom {
-  margin-top: 14px;
+  margin-top: 9px;
 }
 
 .reveal section.late-scroll-seq .scroll-obs-table {
@@ -1984,15 +1989,15 @@ $r=0.997$
   border-collapse: collapse;
   background: white;
   color: var(--sta-text);
-  margin-top: 8px;
-  font-size: 0.80em;
-  line-height: 1.15;
+  margin-top: 5px;
+  font-size: 0.69em;
+  line-height: 1.04;
 }
 
 .reveal section.late-scroll-seq .scroll-obs-table th {
   background: var(--sta-teal-light);
   border: 1px solid var(--sta-border);
-  padding: 8px 10px;
+  padding: 4px 6px;
   font-weight: 700;
   text-align: center;
   white-space: nowrap;
@@ -2000,25 +2005,25 @@ $r=0.997$
 
 .reveal section.late-scroll-seq .scroll-obs-table td {
   border: 1px solid var(--sta-border);
-  padding: 8px 10px;
+  padding: 3px 6px;
   text-align: center;
 }
 
 .reveal section.late-scroll-seq mjx-container[display="true"],
 .reveal section.late-scroll-seq .MathJax_Display {
-  margin: 0.16em 0 !important;
+  margin: 0.10em 0 !important;
 }
 
 .reveal section.late-scroll-seq .scroll-goal-grid {
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
-  gap: 20px;
+  grid-template-columns: 1.22fr 0.78fr;
+  gap: 15px;
   align-items: center;
 }
 
 .reveal section.late-scroll-seq .scroll-goal-text p {
-  margin: 0 0 9px 0;
-  line-height: 1.22;
+  margin: 0 0 6px 0;
+  line-height: 1.16;
 }
 
 .reveal section.late-scroll-seq .scroll-goal-text p:last-child {
@@ -2027,15 +2032,15 @@ $r=0.997$
 
 .reveal section.late-scroll-seq .scroll-formula-stack {
   display: grid;
-  gap: 10px;
+  gap: 6px;
 }
 
 .reveal section.late-scroll-seq .scroll-formula-pill {
   background: white;
   border: 1px solid var(--sta-border);
   border-left: 5px solid var(--sta-teal);
-  border-radius: 9px;
-  padding: 9px 14px 10px 14px;
+  border-radius: 8px;
+  padding: 5px 9px 6px 9px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   text-align: center;
 }
@@ -2044,25 +2049,25 @@ $r=0.997$
 .scroll-formula-pill
 .scroll-pill-label {
   display: block;
-  font-size: 12.5px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--sta-muted);
-  margin-bottom: 3px;
+  margin-bottom: 1px;
 }
 
 .reveal section.late-scroll-seq
 .scroll-formula-pill
 mjx-container {
-  font-size: 1.04em !important;
+  font-size: 0.88em !important;
 }
 </style>
 ```
 
 :::: {.scroll-intro-grid}
 
-::: {.taskbox style="font-size: 0.68em; line-height: 1.2; padding: 15px 18px; margin-bottom: 0;"}
+::: {.taskbox style="font-size: 0.59em; line-height: 1.13; padding: 11px 14px; margin-bottom: 0;"}
 <span class="label">Context and question</span>
 
 A student group collects fictional data on late-night scrolling before a
@@ -2080,7 +2085,7 @@ $$
 Compute and interpret the sample correlation, $r$.
 :::
 
-::: {.examplebox .fragment data-fragment-index="1" style="font-size: 0.68em; line-height: 1.13; padding: 15px 18px; margin-bottom: 0;"}
+::: {.examplebox .fragment data-fragment-index="1" style="font-size: 0.58em; line-height: 1.07; padding: 11px 14px; margin-bottom: 0;"}
 <span class="label">Observed data</span>
 
 <table class="scroll-obs-table">
@@ -2103,7 +2108,7 @@ Compute and interpret the sample correlation, $r$.
 
 ::::
 
-::::: {.notebox .scroll-intro-bottom .fragment data-fragment-index="2" style="font-size: 0.66em; line-height: 1.18; padding: 14px 18px; margin-bottom: 0;"}
+::::: {.notebox .scroll-intro-bottom .fragment data-fragment-index="2" style="font-size: 0.55em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
 <span class="label">Goal of the example</span>
 
 :::: {.scroll-goal-grid}

@@ -1654,6 +1654,9 @@ among students is between approximately **0.2160 and
 /* ── Balanced worked-example slides ───────────────────── */
 .reveal section:has(.example-grid) {
   padding: 11px 25px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  max-height: 720px !important;
 }
 
 .reveal section:has(.example-grid) h2 {

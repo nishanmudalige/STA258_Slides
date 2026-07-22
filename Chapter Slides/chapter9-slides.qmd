@@ -948,24 +948,24 @@ plot_ly() |>
         font = list(size = 13, color = plot_cols$text)
       ),
       list(
-        x = 3.5,
-        y = 46.0,
-        xref = "x",
-        yref = "y",
-        text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
-        showarrow = TRUE,
-        arrowhead = 2,
-        arrowsize = 1,
-        arrowwidth = 1.5,
-        arrowcolor = plot_cols$red,
-        ax = 72,
-        ay = 55,
-        bgcolor = "rgba(255,255,255,0.96)",
-        bordercolor = plot_cols$border,
-        borderwidth = 1,
-        borderpad = 5,
-        font = list(size = 13, color = plot_cols$text)
-      )
+  x = 3.5,
+  y = 46.0,
+  xref = "x",
+  yref = "y",
+  text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
+  showarrow = TRUE,
+  arrowhead = 2,
+  arrowsize = 1,
+  arrowwidth = 1.5,
+  arrowcolor = plot_cols$red,
+  ax = 105,
+  ay = 4,
+  bgcolor = "rgba(255,255,255,0.96)",
+  bordercolor = plot_cols$border,
+  borderwidth = 1,
+  borderpad = 5,
+  font = list(size = 13, color = plot_cols$text)
+)
     )
   )
 ```

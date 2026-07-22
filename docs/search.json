@@ -5521,5 +5521,12 @@
     "title": "STA258",
     "section": "Interactive: Watch Power Climb with \\(n\\)",
     "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter8-slides.html#chapter-summary",
+    "href": "Chapter Slides/chapter8-slides.html#chapter-summary",
+    "title": "STA258",
+    "section": "Chapter Summary",
+    "text": "Chapter Summary\n\n\nGlobal ANOVA test Test\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\nagainst the claim that not all population means are equal.\n\n\nVariation and the F statistic ANOVA splits total variation into treatment and error variation, then compares them using\n\\[\nF^*=\\frac{MSTr}{MSE}.\n\\]\n\n\nAfter rejection A significant ANOVA result says at least one mean differs. Use Fisher’s LSD or Bonferroni intervals to determine which pairs differ.\n\n\n\n\nOne slide takeaway. Use ANOVA for the global question first, then use adjusted pairwise comparisons to investigate specific mean differences."
   }
 ]

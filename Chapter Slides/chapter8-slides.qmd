@@ -3213,6 +3213,43 @@ A one-way ANOVA with $k=4$ groups has a significant p-value. How many pairwise m
 
 ---
 
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Global ANOVA test</span>
+Test
+
+$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+$$
+
+against the claim that not all population means are equal.
+:::
+
+::: {.card .fragment}
+<span class="label">Variation and the F statistic</span>
+ANOVA splits total variation into treatment and error variation, then compares them using
+
+$$
+F^*=\frac{MSTr}{MSE}.
+$$
+:::
+
+::: {.card .fragment}
+<span class="label">After rejection</span>
+A significant ANOVA result says at least one mean differs. Use Fisher's LSD or Bonferroni intervals to determine which pairs differ.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Use ANOVA for the global question first, then use adjusted pairwise comparisons to investigate specific mean differences.
+:::
+
+---
+
 ## Up Next
 
 ::: {.examplebox}

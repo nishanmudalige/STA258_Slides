@@ -1308,9 +1308,9 @@ Which statement is best?
 
 ## Practice: Food Delivery App Share
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.82fr 1.18fr; grid-template-rows: auto auto; gap: 8px 14px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
 A student group claims food delivery app choices on campus follow:
 
 $$
@@ -1326,14 +1326,12 @@ A random sample of $n=150$ students gives:
 Test the model at the 1% significance level.
 :::
 
-::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.68em; line-height: 1.08; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 Expected counts:
 
 $$
-150(0.10,0.20,0.30,0.20,0.20)
-=
 (15,30,45,30,30)
 $$
 
@@ -1344,22 +1342,26 @@ $$
 \frac{(32-30)^2}{30}
 +
 \frac{(42-45)^2}{45}
+$$
+
+$$
+\qquad
 +
 \frac{(36-30)^2}{30}
 +
 \frac{(28-30)^2}{30}
+=
+2.27
 $$
 
 $$
-\chi^2=2.27,\qquad df=5-1=4
-$$
-
-$$
+df=5-1=4,
+\qquad
 p\text{-value}\approx0.687
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.59em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
 <span class="label">Hypotheses</span>
 
 $$
@@ -1369,11 +1371,11 @@ H_0:(p_1,p_2,p_3,p_4,p_5)
 $$
 
 $$
-H_a:\text{at least one probability differs}
+H_a:\text{at least one probability differs from its hypothesized value}
 $$
 :::
 
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
 Since $0.687>0.01$, we do not reject $H_0$. The observed app choices are consistent with the claimed distribution.
 :::
 

@@ -1200,8 +1200,8 @@ E_i=np_i\ge 5
 </section>
 <section id="practice-food-delivery-app-share" class="slide level2">
 <h2>Practice: Food Delivery App Share</h2>
-<div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
-<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
+<div class="example-grid" style="display: grid; grid-template-columns: 0.82fr 1.18fr; grid-template-rows: auto auto; gap: 8px 14px; align-items: stretch;">
+<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;">
 <p>A student group claims food delivery app choices on campus follow:</p>
 <p><span class="math display">\[
 (0.10,\;0.20,\;0.30,\;0.20,\;0.20)
@@ -1231,12 +1231,10 @@ E_i=np_i\ge 5
 </table>
 <p>Test the model at the 1% significance level.</p>
 </div>
-<div class="stat-card fragment" data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<div class="stat-card fragment" data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.68em; line-height: 1.08; padding: 10px 14px; margin-bottom: 0;">
 <p><span class="label">Calculation</span></p>
 <p>Expected counts:</p>
 <p><span class="math display">\[
-150(0.10,0.20,0.30,0.20,0.20)
-=
 (15,30,45,30,30)
 \]</span></p>
 <p><span class="math display">\[
@@ -1246,19 +1244,23 @@ E_i=np_i\ge 5
 \frac{(32-30)^2}{30}
 +
 \frac{(42-45)^2}{45}
+\]</span></p>
+<p><span class="math display">\[
+\qquad
 +
 \frac{(36-30)^2}{30}
 +
 \frac{(28-30)^2}{30}
+=
+2.27
 \]</span></p>
 <p><span class="math display">\[
-\chi^2=2.27,\qquad df=5-1=4
-\]</span></p>
-<p><span class="math display">\[
+df=5-1=4,
+\qquad
 p\text{-value}\approx0.687
 \]</span></p>
 </div>
-<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
+<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.59em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;">
 <p><span class="label">Hypotheses</span></p>
 <p><span class="math display">\[
 H_0:(p_1,p_2,p_3,p_4,p_5)
@@ -1266,10 +1268,10 @@ H_0:(p_1,p_2,p_3,p_4,p_5)
 (0.10,0.20,0.30,0.20,0.20)
 \]</span></p>
 <p><span class="math display">\[
-H_a:\text{at least one probability differs}
+H_a:\text{at least one probability differs from its hypothesized value}
 \]</span></p>
 </div>
-<div class="examplebox fragment" data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<div class="examplebox fragment" data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;">
 <p>Since <span class="math inline">\(0.687&gt;0.01\)</span>, we do not reject <span class="math inline">\(H_0\)</span>. The observed app choices are consistent with the claimed distribution.</p>
 </div>
 </div>

@@ -3888,8 +3888,8 @@
     "objectID": "Chapter Slides/chapter10-slides.html#assumptions-for-chi-square-goodness-of-fit",
     "href": "Chapter Slides/chapter10-slides.html#assumptions-for-chi-square-goodness-of-fit",
     "title": "STA258",
-    "section": "Assumptions for Chi-square Goodness of Fit",
-    "text": "Assumptions for Chi-square Goodness of Fit\n\nAssumptions\n\n\nCategorical counts: The data should be counts in mutually exclusive categories.\n\n\nOne category per trial: Each observation should fall into exactly one of the possible categories.\n\n\nIndependent trials: The trials or observations should be independent.\n\n\nExpected cell frequency: Each expected count should usually be at least 5.\n\n\n\n\nCourse reminder\nCheck expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied."
+    "section": "10.3 Assumptions for Chi-square Goodness of Fit",
+    "text": "10.3 Assumptions for Chi-square Goodness of Fit\n\nThe chi-square approximation works well only when the expected counts are large enough.\nA common course rule is:\n\\[\nE_i=np_i\\ge 5\n\\quad\n\\text{for every category}\n\\]\n\n\n\nGood situation\nExpected counts:\n\\[\n(30,70,60,40)\n\\]\nEvery expected count is at least 5, so the chi-square approximation is reasonable.\n\n\nProblem situation\nExpected counts:\n\\[\n(2.5,4.5,18,25)\n\\]\nSome expected counts are below 5, so the chi-square approximation may be unreliable."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#section",
@@ -5521,5 +5521,12 @@
     "title": "STA258",
     "section": "Interactive: Watch Power Climb with \\(n\\)",
     "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
+  },
+  {
+    "objectID": "Chapter Slides/chapter10-slides.html#assumption-checklist",
+    "href": "Chapter Slides/chapter10-slides.html#assumption-checklist",
+    "title": "STA258",
+    "section": "Assumption Checklist",
+    "text": "Assumption Checklist\n\nAssumptions\n\n\nCategorical counts: The data should be counts in mutually exclusive categories.\n\n\nOne category per trial: Each observation should fall into exactly one of the possible categories.\n\n\nIndependent trials: The trials or observations should be independent.\n\n\nExpected cell frequency: Each expected count should usually be at least 5.\n\n\n\n\nCourse reminder\nCheck expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied."
   }
 ]

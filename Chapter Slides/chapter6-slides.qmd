@@ -253,7 +253,7 @@ test_dropdown <- function() {
   init_d <- dists$t
   fill_col <- "rgba(249,168,37,0.55)"; line_col <- "rgba(249,168,37,0.95)"
 
-  p <- plot_ly(width = 1040, height = 330) |>
+  p <- plot_ly(width = 1040, height = 280) |>
     add_lines(x = init_d$x, y = init_d$y,
               line = list(color = "#1f4e79", width = 4),
               name = "reference", hoverinfo = "skip") |>
@@ -908,10 +908,10 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .dropdown-plot .svg-container {
   width: 100% !important;
   max-width: 1060px !important;
-  height: 360px !important;
-  max-height: 360px !important;
+  height: 300px !important;
+  max-height: 300px !important;
   overflow: visible !important;
-  margin: 6px auto 0 auto !important;
+  margin: -16px auto 0 auto !important;
 }
 .home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
@@ -1158,7 +1158,7 @@ Use the **two dropdowns** at the top-right of the plot: first pick the **type of
 :::
 ::::
 
-<p class="fragment" style="font-size:0.48em; color:var(--sta-muted); margin-top:10px; line-height:1.4; text-align:center;">$W$ is the test statistic from the chosen reference distribution (<em>Z</em>, <em>t</em>, chi-square, or <em>F</em>), with observed value $w^*$.</p>
+<p class="fragment" style="font-size:0.48em; color:var(--sta-muted); margin-top:3px; line-height:1.4; text-align:center;">$W$ is the test statistic from the chosen reference distribution (<em>Z</em>, <em>t</em>, chi-square, or <em>F</em>), with observed value $w^*$.</p>
 
 ::: {.dropdown-plot}
 ```{r}

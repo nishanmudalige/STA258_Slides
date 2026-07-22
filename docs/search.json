@@ -4553,8 +4553,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#why-anova",
     "href": "Chapter Slides/chapter8-slides.html#why-anova",
     "title": "STA258",
-    "section": "Why ANOVA?",
-    "text": "Why ANOVA?\n\n\nPurpose\nAnalysis of Variance (ANOVA) is used to compare several population means at once.\nInstead of running many separate two-sample tests, ANOVA begins with one global test.\n\n\n\nQuestion\nDo all groups have the same population mean?\n\\[\nk \\ge 3\n\\]\ngroups are being compared.\n\n\nNull hypothesis\nThe population means are all equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative hypothesis\nAt least one population mean is different:\n\\[\nH_a:\\text{not all }\\mu_i\\text{ are equal}\n\\]\n\n\n\nKey idea\nANOVA tells us whether there is evidence that at least one mean differs.\nIf ANOVA rejects (H_0), then pairwise comparisons can ask which means differ."
+    "section": "8.1 Why ANOVA?",
+    "text": "8.1 Why ANOVA?\n\n\nPurpose\nAnalysis of Variance (ANOVA) is used to compare several population means at once.\nInstead of running many separate two-sample tests, ANOVA begins with one global test.\n\n\n\nQuestion\nDo all groups have the same population mean?\n\\[\nk \\ge 3\n\\]\ngroups are being compared.\n\n\nNull hypothesis\nThe population means are all equal:\n\\[\nH_0:\\mu_1=\\mu_2=\\cdots=\\mu_k\n\\]\n\n\nAlternative hypothesis\nAt least one population mean is different:\n\\[\nH_a:\\text{not all }\\mu_i\\text{ are equal}\n\\]\n\n\n\nKey idea\nANOVA tells us whether there is evidence that at least one mean differs.\nIf ANOVA rejects (H_0), then pairwise comparisons can ask which means differ."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#one-factor-anova-model",
@@ -4574,8 +4574,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#sources-of-variation",
     "href": "Chapter Slides/chapter8-slides.html#sources-of-variation",
     "title": "STA258",
-    "section": "Sources of Variation",
-    "text": "Sources of Variation\n\nANOVA works by splitting variation into two pieces: variation within groups and variation between groups.\n\n\n\nWithin groups: error variation\n\\[\nSSE=\\sum_{i=1}^{k}(n_i-1)S_i^2\n\\]\nThis is residual variation inside the groups.\n\n\nBetween groups: treatment variation\n\\[\nSSTr=\\sum_{i=1}^{k} n_i(\\bar X_i-\\bar X)^2\n\\]\nThis captures how group means differ from the overall mean.\n\n\n\nThe ANOVA \\(F\\) statistic becomes large when between-group variation is large relative to within-group error variation."
+    "section": "8.2 Sources of Variation",
+    "text": "8.2 Sources of Variation\n\nANOVA works by splitting variation into two pieces: variation within groups and variation between groups.\n\n\n\nWithin groups: error variation\n\\[\nSSE=\\sum_{i=1}^{k}(n_i-1)S_i^2\n\\]\nThis is residual variation inside the groups.\n\n\nBetween groups: treatment variation\n\\[\nSSTr=\\sum_{i=1}^{k} n_i(\\bar X_i-\\bar X)^2\n\\]\nThis captures how group means differ from the overall mean.\n\n\n\nThe ANOVA \\(F\\) statistic becomes large when between-group variation is large relative to within-group error variation."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#total-variation-and-decomposition",
@@ -4588,8 +4588,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#the-anova-table",
     "href": "Chapter Slides/chapter8-slides.html#the-anova-table",
     "title": "STA258",
-    "section": "The ANOVA Table",
-    "text": "The ANOVA Table\n\n\nANOVA table structure\n\n\n\nSource\ndf\nSS\nMS\n\\(F^*\\)\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\\(MSTr\\)\n\\(MSTr/MSE\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\\(MSE\\)\n\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\n\n\\[\nSSTotal=SSTr+SSE\n\\]\n\\[\nF^*=\\frac{MSTr}{MSE}\n\\]\n\nThe p-value comes from the right tail of the (F) distribution.\n\n\nMean square rule\nA mean square is a sum of squares divided by its degrees of freedom:\n\\[\nMS=\\frac{SS}{df}\n\\]\nSo in one-way ANOVA:\n\\[\nMSTr=\\frac{SSTr}{k-1},\n\\qquad\nMSE=\\frac{SSE}{n-k}\n\\]\n\n\nDegrees of freedom\nThe degrees of freedom split the same way as the sums of squares:\n\\[\nn-1=(k-1)+(n-k)\n\\]\nTreatment variation uses (k-1) df, and error variation uses (n-k) df.\n\n\nTest statistic and p-value\nThe ANOVA test statistic is\n\\[\nF^*=\\frac{MSTr}{MSE}\n\\]\nUnder \\(H_0\\),\n\\[\nF^*\\sim F_{k-1,\\;n-k}\n\\]\nThe p-value is the right-tail area."
+    "section": "8.3 The ANOVA Table",
+    "text": "8.3 The ANOVA Table\n\n\nANOVA table structure\n\n\n\nSource\ndf\nSS\nMS\n\\(F^*\\)\n\n\n\n\nTreatment\n\\(k-1\\)\n\\(SSTr\\)\n\\(MSTr\\)\n\\(MSTr/MSE\\)\n\n\nError\n\\(n-k\\)\n\\(SSE\\)\n\\(MSE\\)\n\n\n\nTotal\n\\(n-1\\)\n\\(SSTotal\\)\n\n\n\n\n\n\n\\[\nSSTotal=SSTr+SSE\n\\]\n\\[\nF^*=\\frac{MSTr}{MSE}\n\\]\n\nThe p-value comes from the right tail of the (F) distribution.\n\n\nMean square rule\nA mean square is a sum of squares divided by its degrees of freedom:\n\\[\nMS=\\frac{SS}{df}\n\\]\nSo in one-way ANOVA:\n\\[\nMSTr=\\frac{SSTr}{k-1},\n\\qquad\nMSE=\\frac{SSE}{n-k}\n\\]\n\n\nDegrees of freedom\nThe degrees of freedom split the same way as the sums of squares:\n\\[\nn-1=(k-1)+(n-k)\n\\]\nTreatment variation uses (k-1) df, and error variation uses (n-k) df.\n\n\nTest statistic and p-value\nThe ANOVA test statistic is\n\\[\nF^*=\\frac{MSTr}{MSE}\n\\]\nUnder \\(H_0\\),\n\\[\nF^*\\sim F_{k-1,\\;n-k}\n\\]\nThe p-value is the right-tail area."
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#hypothesis-test-and-reference-distribution",
@@ -4658,8 +4658,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#assumptions-of-anova",
     "href": "Chapter Slides/chapter8-slides.html#assumptions-of-anova",
     "title": "STA258",
-    "section": "Assumptions of ANOVA",
-    "text": "Assumptions of ANOVA\n\n\nAssumptions\n\n\nObservations are independent.\n\n\n\n\nError terms, or residuals, are Normal.\n\n\n\n\nAll groups have the same population variance:\n\n\\[\n\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2.\n\\]\n\n\n\nCommon variance estimate\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat{\\sigma}^2=MSE\n\\]"
+    "section": "8.4 Assumptions of ANOVA",
+    "text": "8.4 Assumptions of ANOVA\n\n\nAssumptions\n\n\nObservations are independent.\n\n\n\n\nError terms, or residuals, are Normal.\n\n\n\n\nAll groups have the same population variance:\n\n\\[\n\\sigma_1^2=\\sigma_2^2=\\cdots=\\sigma_k^2=\\sigma^2.\n\\]\n\n\n\nCommon variance estimate\nThe common variance is estimated using the Mean Squared Error from ANOVA:\n\\[\n\\hat{\\sigma}^2=MSE\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#what-if-anova-rejects",
@@ -4672,8 +4672,8 @@
     "objectID": "Chapter Slides/chapter8-slides.html#pairwise-confidence-intervals",
     "href": "Chapter Slides/chapter8-slides.html#pairwise-confidence-intervals",
     "title": "STA258",
-    "section": "Pairwise Confidence Intervals",
-    "text": "Pairwise Confidence Intervals\n\n\nGeneral idea\nAfter ANOVA rejects, compare two population means using an interval for \\(\\mu_i-\\mu_j\\):\n\n\\[\n(\\bar{x}_i-\\bar{x}_j)\n\\pm\nt^*\n\\sqrt{\nMSE\\left(\\frac{1}{n_i}+\\frac{1}{n_j}\\right)\n}\n\\qquad\n\\text{where } \\hat{\\sigma}^2=MSE\n\\]\n\n\n\n\nFisher’s LSD\nUse the ordinary two-sided critical value:\n\\[\nt^*=t_{1-\\alpha/2,\\;n-k}\n\\]\nThis gives narrower intervals, so it has more power to detect differences.\nIt is less conservative when many pairs are compared.\n\n\nBonferroni\nFirst count the number of pairwise comparisons:\n\\[\nm=\\binom{k}{2}\n\\]\nThen use the adjusted critical value:\n\\[\nt^*=t_{1-\\alpha/(2m),\\;n-k}\n\\]\nThis gives wider intervals.\n\n\nDecision rule\nA pair is declared different when the interval for \\(\\mu_i-\\mu_j\\) does not contain 0.\nIf the interval contains 0, the pair is not clearly different.\nSo the whole method is:\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\]"
+    "section": "8.5 Pairwise Confidence Intervals",
+    "text": "8.5 Pairwise Confidence Intervals\n\n\nGeneral idea\nAfter ANOVA rejects, compare two population means using an interval for \\(\\mu_i-\\mu_j\\):\n\n\\[\n(\\bar{x}_i-\\bar{x}_j)\n\\pm\nt^*\n\\sqrt{\nMSE\\left(\\frac{1}{n_i}+\\frac{1}{n_j}\\right)\n}\n\\qquad\n\\text{where } \\hat{\\sigma}^2=MSE\n\\]\n\n\n\n\nFisher’s LSD\nUse the ordinary two-sided critical value:\n\\[\nt^*=t_{1-\\alpha/2,\\;n-k}\n\\]\nThis gives narrower intervals, so it has more power to detect differences.\nIt is less conservative when many pairs are compared.\n\n\nBonferroni\nFirst count the number of pairwise comparisons:\n\\[\nm=\\binom{k}{2}\n\\]\nThen use the adjusted critical value:\n\\[\nt^*=t_{1-\\alpha/(2m),\\;n-k}\n\\]\nThis gives wider intervals.\n\n\nDecision rule\nA pair is declared different when the interval for \\(\\mu_i-\\mu_j\\) does not contain 0.\nIf the interval contains 0, the pair is not clearly different.\nSo the whole method is:\n\\[\n\\text{interval avoids }0\n\\Rightarrow\n\\text{different}\n\\]"
   },
   {
     "objectID": "Chapter Slides/chapter8-slides.html#fisher-lsd-vs.-bonferroni",

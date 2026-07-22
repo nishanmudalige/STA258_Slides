@@ -1780,7 +1780,22 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(resizePlotlyOnSlides, 750);
   setTimeout(resizePlotlyOnSlides, 1500);
 
-  if (window.Reveal) {
+  window.addEventListener("resize", resizePlotlyOnSlides);
+});
+
+/*
+ * Bind to reveal.js once it exists. reveal can fire "ready" before this code
+ * runs (and window.Reveal may be undefined at DOMContentLoaded), so retry until
+ * it is available, then apply the fragment classes and call Reveal.sync() so
+ * reveal registers them and reveals the cards one at a time.
+ */
+(function bindWorkedExampleFragments() {
+  setupWorkedExampleFragments();
+
+  if (window.Reveal && typeof window.Reveal.on === "function") {
+    Reveal.sync();
+    setTimeout(resizePlotlyOnSlides, 300);
+
     Reveal.on("ready", function () {
       setupWorkedExampleFragments();
       Reveal.sync();
@@ -1798,10 +1813,10 @@ document.addEventListener("DOMContentLoaded", function () {
     Reveal.on("fragmenthidden", function () {
       setTimeout(resizePlotlyOnSlides, 300);
     });
+  } else {
+    window.setTimeout(bindWorkedExampleFragments, 150);
   }
-
-  window.addEventListener("resize", resizePlotlyOnSlides);
-});
+})();
 </script>
 ```
 

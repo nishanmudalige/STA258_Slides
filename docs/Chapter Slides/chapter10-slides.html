@@ -464,6 +464,81 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", resizePlotlyOnSlides);
 });
 </script>
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
 <p>STA258: Statistics with Applied Probability<br>
 University of Toronto Mississauga</p>
 
@@ -518,7 +593,7 @@ The question is usually: <strong>Do the observed counts match what the model pre
 <div class="col">
 <div class="defbox">
 <p>For two categories, one count can be modelled with a binomial distribution.</p>
-<p>If <span class="math inline">\(Y_1 \sim Bin(n,p_1)\)</span>, then for large <span class="math inline">\(n\)</span>,</p>
+<p>If <span class="math inline">\(Y_1 \sim Bin(n,p_1)\)</span> and both <span class="math inline">\(np_1\)</span> and <span class="math inline">\(n(1-p_1)\)</span> are large enough, then</p>
 <p><span class="math display">\[
 Z=
 \frac{Y_1-np_1}
@@ -540,8 +615,10 @@ Z^2 \approx \chi^2_1
 Q_1=
 \sum_{i=1}^{2}
 \frac{(Y_i-np_i)^2}{np_i}
+=
+Z^2
 \]</span></p>
-<p>This extends naturally to more than two categories.</p>
+<p>Therefore, <span class="math inline">\(Q_1\approx\chi^2_1\)</span>. This idea extends naturally to more than two categories.</p>
 </div>
 </div>
 </div>
@@ -561,7 +638,7 @@ p_1+p_2+\cdots+p_k=1
 </div>
 <div class="three-col">
 <div class="stat-card fragment">
-<p><span class="label">Trials</span> There are <span class="math inline">\(n\)</span> independent and identical trials.</p>
+<p><span class="label">Trials</span> There are <span class="math inline">\(n\)</span> independent trials with the same category probabilities.</p>
 </div>
 <div class="stat-card fragment">
 <p><span class="label">Categories</span> Each trial lands in one of <span class="math inline">\(k\)</span> possible categories.</p>
@@ -601,7 +678,7 @@ Q_{k-1}\approx \chi^2_{k-1}
 <h2>Example: Streaming App Preference</h2>
 <div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
 <div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
-<p>A campus media club asks <span class="math inline">\(n=240\)</span> students which streaming app they would keep if they could keep only one.</p>
+<p>A campus media club asks a random sample of <span class="math inline">\(n=240\)</span> students which streaming app they would keep if they could keep only one.</p>
 <p>The club wants to test whether the four apps are equally preferred.</p>
 <p><br></p>
 <table class="caption-top">
@@ -626,7 +703,7 @@ Q_{k-1}\approx \chi^2_{k-1}
 </table>
 <p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
 </div>
-<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<div class="stat-card fragment" data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
 <p><span class="label">Calculation</span></p>
 <p>If all four apps are equally preferred:</p>
 <p><span class="math display">\[
@@ -658,7 +735,7 @@ H_0:p_1=p_2=p_3=p_4=\frac14
 H_a:\text{the four probabilities are not all equal}
 \]</span></p>
 </div>
-<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<div class="examplebox fragment" data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
 <p>Since the P-value is very small, we reject <span class="math inline">\(H_0\)</span>. The sample gives strong evidence that the four streaming apps are <strong>not equally preferred</strong>.</p>
 </div>
 </div>
@@ -668,7 +745,7 @@ H_a:\text{the four probabilities are not all equal}
 <div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
 <div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
 <p>A campus café wants to know whether three cold drink options are equally preferred by students.</p>
-<p>A random sample of <span class="math inline">\(n=180\)</span> student purchases gives:</p>
+<p>A random sample of <span class="math inline">\(n=180\)</span> students is asked which drink they would choose:</p>
 <p><br></p>
 <table class="caption-top">
 <thead>
@@ -690,7 +767,7 @@ H_a:\text{the four probabilities are not all equal}
 </table>
 <p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
 </div>
-<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<div class="stat-card fragment" data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
 <p><span class="label">Calculation</span></p>
 <p>If all three drinks are equally preferred:</p>
 <p><span class="math display">\[
@@ -723,13 +800,13 @@ H_0:p_1=p_2=p_3=\frac13
 H_a:\text{the three probabilities are not all equal}
 \]</span></p>
 </div>
-<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<div class="examplebox fragment" data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
 <p>Since <span class="math inline">\(0.031&lt;0.05\)</span>, we reject <span class="math inline">\(H_0\)</span>. The sample suggests that the three café drinks are not equally preferred.</p>
 </div>
 </div>
 </section>
-<section id="check-in-r-multinomial-equal-preference-tests" class="slide level2 gof-r-check">
-<h2>Check in R: Multinomial Equal-Preference Tests</h2>
+<section id="check-in-r-equal-preference-goodness-of-fit-tests" class="slide level2 gof-r-check">
+<h2>Check in R: Equal-Preference Goodness-of-Fit Tests</h2>
 <style>
 .reveal section.gof-r-check .cm-editor,
 .reveal section.gof-r-check .cm-content,
@@ -805,7 +882,7 @@ p_2=p_{hyp,2},\;
 p_k=p_{hyp,k}
 \]</span></p>
 <p><span class="math display">\[
-H_a:\text{at least one category probability is different}
+H_a:\text{at least one probability differs from its hypothesized value}
 \]</span></p>
 </div>
 <div class="thinkbox fragment">
@@ -827,7 +904,7 @@ H_a:\text{at least one category probability is different}
 <p><span class="math display">\[
 \text{expected count}=np_i
 \]</span></p>
-<p>The P-value is the area to the right of the observed <span class="math inline">\(\chi^2\)</span> statistic under a chi-square distribution with:</p>
+<p>When all hypothesized category probabilities are specified before observing the data, the P-value is the area to the right of the observed <span class="math inline">\(\chi^2\)</span> statistic under a chi-square distribution with:</p>
 <p><span class="math display">\[
 df=k-1
 \]</span></p>
@@ -868,7 +945,7 @@ df=k-1
 </table>
 <p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
 </div>
-<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<div class="stat-card fragment" data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
 <p><span class="label">Calculation</span></p>
 <p>Expected counts:</p>
 <p><span class="math display">\[
@@ -904,7 +981,7 @@ H_0:(p_1,p_2,p_3,p_4)
 H_a:\text{at least one probability differs}
 \]</span></p>
 </div>
-<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<div class="examplebox fragment" data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
 <p>Since <span class="math inline">\(0.277&gt;0.05\)</span>, we do not reject <span class="math inline">\(H_0\)</span>. The observed pickup counts are reasonably consistent with the historical time-slot model.</p>
 </div>
 </div>
@@ -918,7 +995,7 @@ H_a:\text{at least one probability differs}
 (0.30,\;0.25,\;0.25,\;0.20)
 \]</span></p>
 <p>for black, clear, blue, and pink cases.</p>
-<p>A sample of <span class="math inline">\(n=150\)</span> recent purchases gives:</p>
+<p>A random sample of <span class="math inline">\(n=150\)</span> recent purchases gives:</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -941,7 +1018,7 @@ H_a:\text{at least one probability differs}
 </table>
 <p>Use <span class="math inline">\(\alpha=0.05\)</span>.</p>
 </div>
-<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<div class="stat-card fragment" data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
 <p><span class="label">Calculation</span></p>
 <p>Expected counts:</p>
 <p><span class="math display">\[
@@ -967,14 +1044,17 @@ p\text{-value}\approx0.0102
 \]</span></p>
 </div>
 <div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
-<p><span class="label">Interpretation setup</span></p>
-<p>One term of the statistic is especially large:</p>
+<p><span class="label">Hypotheses</span></p>
 <p><span class="math display">\[
-\frac{(63-45)^2}{45}=7.20
+H_0:(p_1,p_2,p_3,p_4)
+=
+(0.30,0.25,0.25,0.20)
 \]</span></p>
-<p>This shows that black case purchases are far above what the model expected.</p>
+<p><span class="math display">\[
+H_a:\text{at least one probability differs}
+\]</span></p>
 </div>
-<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<div class="examplebox fragment" data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
 <p>Since <span class="math inline">\(0.0102&lt;0.05\)</span>, we reject <span class="math inline">\(H_0\)</span>. The colour demand pattern does not fit the shop’s expected distribution well.</p>
 </div>
 </div>
@@ -1041,8 +1121,8 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </div>
 </div>
 </section>
-<section id="sample-size-assumption" class="slide level2">
-<h2>10.3 Sample Size Assumption</h2>
+<section id="assumptions-for-chi-square-goodness-of-fit" class="slide level2">
+<h2>10.3 Assumptions for Chi-square Goodness of Fit</h2>
 <div class="defbox">
 <p>The chi-square approximation works well only when the expected counts are large enough.</p>
 <p>A common course rule is:</p>
@@ -1071,8 +1151,8 @@ E_i=np_i\ge 5
 </div>
 </div>
 </section>
-<section id="assumptions-for-chi-square-goodness-of-fit" class="slide level2">
-<h2>Assumptions for Chi-square Goodness of Fit</h2>
+<section id="assumption-checklist" class="slide level2">
+<h2>Assumption Checklist</h2>
 <div class="notebox" style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;">
 <p><span class="label">Assumptions</span></p>
 <ul class="assumption-list" style="gap: 10px;">
@@ -1120,8 +1200,8 @@ E_i=np_i\ge 5
 </section>
 <section id="practice-food-delivery-app-share" class="slide level2">
 <h2>Practice: Food Delivery App Share</h2>
-<div class="example-grid" style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;">
-<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;">
+<div class="example-grid" style="display: grid; grid-template-columns: 0.82fr 1.18fr; grid-template-rows: auto auto; gap: 8px 14px; align-items: stretch;">
+<div class="taskbox" style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;">
 <p>A student group claims food delivery app choices on campus follow:</p>
 <p><span class="math display">\[
 (0.10,\;0.20,\;0.30,\;0.20,\;0.20)
@@ -1151,12 +1231,10 @@ E_i=np_i\ge 5
 </table>
 <p>Test the model at the 1% significance level.</p>
 </div>
-<div class="stat-card" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;">
+<div class="stat-card fragment" data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.68em; line-height: 1.08; padding: 10px 14px; margin-bottom: 0;">
 <p><span class="label">Calculation</span></p>
 <p>Expected counts:</p>
 <p><span class="math display">\[
-150(0.10,0.20,0.30,0.20,0.20)
-=
 (15,30,45,30,30)
 \]</span></p>
 <p><span class="math display">\[
@@ -1166,23 +1244,34 @@ E_i=np_i\ge 5
 \frac{(32-30)^2}{30}
 +
 \frac{(42-45)^2}{45}
+\]</span></p>
+<p><span class="math display">\[
+\qquad
 +
 \frac{(36-30)^2}{30}
 +
 \frac{(28-30)^2}{30}
+=
+2.27
 \]</span></p>
 <p><span class="math display">\[
-\chi^2=2.27,\qquad df=5-1=4
-\]</span></p>
-<p><span class="math display">\[
+df=5-1=4,
+\qquad
 p\text{-value}\approx0.687
 \]</span></p>
 </div>
-<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;">
-<p><span class="label">Decision rule</span></p>
-<p>At the 1% level, reject <span class="math inline">\(H_0\)</span> only if the P-value is less than <span class="math inline">\(0.01\)</span>.</p>
+<div class="notebox" style="grid-column: 1; grid-row: 2; font-size: 0.59em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;">
+<p><span class="label">Hypotheses</span></p>
+<p><span class="math display">\[
+H_0:(p_1,p_2,p_3,p_4,p_5)
+=
+(0.10,0.20,0.30,0.20,0.20)
+\]</span></p>
+<p><span class="math display">\[
+H_a:\text{at least one probability differs from its hypothesized value}
+\]</span></p>
 </div>
-<div class="examplebox" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;">
+<div class="examplebox fragment" data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;">
 <p>Since <span class="math inline">\(0.687&gt;0.01\)</span>, we do not reject <span class="math inline">\(H_0\)</span>. The observed app choices are consistent with the claimed distribution.</p>
 </div>
 </div>
@@ -1247,6 +1336,7 @@ E_i=np_i
 <div class="three-col">
 <div class="stat-card fragment">
 <p><span class="label">Degrees of freedom</span></p>
+<p>When the category probabilities are specified in advance:</p>
 <p><span class="math display">\[
 df=k-1
 \]</span></p>

@@ -3798,14 +3798,14 @@
     "href": "Chapter Slides/chapter10-slides.html#from-binomial-to-chi-square",
     "title": "STA258",
     "section": "From Binomial to Chi-square",
-    "text": "From Binomial to Chi-square\n\n\n\nFor two categories, one count can be modelled with a binomial distribution.\nIf \\(Y_1 \\sim Bin(n,p_1)\\), then for large \\(n\\),\n\\[\nZ=\n\\frac{Y_1-np_1}\n{\\sqrt{np_1(1-p_1)}}\n\\approx N(0,1)\n\\]\nSo,\n\\[\nZ^2 \\approx \\chi^2_1\n\\]\n\n\n\n\nPearson’s idea\nInstead of only checking one binomial count, compare every observed count to its expected count.\nFor two categories:\n\\[\nQ_1=\n\\sum_{i=1}^{2}\n\\frac{(Y_i-np_i)^2}{np_i}\n\\]\nThis extends naturally to more than two categories."
+    "text": "From Binomial to Chi-square\n\n\n\nFor two categories, one count can be modelled with a binomial distribution.\nIf \\(Y_1 \\sim Bin(n,p_1)\\) and both \\(np_1\\) and \\(n(1-p_1)\\) are large enough, then\n\\[\nZ=\n\\frac{Y_1-np_1}\n{\\sqrt{np_1(1-p_1)}}\n\\approx N(0,1)\n\\]\nSo,\n\\[\nZ^2 \\approx \\chi^2_1\n\\]\n\n\n\n\nPearson’s idea\nInstead of only checking one binomial count, compare every observed count to its expected count.\nFor two categories:\n\\[\nQ_1=\n\\sum_{i=1}^{2}\n\\frac{(Y_i-np_i)^2}{np_i}\n=\nZ^2\n\\]\nTherefore, \\(Q_1\\approx\\chi^2_1\\). This idea extends naturally to more than two categories."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#multinomial-response-model",
     "href": "Chapter Slides/chapter10-slides.html#multinomial-response-model",
     "title": "STA258",
     "section": "10.1 Multinomial Response Model",
-    "text": "10.1 Multinomial Response Model\n\nA multinomial response model applies when each trial results in exactly one of \\(k\\) mutually exclusive and exhaustive categories.\nThe category probabilities are:\n\\[\np_1,p_2,\\ldots,p_k\n\\]\nwith\n\\[\np_1+p_2+\\cdots+p_k=1\n\\]\n\n\n\nTrials There are \\(n\\) independent and identical trials.\n\n\nCategories Each trial lands in one of \\(k\\) possible categories.\n\n\nCounts The observed category counts are \\(Y_1,Y_2,\\ldots,Y_k\\)."
+    "text": "10.1 Multinomial Response Model\n\nA multinomial response model applies when each trial results in exactly one of \\(k\\) mutually exclusive and exhaustive categories.\nThe category probabilities are:\n\\[\np_1,p_2,\\ldots,p_k\n\\]\nwith\n\\[\np_1+p_2+\\cdots+p_k=1\n\\]\n\n\n\nTrials There are \\(n\\) independent trials with the same category probabilities.\n\n\nCategories Each trial lands in one of \\(k\\) possible categories.\n\n\nCounts The observed category counts are \\(Y_1,Y_2,\\ldots,Y_k\\)."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#multinomial-counts",
@@ -3819,7 +3819,7 @@
     "href": "Chapter Slides/chapter10-slides.html#example-streaming-app-preference",
     "title": "STA258",
     "section": "Example: Streaming App Preference",
-    "text": "Example: Streaming App Preference\n\n\nA campus media club asks \\(n=240\\) students which streaming app they would keep if they could keep only one.\nThe club wants to test whether the four apps are equally preferred.\n\n\n\n\nApp\nNetflix\nYouTube\nDisney+\nPrime\n\n\n\n\nObserved count\n88\n72\n50\n30\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nIf all four apps are equally preferred:\n\\[\np_1=p_2=p_3=p_4=\\frac14\n\\]\n\\[\nE_i=np_i=240\\left(\\frac14\\right)=60\n\\]\n\\[\n\\chi^2=\n\\frac{(88-60)^2}{60}\n+\n\\frac{(72-60)^2}{60}\n+\n\\frac{(50-60)^2}{60}\n+\n\\frac{(30-60)^2}{60}\n\\]\n\\[\n\\chi^2=32.13,\\qquad df=4-1=3\n\\]\n\n\nHypotheses\n\\[\nH_0:p_1=p_2=p_3=p_4=\\frac14\n\\]\n\\[\nH_a:\\text{the four probabilities are not all equal}\n\\]\n\n\nSince the P-value is very small, we reject \\(H_0\\). The sample gives strong evidence that the four streaming apps are not equally preferred."
+    "text": "Example: Streaming App Preference\n\n\nA campus media club asks a random sample of \\(n=240\\) students which streaming app they would keep if they could keep only one.\nThe club wants to test whether the four apps are equally preferred.\n\n\n\n\nApp\nNetflix\nYouTube\nDisney+\nPrime\n\n\n\n\nObserved count\n88\n72\n50\n30\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nIf all four apps are equally preferred:\n\\[\np_1=p_2=p_3=p_4=\\frac14\n\\]\n\\[\nE_i=np_i=240\\left(\\frac14\\right)=60\n\\]\n\\[\n\\chi^2=\n\\frac{(88-60)^2}{60}\n+\n\\frac{(72-60)^2}{60}\n+\n\\frac{(50-60)^2}{60}\n+\n\\frac{(30-60)^2}{60}\n\\]\n\\[\n\\chi^2=32.13,\\qquad df=4-1=3\n\\]\n\n\nHypotheses\n\\[\nH_0:p_1=p_2=p_3=p_4=\\frac14\n\\]\n\\[\nH_a:\\text{the four probabilities are not all equal}\n\\]\n\n\nSince the P-value is very small, we reject \\(H_0\\). The sample gives strong evidence that the four streaming apps are not equally preferred."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#visual-check-observed-vs-expected",
@@ -3840,14 +3840,14 @@
     "href": "Chapter Slides/chapter10-slides.html#chi-square-test-for-goodness-of-fit",
     "title": "STA258",
     "section": "10.2 Chi-square Test for Goodness of Fit",
-    "text": "10.2 Chi-square Test for Goodness of Fit\n\nA chi-square goodness-of-fit test checks whether observed category counts agree with a hypothesized probability model.\nThe hypotheses are:\n\\[\nH_0:\np_1=p_{hyp,1},\\;\np_2=p_{hyp,2},\\;\n\\ldots,\\;\np_k=p_{hyp,k}\n\\]\n\\[\nH_a:\\text{at least one category probability is different}\n\\]\n\n\nThe null hypothesis can say “all categories are equal,” but it can also give unequal hypothesized probabilities."
+    "text": "10.2 Chi-square Test for Goodness of Fit\n\nA chi-square goodness-of-fit test checks whether observed category counts agree with a hypothesized probability model.\nThe hypotheses are:\n\\[\nH_0:\np_1=p_{hyp,1},\\;\np_2=p_{hyp,2},\\;\n\\ldots,\\;\np_k=p_{hyp,k}\n\\]\n\\[\nH_a:\\text{at least one probability differs from its hypothesized value}\n\\]\n\n\nThe null hypothesis can say “all categories are equal,” but it can also give unequal hypothesized probabilities."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#goodness-of-fit-test-statistic",
     "href": "Chapter Slides/chapter10-slides.html#goodness-of-fit-test-statistic",
     "title": "STA258",
     "section": "Goodness-of-Fit Test Statistic",
-    "text": "Goodness-of-Fit Test Statistic\n\nThe test statistic is:\n\\[\n\\chi^2\n=\n\\sum\n\\frac{(\\text{observed count}-\\text{expected count})^2}\n{\\text{expected count}}\n\\]\nwhere:\n\\[\n\\text{expected count}=np_i\n\\]\nThe P-value is the area to the right of the observed \\(\\chi^2\\) statistic under a chi-square distribution with:\n\\[\ndf=k-1\n\\]\n\n\nThis is always a right-tail test. Large \\(\\chi^2\\) values mean the observed counts are too far from the hypothesized model."
+    "text": "Goodness-of-Fit Test Statistic\n\nThe test statistic is:\n\\[\n\\chi^2\n=\n\\sum\n\\frac{(\\text{observed count}-\\text{expected count})^2}\n{\\text{expected count}}\n\\]\nwhere:\n\\[\n\\text{expected count}=np_i\n\\]\nWhen all hypothesized category probabilities are specified before observing the data, the P-value is the area to the right of the observed \\(\\chi^2\\) statistic under a chi-square distribution with:\n\\[\ndf=k-1\n\\]\n\n\nThis is always a right-tail test. Large \\(\\chi^2\\) values mean the observed counts are too far from the hypothesized model."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#example-campus-food-pickup-slots",
@@ -3861,7 +3861,7 @@
     "href": "Chapter Slides/chapter10-slides.html#example-phone-case-colour-demand",
     "title": "STA258",
     "section": "Example: Phone Case Colour Demand",
-    "text": "Example: Phone Case Colour Demand\n\n\nA phone accessory shop expects case colour demand to follow:\n\\[\n(0.30,\\;0.25,\\;0.25,\\;0.20)\n\\]\nfor black, clear, blue, and pink cases.\nA sample of \\(n=150\\) recent purchases gives:\n\n\n\nColour\nBlack\nClear\nBlue\nPink\n\n\n\n\nObserved count\n63\n28\n36\n23\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nExpected counts:\n\\[\n150(0.30,0.25,0.25,0.20)\n=\n(45,37.5,37.5,30)\n\\]\n\\[\n\\chi^2=\n\\frac{(63-45)^2}{45}\n+\n\\frac{(28-37.5)^2}{37.5}\n+\n\\frac{(36-37.5)^2}{37.5}\n+\n\\frac{(23-30)^2}{30}\n\\]\n\\[\n\\chi^2=11.30,\\qquad df=3\n\\]\n\\[\np\\text{-value}\\approx0.0102\n\\]\n\n\nInterpretation setup\nOne term of the statistic is especially large:\n\\[\n\\frac{(63-45)^2}{45}=7.20\n\\]\nThis shows that black case purchases are far above what the model expected.\n\n\nSince \\(0.0102&lt;0.05\\), we reject \\(H_0\\). The colour demand pattern does not fit the shop’s expected distribution well."
+    "text": "Example: Phone Case Colour Demand\n\n\nA phone accessory shop expects case colour demand to follow:\n\\[\n(0.30,\\;0.25,\\;0.25,\\;0.20)\n\\]\nfor black, clear, blue, and pink cases.\nA random sample of \\(n=150\\) recent purchases gives:\n\n\n\nColour\nBlack\nClear\nBlue\nPink\n\n\n\n\nObserved count\n63\n28\n36\n23\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nExpected counts:\n\\[\n150(0.30,0.25,0.25,0.20)\n=\n(45,37.5,37.5,30)\n\\]\n\\[\n\\chi^2=\n\\frac{(63-45)^2}{45}\n+\n\\frac{(28-37.5)^2}{37.5}\n+\n\\frac{(36-37.5)^2}{37.5}\n+\n\\frac{(23-30)^2}{30}\n\\]\n\\[\n\\chi^2=11.30,\\qquad df=3\n\\]\n\\[\np\\text{-value}\\approx0.0102\n\\]\n\n\nHypotheses\n\\[\nH_0:(p_1,p_2,p_3,p_4)\n=\n(0.30,0.25,0.25,0.20)\n\\]\n\\[\nH_a:\\text{at least one probability differs}\n\\]\n\n\nSince \\(0.0102&lt;0.05\\), we reject \\(H_0\\). The colour demand pattern does not fit the shop’s expected distribution well."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#check-in-r-goodness-of-fit-tests",
@@ -3888,8 +3888,8 @@
     "objectID": "Chapter Slides/chapter10-slides.html#assumptions-for-chi-square-goodness-of-fit",
     "href": "Chapter Slides/chapter10-slides.html#assumptions-for-chi-square-goodness-of-fit",
     "title": "STA258",
-    "section": "Assumptions for Chi-square Goodness of Fit",
-    "text": "Assumptions for Chi-square Goodness of Fit\n\nAssumptions\n\n\nCategorical counts: The data should be counts in mutually exclusive categories.\n\n\nOne category per trial: Each observation should fall into exactly one of the possible categories.\n\n\nIndependent trials: The trials or observations should be independent.\n\n\nExpected cell frequency: Each expected count should usually be at least 5.\n\n\n\n\nCourse reminder\nCheck expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied."
+    "section": "10.3 Assumptions for Chi-square Goodness of Fit",
+    "text": "10.3 Assumptions for Chi-square Goodness of Fit\n\nThe chi-square approximation works well only when the expected counts are large enough.\nA common course rule is:\n\\[\nE_i=np_i\\ge 5\n\\quad\n\\text{for every category}\n\\]\n\n\n\nGood situation\nExpected counts:\n\\[\n(30,70,60,40)\n\\]\nEvery expected count is at least 5, so the chi-square approximation is reasonable.\n\n\nProblem situation\nExpected counts:\n\\[\n(2.5,4.5,18,25)\n\\]\nSome expected counts are below 5, so the chi-square approximation may be unreliable."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#section",
@@ -3903,7 +3903,7 @@
     "href": "Chapter Slides/chapter10-slides.html#practice-food-delivery-app-share",
     "title": "STA258",
     "section": "Practice: Food Delivery App Share",
-    "text": "Practice: Food Delivery App Share\n\n\nA student group claims food delivery app choices on campus follow:\n\\[\n(0.10,\\;0.20,\\;0.30,\\;0.20,\\;0.20)\n\\]\nA random sample of \\(n=150\\) students gives:\n\n\n\nApp\nA\nB\nC\nD\nE\n\n\n\n\nObserved count\n12\n32\n42\n36\n28\n\n\n\nTest the model at the 1% significance level.\n\n\nCalculation\nExpected counts:\n\\[\n150(0.10,0.20,0.30,0.20,0.20)\n=\n(15,30,45,30,30)\n\\]\n\\[\n\\chi^2=\n\\frac{(12-15)^2}{15}\n+\n\\frac{(32-30)^2}{30}\n+\n\\frac{(42-45)^2}{45}\n+\n\\frac{(36-30)^2}{30}\n+\n\\frac{(28-30)^2}{30}\n\\]\n\\[\n\\chi^2=2.27,\\qquad df=5-1=4\n\\]\n\\[\np\\text{-value}\\approx0.687\n\\]\n\n\nDecision rule\nAt the 1% level, reject \\(H_0\\) only if the P-value is less than \\(0.01\\).\n\n\nSince \\(0.687&gt;0.01\\), we do not reject \\(H_0\\). The observed app choices are consistent with the claimed distribution."
+    "text": "Practice: Food Delivery App Share\n\n\nA student group claims food delivery app choices on campus follow:\n\\[\n(0.10,\\;0.20,\\;0.30,\\;0.20,\\;0.20)\n\\]\nA random sample of \\(n=150\\) students gives:\n\n\n\nApp\nA\nB\nC\nD\nE\n\n\n\n\nObserved count\n12\n32\n42\n36\n28\n\n\n\nTest the model at the 1% significance level.\n\n\nCalculation\nExpected counts:\n\\[\n(15,30,45,30,30)\n\\]\n\\[\n\\chi^2=\n\\frac{(12-15)^2}{15}\n+\n\\frac{(32-30)^2}{30}\n+\n\\frac{(42-45)^2}{45}\n\\]\n\\[\n\\qquad\n+\n\\frac{(36-30)^2}{30}\n+\n\\frac{(28-30)^2}{30}\n=\n2.27\n\\]\n\\[\ndf=5-1=4,\n\\qquad\np\\text{-value}\\approx0.687\n\\]\n\n\nHypotheses\n\\[\nH_0:(p_1,p_2,p_3,p_4,p_5)\n=\n(0.10,0.20,0.30,0.20,0.20)\n\\]\n\\[\nH_a:\\text{at least one probability differs from its hypothesized value}\n\\]\n\n\nSince \\(0.687&gt;0.01\\), we do not reject \\(H_0\\). The observed app choices are consistent with the claimed distribution."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#check-in-r-practice-test",
@@ -3917,7 +3917,7 @@
     "href": "Chapter Slides/chapter10-slides.html#chapter-summary",
     "title": "STA258",
     "section": "Chapter Summary",
-    "text": "Chapter Summary\n\n\n1. Model the counts Use a multinomial model when each trial falls into exactly one of \\(k\\) categories.\n\n\n2. Build expected counts Under the null model:\n\\[\nE_i=np_i\n\\]\nThese are the counts we would expect if \\(H_0\\) were true.\n\n\n3. Compare with \\(\\chi^2\\) Use:\n\\[\n\\chi^2=\\sum\\frac{(O_i-E_i)^2}{E_i}\n\\]\nLarge values give evidence against \\(H_0\\).\n\n\n\n\n\nDegrees of freedom\n\\[\ndf=k-1\n\\]\n\n\nP-value Use the right-tail area under the chi-square distribution.\n\n\nAssumption check Each expected count should usually be at least 5."
+    "text": "Chapter Summary\n\n\n1. Model the counts Use a multinomial model when each trial falls into exactly one of \\(k\\) categories.\n\n\n2. Build expected counts Under the null model:\n\\[\nE_i=np_i\n\\]\nThese are the counts we would expect if \\(H_0\\) were true.\n\n\n3. Compare with \\(\\chi^2\\) Use:\n\\[\n\\chi^2=\\sum\\frac{(O_i-E_i)^2}{E_i}\n\\]\nLarge values give evidence against \\(H_0\\).\n\n\n\n\n\nDegrees of freedom\nWhen the category probabilities are specified in advance:\n\\[\ndf=k-1\n\\]\n\n\nP-value Use the right-tail area under the chi-square distribution.\n\n\nAssumption check Each expected count should usually be at least 5."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#end-of-chapter-10",
@@ -3931,7 +3931,7 @@
     "href": "Chapter Slides/chapter10-slides.html#example-campus-café-drink-preference",
     "title": "STA258",
     "section": "Example: Campus Café Drink Preference",
-    "text": "Example: Campus Café Drink Preference\n\n\nA campus café wants to know whether three cold drink options are equally preferred by students.\nA random sample of \\(n=180\\) student purchases gives:\n\n\n\n\nDrink\nIced coffee\nMatcha latte\nSmoothie\n\n\n\n\nObserved count\n72\n64\n44\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nIf all three drinks are equally preferred:\n\\[\np_1=p_2=p_3=\\frac13\n\\]\n\\[\nE_i=np_i=180\\left(\\frac13\\right)=60\n\\]\n\\[\n\\chi^2=\n\\frac{(72-60)^2}{60}\n+\n\\frac{(64-60)^2}{60}\n+\n\\frac{(44-60)^2}{60}\n\\]\n\\[\n\\chi^2=6.93,\\qquad df=3-1=2\n\\]\n\\[\np\\text{-value}\\approx0.031\n\\]\n\n\nHypotheses\n\\[\nH_0:p_1=p_2=p_3=\\frac13\n\\]\n\\[\nH_a:\\text{the three probabilities are not all equal}\n\\]\n\n\nSince \\(0.031&lt;0.05\\), we reject \\(H_0\\). The sample suggests that the three café drinks are not equally preferred."
+    "text": "Example: Campus Café Drink Preference\n\n\nA campus café wants to know whether three cold drink options are equally preferred by students.\nA random sample of \\(n=180\\) students is asked which drink they would choose:\n\n\n\n\nDrink\nIced coffee\nMatcha latte\nSmoothie\n\n\n\n\nObserved count\n72\n64\n44\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nIf all three drinks are equally preferred:\n\\[\np_1=p_2=p_3=\\frac13\n\\]\n\\[\nE_i=np_i=180\\left(\\frac13\\right)=60\n\\]\n\\[\n\\chi^2=\n\\frac{(72-60)^2}{60}\n+\n\\frac{(64-60)^2}{60}\n+\n\\frac{(44-60)^2}{60}\n\\]\n\\[\n\\chi^2=6.93,\\qquad df=3-1=2\n\\]\n\\[\np\\text{-value}\\approx0.031\n\\]\n\n\nHypotheses\n\\[\nH_0:p_1=p_2=p_3=\\frac13\n\\]\n\\[\nH_a:\\text{the three probabilities are not all equal}\n\\]\n\n\nSince \\(0.031&lt;0.05\\), we reject \\(H_0\\). The sample suggests that the three café drinks are not equally preferred."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#check-in-r-multinomial-equal-preference-tests",
@@ -5732,6 +5732,18 @@
     "text": "Interactive: Watch Power Climb with \\(n\\)\nUse the dropdown to change the sample size for the bottling test (\\(\\mu_0=300\\), \\(\\mu_a=299\\), \\(\\sigma=3\\), left-tailed \\(\\alpha=0.05\\)). As \\(n\\) grows, both curves sharpen, they separate more cleanly, and the green power area past the cutoff expands.\n\n\n\n\n\n\n\n\n\nSame 1 ml shortfall, same \\(\\alpha\\), only \\(n\\) changes: power rises from \\(\\approx 0.20\\) at \\(n=6\\) to \\(\\approx 0.83\\) at \\(n=60\\). That is why sample size is your main planning lever."
   },
   {
+    "objectID": "Chapter Slides/chapter10-slides.html#assumption-checklist",
+    "href": "Chapter Slides/chapter10-slides.html#assumption-checklist",
+    "title": "STA258",
+    "section": "Assumption Checklist",
+    "text": "Assumption Checklist\n\nAssumptions\n\n\nCategorical counts: The data should be counts in mutually exclusive categories.\n\n\nOne category per trial: Each observation should fall into exactly one of the possible categories.\n\n\nIndependent trials: The trials or observations should be independent.\n\n\nExpected cell frequency: Each expected count should usually be at least 5.\n\n\n\n\nCourse reminder\nCheck expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied."
+  },
+  {
+    "objectID": "Chapter Slides/chapter10-slides.html#check-in-r-equal-preference-goodness-of-fit-tests",
+    "href": "Chapter Slides/chapter10-slides.html#check-in-r-equal-preference-goodness-of-fit-tests",
+    "title": "STA258",
+    "section": "Check in R: Equal-Preference Goodness-of-Fit Tests",
+    "text": "Check in R: Equal-Preference Goodness-of-Fit Tests\n\n\n\n\nStreaming app example\n\n\n\n\n\n\n\n\n\n\n\n\nCampus café drink example"
     "objectID": "Chapter Slides/chapter4-slides.html#check-in-r-sampling-variability",
     "href": "Chapter Slides/chapter4-slides.html#check-in-r-sampling-variability",
     "title": "STA258",

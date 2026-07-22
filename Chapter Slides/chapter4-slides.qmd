@@ -1030,7 +1030,7 @@ sd(sample_means)
 ::::::: two-col-lean
 ::::: col
 ::: defbox
-**Normal Distribution** — $X \sim N(\mu, \sigma^2)$
+**Normal Distribution** - $X \sim N(\mu, \sigma^2)$
 
 $$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
 
@@ -1115,7 +1115,7 @@ plotly_slide_layout(
 ## 4.1.1 The Standard Normal Distribution
 
 ::: {.defbox .fragment}
-**Standard Normal** — $Z \sim N(0, 1)$
+**Standard Normal** - $Z \sim N(0, 1)$
 
 $$f(z) = \frac{1}{\sqrt{2\pi}} \cdot e^{-z^2/2}$$
 
@@ -1133,7 +1133,7 @@ distribution.
 
 ------------------------------------------------------------------------
 
-## Empirical Rule — Interactive Explorer
+## Empirical Rule - Interactive Explorer
 
 :::::::::: {#emp-rule-box style="border:1px solid #d8dee2; border-radius:10px; padding:12px 16px; background:white; font-size:0.72em;"}
 ::::: {style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:10px;"}
@@ -2486,7 +2486,7 @@ Remember: the standard deviation is the square root of the variance.
 ## 4.1.2 The Chi-Square Distribution
 
 ::: defbox
-**Chi-Square Random Variable** — $X \sim \chi^2_k$
+**Chi-Square Random Variable** - $X \sim \chi^2_k$
 
 If $Z_1, Z_2, \ldots, Z_k \overset{\text{iid}}{\sim} N(0,1)$, then
 
@@ -2712,7 +2712,7 @@ $$W = Z_1^2 + Z_2^2 + Z_3^2 + Z_4^2 \; ?$$
 ## 4.1.3 The Student's $t$-Distribution
 
 ::: defbox
-**Student's** $t$ Distribution — $T \sim t_\nu$
+**Student's** $t$ Distribution - $T \sim t_\nu$
 
 If $Z \sim N(0,1)$ and $U \sim \chi^2_\nu$ are **independent**, then
 
@@ -2796,7 +2796,7 @@ plotly_slide_layout(
 
 ::: {.thinkbox .fragment}
 **Why does this matter?** When estimating a mean from a small sample
-with unknown $\sigma$, we use $t$ critical values — they are larger than
+with unknown $\sigma$, we use $t$ critical values - they are larger than
 $z$ values, reflecting extra uncertainty.
 :::
 
@@ -3159,7 +3159,7 @@ qt(0.975, df = c(5, 10, 30, 100, 1000))
 **`qt(p, df)`** → inverse CDF
 
 Notice `qt(0.975, df=10) = 2.228` vs `qnorm(0.975) = 1.960`. The $t$
-critical value is larger — reflecting extra uncertainty in small
+critical value is larger - reflecting extra uncertainty in small
 samples.
 :::
 ::::
@@ -3359,7 +3359,7 @@ plotly_slide_layout(
 ```
 
 -   The normal distribution is only valid for large populations
--   [We must estimate $\sigma$ from the data, adding uncertainty — $t$ has heavier tails to account for this]{.correct
+-   [We must estimate $\sigma$ from the data, adding uncertainty - $t$ has heavier tails to account for this]{.correct
     data-explanation="For small-sample inference about a mean, the population standard deviation is usually unknown. Estimating it from the sample adds extra uncertainty, so the t-distribution has heavier tails than the normal distribution."}
 -   The $t$ is easier to compute
 -   Small-sample data are always non-normal
@@ -3369,7 +3369,7 @@ plotly_slide_layout(
 ## 4.1.4 The $F$-Distribution
 
 ::: defbox
-$F$ Random Variable — $F \sim F_{\nu_1, \nu_2}$
+$F$ Random Variable - $F \sim F_{\nu_1, \nu_2}$
 
 If $U \sim \chi^2_{\nu_1}$ and $V \sim \chi^2_{\nu_2}$ are
 **independent**, then
@@ -3498,7 +3498,7 @@ $\chi^2$ and $F$ distributions?
 
 ::: {.summary-table-slide}
 | Distribution | Parameters | Support | $E[X]$ | Key use |
-|---------------|---------------|---------------|---------------|---------------|
+|---------|---------|---------|------------------------|-------------|
 | $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | General continuous |
 | $\chi^2_k$ | $k$ (df) | $(0,\infty)$ | $k$ | Variance tests |
 | $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ if $\nu>1$;<br>undefined if $\nu\leq1$ | Small-sample mean |
@@ -3566,7 +3566,7 @@ the same population.
 
 ::::: two-col
 ::: {.examplebox .fragment}
-**Key idea.** $\bar{X}$ is not a fixed number — it is a **random
+**Key idea.** $\bar{X}$ is not a fixed number - it is a **random
 variable**. Each new sample of size $n$ gives a different value of
 $\bar{X}$. The sampling distribution describes how those values vary.
 :::
@@ -3602,7 +3602,7 @@ precise estimates.
 
 ------------------------------------------------------------------------
 
-## Sampling Distribution — Simulation
+## Sampling Distribution - Simulation
 
 ```{webr}
 #| autorun: false
@@ -3670,7 +3670,7 @@ $\quad \bar{X}_n \;\dot{\sim}\; N\!\left(\mu,\, \frac{\sigma^2}{n}\right)$
 
 ::: {.thinkbox .fragment}
 **Remarkable.** The CLT holds for **any** parent distribution with
-finite variance — uniform, exponential, Poisson, or anything else. The
+finite variance - uniform, exponential, Poisson, or anything else. The
 shape of $\bar{X}$ approaches normal as $n$ grows.
 :::
 
@@ -3705,7 +3705,7 @@ distribution is unknown or skewed.
 
 ------------------------------------------------------------------------
 
-## CLT — Simulation Lab in R
+## CLT - Simulation Lab in R
 
 ```{webr}
 #| autorun: false
@@ -4315,14 +4315,14 @@ $$P\!\left(|\bar{X}_n - \mu| \geq \varepsilon\right) \leq \frac{\sigma^2}{n\vare
 -   Independence (for $\text{Var}(\bar{X}_n) = \sigma^2/n$)
 -   Identical distribution (for common $\mu$ and $\sigma^2$)
 
-The CLT is not required — Chebyshev alone is enough.
+The CLT is not required - Chebyshev alone is enough.
 :::
 ::::
 :::::::
 
 ------------------------------------------------------------------------
 
-## WLLN — Simulation
+## WLLN - Simulation
 
 ```{webr}
 #| autorun: false
@@ -4344,7 +4344,7 @@ abline(h = p, lty = 2, col = "black")
 
 ------------------------------------------------------------------------
 
-## WLLN — Multiple Paths
+## WLLN - Multiple Paths
 
 ```{webr}
 #| autorun: false

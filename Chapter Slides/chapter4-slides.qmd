@@ -127,7 +127,8 @@ plotly_slide_layout <- function(
         ticks = "outside",
         ticklen = 5,
         tickcolor = plot_cols$border,
-        automargin = TRUE
+        automargin = TRUE,
+        fixedrange = TRUE
       ),
       yaxis = list(
         title = list(
@@ -147,7 +148,8 @@ plotly_slide_layout <- function(
         ticklen = 5,
         tickcolor = plot_cols$border,
         automargin = TRUE,
-        rangemode = "tozero"
+        rangemode = "tozero",
+        fixedrange = TRUE
       ),
       showlegend = showlegend,
       legend = list(
@@ -3332,7 +3334,7 @@ plotly_slide_layout(
     margin = list(l = 62, r = 25, t = 72, b = 55)
   ) |>
   config(
-    displayModeBar = TRUE,
+    displayModeBar = FALSE,
     displaylogo = FALSE,
     scrollZoom = FALSE,
     doubleClick = "reset",
@@ -4152,7 +4154,7 @@ subplot(
     margin = list(l = 65, r = 25, t = 78, b = 55)
   ) |>
   config(
-    displayModeBar = TRUE,
+    displayModeBar = FALSE,
     displaylogo = FALSE,
     scrollZoom = FALSE,
     doubleClick = "reset",
@@ -4595,7 +4597,7 @@ plotly_slide_layout(
     margin = list(l = 72, r = 20, t = 45, b = 62)
   ) |>
   config(
-    displayModeBar = TRUE,
+    displayModeBar = FALSE,
     displaylogo = FALSE,
     scrollZoom = FALSE,
     doubleClick = "reset",

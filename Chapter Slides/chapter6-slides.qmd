@@ -358,7 +358,7 @@ test_dropdown <- function() {
         // above), the p-value/labels, and — for symmetric two-tailed — the
         // mirrored boundary (the line the user is NOT holding).
         var upd = {annotations: anns};
-        if (state.t === 'both' && dd.symmetric && moved != null){
+        if (state.t === 'both' && moved != null){
           var other = 1 - moved;
           upd['shapes[' + other + '].x0'] = state.b[other];
           upd['shapes[' + other + '].x1'] = state.b[other];
@@ -373,6 +373,61 @@ test_dropdown <- function() {
       }
     };
 
+    // inverse CDF: smallest x with cdf(x) >= p (cdf is increasing)
+    var invinterp = function(cdf, xs, p){
+      if (p <= cdf[0]) return xs[0];
+      if (p >= cdf[cdf.length-1]) return xs[xs.length-1];
+      var lo = 0, hi = cdf.length - 1;
+      while (hi - lo > 1){ var m = (hi + lo) >> 1; if (cdf[m] <= p) lo = m; else hi = m; }
+      var f = (p - cdf[lo]) / (cdf[hi] - cdf[lo]);
+      return xs[lo] + f * (xs[hi] - xs[lo]);
+    };
+
+    var applyMove = function(moved, nx){
+      var r = data.ranges[state.d];
+      var dd = data.dists[state.d], xs = dd.x, cdf = dd.cdf;
+      nx = Math.max(r[0] + 0.02, Math.min(r[1] - 0.02, nx));
+      if (state.t === 'right'){
+        // Z/t: the dotted line may not cross the centre (x = 0, the black line)
+        if (dd.symmetric) nx = Math.max(0, nx);
+        state.b = [nx];
+      } else if (state.t === 'left'){
+        if (dd.symmetric) nx = Math.min(0, nx);
+        state.b = [nx];
+      } else {
+        if (dd.symmetric){
+          // two boundaries are mirror images about 0, so 0 is never crossed
+          var s = Math.max(0.02, Math.abs(nx));
+          state.b = [-s, s];
+        } else {
+          // Equal-tail two-sided test for chi-square / F: each tail keeps the
+          // same area, so dragging one boundary moves the other to the matching
+          // quantile. The lower stays below the median, the upper above it.
+          var med = invinterp(cdf, xs, 0.5);
+          if (moved === 0){
+            var xlo = Math.max(r[0] + 0.02, Math.min(nx, med - 0.02));
+            var plo = interp(xs, cdf, xlo);
+            state.b = [xlo, invinterp(cdf, xs, 1 - plo)];
+          } else {
+            var xhi = Math.min(r[1] - 0.02, Math.max(nx, med + 0.02));
+            var pup = 1 - interp(xs, cdf, xhi);
+            state.b = [invinterp(cdf, xs, pup), xhi];
+          }
+        }
+      }
+    };
+
+    // Coalesce the rapid drag events into a single redraw per animation frame
+    // so the line tracks the cursor smoothly instead of stuttering.
+    var pending = null, rafId = null;
+    var flush = function(){
+      rafId = null;
+      if (!pending) return;
+      applyMove(pending.moved, pending.nx);
+      redraw(true, pending.moved);
+      pending = null;
+    };
+
     var handleMove = function(ev, live){
       var moved = null, nx = null;
       Object.keys(ev || {}).forEach(function(k){
@@ -380,28 +435,18 @@ test_dropdown <- function() {
         if (m){ moved = +m[1]; nx = +ev[k]; }
       });
       if (moved === null || isNaN(nx)) return;
-      var r = data.ranges[state.d];
-      nx = Math.max(r[0] + 0.02, Math.min(r[1] - 0.02, nx));
-      var dd = data.dists[state.d];
-      if (state.t === 'both'){
-        if (dd.symmetric){
-          var s = Math.max(0.02, Math.abs(nx));
-          state.b = [-s, s];
-        } else {
-          state.b[moved] = nx;
-          if (state.b[0] > state.b[1] - 0.1){
-            if (moved === 0) state.b[0] = state.b[1] - 0.1;
-            else state.b[1] = state.b[0] + 0.1;
-          }
-        }
+      if (live){
+        pending = {moved: moved, nx: nx};
+        if (rafId === null) rafId = window.requestAnimationFrame(flush);
       } else {
-        state.b[0] = nx;
+        pending = null;
+        if (rafId !== null){ window.cancelAnimationFrame(rafId); rafId = null; }
+        applyMove(moved, nx);
+        redraw(false, moved);
       }
-      redraw(live, moved);
     };
-    // plotly_relayouting fires continuously while the line is being dragged
-    // (smooth live updates); plotly_relayout fires once on release (final,
-    // full redraw that normalises every shape and label).
+    // plotly_relayouting fires continuously during the drag (smooth live
+    // updates); plotly_relayout fires once on release (final full redraw).
     el.on('plotly_relayouting', function(ev){ handleMove(ev, true); });
     el.on('plotly_relayout',    function(ev){ handleMove(ev, false); });
 

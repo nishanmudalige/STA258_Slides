@@ -13,11 +13,13 @@ format:
     html-math-method: mathjax
     code-copy: true
     code-fold: false
-    incremental: true
+    incremental: false
     width: 1280
     height: 720
     margin: 0.055
     center: false
+revealjs-plugins:
+  - quiz
 webr:
   packages:
     - ggplot2
@@ -77,7 +79,7 @@ live:
 .two-col, .two-col-lean, .two-col-wide,
 .three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
   display: grid;
-  gap: 36px;
+  gap: 28px;
   align-items: start;
 }
 .two-col       { grid-template-columns: 1fr 1fr; }
@@ -87,7 +89,7 @@ live:
 .one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
 .web-grid      { grid-template-columns: 270px 1fr; }
-.exercise-grid { grid-template-columns: 340px 1fr; gap: 36px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col           {
   min-width: 0;
   display: flex;
@@ -97,49 +99,109 @@ live:
 .install-panel { display: flex; flex-direction: column; gap: 10px; }
 
 /* ── Boxes ────────────────────────────────────────────── */
-.defbox, .examplebox, .thinkbox, .card,
-.warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 16px 18px;
+.defbox,
+.examplebox,
+.thinkbox,
+.card,
+.warnbox,
+.taskbox,
+.notebox,
+.mini-card,
+.stat-card {
+  padding: 14px 16px;
   border-radius: 10px;
-  font-size: 0.74em;
-  line-height: 1.28;
+  font-size: 0.72em;
+  line-height: 1.24;
   box-sizing: border-box;
   margin-bottom: 8px;
 }
-.defbox, .card {
+
+.defbox,
+.card {
   background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
-.examplebox, .notebox, .mini-card {
+
+.examplebox,
+.notebox,
+.mini-card {
   background: var(--sta-grey);
   border: 1px solid var(--sta-border);
 }
-.thinkbox, .taskbox {
+
+.thinkbox,
+.taskbox {
   background: var(--sta-yellow);
   border-left: 7px solid var(--sta-orange);
 }
+
 .warnbox {
   background: #fff3e0;
   border-left: 7px solid #ef6c00;
 }
+
 .stat-card {
   background: white;
   border: 1px solid var(--sta-border);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
 }
-.card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+
+.card .label,
+.taskbox .label,
+.notebox .label,
+.mini-card .label,
+.stat-card .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
   margin-bottom: 5px;
 }
 
+.defbox p,
+.examplebox p,
+.thinkbox p,
+.warnbox p,
+.card p,
+.taskbox p,
+.notebox p,
+.mini-card p,
+.stat-card p,
+.defbox li,
+.examplebox li,
+.thinkbox li,
+.warnbox li,
+.card li,
+.taskbox li,
+.notebox li,
+.mini-card li,
+.stat-card li {
+  margin-bottom: 4px;
+}
+
 /* ── Utility ──────────────────────────────────────────── */
-.big        { font-size: 1.08em; font-weight: bold; color: var(--sta-teal); }
-.center     { text-align: center; }
-.small-text { font-size: 0.64em; }
-.tight li   { margin-bottom: 0.18em; }
+
+.big {
+  font-size: 1.08em;
+  font-weight: bold;
+  color: var(--sta-teal);
+}
+
+.center {
+  text-align: center;
+}
+
+.small-text {
+  font-size: 0.75em;
+}
+
+.footer-note {
+  font-size: 0.65em;
+  color: var(--sta-muted);
+}
+
+.tight li {
+  margin-bottom: 0.18em;
+}
 .formula {
   display: inline-block;
   background: white;
@@ -151,13 +213,24 @@ live:
 }
 
 /* ── Tables ───────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.66em;
+  border: 1px solid var(--sta-border);
+}
 .reveal th, .reveal td {
   border: 1px solid var(--sta-border);
   padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.scrollable .defbox,
+.scrollable .examplebox,
+.scrollable .thinkbox,
+.scrollable .warnbox {
+  margin-bottom: 4px;
+}
 
 /* ── Code ─────────────────────────────────────────────── */
 .reveal pre {
@@ -177,6 +250,92 @@ live:
 .reveal section.compact h2  { font-size: 1.1em !important; }
 .reveal section.compact p,
 .reveal section.compact li  { font-size: 0.74em; }
+
+/* ── Quiz slides ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+
+.reveal .quiz-question > * {
+  width: 100%;
+  max-width: 1080px;
+}
+
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.reveal .quiz-question .callout-note {
+  margin: 4px 0 12px 0 !important;
+  text-align: left;
+}
+
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+
+.reveal .quiz-question ul {
+  margin: 4px 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+.reveal .quiz-question li {
+  margin-bottom: 6px !important;
+}
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
+}
 
 /* ── Web slides ───────────────────────────────────────── */
 .reveal section.web-slide h2 { font-size: 1.12em !important; margin-bottom: 0.3em; }
@@ -198,6 +357,35 @@ live:
 .button-link:hover {
   background: var(--sta-teal-dark) !important;
   background-color: var(--sta-teal-dark) !important;
+}
+/* ── Home button ──────────────────────────────────────── */
+.reveal a.home-button,
+.reveal a.home-button:visited,
+.reveal a.home-button:link {
+  display: inline-block !important;
+  background: var(--sta-teal) !important;
+  background-color: var(--sta-teal) !important;
+  color: white !important;
+  padding: 12px 28px !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+  font-size: 0.9em !important;
+  border: 2px solid var(--sta-teal-dark) !important;
+  margin-top: 24px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.reveal a.home-button:hover {
+  background: var(--sta-teal-dark) !important;
+  background-color: var(--sta-teal-dark) !important;
+  color: white !important;
+}
+
+.home-button-row {
+  text-align: center;
+  margin-top: 32px;
 }
 
 .web-slide .examplebox,
@@ -285,6 +473,100 @@ live:
 }
 </style>
 
+</style>
+
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability  
@@ -298,16 +580,16 @@ University of Toronto Mississauga
 
 :::: {.three-col}
 ::: {.card .fragment}
-<span class="label">1 - Setup</span>
+<span class="label">2.1 - Getting Started with R</span>
+Learn what R is and why scripts make statistical work reproducible and transparent.
+:::
+::: {.card .fragment}
+<span class="label">2.2 - Installation and Interfaces</span>
 Install R and RStudio, understand the four RStudio panes, and learn about Positron.
 :::
 ::: {.card .fragment}
-<span class="label">2 - R Basics</span>
-Use R as a calculator, create variables, build vectors, and apply common built-in functions.
-:::
-::: {.card .fragment}
-<span class="label">3 - Data Work</span>
-Read data frames, select rows and columns, make histograms, and use ggplot2.
+<span class="label">2.3 - Programming in R</span>
+Use R as a calculator, work with data structures, manage data, and create basic visualizations.
 :::
 ::::
 
@@ -330,7 +612,7 @@ Save work in scripts rather than relying on the Console alone.
 
 ---
 
-## 2.1 What is R? {#statistical-computing-language}
+## 2.1 Getting Started with R {#statistical-computing-language}
 
 ::: {.defbox .fragment}
 **R**
@@ -346,8 +628,8 @@ R is used for data manipulation, statistics, and graphics. It supports a wide ra
 Open-source and free to install on any platform.
 :::
 ::: {.stat-card .fragment}
-<span class="label">Vast</span>
-20,000+ contributed packages on CRAN.
+<span class="label">Extensible</span>
+A large ecosystem of contributed packages is available through CRAN.
 :::
 ::: {.stat-card .fragment}
 <span class="label">Speaks Many Languages</span>
@@ -487,7 +769,7 @@ Download: [positron.posit.co](https://positron.posit.co)
 
 ::: {.col}
 ::: {.examplebox .fragment}
-**RStudio and Posit**
+**RStudio and Positron**
 
 RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.
 :::
@@ -495,7 +777,7 @@ RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and 
 <br>
 
 ::: {.thinkbox .fragment}
-Positron is not required for this course. RStudio is the standard tool. Positron may become relevant in future workflows involving collaborative or browser-based coding.
+Positron is optional and is not required for this course. RStudio will be used for course demonstrations, exercises, and assignments.
 :::
 :::
 ::::
@@ -544,9 +826,9 @@ Browse files, view plots, load packages, and read help pages.
 
 </div>
 
+---
 
-
-## 2.3 An Introduction to Programming in R {.compact}
+## 2.3 Programming in R {.compact}
 
 **Why R for statistics?**
 
@@ -618,7 +900,7 @@ abs(-10)            # absolute value
 
 ---
 
-## Calculator Practice
+## Check in R: Calculator Practice
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -680,7 +962,7 @@ A variable stores a value so it can be reused later. The assignment arrow `<-` m
 
 ---
 
-## Variable Practice
+## Check in R: Variables
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -715,14 +997,14 @@ mark
 
 The primary data structures in R are **vectors**, **lists**, **matrices**, **arrays**, **factors**, and **data frames**.
 
-| Structure | Stores | Dimensions | Types mixed? |
+| Structure | Stores | Dimensions | Can mix types? |
 |---|---|---|---|
-| Vector | One type of value | 1-D | No |
-| List | Any types | 1-D | Yes |
-| Matrix | One type of value | 2-D | No |
-| Array | One type of value | n-D | No |
-| Factor | Categorical values | 1-D | No |
-| Data frame | Any types per column | 2-D | Yes |
+| Vector | Values of one type | 1-D | No |
+| List | Values or objects of different types | 1-D | Yes |
+| Matrix | Values of one type | 2-D | No |
+| Array | Values of one type | n-D | No |
+| Factor | Categorical values stored as levels | 1-D | No |
+| Data frame | One type within each column | 2-D | Yes, across columns |
 
 ::: {.thinkbox .fragment}
 For most applied statistics the main structure is the **data frame**, because it resembles a spreadsheet where each column can hold a different type.
@@ -761,7 +1043,7 @@ A vector stores multiple values of the same type in one object. The function `c(
 
 ---
 
-## Vector Practice
+## Check in R: Vectors
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -827,7 +1109,7 @@ R starts counting at **1**, not 0.
 
 ---
 
-## Vector Indexing Practice
+## Check in R: Vector Indexing
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -855,6 +1137,21 @@ marks[c(2, 4)]
 :::
 ::::
 :::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Given `marks <- c(80, 75, 90, 88, 92)`, what does `marks[c(2, 4)]` return?
+::::
+
+- [The 2nd and 4th elements: 75 and 88]{.correct data-explanation="R indexes from 1, so position 2 is 75 and position 4 is 88. c(2, 4) selects both of those positions."}
+- The 2nd through 4th elements: 75, 90, 88
+- The values 2 and 4
+- Elements 3 and 5: 90 and 92, because R counts from 0
 
 ---
 
@@ -961,7 +1258,7 @@ levels(gender)   # [1] "Female" "Male"
 **Arrays** extend matrices to n dimensions. Useful for simulations and higher-dimensional data.
 :::
 ::: {.examplebox}
-**Factors** store unique values (called **levels**) efficiently. Automatically treated as categorical in models.
+**Factors** store categorical values using predefined categories called **levels**. They are treated as categorical variables in statistical models.
 :::
 ::::
 
@@ -1106,7 +1403,7 @@ class_data[1:2, c("student","mark")]  # rows and columns
 
 ---
 
-## Column Practice
+## Check in R: Selecting a Column
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -1149,7 +1446,7 @@ mean(class_data$hours)
 
 ---
 
-## Row and Column Practice
+## Check in R: Selecting Rows and Columns
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -1192,6 +1489,21 @@ class_data[1:2, c("student", "mark")]
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Which R data structure best holds a dataset where each column stores a different type - for example, student name (text), mark (number), and passed (TRUE/FALSE)?
+::::
+
+- [Data frame]{.correct data-explanation="A data frame is a table where each row is one observation and each column is one variable, and columns may hold different types - the standard structure for applied statistics."}
+- Numeric vector
+- Matrix
+- Factor
+
+---
+
 ## 2.3.3 Using Basic Functions in R {.compact}
 
 :::: {.two-col-lean}
@@ -1209,7 +1521,7 @@ min(x)
 sort(x)                       # ascending order
 sort(x, decreasing = TRUE)    # descending order
 
-# Find the order (ranks) of elements
+# Find the indices that would sort the vector
 order(x)
 ```
 :::
@@ -1220,7 +1532,7 @@ order(x)
 | `max()`, `min()` | Largest and smallest values |
 | `mean()`, `sum()` | Average and total |
 | `sort()` | Sorted values |
-| `order()` | Rank positions |
+| `order()` | Indices that sort the values |
 
 ::: {.thinkbox}
 These functions work on vectors, and many also apply to data-frame columns or matrices with additional arguments.
@@ -1297,7 +1609,7 @@ hist(faithful$waiting, plot = FALSE)$counts   # counts per interval
 
 ---
 
-## Histogram Practice
+## Check in R: Histograms
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -1470,7 +1782,7 @@ The pipe `|>` (or `%>%`) chains verbs together: read it as "then".
 
 ---
 
-## ggplot2 Practice
+## Check in R: ggplot2
 
 ::::: {.exercise-grid}
 :::: {.taskbox}
@@ -1533,52 +1845,54 @@ ggplot(class_data, aes(x = student, y = mark)) +
 
 ---
 
-## Chapter 2 Summary {.compact}
+##  {.quiz-question}
 
-:::: {.four-grid}
+:::: {.callout-note icon="false"}
+## Question
+
+You ran `install.packages("ggplot2")` last week. What do you need to do to use `ggplot2` in a new R session today?
+::::
+
+- [Call `library(ggplot2)` - packages must be loaded each session]{.correct data-explanation="install.packages() downloads a package once. library() loads it into each new session, and must be run before the package's functions are available."}
+- Run `install.packages("ggplot2")` again
+- Nothing - installed packages load automatically every session
+- Reinstall R
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
 ::: {.card .fragment}
-<span class="label">R</span>
-Open-source language for statistics, graphics, and reproducible analysis. Interfaces with C, C++, and FORTRAN. Freely available from CRAN.
-:::
-::: {.card .fragment}
-<span class="label">RStudio</span>
-The main interface for writing and running R code. Four panes: Source, Console, Environment/History, Files/Plots/Help.
+<span class="label">R & RStudio</span>
+**R** is an open-source language for statistics, data analysis, and graphics.<br>**RStudio** is the interface for writing scripts, running code, and viewing plots.<br>**Scripts** make analyses easy to save, reproduce, and rerun.
 :::
 ::: {.card .fragment}
 <span class="label">Data Structures</span>
-Vector, list, matrix, array, factor, data frame. The data frame is the most common structure in applied statistics.
+**Variables** store one value; **vectors** store many of one type.<br>**Lists**, **matrices**, **arrays**, **factors**, and **data frames** organize richer data.<br>**Indexing** with `[ ]` selects elements, rows, and columns.
 :::
 ::: {.card .fragment}
-<span class="label">Indexing</span>
-`v[i]` for vectors. `df[row, col]` for data frames. `df$col` to extract a column. R counts from 1.
+<span class="label">Functions & Packages</span>
+**Functions** like `mean()`, `sort()`, and `summary()` reuse common operations.<br>**Packages** extend R: `install.packages()` once, `library()` each session.<br>**Base graphics** and **`ggplot2`** both create statistical plots.
 :::
 ::::
 
 <br>
 
-:::: {.three-col}
-::: {.mini-card .fragment}
-<span class="label">Functions</span>
-`mean()`, `max()`, `min()`, `sort()`, `order()`, `hist()`, `names()`, `dim()`, `head()`, `summary()`
+::: {.thinkbox .fragment}
+**One slide takeaway.** R turns statistical work into reusable, shareable scripts - write the code once, then rerun, tweak, and visualize it on any dataset.
 :::
-::: {.mini-card .fragment}
-<span class="label">Packages</span>
-`install.packages()` once. `library()` every session. `installed.packages()` to list. `help.search()` to find.
-:::
-::: {.mini-card .fragment}
-<span class="label">ggplot2</span>
-`ggplot()` + `aes()` + `geom_*()` + `labs()` builds professional labelled plots.
-:::
-::::
 
 ---
 
-## End of Chapter 2
+## Up Next
 
-::: {.center}
-<span class="big">End of Chapter 2</span>
+::: {.examplebox}
+**Chapter 3 - Descriptive Statistics**
 
-<br><br>
-
-[Back to Home](../index.html){.button-link}
+Now that you can run R, we use it to **summarize data** - measures of center and spread, and the plots that reveal the shape of a distribution.
 :::
+
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Homepage</a>
+</div>

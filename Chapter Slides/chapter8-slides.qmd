@@ -584,21 +584,45 @@ University of Toronto Mississauga
 
 ---
 
-## Chapter Roadmap {.compact}
+## Chapter Roadmap {.compact .chapter8-roadmap}
+
+<style>
+.reveal section.chapter8-roadmap .three-col {
+  gap: 22px;
+  align-items: stretch;
+}
+
+.reveal section.chapter8-roadmap .card,
+.reveal section.chapter8-roadmap .stat-card {
+  font-size: 0.77em;
+  line-height: 1.27;
+  padding: 20px 22px;
+  min-height: 148px;
+  margin-bottom: 0;
+}
+
+.reveal section.chapter8-roadmap .label {
+  font-size: 1.04em;
+  margin-bottom: 8px;
+}
+</style>
 
 :::: {.three-col}
 ::: {.card .fragment}
 <span class="label">8.1 - ANOVA model</span>
+
 Compare $k \ge 3$ population means using one global model.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.2 - Variation split</span>
+
 Break total variation into treatment variation and error variation.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.3 - ANOVA F test</span>
+
 Use the ANOVA table and a right-tailed $F$ distribution.
 :::
 ::::
@@ -608,16 +632,19 @@ Use the ANOVA table and a right-tailed $F$ distribution.
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">8.4 - Assumptions</span>
+
 Normal residuals, equal population variance, and independent observations.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.5 - Pairwise comparisons</span>
+
 After rejecting ANOVA, compare means in pairs.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.6 - R checks</span>
+
 Use `aov()`, `anova()`, `pairwise.t.test()`, and `glht()` to check ANOVA and pairwise comparisons.
 :::
 ::::

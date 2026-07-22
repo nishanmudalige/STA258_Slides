@@ -267,7 +267,7 @@ test_dropdown <- function() {
       xaxis = list(title = "", range = c(-4, 4), zeroline = TRUE,
                    zerolinecolor = "#222", fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
-      margin = list(l = 42, r = 12, t = 30, b = 92),
+      margin = list(l = 42, r = 12, t = 30, b = 104),
       showlegend = FALSE
     ) |>
     config(displayModeBar = FALSE, responsive = TRUE,
@@ -347,7 +347,7 @@ test_dropdown <- function() {
         txt = 'p-value = P(' + w + ' ≤ ' + fmt(loB) + ') + P(' + w + ' ≥ ' + fmt(hiB) + ') = ' +
               fmtp(pl) + ' + ' + fmtp(pu) + ' = ' + fmtp(pl + pu);
       }
-      anns.push({x:0.5, y:-0.36, xref:'paper', yref:'paper', text:txt, showarrow:false,
+      anns.push({x:0.5, y:-0.62, xref:'paper', yref:'paper', text:txt, showarrow:false,
                  font:{size:14, color:'#2f3437'}, bgcolor:'rgba(245,246,247,0.95)',
                  bordercolor:'#d8dee2', borderwidth:1, borderpad:5});
 

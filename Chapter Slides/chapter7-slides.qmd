@@ -862,7 +862,8 @@ A test is only useful if it can detect a real effect.
 <span class="label">Definition 7.1</span>
 The probability that a fixed-level significance test will reject $H_0$ when a particular **alternative** value of the parameter is true is called the **power** of the test against that alternative.
 
-$$\text{Power}=P(\text{reject } H_0 \mid H_0 \text{ false}), \qquad 0<\text{power}<1$$
+$$\text{Power at }\theta=\theta_a
+=P(\text{reject }H_0\mid \theta=\theta_a), \qquad 0\le \text{power}\le 1$$
 :::
 
 :::: {.two-col}
@@ -1685,7 +1686,7 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 | Quantity | Formula / idea |
 |---|---|
-| Power | $1-\beta=P(\text{reject } H_0\mid H_0 \text{ false})$ |
+| Power against $\theta_a$ | $1-\beta(\theta_a)=P(\text{reject }H_0\mid\theta=\theta_a)$ |
 | Type I error | $\alpha=P(\text{reject } H_0\mid H_0 \text{ true})$ |
 | Type II error | $\beta=P(\text{fail to reject}\mid H_0 \text{ false})$ |
 | Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt n$ |

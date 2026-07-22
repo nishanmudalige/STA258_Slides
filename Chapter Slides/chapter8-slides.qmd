@@ -2863,9 +2863,9 @@ $$
 ::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.17; padding: 13px 18px; margin-bottom: 0;"}
 <span class="label">Key idea</span>
 
-**Fisher's LSD** is more powerful, but it does not control the experiment-wise Type I error rate.
+**Protected Fisher's LSD** is used only after the overall ANOVA rejects. It gives narrower intervals and more power, but its protection against familywise Type I error weakens as the number of groups and pairwise comparisons increases.
 
-**Bonferroni** is more cautious: it uses wider intervals to protect against making false discoveries across many pairwise comparisons.
+**Bonferroni** is more cautious: it uses wider intervals to control the familywise Type I error rate across all planned pairwise comparisons.
 :::
 
 ::::

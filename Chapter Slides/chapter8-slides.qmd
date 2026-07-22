@@ -1355,18 +1355,21 @@ p |>
     margin = list(l = 45, r = 12, t = 54, b = 42),
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "rgba(0,0,0,0)",
-    updatemenus = list(
-      list(
-        type = "dropdown",
-        direction = "down",
-        active = 1,
-        x = 0.02,
-        y = 1.14,
-        xanchor = "left",
-        yanchor = "top",
-        buttons = buttons
-      )
-    )
+   updatemenus = list(
+  list(
+    type = "dropdown",
+    direction = "down",
+    active = 1,
+    x = 0.98,
+    y = 0.96,
+    xanchor = "right",
+    yanchor = "top",
+    bgcolor = "rgba(255,255,255,0.96)",
+    bordercolor = plot_cols$border,
+    borderwidth = 1,
+    buttons = buttons
+  )
+)
   ) |>
   config(displayModeBar = FALSE, responsive = FALSE)
 ```

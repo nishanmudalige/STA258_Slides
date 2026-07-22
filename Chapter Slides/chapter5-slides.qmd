@@ -128,32 +128,32 @@ plotly_slide_layout <- function(
 .reveal h1, .reveal h2, .reveal h3 { color: var(--sta-text); line-height: 1.1; }
 .reveal h1 { font-size: 1.72em !important; }
 .reveal h2 {
-  font-size: 1.52em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
 .reveal h3 { font-size: 1.05em !important; margin-bottom: 0.2em; }
-.reveal p, .reveal li { font-size: 0.76em; line-height: 1.32; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
 .title-slide { text-align: center !important; }
 .title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
 .two-col, .two-col-lean, .two-col-wide, .three-col, .four-grid, .exercise-grid {
   display: grid;
-  gap: 24px;
+  gap: 28px;
   align-items: start;
 }
 .two-col { grid-template-columns: 1fr 1fr; }
-.two-col-lean { grid-template-columns: 0.9fr 1.1fr; }
-.two-col-wide { grid-template-columns: 1.12fr 0.88fr; }
+.two-col-lean { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide { grid-template-columns: 1.08fr 0.92fr; }
 .three-col { grid-template-columns: repeat(3, 1fr); }
 .four-grid { grid-template-columns: repeat(2, 1fr); }
-.exercise-grid { grid-template-columns: 360px 1fr; gap: 24px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col { min-width: 0; }
 .defbox, .examplebox, .thinkbox, .card, .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-radius: 10px;
-  font-size: 0.72em;
+  font-size: 0.74em;
   line-height: 1.28;
   box-sizing: border-box;
   margin-bottom: 8px;
@@ -257,12 +257,11 @@ plotly_slide_layout <- function(
 .reveal table {
   width: 100%;
   border-collapse: collapse;
-  border: 1.25px solid #4d5659;
-  font-size: 0.62em;
+  font-size: 0.66em;
 }
 .reveal th, .reveal td {
-  border: 1.25px solid #4d5659;
-  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
@@ -1001,13 +1000,15 @@ If the problem gives a population standard deviation, use $z$. If it gives a sam
 Construct 90%, 95%, and 99% confidence intervals for the population mean daily listening time.
 :::
 
+::: {.fragment}
 | Level | Critical value | Margin of error | Confidence interval |
 |:--:|:--:|:--:|:--:|
 | 90% | 1.645 | $1.645(25/\sqrt{80})=4.60$ | $(87.40, 96.60)$ |
 | 95% | 1.960 | $1.960(25/\sqrt{80})=5.48$ | $(86.52, 97.48)$ |
 | 99% | 2.576 | $2.576(25/\sqrt{80})=7.20$ | $(84.80, 99.20)$ |
+:::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 We are 95% confident that the mean daily listening time is between about 86.5 and 97.5 minutes.
 :::
 
@@ -1043,7 +1044,7 @@ ci
 :::
 ::::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 $\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% confident that the population mean number of daily active minutes is between about 61 and 76.
 :::
 
@@ -1051,11 +1052,11 @@ $\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% co
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 A sample has $\bar{x}=42$, $n=36$, and known $\sigma=12$. For a 95% CI, what is the margin of error?
-::::
+:::
 
 - 1.96
 - [3.92]{.correct data-explanation="The standard error is 12/sqrt(36)=2. For 95% confidence, z*=1.96, so the margin of error is 1.96 times 2 = 3.92."}
@@ -1075,12 +1076,12 @@ $$
 :::
 
 :::: {.two-col}
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Why t?</span>
 Replacing $\sigma$ with $s$ adds uncertainty. The $t$ distribution has heavier tails, especially for small degrees of freedom.
 :::
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 <span class="label">Small samples</span>
 For small $n$, check that the population is reasonably normal or that the sample has no severe skew/outliers.
 :::
@@ -1106,8 +1107,10 @@ normally distributed.
 Construct a 90% confidence interval for the population mean weekly sleep
 hours.
 :::
+:::
 
-::: {.examplebox}
+::: {.col}
+::: {.examplebox .fragment}
 Using $n=9$, $\bar{x}=59.5889$, $s=6.2553$, and $t^*=1.8595$:
 
 $$
@@ -1120,8 +1123,9 @@ We are 90% confident that the population mean weekly sleep time for
 students is between approximately **55.71 and 63.47 hours**.
 :::
 :::
+::::
 
-::: {.col}
+::: {.fragment}
 ```{webr}
 #| autorun: false
 
@@ -1129,7 +1133,6 @@ sleep_hours <- c(63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0)
 t.test(sleep_hours, conf.level = 0.90)
 ```
 :::
-::::
 
 ---
 
@@ -1158,8 +1161,18 @@ t.test(books, conf.level = 0.95)
 :::
 ::::
 
-::: {.examplebox}
-$\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately $(11.20,24.20)$ books.
+::: {.examplebox .fragment}
+Using $n=10$, $\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$:
+
+$$
+17.7\pm2.262\left(\frac{9.0805}{\sqrt{10}}\right)
+=
+17.7\pm6.50
+=
+(11.20,24.20).
+$$
+
+We are 95% confident that the population mean number of books read is between approximately **11.20 and 24.20 books**.
 :::
 
 ---
@@ -1202,7 +1215,7 @@ Construct a 95% confidence interval for the true proportion of all UTM
 students who commute using MiWay.
 :::
 
-:::: {.two-col}
+:::: {.two-col .fragment}
 ::: {.col}
 $$
 \hat p=\frac{738}{1200}=0.6150
@@ -1235,7 +1248,7 @@ $$
 :::
 ::::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 We are 95% confident that between **58.75% and 64.25%** of all UTM
 students commute using MiWay.
 :::
@@ -1269,7 +1282,7 @@ phat + c(-1, 1) * zstar * se
 :::
 ::::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 $\hat p=0.44$, so the 90% CI is approximately $(0.4079,0.4721)$.
 
 We are 90% confident that between **40.79% and 47.21% of all UTM
@@ -1280,11 +1293,11 @@ students** pulled an all-nighter to finish an assignment this term.
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 For a one-proportion confidence interval, which sample has enough successes and failures for the normal approximation?
-::::
+:::
 
 - $n=20$, $\hat p=0.90$
 - $n=50$, $\hat p=0.10$
@@ -1306,7 +1319,7 @@ $$
 $$
 :::
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 This interval is asymmetric. Normality matters here much more than it does for large-sample mean intervals.
 :::
 
@@ -1328,7 +1341,7 @@ Construct a 95% confidence interval for the population variance
 $\sigma^2$.
 :::
 
-:::: {.two-col}
+:::: {.two-col .fragment}
 ::: {.col}
 $$
 df=n-1=24
@@ -1366,7 +1379,7 @@ $$
 :::
 ::::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 We are 95% confident that the population variance of weekly workout
 hours among UTM gym users is between approximately **7.62 and
 24.19 hours$^2$**.
@@ -1409,7 +1422,7 @@ c(lower, upper)
 :::
 ::::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 We are 90% confident that the population variance of daily water intake
 among students is between approximately **0.2160 and
 0.7437 litres$^2$**.
@@ -1508,7 +1521,7 @@ among students is between approximately **0.2160 and
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 .card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+.mini-card .label, .stat-card .label, .warnbox .label, .thinkbox .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -1531,13 +1544,15 @@ among students is between approximately **0.2160 and
 }
 
 /* ── Tables ───────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal table { width: 100%; border-collapse: collapse; border: 1px solid var(--sta-border); font-size: 0.66em; margin-bottom: 16px; }
 .reveal th, .reveal td {
   border: 1px solid var(--sta-border);
   padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.reveal table td { text-align: center !important; }
+.reveal table th { text-align: left !important; }
 
 /* ── Code ─────────────────────────────────────────────── */
 .reveal pre {
@@ -1655,32 +1670,32 @@ among students is between approximately **0.2160 and
 
 /* Question/context box */
 .reveal .example-grid .taskbox {
-  font-size: 0.60em !important;
-  line-height: 1.12 !important;
+  font-size: 0.58em !important;
+  line-height: 1.16 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
 }
 
 /* Target-parameter box */
 .reveal .example-grid .notebox {
-  font-size: 0.59em !important;
-  line-height: 1.12 !important;
+  font-size: 0.58em !important;
+  line-height: 1.16 !important;
   padding: 9px 13px !important;
   margin-bottom: 0 !important;
 }
 
 /* Interpretation/conclusion box */
 .reveal .example-grid .examplebox {
-  font-size: 0.60em !important;
-  line-height: 1.13 !important;
+  font-size: 0.58em !important;
+  line-height: 1.16 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
 }
 
 /* Calculation box */
 .reveal .example-grid .stat-card {
-  font-size: 0.71em !important;
-  line-height: 1.10 !important;
+  font-size: 0.66em !important;
+  line-height: 1.12 !important;
   padding: 11px 14px !important;
   margin-bottom: 0 !important;
 }
@@ -1690,9 +1705,9 @@ among students is between approximately **0.2160 and
 }
 
 .reveal .example-grid p {
-  margin: 0.15em 0 !important;
+  margin: 0.20em 0 !important;
   font-size: 1em !important;
-  line-height: 1.12 !important;
+  line-height: 1.18 !important;
 }
 
 .reveal .example-grid mjx-container[display="true"] {
@@ -1701,7 +1716,8 @@ among students is between approximately **0.2160 and
 
 /* Keep calculations comfortably readable */
 .reveal .example-grid .stat-card mjx-container[display="true"] {
-  font-size: 0.97em !important;
+  font-size: 0.94em !important;
+  margin: 0.72em 0 !important;
 }
 
 .reveal .example-grid .taskbox mjx-container[display="true"],
@@ -1764,7 +1780,22 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(resizePlotlyOnSlides, 750);
   setTimeout(resizePlotlyOnSlides, 1500);
 
-  if (window.Reveal) {
+  window.addEventListener("resize", resizePlotlyOnSlides);
+});
+
+/*
+ * Bind to reveal.js once it exists. reveal can fire "ready" before this code
+ * runs (and window.Reveal may be undefined at DOMContentLoaded), so retry until
+ * it is available, then apply the fragment classes and call Reveal.sync() so
+ * reveal registers them and reveals the cards one at a time.
+ */
+(function bindWorkedExampleFragments() {
+  setupWorkedExampleFragments();
+
+  if (window.Reveal && typeof window.Reveal.on === "function") {
+    Reveal.sync();
+    setTimeout(resizePlotlyOnSlides, 300);
+
     Reveal.on("ready", function () {
       setupWorkedExampleFragments();
       Reveal.sync();
@@ -1782,10 +1813,10 @@ document.addEventListener("DOMContentLoaded", function () {
     Reveal.on("fragmenthidden", function () {
       setTimeout(resizePlotlyOnSlides, 300);
     });
+  } else {
+    window.setTimeout(bindWorkedExampleFragments, 150);
   }
-
-  window.addEventListener("resize", resizePlotlyOnSlides);
-});
+})();
 </script>
 ```
 
@@ -1827,27 +1858,19 @@ A **two-sample confidence interval** estimates a population quantity that compar
 
 The groups must be clearly labelled, because the order matters. Changing the order changes the interpretation.
 
-:::: {.two-col style="grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; margin-top: 6px;"}
-::: {.notebox style="font-size: 0.82em; line-height: 1.12; padding: 8px 11px; margin-bottom: 0;"}
-<span class="label">Mean and proportion differences</span>
-
-$$
-\text{Group 1}-\text{Group 2}
-$$
+:::: {.two-col style="margin-top: 14px; align-items: center;"}
+::: {.col}
+**Mean and proportion differences:** $\text{Group 1}-\text{Group 2}$
 :::
 
-::: {.notebox style="font-size: 0.82em; line-height: 1.12; padding: 8px 11px; margin-bottom: 0;"}
-<span class="label">Variance ratios</span>
-
-$$
-\frac{\text{Group 1}}{\text{Group 2}}
-$$
+::: {.col}
+**Variance ratios:** $\dfrac{\text{Group 1}}{\text{Group 2}}$
 :::
 ::::
 :::
 
 :::: {.three-col style="gap: 14px; align-items: stretch;"}
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+::: {.stat-card .fragment style="font-size: 0.72em; line-height: 1.2; padding: 15px 17px; margin-bottom: 0; min-height: 190px;"}
 <span class="label">Difference of means</span>
 
 $$
@@ -1857,7 +1880,7 @@ $$
 Compares two population averages.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+::: {.stat-card .fragment style="font-size: 0.72em; line-height: 1.2; padding: 15px 17px; margin-bottom: 0; min-height: 190px;"}
 <span class="label">Difference of proportions</span>
 
 $$
@@ -1867,7 +1890,7 @@ $$
 Compares two population percentages.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+::: {.stat-card .fragment style="font-size: 0.72em; line-height: 1.2; padding: 15px 17px; margin-bottom: 0; min-height: 190px;"}
 <span class="label">Ratio of variances</span>
 
 $$
@@ -2358,10 +2381,12 @@ average** than the guided routine, with 90% confidence.
 .reveal section.pooled-r-check .cm-editor,
 .reveal section.pooled-r-check .cm-content,
 .reveal section.pooled-r-check .cm-line,
+.reveal section.pooled-r-check .cm-gutters,
+.reveal section.pooled-r-check .cm-gutterElement,
 .reveal section.pooled-r-check pre,
 .reveal section.pooled-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.pooled-r-check .cell-output,
@@ -2505,7 +2530,7 @@ For exams in this course, use the conservative version unless told otherwise.
 
 ------------------------------------------------------------------------
 
-## Example: Sports Highlight Watch-Time Comparison
+## Example: Sports Highlight Watch-Time Comparison {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -2549,7 +2574,7 @@ SE=
 1.4431
 $$
 
-Using conservative degrees of freedom:
+Using degrees of freedom:
 
 $$
 df=\min(24-1,\;20-1)=19
@@ -2586,7 +2611,7 @@ We are 95% confident that the short-highlight playlist's population mean watch t
 
 ------------------------------------------------------------------------
 
-## Example: Food Delivery vs Meal Prep Spending
+## Example: Food Delivery vs Meal Prep Spending {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -2676,10 +2701,12 @@ users.
 .reveal section.welch-r-check .cm-editor,
 .reveal section.welch-r-check .cm-content,
 .reveal section.welch-r-check .cm-line,
+.reveal section.welch-r-check .cm-gutters,
+.reveal section.welch-r-check .cm-gutterElement,
 .reveal section.welch-r-check pre,
 .reveal section.welch-r-check code {
-  font-size: 0.72em !important;
-  line-height: 1.02 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.welch-r-check .cell-output,
@@ -2846,35 +2873,35 @@ proportions, not the difference between two sample counts.
 }
 
 .reveal section.free-trial-compact .taskbox {
-  font-size: 0.55em !important;
-  line-height: 1.10 !important;
+  font-size: 0.62em !important;
+  line-height: 1.16 !important;
   padding: 9px 12px !important;
 }
 
 .reveal section.free-trial-compact .stat-card {
-  font-size: 0.68em !important;
-  line-height: 1.08 !important;
+  font-size: 0.74em !important;
+  line-height: 1.12 !important;
   padding: 10px 14px !important;
 }
 
 .reveal section.free-trial-compact .notebox {
-  font-size: 0.55em !important;
-  line-height: 1.10 !important;
+  font-size: 0.62em !important;
+  line-height: 1.16 !important;
   padding: 8px 12px !important;
 }
 
 .reveal section.free-trial-compact .examplebox {
-  font-size: 0.58em !important;
-  line-height: 1.12 !important;
+  font-size: 0.62em !important;
+  line-height: 1.16 !important;
   padding: 9px 13px !important;
 }
 
 .reveal section.free-trial-compact p {
-  margin: 0.16em 0 !important;
+  margin: 0.20em 0 !important;
 }
 
 .reveal section.free-trial-compact mjx-container[display="true"] {
-  margin: 0.10em 0 !important;
+  margin: 0.55em 0 !important;
 }
 
 .reveal section.free-trial-compact .label {
@@ -3041,10 +3068,12 @@ click-through rate at the 90% confidence level.
 .reveal section.prop-r-check .cm-editor,
 .reveal section.prop-r-check .cm-content,
 .reveal section.prop-r-check .cm-line,
+.reveal section.prop-r-check .cm-gutters,
+.reveal section.prop-r-check .cm-gutterElement,
 .reveal section.prop-r-check pre,
 .reveal section.prop-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.prop-r-check .cell-output,
@@ -3211,7 +3240,7 @@ intervals.
 
 ------------------------------------------------------------------------
 
-## Example: Sale Checkout-Time Variability
+## Example: Sale Checkout-Time Variability {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -3366,10 +3395,12 @@ plausible.
 .reveal section.ratio-r-check .cm-editor,
 .reveal section.ratio-r-check .cm-content,
 .reveal section.ratio-r-check .cm-line,
+.reveal section.ratio-r-check .cm-gutters,
+.reveal section.ratio-r-check .cm-gutterElement,
 .reveal section.ratio-r-check pre,
 .reveal section.ratio-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.ratio-r-check .notebox {
@@ -3833,10 +3864,12 @@ people like those in this paired study.
 .reveal section.paired-r-check .cm-editor,
 .reveal section.paired-r-check .cm-content,
 .reveal section.paired-r-check .cm-line,
+.reveal section.paired-r-check .cm-gutters,
+.reveal section.paired-r-check .cm-gutterElement,
 .reveal section.paired-r-check pre,
 .reveal section.paired-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.paired-r-check .cell-output,
@@ -4184,10 +4217,12 @@ pickup-time prediction error within **2 seconds** at 99% confidence.
 .reveal section.mean-size-r-check .cm-editor,
 .reveal section.mean-size-r-check .cm-content,
 .reveal section.mean-size-r-check .cm-line,
+.reveal section.mean-size-r-check .cm-gutters,
+.reveal section.mean-size-r-check .cm-gutterElement,
 .reveal section.mean-size-r-check pre,
 .reveal section.mean-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.mean-size-r-check .cell-output,
@@ -4296,7 +4331,17 @@ This is why an iterative approach is used:
 
 ------------------------------------------------------------------------
 
-## Example: Tutorial Video Rating Estimate
+## Example: Tutorial Video Rating Estimate {.grid-compact}
+
+```{=html}
+<style>
+.reveal section.grid-compact .example-grid .taskbox,
+.reveal section.grid-compact .example-grid .notebox,
+.reveal section.grid-compact .example-grid .examplebox { font-size: 0.51em !important; line-height: 1.12 !important; }
+.reveal section.grid-compact .example-grid .stat-card { font-size: 0.61em !important; }
+.reveal section.grid-compact .example-grid .stat-card mjx-container[display="true"] { margin: 0.42em 0 !important; }
+</style>
+```
 
 :::::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 8px 15px;"}
 
@@ -4479,10 +4524,12 @@ The iteration stabilizes at **13**, so the app should sample at least
 .reveal section.unknown-size-r-check .cm-editor,
 .reveal section.unknown-size-r-check .cm-content,
 .reveal section.unknown-size-r-check .cm-line,
+.reveal section.unknown-size-r-check .cm-gutters,
+.reveal section.unknown-size-r-check .cm-gutterElement,
 .reveal section.unknown-size-r-check pre,
 .reveal section.unknown-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.unknown-size-r-check .cell-output,
@@ -4758,10 +4805,12 @@ The company should survey at least **563 waitlist users** for 95% confidence and
 .reveal section.prop-size-r-check .cm-editor,
 .reveal section.prop-size-r-check .cm-content,
 .reveal section.prop-size-r-check .cm-line,
+.reveal section.prop-size-r-check .cm-gutters,
+.reveal section.prop-size-r-check .cm-gutterElement,
 .reveal section.prop-size-r-check pre,
 .reveal section.prop-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.prop-size-r-check .cell-output,
@@ -4877,18 +4926,12 @@ unknown population parameter.
 
 ## Up Next
 
-<div class="thinkbox">
-<strong>Chapter 6 — Hypothesis Tests:</strong> Confidence intervals
-estimate plausible values for an unknown population parameter.
-Hypothesis tests examine whether a specific claim about that parameter
-is compatible with the sample data.
-</div>
+::: {.examplebox}
+**Chapter 6 - Hypothesis Tests**
 
-<br>
+We shift from estimating a parameter to **testing a claim** about it: is a specific value compatible with the sample data? You will weigh evidence using <em>null and alternative hypotheses, test statistics, and $p$-values</em>.
+:::
 
-<div class="center">
-<span class="big">End of Chapter 5</span><br><br>
 <div class="home-button-row">
 <a href="../index.html" class="home-button">Back to Homepage</a>
-</div>
 </div>

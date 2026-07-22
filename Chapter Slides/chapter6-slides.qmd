@@ -1104,8 +1104,6 @@ Use when the research question asks whether the parameter changed in either dire
   <li class="fragment"><strong>Two-tailed $Z$ or $t$:</strong> double the tail area beyond $|w^*|$.</li>
   <li class="fragment"><strong>Two-tailed $\chi^2$ or $F$:</strong> add the relevant lower- and upper-tail areas because the distributions are asymmetric.</li>
 </ol>
-
-<p class="fragment" style="font-size:0.48em; color:var(--sta-muted); margin-top:6px; line-height:1.8;">$W$ is the test statistic from the chosen reference distribution (<em>Z</em>, <em>t</em>, chi-square, or <em>F</em>), with observed value $w^*$.</p>
 :::
 
 ::: {.col}
@@ -1114,6 +1112,8 @@ Use the **two dropdowns** at the top-right of the plot: first pick the **type of
 :::
 :::
 ::::
+
+<p class="fragment" style="font-size:0.48em; color:var(--sta-muted); margin-top:10px; line-height:1.4; text-align:center;">$W$ is the test statistic from the chosen reference distribution (<em>Z</em>, <em>t</em>, chi-square, or <em>F</em>), with observed value $w^*$.</p>
 
 ::: {.dropdown-plot}
 ```{r}

@@ -3840,7 +3840,7 @@
     "href": "Chapter Slides/chapter10-slides.html#chi-square-test-for-goodness-of-fit",
     "title": "STA258",
     "section": "10.2 Chi-square Test for Goodness of Fit",
-    "text": "10.2 Chi-square Test for Goodness of Fit\n\nA chi-square goodness-of-fit test checks whether observed category counts agree with a hypothesized probability model.\nThe hypotheses are:\n\\[\nH_0:\np_1=p_{hyp,1},\\;\np_2=p_{hyp,2},\\;\n\\ldots,\\;\np_k=p_{hyp,k}\n\\]\n\\[\nH_a:\\text{at least one category probability is different}\n\\]\n\n\nThe null hypothesis can say “all categories are equal,” but it can also give unequal hypothesized probabilities."
+    "text": "10.2 Chi-square Test for Goodness of Fit\n\nA chi-square goodness-of-fit test checks whether observed category counts agree with a hypothesized probability model.\nThe hypotheses are:\n\\[\nH_0:\np_1=p_{hyp,1},\\;\np_2=p_{hyp,2},\\;\n\\ldots,\\;\np_k=p_{hyp,k}\n\\]\n\\[\nH_a:\\text{at least one probability differs from its hypothesized value}\n\\]\n\n\nThe null hypothesis can say “all categories are equal,” but it can also give unequal hypothesized probabilities."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#goodness-of-fit-test-statistic",
@@ -3861,7 +3861,7 @@
     "href": "Chapter Slides/chapter10-slides.html#example-phone-case-colour-demand",
     "title": "STA258",
     "section": "Example: Phone Case Colour Demand",
-    "text": "Example: Phone Case Colour Demand\n\n\nA phone accessory shop expects case colour demand to follow:\n\\[\n(0.30,\\;0.25,\\;0.25,\\;0.20)\n\\]\nfor black, clear, blue, and pink cases.\nA sample of \\(n=150\\) recent purchases gives:\n\n\n\nColour\nBlack\nClear\nBlue\nPink\n\n\n\n\nObserved count\n63\n28\n36\n23\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nExpected counts:\n\\[\n150(0.30,0.25,0.25,0.20)\n=\n(45,37.5,37.5,30)\n\\]\n\\[\n\\chi^2=\n\\frac{(63-45)^2}{45}\n+\n\\frac{(28-37.5)^2}{37.5}\n+\n\\frac{(36-37.5)^2}{37.5}\n+\n\\frac{(23-30)^2}{30}\n\\]\n\\[\n\\chi^2=11.30,\\qquad df=3\n\\]\n\\[\np\\text{-value}\\approx0.0102\n\\]\n\n\nHypotheses\n\\[\nH_0:(p_1,p_2,p_3,p_4)\n=\n(0.30,0.25,0.25,0.20)\n\\]\n\\[\nH_a:\\text{at least one probability differs}\n\\]\n\n\nSince \\(0.0102&lt;0.05\\), we reject \\(H_0\\). The colour demand pattern does not fit the shop’s expected distribution well."
+    "text": "Example: Phone Case Colour Demand\n\n\nA phone accessory shop expects case colour demand to follow:\n\\[\n(0.30,\\;0.25,\\;0.25,\\;0.20)\n\\]\nfor black, clear, blue, and pink cases.\nA random sample of \\(n=150\\) recent purchases gives:\n\n\n\nColour\nBlack\nClear\nBlue\nPink\n\n\n\n\nObserved count\n63\n28\n36\n23\n\n\n\nUse \\(\\alpha=0.05\\).\n\n\nCalculation\nExpected counts:\n\\[\n150(0.30,0.25,0.25,0.20)\n=\n(45,37.5,37.5,30)\n\\]\n\\[\n\\chi^2=\n\\frac{(63-45)^2}{45}\n+\n\\frac{(28-37.5)^2}{37.5}\n+\n\\frac{(36-37.5)^2}{37.5}\n+\n\\frac{(23-30)^2}{30}\n\\]\n\\[\n\\chi^2=11.30,\\qquad df=3\n\\]\n\\[\np\\text{-value}\\approx0.0102\n\\]\n\n\nHypotheses\n\\[\nH_0:(p_1,p_2,p_3,p_4)\n=\n(0.30,0.25,0.25,0.20)\n\\]\n\\[\nH_a:\\text{at least one probability differs}\n\\]\n\n\nSince \\(0.0102&lt;0.05\\), we reject \\(H_0\\). The colour demand pattern does not fit the shop’s expected distribution well."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#check-in-r-goodness-of-fit-tests",

@@ -1081,7 +1081,8 @@ Use when the research question asks whether the parameter changed in either dire
 <ol class="step-list compact-steps">
   <li class="fragment"><strong>Left-tailed:</strong> $P(W \le w^*)$.</li>
   <li class="fragment"><strong>Right-tailed:</strong> $P(W \ge w^*)$.</li>
-  <li class="fragment"><strong>Two-tailed:</strong> double the matching one-tail area.</li>
+  <li class="fragment"><strong>Two-tailed $Z$ or $t$:</strong> double the tail area beyond $|w^*|$.</li>
+  <li class="fragment"><strong>Two-tailed $\chi^2$ or $F$:</strong> add the relevant lower- and upper-tail areas because the distributions are asymmetric.</li>
 </ol>
 
 <p class="fragment" style="font-size:0.48em; color:var(--sta-muted); margin-top:6px; line-height:1.8;">$W$ is the test statistic from the chosen reference distribution (<em>Z</em>, <em>t</em>, chi-square, or <em>F</em>), with observed value $w^*$.</p>

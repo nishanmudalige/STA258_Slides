@@ -2811,7 +2811,7 @@
     "href": "Chapter Slides/chapter9-slides.html#sum-of-squared-errors",
     "title": "STA258",
     "section": "Sum of Squared Errors",
-    "text": "Sum of Squared Errors\n\nFor a fitted regression line, the sum of squared errors is:\n\\[\nSSE=\\sum_{i=1}^{n}e_i^2\n=\n\\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\nFor simple linear regression:\n\\[\nSSE=\n\\sum_{i=1}^{n}(y_i-\\beta_0-\\beta_1x_i)^2.\n\\]\n\n\nLeast squares chooses the line that makes \\(SSE\\) as small as possible."
+    "text": "Sum of Squared Errors\n\nFor a fitted regression line, the sum of squared errors is:\n\\[\nSSE=\\sum_{i=1}^{n}e_i^2\n=\n\\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\nFor simple linear regression:\n\\[\nSSE=\n\\sum_{i=1}^{n}\n(y_i-\\hat{\\beta}_0-\\hat{\\beta}_1x_i)^2.\n\\]\n\n\nLeast squares chooses \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) to make \\(SSE\\) as small as possible."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#least-squares-optimization",

@@ -1007,12 +1007,13 @@ For simple linear regression:
 
 $$
 SSE=
-\sum_{i=1}^{n}(y_i-\beta_0-\beta_1x_i)^2.
+\sum_{i=1}^{n}
+(y_i-\hat{\beta}_0-\hat{\beta}_1x_i)^2.
 $$
 :::
 
 ::: {.thinkbox .fragment}
-Least squares chooses the line that makes $SSE$ as small as possible.
+Least squares chooses $\hat{\beta}_0$ and $\hat{\beta}_1$ to make $SSE$ as small as possible.
 :::
 
 ------------------------------------------------------------------------

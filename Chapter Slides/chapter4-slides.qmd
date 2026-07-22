@@ -1545,7 +1545,7 @@ plotly_slide_layout(
             )
           ),
           list(
-            label = "Show P(X ≤ 84)",
+            label = "P(X ≤ 84)",
             method = "update",
             args = list(
               list(visible = c(TRUE, TRUE, FALSE, TRUE)),
@@ -1560,7 +1560,7 @@ plotly_slide_layout(
             )
           ),
           list(
-            label = "Show P(X > 84)",
+            label = "P(X > 84)",
             method = "update",
             args = list(
               list(visible = c(TRUE, FALSE, TRUE, TRUE)),
@@ -1988,7 +1988,7 @@ plotly_slide_layout(
             )
           ),
           list(
-            label = "Show P(X < 180)",
+            label = "P(X < 180)",
             method = "update",
             args = list(
               list(visible = c(TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE)),
@@ -2006,7 +2006,7 @@ plotly_slide_layout(
             )
           ),
           list(
-            label = "Show P(X > 160)",
+            label = "P(X > 160)",
             method = "update",
             args = list(
               list(visible = c(TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE)),
@@ -2024,7 +2024,7 @@ plotly_slide_layout(
             )
           ),
           list(
-            label = "Show P(162 < X < 178)",
+            label = "P(162 < X < 178)",
             method = "update",
             args = list(
               list(visible = c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE)),
@@ -2042,7 +2042,7 @@ plotly_slide_layout(
             )
           ),
           list(
-            label = "Show top 5% cutoff",
+            label = "top 5% cutoff",
             method = "update",
             args = list(
               list(visible = c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE)),
@@ -3500,7 +3500,7 @@ $\chi^2$ and $F$ distributions?
 
 ::: {.summary-table-slide}
 | Distribution | Parameters | Support | $E[X]$ | Key use |
-|---------|---------|---------|------------------------|-------------|
+|---------|---------|---------|------------------|-------------------|
 | $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | General continuous |
 | $\chi^2_k$ | $k$ (df) | $(0,\infty)$ | $k$ | Variance tests |
 | $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ if $\nu>1$;<br>undefined if $\nu\leq1$ | Small-sample mean |

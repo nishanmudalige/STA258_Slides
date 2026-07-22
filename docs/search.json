@@ -2769,7 +2769,7 @@
     "href": "Chapter Slides/chapter9-slides.html#chapter-roadmap",
     "title": "STA258",
     "section": "Chapter Roadmap",
-    "text": "Chapter Roadmap\n\n\n1 - Linear Model\nDefine the response, predictor, error term, and simple linear regression model.\n\n\n2 - Least Squares\nUse residuals and \\(SSE\\) to define the best-fitting line.\n\n\n3 - Coefficients\nCalculate \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) using \\(S_{xx}\\) and \\(S_{xy}\\).\n\n\n\n\n\n4 - Relationship\nUse covariance, correlation, and \\(R^2\\) to summarize linear association.\n\n\n5 - Inference\nEstimate \\(s^2\\), compute \\(SE(\\hat{\\beta}_1)\\), and test the slope.\n\n\n6 - Diagnostics\nUse residual logic to judge whether regression assumptions are reasonable."
+    "text": "Chapter Roadmap\n\n\n9.1 - Linear Model\nDefine the response, predictor, error term, and simple linear regression model.\n\n\n9.1.1 - Least Squares\nUse residuals and \\(SSE\\) to define the best-fitting line.\n\n\n9.1.2 - Coefficients\nCalculate \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) using \\(S_{xx}\\) and \\(S_{xy}\\).\n\n\n\n\n\n9.1.3 - Linear Relationship\nUse covariance, correlation, and \\(R^2\\) to summarize linear association.\n\n\n9.2 - Inference\nEstimate \\(s^2\\), compute \\(SE(\\hat{\\beta}_1)\\), and test the slope.\n\n\nPrediction & Diagnostics\nUse the fitted line for interpolation and extrapolation, then use residuals to check whether the regression model is reasonable."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#introduction-to-the-linear-model",
@@ -2811,7 +2811,7 @@
     "href": "Chapter Slides/chapter9-slides.html#sum-of-squared-errors",
     "title": "STA258",
     "section": "Sum of Squared Errors",
-    "text": "Sum of Squared Errors\n\nFor a fitted regression line, the sum of squared errors is:\n\\[\nSSE=\\sum_{i=1}^{n}e_i^2\n=\n\\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\nFor simple linear regression:\n\\[\nSSE=\n\\sum_{i=1}^{n}(y_i-\\beta_0-\\beta_1x_i)^2.\n\\]\n\n\nLeast squares chooses the line that makes \\(SSE\\) as small as possible."
+    "text": "Sum of Squared Errors\n\nFor a fitted regression line, the sum of squared errors is:\n\\[\nSSE=\\sum_{i=1}^{n}e_i^2\n=\n\\sum_{i=1}^{n}(y_i-\\hat{y}_i)^2.\n\\]\nFor simple linear regression:\n\\[\nSSE=\n\\sum_{i=1}^{n}\n(y_i-\\hat{\\beta}_0-\\hat{\\beta}_1x_i)^2.\n\\]\n\n\nLeast squares chooses \\(\\hat{\\beta}_0\\) and \\(\\hat{\\beta}_1\\) to make \\(SSE\\) as small as possible."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#least-squares-optimization",
@@ -3049,14 +3049,14 @@
     "href": "Chapter Slides/chapter9-slides.html#chapter-summary",
     "title": "STA258",
     "section": "Chapter Summary",
-    "text": "Chapter Summary\n\n\nModel Simple linear regression models the mean response as\n\\[\nE(Y \\mid x) = \\beta_0 + \\beta_1x.\n\\]\n\n\nEstimation Least squares chooses the line that minimizes\n\\[\nSSE = \\sum (y_i-\\hat{y}_i)^2.\n\\]\n\n\nInference Use \\(s^2 = SSE/(n-2)\\), standard errors, \\(t\\) tests, and confidence intervals to reason about \\(\\beta_1\\).\n\n\n\n\nOne slide takeaway. Regression is not just drawing a line. It is a full workflow: visualize the relationship, estimate the line, interpret the slope, check residuals, and then use inference carefully."
+    "text": "Chapter Summary\n\n\nFitted Line Use least squares to estimate\n\\[\n\\hat{y}=\\hat{\\beta}_0+\\hat{\\beta}_1x,\n\\]\nwhere the slope gives the predicted change in the response for a one-unit increase in the predictor.\n\n\nLinear Relationship Use correlation and \\(R^2\\) to describe the direction, strength, and variation explained by the linear relationship.\n\n\nInference and Diagnostics Test whether the population slope differs from zero, then use residuals to assess whether the linear-model assumptions are reasonable.\n\n\n\n\nOne slide takeaway. Simple linear regression connects a quantitative predictor to a quantitative response through estimation, interpretation, inference, and residual checking."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#up-next",
     "href": "Chapter Slides/chapter9-slides.html#up-next",
     "title": "STA258",
     "section": "Up Next",
-    "text": "Up Next\n\nChapter 10 — Multiple Linear Regression\nWe extend the model from one predictor to several predictors. The core ideas stay the same, but interpretation becomes more careful because variables are held fixed.\n\n\nBack to Homepage"
+    "text": "Up Next\n\nChapter 10 — Categorical Data Analysis\nWe move from quantitative relationships to categorical data, using chi-square procedures to study goodness of fit and association between categorical variables.\n\n\nBack to Homepage"
   },
   {
     "objectID": "Chapter Landing Pages/chapter9.html",
@@ -3245,7 +3245,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-covariance-and-correlation",
     "title": "STA258",
     "section": "Check in R: Covariance and Correlation",
-    "text": "Check in R: Covariance and Correlation\n\n\n\nSunlight and plant growth example\n\n\n\n\n\n\n\n\n\n\n\n\nTikTok scrolling example"
+    "text": "Check in R: Covariance and Correlation\n\n\n\nSunlight and plant growth example\n\n\n\n\n\n\n\n\n\n\n\n\nLate-night scrolling and quiz scores example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-total-explained-and-unexplained-variation",
@@ -3329,7 +3329,7 @@
     "href": "Chapter Slides/chapter9-slides.html#final-checklist",
     "title": "STA258",
     "section": "Final Checklist",
-    "text": "Final Checklist\n\n\nBefore fitting\n\nIdentify the response \\(y\\).\nIdentify the predictor \\(x\\).\nMake a scatterplot.\nAsk whether a line is reasonable.\n\n\n\nAfter fitting\n\nInterpret the slope in context.\nCheck residual logic.\nReport uncertainty when doing inference.\nAvoid claiming causation from association alone.\n\n\n\n\nOne slide takeaway. Simple linear regression is a full workflow: visualize, estimate, interpret, summarize variation, perform inference, and check assumptions."
+    "text": "Final Checklist\n\n\nBefore fitting\n\nIdentify the response \\(y\\).\nIdentify the predictor \\(x\\).\nMake a scatterplot.\nAsk whether a line is reasonable.\n\n\n\nAfter fitting\n\nInterpret the slope in context.\nDistinguish interpolation from extrapolation when predicting.\nCheck residual logic.\nReport uncertainty when doing inference.\nAvoid claiming causation from association alone.\n\n\n\n\nOne slide takeaway. Simple linear regression is a full workflow: visualize, estimate, interpret, summarize variation, perform inference, and check assumptions."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#estimating-the-regression-equation",
@@ -3532,7 +3532,7 @@
     "href": "Chapter Slides/chapter9-slides.html#hypothesis-tests-for-the-slope",
     "title": "STA258",
     "section": "Hypothesis Tests for the Slope",
-    "text": "Hypothesis Tests for the Slope\n\nCommon slope hypotheses are:\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1\\ne 0\n\\]\nor one-sided alternatives:\n\\[\nH_A:\\beta_1&gt;0\n\\qquad \\text{or} \\qquad\nH_A:\\beta_1&lt;0.\n\\]\nThe test statistic is:\n\\[\nt=\n\\frac{\\hat{\\beta}_1-0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nA small p-value gives evidence of a linear relationship between \\(x\\) and \\(y\\)."
+    "text": "Hypothesis Tests for the Slope\n\nCommon slope hypotheses are:\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_a:\\beta_1\\ne 0\n\\]\nor one-sided alternatives:\n\\[\nH_A:\\beta_1&gt;0\n\\qquad \\text{or} \\qquad\nH_A:\\beta_1&lt;0.\n\\]\nThe test statistic is:\n\\[\nt=\n\\frac{\\hat{\\beta}_1-0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nA small p-value gives evidence of a linear relationship between \\(x\\) and \\(y\\)."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-ea-fc-practice-matches",
@@ -3587,8 +3587,8 @@
     "objectID": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
     "href": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
     "title": "STA258",
-    "section": "Prediction, Interpolation, and Extrapolation",
-    "text": "Prediction, Interpolation, and Extrapolation\n\nOnce a fitted regression equation is available,\n\\[\n\\hat{y}=\\hat{\\beta}_0+\\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\n\nInterpolation\nPrediction for an \\(x\\) value inside the observed range of the data.\nUsually safer if the model is reasonable.\n\n\nExtrapolation\nPrediction for an \\(x\\) value outside the observed range of the data.\nThis can be very inaccurate."
+    "section": "9.2.4 Prediction, Interpolation, and Extrapolation",
+    "text": "9.2.4 Prediction, Interpolation, and Extrapolation\n\nOnce a fitted regression equation is available,\n\\[\n\\hat{y}=\\hat{\\beta}_0+\\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\n\nInterpolation\nPrediction for an \\(x\\) value inside the observed range of the data.\nUsually safer if the model is reasonable.\n\n\nExtrapolation\nPrediction for an \\(x\\) value outside the observed range of the data.\nThis can be very inaccurate."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-rental-price-prediction",
@@ -3727,8 +3727,8 @@
     "objectID": "Chapter Slides/chapter9-slides.html#residual-plot-checks",
     "href": "Chapter Slides/chapter9-slides.html#residual-plot-checks",
     "title": "STA258",
-    "section": "9.2.4 Residual Plot Checks",
-    "text": "9.2.4 Residual Plot Checks\n\nResidual plot checklist\n\n\nRandom scatter: There should be no obvious pattern in the residuals.\n\n\nNo curve: A curved pattern suggests the relationship may not be linear.\n\n\nConstant variance: The residuals should fall in a roughly horizontal band with similar spread.\n\n\nNo clustering: Clusters may suggest separate groups or lack of independence.\n\n\nNo influential outliers: A few extreme points should not dominate the fitted line.\n\n\n\n\nTextbook logic\nResidual plots are used to judge whether the regression assumptions are reasonable before trusting inference."
+    "section": "9.2.5 Residual Plot Checks",
+    "text": "9.2.5 Residual Plot Checks\n\nResidual plot checklist\n\n\nRandom scatter: There should be no obvious pattern in the residuals.\n\n\nNo curve: A curved pattern suggests the relationship may not be linear.\n\n\nConstant variance: The residuals should fall in a roughly horizontal band with similar spread.\n\n\nNo unexplained groups: Clusters may suggest that an important grouping variable is missing from the model.\n\n\nNo influential outliers: A few extreme points should not dominate the fitted line.\n\n\n\n\nTextbook logic\nA residual-versus-fitted plot helps assess linearity, constant variance, and unusual observations. Normality and independence require separate checks."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-caitlin-clark-highlight-clips-and-shares",
@@ -4883,7 +4883,7 @@
     "href": "Chapter Slides/chapter9-slides.html#example-anova-for-charging-time-and-battery-level",
     "title": "STA258",
     "section": "Example: ANOVA for Charging Time and Battery Level",
-    "text": "Example: ANOVA for Charging Time and Battery Level\n\n\nA device lab studies fictional data on battery charging.\nFor each device:\n\n\\(x=\\) charging time in hours\n\\(y=\\) battery level increase in percentage points\n\nThe fitted line is:\n\\[\n\\hat{y}=12.400+5.886x.\n\\]\nThe variation quantities are:\n\\[\nSST=610.000,\n\\qquad\nSSR=606.229,\n\\qquad\nSSE=3.771.\n\\]\nQuestion. Construct the ANOVA table and test whether charging time explains a meaningful amount of variation in battery level increase.\n\n\nCalculation\nThere are \\(n=6\\) devices, so:\n\\[\ndf_{\\text{Reg}}=1,\n\\qquad\ndf_{\\text{Error}}=6-2=4,\n\\qquad\ndf_{\\text{Total}}=5.\n\\]\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n606.229\n1\n606.229\n642.970\n\n\nError\n3.771\n4\n0.943\n\n\n\nTotal\n610.000\n5\n\n\n\n\n\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{606.229}{0.943}\n=\n642.970\n\\]\nThe p-value is less than 0.001.\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe ANOVA \\(F\\)-test checks whether the regression model explains meaningful variation compared with the leftover residual variation.\n\n\nSince the p-value is very small, we reject \\(H_0\\). There is strong evidence that charging time is linearly related to battery level increase in this fictional dataset."
+    "text": "Example: ANOVA for Charging Time and Battery Level\n\n\nA device lab studies fictional data on battery charging.\nFor each device:\n\n\\(x=\\) charging time in hours\n\\(y=\\) battery level increase in percentage points\n\nThe fitted line is:\n\\[\n\\hat{y}=12.400+5.886x.\n\\]\nThe variation quantities are:\n\\[\nSST=610.000,\n\\qquad\nSSR=606.229,\n\\qquad\nSSE=3.771.\n\\]\nQuestion. Construct the ANOVA table and test whether charging time is linearly related to battery level increase.\n\n\nCalculation\nThere are \\(n=6\\) devices, so:\n\\[\ndf_{\\text{Reg}}=1,\n\\qquad\ndf_{\\text{Error}}=6-2=4,\n\\qquad\ndf_{\\text{Total}}=5.\n\\]\n\n\n\nSource\nSS\ndf\nMS\nF\n\n\n\n\nRegression\n606.229\n1\n606.229\n642.970\n\n\nError\n3.771\n4\n0.943\n\n\n\nTotal\n610.000\n5\n\n\n\n\n\n\\[\nF=\n\\frac{MSR}{MSE}\n=\n\\frac{606.229}{0.943}\n=\n642.970\n\\]\nThe p-value is less than 0.001.\n\n\nHypotheses\n\\[\nH_0:\\beta_1=0\n\\qquad\nH_A:\\beta_1\\ne0\n\\]\nThe ANOVA \\(F\\)-test checks whether the regression model explains a statistically significant amount of variation compared with the leftover residual variation.\n\n\nSince the p-value is very small, we reject \\(H_0\\). There is strong evidence that charging time is linearly related to battery level increase in this fictional dataset."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#visual-what-residuals-look-like",
@@ -4960,7 +4960,7 @@
     "href": "Chapter Slides/chapter9-slides.html#example-sunlight-and-plant-growth-1",
     "title": "STA258",
     "section": "Example: Sunlight and Plant Growth",
-    "text": "Example: Sunlight and Plant Growth\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{1+2+4+6+7}{5}=4.000\n\\qquad\n\\bar{y}=\\frac{18+21+34+43+48}{5}=32.800\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n1\n18\n−3.000\n−14.800\n44.400\n9.000\n219.040\n\n\n2\n21\n−2.000\n−11.800\n23.600\n4.000\n139.240\n\n\n4\n34\n0.000\n1.200\n0.000\n0.000\n1.440\n\n\n6\n43\n2.000\n10.200\n20.400\n4.000\n104.040\n\n\n7\n48\n3.000\n15.200\n45.600\n9.000\n231.040\n\n\nTotals\n\n\n\n134.000\n26.000\n694.800\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{26.000/4}=2.550 \\qquad s_y=\\sqrt{694.800/4}=13.180\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=134.000/4=33.500\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{33.500}{(2.550)(13.180)}=0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA greenhouse records data on sunlight hours per day and plant height after several weeks.\n\n\nWe use sunlight hours to study the linear relationship with plant height.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=0.997 \\quad \\text{and} \\quad r^2=0.994\\)\n\n\nThe correlation is 0.997, which is strongly positive.\n\n\nAbout 99.4% of the variation in plant height lines up with the linear trend."
+    "text": "Example: Sunlight and Plant Growth\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{1+2+4+6+7}{5}=4.000\n\\qquad\n\\bar{y}=\\frac{18+21+34+43+48}{5}=32.800\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n1\n18\n−3.000\n−14.800\n44.400\n9.000\n219.040\n\n\n2\n21\n−2.000\n−11.800\n23.600\n4.000\n139.240\n\n\n4\n34\n0.000\n1.200\n0.000\n0.000\n1.440\n\n\n6\n43\n2.000\n10.200\n20.400\n4.000\n104.040\n\n\n7\n48\n3.000\n15.200\n45.600\n9.000\n231.040\n\n\nTotals\n\n\n\n134.000\n26.000\n694.800\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{26.000/4}=2.550 \\qquad s_y=\\sqrt{694.800/4}=13.180\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=134.000/4=33.500\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{33.500}{(2.550)(13.180)}=0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA greenhouse records data on sunlight hours per day and plant height after several weeks.\n\n\nWe use sunlight hours to study the linear relationship with plant height.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=0.997\\)\n\n\nThe correlation is 0.997, indicating a very strong positive linear relationship between sunlight hours and plant height."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores",
@@ -4981,7 +4981,7 @@
     "href": "Chapter Slides/chapter9-slides.html#example-late-night-scrolling-and-quiz-scores-1",
     "title": "STA258",
     "section": "Example: Late-Night Scrolling and Quiz Scores",
-    "text": "Example: Late-Night Scrolling and Quiz Scores\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{15+30+45+60+75+90}{6}=52.500\n\\qquad\n\\bar{y}=\\frac{88+84+76+71+63+58}{6}=73.333\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n15\n88\n−37.500\n14.667\n−550.000\n1406.250\n215.111\n\n\n30\n84\n−22.500\n10.667\n−240.000\n506.250\n113.778\n\n\n45\n76\n−7.500\n2.667\n−20.000\n56.250\n7.111\n\n\n60\n71\n7.500\n−2.333\n−17.500\n56.250\n5.444\n\n\n75\n63\n22.500\n−10.333\n−232.500\n506.250\n106.778\n\n\n90\n58\n37.500\n−15.333\n−575.000\n1406.250\n235.111\n\n\nTotals\n\n\n\n−1635.000\n3937.500\n683.333\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{3937.500/5}=28.062 \\qquad s_y=\\sqrt{683.333/5}=11.690\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=-1635.000/5=-327.000\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{-327.000}{(28.062)(11.690)}=-0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA student records late-night scrolling time after midnight and the next-day quiz score.\n\n\nWe use scrolling time to study the linear relationship with quiz score.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=-0.997 \\quad \\text{and} \\quad r^2=0.994\\)\n\n\nThe correlation is -0.997, which is strongly negative.\n\n\nAbout 99.4% of the variation in quiz scores lines up with the linear trend."
+    "text": "Example: Late-Night Scrolling and Quiz Scores\n\n\n\n\n\nCalculation setup\n\n\nTo compute correlation, first subtract each mean from the raw values. Then use the totals from the deviation table to calculate \\(s_x\\), \\(s_y\\), \\(s_{xy}\\), and \\(r\\).\n\n\n\\[\n\\bar{x}=\\frac{15+30+45+60+75+90}{6}=52.500\n\\qquad\n\\bar{y}=\\frac{88+84+76+71+63+58}{6}=73.333\n\\]\n\n\n\n\nStep-by-step deviations and products\n\n\nThe totals row gives the values used in the final calculation.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\\(x_i\\)\n\\(y_i\\)\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\)\n\\((x_i-\\bar{x})^2\\)\n\\((y_i-\\bar{y})^2\\)\n\n\n\n\n15\n88\n−37.500\n14.667\n−550.000\n1406.250\n215.111\n\n\n30\n84\n−22.500\n10.667\n−240.000\n506.250\n113.778\n\n\n45\n76\n−7.500\n2.667\n−20.000\n56.250\n7.111\n\n\n60\n71\n7.500\n−2.333\n−17.500\n56.250\n5.444\n\n\n75\n63\n22.500\n−10.333\n−232.500\n506.250\n106.778\n\n\n90\n58\n37.500\n−15.333\n−575.000\n1406.250\n235.111\n\n\nTotals\n\n\n\n−1635.000\n3937.500\n683.333\n\n\n\n\n\n\nFinal calculation\n\n\n\n\nStandard deviations\n\n\n\\(s_x=\\sqrt{3937.500/5}=28.062 \\qquad s_y=\\sqrt{683.333/5}=11.690\\)\n\n\n\n\nCovariance\n\n\n\\(s_{xy}=-1635.000/5=-327.000\\)\n\n\n\n\nCorrelation\n\n\n\\(r=\\dfrac{-327.000}{(28.062)(11.690)}=-0.997\\)\n\n\n\n\n\n\n\nProblem\n\nA student records late-night scrolling time after midnight and the next-day quiz score.\n\n\nWe use scrolling time to study the linear relationship with quiz score.\n\n\nCompute and interpret the sample correlation, \\(r\\).\n\n\n\n\nConclusion\n\n\n\\(r=-0.997\\)\n\n\nThe correlation is -0.997, indicating a very strong negative linear relationship between late-night scrolling time and quiz score."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-ttc-stops-and-commute-time-2",

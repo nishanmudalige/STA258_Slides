@@ -584,6 +584,84 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 ```
 
+```{=html}
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+```
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability  
@@ -597,23 +675,21 @@ University of Toronto Mississauga
 
 :::::: three-col
 ::: {.card .fragment}
-[1 - Linear Model]{.label}
+[9.1 - Linear Model]{.label}
 
-Define the response, predictor, error term, and simple linear regression
-model.
+Define the response, predictor, error term, and simple linear regression model.
 :::
 
 ::: {.card .fragment}
-[2 - Least Squares]{.label}
+[9.1.1 - Least Squares]{.label}
 
 Use residuals and $SSE$ to define the best-fitting line.
 :::
 
 ::: {.card .fragment}
-[3 - Coefficients]{.label}
+[9.1.2 - Coefficients]{.label}
 
-Calculate $\hat{\beta}_0$ and $\hat{\beta}_1$ using $S_{xx}$ and
-$S_{xy}$.
+Calculate $\hat{\beta}_0$ and $\hat{\beta}_1$ using $S_{xx}$ and $S_{xy}$.
 :::
 ::::::
 
@@ -621,21 +697,21 @@ $S_{xy}$.
 
 :::::: three-col
 ::: {.stat-card .fragment}
-[4 - Relationship]{.label}
+[9.1.3 - Linear Relationship]{.label}
 
 Use covariance, correlation, and $R^2$ to summarize linear association.
 :::
 
 ::: {.stat-card .fragment}
-[5 - Inference]{.label}
+[9.2 - Inference]{.label}
 
 Estimate $s^2$, compute $SE(\hat{\beta}_1)$, and test the slope.
 :::
 
 ::: {.stat-card .fragment}
-[6 - Diagnostics]{.label}
+[Prediction & Diagnostics]{.label}
 
-Use residual logic to judge whether regression assumptions are reasonable.
+Use the fitted line for interpolation and extrapolation, then use residuals to check whether the regression model is reasonable.
 :::
 ::::::
 
@@ -931,12 +1007,13 @@ For simple linear regression:
 
 $$
 SSE=
-\sum_{i=1}^{n}(y_i-\beta_0-\beta_1x_i)^2.
+\sum_{i=1}^{n}
+(y_i-\hat{\beta}_0-\hat{\beta}_1x_i)^2.
 $$
 :::
 
 ::: {.thinkbox .fragment}
-Least squares chooses the line that makes $SSE$ as small as possible.
+Least squares chooses $\hat{\beta}_0$ and $\hat{\beta}_1$ to make $SSE$ as small as possible.
 :::
 
 ------------------------------------------------------------------------
@@ -1061,7 +1138,7 @@ completed before a quiz.
 Estimate the regression equation.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1115,7 +1192,7 @@ x=\text{practice sets completed}
 $$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional practice set completed, the predicted quiz score
 increases by about **4.80 points**.
 :::
@@ -1146,7 +1223,7 @@ spent studying for an assignment.
 Estimate the regression equation.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1198,7 +1275,7 @@ x=\text{study hours}
 $$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional hour studied, the predicted assignment score increases
 by about **4.26 points**.
 :::
@@ -1850,12 +1927,10 @@ Conclusion
 :::
 
 ::: {.sunlight-result-pill}
-$r=0.997 \quad \text{and} \quad r^2=0.994$
+$r=0.997$
 :::
 
-<p>The correlation is **0.997**, which is strongly positive.</p>
-
-<p>About **99.4%** of the variation in plant height lines up with the linear trend.</p>
+<p>The correlation is **0.997**, indicating a very strong positive linear relationship between sunlight hours and plant height.</p>
 
 :::
 
@@ -2354,12 +2429,10 @@ Conclusion
 :::
 
 ::: {.scroll-result-pill}
-$r=-0.997 \quad \text{and} \quad r^2=0.994$
+$r=-0.997$
 :::
 
-<p>The correlation is **-0.997**, which is strongly negative.</p>
-
-<p>About **99.4%** of the variation in quiz scores lines up with the linear trend.</p>
+<p>The correlation is **-0.997**, indicating a very strong negative linear relationship between late-night scrolling time and quiz score.</p>
 
 :::
 
@@ -2398,7 +2471,7 @@ print(out, row.names = FALSE)
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">TikTok scrolling example</span>
+<span class="label">Late-night scrolling and quiz scores example</span>
 :::
 
 ```{webr}
@@ -4273,7 +4346,7 @@ Common slope hypotheses are:
 $$
 H_0:\beta_1=0
 \qquad \text{versus} \qquad
-H_A:\beta_1\ne 0
+H_a:\beta_1\ne 0
 $$
 
 or one-sided alternatives:
@@ -4828,11 +4901,10 @@ SSR=606.229,
 SSE=3.771.
 $$
 
-**Question.** Construct the ANOVA table and test whether charging time
-explains a meaningful amount of variation in battery level increase.
+**Question.** Construct the ANOVA table and test whether charging time is linearly related to battery level increase.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 There are $n=6$ devices, so:
@@ -4872,11 +4944,11 @@ H_0:\beta_1=0
 H_A:\beta_1\ne0
 $$
 
-The ANOVA $F$-test checks whether the regression model explains meaningful
-variation compared with the leftover residual variation.
+The ANOVA $F$-test checks whether the regression model explains a statistically
+significant amount of variation compared with the leftover residual variation.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
 Since the p-value is very small, we reject $H_0$. There is strong evidence
 that charging time is linearly related to battery level increase in this
 fictional dataset.
@@ -4934,7 +5006,7 @@ cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
 
 ------------------------------------------------------------------------
 
-## Prediction, Interpolation, and Extrapolation
+## 9.2.4 Prediction, Interpolation, and Extrapolation
 
 ::: {.defbox .fragment}
 Once a fitted regression equation is available,
@@ -4997,7 +5069,7 @@ x=20.
 $$
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 For an 800 sq ft unit:
@@ -5031,7 +5103,7 @@ This is extrapolation because $x=20$ is outside the observed range.
 The observed data only cover units from 500 to 1200 sq ft.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 The 800 sq ft prediction is within the data range. The 2000 sq ft
 prediction should be treated carefully because it is outside the range
 used to fit the model.
@@ -5075,7 +5147,7 @@ $$
 Observed $x$ values range from 3 to 13 days before the concert.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 For 8 days before the concert:
@@ -5115,7 +5187,7 @@ $$
 Predictions inside this range are safer than predictions far outside it.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 The 8-day prediction is reasonable if the line fits well. The 30-day
 prediction should be treated carefully because resale markets can behave
 very differently far away from show day.
@@ -5192,7 +5264,7 @@ print(out, row.names = FALSE)
 
 ------------------------------------------------------------------------
 
-## 9.2.4 Residual Plot Checks
+## 9.2.5 Residual Plot Checks
 
 ::: {.notebox style="font-size: 0.69em; line-height: 1.23; padding: 15px 18px; margin-top: 10px;"}
 <span class="label">Residual plot checklist</span>
@@ -5204,7 +5276,7 @@ print(out, row.names = FALSE)
 
   <li><strong>Constant variance:</strong> The residuals should fall in a roughly horizontal band with similar spread.</li>
 
-  <li><strong>No clustering:</strong> Clusters may suggest separate groups or lack of independence.</li>
+<li><strong>No unexplained groups:</strong> Clusters may suggest that an important grouping variable is missing from the model.</li>
 
   <li><strong>No influential outliers:</strong> A few extreme points should not dominate the fitted line.</li>
 </ul>
@@ -5213,8 +5285,8 @@ print(out, row.names = FALSE)
 ::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
 <span class="label">Textbook logic</span>
 
-Residual plots are used to judge whether the regression assumptions are
-reasonable before trusting inference.
+A residual-versus-fitted plot helps assess linearity, constant variance,
+and unusual observations. Normality and independence require separate checks.
 :::
 
 ------------------------------------------------------------------------
@@ -5352,6 +5424,7 @@ plot_ly() |>
 <span class="label">After fitting</span>
 
 - Interpret the slope in context.
+- Distinguish interpolation from extrapolation when predicting.
 - Check residual logic.
 - Report uncertainty when doing inference.
 - Avoid claiming causation from association alone.
@@ -5366,14 +5439,47 @@ and check assumptions.
 
 ---
 
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Fitted Line</span>
+Use least squares to estimate
+
+$$
+\hat{y}=\hat{\beta}_0+\hat{\beta}_1x,
+$$
+
+where the slope gives the predicted change in the response for a one-unit increase in the predictor.
+:::
+
+::: {.card .fragment}
+<span class="label">Linear Relationship</span>
+Use correlation and $R^2$ to describe the direction, strength, and variation explained by the linear relationship.
+:::
+
+::: {.card .fragment}
+<span class="label">Inference and Diagnostics</span>
+Test whether the population slope differs from zero, then use residuals to assess whether the linear-model assumptions are reasonable.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Simple linear regression connects a quantitative predictor to a quantitative response through estimation, interpretation, inference, and residual checking.
+:::
+
+---
+
 ## Up Next
 
 ::: {.examplebox}
-**Chapter 10 — Multiple Linear Regression**
+**Chapter 10 — Categorical Data Analysis**
 
-We extend the model from one predictor to several predictors. The core
-ideas stay the same, but interpretation becomes more careful because
-variables are held fixed.
+We move from quantitative relationships to categorical data, using
+chi-square procedures to study goodness of fit and association between
+categorical variables.
 :::
 
 <div class="home-button-row">

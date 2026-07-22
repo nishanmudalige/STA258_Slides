@@ -261,7 +261,7 @@ test_dropdown <- function() {
   init_d <- dists$t
   fill_col <- "rgba(249,168,37,0.55)"; line_col <- "rgba(249,168,37,0.95)"
 
-  p <- plot_ly(width = 1040, height = 330) |>
+  p <- plot_ly(width = 1040, height = 280) |>
     add_lines(x = init_d$x, y = init_d$y,
               line = list(color = "#1f4e79", width = 4),
               name = "reference", hoverinfo = "skip") |>
@@ -275,7 +275,7 @@ test_dropdown <- function() {
       xaxis = list(title = "", range = c(-4, 4), zeroline = TRUE,
                    zerolinecolor = "#222", fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
-      margin = list(l = 42, r = 12, t = 30, b = 92),
+      margin = list(l = 42, r = 12, t = 30, b = 104),
       showlegend = FALSE
     ) |>
     config(displayModeBar = FALSE, responsive = TRUE,
@@ -316,7 +316,7 @@ test_dropdown <- function() {
       state.b = Array.isArray(i) ? i.slice() : [i];
     };
 
-    var redraw = function(){
+    var redraw = function(live, moved){
       var dd = data.dists[state.d], xs = dd.x, ys = dd.y, cdf = dd.cdf;
       var keep;
       if (state.t === 'left'){ var vl = state.b[0]; keep = function(q){ return q <= vl; }; }
@@ -355,43 +355,108 @@ test_dropdown <- function() {
         txt = 'p-value = P(' + w + ' ≤ ' + fmt(loB) + ') + P(' + w + ' ≥ ' + fmt(hiB) + ') = ' +
               fmtp(pl) + ' + ' + fmtp(pu) + ' = ' + fmtp(pl + pu);
       }
-      anns.push({x:0.5, y:-0.36, xref:'paper', yref:'paper', text:txt, showarrow:false,
+      anns.push({x:0.5, y:-0.62, xref:'paper', yref:'paper', text:txt, showarrow:false,
                  font:{size:14, color:'#2f3437'}, bgcolor:'rgba(245,246,247,0.95)',
                  bordercolor:'#d8dee2', borderwidth:1, borderpad:5});
 
-      Plotly.restyle(el, {x:[xs], y:[ys]}, [0]);
       Plotly.restyle(el, {x:[xs], y:[sy]}, [1]);
-      Plotly.relayout(el, {'title.text': data.titles[state.d][state.t],
-                           'xaxis.range': data.ranges[state.d],
-                           shapes: shps, annotations: anns});
+      if (live){
+        // During an active drag, only touch things that will not fight
+        // Plotly's own drag of the grabbed line: the shaded fill (restyled
+        // above), the p-value/labels, and — for symmetric two-tailed — the
+        // mirrored boundary (the line the user is NOT holding).
+        var upd = {annotations: anns};
+        if (state.t === 'both' && moved != null){
+          var other = 1 - moved;
+          upd['shapes[' + other + '].x0'] = state.b[other];
+          upd['shapes[' + other + '].x1'] = state.b[other];
+          upd['shapes[' + other + '].y1'] = interp(xs, ys, state.b[other]);
+        }
+        Plotly.relayout(el, upd);
+      } else {
+        Plotly.restyle(el, {x:[xs], y:[ys]}, [0]);
+        Plotly.relayout(el, {'title.text': data.titles[state.d][state.t],
+                             'xaxis.range': data.ranges[state.d],
+                             shapes: shps, annotations: anns});
+      }
     };
 
-    el.on('plotly_relayout', function(ev){
+    // inverse CDF: smallest x with cdf(x) >= p (cdf is increasing)
+    var invinterp = function(cdf, xs, p){
+      if (p <= cdf[0]) return xs[0];
+      if (p >= cdf[cdf.length-1]) return xs[xs.length-1];
+      var lo = 0, hi = cdf.length - 1;
+      while (hi - lo > 1){ var m = (hi + lo) >> 1; if (cdf[m] <= p) lo = m; else hi = m; }
+      var f = (p - cdf[lo]) / (cdf[hi] - cdf[lo]);
+      return xs[lo] + f * (xs[hi] - xs[lo]);
+    };
+
+    var applyMove = function(moved, nx){
+      var r = data.ranges[state.d];
+      var dd = data.dists[state.d], xs = dd.x, cdf = dd.cdf;
+      nx = Math.max(r[0] + 0.02, Math.min(r[1] - 0.02, nx));
+      if (state.t === 'right'){
+        // Z/t: the dotted line may not cross the centre (x = 0, the black line)
+        if (dd.symmetric) nx = Math.max(0, nx);
+        state.b = [nx];
+      } else if (state.t === 'left'){
+        if (dd.symmetric) nx = Math.min(0, nx);
+        state.b = [nx];
+      } else {
+        if (dd.symmetric){
+          // two boundaries are mirror images about 0, so 0 is never crossed
+          var s = Math.max(0.02, Math.abs(nx));
+          state.b = [-s, s];
+        } else {
+          // Equal-tail two-sided test for chi-square / F: each tail keeps the
+          // same area, so dragging one boundary moves the other to the matching
+          // quantile. The lower stays below the median, the upper above it.
+          var med = invinterp(cdf, xs, 0.5);
+          if (moved === 0){
+            var xlo = Math.max(r[0] + 0.02, Math.min(nx, med - 0.02));
+            var plo = interp(xs, cdf, xlo);
+            state.b = [xlo, invinterp(cdf, xs, 1 - plo)];
+          } else {
+            var xhi = Math.min(r[1] - 0.02, Math.max(nx, med + 0.02));
+            var pup = 1 - interp(xs, cdf, xhi);
+            state.b = [invinterp(cdf, xs, pup), xhi];
+          }
+        }
+      }
+    };
+
+    // Coalesce the rapid drag events into a single redraw per animation frame
+    // so the line tracks the cursor smoothly instead of stuttering.
+    var pending = null, rafId = null;
+    var flush = function(){
+      rafId = null;
+      if (!pending) return;
+      applyMove(pending.moved, pending.nx);
+      redraw(true, pending.moved);
+      pending = null;
+    };
+
+    var handleMove = function(ev, live){
       var moved = null, nx = null;
       Object.keys(ev || {}).forEach(function(k){
         var m = k.match(/^shapes\\[(\\d+)\\]\\.x0$/);
         if (m){ moved = +m[1]; nx = +ev[k]; }
       });
       if (moved === null || isNaN(nx)) return;
-      var r = data.ranges[state.d];
-      nx = Math.max(r[0] + 0.02, Math.min(r[1] - 0.02, nx));
-      var dd = data.dists[state.d];
-      if (state.t === 'both'){
-        if (dd.symmetric){
-          var s = Math.max(0.02, Math.abs(nx));
-          state.b = [-s, s];
-        } else {
-          state.b[moved] = nx;
-          if (state.b[0] > state.b[1] - 0.1){
-            if (moved === 0) state.b[0] = state.b[1] - 0.1;
-            else state.b[1] = state.b[0] + 0.1;
-          }
-        }
+      if (live){
+        pending = {moved: moved, nx: nx};
+        if (rafId === null) rafId = window.requestAnimationFrame(flush);
       } else {
-        state.b[0] = nx;
+        pending = null;
+        if (rafId !== null){ window.cancelAnimationFrame(rafId); rafId = null; }
+        applyMove(moved, nx);
+        redraw(false, moved);
       }
-      redraw();
-    });
+    };
+    // plotly_relayouting fires continuously during the drag (smooth live
+    // updates); plotly_relayout fires once on release (final full redraw).
+    el.on('plotly_relayouting', function(ev){ handleMove(ev, true); });
+    el.on('plotly_relayout',    function(ev){ handleMove(ev, false); });
 
     var onpick = function(){ state.d = dsel.sel.value; state.t = tsel.sel.value; setDefaults(); redraw(); };
     dsel.sel.addEventListener('change', onpick);
@@ -851,10 +916,10 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .dropdown-plot .svg-container {
   width: 100% !important;
   max-width: 1060px !important;
-  height: 360px !important;
-  max-height: 360px !important;
+  height: 288px !important;
+  max-height: 288px !important;
   overflow: visible !important;
-  margin: 6px auto 0 auto !important;
+  margin: 4px auto 0 auto !important;
 }
 .home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
@@ -1092,8 +1157,6 @@ Use when the research question asks whether the parameter changed in either dire
   <li class="fragment"><strong>Two-tailed $Z$ or $t$:</strong> double the tail area beyond $|w^*|$.</li>
   <li class="fragment"><strong>Two-tailed $\chi^2$ or $F$:</strong> add the relevant lower- and upper-tail areas because the distributions are asymmetric.</li>
 </ol>
-
-<p class="fragment" style="font-size:0.48em; color:var(--sta-muted); margin-top:6px; line-height:1.8;">$W$ is the test statistic from the chosen reference distribution (<em>Z</em>, <em>t</em>, chi-square, or <em>F</em>), with observed value $w^*$.</p>
 :::
 
 ::: {.col}
@@ -1102,6 +1165,8 @@ Use the **two dropdowns** at the top-right of the plot: first pick the **type of
 :::
 :::
 ::::
+
+<p class="fragment" style="font-size:0.48em; color:var(--sta-muted); margin-top:3px; line-height:1.4; text-align:center;">$W$ is the test statistic from the chosen reference distribution (<em>Z</em>, <em>t</em>, chi-square, or <em>F</em>), with observed value $w^*$.</p>
 
 ::: {.dropdown-plot}
 ```{r}

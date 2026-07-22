@@ -1162,7 +1162,17 @@ t.test(books, conf.level = 0.95)
 ::::
 
 ::: {.examplebox .fragment}
-$\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately $(11.20,24.20)$ books.
+Using $n=10$, $\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$:
+
+$$
+17.7\pm2.262\frac{9.0805}{\sqrt{10}}
+=
+17.7\pm6.50
+=
+(11.20,24.20).
+$$
+
+We are 95% confident that the population mean number of books read is between approximately **11.20 and 24.20 books**.
 :::
 
 ---

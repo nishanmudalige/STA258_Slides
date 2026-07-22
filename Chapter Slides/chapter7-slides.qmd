@@ -719,6 +719,98 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 }
 </style>
 
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability
@@ -770,7 +862,8 @@ A test is only useful if it can detect a real effect.
 <span class="label">Definition 7.1</span>
 The probability that a fixed-level significance test will reject $H_0$ when a particular **alternative** value of the parameter is true is called the **power** of the test against that alternative.
 
-$$\text{Power}=P(\text{reject } H_0 \mid H_0 \text{ false}), \qquad 0<\text{power}<1$$
+$$\text{Power at }\theta=\theta_a
+=P(\text{reject }H_0\mid \theta=\theta_a), \qquad 0\le \text{power}\le 1$$
 :::
 
 :::: {.two-col}
@@ -781,7 +874,7 @@ The test is good at detecting effects that are really there.
 
 ::: {.warnbox .fragment}
 <span class="label">Low power (near 0)</span>
-The test is unreliable, it usually fails to reject even when $H_0$ is false.
+The test has a high chance of failing to detect the specific alternative effect being considered.
 :::
 ::::
 
@@ -823,7 +916,7 @@ The **power** of a hypothesis test is the probability that the test will:
 ::::
 
 ::: {.thinkbox .fragment}
-You control $n$ and $\alpha$. The effect size and $\sigma$ are determined by the nature of the problem, so sample size is your main planning lever.
+Researchers choose $n$, $\alpha$, and the smallest effect worth detecting. Variability is usually estimated from prior information, so sample size is often the main planning lever.
 :::
 
 ---
@@ -869,7 +962,7 @@ Fail to reject $H_0$ when $H_0$ is **false**.
 ::::
 
 ::: {.thinkbox .fragment}
-A Type I error is usually treated as the more serious mistake, which is why we fix $\alpha$ in advance (often $0.05$).
+The consequences of Type I and Type II errors depend on the context. We choose $\alpha$ in advance to control the probability of a Type I error when $H_0$ is true.
 :::
 
 ---
@@ -949,7 +1042,7 @@ A panel of $n=10$ trained graders scores the new blend; from years of calibratio
 :::
 
 ::: {.notebox .fragment}
-$\sigma$ is known $\Rightarrow$ one-sample $z$ test, reference [$N(0,1)$.]{.nw}
+$\sigma$ is known $\Rightarrow$ one-sample $z$ test with reference distribution $N(0,1)$.
 :::
 :::
 
@@ -1304,7 +1397,7 @@ A test has low power against the alternative it was designed to detect. Which si
 :::: {.two-col}
 ::: {.warnbox .fragment}
 <span class="label">Too small</span>
-Low power - real, meaningful effects slip through undetected. The study is wasted.
+Low power - real, meaningful effects are more likely to go undetected because the risk of a Type II error is higher.
 :::
 
 ::: {.warnbox .fragment}
@@ -1318,7 +1411,7 @@ Power analysis finds the **minimum $n$** that detects an effect of a given size 
 :::
 
 ::: {.thinkbox .fragment}
-To run it you must supply three ingredients: the standard deviation $\sigma$, the significance level $\alpha$, and the effect size $\mu_0-\mu_a$ you want to detect.
+To run it you must supply four ingredients: the standard deviation $\sigma$, the significance level $\alpha$, the target power, and the effect-size magnitude $|\mu_a-\mu_0|$ you want to detect.
 :::
 
 ---
@@ -1328,13 +1421,13 @@ To run it you must supply three ingredients: the standard deviation $\sigma$, th
 ::: {.slide-stack}
 <ol class="step-list spaced-steps">
   <li class="fragment"><strong>1. Cutoff from $H_0$.</strong> The cutoff $\bar{x}_*$ is the borderline value of the sample mean that decides whether you reject $H_0$ or not. Write it using the null mean and the critical value $z_\alpha$.</li>
-  <li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_\beta$ (the $z$ giving the desired power).</li>
+<li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_{\text{power}}$, the standard-normal quantile corresponding to the target power.</li>
   <li class="fragment"><strong>3. Set the two expressions equal and solve for $n$.</strong> Round <em>up</em> to the next whole observation.</li>
 </ol>
 
 ::: {.card .fragment}
 <span class="label">One-sided sample-size formula</span>
-$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{\mu_0-\mu_a}\right)^{2}$$
+$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{|\mu_a-\mu_0|}\right)^{2}$$
 where $z_\beta$ is the standard-normal value matching the target power.
 :::
 :::
@@ -1368,14 +1461,14 @@ $$100+1.645\cdot\tfrac{14}{\sqrt n}=103-0.25\cdot\tfrac{14}{\sqrt n}
 mu0 <- 100; mua <- 103; sigma <- 14; alpha <- 0.05; power <- 0.60
 
 z_alpha <- qnorm(1 - alpha)
-z_beta  <- qnorm(power)
+z_power <- qnorm(power)
 
-n <- ((z_alpha + z_beta) * sigma / (mua - mu0))^2
+n <- ((z_alpha + z_power) * sigma / abs(mua - mu0))^2
 ceiling(n)
 ```
 
 ::: {.thinkbox .fragment}
-$n\approx 78.2$, so a minimum of **79** observations guarantees power of at least 0.60. (Using the rounded $z_\beta=0.25$ from the table gives the same answer.)
+Using the full normal quantiles gives $n\approx 78.47$, so round up to **79** observations to obtain planned power of at least 0.60 under the assumed values of $\sigma$ and the target effect. Using the rounded value $z_{\text{power}}=0.25$ gives $n\approx 78.2$ and the same final answer.
 :::
 
 ---
@@ -1384,7 +1477,7 @@ $n\approx 78.2$, so a minimum of **79** observations guarantees power of at leas
 
 ::: {.slide-stack}
 ::: {.card}
-A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less**. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml? (Target: $P(Z<0.84)\approx0.80$, so $z_\beta=0.84$.)
+A campus vending machine advertises $225$ ml cups ($\sigma=7$ ml). You suspect it pours **less**. How many cups must you sample to reach **power $0.80$** against a true mean of $\mu=223$ ml? (Target: $P(Z<0.84)\approx0.80$, so $z_{\text{power}}=0.84$.)
 $$H_0:\mu=225 \qquad H_a:\mu<225 \qquad (\alpha=0.05)$$
 :::
 
@@ -1396,7 +1489,7 @@ $$n=\left(\frac{(1.645+0.84)\cdot 7}{225-223}\right)^2\approx 75.6 \;\Rightarrow
 :::
 
 ::: {.thinkbox .fragment}
-A minimum of **76 cups** delivers the desired 0.80 power against a 2 ml shortfall.
+Using the full normal quantiles gives $n\approx 75.74$, so round up to **76 cups** to obtain planned power of at least 0.80 against a 2 ml shortfall. The rounded values $1.645$ and $0.84$ give $n\approx 75.6$ and the same final answer.
 :::
 :::
 
@@ -1415,7 +1508,7 @@ ceiling(n)
 ```
 
 ::: {.notebox .fragment}
-`power.t.test` and `power.prop.test` automate these calculations once you know $\sigma$, $\alpha$, the effect size, and the target power.
+`power.t.test()` automates mean-based power calculations using the standard deviation, significance level, effect size, and target power. For two proportions, `power.prop.test()` uses the two target proportions instead of $\sigma$.
 :::
 
 ---
@@ -1564,13 +1657,9 @@ $\alpha$ - the fixed Type I error rate you are willing to tolerate.
 
 ::: {.stat-card .fragment}
 <span class="label">Effect size</span>
-$\mu_0-\mu_a$ - the smallest difference worth detecting.
+$|\mu_a-\mu_0|$ - the magnitude of the smallest difference worth detecting.
 :::
-::::
 
-::: {.thinkbox .fragment}
-With data in hand it is more common to report a **p-value** than a fixed reject/not-reject decision: it measures the strength of evidence against $H_0$ and leaves the action up to each reader.
-:::
 
 ---
 
@@ -1584,7 +1673,7 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 - It decreases
 - It stays the same
-- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / (μ0−μa))², the effect size μ0−μa is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
+- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / |μa−μ0|)², the effect-size magnitude is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
 - It becomes undefined
 
 ---
@@ -1593,15 +1682,42 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 | Quantity | Formula / idea |
 |---|---|
-| Power | $1-\beta=P(\text{reject } H_0\mid H_0 \text{ false})$ |
+| Power against $\theta_a$ | $1-\beta(\theta_a)=P(\text{reject }H_0\mid\theta=\theta_a)$ |
 | Type I error | $\alpha=P(\text{reject } H_0\mid H_0 \text{ true})$ |
 | Type II error | $\beta=P(\text{fail to reject}\mid H_0 \text{ false})$ |
 | Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt n$ |
 | Power (right-tailed) | $P\!\big(Z\ge z_\alpha+\sqrt n(\mu_0-\mu_a)/\sigma\big)$ |
-| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/(\mu_0-\mu_a)\big)^2$ |
+| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/|\mu_a-\mu_0|\big)^2$ |
 
 ::: {.thinkbox .fragment .spaced-note}
 Always round a computed sample size **up** to the next whole observation so the achieved power is at least the target.
+:::
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Power</span>
+Power is the probability of rejecting $H_0$ at a specific alternative value, and it equals $1-\beta$.
+:::
+
+::: {.card .fragment}
+<span class="label">What Changes Power</span>
+Power rises with a larger effect size, larger sample size, or larger $\alpha$, and falls with greater variability.
+:::
+
+::: {.card .fragment}
+<span class="label">Study Planning</span>
+Choose a meaningful effect and target power, solve for the required sample size, and always round $n$ up.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One-slide takeaway.** A hypothesis test should be planned to have enough power to detect an effect that matters.
 :::
 
 ---
@@ -1615,7 +1731,7 @@ We extend hypothesis testing from one or two groups to **several** group means a
 :::
 
 ::: {.thinkbox .fragment}
-**One-slide takeaway.** Power $=1-\beta$ is a test's ability to detect a real effect. It rises with effect size, sample size, and $\alpha$, and falls with variability, so planning $n$ in advance is how we guarantee a study can succeed.
+**One-slide takeaway.** Power $=1-\beta$ is a test's ability to detect a real effect. It rises with effect size, sample size, and $\alpha$, and falls with variability, so planning $n$ in advance helps ensure the study has a strong chance of detecting the target effect.
 :::
 
 ::: {.home-button-row}

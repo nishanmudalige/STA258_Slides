@@ -3532,7 +3532,7 @@
     "href": "Chapter Slides/chapter9-slides.html#hypothesis-tests-for-the-slope",
     "title": "STA258",
     "section": "Hypothesis Tests for the Slope",
-    "text": "Hypothesis Tests for the Slope\n\nCommon slope hypotheses are:\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_A:\\beta_1\\ne 0\n\\]\nor one-sided alternatives:\n\\[\nH_A:\\beta_1&gt;0\n\\qquad \\text{or} \\qquad\nH_A:\\beta_1&lt;0.\n\\]\nThe test statistic is:\n\\[\nt=\n\\frac{\\hat{\\beta}_1-0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nA small p-value gives evidence of a linear relationship between \\(x\\) and \\(y\\)."
+    "text": "Hypothesis Tests for the Slope\n\nCommon slope hypotheses are:\n\\[\nH_0:\\beta_1=0\n\\qquad \\text{versus} \\qquad\nH_a:\\beta_1\\ne 0\n\\]\nor one-sided alternatives:\n\\[\nH_A:\\beta_1&gt;0\n\\qquad \\text{or} \\qquad\nH_A:\\beta_1&lt;0.\n\\]\nThe test statistic is:\n\\[\nt=\n\\frac{\\hat{\\beta}_1-0}{SE(\\hat{\\beta}_1)}\n\\sim t_{n-2}\n\\quad \\text{under } H_0.\n\\]\n\n\nA small p-value gives evidence of a linear relationship between \\(x\\) and \\(y\\)."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-ea-fc-practice-matches",
@@ -3587,8 +3587,8 @@
     "objectID": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
     "href": "Chapter Slides/chapter9-slides.html#prediction-interpolation-and-extrapolation",
     "title": "STA258",
-    "section": "Prediction, Interpolation, and Extrapolation",
-    "text": "Prediction, Interpolation, and Extrapolation\n\nOnce a fitted regression equation is available,\n\\[\n\\hat{y}=\\hat{\\beta}_0+\\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\n\nInterpolation\nPrediction for an \\(x\\) value inside the observed range of the data.\nUsually safer if the model is reasonable.\n\n\nExtrapolation\nPrediction for an \\(x\\) value outside the observed range of the data.\nThis can be very inaccurate."
+    "section": "9.2.4 Prediction, Interpolation, and Extrapolation",
+    "text": "9.2.4 Prediction, Interpolation, and Extrapolation\n\nOnce a fitted regression equation is available,\n\\[\n\\hat{y}=\\hat{\\beta}_0+\\hat{\\beta}_1x,\n\\]\nwe can plug in a value of \\(x\\) to predict the response.\n\n\n\nInterpolation\nPrediction for an \\(x\\) value inside the observed range of the data.\nUsually safer if the model is reasonable.\n\n\nExtrapolation\nPrediction for an \\(x\\) value outside the observed range of the data.\nThis can be very inaccurate."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-rental-price-prediction",
@@ -3727,8 +3727,8 @@
     "objectID": "Chapter Slides/chapter9-slides.html#residual-plot-checks",
     "href": "Chapter Slides/chapter9-slides.html#residual-plot-checks",
     "title": "STA258",
-    "section": "9.2.4 Residual Plot Checks",
-    "text": "9.2.4 Residual Plot Checks\n\nResidual plot checklist\n\n\nRandom scatter: There should be no obvious pattern in the residuals.\n\n\nNo curve: A curved pattern suggests the relationship may not be linear.\n\n\nConstant variance: The residuals should fall in a roughly horizontal band with similar spread.\n\n\nNo clustering: Clusters may suggest separate groups or lack of independence.\n\n\nNo influential outliers: A few extreme points should not dominate the fitted line.\n\n\n\n\nTextbook logic\nResidual plots are used to judge whether the regression assumptions are reasonable before trusting inference."
+    "section": "9.2.5 Residual Plot Checks",
+    "text": "9.2.5 Residual Plot Checks\n\nResidual plot checklist\n\n\nRandom scatter: There should be no obvious pattern in the residuals.\n\n\nNo curve: A curved pattern suggests the relationship may not be linear.\n\n\nConstant variance: The residuals should fall in a roughly horizontal band with similar spread.\n\n\nNo clustering: Clusters may suggest separate groups or lack of independence.\n\n\nNo influential outliers: A few extreme points should not dominate the fitted line.\n\n\n\n\nTextbook logic\nResidual plots are used to judge whether the regression assumptions are reasonable before trusting inference."
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#example-caitlin-clark-highlight-clips-and-shares",

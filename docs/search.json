@@ -3798,7 +3798,7 @@
     "href": "Chapter Slides/chapter10-slides.html#from-binomial-to-chi-square",
     "title": "STA258",
     "section": "From Binomial to Chi-square",
-    "text": "From Binomial to Chi-square\n\n\n\nFor two categories, one count can be modelled with a binomial distribution.\nIf \\(Y_1 \\sim Bin(n,p_1)\\), then for large \\(n\\),\n\\[\nZ=\n\\frac{Y_1-np_1}\n{\\sqrt{np_1(1-p_1)}}\n\\approx N(0,1)\n\\]\nSo,\n\\[\nZ^2 \\approx \\chi^2_1\n\\]\n\n\n\n\nPearson’s idea\nInstead of only checking one binomial count, compare every observed count to its expected count.\nFor two categories:\n\\[\nQ_1=\n\\sum_{i=1}^{2}\n\\frac{(Y_i-np_i)^2}{np_i}\n\\]\nThis extends naturally to more than two categories."
+    "text": "From Binomial to Chi-square\n\n\n\nFor two categories, one count can be modelled with a binomial distribution.\nIf \\(Y_1 \\sim Bin(n,p_1)\\) and both \\(np_1\\) and \\(n(1-p_1)\\) are large enough, then\n\\[\nZ=\n\\frac{Y_1-np_1}\n{\\sqrt{np_1(1-p_1)}}\n\\approx N(0,1)\n\\]\nSo,\n\\[\nZ^2 \\approx \\chi^2_1\n\\]\n\n\n\n\nPearson’s idea\nInstead of only checking one binomial count, compare every observed count to its expected count.\nFor two categories:\n\\[\nQ_1=\n\\sum_{i=1}^{2}\n\\frac{(Y_i-np_i)^2}{np_i}\n\\]\nThis extends naturally to more than two categories."
   },
   {
     "objectID": "Chapter Slides/chapter10-slides.html#multinomial-response-model",

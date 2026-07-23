@@ -128,56 +128,92 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
   rej  <- if (alternative == "less") x <= xcrit else x >= xcrit
   ymax <- max(c(y0, ya))
   s <- if (alternative == "less") -1 else 1
-  hy <- 0.06                             # arrow-head height inside each sliver
-  ax_x <- xcrit + s * 0.40 * se          # α: null sliver on the reject side
-  bx_x <- xcrit - s * 0.45 * se          # β: alt sliver on the keep side
-  pw_x <- mua                            # power: deep in the green region
+  hy <- 0.06
+  ax_x <- xcrit + s * 0.40 * se
+  bx_x <- xcrit - s * 0.45 * se
+  pw_x <- mua
+
   plot_ly(width = width, height = height) |>
-    add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
-              name = "H₀", hoverinfo = "x+y") |>
-    add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
-              name = "Hₐ", hoverinfo = "x+y") |>
-    add_trace(x = x[rej], y = ya[rej], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_pow,
-              line = list(color = line_pow, width = 1),
-              name = "power", hoverinfo = "x+y") |>
-    add_trace(x = x[rej], y = y0[rej], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_a,
-              line = list(color = line_a, width = 1),
-              name = "α (Type I)", hoverinfo = "x+y") |>
-    add_trace(x = x[!rej], y = ya[!rej], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_b,
-              line = list(color = line_b, width = 1),
-              name = "β (Type II)", hoverinfo = "x+y") |>
+    add_trace(
+      x = x[!rej], y = y0[!rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = "rgba(31,78,121,0.12)",
+      line = list(color = "rgba(31,78,121,0.35)", width = 1),
+      name = "H₀ keep region", hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[rej], y = ya[rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = fill_pow,
+      line = list(color = line_pow, width = 1),
+      name = "power", hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[rej], y = y0[rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = fill_a,
+      line = list(color = line_a, width = 1),
+      name = "α (Type I)", hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[!rej], y = ya[!rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = fill_b,
+      line = list(color = line_b, width = 1),
+      name = "β (Type II)", hoverinfo = "x+y"
+    ) |>
+    add_lines(
+      x = x, y = y0,
+      line = list(color = col_null, width = 3),
+      name = "H₀", hoverinfo = "x+y"
+    ) |>
+    add_lines(
+      x = x, y = ya,
+      line = list(color = col_alt, width = 3),
+      name = "Hₐ", hoverinfo = "x+y"
+    ) |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 14)),
       xaxis = list(title = "", zeroline = FALSE, fixedrange = TRUE),
-      yaxis = list(title = "", rangemode = "tozero",
-                   range = c(0, ymax * 1.28), fixedrange = TRUE),
+      yaxis = list(
+        title = "", rangemode = "tozero",
+        range = c(0, ymax * 1.28), fixedrange = TRUE
+      ),
       margin = list(l = 28, r = 12, t = 38, b = 76),
       showlegend = FALSE, hovermode = "x unified",
-      shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
-                         y0 = 0, y1 = ymax * 1.06,
-                         line = list(color = "#333", width = 2, dash = "dash"))),
+      shapes = list(
+        list(
+          type = "line", x0 = xcrit, x1 = xcrit,
+          y0 = 0, y1 = ymax * 1.06,
+          line = list(color = "#333", width = 2, dash = "dash")
+        )
+      ),
       annotations = list(
-        list(x = mu0, y = max(y0) * 1.07, text = "H₀ true",
-             showarrow = FALSE, font = list(color = col_null, size = 11)),
-        list(x = mua, y = max(ya) * 1.07, text = "Hₐ true",
-             showarrow = FALSE, font = list(color = col_alt, size = 11)),
-        # labels sit BELOW the curves; arrows point up into each region
-        list(x = bx_x, y = hy, text = "β (Type II)",
-             showarrow = TRUE, ax = -24, ay = 40,
-             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#c62828",
-             font = list(color = "#c62828", size = 13)),
-        list(x = ax_x, y = hy, text = "α (Type I)",
-             showarrow = TRUE, ax = 22, ay = 64,
-             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#b26a00",
-             font = list(color = "#b26a00", size = 13)),
-        list(x = pw_x, y = hy, text = "power",
-             showarrow = TRUE, ax = 0, ay = 40,
-             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#2e7d32",
-             font = list(color = "#1b5e20", size = 13)))
-    ) |> config(displayModeBar = FALSE, responsive = TRUE)
+        list(
+          x = mu0, y = max(y0) * 1.07, text = "H₀ true",
+          showarrow = FALSE, font = list(color = col_null, size = 11)
+        ),
+        list(
+          x = mua, y = max(ya) * 1.07, text = "Hₐ true",
+          showarrow = FALSE, font = list(color = col_alt, size = 11)
+        ),
+        list(
+          x = bx_x, y = hy, text = "β (Type II)",
+          showarrow = TRUE, ax = -24, ay = 40,
+          arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#c62828",
+          font = list(color = "#c62828", size = 13)
+        ),
+        list(
+          x = ax_x, y = hy, text = "α (Type I)",
+          showarrow = TRUE, ax = 22, ay = 64,
+          arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#b26a00",
+          font = list(color = "#b26a00", size = 13)
+        ),
+        list(
+          x = pw_x, y = hy, text = "power",
+          showarrow = TRUE, ax = 0, ay = 40,
+          arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#2e7d32",
+          font = list(color = "#1b5e20", size = 13)
+        )
+      )
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
 }
 
 # ---- Power curve: power as a function of the true mean ----------------------

@@ -51,67 +51,231 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
                           cutoff_label = NULL, power_label = NULL,
                           beta_label = NULL,
                           width = 640, height = 255) {
-  zc    <- qnorm(1 - alpha)
-  xcrit <- if (alternative == "less") mu0 - zc * se0 else mu0 + zc * se0
-  s     <- if (alternative == "less") -1 else 1
+  zc <- qnorm(1 - alpha)
+
+  xcrit <- if (alternative == "less") {
+    mu0 - zc * se0
+  } else {
+    mu0 + zc * se0
+  }
+
+  s <- if (alternative == "less") -1 else 1
+
   lo <- min(mu0 - 4 * se0, mua - 4 * sea)
   hi <- max(mu0 + 4 * se0, mua + 4 * sea)
-  x  <- seq(lo, hi, length.out = 600)
+
+  x <- seq(lo, hi, length.out = 600)
+
   y0 <- dnorm(x, mu0, se0)
   ya <- dnorm(x, mua, sea)
-  keep <- if (alternative == "less") x <= xcrit else x >= xcrit
-  ymax <- max(c(y0, ya))
-  p <- plot_ly(width = width, height = height) |>
-    add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
-              name = "H₀", hoverinfo = "x+y") |>
-    add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
-              name = "Hₐ", hoverinfo = "x+y") |>
-    add_trace(x = x[keep], y = ya[keep], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_pow,
-              line = list(color = line_pow, width = 1),
-              name = "Power", hoverinfo = "x+y")
-  if (show_beta) {
-    bk <- !keep
-    p <- p |>
-      add_trace(x = x[bk], y = ya[bk], type = "scatter", mode = "lines",
-                fill = "tozeroy", fillcolor = fill_b,
-                line = list(color = line_b, width = 1),
-                name = "β", hoverinfo = "x+y")
+
+  keep <- if (alternative == "less") {
+    x <= xcrit
+  } else {
+    x >= xcrit
   }
+
+  non_reject <- !keep
+  ymax <- max(c(y0, ya))
+
+  p <- plot_ly(width = width, height = height) |>
+    add_trace(
+      x = x[non_reject],
+      y = y0[non_reject],
+      type = "scatter",
+      mode = "lines",
+      fill = "tozeroy",
+      fillcolor = "rgba(31,78,121,0.12)",
+      line = list(
+        color = "rgba(31,78,121,0.30)",
+        width = 1
+      ),
+      name = "H₀ non-rejection region",
+      hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[keep],
+      y = ya[keep],
+      type = "scatter",
+      mode = "lines",
+      fill = "tozeroy",
+      fillcolor = fill_pow,
+      line = list(
+        color = line_pow,
+        width = 1
+      ),
+      name = "Power",
+      hoverinfo = "x+y"
+    )
+
+  if (show_beta) {
+    p <- p |>
+      add_trace(
+        x = x[non_reject],
+        y = ya[non_reject],
+        type = "scatter",
+        mode = "lines",
+        fill = "tozeroy",
+        fillcolor = fill_b,
+        line = list(
+          color = line_b,
+          width = 1
+        ),
+        name = "β",
+        hoverinfo = "x+y"
+      )
+  }
+
+  p <- p |>
+    add_lines(
+      x = x,
+      y = y0,
+      line = list(
+        color = col_null,
+        width = 3
+      ),
+      name = "H₀",
+      hoverinfo = "x+y"
+    ) |>
+    add_lines(
+      x = x,
+      y = ya,
+      line = list(
+        color = col_alt,
+        width = 3
+      ),
+      name = "Hₐ",
+      hoverinfo = "x+y"
+    )
+
   has_lab <- !is.null(power_label) || !is.null(beta_label)
   bmar <- if (has_lab) 100 else 34
-  p |> layout(
-    title = list(text = title, x = 0.02, font = list(size = 14)),
-    xaxis = list(title = list(text = xlab, standoff = if (has_lab) 48 else 0),
-                 zeroline = FALSE, fixedrange = TRUE),
-    yaxis = list(title = "", rangemode = "tozero",
-                 range = c(0, ymax * 1.28), fixedrange = TRUE),
-    margin = list(l = 28, r = 12, t = 38, b = bmar),
-    showlegend = FALSE, hovermode = "x unified",
-    shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
-                       y0 = 0, y1 = ymax * 1.16,
-                       line = list(color = "#333", width = 2, dash = "dash"))),
-    annotations = c(
-      list(
-        list(x = mu0, y = max(y0) * 1.07, text = "H₀",
-             showarrow = FALSE, font = list(color = col_null, size = 14)),
-        list(x = mua, y = max(ya) * 1.07, text = "Hₐ",
-             showarrow = FALSE, font = list(color = col_alt, size = 14)),
-        list(x = xcrit, y = ymax * 1.16,
-             text = if (!is.null(cutoff_label)) cutoff_label else "cutoff",
-             showarrow = FALSE, yanchor = "bottom",
-             font = list(color = "#333", size = 11))),
-      # power & β labels sit BELOW the plot with arrows pointing up
-      if (!is.null(beta_label)) list(list(
-        x = xcrit - s * 0.5 * se0, y = 0.05, text = beta_label,
-        showarrow = TRUE, ax = 0, ay = 40, arrowhead = 2, arrowwidth = 1.3,
-        arrowcolor = "#c62828", font = list(color = "#c62828", size = 12))),
-      if (!is.null(power_label)) list(list(
-        x = mua, y = 0.06, text = power_label,
-        showarrow = TRUE, ax = 0, ay = 40, arrowhead = 2, arrowwidth = 1.3,
-        arrowcolor = line_pow, font = list(color = "#1b5e20", size = 12)))
+
+  p |>
+    layout(
+      title = list(
+        text = title,
+        x = 0.02,
+        font = list(size = 14)
+      ),
+      xaxis = list(
+        title = list(
+          text = xlab,
+          standoff = if (has_lab) 48 else 0
+        ),
+        zeroline = FALSE,
+        fixedrange = TRUE
+      ),
+      yaxis = list(
+        title = "",
+        rangemode = "tozero",
+        range = c(0, ymax * 1.28),
+        fixedrange = TRUE
+      ),
+      margin = list(
+        l = 28,
+        r = 12,
+        t = 38,
+        b = bmar
+      ),
+      showlegend = FALSE,
+      hovermode = "x unified",
+      shapes = list(
+        list(
+          type = "line",
+          x0 = xcrit,
+          x1 = xcrit,
+          y0 = 0,
+          y1 = ymax * 1.16,
+          line = list(
+            color = "#333",
+            width = 2,
+            dash = "dash"
+          )
+        )
+      ),
+      annotations = c(
+        list(
+          list(
+            x = mu0,
+            y = max(y0) * 1.07,
+            text = "H₀",
+            showarrow = FALSE,
+            font = list(
+              color = col_null,
+              size = 14
+            )
+          ),
+          list(
+            x = mua,
+            y = max(ya) * 1.07,
+            text = "Hₐ",
+            showarrow = FALSE,
+            font = list(
+              color = col_alt,
+              size = 14
+            )
+          ),
+          list(
+            x = xcrit,
+            y = ymax * 1.16,
+            text = if (!is.null(cutoff_label)) {
+              cutoff_label
+            } else {
+              "cutoff"
+            },
+            showarrow = FALSE,
+            yanchor = "bottom",
+            font = list(
+              color = "#333",
+              size = 11
+            )
+          )
+        ),
+        if (!is.null(beta_label)) {
+          list(
+            list(
+              x = xcrit - s * 0.5 * se0,
+              y = 0.05,
+              text = beta_label,
+              showarrow = TRUE,
+              ax = 0,
+              ay = 40,
+              arrowhead = 2,
+              arrowwidth = 1.3,
+              arrowcolor = "#c62828",
+              font = list(
+                color = "#c62828",
+                size = 12
+              )
+            )
+          )
+        },
+        if (!is.null(power_label)) {
+          list(
+            list(
+              x = mua,
+              y = 0.06,
+              text = power_label,
+              showarrow = TRUE,
+              ax = 0,
+              ay = 40,
+              arrowhead = 2,
+              arrowwidth = 1.3,
+              arrowcolor = line_pow,
+              font = list(
+                color = "#1b5e20",
+                size = 12
+              )
+            )
+          )
+        }
+      )
+    ) |>
+    config(
+      displayModeBar = FALSE,
+      responsive = TRUE
     )
-  ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
 
 # ---- Type I (alpha) and Type II (beta) error regions -----------------------

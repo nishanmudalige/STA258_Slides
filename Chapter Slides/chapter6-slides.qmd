@@ -253,7 +253,7 @@ test_dropdown <- function() {
   init_d <- dists$t
   fill_col <- "rgba(249,168,37,0.55)"; line_col <- "rgba(249,168,37,0.95)"
 
-  p <- plot_ly(width = 1040, height = 280) |>
+  p <- plot_ly(width = 1040, height = 310) |>
     add_lines(x = init_d$x, y = init_d$y,
               line = list(color = "#1f4e79", width = 4),
               name = "reference", hoverinfo = "skip") |>
@@ -347,7 +347,7 @@ test_dropdown <- function() {
         txt = 'p-value = P(' + w + ' ≤ ' + fmt(loB) + ') + P(' + w + ' ≥ ' + fmt(hiB) + ') = ' +
               fmtp(pl) + ' + ' + fmtp(pu) + ' = ' + fmtp(pl + pu);
       }
-      anns.push({x:0.5, y:-0.62, xref:'paper', yref:'paper', text:txt, showarrow:false,
+      anns.push({x:0.5, y:-0.5, xref:'paper', yref:'paper', text:txt, showarrow:false,
                  font:{size:14, color:'#2f3437'}, bgcolor:'rgba(245,246,247,0.95)',
                  bordercolor:'#d8dee2', borderwidth:1, borderpad:5});
 
@@ -907,11 +907,12 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .dropdown-plot .svg-container {
   width: 100% !important;
   max-width: 1060px !important;
-  height: 288px !important;
-  max-height: 288px !important;
-  overflow: visible !important;
-  margin: 4px auto 0 auto !important;
+  height: 320px !important;  max-height: 320px !important;  overflow: visible !important;
+  margin: 2px auto 0 auto !important;
 }
+/* P-Value Areas: shrink the intro boxes so the interactive plot can sit higher and larger */
+.reveal section.pval-areas .step-list li { font-size: 0.46em !important; padding: 6px 10px !important; }
+.reveal section.pval-areas .thinkbox { font-size: 0.6em !important; padding: 11px 14px !important; }
 .home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
   display: inline-block !important;
@@ -1138,7 +1139,7 @@ Use when the research question asks whether the parameter changed in either dire
 
 ---
 
-## P-Value Areas
+## P-Value Areas {.pval-areas}
 
 :::: {.two-col}
 ::: {.col}

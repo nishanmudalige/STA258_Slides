@@ -4585,9 +4585,10 @@ $$
 Test whether the slope differs from 0.
 :::
 
-::: {.notebox .calc-left .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Hypotheses</span>
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Hypotheses and conclusion</span>
 
+::: {.fragment data-fragment-index="1"}
 $$
 H_0:\beta_1=0,
 \qquad
@@ -4595,6 +4596,14 @@ H_A:\beta_1\ne0
 $$
 
 The reference distribution is $t_6$.
+:::
+
+::: {.fragment data-fragment-index="3"}
+Since the p-value is less than **0.001**, reject $H_0$ at the 5% level.
+
+There is strong evidence of a positive linear relationship between the
+number of mobile orders already ahead and pickup wait time.
+:::
 :::
 
 ::: {.stat-card .calc-left .coffee-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.00; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
@@ -4653,21 +4662,16 @@ df
 \end{aligned}
 $$
 
-**4. Confidence interval for the slope**
+**4. p-value**
 
 $$
 \begin{aligned}
-95\%\ CI
-&:\quad
-\hat{\beta}_1\pm t_{0.975,6}SE(\hat{\beta}_1)\\[-1pt]
-&=
-1.038\pm2.447(0.043)\\[-1pt]
-&=
-(0.932,\;1.144).
+\text{p-value}
+&=2P(T_6\ge 23.926)\\[-1pt]
+&\approx 3.50\times10^{-7}\\[-1pt]
+&<0.001.
 \end{aligned}
 $$
-
-Since $0\notin(0.932,\;1.144)$, the slope is clearly positive.
 :::
 
 ::::

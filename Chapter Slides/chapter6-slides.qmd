@@ -57,7 +57,7 @@ tail_plot <- function(stat = 1.8, dist = "z", df = 12, alternative = "greater",
     less = x <= stat,
     two = abs(x) >= stat_abs
   )
-  p <- plot_ly(width = 520, height = 230) |>
+  p <- plot_ly(width = 520, height = 370) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
               name = if (dist == "z") "N(0,1)" else paste0("t(", df, ")")) |>
     add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
@@ -82,7 +82,7 @@ chisq_tail_plot <- function(stat, df, alternative = "greater",
   x <- seq(0, qchisq(0.999, df), length.out = 500)
   y <- dchisq(x, df)
   shade <- if (alternative == "less") x <= stat else x >= stat
-  plot_ly(width = 520, height = 230) |>
+  plot_ly(width = 520, height = 370) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 4),
               name = paste0("chi^2(", df, ")")) |>
     add_trace(x = x[shade], y = y[shade], type = "scatter", mode = "lines",
@@ -140,7 +140,7 @@ chisq_test_plot <- function(chistar, chicrit = NULL, df = 27, alternative = "gre
            showarrow = FALSE, xanchor = "center",
            font = list(color = "#00695c", size = 12))))
   }
-  plot_ly(width = 520, height = 230) |>
+  plot_ly(width = 520, height = 370) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("chi^2(", df, ")"), hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -193,7 +193,7 @@ ftest_plot <- function(fstar, fcrit = NULL, df1 = 11, df2 = 9, alternative = "gr
            showarrow = FALSE, xanchor = "left",
            font = list(color = "#00695c", size = 11))))
   }
-  plot_ly(width = 520, height = 230) |>
+  plot_ly(width = 520, height = 370) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("F(", df1, ", ", df2, ")"), hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -261,7 +261,7 @@ test_dropdown <- function() {
   init_d <- dists$t
   fill_col <- "rgba(249,168,37,0.55)"; line_col <- "rgba(249,168,37,0.95)"
 
-  p <- plot_ly(width = 1040, height = 280) |>
+  p <- plot_ly(width = 1040, height = 310) |>
     add_lines(x = init_d$x, y = init_d$y,
               line = list(color = "#1f4e79", width = 4),
               name = "reference", hoverinfo = "skip") |>
@@ -355,7 +355,7 @@ test_dropdown <- function() {
         txt = 'p-value = P(' + w + ' ≤ ' + fmt(loB) + ') + P(' + w + ' ≥ ' + fmt(hiB) + ') = ' +
               fmtp(pl) + ' + ' + fmtp(pu) + ' = ' + fmtp(pl + pu);
       }
-      anns.push({x:0.5, y:-0.62, xref:'paper', yref:'paper', text:txt, showarrow:false,
+      anns.push({x:0.5, y:-0.5, xref:'paper', yref:'paper', text:txt, showarrow:false,
                  font:{size:14, color:'#2f3437'}, bgcolor:'rgba(245,246,247,0.95)',
                  bordercolor:'#d8dee2', borderwidth:1, borderpad:5});
 
@@ -473,7 +473,7 @@ decision_plot <- function(zstar, zalpha = 1.645, title = "") {
   y <- dnorm(x)
   pval_idx <- x >= zstar
   ymax <- max(y)
-  plot_ly(width = 560, height = 250) |>
+  plot_ly(width = 560, height = 370) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = "N(0,1)", hoverinfo = "skip") |>
     add_trace(x = x[pval_idx], y = y[pval_idx], type = "scatter", mode = "lines",
@@ -546,7 +546,7 @@ ztest_plot <- function(zstar, zcrit = NULL, alternative = "greater",
            showarrow = TRUE, ax = if (alternative == "less") -10 else 10, ay = -28,
            arrowcolor = "#b26a00", font = list(color = "#b26a00", size = 12))))
   }
-  plot_ly(width = 520, height = 230) |>
+  plot_ly(width = 520, height = 370) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = "N(0,1)", hoverinfo = "skip") |>
     add_trace(x = x[shade_keep], y = y[shade_keep], type = "scatter", mode = "lines",
@@ -619,7 +619,7 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
       fillcolor = "rgba(249,168,37,0.6)",
       line = list(color = "rgba(249,168,37,0.95)", width = 1),
       name = "shaded region", hoverinfo = "skip")
-  p <- plot_ly(width = 520, height = 230) |>
+  p <- plot_ly(width = 520, height = 370) |>
     add_lines(x = x, y = y, line = list(color = "#1f4e79", width = 3.5),
               name = paste0("t(", df, ")"), hoverinfo = "skip")
   p <- if (alternative == "two.sided") add_shade(add_shade(p, x <= -cut), x >= cut) else add_shade(p, shade_keep)
@@ -660,18 +660,16 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .reveal h1, .reveal h2, .reveal h3 { color: var(--sta-text); line-height: 1.08; }
 .reveal h1 { font-size: 1.72em !important; }
 .reveal h2 {
-  font-size: 1.48em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
-.reveal h3 { font-size: 1.02em !important; margin-bottom: 0.2em; }
-.reveal p, .reveal li { font-size: 0.74em; line-height: 1.3; }
+.reveal h3 { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
 .title-slide { text-align: center !important; }
 .title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
-.divider-slide { text-align: center !important; }
-.divider-slide h2 { font-size: 1.62em !important; border: none !important; margin: 0 !important; }
 .two-col, .two-col-wide, .three-col, .four-grid, .procedure-grid, .decision-grid, .slide-stack {
   display: grid;
   gap: 24px;
@@ -687,10 +685,10 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .decision-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
 .decision-cards .defbox { margin-bottom: 0; }
 .col { min-width: 0; }
-.defbox, .examplebox, .thinkbox, .card, .warnbox, .notebox, .mini-card, .stat-card {
-  padding: 14px 16px;
+.defbox, .examplebox, .thinkbox, .card, .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
+  padding: 16px 18px;
   border-radius: 10px;
-  font-size: 0.72em;
+  font-size: 0.74em;
   line-height: 1.28;
   box-sizing: border-box;
   margin-bottom: 8px;
@@ -703,7 +701,7 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
   background: var(--sta-grey);
   border: 1px solid var(--sta-border);
 }
-.thinkbox {
+.thinkbox, .taskbox {
   background: var(--sta-yellow);
   border-left: 7px solid var(--sta-orange);
 }
@@ -713,7 +711,8 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
   border: 1px solid var(--sta-border);
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
-.label {
+.defbox .label, .examplebox .label, .thinkbox .label, .card .label,
+.warnbox .label, .taskbox .label, .notebox .label, .mini-card .label, .stat-card .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -766,23 +765,23 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 }
 .conclusion-stack .card, .conclusion-stack .thinkbox { margin-bottom: 0; }
 .formula {
-  display: block;
+  display: inline-block;
   background: white;
   border: 1px solid var(--sta-border);
   border-radius: 8px;
-  padding: 7px 10px;
-  text-align: center;
-  font-size: 1.02em;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
 }
 .reveal table {
   width: 100%;
   border-collapse: collapse;
-  border: 1.25px solid #4d5659;
+  border: 1px solid var(--sta-border);
   font-size: 0.6em;
 }
 .reveal th, .reveal td {
-  border: 1.25px solid #4d5659;
-  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
@@ -888,8 +887,8 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .plot-wrap .svg-container {
   width: 100% !important;
   max-width: 820px !important;
-  height: 255px !important;
-  max-height: 255px !important;
+  height: 370px !important;
+  max-height: 370px !important;
   overflow: hidden !important;
   margin: 0 auto !important;
 }
@@ -902,8 +901,8 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .mini-plot .svg-container {
   width: 100% !important;
   max-width: 620px !important;
-  height: 230px !important;
-  max-height: 230px !important;
+  height: 370px !important;
+  max-height: 370px !important;
   overflow: hidden !important;
   margin: 0 auto !important;
 }
@@ -916,11 +915,12 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
 .dropdown-plot .svg-container {
   width: 100% !important;
   max-width: 1060px !important;
-  height: 288px !important;
-  max-height: 288px !important;
-  overflow: visible !important;
-  margin: 4px auto 0 auto !important;
+  height: 320px !important;  max-height: 320px !important;  overflow: visible !important;
+  margin: 2px auto 0 auto !important;
 }
+/* P-Value Areas: shrink the intro boxes so the interactive plot can sit higher and larger */
+.reveal section.pval-areas .step-list li { font-size: 0.46em !important; padding: 6px 10px !important; }
+.reveal section.pval-areas .thinkbox { font-size: 0.6em !important; padding: 11px 14px !important; }
 .home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
   display: inline-block !important;
@@ -1147,7 +1147,7 @@ Use when the research question asks whether the parameter changed in either dire
 
 ---
 
-## P-Value Areas
+## P-Value Areas {.pval-areas}
 
 :::: {.two-col}
 ::: {.col}
@@ -1191,7 +1191,7 @@ Fail to reject $H_0$.
 :::
 :::
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 <span class="label">Careful language</span>
 Failing to reject $H_0$ does **not** prove $H_0$. It only means the sample does not provide enough evidence against it at the chosen significance level.
 :::
@@ -1222,11 +1222,11 @@ Statistical significance does not measure practical importance. Pair the p-value
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 A test gives p-value $0.032$ and uses $\alpha=0.05$. What should we do?
-::::
+:::
 
 - Fail to reject $H_0$
 - [Reject $H_0$]{.correct data-explanation="Because 0.032 is less than 0.05, the result is statistically significant at the 5% level."}
@@ -1353,11 +1353,11 @@ p_value
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 In the coffee example, the alternative is $H_a:\mu<7.2$. Which p-value formula matches the test?
-::::
+:::
 
 - $P(Z\ge z^*)$
 - [$P(Z\le z^*)$]{.correct data-explanation="A less-than alternative is left-tailed, so the p-value is the area to the left of the observed z statistic."}
@@ -1423,7 +1423,7 @@ $\sigma$ is unknown, so use a one-sample $t$ test.
 
 ::: {.notebox .fragment}
 <span class="label">Which test?</span>
-$\sigma$ is **unknown** and estimated by $s$, so use a one-sample $t$ test with reference distribution $t_{11}$.
+$\sigma$ is **unknown** and estimated by $s$, so use a one-sample $t$ test with reference distribution [$t_{11}$.]{style="white-space:nowrap"}
 :::
 :::
 ::::
@@ -1620,11 +1620,11 @@ p_value
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 For the reusable-cup test, why is the alternative $H_a:p>0.10$?
-::::
+:::
 
 - The sample proportion is always greater than the null value
 - [The research question asks whether participation has increased]{.correct data-explanation="An increase means the population proportion is larger than the old value 0.10, so the test is right-tailed."}
@@ -2366,7 +2366,7 @@ $0.014 \le 0.05$ (and $4.68 > 3.10$), so reject $H_0$.
 
 ::: {.thinkbox .fragment}
 <span class="label">Conclusion</span>
-There is strong evidence Player A has the larger scoring variance — i.e. is less consistent.
+There is strong evidence Player A has the larger scoring variance (i.e. is less consistent).
 :::
 ::::
 
@@ -2514,11 +2514,11 @@ ttest_plot(tstar = 2.76, tcrit = 1.796, df = 11, alternative = "greater",
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 In the Pomodoro example, why is a paired $t$ test appropriate?
-::::
+:::
 
 - The two samples have the same mean
 - The sample size is less than 30
@@ -2546,11 +2546,11 @@ In the Pomodoro example, why is a paired $t$ test appropriate?
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 A problem gives raw before-and-after blood pressure measurements on the same 12 patients. Which test should you use?
-::::
+:::
 
 - Two independent sample $t$ test
 - One-proportion $z$ test
@@ -2638,10 +2638,6 @@ Reject or fail to reject $H_0$, then state the evidence in context without claim
 **Chapter 7 - Statistical Power**
 
 Now that we can run hypothesis tests, we study how often tests detect real effects, how Type I and Type II errors happen, and how sample size changes power.
-:::
-
-::: {.thinkbox .fragment}
-**One slide takeaway.** A good test write-up identifies the parameter, states $H_0$ and $H_a$, computes the statistic and p-value, and ends with a contextual conclusion.
 :::
 
 ::: {.home-button-row}

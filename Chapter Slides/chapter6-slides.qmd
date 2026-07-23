@@ -695,7 +695,7 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
   background: var(--sta-grey);
   border: 1px solid var(--sta-border);
 }
-.thinkbox {
+.thinkbox, .taskbox {
   background: var(--sta-yellow);
   border-left: 7px solid var(--sta-orange);
 }
@@ -705,7 +705,8 @@ ttest_plot <- function(tstar, tcrit = NULL, df = 11, alternative = "greater",
   border: 1px solid var(--sta-border);
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
-.label {
+.defbox .label, .examplebox .label, .thinkbox .label, .card .label,
+.warnbox .label, .taskbox .label, .notebox .label, .mini-card .label, .stat-card .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;

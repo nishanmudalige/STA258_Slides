@@ -59,67 +59,233 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
                           cutoff_label = NULL, power_label = NULL,
                           beta_label = NULL,
                           width = 640, height = 255) {
-  zc    <- qnorm(1 - alpha)
-  xcrit <- if (alternative == "less") mu0 - zc * se0 else mu0 + zc * se0
-  s     <- if (alternative == "less") -1 else 1
+  zc <- qnorm(1 - alpha)
+
+  xcrit <- if (alternative == "less") {
+    mu0 - zc * se0
+  } else {
+    mu0 + zc * se0
+  }
+
+  s <- if (alternative == "less") -1 else 1
+
   lo <- min(mu0 - 4 * se0, mua - 4 * sea)
   hi <- max(mu0 + 4 * se0, mua + 4 * sea)
-  x  <- seq(lo, hi, length.out = 600)
+
+  x <- seq(lo, hi, length.out = 600)
+
   y0 <- dnorm(x, mu0, se0)
   ya <- dnorm(x, mua, sea)
-  keep <- if (alternative == "less") x <= xcrit else x >= xcrit
-  ymax <- max(c(y0, ya))
-  p <- plot_ly(width = width, height = height) |>
-    add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
-              name = "H₀", hoverinfo = "x+y") |>
-    add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
-              name = "Hₐ", hoverinfo = "x+y") |>
-    add_trace(x = x[keep], y = ya[keep], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_pow,
-              line = list(color = line_pow, width = 1),
-              name = "Power", hoverinfo = "x+y")
-  if (show_beta) {
-    bk <- !keep
-    p <- p |>
-      add_trace(x = x[bk], y = ya[bk], type = "scatter", mode = "lines",
-                fill = "tozeroy", fillcolor = fill_b,
-                line = list(color = line_b, width = 1),
-                name = "β", hoverinfo = "x+y")
+
+  keep <- if (alternative == "less") {
+    x <= xcrit
+  } else {
+    x >= xcrit
   }
+
+  non_reject <- !keep
+  ymax <- max(c(y0, ya))
+
+  p <- plot_ly(width = width, height = height) |>
+    add_trace(
+      x = x[non_reject],
+      y = y0[non_reject],
+      type = "scatter",
+      mode = "lines",
+      fill = "tozeroy",
+      fillcolor = "rgba(31,78,121,0.12)",
+      line = list(
+        color = "rgba(31,78,121,0.30)",
+        width = 1
+      ),
+      name = "H₀ non-rejection region",
+      hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[keep],
+      y = ya[keep],
+      type = "scatter",
+      mode = "lines",
+      fill = "tozeroy",
+      fillcolor = fill_pow,
+      line = list(
+        color = line_pow,
+        width = 1
+      ),
+      name = "Power",
+      hoverinfo = "x+y"
+    )
+
+  if (show_beta) {
+    p <- p |>
+      add_trace(
+        x = x[non_reject],
+        y = ya[non_reject],
+        type = "scatter",
+        mode = "lines",
+        fill = "tozeroy",
+        fillcolor = fill_b,
+        line = list(
+          color = line_b,
+          width = 1
+        ),
+        name = "β",
+        hoverinfo = "x+y"
+      )
+  }
+
+  p <- p |>
+    add_lines(
+      x = x,
+      y = y0,
+      line = list(
+        color = col_null,
+        width = 3
+      ),
+      name = "H₀",
+      hoverinfo = "x+y"
+    ) |>
+    add_lines(
+      x = x,
+      y = ya,
+      line = list(
+        color = col_alt,
+        width = 3
+      ),
+      name = "Hₐ",
+      hoverinfo = "x+y"
+    )
+
   has_lab <- !is.null(power_label) || !is.null(beta_label)
   bmar <- if (has_lab) 100 else 34
-  p |> layout(
-    title = list(text = title, x = 0.02, font = list(size = 14)),
-    xaxis = list(title = list(text = xlab, standoff = if (has_lab) 48 else 0),
-                 zeroline = FALSE, fixedrange = TRUE),
-    yaxis = list(title = "", rangemode = "tozero",
-                 range = c(0, ymax * 1.28), fixedrange = TRUE),
-    margin = list(l = 28, r = 12, t = 38, b = bmar),
-    showlegend = FALSE, hovermode = "x unified",
-    shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
-                       y0 = 0, y1 = ymax * 1.16,
-                       line = list(color = "#333", width = 2, dash = "dash"))),
-    annotations = c(
-      list(
-        list(x = mu0, y = max(y0) * 1.07, text = "H₀",
-             showarrow = FALSE, font = list(color = col_null, size = 14)),
-        list(x = mua, y = max(ya) * 1.07, text = "Hₐ",
-             showarrow = FALSE, font = list(color = col_alt, size = 14)),
-        list(x = xcrit, y = ymax * 1.16,
-             text = if (!is.null(cutoff_label)) cutoff_label else "cutoff",
-             showarrow = FALSE, yanchor = "bottom",
-             font = list(color = "#333", size = 11))),
-      # power & β labels sit BELOW the plot with arrows pointing up
-      if (!is.null(beta_label)) list(list(
-        x = xcrit - s * 0.5 * se0, y = 0.05, text = beta_label,
-        showarrow = TRUE, ax = 0, ay = 40, arrowhead = 2, arrowwidth = 1.3,
-        arrowcolor = "#c62828", font = list(color = "#c62828", size = 12))),
-      if (!is.null(power_label)) list(list(
-        x = mua, y = 0.06, text = power_label,
-        showarrow = TRUE, ax = 0, ay = 40, arrowhead = 2, arrowwidth = 1.3,
-        arrowcolor = line_pow, font = list(color = "#1b5e20", size = 12)))
+
+  p |>
+    layout(
+      title = list(
+        text = title,
+        x = 0.02,
+        font = list(size = 14)
+      ),
+      xaxis = list(
+        title = list(
+          text = xlab,
+          standoff = if (has_lab) 48 else 0
+        ),
+        zeroline = FALSE,
+        fixedrange = TRUE
+      ),
+      yaxis = list(
+        title = "",
+        rangemode = "tozero",
+        range = c(0, ymax * 1.28),
+        fixedrange = TRUE
+      ),
+      margin = list(
+        l = 28,
+        r = 12,
+        t = 38,
+        b = bmar
+      ),
+      showlegend = FALSE,
+      hovermode = "x unified",
+      shapes = list(
+        list(
+          type = "line",
+          x0 = xcrit,
+          x1 = xcrit,
+          y0 = 0,
+          y1 = ymax * 1.16,
+          line = list(
+            color = "#333",
+            width = 2,
+            dash = "dash"
+          )
+        )
+      ),
+      annotations = c(
+        list(
+list(
+  x = mu0,
+  y = max(y0) * 1.07,
+  text = "H₀",
+  showarrow = FALSE,
+  yanchor = "bottom",
+  font = list(
+    color = col_null,
+    size = 14
+  )
+),
+list(
+  x = mua,
+  y = max(ya) * 1.07,
+  text = "Hₐ",
+  showarrow = FALSE,
+  yanchor = "bottom",
+  font = list(
+    color = col_alt,
+    size = 14
+  )
+),
+          list(
+            x = xcrit,
+            y = ymax * 1.16,
+            text = if (!is.null(cutoff_label)) {
+              cutoff_label
+            } else {
+              "cutoff"
+            },
+            showarrow = FALSE,
+            yanchor = "bottom",
+            font = list(
+              color = "#333",
+              size = 11
+            )
+          )
+        ),
+        if (!is.null(beta_label)) {
+          list(
+            list(
+              x = xcrit - s * 0.5 * se0,
+              y = 0.05,
+              text = beta_label,
+              showarrow = TRUE,
+              ax = 0,
+              ay = 40,
+              arrowhead = 2,
+              arrowwidth = 1.3,
+              arrowcolor = "#c62828",
+              font = list(
+                color = "#c62828",
+                size = 12
+              )
+            )
+          )
+        },
+        if (!is.null(power_label)) {
+          list(
+            list(
+              x = mua,
+              y = 0.06,
+              text = power_label,
+              showarrow = TRUE,
+              ax = 0,
+              ay = 40,
+              arrowhead = 2,
+              arrowwidth = 1.3,
+              arrowcolor = line_pow,
+              font = list(
+                color = "#1b5e20",
+                size = 12
+              )
+            )
+          )
+        }
+      )
+    ) |>
+    config(
+      displayModeBar = FALSE,
+      responsive = TRUE
     )
-  ) |> config(displayModeBar = FALSE, responsive = TRUE)
 }
 
 # ---- Type I (alpha) and Type II (beta) error regions -----------------------
@@ -136,56 +302,92 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
   rej  <- if (alternative == "less") x <= xcrit else x >= xcrit
   ymax <- max(c(y0, ya))
   s <- if (alternative == "less") -1 else 1
-  hy <- 0.06                             # arrow-head height inside each sliver
-  ax_x <- xcrit + s * 0.40 * se          # α: null sliver on the reject side
-  bx_x <- xcrit - s * 0.45 * se          # β: alt sliver on the keep side
-  pw_x <- mua                            # power: deep in the green region
+  hy <- 0.06
+  ax_x <- xcrit + s * 0.40 * se
+  bx_x <- xcrit - s * 0.45 * se
+  pw_x <- mua
+
   plot_ly(width = width, height = height) |>
-    add_lines(x = x, y = y0, line = list(color = col_null, width = 3),
-              name = "H₀", hoverinfo = "x+y") |>
-    add_lines(x = x, y = ya, line = list(color = col_alt, width = 3),
-              name = "Hₐ", hoverinfo = "x+y") |>
-    add_trace(x = x[rej], y = ya[rej], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_pow,
-              line = list(color = line_pow, width = 1),
-              name = "power", hoverinfo = "x+y") |>
-    add_trace(x = x[rej], y = y0[rej], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_a,
-              line = list(color = line_a, width = 1),
-              name = "α (Type I)", hoverinfo = "x+y") |>
-    add_trace(x = x[!rej], y = ya[!rej], type = "scatter", mode = "lines",
-              fill = "tozeroy", fillcolor = fill_b,
-              line = list(color = line_b, width = 1),
-              name = "β (Type II)", hoverinfo = "x+y") |>
+    add_trace(
+      x = x[!rej], y = y0[!rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = "rgba(31,78,121,0.12)",
+      line = list(color = "rgba(31,78,121,0.35)", width = 1),
+      name = "H₀ keep region", hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[rej], y = ya[rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = fill_pow,
+      line = list(color = line_pow, width = 1),
+      name = "power", hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[rej], y = y0[rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = fill_a,
+      line = list(color = line_a, width = 1),
+      name = "α (Type I)", hoverinfo = "x+y"
+    ) |>
+    add_trace(
+      x = x[!rej], y = ya[!rej], type = "scatter", mode = "lines",
+      fill = "tozeroy", fillcolor = fill_b,
+      line = list(color = line_b, width = 1),
+      name = "β (Type II)", hoverinfo = "x+y"
+    ) |>
+    add_lines(
+      x = x, y = y0,
+      line = list(color = col_null, width = 3),
+      name = "H₀", hoverinfo = "x+y"
+    ) |>
+    add_lines(
+      x = x, y = ya,
+      line = list(color = col_alt, width = 3),
+      name = "Hₐ", hoverinfo = "x+y"
+    ) |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 14)),
       xaxis = list(title = "", zeroline = FALSE, fixedrange = TRUE),
-      yaxis = list(title = "", rangemode = "tozero",
-                   range = c(0, ymax * 1.28), fixedrange = TRUE),
+      yaxis = list(
+        title = "", rangemode = "tozero",
+        range = c(0, ymax * 1.28), fixedrange = TRUE
+      ),
       margin = list(l = 28, r = 12, t = 38, b = 76),
       showlegend = FALSE, hovermode = "x unified",
-      shapes = list(list(type = "line", x0 = xcrit, x1 = xcrit,
-                         y0 = 0, y1 = ymax * 1.06,
-                         line = list(color = "#333", width = 2, dash = "dash"))),
+      shapes = list(
+        list(
+          type = "line", x0 = xcrit, x1 = xcrit,
+          y0 = 0, y1 = ymax * 1.06,
+          line = list(color = "#333", width = 2, dash = "dash")
+        )
+      ),
       annotations = list(
-        list(x = mu0, y = max(y0) * 1.07, text = "H₀ true",
-             showarrow = FALSE, font = list(color = col_null, size = 11)),
-        list(x = mua, y = max(ya) * 1.07, text = "Hₐ true",
-             showarrow = FALSE, font = list(color = col_alt, size = 11)),
-        # labels sit BELOW the curves; arrows point up into each region
-        list(x = bx_x, y = hy, text = "β (Type II)",
-             showarrow = TRUE, ax = -24, ay = 40,
-             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#c62828",
-             font = list(color = "#c62828", size = 13)),
-        list(x = ax_x, y = hy, text = "α (Type I)",
-             showarrow = TRUE, ax = 22, ay = 64,
-             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#b26a00",
-             font = list(color = "#b26a00", size = 13)),
-        list(x = pw_x, y = hy, text = "power",
-             showarrow = TRUE, ax = 0, ay = 40,
-             arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#2e7d32",
-             font = list(color = "#1b5e20", size = 13)))
-    ) |> config(displayModeBar = FALSE, responsive = TRUE)
+        list(
+          x = mu0, y = max(y0) * 1.07, text = "H₀ true",
+          showarrow = FALSE, font = list(color = col_null, size = 11)
+        ),
+        list(
+          x = mua, y = max(ya) * 1.07, text = "Hₐ true",
+          showarrow = FALSE, font = list(color = col_alt, size = 11)
+        ),
+        list(
+          x = bx_x, y = hy, text = "β (Type II)",
+          showarrow = TRUE, ax = -24, ay = 40,
+          arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#c62828",
+          font = list(color = "#c62828", size = 13)
+        ),
+        list(
+          x = ax_x, y = hy, text = "α (Type I)",
+          showarrow = TRUE, ax = 22, ay = 64,
+          arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#b26a00",
+          font = list(color = "#b26a00", size = 13)
+        ),
+        list(
+          x = pw_x, y = hy, text = "power",
+          showarrow = TRUE, ax = 0, ay = 40,
+          arrowhead = 2, arrowwidth = 1.5, arrowcolor = "#2e7d32",
+          font = list(color = "#1b5e20", size = 13)
+        )
+      )
+    ) |>
+    config(displayModeBar = FALSE, responsive = TRUE)
 }
 
 # ---- Power curve: power as a function of the true mean ----------------------
@@ -828,38 +1030,73 @@ University of Toronto Mississauga
 
 ---
 
-## Chapter Roadmap {.compact}
+## Chapter Roadmap {.compact .chapter7-roadmap}
+
+<style>
+.reveal section.chapter7-roadmap .three-col {
+  gap: 22px;
+  align-items: stretch;
+}
+
+.reveal section.chapter7-roadmap .card,
+.reveal section.chapter7-roadmap .stat-card {
+  font-size: 0.79em;
+  line-height: 1.28;
+  padding: 21px 23px;
+  min-height: 154px;
+  margin-bottom: 0;
+}
+
+.reveal section.chapter7-roadmap .label {
+  font-size: 1.06em;
+  margin-bottom: 9px;
+}
+</style>
 
 :::: {.three-col}
+
 ::: {.card .fragment}
 <span class="label">7.1 - Power</span>
+
 What power means, and the four things that push it up or down.
 :::
+
 ::: {.card .fragment}
 <span class="label">7.2 - Errors</span>
+
 Type I ($\alpha$) and Type II ($\beta$), and how power $=1-\beta$.
 :::
+
 ::: {.card .fragment}
 <span class="label">7.3 - Planning</span>
+
 Use a target power to choose the smallest sample size.
 :::
+
 ::::
 
 <br>
 
 :::: {.three-col}
+
 ::: {.stat-card .fragment}
 <span class="label">Core skill</span>
+
 Compute power against a specific alternative value.
 :::
+
 ::: {.stat-card .fragment}
 <span class="label">Core tool</span>
+
 Use `pnorm()` and `qnorm()` for cutoffs, power, and sample size.
 :::
+
 ::: {.stat-card .fragment}
 <span class="label">Core habit</span>
+
 A test is only useful if it can detect a real effect.
 :::
+
 ::::
 
 ---
@@ -1653,21 +1890,26 @@ $$\text{Power}(\mu_a)=1-P\!\left[-z_{\alpha/2}+\frac{\sqrt n\,(\mu_0-\mu_a)}{\si
 ## What You Need to Know
 
 :::: {.three-col}
+
 ::: {.stat-card .fragment}
 <span class="label">Standard deviation</span>
-$\sigma$ - the spread of the variable being measured.
+
+$\sigma$ — the spread of the variable being measured.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">Significance level</span>
-$\alpha$ - the fixed Type I error rate you are willing to tolerate.
+
+$\alpha$ — the fixed Type I error rate you are willing to tolerate.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">Effect size</span>
-$|\mu_a-\mu_0|$ - the magnitude of the smallest difference worth detecting.
+
+$|\mu_a-\mu_0|$ — the magnitude of the smallest difference worth detecting.
 :::
 
+::::
 
 ---
 

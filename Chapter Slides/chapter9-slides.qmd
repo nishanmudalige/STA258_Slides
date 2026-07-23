@@ -1168,7 +1168,23 @@ completed before a quiz.
 Estimate the regression equation.
 :::
 
-::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target model</span>
+
+We model:
+
+$$
+y=\text{quiz score}
+$$
+
+using:
+
+$$
+x=\text{practice sets completed}
+$$
+:::
+
+::: {.stat-card .fragment style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1206,23 +1222,7 @@ $$
 $$
 :::
 
-::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target model</span>
-
-We model:
-
-$$
-y=\text{quiz score}
-$$
-
-using:
-
-$$
-x=\text{practice sets completed}
-$$
-:::
-
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional practice set completed, the predicted quiz score
 increases by about **4.80 points**.
 :::
@@ -5180,7 +5180,7 @@ This is extrapolation because $x=20$ is outside the observed range.
 The observed data only cover units from 500 to 1200 sq ft.
 :::
 
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 The 800 sq ft prediction is within the data range. The 2000 sq ft
 prediction should be treated carefully because it is outside the range
 used to fit the model.

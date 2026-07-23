@@ -1253,7 +1253,23 @@ spent studying for an assignment.
 Estimate the regression equation.
 :::
 
-::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target model</span>
+
+We model:
+
+$$
+y=\text{assignment score}
+$$
+
+using:
+
+$$
+x=\text{study hours}
+$$
+:::
+
+::: {.stat-card .fragment style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1289,23 +1305,7 @@ $$
 $$
 :::
 
-::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target model</span>
-
-We model:
-
-$$
-y=\text{assignment score}
-$$
-
-using:
-
-$$
-x=\text{study hours}
-$$
-:::
-
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional hour studied, the predicted assignment score increases
 by about **4.26 points**.
 :::

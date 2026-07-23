@@ -797,12 +797,12 @@ The part of $y_i$ not explained by the line.
 
 ## 9.1.1 Least Squares Method
 
-::: {.defbox .fragment style="margin-bottom: 10px;"}
+::: {.defbox style="margin-bottom: 10px;"}
 A **residual** is the difference between an observed data point and a
 fitted value from the regression model:
 
 $$
-e_i = y_i - \hat{y}_i.
+e_i=y_i-\hat{y}_i.
 $$
 
 It is the vertical distance from the observed value to the fitted line.
@@ -810,7 +810,7 @@ It is the vertical distance from the observed value to the fitted line.
 
 :::: {.two-col-wide style="grid-template-columns: 1.08fr 0.92fr; gap: 18px; align-items: start;"}
 
-::: {.col}
+::: {.col .fragment data-fragment-index="2"}
 
 ```{r}
 #| echo: false
@@ -825,7 +825,7 @@ resid_demo <- data.frame(
 
 resid_fit <- lm(y ~ x, data = resid_demo)
 
-resid_demo$fitted   <- fitted(resid_fit)
+resid_demo$fitted <- fitted(resid_fit)
 resid_demo$residual <- resid(resid_fit)
 
 pos_df <- subset(resid_demo, residual >= 0)
@@ -835,7 +835,10 @@ line_df <- data.frame(
   x = seq(0.5, 8.5, length.out = 300)
 )
 
-line_df$y <- predict(resid_fit, newdata = line_df)
+line_df$y <- predict(
+  resid_fit,
+  newdata = line_df
+)
 
 plot_ly() |>
   add_lines(
@@ -905,7 +908,10 @@ plot_ly() |>
     marker = list(
       color = "#111827",
       size = 11,
-      line = list(color = "white", width = 1.2)
+      line = list(
+        color = "white",
+        width = 1.2
+      )
     )
   ) |>
   add_markers(
@@ -922,7 +928,10 @@ plot_ly() |>
     marker = list(
       color = "white",
       size = 11,
-      line = list(color = plot_cols$main_dark, width = 2.2)
+      line = list(
+        color = plot_cols$main_dark,
+        width = 2.2
+      )
     )
   ) |>
   plotly_slide_layout(
@@ -933,14 +942,24 @@ plot_ly() |>
     x_range = c(0.4, 8.7),
     y_range = c(34, 82),
     showlegend = FALSE,
-    margin = list(l = 66, r = 18, t = 54, b = 56),
+    margin = list(
+      l = 66,
+      r = 18,
+      t = 54,
+      b = 56
+    ),
     annotations = list(
       list(
         x = 2.0,
         y = 55.0,
         xref = "x",
         yref = "y",
-        text = "positive residual<br><span style='font-size:12px;'>point above line</span>",
+        text = paste0(
+          "positive residual<br>",
+          "<span style='font-size:12px;'>",
+          "point above line",
+          "</span>"
+        ),
         showarrow = TRUE,
         arrowhead = 2,
         arrowsize = 1,
@@ -952,27 +971,38 @@ plot_ly() |>
         bordercolor = plot_cols$border,
         borderwidth = 1,
         borderpad = 5,
-        font = list(size = 13, color = plot_cols$text)
+        font = list(
+          size = 13,
+          color = plot_cols$text
+        )
       ),
       list(
-  x = 3.5,
-  y = 46.0,
-  xref = "x",
-  yref = "y",
-  text = "negative residual<br><span style='font-size:12px;'>point below line</span>",
-  showarrow = TRUE,
-  arrowhead = 2,
-  arrowsize = 1,
-  arrowwidth = 1.5,
-  arrowcolor = plot_cols$red,
-  ax = 105,
-  ay = 4,
-  bgcolor = "rgba(255,255,255,0.96)",
-  bordercolor = plot_cols$border,
-  borderwidth = 1,
-  borderpad = 5,
-  font = list(size = 13, color = plot_cols$text)
-)
+        x = 3.5,
+        y = 46.0,
+        xref = "x",
+        yref = "y",
+        text = paste0(
+          "negative residual<br>",
+          "<span style='font-size:12px;'>",
+          "point below line",
+          "</span>"
+        ),
+        showarrow = TRUE,
+        arrowhead = 2,
+        arrowsize = 1,
+        arrowwidth = 1.5,
+        arrowcolor = plot_cols$red,
+        ax = 105,
+        ay = 4,
+        bgcolor = "rgba(255,255,255,0.96)",
+        bordercolor = plot_cols$border,
+        borderwidth = 1,
+        borderpad = 5,
+        font = list(
+          size = 13,
+          color = plot_cols$text
+        )
+      )
     )
   )
 ```
@@ -981,14 +1011,14 @@ plot_ly() |>
 
 ::: {.col}
 
-::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 12px;"}
-If $e_i > 0$, the point is **above** the fitted line.
+::: {.examplebox .fragment data-fragment-index="1" style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 12px;"}
+If $e_i>0$, the point is **above** the fitted line.
 
 The model underpredicted the response.
 :::
 
-::: {.examplebox .fragment style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 0;"}
-If $e_i < 0$, the point is **below** the fitted line.
+::: {.examplebox .fragment data-fragment-index="1" style="font-size: 0.76em; line-height: 1.28; padding: 16px 18px; margin-bottom: 0;"}
+If $e_i<0$, the point is **below** the fitted line.
 
 The model overpredicted the response.
 :::
@@ -1145,7 +1175,23 @@ completed before a quiz.
 Estimate the regression equation.
 :::
 
-::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target model</span>
+
+We model:
+
+$$
+y=\text{quiz score}
+$$
+
+using:
+
+$$
+x=\text{practice sets completed}
+$$
+:::
+
+::: {.stat-card .fragment style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1183,23 +1229,7 @@ $$
 $$
 :::
 
-::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target model</span>
-
-We model:
-
-$$
-y=\text{quiz score}
-$$
-
-using:
-
-$$
-x=\text{practice sets completed}
-$$
-:::
-
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional practice set completed, the predicted quiz score
 increases by about **4.80 points**.
 :::
@@ -1230,7 +1260,23 @@ spent studying for an assignment.
 Estimate the regression equation.
 :::
 
-::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Target model</span>
+
+We model:
+
+$$
+y=\text{assignment score}
+$$
+
+using:
+
+$$
+x=\text{study hours}
+$$
+:::
+
+::: {.stat-card .fragment style="grid-column: 2; grid-row: 1; font-size: 0.78em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1266,23 +1312,7 @@ $$
 $$
 :::
 
-::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target model</span>
-
-We model:
-
-$$
-y=\text{assignment score}
-$$
-
-using:
-
-$$
-x=\text{study hours}
-$$
-:::
-
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional hour studied, the predicted assignment score increases
 by about **4.26 points**.
 :::
@@ -2912,9 +2942,9 @@ A large $R^2$ does **not** prove causation.
 ::::::
 
 ::: {.thinkbox .fragment}
-Interpretation template: “About \(R^2\times100\%\) of the variation in
-the response is explained by the predictor through the fitted linear
-model.”
+Interpretation template: “About **[insert the $R^2$ value as a percentage]**
+of the variation in the response is explained by the predictor through
+the fitted linear model.”
 :::
 
 ------------------------------------------------------------------------
@@ -3084,20 +3114,20 @@ A Formula 1 team records fictional data from a Monaco simulator session.
 
 We use the number of **simulator practice laps** to predict **lap-time improvement**, measured in seconds.
 
-::: {.f1-variable-pill .fragment data-fragment-index="1"}
+::: {.f1-variable-pill}
 **x = simulator practice laps**  
 **y = lap-time improvement in seconds**
 :::
 
 The fitted regression line is:
 
-::: {.f1-fit-pill .fragment data-fragment-index="2"}
+::: {.f1-fit-pill}
 ŷ = −0.098 + 0.141x
 :::
 
 :::
 
-::: {.examplebox .f1-data-card .fragment data-fragment-index="3"}
+::: {.examplebox .f1-data-card .fragment data-fragment-index="1"}
 
 ::: {.f1-card-title}
 Observed data
@@ -3124,7 +3154,7 @@ Observed data
 
 ::::
 
-::: {.notebox .f1-goal-card .fragment data-fragment-index="4"}
+::: {.notebox .f1-goal-card .fragment data-fragment-index="2"}
 
 ::: {.f1-card-title}
 Goal of the example
@@ -3170,7 +3200,7 @@ R² = SSR / SST
 
 :::
 
-------------------------------------------------------------------------
+--------------------------------
 
 ## Example: F1 Monaco Simulator Practice {.f1-monaco-3b}
 
@@ -3721,20 +3751,20 @@ A student tracks fictional TTC trips during a week with random delays.
 
 We use the number of **stations travelled** to predict **commute time**, measured in minutes.
 
-::: {.ttc-variable-pill .fragment data-fragment-index="1"}
+::: {.ttc-variable-pill}
 <strong>x</strong> = stations travelled<br>
 <strong>y</strong> = commute time in minutes
 :::
 
 The fitted regression line is:
 
-::: {.ttc-fit-pill .fragment data-fragment-index="2"}
+::: {.ttc-fit-pill}
 ŷ = 1.310 + 3.357x
 :::
 
 :::
 
-::: {.examplebox .ttc-data-card .fragment data-fragment-index="3"}
+::: {.examplebox .ttc-data-card .fragment data-fragment-index="1"}
 
 ::: {.ttc-card-title}
 Observed data
@@ -3761,7 +3791,7 @@ Observed data
 
 ::::
 
-::: {.notebox .ttc-goal-card .fragment data-fragment-index="4"}
+::: {.notebox .ttc-goal-card .fragment data-fragment-index="2"}
 
 ::: {.ttc-card-title}
 Goal of the example
@@ -4562,9 +4592,10 @@ $$
 Test whether the slope differs from 0.
 :::
 
-::: {.notebox .calc-left .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Hypotheses</span>
+::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Hypotheses and conclusion</span>
 
+::: {.fragment data-fragment-index="1"}
 $$
 H_0:\beta_1=0,
 \qquad
@@ -4572,6 +4603,14 @@ H_A:\beta_1\ne0
 $$
 
 The reference distribution is $t_6$.
+:::
+
+::: {.fragment data-fragment-index="3"}
+Since the p-value is less than **0.001**, reject $H_0$ at the 5% level.
+
+There is strong evidence of a positive linear relationship between the
+number of mobile orders already ahead and pickup wait time.
+:::
 :::
 
 ::: {.stat-card .calc-left .coffee-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.00; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
@@ -4630,21 +4669,16 @@ df
 \end{aligned}
 $$
 
-**4. Confidence interval for the slope**
+**4. p-value**
 
 $$
 \begin{aligned}
-95\%\ CI
-&:\quad
-\hat{\beta}_1\pm t_{0.975,6}SE(\hat{\beta}_1)\\[-1pt]
-&=
-1.038\pm2.447(0.043)\\[-1pt]
-&=
-(0.932,\;1.144).
+\text{p-value}
+&=2P(T_6\ge 23.926)\\[-1pt]
+&\approx 3.50\times10^{-7}\\[-1pt]
+&<0.001.
 \end{aligned}
 $$
-
-Since $0\notin(0.932,\;1.144)$, the slope is clearly positive.
 :::
 
 ::::
@@ -4927,7 +4961,7 @@ There is evidence that flyers posted are linearly related to new sign-ups in thi
 
 ---
 
-## Example: ANOVA for Charging Time and Battery Level
+## Example: ANOVA- Charging Time and Battery Level
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -4989,7 +5023,7 @@ $$
 The p-value is less than 0.001.
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Hypotheses</span>
 
 $$
@@ -5123,7 +5157,7 @@ x=20.
 $$
 :::
 
-::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 For an 800 sq ft unit:
@@ -5151,13 +5185,13 @@ $$
 This is extrapolation because $x=20$ is outside the observed range.
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Prediction target</span>
 
 The observed data only cover units from 500 to 1200 sq ft.
 :::
 
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 The 800 sq ft prediction is within the data range. The 2000 sq ft
 prediction should be treated carefully because it is outside the range
 used to fit the model.
@@ -5201,7 +5235,7 @@ $$
 Observed $x$ values range from 3 to 13 days before the concert.
 :::
 
-::: {.stat-card .fragment data-fragment-index="1" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.12; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 For 8 days before the concert:
@@ -5229,7 +5263,7 @@ $$
 This is **extrapolation** because $x=30$ is outside the observed range.
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Prediction target</span>
 
 The observed data only cover the final stretch before the concert:
@@ -5241,7 +5275,7 @@ $$
 Predictions inside this range are safer than predictions far outside it.
 :::
 
-::: {.examplebox .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 The 8-day prediction is reasonable if the line fits well. The 30-day
 prediction should be treated carefully because resale markets can behave
 very differently far away from show day.
@@ -5324,19 +5358,19 @@ print(out, row.names = FALSE)
 <span class="label">Residual plot checklist</span>
 
 <ul class="assumption-list">
-  <li><strong>Random scatter:</strong> There should be no obvious pattern in the residuals.</li>
+  <li class="fragment" data-fragment-index="1"><strong>Random scatter:</strong> There should be no obvious pattern in the residuals.</li>
 
-  <li><strong>No curve:</strong> A curved pattern suggests the relationship may not be linear.</li>
+  <li class="fragment" data-fragment-index="2"><strong>No curve:</strong> A curved pattern suggests the relationship may not be linear.</li>
 
-  <li><strong>Constant variance:</strong> The residuals should fall in a roughly horizontal band with similar spread.</li>
+  <li class="fragment" data-fragment-index="3"><strong>Constant variance:</strong> The residuals should fall in a roughly horizontal band with similar spread.</li>
 
-<li><strong>No unexplained groups:</strong> Clusters may suggest that an important grouping variable is missing from the model.</li>
+  <li class="fragment" data-fragment-index="4"><strong>No unexplained groups:</strong> Clusters may suggest that an important grouping variable is missing from the model.</li>
 
-<li><strong>No extreme residuals:</strong> Look for points unusually far above or below 0. A residual plot can flag unusual observations, but it does not by itself determine whether a point is influential.</li>
+  <li class="fragment" data-fragment-index="5"><strong>No extreme residuals:</strong> Look for points unusually far above or below 0. A residual plot can flag unusual observations, but it does not by itself determine whether a point is influential.</li>
 </ul>
 :::
 
-::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
+::: {.thinkbox .fragment data-fragment-index="6" style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
 <span class="label">Textbook logic</span>
 
 A residual-versus-fitted plot helps assess linearity, constant variance,
@@ -5459,6 +5493,11 @@ plot_ly() |>
     )
   )
 ```
+
+::: {.thinkbox style="font-size: 0.68em; line-height: 1.20; padding: 10px 14px; margin-top: 8px;"}
+A good residual plot shows points randomly scattered around the horizontal
+line at \(0\), with no clear pattern and roughly constant spread.
+:::
 
 ------------------------------------------------------------------------
 

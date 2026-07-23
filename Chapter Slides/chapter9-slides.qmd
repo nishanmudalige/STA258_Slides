@@ -5351,19 +5351,19 @@ print(out, row.names = FALSE)
 <span class="label">Residual plot checklist</span>
 
 <ul class="assumption-list">
-  <li><strong>Random scatter:</strong> There should be no obvious pattern in the residuals.</li>
+  <li class="fragment" data-fragment-index="1"><strong>Random scatter:</strong> There should be no obvious pattern in the residuals.</li>
 
-  <li><strong>No curve:</strong> A curved pattern suggests the relationship may not be linear.</li>
+  <li class="fragment" data-fragment-index="2"><strong>No curve:</strong> A curved pattern suggests the relationship may not be linear.</li>
 
-  <li><strong>Constant variance:</strong> The residuals should fall in a roughly horizontal band with similar spread.</li>
+  <li class="fragment" data-fragment-index="3"><strong>Constant variance:</strong> The residuals should fall in a roughly horizontal band with similar spread.</li>
 
-<li><strong>No unexplained groups:</strong> Clusters may suggest that an important grouping variable is missing from the model.</li>
+  <li class="fragment" data-fragment-index="4"><strong>No unexplained groups:</strong> Clusters may suggest that an important grouping variable is missing from the model.</li>
 
-<li><strong>No extreme residuals:</strong> Look for points unusually far above or below 0. A residual plot can flag unusual observations, but it does not by itself determine whether a point is influential.</li>
+  <li class="fragment" data-fragment-index="5"><strong>No extreme residuals:</strong> Look for points unusually far above or below 0. A residual plot can flag unusual observations, but it does not by itself determine whether a point is influential.</li>
 </ul>
 :::
 
-::: {.thinkbox .fragment style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
+::: {.thinkbox .fragment data-fragment-index="6" style="font-size: 0.68em; line-height: 1.20; padding: 12px 16px; margin-top: 12px;"}
 <span class="label">Textbook logic</span>
 
 A residual-versus-fitted plot helps assess linearity, constant variance,

@@ -665,6 +665,18 @@ sd(x)
   packages:
     - ggplot2
     - dplyr</code></pre>
+    
+    <div class="note">
+  <p><strong>Chapter 8 note:</strong> Chapter 8 includes <code>multcomp</code> under <code>webr: packages:</code> in the YAML because the ANOVA multiple-comparison examples use this package. Listing it in the YAML makes WebR load the package when the slide deck opens, instead of asking students to run <code>install.packages("multcomp")</code> every time.</p>
+</div>
+
+  <div class="note">
+  <p><strong>Package overview comment:</strong> Each chapter's setup chunk (the <code>{r setup}</code> block at the top of the <code>.qmd</code>) opens with a short comment listing every package the chapter uses &mdash; both the render-time (knitr) packages loaded with <code>library()</code> and the WebR packages declared in the YAML above. This makes it easy to see at a glance what a chapter depends on.</p>
+</div>
+    
+  
+    
+  
 
   <p>The slide deck should include the WebR helper file. For files inside <code>Chapter Slides/</code>, the path is:</p>
 

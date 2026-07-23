@@ -32,6 +32,14 @@ editor:
 
 ```{r setup}
 #| include: false
+
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  ggplot2, dplyr, plotly
+#   WebR (in-browser cells):         multcomp
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
 library(ggplot2)
 library(dplyr)
 library(plotly)
@@ -499,6 +507,82 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability  
@@ -508,21 +592,45 @@ University of Toronto Mississauga
 
 ---
 
-## Chapter Roadmap {.compact}
+## Chapter Roadmap {.compact .chapter8-roadmap}
+
+<style>
+.reveal section.chapter8-roadmap .three-col {
+  gap: 22px;
+  align-items: stretch;
+}
+
+.reveal section.chapter8-roadmap .card,
+.reveal section.chapter8-roadmap .stat-card {
+  font-size: 0.77em;
+  line-height: 1.27;
+  padding: 20px 22px;
+  min-height: 148px;
+  margin-bottom: 0;
+}
+
+.reveal section.chapter8-roadmap .label {
+  font-size: 1.04em;
+  margin-bottom: 8px;
+}
+</style>
 
 :::: {.three-col}
 ::: {.card .fragment}
 <span class="label">8.1 - ANOVA model</span>
+
 Compare $k \ge 3$ population means using one global model.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.2 - Variation split</span>
+
 Break total variation into treatment variation and error variation.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.3 - ANOVA F test</span>
+
 Use the ANOVA table and a right-tailed $F$ distribution.
 :::
 ::::
@@ -532,24 +640,27 @@ Use the ANOVA table and a right-tailed $F$ distribution.
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">8.4 - Assumptions</span>
+
 Normal residuals, equal population variance, and independent observations.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.5 - Pairwise comparisons</span>
+
 After rejecting ANOVA, compare means in pairs.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.6 - R checks</span>
-Use `aov()`, `anova(lm())`, and `pairwise.t.test()` to check ANOVA and pairwise comparisons.
+
+Use `aov()`, `anova()`, `pairwise.t.test()`, and `glht()` to check ANOVA and pairwise comparisons.
 :::
 ::::
 
 
 ---
 
-## Why ANOVA? {.compact .why-anova}
+## 8.1 Why ANOVA? {.compact .why-anova}
 
 :::: {.why-anova-flow style="display:grid; grid-template-rows: auto auto auto; gap: 14px; align-items: stretch;"}
 
@@ -621,10 +732,12 @@ For observation $j$ in group $i$:
 $$
 Y_{ij}=\mu+\tau_i+\epsilon_{ij},
 \qquad
-\epsilon_{ij}\sim N(0,\sigma^2)
+\epsilon_{ij}\sim N(0,\sigma^2),
+\qquad
+\sum_{i=1}^{k}\tau_i=0
 $$
 
-Here, $Y_{ij}$ is the response value for observation $j$ in group $i$.
+Here, $Y_{ij}$ is the response value for observation $j$ in group $i$. The constraint $\sum_{i=1}^{k}\tau_i=0$ makes $\mu$ the overall population mean and uniquely defines the treatment effects.
 :::
 
 ::: {.defbox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 15px 18px; margin-bottom: 0;"}
@@ -806,7 +919,7 @@ If this improvement is large compared with the within-group error, the ANOVA \(F
 
 ---
 
-## Sources of Variation
+## 8.2 Sources of Variation
 
 ::: {.defbox}
 ANOVA works by splitting variation into two pieces: variation **within** groups and variation **between** groups.
@@ -896,7 +1009,7 @@ ANOVA asks whether the **between-group variation** is large compared with the **
 
 ---
 
-## The ANOVA Table {.compact .anova-table-slide}
+## 8.3 The ANOVA Table {.compact .anova-table-slide}
 
 :::: {.anova-table-grid style="display:grid; grid-template-columns: 0.52fr 0.48fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
 
@@ -1050,7 +1163,7 @@ Large $F^*$ values give evidence that the group means differ more than expected 
 
 ---
 
-## Assumptions of ANOVA {.compact .anova-assumptions}
+## 8.4 Assumptions of ANOVA {.compact .anova-assumptions}
 
 :::: {.assumptions-flow style="display:grid; grid-template-rows: auto auto; gap: 14px; align-items: stretch;"}
 
@@ -1250,18 +1363,21 @@ p |>
     margin = list(l = 45, r = 12, t = 54, b = 42),
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "rgba(0,0,0,0)",
-    updatemenus = list(
-      list(
-        type = "dropdown",
-        direction = "down",
-        active = 1,
-        x = 0.02,
-        y = 1.14,
-        xanchor = "left",
-        yanchor = "top",
-        buttons = buttons
-      )
-    )
+   updatemenus = list(
+  list(
+    type = "dropdown",
+    direction = "down",
+    active = 1,
+    x = 0.98,
+    y = 0.96,
+    xanchor = "right",
+    yanchor = "top",
+    bgcolor = "rgba(255,255,255,0.96)",
+    bordercolor = plot_cols$border,
+    borderwidth = 1,
+    buttons = buttons
+  )
+)
   ) |>
   config(displayModeBar = FALSE, responsive = FALSE)
 ```
@@ -1278,13 +1394,13 @@ p |>
 ::: {.taskbox style="grid-column: 1; grid-row: 1 / span 2; font-size: 0.60em; line-height: 1.13; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
-A campus café wants to compare **three pickup systems** used during the same lunch rush period:
+A campus café wants to compare **three pickup systems**:
 
 - mobile order,
 - kiosk order,
 - counter order.
 
-For each system, the café records the number of minutes from **order confirmation** to **pickup**.
+During several comparable lunch periods, eligible orders are randomly assigned to one of the three systems. For each order, the café records the number of minutes from **order confirmation** to **pickup**.
 
 We want to know whether the population mean **pickup time** is the same for all three systems.
 
@@ -1808,7 +1924,7 @@ Use pairwise confidence intervals to compare specific group means: first **Fishe
 
 ---
 
-## Pairwise Confidence Intervals {.compact .pairwise-ci}
+## 8.5 Pairwise Confidence Intervals {.compact .pairwise-ci}
 
 :::: {.pairwise-ci-flow style="display:grid; grid-template-rows: auto 1fr; gap: 14px; align-items: stretch;"}
 
@@ -2722,19 +2838,21 @@ pairwise.t.test(cost, case,
 
 ## Bonferroni: Why Adjust? {.compact .bonferroni-idea}
 
-:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
+:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 9px; align-items: stretch;"}
 
-::: {.defbox style="font-size: 0.63em; line-height: 1.16; padding: 13px 18px; margin-bottom: 0;"}
+::: {.defbox style="font-size: 0.56em; line-height: 1.10; padding: 10px 15px; margin-bottom: 0;"}
 <span class="label">The issue</span>
 
 After ANOVA rejects, we may compare many pairs of means.
 
-Each pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making **at least one false discovery**.
+Each pairwise comparison has a chance of making a Type I error, so doing
+many comparisons increases the chance of making **at least one false
+discovery**.
 :::
 
-:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 11px; align-items: stretch;"}
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">1. Count comparisons</span>
 
 With $k$ groups, the number of pairwise comparisons is
@@ -2750,22 +2868,26 @@ m=\binom{4}{2}=6.
 $$
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">2. Experiment-wise error</span>
 
-If each comparison uses error rate $\alpha$, then the chance of making at least one Type I error is
+As the number of pairwise comparisons increases, the chance of making at
+least one Type I error across the full set also increases.
+
+If the comparisons were independent, this probability would be
 
 $$
-\alpha_E=1-(1-\alpha)^m.
+1-(1-\alpha)^m.
 $$
 
-As $m$ increases, $\alpha_E$ increases.
+Bonferroni does not require independence.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">3. Bonferroni correction</span>
 
-To keep the overall error rate controlled, Bonferroni uses a smaller per-comparison level:
+To keep the overall error rate controlled, Bonferroni uses a smaller
+per-comparison level:
 
 $$
 \frac{\alpha}{m}.
@@ -2780,12 +2902,16 @@ $$
 
 ::::
 
-::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.17; padding: 13px 18px; margin-bottom: 0;"}
+::: {.thinkbox .fragment style="font-size: 0.54em; line-height: 1.09; padding: 10px 15px; margin-bottom: 0;"}
 <span class="label">Key idea</span>
 
-**Fisher's LSD** is more powerful, but it does not control the experiment-wise Type I error rate.
+**Protected Fisher's LSD** is used only after the overall ANOVA rejects.
+It gives narrower intervals and more power, but its protection against
+familywise Type I error weakens as the number of groups and pairwise
+comparisons increases.
 
-**Bonferroni** is more cautious: it uses wider intervals to protect against making false discoveries across many pairwise comparisons.
+**Bonferroni** is more cautious: it uses wider intervals to control the
+familywise Type I error rate across all planned pairwise comparisons.
 :::
 
 ::::
@@ -3053,6 +3179,8 @@ anova(fit)
 pairwise.t.test(score, drill,
                 p.adjust.method = "bonferroni",
                 pool.sd = TRUE)
+
+# Reports Bonferroni-adjusted p-values rather than confidence intervals
 ```
 :::
 
@@ -3097,13 +3225,13 @@ confint(comp, calpha = qt(1 - 0.05 / (2 * m), df))
 :::: {.callout-note icon="false"}
 ## Question
 
-A one-way ANOVA with $k=4$ groups has a significant p-value. How many pairwise mean comparisons are possible?
+A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
 ::::
 
-- 3
-- [6]{.correct data-explanation="The number of pairwise comparisons is choose(k, 2). With k = 4, choose(4, 2) = 6."}
-- 8
+- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
 - 16
+- 8
+- 3
 
 ---
 
@@ -3124,13 +3252,50 @@ A one-way ANOVA with $k=4$ groups has a significant p-value. How many pairwise m
 
 - Fill in df, SS, MS, and $F^*$.
 - Use the right-tail F p-value.
-- Reject only when the p-value is small.
+- Reject $H_0$ when the p-value is less than or equal to $\alpha$.
 - If ANOVA rejects, use pairwise comparisons.
 :::
 ::::
 
 ::: {.thinkbox .fragment}
 **One slide takeaway.** ANOVA compares several means by asking whether between-group variation is large compared with within-group error variation.
+:::
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Global ANOVA test</span>
+Test
+
+$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+$$
+
+against the claim that not all population means are equal.
+:::
+
+::: {.card .fragment}
+<span class="label">Variation and the F statistic</span>
+ANOVA splits total variation into treatment and error variation, then compares them using
+
+$$
+F^*=\frac{MSTr}{MSE}.
+$$
+:::
+
+::: {.card .fragment}
+<span class="label">After rejection</span>
+A significant ANOVA result says at least one mean differs. Use Fisher's LSD or Bonferroni intervals to determine which pairs differ.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Use ANOVA for the global question first, then use adjusted pairwise comparisons to investigate specific mean differences.
 :::
 
 ---

@@ -592,21 +592,45 @@ University of Toronto Mississauga
 
 ---
 
-## Chapter Roadmap {.compact}
+## Chapter Roadmap {.compact .chapter8-roadmap}
+
+<style>
+.reveal section.chapter8-roadmap .three-col {
+  gap: 22px;
+  align-items: stretch;
+}
+
+.reveal section.chapter8-roadmap .card,
+.reveal section.chapter8-roadmap .stat-card {
+  font-size: 0.77em;
+  line-height: 1.27;
+  padding: 20px 22px;
+  min-height: 148px;
+  margin-bottom: 0;
+}
+
+.reveal section.chapter8-roadmap .label {
+  font-size: 1.04em;
+  margin-bottom: 8px;
+}
+</style>
 
 :::: {.three-col}
 ::: {.card .fragment}
 <span class="label">8.1 - ANOVA model</span>
+
 Compare $k \ge 3$ population means using one global model.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.2 - Variation split</span>
+
 Break total variation into treatment variation and error variation.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.3 - ANOVA F test</span>
+
 Use the ANOVA table and a right-tailed $F$ distribution.
 :::
 ::::
@@ -616,16 +640,19 @@ Use the ANOVA table and a right-tailed $F$ distribution.
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">8.4 - Assumptions</span>
+
 Normal residuals, equal population variance, and independent observations.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.5 - Pairwise comparisons</span>
+
 After rejecting ANOVA, compare means in pairs.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.6 - R checks</span>
+
 Use `aov()`, `anova()`, `pairwise.t.test()`, and `glht()` to check ANOVA and pairwise comparisons.
 :::
 ::::
@@ -1336,18 +1363,21 @@ p |>
     margin = list(l = 45, r = 12, t = 54, b = 42),
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "rgba(0,0,0,0)",
-    updatemenus = list(
-      list(
-        type = "dropdown",
-        direction = "down",
-        active = 1,
-        x = 0.02,
-        y = 1.14,
-        xanchor = "left",
-        yanchor = "top",
-        buttons = buttons
-      )
-    )
+   updatemenus = list(
+  list(
+    type = "dropdown",
+    direction = "down",
+    active = 1,
+    x = 0.98,
+    y = 0.96,
+    xanchor = "right",
+    yanchor = "top",
+    bgcolor = "rgba(255,255,255,0.96)",
+    bordercolor = plot_cols$border,
+    borderwidth = 1,
+    buttons = buttons
+  )
+)
   ) |>
   config(displayModeBar = FALSE, responsive = FALSE)
 ```
@@ -2808,19 +2838,21 @@ pairwise.t.test(cost, case,
 
 ## Bonferroni: Why Adjust? {.compact .bonferroni-idea}
 
-:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
+:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 9px; align-items: stretch;"}
 
-::: {.defbox style="font-size: 0.63em; line-height: 1.16; padding: 13px 18px; margin-bottom: 0;"}
+::: {.defbox style="font-size: 0.56em; line-height: 1.10; padding: 10px 15px; margin-bottom: 0;"}
 <span class="label">The issue</span>
 
 After ANOVA rejects, we may compare many pairs of means.
 
-Each pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making **at least one false discovery**.
+Each pairwise comparison has a chance of making a Type I error, so doing
+many comparisons increases the chance of making **at least one false
+discovery**.
 :::
 
-:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 11px; align-items: stretch;"}
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">1. Count comparisons</span>
 
 With $k$ groups, the number of pairwise comparisons is
@@ -2836,10 +2868,11 @@ m=\binom{4}{2}=6.
 $$
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">2. Experiment-wise error</span>
 
-As the number of pairwise comparisons increases, the chance of making at least one Type I error across the full set also increases.
+As the number of pairwise comparisons increases, the chance of making at
+least one Type I error across the full set also increases.
 
 If the comparisons were independent, this probability would be
 
@@ -2850,10 +2883,11 @@ $$
 Bonferroni does not require independence.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">3. Bonferroni correction</span>
 
-To keep the overall error rate controlled, Bonferroni uses a smaller per-comparison level:
+To keep the overall error rate controlled, Bonferroni uses a smaller
+per-comparison level:
 
 $$
 \frac{\alpha}{m}.
@@ -2868,12 +2902,16 @@ $$
 
 ::::
 
-::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.17; padding: 13px 18px; margin-bottom: 0;"}
+::: {.thinkbox .fragment style="font-size: 0.54em; line-height: 1.09; padding: 10px 15px; margin-bottom: 0;"}
 <span class="label">Key idea</span>
 
-**Protected Fisher's LSD** is used only after the overall ANOVA rejects. It gives narrower intervals and more power, but its protection against familywise Type I error weakens as the number of groups and pairwise comparisons increases.
+**Protected Fisher's LSD** is used only after the overall ANOVA rejects.
+It gives narrower intervals and more power, but its protection against
+familywise Type I error weakens as the number of groups and pairwise
+comparisons increases.
 
-**Bonferroni** is more cautious: it uses wider intervals to control the familywise Type I error rate across all planned pairwise comparisons.
+**Bonferroni** is more cautious: it uses wider intervals to control the
+familywise Type I error rate across all planned pairwise comparisons.
 :::
 
 ::::

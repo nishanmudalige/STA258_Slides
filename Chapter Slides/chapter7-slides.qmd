@@ -820,38 +820,73 @@ University of Toronto Mississauga
 
 ---
 
-## Chapter Roadmap {.compact}
+## Chapter Roadmap {.compact .chapter7-roadmap}
+
+<style>
+.reveal section.chapter7-roadmap .three-col {
+  gap: 22px;
+  align-items: stretch;
+}
+
+.reveal section.chapter7-roadmap .card,
+.reveal section.chapter7-roadmap .stat-card {
+  font-size: 0.79em;
+  line-height: 1.28;
+  padding: 21px 23px;
+  min-height: 154px;
+  margin-bottom: 0;
+}
+
+.reveal section.chapter7-roadmap .label {
+  font-size: 1.06em;
+  margin-bottom: 9px;
+}
+</style>
 
 :::: {.three-col}
+
 ::: {.card .fragment}
 <span class="label">7.1 - Power</span>
+
 What power means, and the four things that push it up or down.
 :::
+
 ::: {.card .fragment}
 <span class="label">7.2 - Errors</span>
+
 Type I ($\alpha$) and Type II ($\beta$), and how power $=1-\beta$.
 :::
+
 ::: {.card .fragment}
 <span class="label">7.3 - Planning</span>
+
 Use a target power to choose the smallest sample size.
 :::
+
 ::::
 
 <br>
 
 :::: {.three-col}
+
 ::: {.stat-card .fragment}
 <span class="label">Core skill</span>
+
 Compute power against a specific alternative value.
 :::
+
 ::: {.stat-card .fragment}
 <span class="label">Core tool</span>
+
 Use `pnorm()` and `qnorm()` for cutoffs, power, and sample size.
 :::
+
 ::: {.stat-card .fragment}
 <span class="label">Core habit</span>
+
 A test is only useful if it can detect a real effect.
 :::
+
 ::::
 
 ---

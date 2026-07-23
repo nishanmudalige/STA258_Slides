@@ -196,26 +196,28 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
       ),
       annotations = c(
         list(
-          list(
-            x = mu0,
-            y = max(y0) * 1.07,
-            text = "H₀",
-            showarrow = FALSE,
-            font = list(
-              color = col_null,
-              size = 14
-            )
-          ),
-          list(
-            x = mua,
-            y = max(ya) * 1.07,
-            text = "Hₐ",
-            showarrow = FALSE,
-            font = list(
-              color = col_alt,
-              size = 14
-            )
-          ),
+list(
+  x = mu0,
+  y = max(y0) * 1.07,
+  text = "H₀",
+  showarrow = FALSE,
+  yanchor = "bottom",
+  font = list(
+    color = col_null,
+    size = 14
+  )
+),
+list(
+  x = mua,
+  y = max(ya) * 1.07,
+  text = "Hₐ",
+  showarrow = FALSE,
+  yanchor = "bottom",
+  font = list(
+    color = col_alt,
+    size = 14
+  )
+),
           list(
             x = xcrit,
             y = ymax * 1.16,

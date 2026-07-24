@@ -1962,14 +1962,22 @@ To run it you must supply four ingredients: the standard deviation $\sigma$, the
 ::: {.slide-stack}
 <ol class="step-list spaced-steps">
   <li class="fragment"><strong>1. Cutoff from $H_0$.</strong> The cutoff $\bar{x}_*$ is the borderline value of the sample mean that decides whether you reject $H_0$ or not. Write it using the null mean and the critical value $z_\alpha$.</li>
-<li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_{\text{power}}$, the standard-normal quantile corresponding to the target power.</li>
+  <li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_{\text{power}}$, the standard-normal quantile corresponding to the target power.</li>
   <li class="fragment"><strong>3. Set the two expressions equal and solve for $n$.</strong> Round <em>up</em> to the next whole observation.</li>
 </ol>
 
 ::: {.card .fragment}
 <span class="label">One-sided sample-size formula</span>
-$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{|\mu_a-\mu_0|}\right)^{2}$$
-where $z_\beta$ is the standard-normal value matching the target power.
+
+$$
+n=
+\left(
+\frac{(z_\alpha+z_{\text{power}})\sigma}
+{|\mu_a-\mu_0|}
+\right)^2
+$$
+
+where $z_{\text{power}}$ is the standard-normal quantile corresponding to the target power.
 :::
 :::
 

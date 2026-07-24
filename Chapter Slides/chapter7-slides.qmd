@@ -1616,8 +1616,303 @@ $$\begin{aligned}
 
 ::: {style="max-width:900px; margin:0 auto;"}
 ```{r}
-power_two_sided(mu0 = 22, mua = 23, se = 2 / sqrt(16), alpha = 0.05,
-                xlab = "mean server-hall temperature  x̄")
+#| echo: false
+#| warning: false
+#| message: false
+
+mu0 <- 22
+mua <- 23
+se <- 2 / sqrt(16)
+alpha <- 0.05
+
+zc <- qnorm(1 - alpha / 2)
+
+c1 <- mu0 - zc * se
+c2 <- mu0 + zc * se
+
+lo <- min(mu0, mua) - 4 * se
+hi <- max(mu0, mua) + 4 * se
+
+x <- seq(lo, hi, length.out = 800)
+
+y0 <- dnorm(x, mu0, se)
+ya <- dnorm(x, mua, se)
+
+L <- x <= c1
+R <- x >= c2
+M <- x >= c1 & x <= c2
+
+ymax <- max(c(y0, ya))
+
+plot_ly(
+  width = 880,
+  height = 330
+) |>
+  add_trace(
+    x = x,
+    y = y0,
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = "rgba(31,78,121,0.12)",
+    line = list(
+      color = "rgba(31,78,121,0.35)",
+      width = 1
+    ),
+    name = "H₀ region",
+    hoverinfo = "skip"
+  ) |>
+  add_lines(
+    x = x,
+    y = y0,
+    line = list(
+      color = col_null,
+      width = 3
+    ),
+    name = "H₀",
+    hoverinfo = "skip"
+  ) |>
+  add_lines(
+    x = x,
+    y = ya,
+    line = list(
+      color = col_alt,
+      width = 3
+    ),
+    name = "Hₐ",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[L],
+    y = ya[L],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_pow,
+    line = list(
+      color = line_pow,
+      width = 1
+    ),
+    name = "power (left)",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[R],
+    y = ya[R],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_pow,
+    line = list(
+      color = line_pow,
+      width = 1
+    ),
+    name = "power (right)",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[M],
+    y = ya[M],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_b,
+    line = list(
+      color = line_b,
+      width = 1
+    ),
+    name = "β",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[L],
+    y = y0[L],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_a,
+    line = list(
+      color = line_a,
+      width = 1
+    ),
+    name = "α/2",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[R],
+    y = y0[R],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_a,
+    line = list(
+      color = line_a,
+      width = 1
+    ),
+    name = "α/2",
+    hoverinfo = "skip"
+  ) |>
+  layout(
+    xaxis = list(
+      title = "mean server-hall temperature  x̄",
+      zeroline = FALSE,
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = "",
+      rangemode = "tozero",
+      range = c(0, ymax * 1.30),
+      fixedrange = TRUE
+    ),
+    margin = list(
+      l = 28,
+      r = 12,
+      t = 30,
+      b = 88
+    ),
+    showlegend = FALSE,
+    hovermode = FALSE,
+    shapes = list(
+      list(
+        type = "line",
+        x0 = c1,
+        x1 = c1,
+        y0 = 0,
+        y1 = ymax * 1.12,
+        line = list(
+          color = "#333",
+          width = 2,
+          dash = "dash"
+        )
+      ),
+      list(
+        type = "line",
+        x0 = c2,
+        x1 = c2,
+        y0 = 0,
+        y1 = ymax * 1.12,
+        line = list(
+          color = "#333",
+          width = 2,
+          dash = "dash"
+        )
+      )
+    ),
+    annotations = list(
+      list(
+        x = mu0,
+        y = max(y0) * 1.07,
+        text = "H₀",
+        showarrow = FALSE,
+        font = list(
+          color = col_null,
+          size = 14
+        )
+      ),
+      list(
+        x = mua,
+        y = max(ya) * 1.07,
+        text = "Hₐ",
+        showarrow = FALSE,
+        font = list(
+          color = col_alt,
+          size = 14
+        )
+      ),
+      list(
+        x = c1,
+        y = ymax * 1.12,
+        text = paste0(
+          "cutoff = ",
+          round(c1, 2)
+        ),
+        showarrow = FALSE,
+        yanchor = "bottom",
+        font = list(
+          color = "#333",
+          size = 11
+        )
+      ),
+      list(
+        x = c2,
+        y = ymax * 1.12,
+        text = paste0(
+          "cutoff = ",
+          round(c2, 2)
+        ),
+        showarrow = FALSE,
+        yanchor = "bottom",
+        font = list(
+          color = "#333",
+          size = 11
+        )
+      ),
+      list(
+        x = c1 - 0.45 * se,
+        y = 0.05,
+        text = "α/2",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = line_a,
+        font = list(
+          color = "#b28704",
+          size = 12
+        )
+      ),
+      list(
+        x = c2 + 0.45 * se,
+        y = 0.05,
+        text = "α/2",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = line_a,
+        font = list(
+          color = "#b28704",
+          size = 12
+        )
+      ),
+      list(
+        x = c2 - 0.6 * se,
+        y = 0.05,
+        text = "β",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = "#c62828",
+        font = list(
+          color = "#c62828",
+          size = 12
+        )
+      ),
+      list(
+        x = mua + 1.2 * se,
+        y = 0.06,
+        text = "power",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = line_pow,
+        font = list(
+          color = "#1b5e20",
+          size = 12
+        )
+      )
+    )
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    responsive = TRUE
+  )
 ```
 :::
 

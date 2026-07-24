@@ -1208,35 +1208,82 @@ p_levels <- c(0.10, 0.05, 0.01)
 p_labels <- c("0.10", "0.05", "0.01")
 
 z_values <- qnorm(1 - p_levels)
-F_values <- qf(1 - p_levels, df1 = df1, df2 = df2)
 
-x_norm <- seq(-3.5, 3.5, length.out = 900)
+F_values <- qf(
+  1 - p_levels,
+  df1 = df1,
+  df2 = df2
+)
+
+x_norm <- seq(
+  -3.5,
+  3.5,
+  length.out = 1000
+)
+
 y_norm <- dnorm(x_norm)
 
-x_f <- seq(0.001, 7, length.out = 900)
-y_f <- df(x_f, df1 = df1, df2 = df2)
+x_f <- seq(
+  0.001,
+  7,
+  length.out = 1000
+)
 
-fig <- plot_ly(width = 1120, height = 430)
+y_f <- df(
+  x_f,
+  df1 = df1,
+  df2 = df2
+)
 
+fig <- plot_ly(
+  width = 1120,
+  height = 455
+)
+
+# Base Normal curve
 fig <- fig |>
   add_trace(
     x = x_norm,
     y = y_norm,
     type = "scatter",
     mode = "lines",
-    line = list(color = "#263238", width = 4),
-    hovertemplate = "z = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>",
+
+    line = list(
+      color = "#263238",
+      width = 4
+    ),
+
+    hovertemplate = paste0(
+      "z = %{x:.2f}",
+      "<br>Density = %{y:.3f}",
+      "<extra></extra>"
+    ),
+
     showlegend = FALSE
-  ) |>
+  )
+
+# Base F curve
+fig <- fig |>
   add_trace(
     x = x_f,
     y = y_f,
     type = "scatter",
     mode = "lines",
+
     xaxis = "x2",
     yaxis = "y2",
-    line = list(color = "#263238", width = 4),
-    hovertemplate = "F = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>",
+
+    line = list(
+      color = "#263238",
+      width = 4
+    ),
+
+    hovertemplate = paste0(
+      "F = %{x:.2f}",
+      "<br>Density = %{y:.3f}",
+      "<extra></extra>"
+    ),
+
     showlegend = FALSE
   )
 
@@ -1245,246 +1292,589 @@ for (i in seq_along(p_levels)) {
   z_star <- z_values[i]
   F_star <- F_values[i]
 
-  norm_tail_x <- seq(z_star, max(x_norm), length.out = 300)
-  norm_tail_y <- dnorm(norm_tail_x)
+  normal_density_at_cutoff <- dnorm(z_star)
 
-  f_tail_x <- seq(F_star, max(x_f), length.out = 300)
-  f_tail_y <- df(f_tail_x, df1 = df1, df2 = df2)
+  f_density_at_cutoff <- df(
+    F_star,
+    df1 = df1,
+    df2 = df2
+  )
 
-  norm_label_x <- min(z_star + 0.35, 2.75)
-  norm_label_y <- dnorm(z_star) + 0.040
+  # Extend the cutoff lines enough to remain visible
+  # even when the density is very close to zero.
+  normal_line_top <- max(
+    normal_density_at_cutoff,
+    0.085
+  )
 
-  f_label_x <- min(F_star + 0.55, 6.10)
-  f_label_y <- df(F_star, df1 = df1, df2 = df2) + 0.045
+  f_line_top <- max(
+    f_density_at_cutoff,
+    0.11
+  )
+
+  normal_tail_x <- seq(
+    z_star,
+    max(x_norm),
+    length.out = 350
+  )
+
+  normal_tail_y <- dnorm(normal_tail_x)
+
+  f_tail_x <- seq(
+    F_star,
+    max(x_f),
+    length.out = 350
+  )
+
+  f_tail_y <- df(
+    f_tail_x,
+    df1 = df1,
+    df2 = df2
+  )
+
+  # Place labels slightly left of each cutoff.
+  # This keeps the labels away from the plot boundaries.
+  normal_label_x <- z_star - 0.36
+  normal_label_y <- normal_line_top + 0.030
+
+  f_label_x <- F_star - 0.58
+  f_label_y <- f_line_top + 0.040
 
   visible_now <- i == 2
 
+  # Normal shaded tail
   fig <- fig |>
     add_trace(
-      x = c(z_star, norm_tail_x, max(x_norm)),
-      y = c(0, norm_tail_y, 0),
+      x = c(
+        z_star,
+        normal_tail_x,
+        max(x_norm)
+      ),
+
+      y = c(
+        0,
+        normal_tail_y,
+        0
+      ),
+
       type = "scatter",
       mode = "lines",
+
       fill = "toself",
-      fillcolor = "rgba(249, 168, 37, 0.60)",
-      line = list(color = "rgba(249, 168, 37, 0)", width = 0),
+      fillcolor = "rgba(249, 168, 37, 0.62)",
+
+      line = list(
+        color = "rgba(249, 168, 37, 0)",
+        width = 0
+      ),
+
       hoverinfo = "skip",
       visible = visible_now,
       showlegend = FALSE
-    ) |>
+    )
+
+  # Normal cutoff line
+  fig <- fig |>
     add_trace(
       x = c(z_star, z_star),
-      y = c(0, dnorm(z_star)),
+      y = c(0, normal_line_top),
+
       type = "scatter",
       mode = "lines",
-      line = list(color = "#00695c", width = 4, dash = "dash"),
+
+      line = list(
+        color = "#00695c",
+        width = 4,
+        dash = "dash"
+      ),
+
       hovertemplate = paste0(
-        "z* = ", round(z_star, 3),
-        "<br>Right-tail area = ", p_labels[i],
+        "z* = ",
+        round(z_star, 3),
+        "<br>Right-tail probability = ",
+        p_labels[i],
         "<extra></extra>"
       ),
+
       visible = visible_now,
       showlegend = FALSE
-    ) |>
+    )
+
+  # Normal cutoff label
+  fig <- fig |>
     add_trace(
-      x = norm_label_x,
-      y = norm_label_y,
+      x = normal_label_x,
+      y = normal_label_y,
+
       type = "scatter",
       mode = "text",
-      text = paste0("<b>z* = ", round(z_star, 2), "</b>"),
-      textfont = list(color = "#00695c", size = 16),
+
+      text = paste0(
+        "<b>z* = ",
+        round(z_star, 2),
+        "</b>"
+      ),
+
+      textposition = "middle center",
+
+      textfont = list(
+        family = "Arial",
+        color = "#00695c",
+        size = 16
+      ),
+
       hoverinfo = "skip",
       visible = visible_now,
       showlegend = FALSE
-    ) |>
+    )
+
+  # F shaded tail
+  fig <- fig |>
     add_trace(
-      x = c(F_star, f_tail_x, max(x_f)),
-      y = c(0, f_tail_y, 0),
+      x = c(
+        F_star,
+        f_tail_x,
+        max(x_f)
+      ),
+
+      y = c(
+        0,
+        f_tail_y,
+        0
+      ),
+
       type = "scatter",
       mode = "lines",
+
       xaxis = "x2",
       yaxis = "y2",
+
       fill = "toself",
-      fillcolor = "rgba(249, 168, 37, 0.60)",
-      line = list(color = "rgba(249, 168, 37, 0)", width = 0),
+      fillcolor = "rgba(249, 168, 37, 0.62)",
+
+      line = list(
+        color = "rgba(249, 168, 37, 0)",
+        width = 0
+      ),
+
       hoverinfo = "skip",
       visible = visible_now,
       showlegend = FALSE
-    ) |>
+    )
+
+  # F cutoff line
+  fig <- fig |>
     add_trace(
       x = c(F_star, F_star),
-      y = c(0, df(F_star, df1 = df1, df2 = df2)),
+      y = c(0, f_line_top),
+
       type = "scatter",
       mode = "lines",
+
       xaxis = "x2",
       yaxis = "y2",
-      line = list(color = "#00695c", width = 4, dash = "dash"),
+
+      line = list(
+        color = "#00695c",
+        width = 4,
+        dash = "dash"
+      ),
+
       hovertemplate = paste0(
-        "F* = ", round(F_star, 3),
-        "<br>Right-tail area = ", p_labels[i],
+        "F* = ",
+        round(F_star, 3),
+        "<br>Right-tail probability = ",
+        p_labels[i],
         "<extra></extra>"
       ),
+
       visible = visible_now,
       showlegend = FALSE
-    ) |>
+    )
+
+  # F cutoff label
+  fig <- fig |>
     add_trace(
       x = f_label_x,
       y = f_label_y,
+
       type = "scatter",
       mode = "text",
+
       xaxis = "x2",
       yaxis = "y2",
-      text = paste0("<b>F* = ", round(F_star, 2), "</b>"),
-      textfont = list(color = "#00695c", size = 16),
+
+      text = paste0(
+        "<b>F* = ",
+        round(F_star, 2),
+        "</b>"
+      ),
+
+      textposition = "middle center",
+
+      textfont = list(
+        family = "Arial",
+        color = "#00695c",
+        size = 16
+      ),
+
       hoverinfo = "skip",
       visible = visible_now,
       showlegend = FALSE
     )
 }
 
-buttons <- lapply(seq_along(p_levels), function(i) {
+buttons <- lapply(
+  seq_along(p_levels),
+  function(i) {
 
-  visible <- rep(FALSE, 2 + 6 * length(p_levels))
-  visible[1:2] <- TRUE
-
-  first_trace <- 3 + 6 * (i - 1)
-  visible[first_trace:(first_trace + 5)] <- TRUE
-
-  list(
-    method = "update",
-    label = paste0("p-value = ", p_labels[i]),
-    args = list(
-      list(visible = visible)
+    # Two permanent curves plus six traces
+    # for each probability setting.
+    visible <- rep(
+      FALSE,
+      2 + 6 * length(p_levels)
     )
-  )
-})
+
+    visible[1:2] <- TRUE
+
+    first_trace <- 3 + 6 * (i - 1)
+
+    visible[
+      first_trace:(first_trace + 5)
+    ] <- TRUE
+
+    list(
+      method = "update",
+
+      label = p_labels[i],
+
+      args = list(
+        list(
+          visible = visible
+        )
+      )
+    )
+  }
+)
 
 fig |>
   layout(
-    margin = list(l = 65, r = 30, t = 105, b = 55),
+    font = list(
+      family = "Arial",
+      color = "#2f3437"
+    ),
+
+    margin = list(
+      l = 68,
+      r = 68,
+      t = 100,
+      b = 52
+    ),
+
     paper_bgcolor = "rgba(0,0,0,0)",
-    plot_bgcolor = "#FFFFFF",
+    plot_bgcolor = "rgba(0,0,0,0)",
+
     showlegend = FALSE,
     dragmode = FALSE,
 
+    # Normal x-axis
     xaxis = list(
-      domain = c(0.00, 0.46),
-      title = list(text = "z", font = list(size = 18)),
+      domain = c(0.03, 0.46),
+      anchor = "y",
+
+      title = list(
+        text = "z",
+        standoff = 10,
+        font = list(size = 17)
+      ),
+
       range = c(-3.5, 3.5),
-      tickfont = list(size = 14, color = "#2f3437"),
+      tickmode = "linear",
+      tick0 = -3,
+      dtick = 1,
+
+      tickfont = list(
+        size = 13,
+        color = "#2f3437"
+      ),
+
       showline = TRUE,
       linecolor = "#2f3437",
       linewidth = 1.5,
+
       ticks = "outside",
       tickcolor = "#2f3437",
       ticklen = 5,
+
       zeroline = FALSE,
+
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
+      gridwidth = 1,
+
       fixedrange = TRUE
     ),
 
+    # Normal y-axis
     yaxis = list(
       domain = c(0, 1),
-      title = list(text = "Density", font = list(size = 18)),
+      anchor = "x",
+      side = "left",
+
+      title = list(
+        text = "Density",
+        standoff = 9,
+        font = list(size = 17)
+      ),
+
       range = c(0, 0.43),
-      tickfont = list(size = 14, color = "#2f3437"),
+      tickmode = "linear",
+      tick0 = 0,
+      dtick = 0.1,
+
+      tickfont = list(
+        size = 13,
+        color = "#2f3437"
+      ),
+
       showline = TRUE,
       linecolor = "#2f3437",
       linewidth = 1.5,
+
       ticks = "outside",
       tickcolor = "#2f3437",
       ticklen = 5,
+
       zeroline = FALSE,
+
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
+      gridwidth = 1,
+
       fixedrange = TRUE
     ),
 
+    # F x-axis
     xaxis2 = list(
-      domain = c(0.54, 1.00),
-      title = list(text = "F", font = list(size = 18)),
+      domain = c(0.56, 0.99),
+      anchor = "y2",
+
+      title = list(
+        text = "F",
+        standoff = 10,
+        font = list(size = 17)
+      ),
+
       range = c(0, 7),
-      tickfont = list(size = 14, color = "#2f3437"),
+      tickmode = "linear",
+      tick0 = 0,
+      dtick = 1,
+
+      tickfont = list(
+        size = 13,
+        color = "#2f3437"
+      ),
+
       showline = TRUE,
       linecolor = "#2f3437",
       linewidth = 1.5,
+
       ticks = "outside",
       tickcolor = "#2f3437",
       ticklen = 5,
+
       zeroline = FALSE,
+
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
+      gridwidth = 1,
+
       fixedrange = TRUE
     ),
 
+    # F y-axis
+    # Anchoring it to x2 prevents its tick labels
+    # from appearing over the Normal panel.
     yaxis2 = list(
       domain = c(0, 1),
-      title = list(text = "Density", font = list(size = 18)),
-      range = c(0, 1.08),
-      tickfont = list(size = 14, color = "#2f3437"),
+      anchor = "x2",
+      side = "right",
+
+      title = list(
+        text = "Density",
+        standoff = 9,
+        font = list(size = 17)
+      ),
+
+      range = c(0, 1.05),
+      tickmode = "linear",
+      tick0 = 0,
+      dtick = 0.2,
+
+      tickfont = list(
+        size = 13,
+        color = "#2f3437"
+      ),
+
       showline = TRUE,
       linecolor = "#2f3437",
       linewidth = 1.5,
+
       ticks = "outside",
       tickcolor = "#2f3437",
       ticklen = 5,
+
       zeroline = FALSE,
+
       showgrid = TRUE,
       gridcolor = "rgba(0,0,0,0.08)",
+      gridwidth = 1,
+
       fixedrange = TRUE
     ),
 
-    annotations = list(
+    # Subtle visual panels behind the graphs
+    shapes = list(
       list(
-        x = 0.00,
-        y = 1.12,
+        type = "rect",
+
         xref = "paper",
         yref = "paper",
-        xanchor = "left",
-        yanchor = "bottom",
-        text = "<b>Normal right-tail area</b>",
-        showarrow = FALSE,
-        font = list(size = 20, color = "#00695c")
+
+        x0 = 0.00,
+        x1 = 0.48,
+        y0 = 0,
+        y1 = 1,
+
+        fillcolor = "rgba(245,246,247,0.34)",
+
+        line = list(
+          color = "#d8dee2",
+          width = 1
+        ),
+
+        layer = "below"
       ),
+
       list(
-        x = 0.54,
-        y = 1.12,
+        type = "rect",
+
         xref = "paper",
         yref = "paper",
-        xanchor = "left",
-        yanchor = "bottom",
-        text = "<b>F right-tail area</b>",
-        showarrow = FALSE,
-        font = list(size = 20, color = "#00695c")
-      ),
-      list(
-        x = 0.79,
-        y = 1.22,
-        xref = "paper",
-        yref = "paper",
-        xanchor = "right",
-        yanchor = "middle",
-        text = "<b>Select tail area</b>",
-        showarrow = FALSE,
-        font = list(size = 15, color = "#667174")
+
+        x0 = 0.53,
+        x1 = 1.00,
+        y0 = 0,
+        y1 = 1,
+
+        fillcolor = "rgba(245,246,247,0.34)",
+
+        line = list(
+          color = "#d8dee2",
+          width = 1
+        ),
+
+        layer = "below"
       )
     ),
 
+    annotations = list(
+      # Panel headings
+      list(
+        x = 0.245,
+        y = 1.075,
+
+        xref = "paper",
+        yref = "paper",
+
+        xanchor = "center",
+        yanchor = "bottom",
+
+        text = "<b>Normal distribution</b>",
+
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 19,
+          color = "#00695c"
+        )
+      ),
+
+      list(
+        x = 0.775,
+        y = 1.075,
+
+        xref = "paper",
+        yref = "paper",
+
+        xanchor = "center",
+        yanchor = "bottom",
+
+        text = "<b>F<sub>2,15</sub> distribution</b>",
+
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 19,
+          color = "#00695c"
+        )
+      ),
+
+      # Dropdown label
+      list(
+        x = 0.495,
+        y = 1.225,
+
+        xref = "paper",
+        yref = "paper",
+
+        xanchor = "right",
+        yanchor = "middle",
+
+        text = "<b>Right-tail probability</b>",
+
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 15,
+          color = "#667174"
+        )
+      )
+    ),
+
+    # One centered dropdown in its own row
     updatemenus = list(
       list(
         type = "dropdown",
         direction = "down",
         active = 1,
-        x = 0.99,
-        y = 1.22,
-        xanchor = "right",
+
+        x = 0.51,
+        y = 1.225,
+
+        xanchor = "left",
         yanchor = "middle",
+
         bgcolor = "rgba(255,255,255,0.98)",
         bordercolor = "#d8dee2",
         borderwidth = 1,
-        font = list(size = 14, color = "#2f3437"),
-        pad = list(t = 3, r = 3, b = 3, l = 3),
+
+        font = list(
+          family = "Arial",
+          size = 14,
+          color = "#2f3437"
+        ),
+
+        pad = list(
+          t = 3,
+          r = 3,
+          b = 3,
+          l = 3
+        ),
+
         buttons = buttons
       )
     )
@@ -1498,10 +1888,8 @@ fig |>
   )
 ```
 
-::: {.notebox style="font-size: 0.63em; line-height: 1.18; padding: 10px 14px; margin-top: 8px; margin-bottom: 0;"}
-<span class="label">Interpretation</span>
-
-Use the dropdown to compare the same **right-tail probability** under two different reference distributions. The **Normal** panel is a visual comparison, while the **ANOVA p-value** is read from the **\(F_{2,15}\)** panel on the right.
+::: {.notebox style="font-size: 0.59em; line-height: 1.15; padding: 9px 13px; margin-top: 7px; margin-bottom: 0;"}
+**Reading the panels:** Both graphs shade the same right-tail probability. For the ANOVA test, the relevant p-value is read from the \(F_{2,15}\) distribution on the right.
 :::
 
 ---

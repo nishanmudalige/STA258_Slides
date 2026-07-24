@@ -1259,11 +1259,18 @@ A test fails to reject $H_0$, but in reality $H_0$ is false. Which error has occ
   <li class="fragment"><strong>3. Compute the rejection probability.</strong> Standardize the cutoff under the alternative and read off the area, which is the power.</li>
 </ol>
 
-::: {.mini-plot .fragment}
+::: {.fragment style="max-width: 940px; margin: 2px auto 0 auto;"}
 ```{r}
-power_overlap(mu0 = 0, mua = 1.1, se0 = 1 / sqrt(10),
-              alpha = 0.05, alternative = "greater",
-              title = "Power = green area under Hₐ past the cutoff")
+power_overlap(
+  mu0 = 0,
+  mua = 1.1,
+  se0 = 1 / sqrt(10),
+  alpha = 0.05,
+  alternative = "greater",
+  title = "Power = green area under Hₐ past the cutoff",
+  width = 900,
+  height = 320
+)
 ```
 :::
 :::

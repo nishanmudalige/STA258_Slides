@@ -2047,12 +2047,16 @@ Using the full normal quantiles gives $n\approx 75.74$, so round up to **76 cups
 ## Check in R: Coffee Sample Size
 
 ```{webr}
-mu0 <- 225; mua <- 223; sigma <- 7; alpha <- 0.05; power <- 0.80
+mu0 <- 225
+mua <- 223
+sigma <- 7
+alpha <- 0.05
+power <- 0.80
 
 z_alpha <- qnorm(1 - alpha)
-z_beta  <- qnorm(power)
+z_power <- qnorm(power)
 
-n <- ((z_alpha + z_beta) * sigma / (mu0 - mua))^2
+n <- ((z_alpha + z_power) * sigma / (mu0 - mua))^2
 ceiling(n)
 ```
 

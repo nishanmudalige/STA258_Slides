@@ -1237,20 +1237,21 @@ y_f <- df(
 
 fig <- plot_ly(
   width = 1120,
-  height = 455
+  height = 450
 )
 
-# Base Normal curve
+# Permanent Normal curve
 fig <- fig |>
   add_trace(
     x = x_norm,
     y = y_norm,
+
     type = "scatter",
     mode = "lines",
 
     line = list(
       color = "#263238",
-      width = 4
+      width = 3.6
     ),
 
     hovertemplate = paste0(
@@ -1262,11 +1263,12 @@ fig <- fig |>
     showlegend = FALSE
   )
 
-# Base F curve
+# Permanent F curve
 fig <- fig |>
   add_trace(
     x = x_f,
     y = y_f,
+
     type = "scatter",
     mode = "lines",
 
@@ -1275,7 +1277,7 @@ fig <- fig |>
 
     line = list(
       color = "#263238",
-      width = 4
+      width = 3.6
     ),
 
     hovertemplate = paste0(
@@ -1300,16 +1302,15 @@ for (i in seq_along(p_levels)) {
     df2 = df2
   )
 
-  # Extend the cutoff lines enough to remain visible
-  # even when the density is very close to zero.
+  # Keep cutoff lines visible for very small tail densities.
   normal_line_top <- max(
     normal_density_at_cutoff,
-    0.085
+    0.105
   )
 
   f_line_top <- max(
     f_density_at_cutoff,
-    0.11
+    0.135
   )
 
   normal_tail_x <- seq(
@@ -1332,17 +1333,25 @@ for (i in seq_along(p_levels)) {
     df2 = df2
   )
 
-  # Place labels slightly left of each cutoff.
-  # This keeps the labels away from the plot boundaries.
-  normal_label_x <- z_star - 0.36
-  normal_label_y <- normal_line_top + 0.030
+  # Fixed upper label positions prevent labels from
+  # colliding with either distribution curve.
+  normal_label_x <- min(
+    z_star + 0.48,
+    2.85
+  )
 
-  f_label_x <- F_star - 0.58
-  f_label_y <- f_line_top + 0.040
+  normal_label_y <- 0.305
+
+  f_label_x <- min(
+    max(F_star - 0.50, 1.55),
+    5.85
+  )
+
+  f_label_y <- 0.225
 
   visible_now <- i == 2
 
-  # Normal shaded tail
+  # Normal right-tail shading
   fig <- fig |>
     add_trace(
       x = c(
@@ -1361,10 +1370,10 @@ for (i in seq_along(p_levels)) {
       mode = "lines",
 
       fill = "toself",
-      fillcolor = "rgba(249, 168, 37, 0.62)",
+      fillcolor = "rgba(249,168,37,0.56)",
 
       line = list(
-        color = "rgba(249, 168, 37, 0)",
+        color = "rgba(249,168,37,0)",
         width = 0
       ),
 
@@ -1373,7 +1382,7 @@ for (i in seq_along(p_levels)) {
       showlegend = FALSE
     )
 
-  # Normal cutoff line
+  # Normal cutoff
   fig <- fig |>
     add_trace(
       x = c(z_star, z_star),
@@ -1384,7 +1393,7 @@ for (i in seq_along(p_levels)) {
 
       line = list(
         color = "#00695c",
-        width = 4,
+        width = 3.2,
         dash = "dash"
       ),
 
@@ -1415,12 +1424,10 @@ for (i in seq_along(p_levels)) {
         "</b>"
       ),
 
-      textposition = "middle center",
-
       textfont = list(
         family = "Arial",
-        color = "#00695c",
-        size = 16
+        size = 16,
+        color = "#00695c"
       ),
 
       hoverinfo = "skip",
@@ -1428,7 +1435,7 @@ for (i in seq_along(p_levels)) {
       showlegend = FALSE
     )
 
-  # F shaded tail
+  # F right-tail shading
   fig <- fig |>
     add_trace(
       x = c(
@@ -1450,10 +1457,10 @@ for (i in seq_along(p_levels)) {
       yaxis = "y2",
 
       fill = "toself",
-      fillcolor = "rgba(249, 168, 37, 0.62)",
+      fillcolor = "rgba(249,168,37,0.56)",
 
       line = list(
-        color = "rgba(249, 168, 37, 0)",
+        color = "rgba(249,168,37,0)",
         width = 0
       ),
 
@@ -1462,7 +1469,7 @@ for (i in seq_along(p_levels)) {
       showlegend = FALSE
     )
 
-  # F cutoff line
+  # F cutoff
   fig <- fig |>
     add_trace(
       x = c(F_star, F_star),
@@ -1476,7 +1483,7 @@ for (i in seq_along(p_levels)) {
 
       line = list(
         color = "#00695c",
-        width = 4,
+        width = 3.2,
         dash = "dash"
       ),
 
@@ -1510,12 +1517,10 @@ for (i in seq_along(p_levels)) {
         "</b>"
       ),
 
-      textposition = "middle center",
-
       textfont = list(
         family = "Arial",
-        color = "#00695c",
-        size = 16
+        size = 16,
+        color = "#00695c"
       ),
 
       hoverinfo = "skip",
@@ -1528,8 +1533,6 @@ buttons <- lapply(
   seq_along(p_levels),
   function(i) {
 
-    # Two permanent curves plus six traces
-    # for each probability setting.
     visible <- rep(
       FALSE,
       2 + 6 * length(p_levels)
@@ -1546,7 +1549,10 @@ buttons <- lapply(
     list(
       method = "update",
 
-      label = p_labels[i],
+      label = paste0(
+        "p = ",
+        p_labels[i]
+      ),
 
       args = list(
         list(
@@ -1565,27 +1571,31 @@ fig |>
     ),
 
     margin = list(
-      l = 68,
-      r = 68,
-      t = 100,
-      b = 52
+      l = 70,
+      r = 42,
+      t = 102,
+      b = 54
     ),
 
     paper_bgcolor = "rgba(0,0,0,0)",
-    plot_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "#ffffff",
 
     showlegend = FALSE,
+    hovermode = "closest",
     dragmode = FALSE,
 
-    # Normal x-axis
+    # Normal horizontal axis
     xaxis = list(
-      domain = c(0.03, 0.46),
+      domain = c(0.02, 0.46),
       anchor = "y",
 
       title = list(
         text = "z",
-        standoff = 10,
-        font = list(size = 17)
+        standoff = 9,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
       ),
 
       range = c(-3.5, 3.5),
@@ -1595,27 +1605,27 @@ fig |>
 
       tickfont = list(
         size = 13,
-        color = "#2f3437"
+        color = "#3f474b"
       ),
 
       showline = TRUE,
-      linecolor = "#2f3437",
-      linewidth = 1.5,
+      linecolor = "#596469",
+      linewidth = 1.1,
 
       ticks = "outside",
-      tickcolor = "#2f3437",
-      ticklen = 5,
+      tickcolor = "#596469",
+      ticklen = 4,
 
       zeroline = FALSE,
 
       showgrid = TRUE,
-      gridcolor = "rgba(0,0,0,0.08)",
+      gridcolor = "rgba(89,100,105,0.10)",
       gridwidth = 1,
 
       fixedrange = TRUE
     ),
 
-    # Normal y-axis
+    # Normal vertical axis
     yaxis = list(
       domain = c(0, 1),
       anchor = "x",
@@ -1623,8 +1633,11 @@ fig |>
 
       title = list(
         text = "Density",
-        standoff = 9,
-        font = list(size = 17)
+        standoff = 8,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
       ),
 
       range = c(0, 0.43),
@@ -1634,35 +1647,38 @@ fig |>
 
       tickfont = list(
         size = 13,
-        color = "#2f3437"
+        color = "#3f474b"
       ),
 
       showline = TRUE,
-      linecolor = "#2f3437",
-      linewidth = 1.5,
+      linecolor = "#596469",
+      linewidth = 1.1,
 
       ticks = "outside",
-      tickcolor = "#2f3437",
-      ticklen = 5,
+      tickcolor = "#596469",
+      ticklen = 4,
 
       zeroline = FALSE,
 
       showgrid = TRUE,
-      gridcolor = "rgba(0,0,0,0.08)",
+      gridcolor = "rgba(89,100,105,0.10)",
       gridwidth = 1,
 
       fixedrange = TRUE
     ),
 
-    # F x-axis
+    # F horizontal axis
     xaxis2 = list(
-      domain = c(0.56, 0.99),
+      domain = c(0.56, 1.00),
       anchor = "y2",
 
       title = list(
         text = "F",
-        standoff = 10,
-        font = list(size = 17)
+        standoff = 9,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
       ),
 
       range = c(0, 7),
@@ -1672,38 +1688,41 @@ fig |>
 
       tickfont = list(
         size = 13,
-        color = "#2f3437"
+        color = "#3f474b"
       ),
 
       showline = TRUE,
-      linecolor = "#2f3437",
-      linewidth = 1.5,
+      linecolor = "#596469",
+      linewidth = 1.1,
 
       ticks = "outside",
-      tickcolor = "#2f3437",
-      ticklen = 5,
+      tickcolor = "#596469",
+      ticklen = 4,
 
       zeroline = FALSE,
 
       showgrid = TRUE,
-      gridcolor = "rgba(0,0,0,0.08)",
+      gridcolor = "rgba(89,100,105,0.10)",
       gridwidth = 1,
 
       fixedrange = TRUE
     ),
 
-    # F y-axis
-    # Anchoring it to x2 prevents its tick labels
-    # from appearing over the Normal panel.
+    # F vertical axis
+    # This axis is anchored to the F panel and placed
+    # on its left side, matching the Normal panel.
     yaxis2 = list(
       domain = c(0, 1),
       anchor = "x2",
-      side = "right",
+      side = "left",
 
       title = list(
         text = "Density",
-        standoff = 9,
-        font = list(size = 17)
+        standoff = 8,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
       ),
 
       range = c(0, 1.05),
@@ -1713,75 +1732,30 @@ fig |>
 
       tickfont = list(
         size = 13,
-        color = "#2f3437"
+        color = "#3f474b"
       ),
 
       showline = TRUE,
-      linecolor = "#2f3437",
-      linewidth = 1.5,
+      linecolor = "#596469",
+      linewidth = 1.1,
 
       ticks = "outside",
-      tickcolor = "#2f3437",
-      ticklen = 5,
+      tickcolor = "#596469",
+      ticklen = 4,
 
       zeroline = FALSE,
 
       showgrid = TRUE,
-      gridcolor = "rgba(0,0,0,0.08)",
+      gridcolor = "rgba(89,100,105,0.10)",
       gridwidth = 1,
 
       fixedrange = TRUE
     ),
 
-    # Subtle visual panels behind the graphs
-    shapes = list(
-      list(
-        type = "rect",
-
-        xref = "paper",
-        yref = "paper",
-
-        x0 = 0.00,
-        x1 = 0.48,
-        y0 = 0,
-        y1 = 1,
-
-        fillcolor = "rgba(245,246,247,0.34)",
-
-        line = list(
-          color = "#d8dee2",
-          width = 1
-        ),
-
-        layer = "below"
-      ),
-
-      list(
-        type = "rect",
-
-        xref = "paper",
-        yref = "paper",
-
-        x0 = 0.53,
-        x1 = 1.00,
-        y0 = 0,
-        y1 = 1,
-
-        fillcolor = "rgba(245,246,247,0.34)",
-
-        line = list(
-          color = "#d8dee2",
-          width = 1
-        ),
-
-        layer = "below"
-      )
-    ),
-
     annotations = list(
-      # Panel headings
+      # Normal panel heading
       list(
-        x = 0.245,
+        x = 0.24,
         y = 1.075,
 
         xref = "paper",
@@ -1801,8 +1775,9 @@ fig |>
         )
       ),
 
+      # F panel heading
       list(
-        x = 0.775,
+        x = 0.78,
         y = 1.075,
 
         xref = "paper",
@@ -1845,7 +1820,6 @@ fig |>
       )
     ),
 
-    # One centered dropdown in its own row
     updatemenus = list(
       list(
         type = "dropdown",
@@ -1889,7 +1863,7 @@ fig |>
 ```
 
 ::: {.notebox style="font-size: 0.59em; line-height: 1.15; padding: 9px 13px; margin-top: 7px; margin-bottom: 0;"}
-**Reading the panels:** Both graphs shade the same right-tail probability. For the ANOVA test, the relevant p-value is read from the \(F_{2,15}\) distribution on the right.
+**Reading the panels:** Both graphs shade the same right-tail probability. For the ANOVA test, the relevant reference distribution is <em>F</em><sub>2,15</sub>, shown on the right.
 :::
 
 ---

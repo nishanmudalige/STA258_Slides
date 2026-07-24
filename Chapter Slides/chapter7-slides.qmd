@@ -2061,7 +2061,7 @@ ceiling(n)
 ```
 
 ::: {.notebox .fragment}
-`power.t.test()` automates mean-based power calculations using the standard deviation, significance level, effect size, and target power. For two proportions, `power.prop.test()` uses the two target proportions instead of $\sigma$.
+Because $\sigma$ is treated as known, this chapter calculates the required sample size directly using standard-normal quantiles. `power.t.test()` performs power calculations for a **t-test**, so it does not exactly reproduce this known-$\sigma$ $z$-test calculation.
 :::
 
 ---
@@ -2158,7 +2158,7 @@ sapply(c(50, 100, 200), prop_power)
 
 ::: {.slide-stack}
 ::: {.card}
-Keep $H_0:p=0.90$, $H_a:p<0.90$, true $p=0.85$, $\alpha=0.05$. Set power $=0.80$ ($z_\beta=0.8416$) and equate the two cutoff expressions:
+Keep $H_0:p=0.90$, $H_a:p<0.90$, true $p=0.85$, $\alpha=0.05$. Set power $=0.80$ ($z_{1-\beta}=0.8416$) and equate the two cutoff expressions:
 $$0.90-1.645\sqrt{\tfrac{0.90(0.10)}{n}}=0.85+0.8416\sqrt{\tfrac{0.85(0.15)}{n}}$$
 :::
 

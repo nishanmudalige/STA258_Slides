@@ -2230,7 +2230,10 @@ video <- data.frame(
 
 video_means <- video |>
   group_by(style) |>
-  summarise(mean_watch = mean(calories), .groups = "drop")
+  summarise(
+    mean_watch = mean(calories),
+    .groups = "drop"
+  )
 
 plot_ly() |>
   add_trace(
@@ -2241,9 +2244,16 @@ plot_ly() |>
     name = "",
     boxpoints = FALSE,
     whiskerwidth = 0.55,
-    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    line = list(
+      color = "rgba(0,77,64,0.88)",
+      width = 2.1
+    ),
     fillcolor = "rgba(200,230,243,0.40)",
-    hovertemplate = "Class type: %{x}<br>Calories burned: %{y:.1f}<extra></extra>",
+    hovertemplate = paste0(
+      "Class type: %{x}",
+      "<br>Calories burned: %{y:.1f}",
+      "<extra></extra>"
+    ),
     showlegend = FALSE
   ) |>
   add_markers(
@@ -2254,9 +2264,16 @@ plot_ly() |>
       size = 10,
       color = "#c62828",
       symbol = "circle",
-      line = list(color = "white", width = 1.2)
+      line = list(
+        color = "white",
+        width = 1.2
+      )
     ),
-    hovertemplate = "Class type: %{x}<br>Mean calories burned: %{y:.2f}<extra></extra>",
+    hovertemplate = paste0(
+      "Class type: %{x}",
+      "<br>Mean calories burned: %{y:.2f}",
+      "<extra></extra>"
+    ),
     showlegend = FALSE
   ) |>
   plotly_anova_layout(
@@ -2264,7 +2281,12 @@ plot_ly() |>
     x_title = "Gym class type",
     y_title = "Calories burned",
     height = 390,
-    margin = list(l = 76, r = 25, t = 60, b = 82)
+    margin = list(
+      l = 76,
+      r = 25,
+      t = 60,
+      b = 82
+    )
   ) |>
   layout(
     yaxis = list(
@@ -2282,7 +2304,7 @@ plot_ly() |>
   )
 ```
 
-::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+::: {.thinkbox .fragment style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;" data-fragment-index="1"}
 The **red dots** show the sample mean calories burned for each gym class type.
 
 The **boxplots** show the within-group spread. The centers are noticeably different, especially for **HIIT** compared with **yoga**, which matches the ANOVA conclusion that not all group means are the same.

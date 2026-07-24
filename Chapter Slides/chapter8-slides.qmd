@@ -2799,8 +2799,16 @@ library(plotly)
 
 badminton_lsd <- data.frame(
   comparison = factor(
-    c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
-    levels = c("Basic − Target", "Basic − Match-play", "Target − Match-play")
+    c(
+      "Basic − Target",
+      "Basic − Match-play",
+      "Target − Match-play"
+    ),
+    levels = c(
+      "Basic − Target",
+      "Basic − Match-play",
+      "Target − Match-play"
+    )
   ),
   difference = c(-5.00, -6.50, -1.50),
   lower = c(-7.72, -9.22, -4.22),
@@ -2816,7 +2824,10 @@ plot_ly(
   marker = list(
     size = 10,
     color = "rgba(198,40,40,1)",
-    line = list(color = "rgba(198,40,40,1)", width = 1.0)
+    line = list(
+      color = "rgba(198,40,40,1)",
+      width = 1.0
+    )
   ),
   error_y = list(
     type = "data",
@@ -2840,7 +2851,12 @@ plot_ly(
     x_title = "Pairwise comparison",
     y_title = "Mean difference in accuracy score",
     height = 350,
-    margin = list(l = 78, r = 20, t = 54, b = 82)
+    margin = list(
+      l = 78,
+      r = 20,
+      t = 54,
+      b = 82
+    )
   ) |>
   layout(
     shapes = list(
@@ -2862,7 +2878,9 @@ plot_ly(
     xaxis = list(
       title = list(
         text = "Pairwise comparison",
-        font = list(color = "rgba(0,0,0,0.88)")
+        font = list(
+          color = "rgba(0,0,0,0.88)"
+        )
       ),
       showline = TRUE,
       linecolor = "rgba(0,0,0,0.90)",
@@ -2871,19 +2889,30 @@ plot_ly(
       ticklen = 5,
       tickwidth = 1.2,
       tickcolor = "rgba(0,0,0,0.78)",
-      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      tickfont = list(
+        color = "rgba(0,0,0,0.82)",
+        size = 10
+      ),
       tickangle = 0,
       tickmode = "array",
-      tickvals = c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
-      ticktext = c("Basic<br>vs<br>Target",
-                   "Basic<br>vs<br>Match-play",
-                   "Target<br>vs<br>Match-play"),
+      tickvals = c(
+        "Basic − Target",
+        "Basic − Match-play",
+        "Target − Match-play"
+      ),
+      ticktext = c(
+        "Basic<br>vs<br>Target",
+        "Basic<br>vs<br>Match-play",
+        "Target<br>vs<br>Match-play"
+      ),
       fixedrange = TRUE
     ),
     yaxis = list(
       title = list(
         text = "Mean difference in accuracy score",
-        font = list(color = "rgba(0,0,0,0.88)")
+        font = list(
+          color = "rgba(0,0,0,0.88)"
+        )
       ),
       zeroline = FALSE,
       showline = TRUE,
@@ -2893,7 +2922,10 @@ plot_ly(
       ticklen = 5,
       tickwidth = 1.2,
       tickcolor = "rgba(0,0,0,0.78)",
-      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      tickfont = list(
+        color = "rgba(0,0,0,0.82)",
+        size = 10
+      ),
       fixedrange = TRUE,
       gridcolor = "rgba(0,0,0,0.06)",
       tickmode = "linear",
@@ -2904,7 +2936,7 @@ plot_ly(
   )
 ```
 
-::: {.thinkbox style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;"}
+::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;" data-fragment-index="1"}
 The **red dots** show the observed pairwise mean differences. The **red vertical intervals** show the Fisher LSD intervals.
 
 The **black dashed line** marks 0. Intervals that avoid 0 indicate pairs that are significantly different. The first two intervals avoid 0, while **Target serve vs Match-play serve** contains 0.

@@ -2241,11 +2241,11 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 | Quantity | Formula / idea |
 |---|---|
 | Power against $\theta_a$ | $1-\beta(\theta_a)=P(\text{reject }H_0\mid\theta=\theta_a)$ |
-| Type I error | $\alpha=P(\text{reject } H_0\mid H_0 \text{ true})$ |
-| Type II error | $\beta=P(\text{fail to reject}\mid H_0 \text{ false})$ |
-| Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt n$ |
-| Power (right-tailed) | $P\!\big(Z\ge z_\alpha+\sqrt n(\mu_0-\mu_a)/\sigma\big)$ |
-| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/|\mu_a-\mu_0|\big)^2$ |
+| Type I error | $\alpha=P(\text{reject }H_0\mid H_0\text{ true})$ |
+| Type II error | $\beta=P(\text{fail to reject }H_0\mid H_0\text{ false})$ |
+| Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt{n}$ |
+| Power (right-tailed) | $P\!\left(Z\ge z_\alpha+\sqrt{n}\dfrac{\mu_0-\mu_a}{\sigma}\right)$ |
+| Sample size (one-sided) | $n=\left(\dfrac{(z_\alpha+z_{1-\beta})\sigma}{|\mu_a-\mu_0|}\right)^2$ |
 
 ::: {.thinkbox .fragment .spaced-note}
 Always round a computed sample size **up** to the next whole observation so the achieved power is at least the target.

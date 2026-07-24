@@ -3330,7 +3330,7 @@ score <- c(19, 20, 21, 23, 24, 25,
            24, 25, 26, 28, 29, 30,
            26, 27, 28, 29, 30, 31)
 
-drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+drill <- factor(   rep(     c("Basic serve", "Target serve", "Match-play serve"),     each = 6   ),   levels = c(     "Basic serve",     "Target serve",     "Match-play serve"   ) )
 
 fit <- aov(score ~ drill)
 
@@ -3705,7 +3705,7 @@ score <- c(19, 20, 21, 23, 24, 25,
            24, 25, 26, 28, 29, 30,
            26, 27, 28, 29, 30, 31)
 
-drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+drill <- factor(   rep(     c("Basic serve", "Target serve", "Match-play serve"),     each = 6   ),   levels = c(     "Basic serve",     "Target serve",     "Match-play serve"   ) )
 
 fit <- aov(score ~ drill)
 

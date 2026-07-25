@@ -760,7 +760,7 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 .reveal table {
   width: 100%;
   border-collapse: collapse;
-  border: 1.25px solid #4d5659;
+  border: 1px solid var(--sta-border);
   font-size: 0.6em;
 }
 .reveal .tbl-center table {
@@ -828,8 +828,8 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 #interactive-change-everything .code-copy-button,
 #interactive-change-everything .code-copy-outer-scaffold { display: none !important; }
 .reveal th, .reveal td {
-  border: 1.25px solid #4d5659;
-  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }

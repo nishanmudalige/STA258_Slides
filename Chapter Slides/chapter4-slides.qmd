@@ -31,6 +31,13 @@ live:
 ```{r setup}
 #| include: false
 
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  ggplot2, dplyr, plotly
+#   WebR (in-browser cells):         ggplot2, dplyr
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
 library(ggplot2)
 library(dplyr)
 library(plotly)

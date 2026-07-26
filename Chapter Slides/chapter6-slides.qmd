@@ -1105,19 +1105,20 @@ The test is performed **assuming $H_0$ is true**. The p-value measures how unusu
 
 ---
 
-## The Five-Step Procedure
+## The Six-Step Procedure
 
 ::: {.slide-stack}
 <ol class="step-list">
-  <li class="fragment"><strong>1. Choose $\alpha$.</strong> Set the significance level before making the decision.</li>
-  <li class="fragment"><strong>2. State hypotheses.</strong> Use the correct population parameter.</li>
-  <li class="fragment"><strong>3. Compute statistic.</strong> Standardize the estimate with the correct standard error.</li>
-  <li class="fragment"><strong>4. Find the p-value.</strong> Use the tail area that matches $H_a$.</li>
-  <li class="fragment"><strong>5. Conclude.</strong> Compare to $\alpha$ and write the conclusion in context.</li>
+  <li class="fragment"><strong>1. Check assumptions.</strong> Verify the sampling or experimental design, independence, and any Normal or large-sample conditions required by the test.</li>
+  <li class="fragment"><strong>2. Choose $\alpha$.</strong> Set the significance level before making the decision.</li>
+  <li class="fragment"><strong>3. State hypotheses.</strong> Use the correct population parameter.</li>
+  <li class="fragment"><strong>4. Compute the statistic.</strong> Standardize the estimate with the correct standard error.</li>
+  <li class="fragment"><strong>5. Find the p-value.</strong> Use the reference distribution and the tail area that matches $H_a$.</li>
+  <li class="fragment"><strong>6. Conclude.</strong> Compare the p-value with $\alpha$ and write the conclusion in context.</li>
 </ol>
 
 ::: {.thinkbox .fragment}
-Step 4 and Step 5 are separate: first calculate evidence, then make the decision.
+The assumptions must be reasonable before using the stated reference distribution to calculate the test statistic and p-value.
 :::
 :::
 
@@ -1128,22 +1129,48 @@ Step 4 and Step 5 are separate: first calculate evidence, then make the decision
 :::: {.three-col}
 ::: {.card .fragment}
 <span class="label">Left-tailed</span>
-$$H_a:\theta < \theta_0$$
+
+$$
+H_0:\theta=\theta_0
+\qquad
+H_a:\theta<\theta_0
+$$
+
 Use when the research question asks whether the parameter decreased or is smaller.
+
+The null may equivalently be written as $H_0:\theta\ge\theta_0$.
 :::
 
 ::: {.card .fragment}
 <span class="label">Right-tailed</span>
-$$H_a:\theta > \theta_0$$
+
+$$
+H_0:\theta=\theta_0
+\qquad
+H_a:\theta>\theta_0
+$$
+
 Use when the research question asks whether the parameter increased or is larger.
+
+The null may equivalently be written as $H_0:\theta\le\theta_0$.
 :::
 
 ::: {.card .fragment}
 <span class="label">Two-sided</span>
-$$H_a:\theta \ne \theta_0$$
+
+$$
+H_0:\theta=\theta_0
+\qquad
+H_a:\theta\ne\theta_0
+$$
+
 Use when the research question asks whether the parameter changed in either direction.
 :::
 ::::
+
+::: {.thinkbox .fragment}
+For a one-sided test, calculations use the boundary value $\theta=\theta_0$. This is why the null is often written with equality even when the full null claim contains an inequality.
+:::
 
 ---
 

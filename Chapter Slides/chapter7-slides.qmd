@@ -840,6 +840,9 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 .reveal .modebar { display: none !important; }
 .reveal .slides section.scrollable { overflow-y: auto !important; overflow-x: hidden !important; max-height: 700px; }
 .reveal section.compact h2 { font-size: 1.08em !important; }
+.reveal section.dense .card,
+.reveal section.dense .examplebox,
+.reveal section.dense .thinkbox { font-size: 0.7em; padding: 12px 15px; margin-bottom: 5px; }
 .reveal section.compact p, .reveal section.compact li { font-size: 0.7em; }
 .reveal section.quiz-question {
   display: flex !important;
@@ -2022,7 +2025,7 @@ Using the full normal quantiles gives $n\approx 78.47$, so round up to **79** ob
 
 ---
 
-## Example: Vending-Machine Coffee
+## Example: Vending-Machine Coffee {.dense}
 
 ::: {.slide-stack}
 ::: {.card}
@@ -2066,7 +2069,7 @@ Because $\sigma$ is treated as known, this chapter calculates the required sampl
 
 ---
 
-## Power for a Proportion: Same Logic
+## Power for a Proportion: Same Logic {.dense}
 
 ::: {.defbox}
 For a one-sided test of $p$, the rejection cutoff uses the **null** standard error, but power is computed with the **alternative** standard error:

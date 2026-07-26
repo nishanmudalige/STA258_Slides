@@ -2472,15 +2472,17 @@ $t$ with $n-1$ degrees of freedom for the differences.
 <span class="label">Paired structure</span>
 <ul class="assumption-list">
   <li class="fragment">Each pair comes from the same unit, matched units, or a before-after measurement.</li>
-  <li class="fragment">The pairs themselves are independent of one another.</li>
+  <li class="fragment">Analyze the differences $d_i$, not the two original columns separately.</li>
+  <li class="fragment">The pairs themselves must be independent of one another.</li>
 </ul>
 :::
 
 ::: {.card .fragment}
-<span class="label">Model condition</span>
+<span class="label">Sampling and model conditions</span>
 <ul class="assumption-list">
-  <li class="fragment">Analyze the differences $d_i$, not the two original columns separately.</li>
-  <li class="fragment">For small samples, the distribution of differences should be approximately normal.</li>
+  <li class="fragment">The pairs should come from a random sample or randomized experiment.</li>
+  <li class="fragment">If sampling without replacement, the number of pairs should not exceed $10\%$ of the population.</li>
+  <li class="fragment">For a small sample, the distribution of the differences should be approximately normal.</li>
 </ul>
 :::
 ::::

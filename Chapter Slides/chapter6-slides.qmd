@@ -2193,12 +2193,22 @@ Comparing two population proportions from independent samples, with enough succe
 :::
 
 ::: {.card .fragment}
-<span class="label">Large-count condition</span>
-<ul class="assumption-list">
-  <li class="fragment">Check successes and failures in <em>each</em> group.</li>
-  <li class="fragment">At least 10 successes: $x_i \ge 10$.</li>
-  <li class="fragment">At least 10 failures: $n_i - x_i \ge 10$.</li>
-</ul>
+<span class="label">Large-count condition under $H_0$</span>
+
+For testing $H_0:p_1=p_2$, first calculate the pooled proportion:
+
+$$
+\hat p=\frac{x_1+x_2}{n_1+n_2}.
+$$
+
+Then check the expected successes and failures in both groups:
+
+$$
+n_i\hat p\ge 10
+\qquad\text{and}\qquad
+n_i(1-\hat p)\ge 10,
+\qquad i=1,2.
+$$
 :::
 ::::
 

@@ -493,12 +493,16 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(resizePlotlyOnSlides, 250);
   setTimeout(resizePlotlyOnSlides, 750);
   setTimeout(resizePlotlyOnSlides, 1500);
-  if (window.Reveal) {
-    Reveal.on("ready", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("slidechanged", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("fragmentshown", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("fragmenthidden", function () { setTimeout(resizePlotlyOnSlides, 300); });
-  }
+  (function bindRevealResize() {
+    if (window.Reveal && typeof window.Reveal.on === "function") {
+      Reveal.on("ready", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("slidechanged", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("fragmentshown", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("fragmenthidden", function () { setTimeout(resizePlotlyOnSlides, 300); });
+    } else {
+      window.setTimeout(bindRevealResize, 200);
+    }
+  })();
   window.addEventListener("resize", resizePlotlyOnSlides);
 });
 </script>

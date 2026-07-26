@@ -3764,6 +3764,66 @@ confint(comp, calpha = qt(1 - 0.05 / (2 * m), df))
 :::: {.callout-note icon="false"}
 ## Question
 
+In a one-way ANOVA comparing $k=3$ group means, what is the null hypothesis $H_0$?
+::::
+
+- [$\mu_1=\mu_2=\mu_3$]{.correct data-explanation="Correct. ANOVA tests whether all group means are equal; H0 states there is no difference among them."}
+- $\mu_1 \ne \mu_2 \ne \mu_3$
+- At least one $\mu_i$ differs from the others
+- $\sigma_1^2=\sigma_2^2=\sigma_3^2$
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+The one-way ANOVA $F$-statistic is computed as which ratio?
+::::
+
+- [Mean square between groups $\div$ mean square within groups]{.correct data-explanation="Correct. $F=\text{MST}/\text{MSE}$: the between-group mean square over the within-group mean square. A large F means between-group variation dominates."}
+- Mean square within groups $\div$ mean square between groups
+- Sum of squares between $\div$ sum of squares total
+- Mean square error $\div$ total sum of squares
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Which of the following is **not** a standard assumption of one-way ANOVA?
+::::
+
+- [The groups must all have equal sample sizes]{.correct data-explanation="Correct. Equal sample sizes are convenient but not required. The assumptions are independent observations, normality within each group, and equal population variances."}
+- The observations are independent
+- The response is approximately normal within each group
+- The groups have equal population variances
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A one-way ANOVA returns a large $F$-statistic and a small p-value. What can you conclude?
+::::
+
+- [At least one group mean differs from the others]{.correct data-explanation="Correct. A significant ANOVA rejects H0, showing at least one mean differs — but not which one. Post-hoc comparisons (e.g. Fisher's LSD) are needed to locate the differences."}
+- All of the group means are equal
+- Exactly one group mean differs from the rest
+- The group variances are unequal
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
 A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
 ::::
 

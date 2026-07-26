@@ -769,6 +769,8 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
   font-size: 0.72em;
 }
 .reveal .tbl-center th, .reveal .tbl-center td { padding: 9px 24px; }
+.reveal .tbl-compact table { font-size: 0.52em; }
+.reveal .tbl-compact th, .reveal .tbl-compact td { padding: 5px 14px; }
 .power-lab { display: grid; grid-template-columns: 0.52fr 1.48fr; gap: 24px; align-items: start; margin-top: 34px; }
 .reveal .power-lab form { font-size: 0.62em; max-width: 100%; margin-bottom: 14px; }
 .reveal .power-lab form label { font-weight: 600; }
@@ -2083,7 +2085,7 @@ $$\hat p^{\,*}=p_0 \mathbin{\substack{+\\[-4pt]-}} z_\alpha\sqrt{\tfrac{p_0(1-p_
 ::: {.stat-card .fragment}
 <span class="label">Which sign on $z_\alpha$?</span>
 
-::: {.tbl-center}
+::: {.tbl-center .tbl-compact}
 | Test | Cutoff $\hat p^{\,*}$ | Reject when |
 |---|---|---|
 | $H_a:p<p_0$ | $p_0-z_\alpha\sqrt{p_0(1-p_0)/n}$ | $\hat p<\hat p^{\,*}$ |

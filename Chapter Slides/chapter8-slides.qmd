@@ -64,7 +64,7 @@ plot_cols <- list(
   white       = "#ffffff"
 )
 
-plotly_anova_layout <- function(
+plotly_slide_layout <- function(
   p,
   title = NULL,
   x_title = NULL,
@@ -2050,7 +2050,7 @@ plot_ly() |>
     hovertemplate = "System: %{x}<br>Mean wait time: %{y:.2f} minutes<extra></extra>",
     showlegend = FALSE
   ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Pickup wait times by ordering system",
     x_title = "Ordering system",
     y_title = "Wait time (minutes)",
@@ -2283,7 +2283,7 @@ plot_ly() |>
     ),
     showlegend = FALSE
   ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Calories burned by gym class type",
     x_title = "Gym class type",
     y_title = "Calories burned",
@@ -2853,7 +2853,7 @@ plot_ly(
   customdata = ~cbind(lower, upper),
   showlegend = FALSE
 ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Fisher LSD intervals for pairwise mean differences",
     x_title = "Pairwise comparison",
     y_title = "Mean difference in accuracy score",
@@ -3247,7 +3247,7 @@ plot_ly(
   customdata = ~cbind(lower, upper),
   showlegend = FALSE
 ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Fisher LSD intervals for pairwise mean repair-cost differences",
     x_title = "Pairwise comparison",
     y_title = "Mean repair-cost difference ($)",

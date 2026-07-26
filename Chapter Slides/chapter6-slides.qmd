@@ -1513,48 +1513,46 @@ The output gives $t=2.682$, $df=11$, and p-value $0.0107$. At $\alpha=0.05$, rej
 
 ---
 
-## 6.2.3 Hypothesis Tests on a Proportion
+## 6.2.3 Hypothesis Tests on a Proportion {.compact}
 
-::: {.defbox}
-For testing $H_0:p=p_0$, use the test statistic
+::: {.defbox style="padding: 0.65rem 0.9rem; margin-bottom: 0.55rem;"}
+For testing $H_0:p=p_0$, use
 
 $$
-z^*=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}}
+z^*=\frac{\hat p-p_0}{\sqrt{p_0(1-p_0)/n}},
 $$
 
-which, under $H_0$, follows the standard normal reference distribution $Z\sim N(0,1)$.
+which follows the standard Normal reference distribution under $H_0$.
 :::
 
-:::: {.four-grid}
-::: {.notebox .fragment}
-<span class="label">Reference distribution</span>
+:::: {.two-col style="gap: 0.75rem;"}
+::: {.notebox .fragment style="padding: 0.7rem 0.9rem;"}
+<span class="label">Reference Distribution</span>
 
-$z^*\sim N(0,1)$.
-:::
+$$
+z^*\sim N(0,1)
+$$
 
-::: {.notebox .fragment}
-<span class="label">Use the null value</span>
+<span class="label">Use the Null Value</span>
 
 The standard error uses $p_0$, not $\hat p$.
 :::
 
-::: {.warnbox .fragment}
-<span class="label">Sampling conditions</span>
+::: {.warnbox .fragment style="padding: 0.7rem 0.9rem;"}
+<span class="label">Required Conditions</span>
 
 - Use a random sample or randomized design.
 - Observations should be independent.
-- When sampling without replacement, the sample should not exceed $10\%$ of the population.
-:::
+- When sampling without replacement, ensure $n\leq 0.10N$.
 
-::: {.warnbox .fragment}
-<span class="label">Large-count condition</span>
+<span class="label">Large-Count Condition</span>
 
 Under $H_0$, check
 
 $$
-np_0\ge 10
+np_0\geq 10
 \qquad\text{and}\qquad
-n(1-p_0)\ge 10.
+n(1-p_0)\geq 10.
 $$
 :::
 ::::

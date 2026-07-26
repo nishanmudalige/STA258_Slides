@@ -1994,7 +1994,7 @@ The ANOVA test tells us that at least one system has a different mean. It does *
 
 ---
 
-## Visual: Campus Café Pickup Systems
+## Visual: Campus Café Pickup Systems {.compact}
 
 ```{r}
 #| echo: false
@@ -2051,7 +2051,7 @@ plot_ly() |>
     title = "Pickup wait times by ordering system",
     x_title = "Ordering system",
     y_title = "Wait time (minutes)",
-    height = 390,
+    height = 360,
     margin = list(l = 76, r = 25, t = 60, b = 70)
   ) |>
   layout(
@@ -2209,7 +2209,7 @@ The ANOVA test tells us that at least one class type has a different mean. It do
 
 ---
 
-## Visual: Gym Class Types
+## Visual: Gym Class Types {.compact}
 
 ```{r}
 #| echo: false
@@ -2284,7 +2284,7 @@ plot_ly() |>
     title = "Calories burned by gym class type",
     x_title = "Gym class type",
     y_title = "Calories burned",
-    height = 390,
+    height = 360,
     margin = list(
       l = 76,
       r = 25,
@@ -2792,7 +2792,7 @@ However, **Target serve** and **Match-play serve** are not clearly different fro
 
 ---
 
-## Visual: Fisher LSD Pairwise Intervals
+## Visual: Fisher LSD Pairwise Intervals {.compact}
 
 ```{r}
 #| echo: false
@@ -2854,7 +2854,7 @@ plot_ly(
     title = "Fisher LSD intervals for pairwise mean differences",
     x_title = "Pairwise comparison",
     y_title = "Mean difference in accuracy score",
-    height = 350,
+    height = 332,
     margin = list(
       l = 78,
       r = 20,
@@ -3183,7 +3183,7 @@ $$
 
 ---
 
-## Visual: Phone Case Fisher LSD Pairwise Intervals
+## Visual: Phone Case Fisher LSD Pairwise Intervals {.compact}
 
 ```{r}
 #| echo: false
@@ -3248,7 +3248,7 @@ plot_ly(
     title = "Fisher LSD intervals for pairwise mean repair-cost differences",
     x_title = "Pairwise comparison",
     y_title = "Mean repair-cost difference ($)",
-    height = 350,
+    height = 332,
     margin = list(l = 78, r = 20, t = 54, b = 82)
   ) |>
   layout(

@@ -2731,23 +2731,16 @@ users.
 }
 </style>
 
-::: {.thinkbox style="font-size: 0.58em; line-height: 1.14; padding: 9px 13px; margin-bottom: 7px;"}
+::: {.thinkbox style="font-size: 0.49em; line-height: 1.10; padding: 7px 12px; margin-bottom: 7px;"}
 <span class="label">Why the R output may differ</span>
 
-For hand calculations in this course, use the conservative degrees of
-freedom
+**By hand:** Use the conservative value
+$df=\min(n_1-1,\;n_2-1)$. The longer Welch degrees-of-freedom calculation
+is not required in this course.
 
-$$
-df=\min(n_1-1,\;n_2-1),
-$$
-
-unless told otherwise. We are not testing your ability to carry out the
-lengthy Welch degrees-of-freedom calculation by hand.
-
-R's `t.test(..., var.equal = FALSE)` uses the more accurate
-**Welch–Satterthwaite approximation**. Therefore, the degrees of freedom,
-critical value, and confidence-interval endpoints produced by R may differ
-slightly from the hand calculation. This difference is expected.
+**In R:** `t.test(..., var.equal = FALSE)` uses the more accurate
+Welch–Satterthwaite approximation, so the degrees of freedom and interval
+endpoints may differ slightly. **This is expected.**
 :::
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}

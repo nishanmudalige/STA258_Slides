@@ -4056,30 +4056,29 @@ margin of error too large.
 
 ------------------------------------------------------------------------
 
-## Example: Online Store Waitlist Survey
+## Example: Online Entry-Form Completion Time
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-An online store is planning a limited product release for customers on a
-waitlist.
+A university is testing a new online entry form and wants to estimate the
+population mean time required to complete it.
 
-Before the release, the company wants to estimate the proportion of
-waitlist users who plan to make a purchase when it goes live.
-
-A previous customer survey suggests a planning value of:
+From extensive historical system data, the population standard deviation
+of completion times is treated as known:
 
 $$
-p_0=0.156
+\sigma=24\text{ seconds}
 $$
 
-The company wants the margin of error to be at most:
+The university wants a 95% confidence interval with margin of error no
+more than:
 
 $$
-E=0.03
+E=5\text{ seconds}
 $$
 
-Find the required sample size for 95% and 99% confidence.
+Find the required sample size.
 :::
 
 ::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
@@ -4088,58 +4087,47 @@ Find the required sample size for 95% and 99% confidence.
 $$
 n=
 \left(
-\frac{z^*}{E}
+\frac{z^*\sigma}{E}
 \right)^2
-p_0(1-p_0)
 $$
 
 $$
-p_0=0.156,
+z^*=1.96,
 \qquad
-1-p_0=0.844,
+\sigma=24,
 \qquad
-E=0.03
+E=5
 $$
 
 $$
-n_{95}=
+n=
 \left(
-\frac{1.96}{0.03}
+\frac{1.96(24)}{5}
 \right)^2
-(0.156)(0.844)
-=
-562.0005
-\Rightarrow
-563
 $$
 
 $$
-n_{99}=
-\left(
-\frac{2.576}{0.03}
-\right)^2
-(0.156)(0.844)
-=
-970.7698
-\Rightarrow
-971
+n=88.5105
+$$
+
+$$
+n=89
 $$
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a confidence interval for the population
-proportion of waitlist users who plan to make a purchase.
+Find the sample size needed for a 95% confidence interval for the
+population mean online entry-form completion time.
 
-The margin of error should be no more than **3 percentage points**.
+The margin of error should be no more than **5 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The company should survey at least **563 waitlist users** for 95%
-confidence and **971 waitlist users** for 99% confidence. Higher
-confidence requires a larger sample size when the margin of error stays
-fixed.
+The university should observe at least **89 form completions** to estimate
+the population mean completion time within **5 seconds** at 95%
+confidence.
 :::
 
 ::::

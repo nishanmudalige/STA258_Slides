@@ -311,6 +311,23 @@ plotly_slide_layout <- function(
 .reveal section.compact p,
 .reveal section.compact li { font-size: 0.72em; }
 
+/* Per-slide fits: shrink dense slides so nothing clips the footer */
+.reveal section.anova-table-slide .defbox,
+.reveal section.anova-table-slide .examplebox,
+.reveal section.anova-table-slide .thinkbox,
+.reveal section.anova-table-slide .stat-card { font-size: 0.66em !important; padding: 10px 13px !important; }
+.reveal section.fisher-idea .defbox,
+.reveal section.fisher-idea .examplebox,
+.reveal section.fisher-idea .thinkbox,
+.reveal section.fisher-idea .stat-card { font-size: 0.64em !important; padding: 10px 13px !important; }
+/* Per-slide enlargements the user asked for */
+.reveal section.anova-prediction .defbox,
+.reveal section.anova-prediction .examplebox,
+.reveal section.anova-prediction .thinkbox { font-size: 0.82em !important; }
+.reveal section.anova-rejects .defbox,
+.reveal section.anova-rejects .examplebox,
+.reveal section.anova-rejects .thinkbox,
+.reveal section.anova-rejects .stat-card { font-size: 0.8em !important; padding: 11px 14px !important; }
 
 .reveal section.quiz-question {
   display: flex !important;

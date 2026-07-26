@@ -2505,7 +2505,44 @@ Use paired differences $d_i=\text{after}_i-\text{before}_i$ and test $H_0:\mu_d=
 
 ---
 
-## Pomodoro: Difference Table {.compact-table}
+## Pomodoro: Difference Table {.compact-table .pomodoro-paired}
+
+<style>
+.reveal section.pomodoro-paired .intro-note {
+  font-size: 0.60em;
+  line-height: 1.14;
+  padding: 9px 13px;
+  margin-bottom: 7px;
+}
+
+.reveal section.pomodoro-paired table {
+  font-size: 0.57em;
+  line-height: 1.04;
+}
+
+.reveal section.pomodoro-paired th,
+.reveal section.pomodoro-paired td {
+  padding: 3px 7px;
+}
+
+.reveal section.pomodoro-paired .paired-calc {
+  font-size: 0.60em;
+  line-height: 1.11;
+  padding: 11px 14px;
+  margin-bottom: 8px;
+}
+
+.reveal section.pomodoro-paired .paired-result {
+  font-size: 0.60em;
+  line-height: 1.16;
+  padding: 10px 14px;
+  margin-bottom: 0;
+}
+
+.reveal section.pomodoro-paired mjx-container[display="true"] {
+  margin: 0.18em 0 !important;
+}
+</style>
 
 ::: {.intro-note}
 Reduce each pair ($M_1$ = before, $M_2$ = after) to $d_i = M_2 - M_1$, then analyze the 12 differences as one sample.
@@ -2530,15 +2567,41 @@ Reduce each pair ($M_1$ = before, $M_2$ = after) to $d_i = M_2 - M_1$, then anal
 :::
 
 ::: {.col}
-::: {.defbox}
-<span class="label">Mean difference</span>
-$$\bar d = \frac{\sum d_i}{n} = \frac{18}{12} = 1.5$$
+::: {.defbox .paired-calc}
+<span class="label">Mean and SD of the differences</span>
 
-<span class="label">SD of differences</span>
-$$s_d = \sqrt{\frac{\sum (d_i-\bar d)^2}{n-1}} = \sqrt{\frac{39}{11}} = 1.88$$
+$$
+\bar d=\frac{18}{12}=1.5,
+\qquad
+s_d=\sqrt{\frac{39}{11}}=1.88
+$$
 
 <span class="label">Test statistic</span>
-$$t^* = \frac{\bar d}{s_d/\sqrt n} = \frac{1.5}{1.88/\sqrt{12}} = 2.76$$
+
+$$
+t^*
+=
+\frac{\bar d-0}{s_d/\sqrt n}
+=
+\frac{1.5}{1.88/\sqrt{12}}
+=
+2.76,
+\qquad df=11
+$$
+
+<span class="label">p-value</span>
+
+$$
+P(T_{11}\ge 2.76)\approx 0.0093
+$$
+:::
+
+::: {.thinkbox .fragment .paired-result}
+<span class="label">Decision and conclusion</span>
+
+Since $0.0093\le 0.05$, reject $H_0$.
+
+There is evidence that the students' mean score is higher after the week of Pomodoro study than before.
 :::
 :::
 ::::

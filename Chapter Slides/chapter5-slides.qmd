@@ -520,11 +520,12 @@ Intervals for a **variance** $\sigma^2$ follow their own skeleton — an asymmet
 
 $$
 \left(
-\frac{\text{estimate}}{\text{upper critical value}},\
-\frac{\text{estimate}}{\text{lower critical value}}
+\frac{(n-1)s^2}{\text{upper critical value}},\
+\frac{(n-1)s^2}{\text{lower critical value}}
 \right)
-\quad\text{where estimate} = (n-1)s^2
 $$
+
+Here, $s^2$ is the point estimate of $\sigma^2$, while $(n-1)s^2$ is the scaled sample variance used in the interval formula.
 :::
 
 :::: {.three-col}

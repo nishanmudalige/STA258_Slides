@@ -2525,38 +2525,32 @@ not be studied further in this chapter.
 
 ## Recall: The Gamma Distribution
 
-::: {.defbox .fragment}
+::: {.defbox .fragment style="font-size:0.64em; line-height:1.18; padding:12px 15px;"}
 **Gamma Distribution**
 
-A random variable $X$ follows a Gamma distribution with shape parameter
-$\alpha>0$ and scale parameter $\beta>0$, written
+A random variable $X$ follows a Gamma distribution with shape
+$\alpha>0$ and scale $\beta>0$, written
 
 $$
 X\sim\operatorname{Gamma}(\alpha,\beta),
-$$
-
-if its probability density function is
-
-$$
+\qquad
 f_X(x;\alpha,\beta)
 =
-\frac{1}{\Gamma(\alpha)\beta^\alpha}
-x^{\alpha-1}e^{-x/\beta},
-\qquad x>0,
+\frac{x^{\alpha-1}e^{-x/\beta}}
+{\Gamma(\alpha)\beta^\alpha},
+\quad x>0.
 $$
 
-where
+The Gamma function is
 
 $$
 \Gamma(\alpha)
 =
-\int_0^\infty t^{\alpha-1}e^{-t}\,dt
+\int_0^\infty t^{\alpha-1}e^{-t}\,dt.
 $$
-
-is the Gamma function.
 :::
 
-::: {.examplebox .fragment}
+::: {.examplebox .fragment style="font-size:0.64em; line-height:1.18; padding:11px 15px;"}
 **Why do we recall Gamma?**
 
 The chi-square distribution is the special case
@@ -2575,40 +2569,34 @@ the Gamma distribution further in this chapter.
 
 ## 4.1.2 The Chi-Square Distribution
 
-::: defbox
-**Chi-Square Random Variable** - $X \sim \chi^2_k$
+::: {.defbox .fragment style="font-size:0.64em; line-height:1.18; padding:12px 15px;"}
+**Chi-Square Random Variable** — $X\sim\chi_k^2$
 
 If
 
 $$
 Z_1,Z_2,\ldots,Z_k
-\overset{\text{iid}}{\sim}
-N(0,1),
+\overset{\text{iid}}{\sim}N(0,1),
+\qquad
+X=\sum_{i=1}^{k}Z_i^2,
 $$
 
-then
+then $X\sim\chi_k^2$.
 
-$$
-X
-=
-\sum_{i=1}^{k}Z_i^2
-\sim
-\chi_k^2.
-$$
-
-The probability density function for $x>0$ is
+Its probability density function is
 
 $$
 f(x;k)
 =
-\frac{1}{2^{k/2}\Gamma(k/2)}
-x^{k/2-1}e^{-x/2}.
+\frac{x^{k/2-1}e^{-x/2}}
+{2^{k/2}\Gamma(k/2)},
+\qquad x>0.
 $$
 :::
 
-::: {.examplebox .fragment}
-The distribution is **right-skewed** and takes non-negative values. As
-$k$ increases, it becomes more symmetric.
+::: {.examplebox .fragment style="font-size:0.64em; line-height:1.18; padding:11px 15px;"}
+The chi-square distribution takes non-negative values and is
+right-skewed. As $k$ increases, it becomes more symmetric.
 
 $$
 E[X]=k,

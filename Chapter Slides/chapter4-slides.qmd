@@ -4398,21 +4398,59 @@ abline(h = p, lty = 2, col = "black")
 #| autorun: false
 
 set.seed(258)
-n  <- 200; p <- 0.5
-cols <- rainbow(8)
 
-# First path
-x <- rbinom(n,1,p); trial <- 1:n
-plot(trial, cumsum(x)/trial, type="l", col=cols[1],
-     ylim=c(0,1), xlab="n", ylab="Running mean",
-     main="WLLN: 8 independent paths")
+n <- 500
+p <- 0.5
+num_paths <- 8
+trial <- seq_len(n)
 
-# Remaining paths
-for(i in 2:8){
-  x <- rbinom(n,1,p)
-  lines(trial, cumsum(x)/trial, col=cols[i])
+path_colours <- grDevices::hcl.colors(
+  num_paths,
+  palette = "Dark 3"
+)
+
+x <- rbinom(n, size = 1, prob = p)
+running_mean <- cumsum(x) / trial
+
+plot(
+  trial,
+  running_mean,
+  type = "l",
+  col = path_colours[1],
+  lwd = 1.5,
+  ylim = c(0, 1),
+  xlab = "Number of Bernoulli trials",
+  ylab = "Running sample mean",
+  main = "WLLN: eight independent sample paths"
+)
+
+for (i in 2:num_paths) {
+  x <- rbinom(n, size = 1, prob = p)
+  running_mean <- cumsum(x) / trial
+
+  lines(
+    trial,
+    running_mean,
+    col = path_colours[i],
+    lwd = 1.5
+  )
 }
-abline(h=p, lty=2, lwd=2, col="black")
+
+abline(
+  h = p,
+  col = "#f9a825",
+  lty = 2,
+  lwd = 2.5
+)
+
+legend(
+  "topright",
+  legend = "Population mean = 0.5",
+  col = "#f9a825",
+  lty = 2,
+  lwd = 2.5,
+  bty = "n"
+)
 ```
 
 ------------------------------------------------------------------------

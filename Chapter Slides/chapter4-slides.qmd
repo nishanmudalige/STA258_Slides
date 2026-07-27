@@ -2801,9 +2801,11 @@ plotly_slide_layout(
 ```
 
 ::: {.thinkbox .fragment}
-**Why does this matter?** When estimating a mean from a small sample
-with unknown $\sigma$, we use $t$ critical values - they are larger than
-$z$ values, reflecting extra uncertainty.
+**Why does this matter?** When estimating a population mean with unknown
+$\sigma$, we use the sample standard deviation $S$ in its place. This
+additional uncertainty is reflected by the heavier tails and larger
+critical values of the $t$-distribution, especially when the degrees of
+freedom are small.
 :::
 
 ------------------------------------------------------------------------

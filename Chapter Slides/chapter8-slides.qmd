@@ -25,9 +25,6 @@ webr:
     - multcomp
 live:
   show-solutions: true
-editor:
-  markdown:
-    wrap: 72
 ---
 
 ```{r setup}
@@ -64,7 +61,7 @@ plot_cols <- list(
   white       = "#ffffff"
 )
 
-plotly_anova_layout <- function(
+plotly_slide_layout <- function(
   p,
   title = NULL,
   x_title = NULL,
@@ -103,7 +100,7 @@ plotly_anova_layout <- function(
       displaylogo = FALSE,
       scrollZoom = FALSE,
       doubleClick = FALSE,
-      responsive = FALSE
+      responsive = TRUE
     )
 }
 ```
@@ -148,21 +145,21 @@ plotly_anova_layout <- function(
 .reveal h1 { font-size: 1.72em !important; }
 
 .reveal h2 {
-  font-size: 1.50em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
 
 .reveal h3 {
-  font-size: 1.08em !important;
+  font-size: 1.1em !important;
   margin-bottom: 0.2em;
 }
 
 .reveal p,
 .reveal li {
-  font-size: 0.76em;
-  line-height: 1.30;
+  font-size: 0.78em;
+  line-height: 1.35;
 }
 
 .title-slide { text-align: center !important; }
@@ -197,9 +194,9 @@ plotly_anova_layout <- function(
 .notebox,
 .mini-card,
 .stat-card {
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-radius: 10px;
-  font-size: 0.72em;
+  font-size: 0.74em;
   line-height: 1.24;
   box-sizing: border-box;
   margin-bottom: 8px;
@@ -272,16 +269,18 @@ plotly_anova_layout <- function(
 }
 
 .reveal table {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
+  margin: 6px auto;
   border-collapse: collapse;
-  border: 1.1px solid var(--sta-border);
-  font-size: 0.63em;
+  border: 1px solid var(--sta-border);
+  font-size: 0.67em;
 }
 
 .reveal th,
 .reveal td {
-  border: 1.1px solid var(--sta-border);
-  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
   vertical-align: top;
 }
 
@@ -308,9 +307,34 @@ plotly_anova_layout <- function(
   padding: 1px 4px;
 }
 
-.reveal section.compact h2 { font-size: 1.15em !important; }
+.reveal section.compact h2 { font-size: 1.1em !important; }
 .reveal section.compact p,
 .reveal section.compact li { font-size: 0.72em; }
+
+/* Per-slide fits: shrink dense slides so nothing clips the footer */
+.reveal section.anova-table-slide .defbox,
+.reveal section.anova-table-slide .examplebox,
+.reveal section.anova-table-slide .thinkbox,
+.reveal section.anova-table-slide .stat-card { font-size: 0.58em !important; padding: 9px 12px !important; }
+.reveal section.anova-table-slide table { font-size: 0.6em; }
+.reveal section.fisher-idea .defbox,
+.reveal section.fisher-idea .examplebox,
+.reveal section.fisher-idea .thinkbox,
+.reveal section.fisher-idea .stat-card { font-size: 0.61em !important; padding: 9px 12px !important; }
+/* Per-slide enlargements the user asked for */
+.reveal section.anova-prediction .defbox,
+.reveal section.anova-prediction .thinkbox { font-size: 0.62em !important; }
+.reveal section.anova-prediction .stat-card { font-size: 0.56em !important; }
+/* 8.2 Sources of Variation: bring its boxes in line with the other section slides */
+.reveal section.sources-var .defbox,
+.reveal section.sources-var .stat-card,
+.reveal section.sources-var .thinkbox { font-size: 0.64em !important; padding: 12px 15px !important; }
+/* Slide 5 data layout: table can be larger, there is room */
+.reveal section.data-notation table { font-size: 0.88em; }
+.reveal section.anova-rejects .defbox,
+.reveal section.anova-rejects .examplebox,
+.reveal section.anova-rejects .thinkbox,
+.reveal section.anova-rejects .stat-card { font-size: 0.8em !important; padding: 11px 14px !important; }
 
 .reveal section.quiz-question {
   display: flex !important;
@@ -408,16 +432,16 @@ plotly_anova_layout <- function(
 .reveal section.compact-r .cm-line span,
 .reveal section.compact-r pre,
 .reveal section.compact-r code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.9em !important;
+  line-height: 1.2 !important;
   font-weight: 400 !important;
   text-shadow: none !important;
 }
 
 .reveal section.compact-r .cm-gutters,
 .reveal section.compact-r .cm-gutterElement {
-  font-size: 0.78em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.2 !important;
   font-weight: 400 !important;
   text-shadow: none !important;
 }
@@ -497,12 +521,16 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(resizePlotlyOnSlides, 250);
   setTimeout(resizePlotlyOnSlides, 750);
   setTimeout(resizePlotlyOnSlides, 1500);
-  if (window.Reveal) {
-    Reveal.on("ready", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("slidechanged", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("fragmentshown", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("fragmenthidden", function () { setTimeout(resizePlotlyOnSlides, 300); });
-  }
+  (function bindRevealResize() {
+    if (window.Reveal && typeof window.Reveal.on === "function") {
+      Reveal.on("ready", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("slidechanged", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("fragmentshown", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("fragmenthidden", function () { setTimeout(resizePlotlyOnSlides, 300); });
+    } else {
+      window.setTimeout(bindRevealResize, 200);
+    }
+  })();
   window.addEventListener("resize", resizePlotlyOnSlides);
 });
 </script>
@@ -919,7 +947,7 @@ If this improvement is large compared with the within-group error, the ANOVA \(F
 
 ---
 
-## 8.2 Sources of Variation
+## 8.2 Sources of Variation {.compact .sources-var}
 
 ::: {.defbox}
 ANOVA works by splitting variation into two pieces: variation **within** groups and variation **between** groups.
@@ -1089,6 +1117,21 @@ The p-value is the right-tail area.
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+The one-way ANOVA $F$-statistic is computed as which ratio?
+::::
+
+- [Mean square between groups $\div$ mean square within groups]{.correct data-explanation="Correct. $F=\text{MST}/\text{MSE}$: the between-group mean square over the within-group mean square. A large F means between-group variation dominates."}
+- Mean square within groups $\div$ mean square between groups
+- Sum of squares between $\div$ sum of squares total
+- Mean square error $\div$ total sum of squares
+
+---
+
 ## ANOVA Hypothesis Test {.compact .anova-hyp-test}
 
 :::: {.anova-test-grid style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
@@ -1163,6 +1206,21 @@ Large $F^*$ values give evidence that the group means differ more than expected 
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+In a one-way ANOVA comparing $k=3$ group means, what is the null hypothesis $H_0$?
+::::
+
+- [$\mu_1=\mu_2=\mu_3$]{.correct data-explanation="Correct. ANOVA tests whether all group means are equal; H0 states there is no difference among them."}
+- $\mu_1 \ne \mu_2 \ne \mu_3$
+- At least one $\mu_i$ differs from the others
+- $\sigma_1^2=\sigma_2^2=\sigma_3^2$
+
+---
+
 ## 8.4 Assumptions of ANOVA {.compact .anova-assumptions}
 
 :::: {.assumptions-flow style="display:grid; grid-template-rows: auto auto; gap: 14px; align-items: stretch;"}
@@ -1198,6 +1256,21 @@ $$
 :::
 
 ::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Which of the following is **not** a standard assumption of one-way ANOVA?
+::::
+
+- [The groups must all have equal sample sizes]{.correct data-explanation="Correct. Equal sample sizes are convenient but not required. The assumptions are independent observations, normality within each group, and equal population variances."}
+- The observations are independent
+- The response is approximately normal within each group
+- The groups have equal population variances
 
 ---
 
@@ -1866,7 +1939,7 @@ fig |>
     displaylogo = FALSE,
     scrollZoom = FALSE,
     doubleClick = FALSE,
-    responsive = FALSE
+    responsive = TRUE
   )
 ```
 
@@ -1998,7 +2071,7 @@ The ANOVA test tells us that at least one system has a different mean. It does *
 
 ---
 
-## Visual: Campus Café Pickup Systems
+## Visual: Campus Café Pickup Systems {.compact}
 
 ```{r}
 #| echo: false
@@ -2051,11 +2124,11 @@ plot_ly() |>
     hovertemplate = "System: %{x}<br>Mean wait time: %{y:.2f} minutes<extra></extra>",
     showlegend = FALSE
   ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Pickup wait times by ordering system",
     x_title = "Ordering system",
     y_title = "Wait time (minutes)",
-    height = 390,
+    height = 360,
     margin = list(l = 76, r = 25, t = 60, b = 70)
   ) |>
   layout(
@@ -2213,7 +2286,7 @@ The ANOVA test tells us that at least one class type has a different mean. It do
 
 ---
 
-## Visual: Gym Class Types
+## Visual: Gym Class Types {.compact}
 
 ```{r}
 #| echo: false
@@ -2284,11 +2357,11 @@ plot_ly() |>
     ),
     showlegend = FALSE
   ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Calories burned by gym class type",
     x_title = "Gym class type",
     y_title = "Calories burned",
-    height = 390,
+    height = 360,
     margin = list(
       l = 76,
       r = 25,
@@ -2435,6 +2508,21 @@ Use pairwise confidence intervals to compare specific group means: first **Fishe
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A one-way ANOVA returns a large $F$-statistic and a small p-value. What can you conclude?
+::::
+
+- [At least one group mean differs from the others]{.correct data-explanation="Correct. A significant ANOVA rejects H0, showing at least one mean differs — but not which one. Post-hoc comparisons (e.g. Fisher's LSD) are needed to locate the differences."}
+- All of the group means are equal
+- Exactly one group mean differs from the rest
+- The group variances are unequal
+
+---
+
 ## 8.5 Pairwise Confidence Intervals {.compact .pairwise-ci}
 
 :::: {.pairwise-ci-flow style="display:grid; grid-template-rows: auto 1fr; gap: 14px; align-items: stretch;"}
@@ -2513,6 +2601,21 @@ $$
 ::::
 
 ::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
+::::
+
+- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
+- 16
+- 8
+- 3
 
 ---
 
@@ -2796,7 +2899,7 @@ However, **Target serve** and **Match-play serve** are not clearly different fro
 
 ---
 
-## Visual: Fisher LSD Pairwise Intervals
+## Visual: Fisher LSD Pairwise Intervals {.compact}
 
 ```{r}
 #| echo: false
@@ -2854,11 +2957,11 @@ plot_ly(
   customdata = ~cbind(lower, upper),
   showlegend = FALSE
 ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Fisher LSD intervals for pairwise mean differences",
     x_title = "Pairwise comparison",
     y_title = "Mean difference in accuracy score",
-    height = 350,
+    height = 332,
     margin = list(
       l = 78,
       r = 20,
@@ -3187,7 +3290,7 @@ $$
 
 ---
 
-## Visual: Phone Case Fisher LSD Pairwise Intervals
+## Visual: Phone Case Fisher LSD Pairwise Intervals {.compact}
 
 ```{r}
 #| echo: false
@@ -3248,11 +3351,11 @@ plot_ly(
   customdata = ~cbind(lower, upper),
   showlegend = FALSE
 ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Fisher LSD intervals for pairwise mean repair-cost differences",
     x_title = "Pairwise comparison",
     y_title = "Mean repair-cost difference ($)",
-    height = 350,
+    height = 332,
     margin = list(l = 78, r = 20, t = 54, b = 82)
   ) |>
   layout(
@@ -3760,21 +3863,6 @@ confint(comp, calpha = qt(1 - 0.05 / (2 * m), df))
 :::
 
 ::::
-
----
-
-##  {.quiz-question}
-
-:::: {.callout-note icon="false"}
-## Question
-
-A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
-::::
-
-- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
-- 16
-- 8
-- 3
 
 ---
 

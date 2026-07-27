@@ -31,6 +31,14 @@ live:
 
 ```{r setup}
 #| include: false
+
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  ggplot2, dplyr, plotly
+#   WebR (in-browser cells):         ggplot2, dplyr, plotly
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
 library(ggplot2)
 library(dplyr)
 library(plotly)
@@ -97,11 +105,11 @@ plotly_slide_layout <- function(
       plot_bgcolor = "white"
     ) |>
     config(
-      displayModeBar = TRUE,
+      displayModeBar = FALSE,
       displaylogo = FALSE,
+      responsive = TRUE,
       scrollZoom = FALSE,
-      doubleClick = "reset",
-      modeBarButtonsToRemove = c("lasso2d", "select2d")
+      doubleClick = FALSE
     )
 }
 ```
@@ -128,32 +136,32 @@ plotly_slide_layout <- function(
 .reveal h1, .reveal h2, .reveal h3 { color: var(--sta-text); line-height: 1.1; }
 .reveal h1 { font-size: 1.72em !important; }
 .reveal h2 {
-  font-size: 1.52em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
 .reveal h3 { font-size: 1.05em !important; margin-bottom: 0.2em; }
-.reveal p, .reveal li { font-size: 0.76em; line-height: 1.32; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
 .title-slide { text-align: center !important; }
 .title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
 .two-col, .two-col-lean, .two-col-wide, .three-col, .four-grid, .exercise-grid {
   display: grid;
-  gap: 24px;
+  gap: 28px;
   align-items: start;
 }
 .two-col { grid-template-columns: 1fr 1fr; }
-.two-col-lean { grid-template-columns: 0.9fr 1.1fr; }
-.two-col-wide { grid-template-columns: 1.12fr 0.88fr; }
+.two-col-lean { grid-template-columns: 0.95fr 1.05fr; }
+.two-col-wide { grid-template-columns: 1.08fr 0.92fr; }
 .three-col { grid-template-columns: repeat(3, 1fr); }
 .four-grid { grid-template-columns: repeat(2, 1fr); }
-.exercise-grid { grid-template-columns: 360px 1fr; gap: 24px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col { min-width: 0; }
 .defbox, .examplebox, .thinkbox, .card, .warnbox, .taskbox, .notebox, .mini-card, .stat-card {
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-radius: 10px;
-  font-size: 0.72em;
+  font-size: 0.74em;
   line-height: 1.28;
   box-sizing: border-box;
   margin-bottom: 8px;
@@ -257,12 +265,11 @@ plotly_slide_layout <- function(
 .reveal table {
   width: 100%;
   border-collapse: collapse;
-  border: 1.25px solid #4d5659;
-  font-size: 0.62em;
+  font-size: 0.66em;
 }
 .reveal th, .reveal td {
-  border: 1.25px solid #4d5659;
-  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
@@ -436,16 +443,21 @@ University of Toronto Mississauga
 
 :::: {.three-col}
 ::: {.card .fragment}
-<span class="label">5.3 - One Sample</span>
-Means, proportions, and variances. Decide between $Z$, $t$, and $\chi^2$.
+<span class="label">5.1–5.3 - Foundations and One-Sample Intervals</span>
+Point and interval estimates, confidence interpretation, and intervals
+for one mean, one proportion, and one variance.
 :::
+
 ::: {.card .fragment}
-<span class="label">5.4 - Two Sample</span>
-Differences in means, differences in proportions, and ratios of variances.
+<span class="label">5.4–5.5 - Comparing Groups</span>
+Two-sample and paired intervals for mean differences, proportion
+differences, and variance ratios.
 :::
+
 ::: {.card .fragment}
-<span class="label">5.6 - Planning</span>
-Choose $n$ so a confidence interval reaches a target margin of error.
+<span class="label">5.6 - Sample Size Planning</span>
+Choose the required sample size so a confidence interval reaches a
+target margin of error.
 :::
 ::::
 
@@ -508,11 +520,12 @@ Intervals for a **variance** $\sigma^2$ follow their own skeleton — an asymmet
 
 $$
 \left(
-\frac{\text{estimate}}{\text{upper critical value}},\
-\frac{\text{estimate}}{\text{lower critical value}}
+\frac{(n-1)s^2}{\text{upper critical value}},\
+\frac{(n-1)s^2}{\text{lower critical value}}
 \right)
-\quad\text{where estimate} = (n-1)s^2
 $$
+
+Here, $s^2$ is the point estimate of $\sigma^2$, while $(n-1)s^2$ is the scaled sample variance used in the interval formula.
 :::
 
 :::: {.three-col}
@@ -556,35 +569,56 @@ The parameter is fixed. The random object is the interval produced by the sample
 #| fig-width: 4.5
 #| fig-height: 3.2
 #| out-width: "430px"
+
 set.seed(10)
+
 n <- 50
 num_sims <- 50
 true_mu <- 0
-z <- qnorm(0.975)
+known_sigma <- 1
+z_star <- qnorm(0.975)
+se <- known_sigma / sqrt(n)
+
 ci_df <- data.frame(sim = 1:num_sims) |>
   rowwise() |>
   mutate(
-    sample = list(rnorm(n, true_mu, 1)),
+    sample = list(
+      rnorm(
+        n,
+        mean = true_mu,
+        sd = known_sigma
+      )
+    ),
     mean = mean(unlist(sample)),
-    se = sd(unlist(sample)) / sqrt(n),
-    lower = mean - z * se,
-    upper = mean + z * se,
+    lower = mean - z_star * se,
+    upper = mean + z_star * se,
     misses = lower > true_mu | upper < true_mu
   ) |>
   ungroup()
 
 ci_df <- ci_df |>
   mutate(
-    colour = if_else(misses, "#c62828", "#00695c"),
-    status = if_else(misses, "Misses true mean", "Covers true mean"),
+    status = if_else(
+      misses,
+      "Misses true mean",
+      "Covers true mean"
+    ),
     hover = paste0(
       "<b>Simulation ", sim, "</b>",
-      "<br>Interval: [", round(lower, 3), ", ", round(upper, 3), "]",
-      "<br>Status: ", status
+      "<br>Interval: [",
+      round(lower, 3),
+      ", ",
+      round(upper, 3),
+      "]",
+      "<br>Status: ",
+      status
     )
   )
 
-plot_ly(width = 430, height = 320) |>
+plot_ly(
+  width = 430,
+  height = 320
+) |>
   add_segments(
     data = ci_df,
     x = ~lower,
@@ -592,7 +626,10 @@ plot_ly(width = 430, height = 320) |>
     y = ~sim,
     yend = ~sim,
     color = ~status,
-    colors = c("Covers true mean" = "#00695c", "Misses true mean" = "#c62828"),
+    colors = c(
+      "Covers true mean" = "#00695c",
+      "Misses true mean" = "#c62828"
+    ),
     line = list(width = 4),
     text = ~hover,
     hovertemplate = "%{text}<extra></extra>",
@@ -602,19 +639,26 @@ plot_ly(width = 430, height = 320) |>
     autosize = FALSE,
     width = 430,
     height = 320,
-    margin = list(l = 48, r = 8, t = 10, b = 42),
+    margin = list(
+      l = 48,
+      r = 8,
+      t = 10,
+      b = 42
+    ),
     xaxis = list(
       title = "Interval endpoints",
       zeroline = FALSE,
       showgrid = TRUE,
-      gridcolor = "#e8e8e8"
+      gridcolor = "#e8e8e8",
+      fixedrange = TRUE
     ),
     yaxis = list(
       title = "Simulation",
       showticklabels = FALSE,
       zeroline = FALSE,
       showgrid = TRUE,
-      gridcolor = "#e8e8e8"
+      gridcolor = "#e8e8e8",
+      fixedrange = TRUE
     ),
     shapes = list(
       list(
@@ -623,35 +667,25 @@ plot_ly(width = 430, height = 320) |>
         x1 = true_mu,
         y0 = 0.5,
         y1 = num_sims + 0.5,
-        line = list(color = "#004d40", width = 2, dash = "dash")
+        line = list(
+          color = "#004d40",
+          width = 2,
+          dash = "dash"
+        )
       )
     ),
     showlegend = FALSE,
+    dragmode = FALSE,
     paper_bgcolor = "rgba(0,0,0,0)",
     plot_bgcolor = "white"
   ) |>
-  config(displayModeBar = FALSE, responsive = FALSE)|>
-  config(
-    displayModeBar = TRUE,
-    displaylogo = FALSE,
-    scrollZoom = FALSE,
-    doubleClick = "reset",
-    modeBarButtonsToRemove = c(
-      "lasso2d",
-      "select2d"
-    )
-  ) |>
-  layout(
-    dragmode = FALSE,
-    xaxis = list(fixedrange = TRUE),
-    yaxis = list(fixedrange = TRUE)
-  ) |>
   config(
     displayModeBar = FALSE,
+    displaylogo = FALSE,
+    responsive = FALSE,
     scrollZoom = FALSE,
     doubleClick = FALSE
   )
-
 ```
 :::
 :::
@@ -716,30 +750,62 @@ qf(c(0.025, 0.975), df1 = 9, df2 = 11)
   <option value="z">Known sigma: z interval</option>
   <option value="t">Unknown sigma: t interval</option>
 </select>
+
 <label for="ci-xbar">Sample mean</label>
-<input id="ci-xbar" type="number" value="68.6" step="0.1" oninput="updateCiCalc()">
-<label for="ci-spread">Sigma or sample sd</label>
-<input id="ci-spread" type="number" value="15" step="0.1" oninput="updateCiCalc()">
+<input
+  id="ci-xbar"
+  type="number"
+  value="68.6"
+  step="0.1"
+  oninput="updateCiCalc()"
+>
+
+<label id="ci-spread-label" for="ci-spread">
+Population standard deviation
+</label>
+<input
+  id="ci-spread"
+  type="number"
+  value="15"
+  step="0.1"
+  min="0.1"
+  oninput="updateCiCalc()"
+>
+
 <label for="ci-n">Sample size</label>
-<input id="ci-n" type="number" value="15" step="1" min="2" oninput="updateCiCalc()">
+<input
+  id="ci-n"
+  type="number"
+  value="15"
+  step="1"
+  min="2"
+  oninput="updateCiCalc()"
+>
+
 <label for="ci-conf">Confidence level</label>
 <select id="ci-conf" onchange="updateCiCalc()">
   <option value="0.90">90%</option>
   <option value="0.95" selected>95%</option>
   <option value="0.99">99%</option>
 </select>
+
 <div id="ci-output" class="ci-result"></div>
 :::
 :::
 
 ::: {.col}
 ::: {.thinkbox}
-Try changing the confidence level. The estimate stays fixed, but the critical value and margin of error change.
+Try changing the confidence level. The estimate stays fixed, but the
+critical value and margin of error change.
 :::
 
 ::: {.notebox}
 <span class="label">Calculator note</span>
-The $t$ option uses a small built-in table for common confidence levels and degrees of freedom. Use R for exact values.
+
+For a $t$ interval, the calculator uses exact tabulated critical values
+when $df\leq30$ and a large-$df$ approximation when $df>30$.
+
+Use `qt()` in R when an exact critical value is required.
 :::
 :::
 ::::
@@ -747,32 +813,158 @@ The $t$ option uses a small built-in table for common confidence levels and degr
 <script>
 function ciZ(conf) {
   if (conf === 0.90) return 1.645;
-  if (conf === 0.95) return 1.96;
+  if (conf === 0.95) return 1.960;
   return 2.576;
 }
+
 function ciT(conf, df) {
   var table = {
-    "0.90":[6.314,2.920,2.353,2.132,2.015,1.943,1.895,1.860,1.833,1.812,1.796,1.782,1.771,1.761,1.753,1.746,1.740,1.734,1.729,1.725,1.721,1.717,1.714,1.711,1.708,1.706,1.703,1.701,1.699,1.697],
-    "0.95":[12.706,4.303,3.182,2.776,2.571,2.447,2.365,2.306,2.262,2.228,2.201,2.179,2.160,2.145,2.131,2.120,2.110,2.101,2.093,2.086,2.080,2.074,2.069,2.064,2.060,2.056,2.052,2.048,2.045,2.042],
-    "0.99":[63.657,9.925,5.841,4.604,4.032,3.707,3.499,3.355,3.250,3.169,3.106,3.055,3.012,2.977,2.947,2.921,2.898,2.878,2.861,2.845,2.831,2.819,2.807,2.797,2.787,2.779,2.771,2.763,2.756,2.750]
+    "0.90": [
+      6.314, 2.920, 2.353, 2.132, 2.015,
+      1.943, 1.895, 1.860, 1.833, 1.812,
+      1.796, 1.782, 1.771, 1.761, 1.753,
+      1.746, 1.740, 1.734, 1.729, 1.725,
+      1.721, 1.717, 1.714, 1.711, 1.708,
+      1.706, 1.703, 1.701, 1.699, 1.697
+    ],
+    "0.95": [
+      12.706, 4.303, 3.182, 2.776, 2.571,
+      2.447, 2.365, 2.306, 2.262, 2.228,
+      2.201, 2.179, 2.160, 2.145, 2.131,
+      2.120, 2.110, 2.101, 2.093, 2.086,
+      2.080, 2.074, 2.069, 2.064, 2.060,
+      2.056, 2.052, 2.048, 2.045, 2.042
+    ],
+    "0.99": [
+      63.657, 9.925, 5.841, 4.604, 4.032,
+      3.707, 3.499, 3.355, 3.250, 3.169,
+      3.106, 3.055, 3.012, 2.977, 2.947,
+      2.921, 2.898, 2.878, 2.861, 2.845,
+      2.831, 2.819, 2.807, 2.797, 2.787,
+      2.779, 2.771, 2.763, 2.756, 2.750
+    ]
   };
-  if (df <= 30) return table[conf.toFixed(2)][df - 1];
-  return ciZ(conf);
+
+  if (df <= 30) {
+    return {
+      value: table[conf.toFixed(2)][df - 1],
+      approximate: false
+    };
+  }
+
+  /*
+   * Large-df approximation based on the corresponding
+   * standard-normal critical value.
+   */
+  var z = ciZ(conf);
+  var z3 = Math.pow(z, 3);
+  var z5 = Math.pow(z, 5);
+  var z7 = Math.pow(z, 7);
+
+  var critical =
+    z +
+    (z3 + z) / (4 * df) +
+    (5 * z5 + 16 * z3 + 3 * z) /
+      (96 * Math.pow(df, 2)) +
+    (3 * z7 + 19 * z5 + 17 * z3 - 15 * z) /
+      (384 * Math.pow(df, 3));
+
+  return {
+    value: critical,
+    approximate: true
+  };
 }
+
 window.updateCiCalc = function () {
   var mode = document.getElementById("ci-mode").value;
-  var xbar = Number(document.getElementById("ci-xbar").value);
-  var spread = Number(document.getElementById("ci-spread").value);
-  var n = Number(document.getElementById("ci-n").value);
-  var conf = Number(document.getElementById("ci-conf").value);
-  var critical = mode === "z" ? ciZ(conf) : ciT(conf, Math.max(1, Math.round(n - 1)));
+  var xbar = Number(
+    document.getElementById("ci-xbar").value
+  );
+  var spread = Number(
+    document.getElementById("ci-spread").value
+  );
+  var n = Number(
+    document.getElementById("ci-n").value
+  );
+  var conf = Number(
+    document.getElementById("ci-conf").value
+  );
+
+  var output =
+    document.getElementById("ci-output");
+
+  var spreadLabel =
+    document.getElementById("ci-spread-label");
+
+  spreadLabel.textContent =
+    mode === "z"
+      ? "Population standard deviation"
+      : "Sample standard deviation";
+
+  if (
+    !Number.isFinite(xbar) ||
+    !Number.isFinite(spread) ||
+    !Number.isFinite(n)
+  ) {
+    output.innerHTML =
+      "Enter a valid number in every field.";
+    return;
+  }
+
+  if (spread <= 0) {
+    output.innerHTML =
+      "The standard deviation must be greater than 0.";
+    return;
+  }
+
+  if (!Number.isInteger(n) || n < 2) {
+    output.innerHTML =
+      "The sample size must be a whole number of at least 2.";
+    return;
+  }
+
+  var df = n - 1;
+  var critical;
+  var criticalLabel;
+
+  if (mode === "z") {
+    critical = ciZ(conf);
+    criticalLabel = "z*";
+  } else {
+    var tResult = ciT(conf, df);
+    critical = tResult.value;
+
+    criticalLabel = tResult.approximate
+      ? "t* (approx.)"
+      : "t*";
+  }
+
   var se = spread / Math.sqrt(n);
   var moe = critical * se;
-  document.getElementById("ci-output").innerHTML =
-    "Critical value: " + critical.toFixed(3) + "<br>" +
-    "SE: " + se.toFixed(4) + "<br>" +
-    "CI: (" + (xbar - moe).toFixed(4) + ", " + (xbar + moe).toFixed(4) + ")";
+  var lower = xbar - moe;
+  var upper = xbar + moe;
+
+  var dfLine =
+    mode === "t"
+      ? "<br>Degrees of freedom: " + df
+      : "";
+
+  output.innerHTML =
+    criticalLabel +
+    ": " +
+    critical.toFixed(3) +
+    dfLine +
+    "<br>SE: " +
+    se.toFixed(4) +
+    "<br>Margin of error: " +
+    moe.toFixed(4) +
+    "<br>CI: (" +
+    lower.toFixed(4) +
+    ", " +
+    upper.toFixed(4) +
+    ")";
 };
+
 setTimeout(updateCiCalc, 500);
 </script>
 
@@ -784,7 +976,7 @@ setTimeout(updateCiCalc, 500);
 When the population standard deviation $\sigma$ is known:
 
 $$
-\bar{x} \pm z_{\alpha/2}\frac{\sigma}{\sqrt n}
+\bar{x} \pm z_{1-\alpha/2}\frac{\sigma}{\sqrt n}
 $$
 
 Use this for a population mean $\mu$ with known $\sigma$.
@@ -817,13 +1009,15 @@ If the problem gives a population standard deviation, use $z$. If it gives a sam
 Construct 90%, 95%, and 99% confidence intervals for the population mean daily listening time.
 :::
 
+::: {.fragment}
 | Level | Critical value | Margin of error | Confidence interval |
 |:--:|:--:|:--:|:--:|
 | 90% | 1.645 | $1.645(25/\sqrt{80})=4.60$ | $(87.40, 96.60)$ |
 | 95% | 1.960 | $1.960(25/\sqrt{80})=5.48$ | $(86.52, 97.48)$ |
 | 99% | 2.576 | $2.576(25/\sqrt{80})=7.20$ | $(84.80, 99.20)$ |
+:::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 We are 95% confident that the mean daily listening time is between about 86.5 and 97.5 minutes.
 :::
 
@@ -859,7 +1053,7 @@ ci
 :::
 ::::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 $\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% confident that the population mean number of daily active minutes is between about 61 and 76.
 :::
 
@@ -867,11 +1061,11 @@ $\bar{x}=68.6$, so the interval is approximately $(61.01, 76.19)$. We are 95% co
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 A sample has $\bar{x}=42$, $n=36$, and known $\sigma=12$. For a 95% CI, what is the margin of error?
-::::
+:::
 
 - 1.96
 - [3.92]{.correct data-explanation="The standard error is 12/sqrt(36)=2. For 95% confidence, z*=1.96, so the margin of error is 1.96 times 2 = 3.92."}
@@ -886,17 +1080,17 @@ A sample has $\bar{x}=42$, $n=36$, and known $\sigma=12$. For a 95% CI, what is 
 When $\sigma$ is unknown, estimate it with $s$ and use the Student $t$ distribution:
 
 $$
-\bar{x} \pm t_{n-1,\alpha/2}\frac{s}{\sqrt n}
+\bar{x} \pm t_{1-\alpha/2,\;n-1}\frac{s}{\sqrt n}
 $$
 :::
 
 :::: {.two-col}
-::: {.notebox}
+::: {.notebox .fragment}
 <span class="label">Why t?</span>
 Replacing $\sigma$ with $s$ adds uncertainty. The $t$ distribution has heavier tails, especially for small degrees of freedom.
 :::
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 <span class="label">Small samples</span>
 For small $n$, check that the population is reasonably normal or that the sample has no severe skew/outliers.
 :::
@@ -909,21 +1103,38 @@ For small $n$, check that the population is reasonably normal or that the sample
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-Total **hours of sleep** logged over one week by a random sample of 9 students:
+Total **hours of sleep** logged over one week by a random sample of
+9 students:
 
-$$63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0$$
+$$
+63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0
+$$
 
-Construct a 90% CI for the mean weekly sleep.
-:::
+Assume weekly sleep hours in the student population are approximately
+normally distributed.
 
-::: {.examplebox}
-Using $n=9$, $\bar{x}=59.5889$, $s=6.2553$, and $t^*=1.8595$:
-
-$$59.5889\pm1.8595\frac{6.2553}{3}=(55.71,63.47).$$
+Construct a 90% confidence interval for the population mean weekly sleep
+hours.
 :::
 :::
 
 ::: {.col}
+::: {.examplebox .fragment}
+Using $n=9$, $\bar{x}=59.5889$, $s=6.2553$, and $t^*=1.8595$:
+
+$$
+59.5889\pm1.8595\frac{6.2553}{3}
+=
+(55.71,63.47).
+$$
+
+We are 90% confident that the population mean weekly sleep time for
+students is between approximately **55.71 and 63.47 hours**.
+:::
+:::
+::::
+
+::: {.fragment}
 ```{webr}
 #| autorun: false
 
@@ -931,7 +1142,6 @@ sleep_hours <- c(63.4,65.0,64.4,63.3,54.8,64.5,60.8,49.1,51.0)
 t.test(sleep_hours, conf.level = 0.90)
 ```
 :::
-::::
 
 ---
 
@@ -960,8 +1170,18 @@ t.test(books, conf.level = 0.95)
 :::
 ::::
 
-::: {.examplebox}
-$\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately $(11.20,24.20)$ books.
+::: {.examplebox .fragment}
+Using $n=10$, $\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$:
+
+$$
+17.7\pm2.262\left(\frac{9.0805}{\sqrt{10}}\right)
+=
+17.7\pm6.50
+=
+(11.20,24.20).
+$$
+
+We are 95% confident that the population mean number of books read is between approximately **11.20 and 24.20 books**.
 :::
 
 ---
@@ -972,7 +1192,7 @@ $\bar{x}=17.7$, $s=9.0805$, $df=9$, and $t^*=2.262$. The 95% CI is approximately
 For a population proportion $p$, with $\hat p=x/n$:
 
 $$
-\hat p \pm z_{\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
+\hat p \pm z_{1-\alpha/2}\sqrt{\frac{\hat p(1-\hat p)}{n}}
 $$
 :::
 
@@ -997,29 +1217,49 @@ The final interval should make sense for a proportion. Values below 0 or above 1
 ## Example: Transit Use {.scrollable}
 
 ::: {.taskbox}
-A UTM survey asks 1200 students whether they commute on **MiWay** transit. Among them, 738 say yes.
+A UTM survey randomly selects 1200 students and asks whether they commute
+using **MiWay** transit. Among them, 738 say yes.
 
-Construct a 95% CI for the true proportion of students who commute on MiWay.
+Construct a 95% confidence interval for the true proportion of all UTM
+students who commute using MiWay.
 :::
 
-:::: {.two-col}
+:::: {.two-col .fragment}
 ::: {.col}
-$$\hat p=\frac{738}{1200}=0.6150$$
+$$
+\hat p=\frac{738}{1200}=0.6150
+$$
 
-$$SE=\sqrt{\frac{0.6150(0.3850)}{1200}}=0.01405$$
+$$
+SE=
+\sqrt{
+\frac{0.6150(0.3850)}{1200}
+}
+=
+0.01405
+$$
 :::
 
 ::: {.col}
-$$\hat p \pm z_{\alpha/2}\,SE$$
+$$
+\hat p \pm z_{1-\alpha/2}\,SE
+$$
 
-$$=0.6150\pm1.96(0.01405)$$
+$$
+=
+0.6150\pm1.96(0.01405)
+$$
 
-$$=(0.5875,\,0.6425)$$
+$$
+=
+(0.5875,\;0.6425)
+$$
 :::
 ::::
 
-::: {.examplebox}
-We are 95% confident that between 58.75% and 64.25% of UTM students commute on MiWay.
+::: {.examplebox .fragment}
+We are 95% confident that between **58.75% and 64.25%** of all UTM
+students commute using MiWay.
 :::
 
 ---
@@ -1029,9 +1269,11 @@ We are 95% confident that between 58.75% and 64.25% of UTM students commute on M
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-In a survey of 650 UTM students, 286 admit to **pulling an all-nighter** to finish an assignment this term.
+In a random sample of 650 UTM students, 286 report **pulling an
+all-nighter** to finish an assignment this term.
 
-Construct a 90% CI for the population proportion.
+Construct a 90% confidence interval for the proportion of all UTM
+students who pulled an all-nighter to finish an assignment this term.
 :::
 :::
 
@@ -1049,19 +1291,22 @@ phat + c(-1, 1) * zstar * se
 :::
 ::::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 $\hat p=0.44$, so the 90% CI is approximately $(0.4079,0.4721)$.
+
+We are 90% confident that between **40.79% and 47.21% of all UTM
+students** pulled an all-nighter to finish an assignment this term.
 :::
 
 ---
 
 ##  {.quiz-question}
 
-:::: {.callout-note icon="false"}
+::: {.callout-note icon="false"}
 ## Question
 
 For a one-proportion confidence interval, which sample has enough successes and failures for the normal approximation?
-::::
+:::
 
 - $n=20$, $\hat p=0.90$
 - $n=50$, $\hat p=0.10$
@@ -1077,13 +1322,13 @@ For a normally distributed population, a confidence interval for $\sigma^2$ is:
 
 $$
 \left(
-\frac{(n-1)s^2}{\chi^2_{\alpha/2,n-1}},
-\frac{(n-1)s^2}{\chi^2_{1-\alpha/2,n-1}}
+\frac{(n-1)s^2}{\chi^2_{1-\alpha/2,\;n-1}},
+\frac{(n-1)s^2}{\chi^2_{\alpha/2,\;n-1}}
 \right)
 $$
 :::
 
-::: {.warnbox}
+::: {.warnbox .fragment}
 This interval is asymmetric. Normality matters here much more than it does for large-sample mean intervals.
 :::
 
@@ -1092,31 +1337,61 @@ This interval is asymmetric. Normality matters here much more than it does for l
 ## Example: Gym Hours {.scrollable}
 
 ::: {.taskbox}
-Exercise is proven to improve focus. The UTM gym logs the **weekly workout hours** of 25 students, with sample variance $s^2=12.5$ (hours$^2$). Assume weekly hours are normally distributed.
+A random sample of 25 UTM gym users reports their **weekly workout
+hours**. The sample variance is:
 
-Construct a 95% CI for $\sigma^2$.
+$$
+s^2=12.5\text{ hours}^2
+$$
+
+Assume weekly workout hours among UTM gym users are normally distributed.
+
+Construct a 95% confidence interval for the population variance
+$\sigma^2$.
 :::
 
-:::: {.two-col}
+:::: {.two-col .fragment}
 ::: {.col}
-$$df=n-1=24$$
+$$
+df=n-1=24
+$$
 
-$$\chi^2_{0.975,24}=39.364$$
+$$
+\chi^2_{0.975,24}=39.364
+$$
 
-$$\chi^2_{0.025,24}=12.401$$
+$$
+\chi^2_{0.025,24}=12.401
+$$
 :::
 
 ::: {.col}
-$$\left(\frac{(n-1)s^2}{\chi^2_{0.975,24}},\ \frac{(n-1)s^2}{\chi^2_{0.025,24}}\right)$$
+$$
+\left(
+\frac{(n-1)s^2}{\chi^2_{0.975,24}},
+\frac{(n-1)s^2}{\chi^2_{0.025,24}}
+\right)
+$$
 
-$$=\left(\frac{24(12.5)}{39.364},\ \frac{24(12.5)}{12.401}\right)$$
+$$
+=
+\left(
+\frac{24(12.5)}{39.364},
+\frac{24(12.5)}{12.401}
+\right)
+$$
 
-$$=(7.62,\,24.19)$$
+$$
+=
+(7.62,\;24.19)
+$$
 :::
 ::::
 
-::: {.examplebox}
-The 95% CI for the population variance is approximately $(7.62,24.19)$.
+::: {.examplebox .fragment}
+We are 95% confident that the population variance of weekly workout
+hours among UTM gym users is between approximately **7.62 and
+24.19 hours$^2$**.
 :::
 
 ---
@@ -1126,9 +1401,18 @@ The 95% CI for the population variance is approximately $(7.62,24.19)$.
 :::: {.two-col-wide}
 ::: {.col}
 ::: {.taskbox}
-Staying hydrated is linked to sharper concentration. A study records the **daily water intake** of 16 students, with sample variance $s^2=0.36$ (litres$^2$). Assume daily intake is normally distributed.
+A random sample of 16 students reports their **daily water intake**. The
+sample variance is:
 
-Construct a 90% CI for $\sigma^2$.
+$$
+s^2=0.36\text{ litres}^2
+$$
+
+Assume daily water intake in the student population is normally
+distributed.
+
+Construct a 90% confidence interval for the population variance
+$\sigma^2$.
 :::
 :::
 
@@ -1147,8 +1431,10 @@ c(lower, upper)
 :::
 ::::
 
-::: {.examplebox}
-The 90% CI is approximately $(0.2160,0.7437)$.
+::: {.examplebox .fragment}
+We are 90% confident that the population variance of daily water intake
+among students is between approximately **0.2160 and
+0.7437 litres$^2$**.
 :::
 
 ---
@@ -1244,7 +1530,7 @@ The 90% CI is approximately $(0.2160,0.7437)$.
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 .card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+.mini-card .label, .stat-card .label, .warnbox .label, .thinkbox .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -1267,13 +1553,15 @@ The 90% CI is approximately $(0.2160,0.7437)$.
 }
 
 /* ── Tables ───────────────────────────────────────────── */
-.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; }
+.reveal table { width: 100%; border-collapse: collapse; border: 1px solid var(--sta-border); font-size: 0.66em; margin-bottom: 16px; }
 .reveal th, .reveal td {
   border: 1px solid var(--sta-border);
   padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.reveal table td { text-align: center !important; }
+.reveal table th { text-align: left !important; }
 
 /* ── Code ─────────────────────────────────────────────── */
 .reveal pre {
@@ -1372,88 +1660,154 @@ The 90% CI is approximately $(0.2160,0.7437)$.
 /* ── Solution callouts ────────────────────────────────── */
 .callout { font-size: 0.75em; }
 
-/* ── Compact worked-example slides ────────────────────── */
+/* ── Balanced worked-example slides ───────────────────── */
 .reveal section:has(.example-grid) {
-  padding: 12px 28px !important;
+  padding: 11px 25px !important;
 }
 
 .reveal section:has(.example-grid) h2 {
-  font-size: 1.42em !important;
-  line-height: 1.05 !important;
-  margin-bottom: 9px !important;
-  padding-bottom: 4px !important;
+  font-size: 1.34em !important;
+  line-height: 1.03 !important;
+  margin-bottom: 8px !important;
+  padding-bottom: 3px !important;
 }
 
 .reveal .example-grid {
-  gap: 9px 16px !important;
+  gap: 8px 15px !important;
   align-items: stretch !important;
 }
 
-.reveal .example-grid .taskbox,
-.reveal .example-grid .notebox,
-.reveal .example-grid .examplebox {
-  font-size: 0.64em !important;
-  line-height: 1.15 !important;
+/* Question/context box */
+.reveal .example-grid .taskbox {
+  font-size: 0.58em !important;
+  line-height: 1.16 !important;
   padding: 10px 13px !important;
   margin-bottom: 0 !important;
 }
 
+/* Target-parameter box */
+.reveal .example-grid .notebox {
+  font-size: 0.58em !important;
+  line-height: 1.16 !important;
+  padding: 9px 13px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Interpretation/conclusion box */
+.reveal .example-grid .examplebox {
+  font-size: 0.58em !important;
+  line-height: 1.16 !important;
+  padding: 10px 13px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Calculation box */
 .reveal .example-grid .stat-card {
-  font-size: 0.72em !important;
+  font-size: 0.66em !important;
   line-height: 1.12 !important;
   padding: 11px 14px !important;
   margin-bottom: 0 !important;
 }
 
 .reveal .example-grid .label {
-  margin-bottom: 4px !important;
+  margin-bottom: 3px !important;
 }
 
 .reveal .example-grid p {
   margin: 0.20em 0 !important;
   font-size: 1em !important;
-  line-height: 1.15 !important;
+  line-height: 1.18 !important;
 }
 
 .reveal .example-grid mjx-container[display="true"] {
-  margin: 0.13em 0 !important;
+  margin: 0.10em 0 !important;
 }
 
+/* Keep calculations comfortably readable */
 .reveal .example-grid .stat-card mjx-container[display="true"] {
-  font-size: 0.90em !important;
+  font-size: 0.94em !important;
+  margin: 0.72em 0 !important;
 }
 
 .reveal .example-grid .taskbox mjx-container[display="true"],
 .reveal .example-grid .notebox mjx-container[display="true"],
 .reveal .example-grid .examplebox mjx-container[display="true"] {
-  font-size: 0.92em !important;
+  font-size: 0.96em !important;
 }
 
 .reveal .example-grid br {
   display: block;
   content: "";
-  margin-top: 5px;
+  margin-top: 3px;
 }
 </style>
 ```
 
 ```{=html}
 <script>
+function setupWorkedExampleFragments() {
+  document.querySelectorAll(".example-grid").forEach(function (grid) {
+    const targetCard = grid.querySelector(".notebox");
+    const calculationCard = grid.querySelector(".stat-card");
+    const interpretationCard = grid.querySelector(".examplebox");
+
+    const revealOrder = [
+      { card: targetCard, index: 1 },
+      { card: calculationCard, index: 2 },
+      { card: interpretationCard, index: 3 }
+    ];
+
+    revealOrder.forEach(function (item) {
+      if (!item.card) return;
+
+      item.card.classList.add("fragment");
+      item.card.setAttribute("data-fragment-index", item.index);
+    });
+  });
+}
+
 function resizePlotlyOnSlides() {
   if (!window.Plotly) return;
 
-  document.querySelectorAll(".js-plotly-plot").forEach(function(plot) {
+  document.querySelectorAll(".js-plotly-plot").forEach(function (plot) {
     Plotly.Plots.resize(plot);
   });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  /*
+   * Worked-example reveal order:
+   * 1. Target parameter or subtraction order
+   * 2. Calculation
+   * 3. Interpretation
+   *
+   * The task card remains visible when the slide first opens.
+   */
+  setupWorkedExampleFragments();
+
   setTimeout(resizePlotlyOnSlides, 250);
   setTimeout(resizePlotlyOnSlides, 750);
   setTimeout(resizePlotlyOnSlides, 1500);
 
-  if (window.Reveal) {
+  window.addEventListener("resize", resizePlotlyOnSlides);
+});
+
+/*
+ * Bind to reveal.js once it exists. reveal can fire "ready" before this code
+ * runs (and window.Reveal may be undefined at DOMContentLoaded), so retry until
+ * it is available, then apply the fragment classes and call Reveal.sync() so
+ * reveal registers them and reveals the cards one at a time.
+ */
+(function bindWorkedExampleFragments() {
+  setupWorkedExampleFragments();
+
+  if (window.Reveal && typeof window.Reveal.on === "function") {
+    Reveal.sync();
+    setTimeout(resizePlotlyOnSlides, 300);
+
     Reveal.on("ready", function () {
+      setupWorkedExampleFragments();
+      Reveal.sync();
       setTimeout(resizePlotlyOnSlides, 300);
     });
 
@@ -1468,14 +1822,12 @@ document.addEventListener("DOMContentLoaded", function () {
     Reveal.on("fragmenthidden", function () {
       setTimeout(resizePlotlyOnSlides, 300);
     });
+  } else {
+    window.setTimeout(bindWorkedExampleFragments, 150);
   }
-
-  window.addEventListener("resize", resizePlotlyOnSlides);
-});
+})();
 </script>
 ```
-
-{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 ```{webr}
 #| autorun: true
@@ -1513,27 +1865,19 @@ A **two-sample confidence interval** estimates a population quantity that compar
 
 The groups must be clearly labelled, because the order matters. Changing the order changes the interpretation.
 
-:::: {.two-col style="grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; margin-top: 6px;"}
-::: {.notebox style="font-size: 0.82em; line-height: 1.12; padding: 8px 11px; margin-bottom: 0;"}
-<span class="label">Mean and proportion differences</span>
-
-$$
-\text{Group 1}-\text{Group 2}
-$$
+:::: {.two-col style="margin-top: 14px; align-items: center;"}
+::: {.col}
+**Mean and proportion differences:** $\text{Group 1}-\text{Group 2}$
 :::
 
-::: {.notebox style="font-size: 0.82em; line-height: 1.12; padding: 8px 11px; margin-bottom: 0;"}
-<span class="label">Variance ratios</span>
-
-$$
-\frac{\text{Group 1}}{\text{Group 2}}
-$$
+::: {.col}
+**Variance ratios:** $\dfrac{\text{Group 1}}{\text{Group 2}}$
 :::
 ::::
 :::
 
 :::: {.three-col style="gap: 14px; align-items: stretch;"}
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+::: {.stat-card .fragment style="font-size: 0.72em; line-height: 1.2; padding: 15px 17px; margin-bottom: 0; min-height: 190px;"}
 <span class="label">Difference of means</span>
 
 $$
@@ -1543,7 +1887,7 @@ $$
 Compares two population averages.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+::: {.stat-card .fragment style="font-size: 0.72em; line-height: 1.2; padding: 15px 17px; margin-bottom: 0; min-height: 190px;"}
 <span class="label">Difference of proportions</span>
 
 $$
@@ -1553,7 +1897,7 @@ $$
 Compares two population percentages.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.12; padding: 10px 12px; margin-bottom: 0; min-height: 108px;"}
+::: {.stat-card .fragment style="font-size: 0.72em; line-height: 1.2; padding: 15px 17px; margin-bottom: 0; min-height: 190px;"}
 <span class="label">Ratio of variances</span>
 
 $$
@@ -1807,11 +2151,75 @@ Otherwise, use Welch's interval.
 
 ------------------------------------------------------------------------
 
-## Example: Earbud Battery-Life Comparison
+## Example: Earbud Battery-Life Comparison {.earbud-compact}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+<style>
+.reveal section.earbud-compact {
+  padding: 13px 28px !important;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
+.reveal section.earbud-compact h2 {
+  font-size: 1.34em !important;
+  line-height: 1.04 !important;
+  margin-bottom: 9px !important;
+  padding-bottom: 4px !important;
+}
+
+.reveal section.earbud-compact .earbud-grid {
+  gap: 9px 16px !important;
+  align-items: stretch !important;
+}
+
+.reveal section.earbud-compact .taskbox {
+  font-size: 0.58em !important;
+  line-height: 1.12 !important;
+  padding: 10px 13px !important;
+}
+
+.reveal section.earbud-compact .stat-card {
+  font-size: 0.73em !important;
+  line-height: 1.10 !important;
+  padding: 12px 15px !important;
+}
+
+.reveal section.earbud-compact .notebox {
+  font-size: 0.58em !important;
+  line-height: 1.12 !important;
+  padding: 9px 13px !important;
+}
+
+.reveal section.earbud-compact .examplebox {
+  font-size: 0.61em !important;
+  line-height: 1.13 !important;
+  padding: 10px 14px !important;
+}
+
+.reveal section.earbud-compact p {
+  margin: 0.16em 0 !important;
+}
+
+.reveal section.earbud-compact .label {
+  margin-bottom: 3px !important;
+}
+
+.reveal section.earbud-compact br {
+  display: block;
+  content: "";
+  margin-top: 4px;
+}
+
+.reveal section.earbud-compact mjx-container[display="true"] {
+  margin: 0.11em 0 !important;
+}
+
+.reveal section.earbud-compact .stat-card mjx-container {
+  font-size: 0.94em !important;
+}
+</style>
+
+:::: {.earbud-grid style="display: grid; grid-template-columns: 0.90fr 1.10fr; grid-template-rows: auto auto; gap: 9px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
 A tech reviewer wants to compare average battery life for two wireless
 earbud brands that students might use while commuting, studying, or
 working out.
@@ -1830,7 +2238,7 @@ $n_1=12$, $\bar{x}_1=52.4$ hours, $s_1=6.1$
 $n_2=10$, $\bar{x}_2=47.8$ hours, $s_2=5.4$
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -1870,7 +2278,7 @@ $$
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
 Construct a 95% confidence interval for $\mu_1-\mu_2$.
@@ -1879,7 +2287,7 @@ The order is **Brand A minus Brand B**, so positive values mean Brand A
 has the higher population mean battery life.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0; display: flex; align-items: center;"}
 We are 95% confident that Brand A's population mean battery life is
 between **0.58 hours lower and 9.78 hours higher** than Brand B's
 population mean battery life.
@@ -1889,87 +2297,90 @@ population mean battery life.
 
 ------------------------------------------------------------------------
 
-## Example: Fitness App Calorie-Burn Comparison
+## Example: Fitness App Calorie Comparison
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.84fr 1.16fr; grid-template-rows: auto auto; gap: 8px 15px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.64em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0;"}
-A fitness reviewer wants to compare average calories burned during two
-types of 30-minute home workouts.
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
+A fitness reviewer randomly assigns 29 participants to one of two
+30-minute workouts.
 
-One group follows a high-intensity workout app. The other group follows
-a lower-intensity guided stretching and strength routine.
-
-Assume the two population variances are reasonable to treat as equal.
+Assume calories burned are approximately normal within each group and
+that the population variances can be treated as equal.
 
 <br>
 
-**Group 1: High-intensity app workout**  
-$n_1=15$, $\bar{x}_1=84.2$ calories, $s_1=7.5$
+**High-intensity app**  
+$n_1=15$, $\bar{x}_1=84.2$, $s_1=7.5$
 
-**Group 2: Guided strength/stretch routine**  
-$n_2=14$, $\bar{x}_2=78.6$ calories, $s_2=6.8$
+**Guided routine**  
+$n_2=14$, $\bar{x}_2=78.6$, $s_2=6.8$
+
+Construct a 90% confidence interval for $\mu_1-\mu_2$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
-{\large \bar{x}_1-\bar{x}_2=84.2-78.6=5.6}
+\bar{x}_1-\bar{x}_2
+=
+84.2-78.6
+=
+5.6
 $$
 
 $$
-{\large
-s_p^2=
+s_p^2
+=
 \frac{(14)(7.5^2)+(13)(6.8^2)}{27}
-=51.430,
+=
+51.430,
 \qquad
 s_p=7.171
-}
 $$
 
 $$
-{\large
-SE=
+SE
+=
 7.171\sqrt{\frac{1}{15}+\frac{1}{14}}
-=2.665
-}
+=
+2.665
 $$
 
 $$
-{\large
 df=27,
 \qquad
 t^*=1.703
-}
 $$
 
 $$
-{\large
-5.6\pm1.703(2.665)=(1.06,\;10.14)
-}
+5.6\pm1.703(2.665)
+=
+(1.06,\;10.14)
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target parameter</span>
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Order</span>
 
-Construct a 90% confidence interval for $\mu_1-\mu_2$.
+$$
+\mu_1-\mu_2
+=
+\mu_{\text{app}}-\mu_{\text{guided}}
+$$
 
-The order is **high-intensity app workout minus guided routine**, so
-positive values mean the high-intensity app workout has the higher
-population mean calories burned.
+Positive values favour the high-intensity app.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the high-intensity app workout burns between
-**1.06 and 10.14 more calories**, on average, than the guided
-strength/stretch routine.
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0;"}
+The high-intensity app burns between **1.06 and 10.14 more calories on
+average** than the guided routine, with 90% confidence.
 :::
 
 ::::
 
----
+------------------------------------------------------------------------
 
 ## Check in R: Pooled Two-Sample t Intervals {.pooled-r-check}
 
@@ -1977,10 +2388,12 @@ strength/stretch routine.
 .reveal section.pooled-r-check .cm-editor,
 .reveal section.pooled-r-check .cm-content,
 .reveal section.pooled-r-check .cm-line,
+.reveal section.pooled-r-check .cm-gutters,
+.reveal section.pooled-r-check .cm-gutterElement,
 .reveal section.pooled-r-check pre,
 .reveal section.pooled-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.pooled-r-check .cell-output,
@@ -2091,7 +2504,7 @@ when the two samples are **independent** and the equal-variance assumption is no
 
 ## Welch Degrees of Freedom
 
-::: {.notebox .fragment}
+::: {.notebox .fragment style="font-size: 0.66em; line-height: 1.12; padding: 11px 15px; margin-bottom: 7px;"}
 <span class="label">Degrees of freedom note</span>
 
 In this course, we are **not testing your ability to be a calculator** in an exam setting.
@@ -2103,7 +2516,7 @@ df = \min(n_1 - 1,\; n_2 - 1)
 $$
 :::
 
-::: {.defbox .fragment}
+::: {.defbox .fragment style="font-size: 0.64em; line-height: 1.10; padding: 11px 15px; margin-bottom: 7px;"}
 A more accurate approximation, commonly used by software, is the **Welch–Satterthwaite degrees of freedom**:
 
 $$
@@ -2118,13 +2531,20 @@ df =
 $$
 :::
 
-::: {.thinkbox .fragment}
-For exams in this course, use the conservative version unless told otherwise.
+::: {.thinkbox .fragment style="font-size: 0.50em; line-height: 1.08; padding: 7px 12px; margin-bottom: 0;"}
+<span class="label">How the examples use these methods</span>
+
+The upcoming **Sports Highlight** example uses the conservative rule
+$df=\min(n_1-1,n_2-1)$ for a manageable hand calculation. The **Food
+Delivery** example uses the more accurate Welch–Satterthwaite
+approximation to illustrate the calculation used by statistical software.
+
+For exams, use the conservative rule unless told otherwise.
 :::
 
 ------------------------------------------------------------------------
 
-## Example: Sports Highlight Watch-Time Comparison
+## Example: Sports Highlight Watch-Time Comparison {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -2168,7 +2588,7 @@ SE=
 1.4431
 $$
 
-Using conservative degrees of freedom:
+Using degrees of freedom:
 
 $$
 df=\min(24-1,\;20-1)=19
@@ -2205,7 +2625,7 @@ We are 95% confident that the short-highlight playlist's population mean watch t
 
 ------------------------------------------------------------------------
 
-## Example: Food Delivery vs Meal Prep Spending
+## Example: Food Delivery vs Meal Prep Spending {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -2295,10 +2715,12 @@ users.
 .reveal section.welch-r-check .cm-editor,
 .reveal section.welch-r-check .cm-content,
 .reveal section.welch-r-check .cm-line,
+.reveal section.welch-r-check .cm-gutters,
+.reveal section.welch-r-check .cm-gutterElement,
 .reveal section.welch-r-check pre,
 .reveal section.welch-r-check code {
-  font-size: 0.72em !important;
-  line-height: 1.02 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.welch-r-check .cell-output,
@@ -2313,6 +2735,18 @@ users.
   margin-bottom: 4px !important;
 }
 </style>
+
+::: {.thinkbox style="font-size: 0.49em; line-height: 1.10; padding: 7px 12px; margin-bottom: 7px;"}
+<span class="label">Why the R output may differ</span>
+
+**By hand:** Use the conservative value
+$df=\min(n_1-1,\;n_2-1)$. The longer Welch degrees-of-freedom calculation
+is not required in this course.
+
+**In R:** `t.test(..., var.equal = FALSE)` uses the more accurate
+Welch–Satterthwaite approximation, so the degrees of freedom and interval
+endpoints may differ slightly. **This is expected.**
+:::
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
@@ -2445,13 +2879,67 @@ proportions, not the difference between two sample counts.
 
 ------------------------
 
-## Example: Free-Trial Reminder Comparison
+## Example: Free-Trial Reminder Comparison {.free-trial-compact}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+<style>
+.reveal section.free-trial-compact {
+  padding: 10px 28px !important;
+}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A streaming app wants to compare two ways of reminding users before a
-free trial ends.
+.reveal section.free-trial-compact h2 {
+  font-size: 1.24em !important;
+  line-height: 1.03 !important;
+  margin-bottom: 8px !important;
+  padding-bottom: 3px !important;
+}
+
+.reveal section.free-trial-compact .free-trial-grid {
+  gap: 7px 16px !important;
+  align-items: stretch !important;
+}
+
+.reveal section.free-trial-compact .taskbox {
+  font-size: 0.62em !important;
+  line-height: 1.16 !important;
+  padding: 9px 12px !important;
+}
+
+.reveal section.free-trial-compact .stat-card {
+  font-size: 0.74em !important;
+  line-height: 1.12 !important;
+  padding: 10px 14px !important;
+}
+
+.reveal section.free-trial-compact .notebox {
+  font-size: 0.62em !important;
+  line-height: 1.16 !important;
+  padding: 8px 12px !important;
+}
+
+.reveal section.free-trial-compact .examplebox {
+  font-size: 0.62em !important;
+  line-height: 1.16 !important;
+  padding: 9px 13px !important;
+}
+
+.reveal section.free-trial-compact p {
+  margin: 0.20em 0 !important;
+}
+
+.reveal section.free-trial-compact mjx-container[display="true"] {
+  margin: 0.55em 0 !important;
+}
+
+.reveal section.free-trial-compact .label {
+  margin-bottom: 3px !important;
+}
+</style>
+
+:::: {.free-trial-grid style="display: grid; grid-template-columns: 0.82fr 1.18fr; grid-template-rows: auto auto; gap: 7px 16px; align-items: stretch;"}
+
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
+A streaming app randomly assigns eligible free-trial users to one of two
+independent reminder groups before their trials end.
 
 One group receives a direct reminder about the upcoming charge. The other
 group receives a general app notification.
@@ -2465,7 +2953,7 @@ $x_1=78$ of $n_1=300$ continued the subscription
 $x_2=52$ of $n_2=280$ continued the subscription
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -2500,45 +2988,47 @@ $$
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-Construct a 95% confidence interval for $p_1-p_2$.
+Construct a 95% confidence interval for $p_1-p_2$ among eligible
+free-trial users.
 
 The order is **direct reminder minus general notification**, so positive
-values mean the direct reminder has the higher population continuation
-rate.
+values mean the continuation rate is higher under the direct reminder.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the direct reminder's population continuation
-rate is between **0.69 and 14.17 percentage points higher** than the
-general notification's population continuation rate.
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0; display: flex; align-items: center;"}
+We are 95% confident that the continuation rate under the direct reminder
+is between **0.69 and 14.17 percentage points higher** than the
+continuation rate under the general notification for eligible free-trial
+users.
 :::
 
 ::::
 
 ------------------------------------------------------------------------
 
-## Example: App Notification Click-Through Comparison
+## Example: App Notification Click-Through Rates
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 8px 15px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A mobile app wants to compare two ways of encouraging users to open a new feature.
-
-One group receives a direct push notification about the feature. The other group only sees a generic homepage banner.
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
+A mobile app randomly selects 950 eligible users and randomly assigns
+them to one of two notification methods.
 
 <br>
 
-**Group 1: Push notification users**  
-$x_1=210$ of $n_1=500$ opened the feature within 24 hours
+**Push notification**  
+$210$ of $500$ users opened the feature within 24 hours.
 
-**Group 2: Homepage banner users**  
-$x_2=170$ of $n_2=450$ opened the feature within 24 hours
+**Homepage banner**  
+$170$ of $450$ users opened the feature within 24 hours.
+
+Construct a 90% confidence interval for $p_1-p_2$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.82em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -2548,7 +3038,11 @@ $$
 $$
 
 $$
-\hat p_1-\hat p_2=0.4200-0.3778=0.0422
+\hat p_1-\hat p_2
+=
+0.4200-0.3778
+=
+0.0422
 $$
 
 $$
@@ -2569,21 +3063,30 @@ $$
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target parameter</span>
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Order</span>
 
-Construct a 90% confidence interval for $p_1-p_2$.
+$$
+p_1-p_2
+=
+p_{\text{push}}-p_{\text{banner}}
+$$
 
-The order is **push notification minus homepage banner**, so positive values mean the push notification has the higher population proportion of users who open the feature.
+Positive values favour the push notification.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 90% confident that the push notification's population proportion is between **1.00 percentage point lower and 9.45 percentage points higher** than the homepage banner's population proportion.
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0;"}
+The push-notification click-through rate could be between **1.00
+percentage point lower and 9.45 percentage points higher** than the
+homepage-banner rate.
+
+Because the interval includes **0**, neither method has a clearly higher
+click-through rate at the 90% confidence level.
 :::
 
 ::::
 
----
+------------------------------------------------------------------------
 
 ## Check in R: Difference of Proportions {.prop-r-check}
 
@@ -2591,10 +3094,12 @@ We are 90% confident that the push notification's population proportion is betwe
 .reveal section.prop-r-check .cm-editor,
 .reveal section.prop-r-check .cm-content,
 .reveal section.prop-r-check .cm-line,
+.reveal section.prop-r-check .cm-gutters,
+.reveal section.prop-r-check .cm-gutterElement,
 .reveal section.prop-r-check pre,
 .reveal section.prop-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.prop-r-check .cell-output,
@@ -2683,7 +3188,7 @@ print(out, row.names = FALSE)
 
   <li><strong>Independent groups assumption:</strong> The two groups being compared must be independent from each other.</li>
 
-  <li><strong>Sample size requirement:</strong> Both selected sample sizes should be greater than 70.</li>
+  <li><strong>Large-count condition:</strong> Each group should have at least 10 observed successes and at least 10 observed failures: $n_1\hat p_1 \ge 10$, $n_1(1-\hat p_1)\ge 10$, $n_2\hat p_2 \ge 10$, and $n_2(1-\hat p_2)\ge 10$.</li>
 </ul>
 :::
 
@@ -2761,12 +3266,16 @@ intervals.
 
 ------------------------------------------------------------------------
 
-## Example: Sale Checkout-Time Variability
+## Example: Sale Checkout-Time Variability {.grid-compact}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-An online retailer wants to compare how inconsistent checkout times are during a normal purchase period versus a limited-time sale period.
+An online retailer wants to compare how inconsistent checkout times are
+during a regular purchase period versus a limited-time sale period.
+
+Assume checkout times in both periods are approximately normal and that
+the two samples are independent random samples.
 
 <br>
 
@@ -2813,13 +3322,17 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target parameter</span>
 
-The order is **limited-time sale checkout variability divided by regular checkout variability**.
+The order is **limited-time sale checkout variability divided by regular
+checkout variability**.
 
-Values above 1 mean the limited-time sale checkout times are more variable.
+Values above 1 mean the limited-time sale checkout times are more
+variable.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that the limited-time sale checkout-time variance is between **2.00 and 15.31 times** the regular checkout-time variance. This suggests the sale checkout process is much less consistent.
+We are 95% confident that the limited-time sale checkout-time variance
+is between **2.00 and 15.31 times** the regular checkout-time variance.
+This suggests the sale checkout process is much less consistent.
 :::
 
 ::::
@@ -2908,10 +3421,12 @@ plausible.
 .reveal section.ratio-r-check .cm-editor,
 .reveal section.ratio-r-check .cm-content,
 .reveal section.ratio-r-check .cm-line,
+.reveal section.ratio-r-check .cm-gutters,
+.reveal section.ratio-r-check .cm-gutterElement,
 .reveal section.ratio-r-check pre,
 .reveal section.ratio-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.ratio-r-check .notebox {
@@ -3019,29 +3534,37 @@ What does that mean?
 ::: defbox
 Paired data occur when observations are naturally matched.
 
-Instead of comparing two independent sample means, we compute differences:
+Instead of comparing two independent sample means, we compute one
+difference for each pair:
 
 $$
-d_i = x_{2i} - x_{1i}
+d_i=\text{first measurement}-\text{second measurement}
 $$
 
-Then we build a one-sample $t$ interval for the population mean
+or equivalently in the opposite order, as long as the order is clearly
+defined and used consistently.
+
+We then build a one-sample $t$ interval for the population mean
 difference $\mu_d$.
 :::
 
 ::::: two-col
 ::: {.examplebox .fragment}
-**Few Examples**
+**Examples**
 
 - Before and after measurements on the same person
 - Matched twins
-- Same student under two testing conditions
-- Same object measured by two devices
+- The same student under two testing conditions
+- The same object measured by two devices
 :::
 
 ::: {.warnbox .fragment}
 Do not treat paired data as two independent samples. The pairing is the
 main information.
+
+Reversing the order of subtraction reverses the signs of the differences
+and the confidence-interval endpoints, so always interpret the interval
+using the stated order.
 :::
 :::::
 
@@ -3200,19 +3723,20 @@ Each grey line connects the same person from **before** to **after**. The colour
 
 ## Example: Vitamin C and Sick Days
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.88fr 1.12fr; grid-template-rows: auto auto; gap: 8px 15px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A researcher wants to study whether regular Vitamin C use is associated
-with fewer sick days during cold season.
+::: {.taskbox style="grid-column: 1; grid-row: 1; margin-bottom: 0;"}
+A random sample of 12 people is observed during two comparable winter
+periods:
 
-The same 12 people are observed across two comparable winter periods:
-one without regular Vitamin C use and one with regular Vitamin C use.
+- **without** regular Vitamin C
+- **with** regular Vitamin C
 
-For each person, define:
+For each person, define
 
 $$
-d=\text{sick days without Vitamin C}-\text{sick days with Vitamin C}
+d=\text{sick days without Vitamin C}
+-\text{sick days with Vitamin C}
 $$
 
 Observed differences:
@@ -3222,7 +3746,7 @@ $$
 $$
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -3243,38 +3767,43 @@ SE=
 $$
 
 $$
-df=n-1=11,
+df=11,
 \qquad
 t^*=2.201
 $$
 
 $$
-\bar d\pm t^*SE
-=
 1.750\pm2.201(0.351)
 =
 (0.98,\;2.52)
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Target parameter</span>
+::: {.notebox style="grid-column: 1; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Order</span>
 
 Construct a 95% confidence interval for $\mu_d$.
 
-The order is **without Vitamin C minus with Vitamin C**, so positive
-values mean fewer sick days during the Vitamin C period.
+$$
+d=\text{without Vitamin C}-\text{with Vitamin C}
+$$
+
+Positive values mean fewer sick days during the Vitamin C period.
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-We are 95% confident that regular Vitamin C use is associated with
-between **0.98 and 2.52 fewer sick days**, on average, for people like
-those in this paired study.
+::: {.examplebox style="grid-column: 2; grid-row: 2; margin-bottom: 0;"}
+<span class="label">Interpretation</span>
+
+We are 95% confident that the Vitamin C period had between **0.98 and
+2.52 fewer sick days on average**.
+
+Because Vitamin C use was not randomly assigned, this shows an
+**association**, not proof of causation.
 :::
 
 ::::
 
----
+------------------------------------------------------------------------
 
 ## Example: Phone-Free Bedtime Routine
 
@@ -3361,10 +3890,12 @@ people like those in this paired study.
 .reveal section.paired-r-check .cm-editor,
 .reveal section.paired-r-check .cm-content,
 .reveal section.paired-r-check .cm-line,
+.reveal section.paired-r-check .cm-gutters,
+.reveal section.paired-r-check .cm-gutterElement,
 .reveal section.paired-r-check pre,
 .reveal section.paired-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.paired-r-check .cell-output,
@@ -3507,10 +4038,14 @@ The required sample size depends on:
 
 - confidence level
 - desired margin of error
+- a planning value $p_0$
+
+If no reliable prior estimate is available, use $p_0=0.5$ for the most
+conservative sample size.
 :::
 :::::
 
-------------------------------------------------------------------------
+---
 
 ## 5.6.1 Sample Size for a Mean When $\sigma$ is Known
 
@@ -3543,26 +4078,27 @@ margin of error too large.
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A website team is planning a large online registration page.
+A university is testing a new online entry form and wants to estimate the
+population mean time required to complete it.
 
-Before launch, they want to estimate the **mean time** it takes a user to complete the entry form.
-
-From previous launches, the population standard deviation is treated as known:
-
-$$
-\sigma = 24 \text{ seconds}
-$$
-
-The team wants the estimate to be within:
+From extensive historical system data, the population standard deviation
+of completion times is treated as known:
 
 $$
-E = 5 \text{ seconds}
+\sigma=24\text{ seconds}
 $$
 
-Find the required sample size for 95% confidence.
+The university wants a 95% confidence interval with margin of error no
+more than:
+
+$$
+E=5\text{ seconds}
+$$
+
+Find the required sample size.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.84em; line-height: 1.13; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -3588,8 +4124,7 @@ n=
 $$
 
 $$
-n=
-88.51
+n=88.5105
 $$
 
 $$
@@ -3600,13 +4135,16 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a confidence interval for the population mean entry-form completion time.
+Find the sample size needed for a 95% confidence interval for the
+population mean online entry-form completion time.
 
 The margin of error should be no more than **5 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The team should sample at least **89 users** to estimate the mean entry-form completion time within **5 seconds** at 95% confidence.
+The university should observe at least **89 form completions** to estimate
+the population mean completion time within **5 seconds** at 95%
+confidence.
 :::
 
 ::::
@@ -3618,10 +4156,11 @@ The team should sample at least **89 users** to estimate the mean entry-form com
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A ride-share app wants to estimate its average pickup-time prediction error.
+A ride-share app wants to estimate its average pickup-time prediction
+error.
 
-From past trip data, the population standard deviation of prediction error
-is treated as known:
+From past trip data, the population standard deviation of prediction
+error is treated as known:
 
 $$
 \sigma = 22.5 \text{ seconds}
@@ -3662,7 +4201,7 @@ n=
 $$
 
 $$
-n=839.45
+n=839.8404
 $$
 
 $$
@@ -3673,13 +4212,13 @@ $$
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Choose \(n\) so the confidence interval for the population mean prediction
+Choose $n$ so the confidence interval for the population mean prediction
 error has margin of error no more than **2 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The app should sample at least **840 trips** to estimate the mean pickup-time
-prediction error within **2 seconds** at 99% confidence.
+The app should sample at least **840 trips** to estimate the mean
+pickup-time prediction error within **2 seconds** at 99% confidence.
 :::
 
 ::::
@@ -3692,10 +4231,12 @@ prediction error within **2 seconds** at 99% confidence.
 .reveal section.mean-size-r-check .cm-editor,
 .reveal section.mean-size-r-check .cm-content,
 .reveal section.mean-size-r-check .cm-line,
+.reveal section.mean-size-r-check .cm-gutters,
+.reveal section.mean-size-r-check .cm-gutterElement,
 .reveal section.mean-size-r-check pre,
 .reveal section.mean-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.mean-size-r-check .cell-output,
@@ -3804,12 +4345,25 @@ This is why an iterative approach is used:
 
 ------------------------------------------------------------------------
 
-## Example: Tutorial Video Rating Estimate
+## Example: Tutorial Video Rating Estimate {.grid-compact}
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
+```{=html}
+<style>
+.reveal section.grid-compact .example-grid .taskbox,
+.reveal section.grid-compact .example-grid .notebox,
+.reveal section.grid-compact .example-grid .examplebox { font-size: 0.51em !important; line-height: 1.12 !important; }
+.reveal section.grid-compact .example-grid .stat-card { font-size: 0.61em !important; }
+.reveal section.grid-compact .example-grid .stat-card mjx-container[display="true"] { margin: 0.42em 0 !important; }
+</style>
+```
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
-An online learning platform wants to estimate the mean rating students give to a new tutorial video.
+:::::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 8px 15px;"}
+
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.taskbox style="margin-bottom: 0;"}
+An online learning platform wants to estimate the mean rating students
+give to a new tutorial video.
 
 Each student rates the video on a **0 to 100 scale**.
 
@@ -3826,9 +4380,23 @@ E=4
 $$
 
 Find the required sample size for **95% confidence**.
-:::
+::::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
+:::: {.notebox style="margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+We are planning a confidence interval for the population mean student
+rating.
+
+Because $\sigma$ is unknown, the pilot-study standard deviation
+$s=14.5$ is used as the preliminary estimate.
+::::
+
+:::::
+
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.stat-card style="margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
@@ -3867,29 +4435,27 @@ So the sample size stabilizes at:
 $$
 n=53
 $$
-:::
-
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
-<span class="label">Planning goal</span>
-
-We are planning a confidence interval for the population mean student rating.
-
-Because $\sigma$ is unknown, the pilot-study standard deviation $s=14.5$ is used as the preliminary estimate.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
-The online learning platform should sample at least **53 students** to estimate the mean tutorial-video rating within **4 points** at 95% confidence.
-:::
-
 ::::
 
---------------
+:::: {.examplebox style="margin-bottom: 0;"}
+The online learning platform should sample at least **53 students** to
+estimate the mean tutorial-video rating within **4 points** at 95%
+confidence.
+::::
+
+:::::
+
+::::::
+
+------------------------------------------------------------------------
 
 ## Example: Grocery-Delivery Fee Estimate
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 9px 18px; align-items: stretch;"}
+:::::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; gap: 8px 15px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.14; padding: 13px 16px; margin-bottom: 0; display: flex; flex-direction: column; justify-content: center;"}
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.taskbox style="margin-bottom: 0;"}
 A consumer app wants to estimate the average extra cost from grocery
 delivery fees, service charges, and tips.
 
@@ -3906,9 +4472,22 @@ E=10\text{ dollars}
 $$
 
 Since $\sigma$ is unknown, use the iterative $t$ approach.
-:::
+::::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.61em; line-height: 1.05; padding: 10px 15px; margin-bottom: 0;"}
+:::: {.notebox style="margin-bottom: 0;"}
+<span class="label">Planning goal</span>
+
+Find the sample size needed for a 95% confidence interval for the
+population mean extra grocery-delivery cost.
+
+Because $\sigma$ is unknown, the pilot estimate $s=16$ is used.
+::::
+
+:::::
+
+::::: {style="display: flex; flex-direction: column; gap: 8px;"}
+
+:::: {.stat-card style="margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 Start with the $z$ approximation:
@@ -3939,26 +4518,19 @@ So the sample size stabilizes at:
 $$
 n=13
 $$
-:::
+::::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.58em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
-<span class="label">Planning goal</span>
-
-Find the sample size needed for a 95% confidence interval for the
-population mean extra grocery-delivery cost.
-
-Because $\sigma$ is unknown, the pilot estimate $s=16$ is used.
-:::
-
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.12; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
+:::: {.examplebox style="margin-bottom: 0;"}
 The iteration stabilizes at **13**, so the app should sample at least
 **13 grocery-delivery orders** to keep the margin of error at most
 10 dollars.
-:::
-
 ::::
 
----
+:::::
+
+::::::
+
+------------------------------------------------------------------------
 
 ## Check in R: Sigma Unknown Sample Size {.unknown-size-r-check}
 
@@ -3966,10 +4538,12 @@ The iteration stabilizes at **13**, so the app should sample at least
 .reveal section.unknown-size-r-check .cm-editor,
 .reveal section.unknown-size-r-check .cm-content,
 .reveal section.unknown-size-r-check .cm-line,
+.reveal section.unknown-size-r-check .cm-gutters,
+.reveal section.unknown-size-r-check .cm-gutterElement,
 .reveal section.unknown-size-r-check pre,
 .reveal section.unknown-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.unknown-size-r-check .cell-output,
@@ -4205,7 +4779,7 @@ n_{95}=
 \right)^2
 (0.156)(0.844)
 =
-562.54
+562.0005
 \Rightarrow
 563
 $$
@@ -4217,7 +4791,7 @@ n_{99}=
 \right)^2
 (0.156)(0.844)
 =
-970.97
+970.7698
 \Rightarrow
 971
 $$
@@ -4245,10 +4819,12 @@ The company should survey at least **563 waitlist users** for 95% confidence and
 .reveal section.prop-size-r-check .cm-editor,
 .reveal section.prop-size-r-check .cm-content,
 .reveal section.prop-size-r-check .cm-line,
+.reveal section.prop-size-r-check .cm-gutters,
+.reveal section.prop-size-r-check .cm-gutterElement,
 .reveal section.prop-size-r-check pre,
 .reveal section.prop-size-r-check code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.5 !important;
 }
 
 .reveal section.prop-size-r-check .cell-output,
@@ -4326,31 +4902,38 @@ print(out, row.names = FALSE)
 
 ---
 
-## Final Checklist
+## Chapter Summary {.compact}
 
 :::: {.two-col}
 ::: {.card .fragment}
-<span class="label">Before calculating</span>
+<span class="label">Choose the correct interval</span>
 
-- Identify the parameter.
-- Check one sample vs two sample vs paired.
-- Check whether the target is a mean, proportion, or variance.
-- Pick the reference distribution.
+- Identify the population parameter.
+- Decide whether the data involve one sample, two independent samples,
+  or paired observations.
+- Determine whether the target is a mean, proportion, variance, or
+  difference between parameters.
+- Select the appropriate reference distribution: $Z$, $t$, $\chi^2$,
+  or $F$.
 :::
 
 ::: {.card .fragment}
-<span class="label">After calculating</span>
+<span class="label">Report the result correctly</span>
 
+- State the confidence level.
 - Include units when relevant.
-- Interpret in context.
-- Check whether 0 or 1 has a special meaning.
-- For sample size, round up.
+- Interpret the interval in the context of the population parameter.
+- Explain the meaning of 0 or 1 when interpreting differences or ratios.
+- Always round a required sample size up.
 :::
 ::::
 
+<br>
+
 ::: {.thinkbox .fragment}
-**One slide takeaway.** Confidence intervals are all the same basic idea:
-estimate the quantity, account for uncertainty, and report a reasonable range of values.
+**One-slide takeaway.** A confidence interval combines a sample estimate
+with a measure of uncertainty to give a plausible range of values for an
+unknown population parameter.
 :::
 
 ---
@@ -4360,7 +4943,7 @@ estimate the quantity, account for uncertainty, and report a reasonable range of
 ::: {.examplebox}
 **Chapter 6 - Hypothesis Tests**
 
-Confidence intervals estimate plausible parameter values. Hypothesis tests ask whether a specific claim about a parameter is compatible with the data.
+We shift from estimating a parameter to **testing a claim** about it: is a specific value compatible with the sample data? You will weigh evidence using <em>null and alternative hypotheses, test statistics, and $p$-values</em>.
 :::
 
 <div class="home-button-row">

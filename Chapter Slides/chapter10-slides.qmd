@@ -31,6 +31,14 @@ live:
 
 ```{r setup}
 #| include: false
+
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  ggplot2, dplyr, plotly
+#   WebR (in-browser cells):         ggplot2, dplyr, plotly
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
 library(ggplot2)
 library(dplyr)
 library(plotly)
@@ -441,6 +449,84 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 ```
 
+```{=html}
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+```
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
 STA258: Statistics with Applied Probability  
@@ -519,7 +605,7 @@ The question is usually: **Do the observed counts match what the model predicted
 ::: {.defbox}
 For two categories, one count can be modelled with a binomial distribution.
 
-If $Y_1 \sim Bin(n,p_1)$, then for large $n$,
+If $Y_1 \sim Bin(n,p_1)$ and both $np_1$ and $n(1-p_1)$ are large enough, then
 
 $$
 Z=
@@ -548,9 +634,11 @@ $$
 Q_1=
 \sum_{i=1}^{2}
 \frac{(Y_i-np_i)^2}{np_i}
+=
+Z^2
 $$
 
-This extends naturally to more than two categories.
+Therefore, $Q_1\approx\chi^2_1$. This idea extends naturally to more than two categories.
 :::
 :::
 ::::
@@ -578,7 +666,7 @@ $$
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">Trials</span>
-There are $n$ independent and identical trials.
+There are $n$ independent trials with the same category probabilities.
 :::
 
 ::: {.stat-card .fragment}
@@ -633,7 +721,7 @@ The statistic gets large when observed counts are far from expected counts.
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A campus media club asks $n=240$ students which streaming app they would keep if they could keep only one.
+A campus media club asks a random sample of $n=240$ students which streaming app they would keep if they could keep only one.
 
 The club wants to test whether the four apps are equally preferred.
 
@@ -646,7 +734,7 @@ The club wants to test whether the four apps are equally preferred.
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 If all four apps are equally preferred:
@@ -673,9 +761,13 @@ $$
 $$
 \chi^2=32.13,\qquad df=4-1=3
 $$
+
+$$
+p\text{-value}\approx4.91\times10^{-7}
+$$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Hypotheses</span>
 
 $$
@@ -687,7 +779,7 @@ H_a:\text{the four probabilities are not all equal}
 $$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 Since the P-value is very small, we reject $H_0$. The sample gives strong evidence that the four streaming apps are **not equally preferred**.
 :::
 
@@ -702,7 +794,7 @@ Since the P-value is very small, we reject $H_0$. The sample gives strong eviden
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
 A campus café wants to know whether three cold drink options are equally preferred by students.
 
-A random sample of $n=180$ student purchases gives:
+A random sample of $n=180$ students is asked which drink they would choose:
 
 <br>
 
@@ -713,7 +805,7 @@ A random sample of $n=180$ student purchases gives:
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 If all three drinks are equally preferred:
@@ -744,7 +836,7 @@ p\text{-value}\approx0.031
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Hypotheses</span>
 
 $$
@@ -756,7 +848,7 @@ H_a:\text{the three probabilities are not all equal}
 $$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café drinks are not equally preferred.
 :::
 
@@ -765,7 +857,7 @@ Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café dr
 
 ---
 
-## Check in R: Multinomial Equal-Preference Tests {.gof-r-check}
+## Check in R: Equal-Preference Goodness-of-Fit Tests {.gof-r-check}
 
 <style>
 .reveal section.gof-r-check .cm-editor,
@@ -858,7 +950,7 @@ p_k=p_{hyp,k}
 $$
 
 $$
-H_a:\text{at least one category probability is different}
+H_a:\text{at least one probability differs from its hypothesized value}
 $$
 :::
 
@@ -887,7 +979,7 @@ $$
 \text{expected count}=np_i
 $$
 
-The P-value is the area to the right of the observed $\chi^2$ statistic under a chi-square distribution with:
+When all hypothesized category probabilities are specified before observing the data, the P-value is the area to the right of the observed $\chi^2$ statistic under a chi-square distribution with:
 
 $$
 df=k-1
@@ -922,7 +1014,7 @@ A random sample of $n=200$ orders gives:
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 Expected counts:
@@ -953,7 +1045,7 @@ p\text{-value}\approx0.277
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Hypotheses</span>
 
 $$
@@ -967,7 +1059,7 @@ H_a:\text{at least one probability differs}
 $$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 Since $0.277>0.05$, we do not reject $H_0$. The observed pickup counts are reasonably consistent with the historical time-slot model.
 :::
 
@@ -988,7 +1080,7 @@ $$
 
 for black, clear, blue, and pink cases.
 
-A sample of $n=150$ recent purchases gives:
+A random sample of $n=150$ recent purchases gives:
 
 | Colour | Black | Clear | Blue | Pink |
 |---|---:|---:|---:|---:|
@@ -997,7 +1089,7 @@ A sample of $n=150$ recent purchases gives:
 Use $\alpha=0.05$.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 Expected counts:
@@ -1028,19 +1120,21 @@ p\text{-value}\approx0.0102
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Interpretation setup</span>
-
-One term of the statistic is especially large:
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
 
 $$
-\frac{(63-45)^2}{45}=7.20
+H_0:(p_1,p_2,p_3,p_4)
+=
+(0.30,0.25,0.25,0.20)
 $$
 
-This shows that black case purchases are far above what the model expected.
+$$
+H_a:\text{at least one probability differs}
+$$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 Since $0.0102<0.05$, we reject $H_0$. The colour demand pattern does not fit the shop's expected distribution well.
 :::
 
@@ -1137,7 +1231,7 @@ round(data.frame(
 
 ---
 
-## 10.3 Sample Size Assumption
+## 10.3 Assumptions for Chi-square Goodness of Fit
 
 ::: {.defbox}
 The chi-square approximation works well only when the expected counts are large enough.
@@ -1179,7 +1273,7 @@ Some expected counts are below 5, so the chi-square approximation may be unrelia
 
 ---
 
-## Assumptions for Chi-square Goodness of Fit
+## Assumption Checklist
 
 ::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
 <span class="label">Assumptions</span>
@@ -1195,7 +1289,7 @@ Some expected counts are below 5, so the chi-square approximation may be unrelia
 </ul>
 :::
 
-::: {.thinkbox style="font-size: 0.70em; line-height: 1.22; padding: 13px 16px; margin-top: 14px;"}
+::: {.thinkbox .fragment style="font-size: 0.70em; line-height: 1.22; padding: 13px 16px; margin-top: 14px;"}
 <span class="label">Course reminder</span>
 
 Check expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied.
@@ -1226,9 +1320,9 @@ Which statement is best?
 
 ## Practice: Food Delivery App Share
 
-:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.82fr 1.18fr; grid-template-rows: auto auto; gap: 8px 14px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.61em; line-height: 1.13; padding: 10px 14px; margin-bottom: 0;"}
 A student group claims food delivery app choices on campus follow:
 
 $$
@@ -1244,14 +1338,12 @@ A random sample of $n=150$ students gives:
 Test the model at the 1% significance level.
 :::
 
-::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.80em; line-height: 1.16; padding: 14px 18px; margin-bottom: 0;"}
+::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.68em; line-height: 1.08; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 Expected counts:
 
 $$
-150(0.10,0.20,0.30,0.20,0.20)
-=
 (15,30,45,30,30)
 $$
 
@@ -1262,28 +1354,40 @@ $$
 \frac{(32-30)^2}{30}
 +
 \frac{(42-45)^2}{45}
+$$
+
+$$
+\qquad
 +
 \frac{(36-30)^2}{30}
 +
 \frac{(28-30)^2}{30}
+=
+2.27
 $$
 
 $$
-\chi^2=2.27,\qquad df=5-1=4
-$$
-
-$$
+df=5-1=4,
+\qquad
 p\text{-value}\approx0.687
 $$
 :::
 
-::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.63em; line-height: 1.16; padding: 10px 14px; margin-bottom: 0;"}
-<span class="label">Decision rule</span>
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.59em; line-height: 1.12; padding: 9px 13px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
 
-At the 1% level, reject $H_0$ only if the P-value is less than $0.01$.
+$$
+H_0:(p_1,p_2,p_3,p_4,p_5)
+=
+(0.10,0.20,0.30,0.20,0.20)
+$$
+
+$$
+H_a:\text{at least one probability differs from its hypothesized value}
+$$
 :::
 
-::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.67em; line-height: 1.18; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.61em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0; display: flex; align-items: center;"}
 Since $0.687>0.01$, we do not reject $H_0$. The observed app choices are consistent with the claimed distribution.
 :::
 
@@ -1291,7 +1395,7 @@ Since $0.687>0.01$, we do not reject $H_0$. The observed app choices are consist
 
 ---
 
-## Check in R: Practice Test {.gof-r-check}
+## Check in R: Food Delivery App Share {.gof-r-check}
 
 :::: {.two-col-wide style="grid-template-columns: 0.95fr 1.05fr; gap: 22px; align-items: start;"}
 
@@ -1375,6 +1479,8 @@ Large values give evidence against $H_0$.
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">Degrees of freedom</span>
+
+When the category probabilities are specified in advance:
 
 $$
 df=k-1

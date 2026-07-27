@@ -3627,7 +3627,7 @@ hist(xbar_vals, breaks = h$breaks,
      ylim = c(0, max(h$density, y_curve) * 1.08),
      yaxs = "i")
 
-# Overlay theoretical normal
+# Overlay the CLT normal approximation
 lines(x_curve, y_curve, col = "#F8766D", lwd = 2)
 ```
 

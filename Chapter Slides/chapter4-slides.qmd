@@ -3171,8 +3171,9 @@ qt(0.975, df = c(5, 10, 30, 100, 1000))
 **`qt(p, df)`** → inverse CDF
 
 Notice `qt(0.975, df=10) = 2.228` vs `qnorm(0.975) = 1.960`. The $t$
-critical value is larger - reflecting extra uncertainty in small
-samples.
+critical value is larger because estimating $\sigma$ using the sample
+standard deviation introduces additional uncertainty. This difference
+is greatest when the degrees of freedom are small.
 :::
 ::::
 ::::::

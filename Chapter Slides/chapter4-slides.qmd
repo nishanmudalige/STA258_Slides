@@ -4755,18 +4755,41 @@ tail(running_mean)
 ::: defbox
 **Empirical Probability from the WLLN**
 
-Define indicator
-$X_i = \mathbf{1}[\text{event } A \text{ occurs on trial } i]$.
+Define the indicator variable
 
-Then $E[X_i] = P(A)$, and by the WLLN:
+$$
+X_i =
+\begin{cases}
+1, & \text{if event } A \text{ occurs on trial } i,\\
+0, & \text{otherwise}.
+\end{cases}
+$$
 
-$$\bar{X}_n = \frac{\text{number of times } A \text{ occurs}}{n} \;\overset{p}{\longrightarrow}\; P(A)$$
+Then
+
+$$
+E[X_i]=P(A)
+$$
+
+and the sample mean of the indicators is the empirical proportion:
+
+$$
+\bar{X}_n
+=
+\frac{\text{number of times }A\text{ occurs}}{n}.
+$$
+
+Therefore, by the WLLN,
+
+$$
+\bar{X}_n \xrightarrow{p} P(A).
+$$
 :::
 
 ::: {.examplebox .fragment}
-**Coin flip.** Tossing a fair coin: $P(\text{heads}) = 0.5$. After many
-flips, the proportion of heads converges to $0.5$. This is precisely the
-WLLN at work.
+**Coin flip.** For a fair coin, let $X_i=1$ when flip $i$ is heads and
+$X_i=0$ otherwise. Since $E[X_i]=P(\text{heads})=0.5$, the observed
+proportion of heads converges in probability to $0.5$.
 :::
 
 ------------------------------------------------------------------------

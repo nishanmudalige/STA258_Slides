@@ -3497,9 +3497,10 @@ $\chi^2$ and $F$ distributions?
 ::: {.summary-table-slide}
 | Distribution | Parameters | Support | $E[X]$ | Key use |
 |---------|---------|---------|------------------|-------------------|
-| $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | General continuous |
-| $\chi^2_k$ | $k$ (df) | $(0,\infty)$ | $k$ | Variance tests |
-| $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ if $\nu>1$;<br>undefined if $\nu\leq1$ | Small-sample mean |
+| $N(\mu,\sigma^2)$ | $\mu, \sigma^2$ | $\mathbb{R}$ | $\mu$ | Normal models and approximations |
+| $\chi^2_k$ | $k$ (df) | $(0,\infty)$ | $k$ | Inference about variance |
+| $t_\nu$ | $\nu$ (df) | $\mathbb{R}$ | $0$ if $\nu>1$;<br>undefined if $\nu\leq1$ | Mean inference when $\sigma$ is unknown |
+| $F_{\nu_1,\nu_2}$ | $\nu_1, \nu_2$ | $(0,\infty)$ | $\dfrac{\nu_2}{\nu_2-2}$ if $\nu_2>2$;<br>undefined if $\nu_2\leq2$ | Comparing variances and ANOVA | Small-sample mean |
 | $F_{\nu_1,\nu_2}$ | $\nu_1, \nu_2$ | $(0,\infty)$ | $\dfrac{\nu_2}{\nu_2-2}$ if $\nu_2>2$;<br>undefined if $\nu_2\leq2$ | Variance ratios |
 
 ::: {.thinkbox .fragment}

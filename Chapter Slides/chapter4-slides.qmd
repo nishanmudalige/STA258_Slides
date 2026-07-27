@@ -2722,8 +2722,16 @@ $$f_T(t;\nu) = \frac{\Gamma\!\left(\frac{\nu+1}{2}\right)}{\sqrt{\pi\nu}\,\Gamma
 :::
 
 ::: {.warnbox .fragment}
-The $t$-distribution has **heavier tails** than the normal. As
-$\nu \to \infty$, $t_\nu \to N(0,1)$.
+The $t$-distribution has **heavier tails** than the standard normal
+distribution. As the degrees of freedom increase,
+
+$$
+t_\nu \xrightarrow{d} N(0,1)
+\qquad \text{as } \nu \to \infty.
+$$
+
+Therefore, the $t$-distribution becomes increasingly similar to the
+standard normal distribution for large $\nu$.
 :::
 
 ------------------------------------------------------------------------

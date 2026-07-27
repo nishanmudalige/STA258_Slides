@@ -2523,38 +2523,97 @@ not be studied further in this chapter.
 
 ------------------------------------------------------------------------
 
-## 4.1.2 Introduction to the Chi-Square Distribution
+## Recall: The Gamma Distribution
+
+::: {.defbox .fragment}
+**Gamma Distribution**
+
+A random variable $X$ follows a Gamma distribution with shape parameter
+$\alpha>0$ and scale parameter $\beta>0$, written
+
+$$
+X\sim\operatorname{Gamma}(\alpha,\beta),
+$$
+
+if its probability density function is
+
+$$
+f_X(x;\alpha,\beta)
+=
+\frac{1}{\Gamma(\alpha)\beta^\alpha}
+x^{\alpha-1}e^{-x/\beta},
+\qquad x>0,
+$$
+
+where
+
+$$
+\Gamma(\alpha)
+=
+\int_0^\infty t^{\alpha-1}e^{-t}\,dt
+$$
+
+is the Gamma function.
+:::
 
 ::: {.examplebox .fragment}
-A chi-square random variable is built from squared independent standard
-normal random variables. Its density is also a special case of the Gamma
-density recalled on the previous slide.
+**Why do we recall Gamma?**
+
+The chi-square distribution is the special case
+
+$$
+\chi_k^2
+\sim
+\operatorname{Gamma}\!\left(\frac{k}{2},2\right).
+$$
+
+We use this connection to introduce chi-square, but we will not study
+the Gamma distribution further in this chapter.
 :::
 
 ------------------------------------------------------------------------
 
-## The Chi-Square Random Variable
+## 4.1.2 The Chi-Square Distribution
 
 ::: defbox
 **Chi-Square Random Variable** - $X \sim \chi^2_k$
 
-If $Z_1, Z_2, \ldots, Z_k \overset{\text{iid}}{\sim} N(0,1)$, then
+If
+
+$$
+Z_1,Z_2,\ldots,Z_k
+\overset{\text{iid}}{\sim}
+N(0,1),
+$$
+
+then
 
 $$
 X
 =
-\sum_{i=1}^{k} Z_i^2
+\sum_{i=1}^{k}Z_i^2
 \sim
-\chi^2_k.
+\chi_k^2.
 $$
 
-The pdf for $x>0$ is
+The probability density function for $x>0$ is
 
 $$
 f(x;k)
 =
 \frac{1}{2^{k/2}\Gamma(k/2)}
 x^{k/2-1}e^{-x/2}.
+$$
+:::
+
+::: {.examplebox .fragment}
+The distribution is **right-skewed** and takes non-negative values. As
+$k$ increases, it becomes more symmetric.
+
+$$
+E[X]=k,
+\qquad
+\operatorname{Var}(X)=2k.
 $$
 :::
 

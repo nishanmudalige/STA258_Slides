@@ -2477,52 +2477,6 @@ Remember: the standard deviation is the square root of the variance.
 
 ------------------------------------------------------------------------
 
-## 4.1.2 Recall: The Gamma Distribution
-
-::: {style="transform: scale(0.96); transform-origin: top left; width: 104.2%;"}
-
-::: {.defbox .fragment}
-**Gamma Distribution**
-
-Before introducing the chi-square distribution, recall that a random
-variable $X$ follows a Gamma distribution with shape parameter
-$\alpha>0$ and scale parameter $\beta>0$, written
-
-$$
-X\sim\operatorname{Gamma}(\alpha,\beta),
-$$
-
-if its probability density function is
-
-$$
-f_X(x;\alpha,\beta)
-=
-\frac{1}{\Gamma(\alpha)\beta^\alpha}
-x^{\alpha-1}e^{-x/\beta},
-\qquad x>0,
-$$
-
-and $f_X(x;\alpha,\beta)=0$ otherwise, where
-
-$$
-\Gamma(\alpha)
-=
-\int_0^\infty t^{\alpha-1}e^{-t}\,dt
-$$
-
-is the Gamma function.
-:::
-
-::: {.thinkbox .fragment}
-We recall the Gamma distribution here because the chi-square
-distribution is one of its special cases. The Gamma distribution will
-not be studied further in this chapter.
-:::
-
-:::
-
-------------------------------------------------------------------------
-
 ## Recall: The Gamma Distribution
 
 ::: {.defbox .fragment style="font-size:0.64em; line-height:1.18; padding:12px 15px;"}

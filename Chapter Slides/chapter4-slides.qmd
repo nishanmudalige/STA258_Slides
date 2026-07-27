@@ -4459,17 +4459,31 @@ legend(
 
 ::: taskbox
 [Example]{.label} Let
-$X_i \overset{\text{iid}}{\sim} \text{Poisson}(\lambda = 3)$ for
-$i = 1, 2, \ldots$
+$X_1, X_2, \ldots$ be i.i.d. random variables with
 
-**(a)** State $E[X_i]$ and $\text{Var}(X_i)$.
+$$
+X_i \sim \operatorname{Poisson}(3).
+$$
 
-**(b)** Apply Chebyshev's inequality to bound
-$P(|\bar{X}_n - 3| \geq \varepsilon)$.
+**(a)** State $E[X_i]$ and $\operatorname{Var}(X_i)$.
 
-**(c)** Show that $\bar{X}_n \overset{p}{\longrightarrow} 3$.
+**(b)** Use Chebyshev's inequality to show that, for every
+$\varepsilon>0$,
 
-**(d)** Simulate the convergence in R for $n = 500$ trials.
+$$
+P\!\left(|\bar{X}_n-3|>\varepsilon\right)
+\leq
+\frac{3}{n\varepsilon^2}.
+$$
+
+**(c)** Use the bound in part (b) to conclude that
+
+$$
+\bar{X}_n\xrightarrow{p}3.
+$$
+
+**(d)** Simulate $n=500$ Poisson observations in R and plot the running
+sample mean against the population mean.
 :::
 
 ------------------------------------------------------------------------

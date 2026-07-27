@@ -315,15 +315,22 @@ plotly_slide_layout <- function(
 .reveal section.anova-table-slide .defbox,
 .reveal section.anova-table-slide .examplebox,
 .reveal section.anova-table-slide .thinkbox,
-.reveal section.anova-table-slide .stat-card { font-size: 0.66em !important; padding: 10px 13px !important; }
+.reveal section.anova-table-slide .stat-card { font-size: 0.58em !important; padding: 9px 12px !important; }
+.reveal section.anova-table-slide table { font-size: 0.6em; }
 .reveal section.fisher-idea .defbox,
 .reveal section.fisher-idea .examplebox,
 .reveal section.fisher-idea .thinkbox,
-.reveal section.fisher-idea .stat-card { font-size: 0.64em !important; padding: 10px 13px !important; }
+.reveal section.fisher-idea .stat-card { font-size: 0.61em !important; padding: 9px 12px !important; }
 /* Per-slide enlargements the user asked for */
 .reveal section.anova-prediction .defbox,
-.reveal section.anova-prediction .examplebox,
-.reveal section.anova-prediction .thinkbox { font-size: 0.82em !important; }
+.reveal section.anova-prediction .thinkbox { font-size: 0.62em !important; }
+.reveal section.anova-prediction .stat-card { font-size: 0.56em !important; }
+/* 8.2 Sources of Variation: bring its boxes in line with the other section slides */
+.reveal section.sources-var .defbox,
+.reveal section.sources-var .stat-card,
+.reveal section.sources-var .thinkbox { font-size: 0.64em !important; padding: 12px 15px !important; }
+/* Slide 5 data layout: table can be larger, there is room */
+.reveal section.data-notation table { font-size: 0.88em; }
 .reveal section.anova-rejects .defbox,
 .reveal section.anova-rejects .examplebox,
 .reveal section.anova-rejects .thinkbox,
@@ -940,7 +947,7 @@ If this improvement is large compared with the within-group error, the ANOVA \(F
 
 ---
 
-## 8.2 Sources of Variation
+## 8.2 Sources of Variation {.compact .sources-var}
 
 ::: {.defbox}
 ANOVA works by splitting variation into two pieces: variation **within** groups and variation **between** groups.

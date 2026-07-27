@@ -3606,32 +3606,74 @@ precise estimates.
 ```{webr}
 #| autorun: false
 
-# Simulate sampling distribution of X-bar
-# Population: Exponential(rate=1), mu=1, sigma^2=1
+# Simulate the sampling distribution of X-bar
+# Population: Exponential(rate = 1), mu = 1, sigma^2 = 1
 
-n     <- 30      # sample size
-reps  <- 5000    # number of samples
+n <- 30
+reps <- 5000
 
-xbar_vals <- replicate(reps, mean(rexp(n, rate = 1)))
+xbar_vals <- replicate(
+  reps,
+  mean(rexp(n, rate = 1))
+)
 
-h <- hist(xbar_vals, breaks = 50, plot = FALSE)
-x_curve <- seq(min(h$breaks), max(h$breaks), length.out = 500)
-y_curve <- dnorm(x_curve, mean = 1, sd = 1/sqrt(n))
+h <- hist(
+  xbar_vals,
+  breaks = 50,
+  plot = FALSE
+)
 
-hist(xbar_vals, breaks = h$breaks,
-     col = "#00695c", border = "white",
-     main = paste("Sampling distribution: n =", n),
-     xlab = "Sample mean", freq = FALSE,
-     ylim = c(0, max(h$density, y_curve) * 1.08),
-     yaxs = "i")
+x_curve <- seq(
+  min(h$breaks),
+  max(h$breaks),
+  length.out = 500
+)
 
-# Overlay theoretical normal
-lines(x_curve, y_curve, col = "#F8766D", lwd = 2)
+# CLT approximation: X-bar is approximately N(1, 1/n)
+y_curve <- dnorm(
+  x_curve,
+  mean = 1,
+  sd = 1 / sqrt(n)
+)
+
+hist(
+  xbar_vals,
+  breaks = h$breaks,
+  freq = FALSE,
+  col = "#00695c",
+  border = "white",
+  main = paste("Sampling distribution and CLT approximation: n =", n),
+  xlab = "Sample mean",
+  ylim = c(0, max(h$density, y_curve) * 1.08),
+  yaxs = "i"
+)
+
+lines(
+  x_curve,
+  y_curve,
+  col = "#F8766D",
+  lwd = 2
+)
+
+legend(
+  "topright",
+  legend = c(
+    "Simulated sampling distribution",
+    "CLT normal approximation"
+  ),
+  fill = c("#00695c", NA),
+  border = c("white", NA),
+  lty = c(NA, 1),
+  col = c(NA, "#F8766D"),
+  lwd = c(NA, 2),
+  bty = "n"
+)
 ```
 
 ::: small-text
-Change `n` to 5 or 2 and re-run. Watch the distribution become less
-normal.
+The red curve is the **CLT normal approximation**, not the exact
+sampling distribution. Change `n` to 5 or 2 and re-run to see the
+approximation become less accurate.
 :::
 
 ------------------------------------------------------------------------

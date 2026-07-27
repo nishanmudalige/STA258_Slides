@@ -4356,32 +4356,35 @@ $\mu$ approaches zero as the sample size increases.
 ::: examplebox
 **Key steps**
 
-1.  Since the observations are i.i.d.,
+1.  $\text{Var}(\bar{X}_n) = \dfrac{\sigma^2}{n}$
+
+2.  Apply Chebyshev with $k = \varepsilon$:
 
 $$
-E[\bar{X}_n] = \mu
-\qquad\text{and}\qquad
-\operatorname{Var}(\bar{X}_n)=\frac{\sigma^2}{n}.
-$$
-
-2.  Applying Chebyshev's inequality with
-$k=\varepsilon$ gives
-
-$$
-P\!\left(|\bar{X}_n-\mu|>\varepsilon\right)
-\leq
 P\!\left(|\bar{X}_n-\mu|\geq\varepsilon\right)
 \leq
 \frac{\sigma^2}{n\varepsilon^2}.
 $$
 
-3.  As $n\to\infty$,
+3.  Since
 
 $$
-\frac{\sigma^2}{n\varepsilon^2}\longrightarrow 0.
+P\!\left(|\bar{X}_n-\mu|>\varepsilon\right)
+\leq
+P\!\left(|\bar{X}_n-\mu|\geq\varepsilon\right),
 $$
 
-4.  Therefore, by the squeeze theorem,
+we have
+
+$$
+0
+\leq
+P\!\left(|\bar{X}_n-\mu|>\varepsilon\right)
+\leq
+\frac{\sigma^2}{n\varepsilon^2}.
+$$
+
+4.  As $n\to\infty$, the upper bound approaches $0$. Therefore,
 
 $$
 P\!\left(|\bar{X}_n-\mu|>\varepsilon\right)
@@ -4397,7 +4400,7 @@ Hence $\bar{X}_n\xrightarrow{p}\mu$. $\square$
 **What does the proof need?**
 
 -   Finite variance $\sigma^2$
--   Independence, so covariance terms vanish
+-   Independence, so $\operatorname{Var}(\bar{X}_n)=\sigma^2/n$
 -   Identical distributions, giving a common $\mu$ and $\sigma^2$
 
 The CLT is not required—Chebyshev's inequality alone is sufficient.

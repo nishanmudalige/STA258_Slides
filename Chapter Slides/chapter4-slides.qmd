@@ -2477,24 +2477,69 @@ Remember: the standard deviation is the square root of the variance.
 
 ------------------------------------------------------------------------
 
-## 4.1.2 The Chi-Square Distribution
+## 4.1.2 Introduction to the Chi-Square Distribution
+
+::: {.defbox .fragment}
+**Gamma Distribution**
+
+A random variable $X$ follows a Gamma distribution with shape parameter
+$\alpha>0$ and scale parameter $\beta>0$, written
+
+$$
+X\sim\operatorname{Gamma}(\alpha,\beta),
+$$
+
+if its probability density function is
+
+$$
+f_X(x;\alpha,\beta)
+=
+\frac{1}{\Gamma(\alpha)\beta^\alpha}
+x^{\alpha-1}e^{-x/\beta},
+\qquad x>0,
+$$
+
+and $f_X(x;\alpha,\beta)=0$ otherwise, where
+
+$$
+\Gamma(\alpha)
+=
+\int_0^\infty t^{\alpha-1}e^{-t}\,dt
+$$
+
+is the Gamma function.
+:::
+
+::: {.thinkbox .fragment}
+The chi-square distribution is a special case of the Gamma distribution,
+but we will not study the Gamma distribution further in this chapter.
+:::
+
+------------------------------------------------------------------------
+
+## The Chi-Square Random Variable
 
 ::: defbox
 **Chi-Square Random Variable** - $X \sim \chi^2_k$
 
 If $Z_1, Z_2, \ldots, Z_k \overset{\text{iid}}{\sim} N(0,1)$, then
 
-$$X = \sum_{i=1}^{k} Z_i^2 \sim \chi^2_k$$
+$$
+X
+=
+\sum_{i=1}^{k} Z_i^2
+\sim
+\chi^2_k.
+$$
 
-The pdf for $x > 0$ is:
+The pdf for $x>0$ is
 
-$$f(x; k) = \frac{1}{2^{k/2}\,\Gamma(k/2)}\, x^{k/2 - 1}\, e^{-x/2}$$
-:::
-
-::: {.examplebox .fragment}
-The distribution is **right-skewed** and supported on $(0, \infty)$. As
-$k$ increases, it becomes more symmetric. $E[X] = k$,
-$\text{Var}(X) = 2k$.
+$$
+f(x;k)
+=
+\frac{1}{2^{k/2}\Gamma(k/2)}
+x^{k/2-1}e^{-x/2}.
+$$
 :::
 
 ------------------------------------------------------------------------

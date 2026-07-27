@@ -4287,17 +4287,27 @@ exact   # exact (normal); Chebyshev is conservative, so this is higher
 **Weak Law of Large Numbers (WLLN)**
 
 Let $X_1, X_2, \ldots$ be i.i.d. with $E[X_i] = \mu$ and
-$\text{Var}(X_i) = \sigma^2 < \infty$. Then for any $\varepsilon > 0$:
+$\text{Var}(X_i) = \sigma^2 < \infty$. Then for every
+$\varepsilon > 0$:
 
-$$P\!\left(\left|\bar{X}_n - \mu\right| \geq \varepsilon\right) \longrightarrow 0 \quad \text{as } n \to \infty$$
+$$
+P\!\left(\left|\bar{X}_n-\mu\right|>\varepsilon\right)
+\longrightarrow 0
+\qquad \text{as } n\longrightarrow\infty.
+$$
 
-Written $\bar{X}_n \overset{p}{\longrightarrow} \mu$.
+Equivalently, we write:
+
+$$
+\bar{X}_n \xrightarrow{p} \mu.
+$$
 :::
 
 ::: {.warnbox .fragment}
-This does **not** say $\bar{X}_n = \mu$ for large $n$. It says the
-probability of being far from $\mu$ goes to zero. Individual
-realisations can still deviate.
+The WLLN does **not** say that $\bar{X}_n$ eventually becomes exactly
+equal to $\mu$. It says that, for any fixed tolerance $\varepsilon$,
+the probability that $\bar{X}_n$ lies more than $\varepsilon$ away from
+$\mu$ approaches zero as the sample size increases.
 :::
 
 ------------------------------------------------------------------------

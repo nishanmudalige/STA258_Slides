@@ -4475,11 +4475,27 @@ $y$.
 
 ------------------------------------------------------------------------
 
-## Example: Event Flyers and Sign-Ups
+## Example: Event Flyers and Sign-Ups {.flyers-example}
+
+<style>
+.reveal section.flyers-example .flyers-calc mjx-container[display="true"],
+.reveal section.flyers-example .flyers-calc .MathJax_Display {
+  margin: 0.16em 0 0.2em 0 !important;
+}
+.reveal section.flyers-example .flyers-calc p {
+  margin: 0 0 4px 0 !important;
+}
+.reveal section.flyers-example .flyers-calc p strong {
+  display: inline-block;
+  margin-top: 4px;
+}
+</style>
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 310px 190px; gap: 10px 16px; align-items: stretch; height: 512px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.53em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
+::: {.col style="grid-column: 1; grid-row: 1 / span 2; display:flex; flex-direction:column; gap:9px; min-height:0;"}
+
+::: {.taskbox style="font-size: 0.53em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
 <span class="label">Problem</span>
 
 A student club studies fictional data from a community event promotion.
@@ -4502,10 +4518,9 @@ $$
 Test whether the slope differs from 0.
 :::
 
-::: {.notebox .calc-left style="grid-column: 1; grid-row: 2; font-size: 0.50em; line-height: 1.06; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Hypotheses and conclusion</span>
+::: {.notebox .calc-left .fragment data-fragment-index="1" style="font-size: 0.50em; line-height: 1.06; padding: 10px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Hypotheses</span>
 
-::: {.fragment data-fragment-index="1"}
 $$
 H_0:\beta_1=0,
 \qquad
@@ -4515,14 +4530,17 @@ $$
 The reference distribution is $t_3$.
 :::
 
-::: {.fragment data-fragment-index="3"}
+::: {.notebox .calc-left .fragment data-fragment-index="3" style="font-size: 0.50em; line-height: 1.06; padding: 10px 13px; margin-bottom: 0; overflow: hidden;"}
+<span class="label">Conclusion</span>
+
 Since the p-value is about **0.035**, reject $H_0$ at the 5% level.
 
 There is evidence of a positive linear relationship.
 :::
+
 :::
 
-::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.58em; line-height: 1.13; padding: 13px 17px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+::: {.stat-card .flyers-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; align-self: start; font-size: 0.50em; line-height: 1.16; padding: 13px 17px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 From least squares:  
@@ -4575,22 +4593,29 @@ $=(0.091,\;1.309)$
 .reveal section.coffee-example .coffee-calc mjx-container[display="true"] {
   text-align: left !important;
   justify-content: flex-start !important;
-  margin: 0.08em 0 0.16em 0 !important;
+  margin: 0.16em 0 0.2em 0 !important;
 }
 
 .reveal section.coffee-example .coffee-calc .MathJax_Display {
   text-align: left !important;
-  margin: 0.08em 0 0.16em 0 !important;
+  margin: 0.16em 0 0.2em 0 !important;
 }
 
 .reveal section.coffee-example .coffee-calc p {
-  margin: 0 0 3px 0 !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.reveal section.coffee-example .coffee-calc p strong {
+  display: inline-block;
+  margin-top: 4px;
 }
 </style>
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.37fr 0.63fr; grid-template-rows: 300px 200px; gap: 10px 16px; align-items: stretch; height: 510px;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.53em; line-height: 1.07; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
+::: {.col style="grid-column: 1; grid-row: 1 / span 2; display:flex; flex-direction:column; gap:9px; min-height:0;"}
+
+::: {.taskbox style="font-size: 0.53em; line-height: 1.07; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
 <span class="label">Problem</span>
 
 A coffee shop studies a fictional mobile-order queue.

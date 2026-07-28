@@ -2014,7 +2014,7 @@ Unlike the range, the IQR is **resistant to outliers** because it depends on $Q_
 x <- c(3, 4, 5, 5, 6, 7, 8, 9, 10, 12, 13, 30)
 
 summary(x)        # min, Q1, median, mean, Q3, max
-quantile(x)       # the five-number quartile breaks
+quantile(x)       # min, Q1, median, Q3, max
 IQR(x)            # Q3 - Q1
 ```
 :::

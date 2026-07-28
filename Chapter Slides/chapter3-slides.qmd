@@ -104,12 +104,11 @@ plotly_slide_layout <- function(
       paper_bgcolor = "rgba(0,0,0,0)",
       plot_bgcolor = "white"
     ) |>
-    config(
-      displayModeBar = TRUE,
+        config(
+      displayModeBar = FALSE,
       displaylogo = FALSE,
       scrollZoom = FALSE,
-      doubleClick = "reset",
-      modeBarButtonsToRemove = c("lasso2d", "select2d")
+      doubleClick = "reset"
     )
 }
 ```
@@ -484,7 +483,7 @@ document.addEventListener(
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-STA258: Statistics with Applied Probability
+STA258: Statistics with Applied Probability<br>
 University of Toronto Mississauga
 
 ![](../images/cat.png){width="245" fig-alt="Course mascot"}
@@ -719,9 +718,9 @@ commute_plot
 
 freq <- c(Bus = 14, Car = 9, Walk = 5, Train = 8, Other = 4)
 
-freq / sum(freq)                              # relative frequency
-names(freq)[which.max(freq)]                  # most common
-(freq["Bus"] + freq["Train"]) / sum(freq)     # transit share
+freq / sum(freq)                                    # relative frequency
+names(freq)[which.max(freq)]                        # most common
+100 * (freq["Bus"] + freq["Train"]) / sum(freq)     # transit percentage
 ```
 
 ---
@@ -2051,7 +2050,7 @@ $$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
 
 **(d)** Find the **interquartile range** (IQR).
 
-**(e)** Using the $1.5 \times \text{IQR}$ rule, which scores would be flagged as unusually low or high?
+**(e)** Interpret the IQR in the context of the final exam scores.
 :::
 
 :::
@@ -2319,11 +2318,8 @@ htmltools::div(
 
 x <- c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96)
 
-summary(x)
-IQR(x)
-
-q1 <- quantile(x, 0.25); q3 <- quantile(x, 0.75); iqr <- q3 - q1
-c(lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr)
+summary(x)   # Q1, median, and Q3
+IQR(x)       # spread of the middle 50%
 ```
 
 ---
@@ -2981,7 +2977,7 @@ The **tail** points in the direction of the skew. “Right-skewed” means the t
 - Symmetric: **Mean $\approx$ Median**
 - Right-skewed: **Mean $>$ Median**
 
-The mean is pulled toward the long tail. The median is not.
+The mean is generally pulled farther toward the long tail than the median.
 :::
 :::
 
@@ -3044,6 +3040,8 @@ A plot of a **quantitative** variable, built by:
 3. Drawing a bar over each bin with height equal to its frequency.
 
 The $x$-axis shows the bins, and the $y$-axis shows frequency (or relative frequency).
+
+Unlike a bar chart, the width of each histogram bar represents the width of its interval and therefore affects how the distribution is displayed.
 :::
 
 ::: {.thinkbox .fragment}
@@ -3601,7 +3599,7 @@ salary_plot
 ::: {.defbox .fragment}
 **Boxplot** (box-and-whisker plot)
 
-A five-number summary in graphical form:
+A graphical summary based on quartiles, whiskers, and potential outliers:
 
 - **Box** spans from $Q_1$ to $Q_3$.
 - **Line** inside the box marks the median.

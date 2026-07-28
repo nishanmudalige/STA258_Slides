@@ -3432,30 +3432,6 @@ plausible.
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Charging-time variability example</span>
-:::
-
-```{webr}
-#| autorun: false
-
-n1 <- 16; s1 <- 12
-n2 <- 14; s2 <- 8
-alpha <- 0.05
-
-df1 <- n1 - 1; df2 <- n2 - 1
-ratio <- s1^2 / s2^2
-
-ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
-
-round(data.frame(
-  ratio = ratio, df1 = df1, df2 = df2,
-  lower = ci[1], upper = ci[2]
-), 3)
-```
-:::
-
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
 <span class="label">Sale checkout-time variability example</span>
 :::
 
@@ -3468,6 +3444,30 @@ alpha <- 0.05
 
 df1 <- n2 - 1; df2 <- n1 - 1
 ratio <- s2^2 / s1^2
+
+ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
+
+round(data.frame(
+  ratio = ratio, df1 = df1, df2 = df2,
+  lower = ci[1], upper = ci[2]
+), 3)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Charging-time variability example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 16; s1 <- 12
+n2 <- 14; s2 <- 8
+alpha <- 0.05
+
+df1 <- n1 - 1; df2 <- n2 - 1
+ratio <- s1^2 / s2^2
 
 ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
 

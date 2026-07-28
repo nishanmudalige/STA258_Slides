@@ -520,11 +520,12 @@ Intervals for a **variance** $\sigma^2$ follow their own skeleton — an asymmet
 
 $$
 \left(
-\frac{\text{estimate}}{\text{upper critical value}},\
-\frac{\text{estimate}}{\text{lower critical value}}
+\frac{(n-1)s^2}{\text{upper critical value}},\
+\frac{(n-1)s^2}{\text{lower critical value}}
 \right)
-\quad\text{where estimate} = (n-1)s^2
 $$
+
+Here, $s^2$ is the point estimate of $\sigma^2$, while $(n-1)s^2$ is the scaled sample variance used in the interval formula.
 :::
 
 :::: {.three-col}
@@ -1828,8 +1829,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 ```
 
-{{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
-
 ```{webr}
 #| autorun: true
 #| echo: false
@@ -2225,10 +2224,12 @@ A tech reviewer wants to compare average battery life for two wireless
 earbud brands that students might use while commuting, studying, or
 working out.
 
-Each pair is tested under the same conditions: same volume, same audio,
-and same room temperature.
+Independent random samples of earbuds are selected from the two brands.
+Every earbud set is tested under the same conditions: same volume, same
+audio, and same room temperature.
 
-Assume the two population variances are reasonable to treat as equal.
+Assume battery life is approximately normal within each population and
+that the two population variances are reasonable to treat as equal.
 
 <br>
 
@@ -2505,7 +2506,7 @@ when the two samples are **independent** and the equal-variance assumption is no
 
 ## Welch Degrees of Freedom
 
-::: {.notebox .fragment}
+::: {.notebox .fragment style="font-size: 0.66em; line-height: 1.12; padding: 11px 15px; margin-bottom: 7px;"}
 <span class="label">Degrees of freedom note</span>
 
 In this course, we are **not testing your ability to be a calculator** in an exam setting.
@@ -2517,7 +2518,7 @@ df = \min(n_1 - 1,\; n_2 - 1)
 $$
 :::
 
-::: {.defbox .fragment}
+::: {.defbox .fragment style="font-size: 0.64em; line-height: 1.10; padding: 11px 15px; margin-bottom: 7px;"}
 A more accurate approximation, commonly used by software, is the **Welch–Satterthwaite degrees of freedom**:
 
 $$
@@ -2532,8 +2533,15 @@ df =
 $$
 :::
 
-::: {.thinkbox .fragment}
-For exams in this course, use the conservative version unless told otherwise.
+::: {.thinkbox .fragment style="font-size: 0.50em; line-height: 1.08; padding: 7px 12px; margin-bottom: 0;"}
+<span class="label">How the examples use these methods</span>
+
+The upcoming **Sports Highlight** example uses the conservative rule
+$df=\min(n_1-1,n_2-1)$ for a manageable hand calculation. The **Food
+Delivery** example uses the more accurate Welch–Satterthwaite
+approximation to illustrate the calculation used by statistical software.
+
+For exams, use the conservative rule unless told otherwise.
 :::
 
 ------------------------------------------------------------------------
@@ -2543,9 +2551,13 @@ For exams in this course, use the conservative version unless told otherwise.
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A sports media team compares how long viewers spend watching two types of highlight playlists.
+A sports media team uses two independent random samples of viewers to
+compare watch times for two types of highlight playlists.
 
-One playlist has shorter, fast-paced clips, while the other has longer, more detailed highlight clips.
+One playlist has shorter, fast-paced clips, while the other has longer,
+more detailed highlight clips.
+
+Assume watch times are approximately normal within each population.
 
 <br>
 
@@ -2729,6 +2741,19 @@ users.
   margin-bottom: 4px !important;
 }
 </style>
+
+::: {.thinkbox style="font-size: 0.49em; line-height: 1.10; padding: 7px 12px; margin-bottom: 7px;"}
+<span class="label">Why the R output may differ</span>
+
+**Sports Highlight:** The hand calculation uses the conservative rule
+$df=\min(n_1-1,\;n_2-1)$, while R uses the Welch–Satterthwaite
+approximation. Its degrees of freedom and interval endpoints will
+therefore differ slightly.
+
+**Food Delivery:** The hand calculation already uses the
+Welch–Satterthwaite approximation, so its R output should closely match,
+apart from harmless rounding differences.
+:::
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
@@ -3278,25 +3303,19 @@ $$
 <span class="label">Calculation</span>
 
 $$
-\frac{s_2^2}{s_1^2}
-=
-\frac{14^2}{6^2}
-=
-5.444
+F_{0.975,15,17}\approx2.723,
+\qquad
+F_{0.025,15,17}\approx0.356
 $$
 
-$$
-F_{0.975,15,17}=2.723,
-\qquad
-F_{0.025,15,17}=0.356
-$$
+Using the unrounded critical values,
 
 $$
 \left(
-\frac{5.444}{2.723},
-\frac{5.444}{0.356}
+\frac{5.4444}{F_{0.975,15,17}},
+\frac{5.4444}{F_{0.025,15,17}}
 \right)
-=
+\approx
 (2.00,\;15.31)
 $$
 :::
@@ -3332,7 +3351,8 @@ Both setups are tested from 20% to 80% battery under similar conditions.
 The question is not which setup is faster on average, but which setup has
 more variability in charging time.
 
-Assume charging times are approximately normal.
+Assume the two datasets are independent random samples and that charging
+times are approximately normal within both populations.
 
 <br>
 
@@ -3420,30 +3440,6 @@ plausible.
 
 ::: {.col}
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Charging-time variability example</span>
-:::
-
-```{webr}
-#| autorun: false
-
-n1 <- 16; s1 <- 12
-n2 <- 14; s2 <- 8
-alpha <- 0.05
-
-df1 <- n1 - 1; df2 <- n2 - 1
-ratio <- s1^2 / s2^2
-
-ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
-
-round(data.frame(
-  ratio = ratio, df1 = df1, df2 = df2,
-  lower = ci[1], upper = ci[2]
-), 3)
-```
-:::
-
-::: {.col}
-::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
 <span class="label">Sale checkout-time variability example</span>
 :::
 
@@ -3456,6 +3452,30 @@ alpha <- 0.05
 
 df1 <- n2 - 1; df2 <- n1 - 1
 ratio <- s2^2 / s1^2
+
+ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
+
+round(data.frame(
+  ratio = ratio, df1 = df1, df2 = df2,
+  lower = ci[1], upper = ci[2]
+), 3)
+```
+:::
+
+::: {.col}
+::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
+<span class="label">Charging-time variability example</span>
+:::
+
+```{webr}
+#| autorun: false
+
+n1 <- 16; s1 <- 12
+n2 <- 14; s2 <- 8
+alpha <- 0.05
+
+df1 <- n1 - 1; df2 <- n2 - 1
+ratio <- s1^2 / s2^2
 
 ci <- ratio / qf(c(1-alpha/2, alpha/2), df1, df2)
 
@@ -3714,6 +3734,9 @@ periods:
 - **without** regular Vitamin C
 - **with** regular Vitamin C
 
+Assume the paired differences in sick days are approximately normally
+distributed.
+
 For each person, define
 
 $$
@@ -3795,8 +3818,9 @@ Because Vitamin C use was not randomly assigned, this shows an
 A sleep app wants to study whether a phone-free bedtime routine is
 associated with more sleep.
 
-The same 12 people track their sleep before and after using a 30-minute
-phone-free routine before bed.
+A random sample of 12 people tracks their sleep before and after using a
+30-minute phone-free routine before bed. Assume the paired differences
+are approximately normally distributed.
 
 For each person, define:
 
@@ -4055,30 +4079,29 @@ margin of error too large.
 
 ------------------------------------------------------------------------
 
-## Example: Online Store Waitlist Survey
+## Example: Online Entry-Form Completion Time
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-An online store is planning a limited product release for customers on a
-waitlist.
+A university is testing a new online entry form and wants to estimate the
+population mean time required to complete it.
 
-Before the release, the company wants to estimate the proportion of
-waitlist users who plan to make a purchase when it goes live.
-
-A previous customer survey suggests a planning value of:
+From extensive historical system data, the population standard deviation
+of completion times is treated as known:
 
 $$
-p_0=0.156
+\sigma=24\text{ seconds}
 $$
 
-The company wants the margin of error to be at most:
+The university wants a 95% confidence interval with margin of error no
+more than:
 
 $$
-E=0.03
+E=5\text{ seconds}
 $$
 
-Find the required sample size for 95% and 99% confidence.
+Find the required sample size.
 :::
 
 ::: {.stat-card style="grid-column: 2; grid-row: 1; font-size: 0.88em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
@@ -4087,58 +4110,47 @@ Find the required sample size for 95% and 99% confidence.
 $$
 n=
 \left(
-\frac{z^*}{E}
+\frac{z^*\sigma}{E}
 \right)^2
-p_0(1-p_0)
 $$
 
 $$
-p_0=0.156,
+z^*=1.96,
 \qquad
-1-p_0=0.844,
+\sigma=24,
 \qquad
-E=0.03
+E=5
 $$
 
 $$
-n_{95}=
+n=
 \left(
-\frac{1.96}{0.03}
+\frac{1.96(24)}{5}
 \right)^2
-(0.156)(0.844)
-=
-562.0005
-\Rightarrow
-563
 $$
 
 $$
-n_{99}=
-\left(
-\frac{2.576}{0.03}
-\right)^2
-(0.156)(0.844)
-=
-970.7698
-\Rightarrow
-971
+n=88.5105
+$$
+
+$$
+n=89
 $$
 :::
 
 ::: {.notebox style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Planning goal</span>
 
-Find the sample size needed for a confidence interval for the population
-proportion of waitlist users who plan to make a purchase.
+Find the sample size needed for a 95% confidence interval for the
+population mean online entry-form completion time.
 
-The margin of error should be no more than **3 percentage points**.
+The margin of error should be no more than **5 seconds**.
 :::
 
 ::: {.examplebox style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The company should survey at least **563 waitlist users** for 95%
-confidence and **971 waitlist users** for 99% confidence. Higher
-confidence requires a larger sample size when the margin of error stays
-fixed.
+The university should observe at least **89 form completions** to estimate
+the population mean completion time within **5 seconds** at 95%
+confidence.
 :::
 
 ::::
@@ -4420,7 +4432,7 @@ $$
 \text{Use } n & df & t^* & \text{New } n \\ \hline
 51 & 50 & 2.009 & 53.04 \Rightarrow 54 \\
 54 & 53 & 2.006 & 52.88 \Rightarrow 53 \\
-53 & 52 & 2.007 & 52.94 \Rightarrow 53
+53 & 52 & 2.007 & 52.93 \Rightarrow 53
 \end{array}
 $$
 
@@ -4773,7 +4785,7 @@ n_{95}=
 \right)^2
 (0.156)(0.844)
 =
-562.54
+562.0005
 \Rightarrow
 563
 $$
@@ -4785,7 +4797,7 @@ n_{99}=
 \right)^2
 (0.156)(0.844)
 =
-970.97
+970.7698
 \Rightarrow
 971
 $$

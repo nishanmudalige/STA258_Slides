@@ -58,7 +58,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
                           xlab = "sample mean", show_beta = FALSE,
                           cutoff_label = NULL, power_label = NULL,
                           beta_label = NULL,
-                          width = 640, height = 255) {
+                          width = 640, height = 370) {
   zc <- qnorm(1 - alpha)
 
   xcrit <- if (alternative == "less") {
@@ -99,7 +99,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
         width = 1
       ),
       name = "H₀ non-rejection region",
-      hoverinfo = "x+y"
+      hoverinfo = "skip"
     ) |>
     add_trace(
       x = x[keep],
@@ -113,7 +113,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
         width = 1
       ),
       name = "Power",
-      hoverinfo = "x+y"
+      hoverinfo = "skip"
     )
 
   if (show_beta) {
@@ -130,7 +130,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
           width = 1
         ),
         name = "β",
-        hoverinfo = "x+y"
+        hoverinfo = "skip"
       )
   }
 
@@ -143,7 +143,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
         width = 3
       ),
       name = "H₀",
-      hoverinfo = "x+y"
+      hoverinfo = "skip"
     ) |>
     add_lines(
       x = x,
@@ -153,7 +153,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
         width = 3
       ),
       name = "Hₐ",
-      hoverinfo = "x+y"
+      hoverinfo = "skip"
     )
 
   has_lab <- !is.null(power_label) || !is.null(beta_label)
@@ -187,7 +187,7 @@ power_overlap <- function(mu0, mua, se0, sea = se0, alpha = 0.05,
         b = bmar
       ),
       showlegend = FALSE,
-      hovermode = "x unified",
+      hovermode = FALSE,
       shapes = list(
         list(
           type = "line",
@@ -291,7 +291,7 @@ list(
 # ---- Type I (alpha) and Type II (beta) error regions -----------------------
 error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
                        title = "Type I (α) and Type II (β)",
-                       width = 640, height = 260) {
+                       width = 640, height = 370) {
   zc    <- qnorm(1 - alpha)
   xcrit <- if (alternative == "less") mu0 - zc * se else mu0 + zc * se
   lo <- min(mu0, mua) - 4 * se
@@ -312,35 +312,35 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
       x = x[!rej], y = y0[!rej], type = "scatter", mode = "lines",
       fill = "tozeroy", fillcolor = "rgba(31,78,121,0.12)",
       line = list(color = "rgba(31,78,121,0.35)", width = 1),
-      name = "H₀ keep region", hoverinfo = "x+y"
+      name = "H₀ keep region", hoverinfo = "skip"
     ) |>
     add_trace(
       x = x[rej], y = ya[rej], type = "scatter", mode = "lines",
       fill = "tozeroy", fillcolor = fill_pow,
       line = list(color = line_pow, width = 1),
-      name = "power", hoverinfo = "x+y"
+      name = "power", hoverinfo = "skip"
     ) |>
     add_trace(
       x = x[rej], y = y0[rej], type = "scatter", mode = "lines",
       fill = "tozeroy", fillcolor = fill_a,
       line = list(color = line_a, width = 1),
-      name = "α (Type I)", hoverinfo = "x+y"
+      name = "α (Type I)", hoverinfo = "skip"
     ) |>
     add_trace(
       x = x[!rej], y = ya[!rej], type = "scatter", mode = "lines",
       fill = "tozeroy", fillcolor = fill_b,
       line = list(color = line_b, width = 1),
-      name = "β (Type II)", hoverinfo = "x+y"
+      name = "β (Type II)", hoverinfo = "skip"
     ) |>
     add_lines(
       x = x, y = y0,
       line = list(color = col_null, width = 3),
-      name = "H₀", hoverinfo = "x+y"
+      name = "H₀", hoverinfo = "skip"
     ) |>
     add_lines(
       x = x, y = ya,
       line = list(color = col_alt, width = 3),
-      name = "Hₐ", hoverinfo = "x+y"
+      name = "Hₐ", hoverinfo = "skip"
     ) |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 14)),
@@ -350,7 +350,7 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
         range = c(0, ymax * 1.28), fixedrange = TRUE
       ),
       margin = list(l = 28, r = 12, t = 38, b = 76),
-      showlegend = FALSE, hovermode = "x unified",
+      showlegend = FALSE, hovermode = FALSE,
       shapes = list(
         list(
           type = "line", x0 = xcrit, x1 = xcrit,
@@ -393,7 +393,7 @@ error_plot <- function(mu0, mua, se, alpha = 0.05, alternative = "greater",
 # ---- Power curve: power as a function of the true mean ----------------------
 power_curve <- function(mu0, se, alpha = 0.05, alternative = "greater",
                         mu_lo, mu_hi, marks = NULL, title = "Power curve",
-                        width = 640, height = 270) {
+                        width = 640, height = 370) {
   zc  <- qnorm(1 - alpha)
   mus <- seq(mu_lo, mu_hi, length.out = 250)
   if (alternative == "less") {
@@ -428,7 +428,7 @@ power_curve <- function(mu0, se, alpha = 0.05, alternative = "greater",
 prop_power_n <- function(p0, pa, alpha = 0.05, alternative = "less",
                          n_lo = 20, n_hi = 400, marks = NULL,
                          title = "Power rises with sample size",
-                         width = 640, height = 270) {
+                         width = 640, height = 370) {
   zc <- qnorm(1 - alpha)
   ns <- seq(n_lo, n_hi, by = 2)
   powfun <- function(n) {
@@ -461,23 +461,23 @@ prop_power_n <- function(p0, pa, alpha = 0.05, alternative = "less",
 
 # ---- Simple one-tailed rejection-region sketch -----------------------------
 tail_plot <- function(stat = 1.645, alternative = "greater",
-                      title = "Rejection region", width = 620, height = 230) {
+                      title = "Rejection region", width = 620, height = 370) {
   x <- seq(-4, 4, length.out = 500)
   y <- dnorm(x)
   keep <- if (alternative == "less") x <= stat else x >= stat
   plot_ly(width = width, height = height) |>
     add_lines(x = x, y = y, line = list(color = col_null, width = 4),
-              name = "N(0,1)", hoverinfo = "x+y") |>
+              name = "N(0,1)", hoverinfo = "skip") |>
     add_trace(x = x[keep], y = y[keep], type = "scatter", mode = "lines",
               fill = "tozeroy", fillcolor = fill_a,
               line = list(color = line_a, width = 1),
-              name = "reject", hoverinfo = "x+y") |>
+              name = "reject", hoverinfo = "skip") |>
     layout(
       title = list(text = title, x = 0.02, font = list(size = 15)),
       xaxis = list(title = "", zeroline = FALSE, range = c(-4, 4), fixedrange = TRUE),
       yaxis = list(title = "", rangemode = "tozero", fixedrange = TRUE),
       margin = list(l = 30, r = 12, t = 36, b = 28),
-      showlegend = FALSE, hovermode = "x unified",
+      showlegend = FALSE, hovermode = FALSE,
       annotations = list(list(x = stat, y = dnorm(stat) + 0.05,
         text = paste0("z = ", formatC(stat, format = "f", digits = 3)),
         showarrow = FALSE, font = list(color = "#333", size = 11)))
@@ -490,7 +490,7 @@ tail_plot <- function(stat = 1.645, alternative = "greater",
 # and y-axis range to match. Runs fully client-side (no webR needed).
 explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
                             alternative = "less", xlab = "sample mean  x̄",
-                            width = 760, height = 320) {
+                            width = 760, height = 370) {
   zc  <- qnorm(1 - alpha)
   ses <- sigma / sqrt(ns)
   lo  <- min(mu0, mua) - 4 * max(ses)
@@ -551,7 +551,7 @@ explore_power_n <- function(mu0, mua, sigma, ns, alpha = 0.05,
 # ---- Two-sided test: both rejection tails, all regions shaded ---------------
 power_two_sided <- function(mu0, mua, se, alpha = 0.05,
                             xlab = "sample mean  x̄",
-                            width = 880, height = 330) {
+                            width = 880, height = 370) {
   zc <- qnorm(1 - alpha / 2)
   c1 <- mu0 - zc * se
   c2 <- mu0 + zc * se
@@ -649,13 +649,13 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 .reveal h1, .reveal h2, .reveal h3 { color: var(--sta-text); line-height: 1.08; }
 .reveal h1 { font-size: 1.72em !important; }
 .reveal h2 {
-  font-size: 1.48em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
-.reveal h3 { font-size: 1.02em !important; margin-bottom: 0.2em; }
-.reveal p, .reveal li { font-size: 0.74em; line-height: 1.3; }
+.reveal h3 { font-size: 1.1em !important; margin-bottom: 0.2em; }
+.reveal p, .reveal li { font-size: 0.78em; line-height: 1.35; }
 .title-slide { text-align: center !important; }
 .title-slide h1 { font-size: 1.72em !important; margin-top: 0.4em; }
 .title-slide h2 { font-size: 1.6em !important; border-bottom: none !important; margin-top: 0.6em; text-align: center; }
@@ -724,14 +724,14 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
   border-left: 6px solid var(--sta-teal);
   border-radius: 8px;
   padding: 8px 11px;
-  font-size: 0.52em !important;
+  font-size: 0.58em !important;
   line-height: 1.18;
   margin: 0 0 12px 0 !important;
 }
 .step-list li:last-child { margin-bottom: 0 !important; }
 .step-list li + li { margin-top: 0 !important; }
-.step-list.spaced-steps { gap: 8px; }
-.step-list.spaced-steps li { margin-bottom: 8px !important; }
+.step-list.spaced-steps { gap: 14px; }
+.step-list.spaced-steps li { margin-bottom: 14px !important; }
 .step-list.spaced-steps li:last-child { margin-bottom: 0 !important; }
 .step-list.compact-steps {
   gap: 11px;
@@ -757,25 +757,28 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 }
 .conclusion-stack .card, .conclusion-stack .thinkbox { margin-bottom: 0; }
 .formula {
-  display: block;
+  display: inline-block;
   background: white;
   border: 1px solid var(--sta-border);
   border-radius: 8px;
-  padding: 7px 10px;
-  text-align: center;
-  font-size: 1.02em;
+  padding: 5px 10px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.06em;
 }
 .reveal table {
   width: 100%;
   border-collapse: collapse;
-  border: 1.25px solid #4d5659;
+  border: 1px solid var(--sta-border);
   font-size: 0.6em;
 }
 .reveal .tbl-center table {
   width: auto;
   margin: 10px auto 18px auto;
+  font-size: 0.72em;
 }
-.reveal .tbl-center th, .reveal .tbl-center td { padding: 8px 22px; }
+.reveal .tbl-center th, .reveal .tbl-center td { padding: 9px 24px; }
+.reveal .tbl-compact table { font-size: 0.64em; }
+.reveal .tbl-compact th, .reveal .tbl-compact td { padding: 5px 20px; }
 .power-lab { display: grid; grid-template-columns: 0.52fr 1.48fr; gap: 24px; align-items: start; margin-top: 34px; }
 .reveal .power-lab form { font-size: 0.62em; max-width: 100%; margin-bottom: 14px; }
 .reveal .power-lab form label { font-weight: 600; }
@@ -836,11 +839,12 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 #interactive-change-everything .code-copy-button,
 #interactive-change-everything .code-copy-outer-scaffold { display: none !important; }
 .reveal th, .reveal td {
-  border: 1.25px solid #4d5659;
-  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+.reveal section.cheat-sheet th, .reveal section.cheat-sheet td { padding: 12px 12px; }
 .reveal .nw { white-space: nowrap; }
 .reveal pre { width: 100%; margin-top: 0.3em; margin-bottom: 0.3em; border-radius: 8px; }
 .reveal pre code { font-size: 0.7em; max-height: 300px; }
@@ -848,6 +852,11 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 .reveal .modebar { display: none !important; }
 .reveal .slides section.scrollable { overflow-y: auto !important; overflow-x: hidden !important; max-height: 700px; }
 .reveal section.compact h2 { font-size: 1.08em !important; }
+.reveal section.dense .card,
+.reveal section.dense .examplebox,
+.reveal section.dense .thinkbox { font-size: 0.7em; padding: 12px 15px; margin-bottom: 5px; }
+.reveal section.dense .defbox { padding: 10px 16px; }
+.reveal section.dense .defbox mjx-container[display="true"] { margin: 0.4em 0 !important; }
 .reveal section.compact p, .reveal section.compact li { font-size: 0.7em; }
 .reveal section.quiz-question {
   display: flex !important;
@@ -895,8 +904,8 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 .plot-wrap .svg-container {
   width: 100% !important;
   max-width: 820px !important;
-  height: 255px !important;
-  max-height: 255px !important;
+  height: 370px !important;
+  max-height: 370px !important;
   overflow: hidden !important;
   margin: 0 auto !important;
 }
@@ -909,8 +918,8 @@ power_two_sided <- function(mu0, mua, se, alpha = 0.05,
 .mini-plot .svg-container {
   width: 100% !important;
   max-width: 640px !important;
-  height: 270px !important;
-  max-height: 270px !important;
+  height: 370px !important;
+  max-height: 370px !important;
   overflow: hidden !important;
   margin: 0 auto !important;
 }
@@ -1143,26 +1152,28 @@ The **power** of a hypothesis test is the probability that the test will:
 ## What Affects Power?
 
 :::: {.slide-stack}
-::: {.stat-card .fragment}
-<span class="label" style="display:inline">Effect size</span> &nbsp;-&nbsp; Larger gaps between reality and $H_0$ are easier to detect $\Rightarrow$ more power.
+
+::: {.stat-card .fragment data-fragment-index="1"}
+<span class="label" style="display:inline">1. Effect size</span> &nbsp;-&nbsp; Larger gaps between reality and $H_0$ are easier to detect $\Rightarrow$ more power.
 :::
 
-::: {.stat-card .fragment}
-<span class="label" style="display:inline">Sample size $n$</span> &nbsp;-&nbsp; Larger samples shrink the standard error $\Rightarrow$ more power.
+::: {.stat-card .fragment data-fragment-index="2"}
+<span class="label" style="display:inline">2. Sample size $n$</span> &nbsp;-&nbsp; Larger samples shrink the standard error $\Rightarrow$ more power.
 :::
 
-::: {.stat-card .fragment}
-<span class="label" style="display:inline">Significance level $\alpha$</span> &nbsp;-&nbsp; A larger $\alpha$ makes $H_0$ easier to reject $\Rightarrow$ more power (but more Type I risk).
+::: {.stat-card .fragment data-fragment-index="3"}
+<span class="label" style="display:inline">3. Significance level $\alpha$</span> &nbsp;-&nbsp; A larger $\alpha$ makes $H_0$ easier to reject $\Rightarrow$ more power (but more Type I risk).
 :::
 
-::: {.stat-card .fragment}
-<span class="label" style="display:inline">Variability $\sigma$</span> &nbsp;-&nbsp; Less spread in the data $\Rightarrow$ narrower sampling distribution $\Rightarrow$ more power.
+::: {.stat-card .fragment data-fragment-index="4"}
+<span class="label" style="display:inline">4. Variability $\sigma$</span> &nbsp;-&nbsp; Less spread in the data $\Rightarrow$ narrower sampling distribution $\Rightarrow$ more power.
 :::
-::::
 
-::: {.thinkbox .fragment}
+::: {.thinkbox .fragment data-fragment-index="5"}
 Researchers choose $n$, $\alpha$, and the smallest effect worth detecting. Variability is usually estimated from prior information, so sample size is often the main planning lever.
 :::
+
+::::
 
 ---
 
@@ -1265,11 +1276,18 @@ A test fails to reject $H_0$, but in reality $H_0$ is false. Which error has occ
   <li class="fragment"><strong>3. Compute the rejection probability.</strong> Standardize the cutoff under the alternative and read off the area, which is the power.</li>
 </ol>
 
-::: {.mini-plot .fragment}
+::: {.fragment style="max-width: 940px; margin: 2px auto 0 auto;"}
 ```{r}
-power_overlap(mu0 = 0, mua = 1.1, se0 = 1 / sqrt(10),
-              alpha = 0.05, alternative = "greater",
-              title = "Power = green area under Hₐ past the cutoff")
+power_overlap(
+  mu0 = 0,
+  mua = 1.1,
+  se0 = 1 / sqrt(10),
+  alpha = 0.05,
+  alternative = "greater",
+  title = "Power = green area under Hₐ past the cutoff",
+  width = 900,
+  height = 310
+)
 ```
 :::
 :::
@@ -1331,7 +1349,7 @@ power_overlap(mu0 = 7, mua = 8.1, se0 = 1 / sqrt(10),
               cutoff_label = "cutoff = 7.52",
               power_label = "power = 0.966",
               beta_label = "β = 0.034",
-              width = 500, height = 270)
+              width = 500, height = 370)
 ```
 :::
 
@@ -1376,8 +1394,8 @@ Power is not a single number, it is a **function** of the true mean. Plotting po
 ::: {.card .fragment}
 <span class="label">Read it like this</span>
 
-- Near $\mu_0$, power is close to $\alpha$ (hard to detect tiny effects).
-- As the true $\mu$ moves away from $\mu_0$, power climbs toward 1.
+- At $\mu=\mu_0$, power equals $\alpha$.
+- As the true $\mu$ moves farther above $\mu_0$ in the direction of $H_a$, power climbs toward 1.
 - The orange dots mark $\mu=7.52$ (power $\approx 0.5$) and $\mu=8.1$ (power $\approx 0.97$).
 :::
 :::
@@ -1460,7 +1478,7 @@ explore_power_n(mu0 = 300, mua = 299, sigma = 3,
 ```
 :::
 
-::: {.thinkbox}
+::: {.thinkbox .fragment}
 Same 1 mg shortfall, same $\alpha$, only $n$ changes: power rises from $\approx 0.20$ at $n=6$ to $\approx 0.83$ at $n=60$. That is why sample size is your main planning lever.
 :::
 
@@ -1602,7 +1620,7 @@ $$\bar{x}_*=22 \pm 1.96\cdot\tfrac{2}{\sqrt{16}} = 22 \pm 0.98$$
 $$\text{reject if } \bar{x}<21.02 \;\text{ or }\; \bar{x}>22.98$$
 :::
 
-::: {.examplebox}
+::: {.examplebox .fragment}
 <span class="label">Find the Power</span>
 Assume $\mu=23$ is true; add the two rejection pieces:
 $$\begin{aligned}
@@ -1613,10 +1631,305 @@ $$\begin{aligned}
 :::
 ::::
 
-::: {style="max-width:900px; margin:0 auto;"}
+::: {.fragment style="max-width:900px; margin:0 auto;"}
 ```{r}
-power_two_sided(mu0 = 22, mua = 23, se = 2 / sqrt(16), alpha = 0.05,
-                xlab = "mean server-hall temperature  x̄")
+#| echo: false
+#| warning: false
+#| message: false
+
+mu0 <- 22
+mua <- 23
+se <- 2 / sqrt(16)
+alpha <- 0.05
+
+zc <- qnorm(1 - alpha / 2)
+
+c1 <- mu0 - zc * se
+c2 <- mu0 + zc * se
+
+lo <- min(mu0, mua) - 4 * se
+hi <- max(mu0, mua) + 4 * se
+
+x <- seq(lo, hi, length.out = 800)
+
+y0 <- dnorm(x, mu0, se)
+ya <- dnorm(x, mua, se)
+
+L <- x <= c1
+R <- x >= c2
+M <- x >= c1 & x <= c2
+
+ymax <- max(c(y0, ya))
+
+plot_ly(
+  width = 880,
+  height = 370
+) |>
+  add_trace(
+    x = x,
+    y = y0,
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = "rgba(31,78,121,0.12)",
+    line = list(
+      color = "rgba(31,78,121,0.35)",
+      width = 1
+    ),
+    name = "H₀ region",
+    hoverinfo = "skip"
+  ) |>
+  add_lines(
+    x = x,
+    y = y0,
+    line = list(
+      color = col_null,
+      width = 3
+    ),
+    name = "H₀",
+    hoverinfo = "skip"
+  ) |>
+  add_lines(
+    x = x,
+    y = ya,
+    line = list(
+      color = col_alt,
+      width = 3
+    ),
+    name = "Hₐ",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[L],
+    y = ya[L],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_pow,
+    line = list(
+      color = line_pow,
+      width = 1
+    ),
+    name = "power (left)",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[R],
+    y = ya[R],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_pow,
+    line = list(
+      color = line_pow,
+      width = 1
+    ),
+    name = "power (right)",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[M],
+    y = ya[M],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_b,
+    line = list(
+      color = line_b,
+      width = 1
+    ),
+    name = "β",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[L],
+    y = y0[L],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_a,
+    line = list(
+      color = line_a,
+      width = 1
+    ),
+    name = "α/2",
+    hoverinfo = "skip"
+  ) |>
+  add_trace(
+    x = x[R],
+    y = y0[R],
+    type = "scatter",
+    mode = "lines",
+    fill = "tozeroy",
+    fillcolor = fill_a,
+    line = list(
+      color = line_a,
+      width = 1
+    ),
+    name = "α/2",
+    hoverinfo = "skip"
+  ) |>
+  layout(
+    xaxis = list(
+      title = "mean server-hall temperature  x̄",
+      zeroline = FALSE,
+      fixedrange = TRUE
+    ),
+    yaxis = list(
+      title = "",
+      rangemode = "tozero",
+      range = c(0, ymax * 1.30),
+      fixedrange = TRUE
+    ),
+    margin = list(
+      l = 28,
+      r = 12,
+      t = 30,
+      b = 88
+    ),
+    showlegend = FALSE,
+    hovermode = FALSE,
+    shapes = list(
+      list(
+        type = "line",
+        x0 = c1,
+        x1 = c1,
+        y0 = 0,
+        y1 = ymax * 1.12,
+        line = list(
+          color = "#333",
+          width = 2,
+          dash = "dash"
+        )
+      ),
+      list(
+        type = "line",
+        x0 = c2,
+        x1 = c2,
+        y0 = 0,
+        y1 = ymax * 1.12,
+        line = list(
+          color = "#333",
+          width = 2,
+          dash = "dash"
+        )
+      )
+    ),
+    annotations = list(
+      list(
+        x = mu0,
+        y = max(y0) * 1.07,
+        text = "H₀",
+        showarrow = FALSE,
+        font = list(
+          color = col_null,
+          size = 14
+        )
+      ),
+      list(
+        x = mua,
+        y = max(ya) * 1.07,
+        text = "Hₐ",
+        showarrow = FALSE,
+        font = list(
+          color = col_alt,
+          size = 14
+        )
+      ),
+      list(
+        x = c1,
+        y = ymax * 1.12,
+        text = paste0(
+          "cutoff = ",
+          round(c1, 2)
+        ),
+        showarrow = FALSE,
+        yanchor = "bottom",
+        font = list(
+          color = "#333",
+          size = 11
+        )
+      ),
+      list(
+        x = c2,
+        y = ymax * 1.12,
+        text = paste0(
+          "cutoff = ",
+          round(c2, 2)
+        ),
+        showarrow = FALSE,
+        yanchor = "bottom",
+        font = list(
+          color = "#333",
+          size = 11
+        )
+      ),
+      list(
+        x = c1 - 0.45 * se,
+        y = 0.05,
+        text = "α/2",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = line_a,
+        font = list(
+          color = "#b28704",
+          size = 12
+        )
+      ),
+      list(
+        x = c2 + 0.45 * se,
+        y = 0.05,
+        text = "α/2",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = line_a,
+        font = list(
+          color = "#b28704",
+          size = 12
+        )
+      ),
+      list(
+        x = c2 - 0.6 * se,
+        y = 0.05,
+        text = "β",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = "#c62828",
+        font = list(
+          color = "#c62828",
+          size = 12
+        )
+      ),
+      list(
+        x = mua + 1.2 * se,
+        y = 0.06,
+        text = "power",
+        showarrow = TRUE,
+        ax = 0,
+        ay = 38,
+        arrowhead = 2,
+        arrowwidth = 1.3,
+        arrowcolor = line_pow,
+        font = list(
+          color = "#1b5e20",
+          size = 12
+        )
+      )
+    )
+  ) |>
+  config(
+    displayModeBar = FALSE,
+    responsive = TRUE
+  )
 ```
 :::
 
@@ -1639,7 +1952,7 @@ A test has low power against the alternative it was designed to detect. Which si
 
 ## 7.3 Using Power to Determine Sample Size
 
-:::: {.two-col}
+:::: {.two-col style="align-items: stretch;"}
 ::: {.warnbox .fragment}
 <span class="label">Too small</span>
 Low power - real, meaningful effects are more likely to go undetected because the risk of a Type II error is higher.
@@ -1651,11 +1964,11 @@ Wasteful - extra time, cost, and participants for precision you did not need.
 :::
 ::::
 
-::: {.defbox .fragment}
+::: {.defbox .fragment style="margin-top: 20px;"}
 Power analysis finds the **minimum $n$** that detects an effect of a given size with a specified probability (power), while holding the Type I rate at $\alpha$.
 :::
 
-::: {.thinkbox .fragment}
+::: {.thinkbox .fragment style="margin-top: 20px;"}
 To run it you must supply four ingredients: the standard deviation $\sigma$, the significance level $\alpha$, the target power, and the effect-size magnitude $|\mu_a-\mu_0|$ you want to detect.
 :::
 
@@ -1666,14 +1979,22 @@ To run it you must supply four ingredients: the standard deviation $\sigma$, the
 ::: {.slide-stack}
 <ol class="step-list spaced-steps">
   <li class="fragment"><strong>1. Cutoff from $H_0$.</strong> The cutoff $\bar{x}_*$ is the borderline value of the sample mean that decides whether you reject $H_0$ or not. Write it using the null mean and the critical value $z_\alpha$.</li>
-<li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_{\text{power}}$, the standard-normal quantile corresponding to the target power.</li>
+  <li class="fragment"><strong>2. Cutoff from the target power.</strong> Write the same $\bar{x}_*$ using the alternative mean and $z_{\text{power}}$, the standard-normal quantile corresponding to the target power.</li>
   <li class="fragment"><strong>3. Set the two expressions equal and solve for $n$.</strong> Round <em>up</em> to the next whole observation.</li>
 </ol>
 
 ::: {.card .fragment}
 <span class="label">One-sided sample-size formula</span>
-$$n=\left(\frac{(z_\alpha+z_\beta)\,\sigma}{|\mu_a-\mu_0|}\right)^{2}$$
-where $z_\beta$ is the standard-normal value matching the target power.
+
+$$
+n=
+\left(
+\frac{(z_\alpha+z_{\text{power}})\sigma}
+{|\mu_a-\mu_0|}
+\right)^2
+$$
+
+where $z_{\text{power}}$ is the standard-normal quantile corresponding to the target power.
 :::
 :::
 
@@ -1718,7 +2039,7 @@ Using the full normal quantiles gives $n\approx 78.47$, so round up to **79** ob
 
 ---
 
-## Example: Vending-Machine Coffee
+## Example: Vending-Machine Coffee {.dense}
 
 ::: {.slide-stack}
 ::: {.card}
@@ -1743,22 +2064,26 @@ Using the full normal quantiles gives $n\approx 75.74$, so round up to **76 cups
 ## Check in R: Coffee Sample Size
 
 ```{webr}
-mu0 <- 225; mua <- 223; sigma <- 7; alpha <- 0.05; power <- 0.80
+mu0 <- 225
+mua <- 223
+sigma <- 7
+alpha <- 0.05
+power <- 0.80
 
 z_alpha <- qnorm(1 - alpha)
-z_beta  <- qnorm(power)
+z_power <- qnorm(power)
 
-n <- ((z_alpha + z_beta) * sigma / (mu0 - mua))^2
+n <- ((z_alpha + z_power) * sigma / (mu0 - mua))^2
 ceiling(n)
 ```
 
 ::: {.notebox .fragment}
-`power.t.test()` automates mean-based power calculations using the standard deviation, significance level, effect size, and target power. For two proportions, `power.prop.test()` uses the two target proportions instead of $\sigma$.
+Because $\sigma$ is treated as known, this chapter calculates the required sample size directly using standard-normal quantiles. `power.t.test()` performs power calculations for a **t-test**, so it does not exactly reproduce this known-$\sigma$ $z$-test calculation.
 :::
 
 ---
 
-## Power for a Proportion: Same Logic
+## Power for a Proportion: Same Logic {.dense}
 
 ::: {.defbox}
 For a one-sided test of $p$, the rejection cutoff uses the **null** standard error, but power is computed with the **alternative** standard error:
@@ -1770,13 +2095,15 @@ $$\hat p^{\,*}=p_0 \mathbin{\substack{+\\[-4pt]-}} z_\alpha\sqrt{\tfrac{p_0(1-p_
 ::: {.stat-card .fragment}
 <span class="label">Which sign on $z_\alpha$?</span>
 
+::: {.tbl-center .tbl-compact}
 | Test | Cutoff $\hat p^{\,*}$ | Reject when |
 |---|---|---|
 | $H_a:p<p_0$ | $p_0-z_\alpha\sqrt{p_0(1-p_0)/n}$ | $\hat p<\hat p^{\,*}$ |
 | $H_a:p>p_0$ | $p_0+z_\alpha\sqrt{p_0(1-p_0)/n}$ | $\hat p>\hat p^{\,*}$ |
 :::
+:::
 
-::: {.thinkbox .fragment}
+::: {.thinkbox .fragment style="font-size: 0.62em; padding: 11px 15px;"}
 <span class="label">Three steps, same as the mean</span>
 
 - Find the cutoff $\hat p^{\,*}$ from $p_0$ and $z_\alpha$.
@@ -1811,7 +2138,7 @@ How does the power to detect this 5-point drop change as the sample grows from $
 | 100 | 0.8507 | $0.02$ | 0.507 |
 | 200 | 0.8651 | $0.60$ | 0.725 |
 
-::: {.thinkbox .table-note}
+::: {.thinkbox .table-note .fragment}
 Same effect (a drop from 0.90 to 0.85), same $\alpha$, only $n$ changes. Power climbs from 35% to 73%.
 :::
 :::
@@ -1850,7 +2177,7 @@ sapply(c(50, 100, 200), prop_power)
 
 ::: {.slide-stack}
 ::: {.card}
-Keep $H_0:p=0.90$, $H_a:p<0.90$, true $p=0.85$, $\alpha=0.05$. Set power $=0.80$ ($z_\beta=0.8416$) and equate the two cutoff expressions:
+Keep $H_0:p=0.90$, $H_a:p<0.90$, true $p=0.85$, $\alpha=0.05$. Set power $=0.80$ ($z_{1-\beta}=0.8416$) and equate the two cutoff expressions:
 $$0.90-1.645\sqrt{\tfrac{0.90(0.10)}{n}}=0.85+0.8416\sqrt{\tfrac{0.85(0.15)}{n}}$$
 :::
 
@@ -1889,24 +2216,24 @@ $$\text{Power}(\mu_a)=1-P\!\left[-z_{\alpha/2}+\frac{\sqrt n\,(\mu_0-\mu_a)}{\si
 
 ## What You Need to Know
 
-:::: {.three-col}
+:::: {.slide-stack}
 
 ::: {.stat-card .fragment}
 <span class="label">Standard deviation</span>
 
-$\sigma$ — the spread of the variable being measured.
+$\sigma$ = the spread of the variable being measured.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">Significance level</span>
 
-$\alpha$ — the fixed Type I error rate you are willing to tolerate.
+$\alpha$ = the fixed Type I error rate you are willing to tolerate.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">Effect size</span>
 
-$|\mu_a-\mu_0|$ — the magnitude of the smallest difference worth detecting.
+$|\mu_a-\mu_0|$ = the magnitude of the smallest difference worth detecting.
 :::
 
 ::::
@@ -1923,21 +2250,21 @@ You want to detect a *smaller* effect than originally planned, keeping $\alpha$,
 
 - It decreases
 - It stays the same
-- [It increases]{.correct data-explanation="In n = ((zα+zβ)σ / |μa−μ0|)², the effect-size magnitude is in the denominator. A smaller effect means a smaller denominator, so n grows, and smaller effects need larger samples."}
+- [It increases]{.correct data-explanation="In n = ((zα + z₁₋β)σ / |μa − μ0|)², the effect-size magnitude is in the denominator. A smaller effect means a smaller denominator, so n increases. Therefore, detecting smaller effects requires larger samples."}
 - It becomes undefined
 
 ---
 
-## Chapter 7 Cheat Sheet
+## Power Cheat Sheet {.cheat-sheet}
 
 | Quantity | Formula / idea |
 |---|---|
 | Power against $\theta_a$ | $1-\beta(\theta_a)=P(\text{reject }H_0\mid\theta=\theta_a)$ |
-| Type I error | $\alpha=P(\text{reject } H_0\mid H_0 \text{ true})$ |
-| Type II error | $\beta=P(\text{fail to reject}\mid H_0 \text{ false})$ |
-| Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt n$ |
-| Power (right-tailed) | $P\!\big(Z\ge z_\alpha+\sqrt n(\mu_0-\mu_a)/\sigma\big)$ |
-| Sample size (one-sided) | $n=\big((z_\alpha+z_\beta)\sigma/|\mu_a-\mu_0|\big)^2$ |
+| Type I error | $\alpha=P(\text{reject }H_0\mid H_0\text{ true})$ |
+| Type II error | $\beta=P(\text{fail to reject }H_0\mid H_0\text{ false})$ |
+| Cutoff (right-tailed) | $\bar{x}_*=\mu_0+z_\alpha\,\sigma/\sqrt{n}$ |
+| Power (right-tailed) | $P\!\left(Z\ge z_\alpha+\sqrt{n}\dfrac{\mu_0-\mu_a}{\sigma}\right)$ |
+| Sample size (one-sided) | $n=\left(\dfrac{(z_\alpha+z_{1-\beta})\sigma}{|\mu_a-\mu_0|}\right)^2$ |
 
 ::: {.thinkbox .fragment .spaced-note}
 Always round a computed sample size **up** to the next whole observation so the achieved power is at least the target.
@@ -1978,10 +2305,6 @@ Choose a meaningful effect and target power, solve for the required sample size,
 **Chapter 8 - Analysis of Variance**
 
 We extend hypothesis testing from one or two groups to **several** group means at once, using the $F$-distribution to ask whether any of the group means differ.
-:::
-
-::: {.thinkbox .fragment}
-**One-slide takeaway.** Power $=1-\beta$ is a test's ability to detect a real effect. It rises with effect size, sample size, and $\alpha$, and falls with variability, so planning $n$ in advance helps ensure the study has a strong chance of detecting the target effect.
 :::
 
 ::: {.home-button-row}

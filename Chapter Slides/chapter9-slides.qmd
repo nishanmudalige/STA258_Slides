@@ -4898,12 +4898,16 @@ For simple linear regression, this tests whether the slope is zero.
 .reveal section.flyers-anova-example .anova-calc mjx-container[display="true"] {
   text-align: left !important;
   justify-content: flex-start !important;
-  margin: 0.12em 0 0.18em 0 !important;
+  margin: 0.32em 0 0.4em 0 !important;
 }
 
 .reveal section.flyers-anova-example .anova-calc .MathJax_Display {
   text-align: left !important;
-  margin: 0.12em 0 0.18em 0 !important;
+  margin: 0.32em 0 0.4em 0 !important;
+}
+
+.reveal section.flyers-anova-example .anova-calc p {
+  margin: 0 0 8px 0 !important;
 }
 
 .reveal section.flyers-anova-example .anova-calc table {
@@ -4952,7 +4956,7 @@ Does the number of flyers posted explain a statistically meaningful amount of va
 The ANOVA test checks whether regression variation is large compared with error variation.
 :::
 
-::: {.stat-card .calc-left .anova-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.51em; line-height: 1.02; padding: 12px 16px; margin-bottom: 0; height: 100%; overflow: hidden;"}
+::: {.stat-card .calc-left .anova-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; align-self: start; font-size: 0.51em; line-height: 1.22; padding: 12px 16px; margin-bottom: 0;"}
 <span class="label">ANOVA calculations</span>
 
 | Source | SS | df | MS | F |
@@ -5005,7 +5009,17 @@ There is evidence that flyers posted are linearly related to new sign-ups in thi
 
 ---
 
-## Example: ANOVA — Battery Charging
+## Example: ANOVA — Battery Charging {.battery-anova-example}
+
+<style>
+.reveal section.battery-anova-example .battery-calc mjx-container[display="true"],
+.reveal section.battery-anova-example .battery-calc .MathJax_Display {
+  margin: 0.4em 0 0.5em 0 !important;
+}
+.reveal section.battery-anova-example .battery-calc p {
+  margin: 0 0 10px 0 !important;
+}
+</style>
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
@@ -5036,7 +5050,7 @@ $$
 **Question.** Construct the ANOVA table and test whether charging time is linearly related to battery level increase.
 :::
 
-::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.08; padding: 12px 16px; margin-bottom: 0;"}
+::: {.stat-card .battery-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.28; padding: 12px 16px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 There are $n=6$ devices, so:

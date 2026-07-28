@@ -2739,13 +2739,14 @@ users.
 ::: {.thinkbox style="font-size: 0.49em; line-height: 1.10; padding: 7px 12px; margin-bottom: 7px;"}
 <span class="label">Why the R output may differ</span>
 
-**By hand:** Use the conservative value
-$df=\min(n_1-1,\;n_2-1)$. The longer Welch degrees-of-freedom calculation
-is not required in this course.
+**Sports Highlight:** The hand calculation uses the conservative rule
+$df=\min(n_1-1,\;n_2-1)$, while R uses the Welch–Satterthwaite
+approximation. Its degrees of freedom and interval endpoints will
+therefore differ slightly.
 
-**In R:** `t.test(..., var.equal = FALSE)` uses the more accurate
-Welch–Satterthwaite approximation, so the degrees of freedom and interval
-endpoints may differ slightly. **This is expected.**
+**Food Delivery:** The hand calculation already uses the
+Welch–Satterthwaite approximation, so its R output should closely match,
+apart from harmless rounding differences.
 :::
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}

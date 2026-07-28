@@ -26,9 +26,6 @@ webr:
     - dplyr
 live:
   show-solutions: true
-editor: 
-  markdown: 
-    wrap: 72
 ---
 
 ```{r setup}
@@ -285,7 +282,7 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
 
 .two-col, .two-col-lean, .two-col-wide,
-.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+.three-col, .four-grid, .exercise-grid, .one-col {
   display: grid;
   gap: 28px;
   align-items: start;
@@ -330,7 +327,8 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 .card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+.mini-card .label, .stat-card .label, .warnbox .label,
+.examplebox .label, .thinkbox .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -390,6 +388,12 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+/* Guarantee a visible bottom edge on every table */
+.reveal table { border-bottom: 1px solid var(--sta-border); }
+.reveal tbody tr:last-child td,
+.reveal tbody tr:last-child th { border-bottom: 1px solid var(--sta-border); }
+/* Center all table cell contents */
+.reveal th, .reveal td { text-align: center !important; }
 
 .reveal pre {
   width: 100%;
@@ -493,10 +497,29 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
   border-radius: 10px;
 }
 
-.assumption-list {
+.reveal .assumption-list {
+  list-style: none !important;
+  margin: 8px 0 0 0 !important;
+  padding-left: 0 !important;
   display: grid;
-  gap: 9px;
-  padding-left: 20px;
+  gap: 7px;
+}
+.reveal .assumption-list li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 0.92em !important;
+  line-height: 1.2;
+  margin-bottom: 0 !important;
+}
+.reveal .assumption-list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.58em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sta-teal);
 }
 
 .callout { font-size: 0.75em; }
@@ -506,8 +529,8 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
 .reveal section.compact-r .cm-line,
 .reveal section.compact-r pre,
 .reveal section.compact-r code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.95em !important;
+  line-height: 1.12 !important;
 }
 
 /* Keep the line-number gutter in sync with the code lines so the
@@ -515,8 +538,8 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
 .reveal section.compact-r .cm-gutters,
 .reveal section.compact-r .cm-lineNumbers,
 .reveal section.compact-r .cm-gutterElement {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.95em !important;
+  line-height: 1.12 !important;
 }
 
 .reveal section.compact-r .cell-output,

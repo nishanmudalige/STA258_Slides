@@ -705,14 +705,16 @@ commute_plot
 
 ## Check in R: Commute Methods
 
+## Check in R: Commute Methods
+
 ```{webr}
 #| autorun: false
 
 freq <- c(Bus = 14, Car = 9, Walk = 5, Train = 8, Other = 4)
 
-freq / sum(freq)                              # relative frequency
-names(freq)[which.max(freq)]                  # most common
-(freq["Bus"] + freq["Train"]) / sum(freq)     # transit share
+freq / sum(freq)                                    # relative frequency
+names(freq)[which.max(freq)]                        # most common
+100 * (freq["Bus"] + freq["Train"]) / sum(freq)     # transit percentage
 ```
 
 ---
@@ -3592,7 +3594,7 @@ salary_plot
 ::: {.defbox .fragment}
 **Boxplot** (box-and-whisker plot)
 
-A five-number summary in graphical form:
+A graphical summary based on quartiles, whiskers, and potential outliers:
 
 - **Box** spans from $Q_1$ to $Q_3$.
 - **Line** inside the box marks the median.

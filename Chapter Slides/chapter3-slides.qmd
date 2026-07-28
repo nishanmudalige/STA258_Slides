@@ -23,6 +23,7 @@ revealjs-plugins:
 webr:
   packages:
     - ggplot2
+    - dplyr
     - plotly
 live:
   show-solutions: true
@@ -31,8 +32,8 @@ live:
 ```{r setup}
 #| include: false
 library(ggplot2)
+library(dplyr)
 library(plotly)
-```
 
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
@@ -474,7 +475,7 @@ document.addEventListener(
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-STA258: Statistics with Applied Probability
+STA258: Statistics with Applied Probability<br>
 University of Toronto Mississauga
 
 ![](../images/cat.png){width="245" fig-alt="Course mascot"}
@@ -2014,7 +2015,7 @@ Unlike the range, the IQR is **resistant to outliers** because it depends on $Q_
 x <- c(3, 4, 5, 5, 6, 7, 8, 9, 10, 12, 13, 30)
 
 summary(x)        # min, Q1, median, mean, Q3, max
-quantile(x)       # min, Q1, median, Q3, max
+quantile(x)       # the five-number quartile breaks
 IQR(x)            # Q3 - Q1
 ```
 :::
@@ -3060,7 +3061,7 @@ The $x$-axis shows the bins, and the $y$-axis shows frequency (or relative frequ
 | **Total** | $F = \sum_{i=1}^{m} f_i$ | $1$ |
 
 ::: {.examplebox .fragment}
-**Histogram bins are usually equal-width, but equal widths are not required.** The histograms in this chapter use equal-width bins, with a width chosen to show the structure of the data without too much noise.
+**The histograms in this chapter use equal-width bins.** We choose a width that shows the structure of the data without too much noise.
 :::
 
 ---
@@ -3640,7 +3641,7 @@ Any value below $-4$ or above $20$ would be flagged.
 
 x <- c(3, 4, 5, 5, 6, 7, 8, 9, 10, 12, 13, 30)
 
-# Summary statistics
+# Five-number summary
 summary(x)
 
 boxplot(x,

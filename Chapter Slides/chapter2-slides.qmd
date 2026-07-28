@@ -751,38 +751,6 @@ RStudio auto-detects R if R was installed first.
 
 ---
 
-## 2.2.3 Positron {.compact}
-
-:::: {.two-col-lean}
-::: {.col}
-::: {.defbox .fragment}
-**What is Positron?**
-
-Positron is a cross-platform desktop IDE developed by **Posit PBC** (formerly RStudio). It is built on the **Visual Studio Code** architecture and powered by **Electron**, and runs on Windows, macOS, and Linux.
-
-It supports R, Python, JavaScript, and Quarto documents.
-
-Download: [positron.posit.co](https://positron.posit.co)
-:::
-:::
-
-::: {.col}
-::: {.examplebox .fragment}
-**RStudio and Positron**
-
-RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.
-:::
-
-<br>
-
-::: {.thinkbox .fragment}
-Positron is optional and is not required for this course. RStudio will be used for course demonstrations, exercises, and assignments.
-:::
-:::
-::::
-
----
-
 ## RStudio Panes {#rstudio-panes}
 
 <div class="rstudio-diagram">
@@ -824,6 +792,38 @@ Browse files, view plots, load packages, and read help pages.
 </div>
 
 </div>
+
+---
+
+## 2.2.3 Positron {.compact}
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox .fragment}
+**What is Positron?**
+
+Positron is a cross-platform desktop IDE developed by **Posit PBC** (formerly RStudio). It is built on the **Visual Studio Code** architecture and powered by **Electron**, and runs on Windows, macOS, and Linux.
+
+It supports R, Python, JavaScript, and Quarto documents.
+
+Download: [positron.posit.co](https://positron.posit.co)
+:::
+:::
+
+::: {.col}
+::: {.examplebox .fragment}
+**RStudio and Positron**
+
+RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.
+:::
+
+<br>
+
+::: {.thinkbox .fragment}
+Positron is optional and is not required for this course. RStudio will be used for course demonstrations, exercises, and assignments.
+:::
+:::
+::::
 
 ---
 
@@ -1213,7 +1213,7 @@ det(m)     # determinant
 ::: {.defbox}
 **Matrix**
 
-A matrix is a two-dimensional data structure storing elements of the same type. It supports addition, multiplication, transposition, and inversion.
+A matrix is a two-dimensional data structure storing elements of the same type. It supports addition, multiplication, and transposition. A square, invertible matrix can also be inverted.
 
 Used in linear algebra, statistics, and data analysis.
 :::

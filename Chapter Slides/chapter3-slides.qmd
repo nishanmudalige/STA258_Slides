@@ -96,12 +96,11 @@ plotly_slide_layout <- function(
       paper_bgcolor = "rgba(0,0,0,0)",
       plot_bgcolor = "white"
     ) |>
-    config(
-      displayModeBar = TRUE,
+        config(
+      displayModeBar = FALSE,
       displaylogo = FALSE,
       scrollZoom = FALSE,
-      doubleClick = "reset",
-      modeBarButtonsToRemove = c("lasso2d", "select2d")
+      doubleClick = "reset"
     )
 }
 ```

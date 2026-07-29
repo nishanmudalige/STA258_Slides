@@ -22,8 +22,6 @@ revealjs-plugins:
   - quiz
 webr:
   packages:
-    - tibble
-    - ggplot2
     - plotly
 live:
   show-solutions: true
@@ -35,21 +33,27 @@ live:
 :root {
   --sta-teal: #00695c;
   --sta-teal-dark: #004d40;
-  --sta-text: #2f3437;
-  --sta-muted: #5f6b73;
-  --sta-blue-bg: #c8e6f3;
+  --sta-teal-light: #e0f2f1;
+  --sta-blue: #c8e6f3;
   --sta-blue-soft: #eef8fb;
-  --sta-grey-bg: #eeeeee;
-  --sta-yellow-bg: #fff8e1;
-  --sta-yellow-border: #f9a825;
-  --sta-red-bg: #ffebee;
-  --sta-red-border: #c62828;
+  --sta-grey: #f5f6f7;
+  --sta-yellow: #fff8e1;
+  --sta-orange: #f9a825;
+  --sta-text: #2f3437;
+  --sta-muted: #667174;
   --sta-border: #d8dee2;
+  --sta-code: #f3f4f5;
 }
 
 .reveal {
   font-family: Arial, sans-serif;
   color: var(--sta-text);
+}
+
+.reveal .slides section {
+  text-align: left;
+  padding: 18px 30px;
+  box-sizing: border-box;
 }
 
 .reveal h1,
@@ -67,21 +71,31 @@ live:
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
-  font-size: 1.50em !important;
+  font-size: 1.6em !important;
 }
 
 .reveal h3 {
-  font-size: 1.12em !important;
+  font-size: 1.1em !important;
 }
 
 .title-slide {
-  text-align: center;
+  text-align: center !important;
+}
+
+.title-slide h1 {
+  font-size: 1.72em !important;
+  margin-top: 0.4em;
+}
+
+.title-slide p {
+  font-size: 0.78em;
+  color: var(--sta-muted);
 }
 
 .reveal p,
 .reveal li {
-  font-size: 0.78em;
-  line-height: 1.34;
+  font-size: 0.73em;
+  line-height: 1.35;
 }
 
 .defbox,
@@ -89,6 +103,9 @@ live:
 .thinkbox,
 .warnbox,
 .card,
+.taskbox,
+.notebox,
+.mini-card,
 .stat-card {
   padding: 14px 16px;
   border-radius: 10px;
@@ -99,27 +116,32 @@ live:
 }
 
 .defbox {
-  background: var(--sta-blue-bg);
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
 }
 
-.examplebox {
-  background: var(--sta-grey-bg);
+.examplebox,
+.notebox,
+.mini-card {
+  background: var(--sta-grey);
+  border: 1px solid var(--sta-border);
 }
 
-.thinkbox {
-  background: var(--sta-yellow-bg);
-  border-left: 7px solid var(--sta-yellow-border);
+.thinkbox,
+.taskbox {
+  background: var(--sta-yellow);
+  border-left: 7px solid var(--sta-orange);
 }
 
 .warnbox {
-  background: var(--sta-red-bg);
-  border-left: 7px solid var(--sta-red-border);
+  background: #fff3e0;
+  border-left: 7px solid #ef6c00;
 }
 
 .card {
-  background: linear-gradient(160deg, var(--sta-blue-bg), var(--sta-blue-soft));
+  background: linear-gradient(160deg, var(--sta-blue), var(--sta-blue-soft));
   border-left: 7px solid var(--sta-teal);
+  font-size: 0.66em;
 }
 
 .stat-card {
@@ -171,16 +193,20 @@ live:
   font-size: 0.75em;
 }
 
-.reveal table {
-  font-size: 0.85em;
+.reveal table { width: 100%; border-collapse: collapse; font-size: 0.66em; border: 1px solid var(--sta-border); }
+.reveal th, .reveal td {
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
+  vertical-align: top;
 }
+.reveal th { background: var(--sta-teal-light); font-weight: bold; }
 
 .answer-table td {
-  background: var(--sta-grey-bg);
+  background: var(--sta-grey);
 }
 
 .answer-table th {
-  background: var(--sta-blue-bg);
+  background: var(--sta-blue);
 }
 
 .scrollable .defbox,
@@ -191,11 +217,92 @@ live:
 }
 
 /* ── Grid layouts ─────────────────────────────────────── */
-.three-col {
+.two-col,
+.two-col-wide,
+.three-col,
+.four-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
   align-items: start;
+}
+.two-col { grid-template-columns: 1fr 1fr; }
+.two-col-wide { grid-template-columns: 1.08fr 0.92fr; }
+.three-col { grid-template-columns: repeat(3, 1fr); }
+.four-grid { grid-template-columns: repeat(2, 1fr); }
+.col { min-width: 0; }
+
+.reveal section.compact h2 { font-size: 1.1em !important; }
+.reveal section.compact p,
+.reveal section.compact li { font-size: 0.74em; }
+
+/* ── Quiz slides ──────────────────────────────────────── */
+.reveal section.quiz-question {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  height: 100%;
+}
+.reveal .quiz-question > * { width: 100%; max-width: 1080px; }
+.reveal .quiz-question h2 {
+  font-size: 1.1em !important;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.reveal .quiz-question .callout-note {
+  margin: 4px 0 12px 0 !important;
+  text-align: left;
+}
+.reveal .quiz-question .callout-note .callout-body p,
+.reveal .quiz-question .callout-note p {
+  font-size: 0.78em !important;
+  line-height: 1.3;
+  margin: 4px 0;
+}
+.reveal .quiz-question .callout-title {
+  font-size: 0.82em !important;
+  padding: 5px 12px !important;
+}
+.reveal .quiz-question ul {
+  margin: 4px 0 !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+.reveal .quiz-question li { margin-bottom: 6px !important; }
+
+.reveal .option-button {
+  padding: 9px 16px !important;
+  margin-bottom: 7px !important;
+  font-size: 0.82em !important;
+  line-height: 1.25 !important;
+  border-radius: 8px !important;
+  text-align: left !important;
+}
+.reveal .action-buttons {
+  margin: 10px 0 0 0 !important;
+  font-size: 0.85em !important;
+  text-align: right;
+}
+.reveal .check-button,
+.reveal .reset-button,
+.reveal .prev-button,
+.reveal .next-button {
+  padding: 7px 16px !important;
+  font-size: 0.78em !important;
+  border-radius: 6px !important;
+  margin: 0 4px !important;
+}
+.reveal .feedback,
+.reveal .explanation,
+.reveal .quiz-question .explanation {
+  font-size: 0.7em !important;
+  margin-top: 8px;
+}
+.quiz-hint {
+  font-size: 0.6em;
+  color: var(--sta-muted);
+  font-style: italic;
+  margin: 0 0 6px 0;
 }
 
 /* ── Home button ──────────────────────────────────────── */
@@ -227,11 +334,124 @@ live:
   text-align: center;
   margin-top: 32px;
 }
+
+
 </style>
+
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    /*
+     * Before Quarto removes the Show Solution button,
+     * save an exact copy of its HTML.
+     */
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    /*
+     * Detect when the student presses Start Over.
+     */
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    /*
+     * Let Quarto perform its normal reset first.
+     */
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      /*
+       * Hide the opened solution.
+       */
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      /*
+       * Restore Show Solution only when it is missing.
+       */
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
+</script>
+
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-STA258: Statistics with Applied Probability
+```{r setup}
+#| include: false
+
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  plotly
+#   WebR (in-browser cells):         plotly
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
+library(plotly)
+set.seed(258)
+
+# ---- Colours ---------------------------------------------------------------
+col_sample <- "#c62828"   # highlighted sample (consensus red)
+col_pop    <- "#b0b7bb"   # de-emphasised population dots (neutral grey)
+```
+
+STA258: Statistics with Applied Probability<br>
 University of Toronto Mississauga
 
 ![](../images/cat.png){width="245" fig-alt="Course mascot"}
@@ -242,27 +462,7 @@ Welcome students. Set the tone: this course is about reasoning under uncertainty
 
 ---
 
-## The Big Question {#big-question .scrollable}
-
-<div class="center">
-<span class="big">How can we say something true about<br>millions of people we've never met?</span>
-</div>
-
-<br>
-
-<div class="examplebox fragment">
-Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
-Doctors test a drug on 500 patients and recommend it for everyone.<br>
-Netflix watches a sample of users and decides what shows to make.
-</div>
-
-<div class="thinkbox fragment">
-That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
-</div>
-
----
-
-## Roadmap {#roadmap .scrollable}
+## Chapter Roadmap {.compact}
 
 :::: {.three-col}
 ::: {.card .fragment}
@@ -295,6 +495,26 @@ Vocabulary like population, sample, parameter, statistic, and variable.
 Match every numerical claim with the correct data context.
 :::
 ::::
+
+---
+
+## The Big Question {#big-question .scrollable}
+
+<div class="center">
+<span class="big">How can we say something true about<br>millions of people we've never met?</span>
+</div>
+
+<br>
+
+<div class="examplebox fragment">
+Pollsters call ~1,000 Canadians and predict an election for 40 million.<br>
+Doctors test a drug on 500 patients and recommend it for everyone.<br>
+Netflix watches a sample of users and decides what shows to make.
+</div>
+
+<div class="thinkbox fragment">
+That gap between "what we measured" and "what we want to know" - that's what this whole course is about.
+</div>
 
 ---
 
@@ -369,10 +589,6 @@ A <strong>subset</strong> selected from the population.
 #| warning: false
 #| message: false
 
-library(plotly)
-
-set.seed(1)
-
 N <- 400
 
 pop <- data.frame(
@@ -396,7 +612,7 @@ p <- plot_ly() |>
     name = "Population",
     marker = list(
       size = 6,
-      color = "#bdbdbd",
+      color = col_pop,
       opacity = 0.45,
       line = list(color = "white", width = 0.5)
     ),
@@ -410,7 +626,7 @@ p <- plot_ly() |>
     name = "Sample",
     marker = list(
       size = 10,
-      color = "#b2182b",
+      color = col_sample,
       opacity = 0.9,
       line = list(color = "white", width = 0.8)
     ),
@@ -513,10 +729,10 @@ Pause and have students answer aloud before revealing.
 
 ---
 
-## Try It in R {#try-data .scrollable}
+## Check in R: A Small Data Set {#try-data .scrollable}
 
 ```{webr}
-#| autorun: true
+#| autorun: false
 #| caption: A small student data set
 
 students <- data.frame(
@@ -662,7 +878,7 @@ This is $\bar{x}$, our estimate of the unknown population mean $\mu$.
 
 ---
 
-## Exercise: Inference {.scrollable}
+## Example: Inference {.scrollable}
 
 <div class="thinkbox">
 A student wellness survey is sent to <strong>500 randomly selected undergraduates</strong> on campus, out of a total enrolled population of roughly <strong>15,000 students</strong>. The survey asks whether the student reports <strong>high levels of academic stress</strong>.
@@ -719,6 +935,21 @@ Using a sample to <strong>generalize</strong> to a larger population.
 <div class="thinkbox fragment">
 <strong>Tell:</strong> descriptive describes <em>this data</em>. Inferential makes a claim <em>beyond</em> the data.
 </div>
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A pollster surveys 1,200 Canadians and finds that 46% plan to vote for a certain party. The 46% is a:
+::::
+
+- [Statistic]{.correct data-explanation="46% is computed from the sample of 1,200 surveyed Canadians, so it is a statistic. The corresponding parameter would be the true percentage among all Canadian voters, which is unknown."}
+- Parameter
+- Population
+- Variable
 
 ---
 
@@ -820,7 +1051,7 @@ Try classifying each one. Then click for the answer.
 
 ---
 
-## Exercise: Types of Data {.scrollable}
+## Example: Types of Data {.scrollable}
 
 <div class="thinkbox">
 Classify each variable as <strong>quantitative</strong> or <strong>qualitative</strong>. For each quantitative one, also say whether it is <strong>discrete</strong> or <strong>continuous</strong>. We will go through these together in class.
@@ -835,23 +1066,16 @@ Classify each variable as <strong>quantitative</strong> or <strong>qualitative</
 - Major at university
 - Classroom seating capacity
 - Interest rate
-- Average annual return of a stock
-- Shoe size
-- Year of university (by credits completed)
-- A student's academic program (e.g. Statistics, Economics)
-- The campus a student attends (UTM, UTSG, UTSC)
-- Letter grade received in a course (A+, A, A-, B+, ...)
-- Response on a course evaluation (Strongly Agree, ..., Strongly Disagree)
 :::
 
 ---
 
-## Check Data Types in R {#check-types .scrollable}
+## Check in R: Data Types {#check-types .scrollable}
 
 R can tell you what type each variable is. Run it, then change a value.
 
 ```{webr}
-#| autorun: true
+#| autorun: false
 #| caption: class() reports the data type R is storing
 
 age      <- 20
@@ -864,6 +1088,21 @@ class(program)    # character → qualitative
 class(on_campus)  # logical  → qualitative (2 categories)
 class(pets)       # integer  → quantitative discrete
 ```
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A researcher records each participant's **number of siblings**. What type of variable is this?
+::::
+
+- Qualitative nominal
+- Qualitative ordinal
+- Quantitative continuous
+- [Quantitative discrete]{.correct data-explanation="Number of siblings is a count, so it is quantitative. Counts take whole-number values with gaps between them (you cannot have 2.5 siblings), which makes it discrete rather than continuous."}
 
 ---
 
@@ -917,24 +1156,24 @@ Run it 5 times. Notice the sample mean changes each time - even though the true 
 
 How you collect your sample determines whether inference is honest.
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="1">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="1">
 <strong>Simple random sample (SRS)</strong> - every unit has an equal chance of being chosen.
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="2">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="2">
 <strong>Systematic</strong> - every $k$-th unit from an ordered list (e.g., every 50th student).
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="3">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="3">
 <strong>Stratified</strong> - divide into groups, sample from each group.
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="4">
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="4">
 <strong>Cluster</strong> - randomly pick whole groups, survey everyone inside.
 </div>
 
-<div class="defbox fragment" style="font-size:0.85em" data-fragment-index="5">
-<strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. ⚠ Usually biased.
+<div class="defbox fragment" style="font-size:0.78em" data-fragment-index="5">
+<strong>Convenience / Voluntary response</strong> - whoever is easy to reach or chooses to respond. Usually biased.
 </div>
 
 ---
@@ -958,13 +1197,13 @@ How you collect your sample determines whether inference is honest.
 
 ---
 
-## Exercise: Identify the Bias {.scrollable}
+## Example: Identify the Bias {.scrollable}
 
 <div class="thinkbox">
 For each scenario, identify the type of bias present and explain why it is a problem. We will discuss in class.
 </div>
 
-::: {.nonincremental}
+::: {.incremental}
 1. The Office of the Registrar wants to estimate the average GPA of all undergraduates. They collect data by emailing only students who belong to an academic club.
 2. A student newspaper posts an online poll asking "How satisfied are you with library hours?" and reports the results as representative of all students.
 3. A course evaluation survey is sent to a random sample of 1,000 students, but only 200 respond.
@@ -1006,51 +1245,19 @@ Only well-designed <strong>experiments</strong> can establish cause and effect.
 
 ---
 
-## Exercise: Types of Studies {.scrollable}
+## Example: Types of Studies {.scrollable}
 
 <div class="thinkbox">
 Classify each as an <strong>observational study</strong>, <strong>experimental study</strong>, or <strong>sample survey</strong>. Briefly justify your answer. We will take these up in class.
 </div>
 
-::: {.nonincremental}
+::: {.incremental}
 1. A researcher records the GPA and weekly study hours of students in STA258 without intervening, to see whether there is an association between the two.
 2. First-year students are randomly assigned to either a weekly tutoring program or no tutoring. Their final exam grades are compared at the end of term.
 3. At the end of the semester, a random sample of students is emailed a questionnaire asking about teaching quality, workload, and course organization.
 4. A study tracks whether students who commute more than 1 hour to campus report higher stress levels than those who live on campus.
 5. Students are randomly given one of two versions of a course syllabus (one with weekly deadlines, one with monthly deadlines) and their assignment submission rates are recorded.
 :::
-
----
-
-## Chapter 1 Summary {#chapter-1-summary .scrollable}
-
-<div class="examplebox">
-<ol>
-<li>Statistics = science of learning from data under uncertainty.</li>
-<li>We study a <strong>sample</strong> to learn about a <strong>population</strong>.</li>
-<li><strong>Parameters</strong> describe populations (unknown); <strong>statistics</strong> describe samples (known).</li>
-<li>Data are <strong>quantitative</strong> (discrete/continuous) or <strong>qualitative</strong> (nominal/ordinal).</li>
-<li>Inference uses a sample statistic to estimate an unknown population parameter - with a measure of uncertainty.</li>
-<li><strong>How</strong> we sample (and whether we experiment) determines whether inference is trustworthy.</li>
-</ol>
-</div>
-
----
-
-## What's Next {.scrollable}
-
-<div class="thinkbox">
-<strong>Chapter 2:</strong> we move into R - the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
-</div>
-
-<br>
-
-<div class="center">
-<span class="big">End of Chapter 1</span><br><br>
-<div class="home-button-row">
-<a href="../index.html" class="home-button">Back to Course Home</a>
-</div>
-</div>
 
 ---
 
@@ -1085,3 +1292,42 @@ s    <- sd(ages)
 $n = 12$, $\bar{x} \approx 20.83$, $s \approx 1.59$.
 :::
 :::
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Populations & Samples</span>
+**Population**: the whole group of interest.<br>**Sample**: the part we actually study.<br>**Parameter** is an unknown population value; a **statistic** is its known sample estimate.
+:::
+::: {.card .fragment}
+<span class="label">Types of Data</span>
+**Quantitative**: numeric, either discrete or continuous.<br>**Qualitative**: categorical, either nominal or ordinal.
+:::
+::: {.card .fragment}
+<span class="label">Inference & Sampling</span>
+**Estimate** an unknown parameter from a sample statistic, with a measure of uncertainty.<br>**Sampling method** decides whether that inference is trustworthy.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Statistics is the science of learning from data under uncertainty - a known sample lets us make careful, measured statements about an unknown population.
+:::
+
+---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 2 - An Introduction to R**
+
+We move into R - the tool we'll use to compute statistics, simulate samples, and visualize uncertainty.
+:::
+
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Homepage</a>
+</div>

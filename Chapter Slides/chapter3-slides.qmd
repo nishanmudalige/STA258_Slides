@@ -31,12 +31,86 @@ live:
 
 ```{r setup}
 #| include: false
+
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  ggplot2, dplyr, plotly
+#   WebR (in-browser cells):         ggplot2, dplyr, plotly
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
 library(ggplot2)
 library(dplyr)
 library(plotly)
 
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
+
+plot_cols <- list(
+  main        = "#00695c",
+  teal        = "#00695c",
+  teal_dark   = "#004d40",
+  teal_light  = "#e0f2f1",
+  blue        = "#c8e6f3",
+  blue_soft   = "#eef8fb",
+  grey        = "#f5f6f7",
+  gray        = "#f5f6f7",
+  yellow      = "#fff8e1",
+  orange      = "#f9a825",
+  text        = "#2f3437",
+  muted       = "#667174",
+  border      = "#d8dee2",
+  code        = "#f3f4f5",
+  white       = "#ffffff"
+)
+
+plotly_slide_layout <- function(
+  p,
+  title = NULL,
+  x_title = NULL,
+  y_title = NULL,
+  width = NULL,
+  height = 390,
+  x_range = NULL,
+  y_range = NULL,
+  margin = list(l = 70, r = 25, t = 70, b = 60)
+) {
+  p |>
+    layout(
+      title = list(
+        text = title,
+        font = list(size = 16),
+        x = 0.02
+      ),
+      width = width,
+      height = height,
+      margin = margin,
+      xaxis = list(
+        title = x_title,
+        range = x_range,
+        zeroline = FALSE,
+        showline = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      yaxis = list(
+        title = y_title,
+        range = y_range,
+        zeroline = FALSE,
+        showline = TRUE,
+        linecolor = plot_cols$border,
+        gridcolor = "rgba(0,0,0,0.08)"
+      ),
+      paper_bgcolor = "rgba(0,0,0,0)",
+      plot_bgcolor = "white"
+    ) |>
+        config(
+      displayModeBar = FALSE,
+      displaylogo = FALSE,
+      scrollZoom = FALSE,
+      doubleClick = "reset"
+    )
+}
 ```
 
 # Chapter 3: Descriptive Statistics {.title-slide}
@@ -90,7 +164,7 @@ set.seed(258)
 .two-col, .two-col-lean, .two-col-wide,
 .three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
   display: grid;
-  gap: 22px;
+  gap: 28px;
   align-items: start;
 }
 .two-col       { grid-template-columns: 1fr 1fr; }
@@ -99,7 +173,7 @@ set.seed(258)
 .three-col     { grid-template-columns: repeat(3, 1fr); }
 .one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
-.exercise-grid { grid-template-columns: 340px 1fr; gap: 22px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col           { min-width: 0; }
 
 /* ── Boxes ────────────────────────────────────────────── */
@@ -217,24 +291,24 @@ set.seed(258)
 
 /* the actual clickable elements created by the quiz plugin */
 .reveal .option-button {
-  padding: 8px 15px !important;
-  margin-bottom: 6px !important;
-  font-size: 0.78em !important;
+  padding: 6px 13px !important;
+  margin-bottom: 5px !important;
+  font-size: 0.68em !important;
   line-height: 1.2 !important;
   border-radius: 8px !important;
   text-align: left !important;
 }
 .reveal .action-buttons {
   margin: 8px 0 0 0 !important;
-  font-size: 0.8em !important;
+  font-size: 0.72em !important;
   text-align: right;
 }
 .reveal .check-button,
 .reveal .reset-button,
 .reveal .prev-button,
 .reveal .next-button {
-  padding: 7px 15px !important;
-  font-size: 0.75em !important;
+  padding: 6px 13px !important;
+  font-size: 0.68em !important;
   border-radius: 6px !important;
   margin: 0 4px !important;
 }
@@ -373,9 +447,43 @@ document.addEventListener(
 );
 </script>
 
+<script>
+/*
+ * Plotly plots inside reveal.js can render at the wrong size (off-centre,
+ * too tall) until a resize event fires - which is why they only look right
+ * after a manual reload. Force a resize whenever a slide becomes active.
+ */
+(function () {
+  function resizePlots() {
+    if (window.Plotly && window.Plotly.Plots) {
+      document.querySelectorAll(".js-plotly-plot").forEach(function (gd) {
+        try {
+          window.Plotly.Plots.resize(gd);
+        } catch (e) {}
+      });
+    } else {
+      window.dispatchEvent(new Event("resize"));
+    }
+  }
+
+  function bind() {
+    if (window.Reveal && typeof window.Reveal.on === "function") {
+      window.Reveal.on("ready", resizePlots);
+      window.Reveal.on("slidechanged", resizePlots);
+      window.Reveal.on("slidetransitionend", resizePlots);
+    } else {
+      window.setTimeout(bind, 200);
+    }
+  }
+
+  bind();
+  window.addEventListener("load", resizePlots);
+})();
+</script>
+
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
 
-STA258: Statistics with Applied Probability
+STA258: Statistics with Applied Probability<br>
 University of Toronto Mississauga
 
 ![](../images/cat.png){width="245" fig-alt="Course mascot"}
@@ -438,7 +546,7 @@ where $x_i$ is one observation and $i = 1, \ldots, n$. The value $n$ is the **sa
 
 ---
 
-## 3.1 Tabular Form
+## Tabular Form
 
 :::: {.two-col-lean}
 ::: {.col}
@@ -518,7 +626,7 @@ commute_plot <- plot_ly(
   height = 340,
   
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     line = list(color = "#111111", width = 0.8)
   ),
   
@@ -541,7 +649,7 @@ commute_plot <- plot_ly(
   
   hoverlabel = list(
     bgcolor = "#111111",
-    bordercolor = "#B32025",
+    bordercolor = "#00695C",
     font = list(color = "white", size = 13)
   )
 ) |>
@@ -610,9 +718,9 @@ commute_plot
 
 freq <- c(Bus = 14, Car = 9, Walk = 5, Train = 8, Other = 4)
 
-freq / sum(freq)                              # relative frequency
-names(freq)[which.max(freq)]                  # most common
-(freq["Bus"] + freq["Train"]) / sum(freq)     # transit share
+freq / sum(freq)                                    # relative frequency
+names(freq)[which.max(freq)]                        # most common
+100 * (freq["Bus"] + freq["Train"]) / sum(freq)     # transit percentage
 ```
 
 ---
@@ -620,7 +728,7 @@ names(freq)[which.max(freq)]                  # most common
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Visual Question
+## Question
 
 The plot shows daily steps for a sample of students. In the notation $x_1, x_2, \ldots, x_n$, what is $n$?
 ::::
@@ -668,12 +776,12 @@ steps_plot <- plot_ly(
   height = 220,
 
   line = list(
-    color = "#B32025",
+    color = "#00695C",
     width = 2
   ),
 
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     size = 9,
     line = list(
       color = "#111111",
@@ -702,7 +810,7 @@ steps_plot <- plot_ly(
 
   hoverlabel = list(
     bgcolor = "#111111",
-    bordercolor = "#B32025",
+    bordercolor = "#00695C",
     font = list(
       family = "Arial",
       size = 13,
@@ -892,7 +1000,7 @@ Let $x_{(1)}, x_{(2)}, \ldots, x_{(n)}$ be the sorted values. Then:
 
 ---
 
-## 3.2.2 Median in R
+## Median in R
 
 :::: {.two-col-lean}
 ::: {.col}
@@ -1005,7 +1113,7 @@ study_plot <- plot_ly(
   height = 335,
 
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     line = list(
       color = "#FFFFFF",
       width = 1
@@ -1020,7 +1128,7 @@ study_plot <- plot_ly(
 
   hoverlabel = list(
     bgcolor = "#111111",
-    bordercolor = "#B32025",
+    bordercolor = "#00695C",
     font = list(
       family = "Arial",
       size = 13,
@@ -1057,7 +1165,7 @@ study_plot <- plot_ly(
       ),
 
       list(
-        text = "Yellow dotted line = mean; black solid line = median",
+        text = "Amber dotted line = mean; black solid line = median",
         x = 0,
         y = 1.08,
         xref = "paper",
@@ -1068,7 +1176,7 @@ study_plot <- plot_ly(
         font = list(
           family = "Arial",
           size = 13,
-          color = "#444444"
+          color = "#667174"
         )
       )
     ),
@@ -1083,7 +1191,7 @@ study_plot <- plot_ly(
         layer = "above",
 
         line = list(
-          color = "#FFD000",
+          color = "#F9A825",
           width = 4,
           dash = "dot"
         )
@@ -1223,7 +1331,7 @@ names(counts)[which.max(counts)]   # mode
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Visual Question
+## Question
 
 The plot shows test scores for one class, including one unusually low **outlier**. Which measure best describes a “typical” score for the class?
 
@@ -1253,7 +1361,7 @@ The plot shows test scores for one class, including one unusually low **outlier*
     line-height: 1.2;
     color: #444444 !important;
   ">
-    Yellow dotted line = mean; black solid line = median
+    Amber dotted line = mean; black solid line = median
   </span>
 </div>
 
@@ -1273,7 +1381,7 @@ score_mean   <- mean(scores_q$score)
 score_median <- median(scores_q$score)
 
 scores_plot <- plot_ly(
-  height = 250
+  height = 220
 ) |>
   add_trace(
     data = regular_scores,
@@ -1282,7 +1390,7 @@ scores_plot <- plot_ly(
     type = "scatter",
     mode = "markers",
     marker = list(
-      color = "#B32025",
+      color = "#00695C",
       size = 11,
       line = list(
         color = "#111111",
@@ -1303,7 +1411,7 @@ scores_plot <- plot_ly(
     type = "scatter",
     mode = "markers",
     marker = list(
-      color = "#FFD000",
+      color = "#F9A825",
       size = 14,
       line = list(
         color = "#111111",
@@ -1329,7 +1437,7 @@ scores_plot <- plot_ly(
 
     hoverlabel = list(
       bgcolor = "#111111",
-      bordercolor = "#B32025",
+      bordercolor = "#00695C",
       font = list(
         family = "Arial",
         size = 13,
@@ -1375,7 +1483,7 @@ scores_plot <- plot_ly(
         y1 = 1.14,
         layer = "above",
         line = list(
-          color = "#FFD000",
+          color = "#F9A825",
           width = 4,
           dash = "dot"
         )
@@ -1428,7 +1536,9 @@ scores_plot <- plot_ly(
       showticklabels = FALSE,
       showgrid = FALSE,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
       fixedrange = TRUE
     ),
 
@@ -1503,7 +1613,7 @@ You will see a formal proof of this in **STA260**. For now, just remember:
 
 ---
 
-## 3.2.4 Variance in R
+## Variance in R
 
 :::: {.two-col-lean}
 ::: {.col}
@@ -1546,7 +1656,7 @@ where $s^2$ is the sample variance.
 :::
 
 ::: {.examplebox .fragment}
-Taking the square root returns us to the **original units**, which is why we usually report $s$ rather than $s^2$.
+Taking the square root returns us to the **original units**, which is why we usually report $s$ rather than $s^2$ in practice.
 :::
 :::
 
@@ -1654,7 +1764,7 @@ quiz_plot <- plot_ly(
   height = 265,
 
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     line = list(
       color = "#FFFFFF",
       width = 1
@@ -1669,7 +1779,7 @@ quiz_plot <- plot_ly(
 
   hoverlabel = list(
     bgcolor = "#111111",
-    bordercolor = "#B32025",
+    bordercolor = "#00695C",
     font = list(
       family = "Arial",
       size = 13,
@@ -1698,7 +1808,7 @@ quiz_plot <- plot_ly(
         layer = "above",
 
         line = list(
-          color = "#FFD000",
+          color = "#F9A825",
           width = 4,
           dash = "dot"
         )
@@ -1823,9 +1933,9 @@ htmltools::div(
       style = paste0(
         "margin-top: 3px;",
         "font-size: 14px !important;",
-        "color: #444444;"
+        "color: #667174;"
       ),
-      "Yellow dotted line = sample mean"
+      "Amber dotted line = sample mean"
     )
   ),
 
@@ -1940,7 +2050,7 @@ $$52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96$$
 
 **(d)** Find the **interquartile range** (IQR).
 
-**(e)** Using the $1.5 \times \text{IQR}$ rule, which scores would be flagged as unusually low or high?
+**(e)** Interpret the IQR in the context of the final exam scores.
 :::
 
 :::
@@ -1990,7 +2100,7 @@ exam_plot <- plot_ly(
   height = 245,
 
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     size = 10,
     line = list(
       color = "#111111",
@@ -2005,7 +2115,7 @@ exam_plot <- plot_ly(
 
   hoverlabel = list(
     bgcolor = "#111111",
-    bordercolor = "#B32025",
+    bordercolor = "#00695C",
     font = list(
       family = "Arial",
       size = 13,
@@ -2044,9 +2154,9 @@ exam_plot <- plot_ly(
         y0 = 0.87,
         y1 = 1.13,
         layer = "below",
-        fillcolor = "rgba(179,32,37,0.18)",
+        fillcolor = "rgba(0,105,92,0.18)",
         line = list(
-          color = "#B32025",
+          color = "#00695C",
           width = 2.2
         )
       ),
@@ -2129,11 +2239,14 @@ exam_plot <- plot_ly(
     ),
 
     yaxis = list(
+      title = "",
       range = c(0.72, 1.28),
       showticklabels = FALSE,
       showgrid = FALSE,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
       fixedrange = TRUE
     ),
 
@@ -2182,7 +2295,7 @@ htmltools::div(
       style = paste0(
         "margin-top: 4px;",
         "font-size: 14px !important;",
-        "color: #444444;"
+        "color: #667174;"
       ),
       "Box = middle 50%; black line = median"
     )
@@ -2205,11 +2318,8 @@ htmltools::div(
 
 x <- c(52, 58, 61, 65, 70, 72, 75, 78, 82, 86, 90, 96)
 
-summary(x)
-IQR(x)
-
-q1 <- quantile(x, 0.25); q3 <- quantile(x, 0.75); iqr <- q3 - q1
-c(lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr)
+summary(x)   # Q1, median, and Q3
+IQR(x)       # spread of the middle 50%
 ```
 
 ---
@@ -2217,7 +2327,7 @@ c(lower = q1 - 1.5 * iqr, upper = q3 + 1.5 * iqr)
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Visual Question
+## Question
 
 The plot shows $Q_1 = 5$, $Q_3 = 11$, the outlier fences, and a value of $25$. Would $25$ be flagged as a potential outlier?
 ::::
@@ -2273,7 +2383,7 @@ iqr_value <- data.frame(
 )
 
 iqr_plot <- plot_ly(
-  height = 215
+  height = 185
 ) |>
   add_trace(
     data = iqr_fences,
@@ -2283,7 +2393,7 @@ iqr_plot <- plot_ly(
     mode = "markers+text",
 
     marker = list(
-      color = "#111111",
+      color = "#667174",
       size = 10,
       symbol = "circle",
       line = list(
@@ -2318,7 +2428,7 @@ iqr_plot <- plot_ly(
     mode = "markers+text",
 
     marker = list(
-      color = "#B32025",
+      color = "#00695C",
       size = 11,
       line = list(
         color = "#111111",
@@ -2352,7 +2462,7 @@ iqr_plot <- plot_ly(
     mode = "markers+text",
 
     marker = list(
-      color = "#F0C419",
+      color = "#F9A825",
       size = 12,
       line = list(
         color = "#111111",
@@ -2390,7 +2500,7 @@ iqr_plot <- plot_ly(
 
     hoverlabel = list(
       bgcolor = "#111111",
-      bordercolor = "#666666",
+      bordercolor = "#667174",
       font = list(
         family = "Arial",
         size = 13,
@@ -2476,11 +2586,14 @@ iqr_plot <- plot_ly(
     ),
 
     yaxis = list(
+      title = "",
       range = c(-0.13, 0.22),
       showticklabels = FALSE,
       showgrid = FALSE,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
       fixedrange = TRUE
     ),
 
@@ -2577,7 +2690,7 @@ left_plot <- plot_ly(
   height = 285,
 
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     line = list(
       color = "#FFFFFF",
       width = 0.8
@@ -2639,7 +2752,7 @@ symmetric_plot <- plot_ly(
   height = 285,
 
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     line = list(
       color = "#FFFFFF",
       width = 0.8
@@ -2697,7 +2810,7 @@ right_plot <- plot_ly(
   height = 285,
 
   marker = list(
-    color = "#B32025",
+    color = "#00695C",
     line = list(
       color = "#FFFFFF",
       width = 0.8
@@ -2753,7 +2866,7 @@ skewness_plot <- subplot(
   symmetric_plot,
   right_plot,
   nrows = 1,
-  shareY = TRUE,
+  shareY = FALSE,
   margin = 0.055,
   titleX = TRUE,
   titleY = TRUE
@@ -2812,7 +2925,7 @@ skewness_plot <- subplot(
 
     hoverlabel = list(
       bgcolor = "#111111",
-      bordercolor = "#B32025",
+      bordercolor = "#00695C",
       font = list(
         family = "Arial",
         size = 13,
@@ -2864,7 +2977,7 @@ The **tail** points in the direction of the skew. “Right-skewed” means the t
 - Symmetric: **Mean $\approx$ Median**
 - Right-skewed: **Mean $>$ Median**
 
-The mean is pulled toward the long tail. The median is not.
+The mean is generally pulled farther toward the long tail than the median.
 :::
 :::
 
@@ -2927,6 +3040,8 @@ A plot of a **quantitative** variable, built by:
 3. Drawing a bar over each bin with height equal to its frequency.
 
 The $x$-axis shows the bins, and the $y$-axis shows frequency (or relative frequency).
+
+Unlike a bar chart, the width of each histogram bar represents the width of its interval and therefore affects how the distribution is displayed.
 :::
 
 ::: {.thinkbox .fragment}
@@ -2956,7 +3071,7 @@ The $x$-axis shows the bins, and the $y$-axis shows frequency (or relative frequ
 
 ---
 
-## 3.3.1 Histogram in R
+## Histogram in R
 
 :::: {.two-col-lean}
 ::: {.col}
@@ -2992,6 +3107,7 @@ The faithful waiting times are **bimodal** - two distinct clusters around 55 and
 ```{r}
 #| echo: false
 #| out-width: "100%"
+#| fig-height: 3.2
 
 data(faithful)
 
@@ -3104,7 +3220,7 @@ bin_width_plot <- subplot(
   plot_15_bins,
   plot_40_bins,
   nrows = 1,
-  shareY = TRUE,
+  shareY = FALSE,
   margin = 0.055
 ) |>
   layout(
@@ -3237,7 +3353,7 @@ Too few bins hide the **bimodal** shape, while too many bins make the distributi
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Visual Question
+## Question
 
 The histogram shows a right-skewed salary distribution. Which summary better describes a typical employee’s salary?
 ::::
@@ -3266,7 +3382,7 @@ The histogram shows a right-skewed salary distribution. Which summary better des
     line-height: 1.2;
     color: #444444 !important;
   ">
-    Yellow dotted line = mean; black solid line = median
+    Amber dotted line = mean; black solid line = median
   </span>
 </div>
 
@@ -3300,7 +3416,7 @@ salary_plot <- plot_ly(
   data = salary_q,
   x = ~salary,
   type = "histogram",
-  height = 225,
+  height = 200,
 
   xbins = list(
     start = min(salary_q$salary),
@@ -3358,7 +3474,7 @@ salary_plot <- plot_ly(
         layer = "above",
 
         line = list(
-          color = "#FFD000",
+          color = "#F9A825",
           width = 4,
           dash = "dot"
         )
@@ -3483,7 +3599,7 @@ salary_plot
 ::: {.defbox .fragment}
 **Boxplot** (box-and-whisker plot)
 
-A five-number summary in graphical form:
+A graphical summary based on quartiles, whiskers, and potential outliers:
 
 - **Box** spans from $Q_1$ to $Q_3$.
 - **Line** inside the box marks the median.
@@ -3521,7 +3637,7 @@ Any value below $-4$ or above $20$ would be flagged.
 
 ---
 
-## 3.3.2 Boxplot in R
+## Boxplot in R
 
 :::: {.two-col-lean}
 ::: {.col}
@@ -3746,7 +3862,9 @@ box_skew_plot <- plot_ly(
 
       showgrid = FALSE,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
 
       tickfont = list(
         family = "Arial",
@@ -3883,7 +4001,7 @@ quiz_time_plot <- plot_ly(
     mode = "markers",
 
     marker = list(
-      color = "#FFD000",
+      color = "#F9A825",
       size = 8,
       line = list(
         color = "#111111",
@@ -4045,9 +4163,9 @@ htmltools::div(
       style = paste0(
         "margin-top: 4px;",
         "font-size: 14px !important;",
-        "color: #444444;"
+        "color: #667174;"
       ),
-      "Yellow points show the individual observations"
+      "Amber points show the individual observations"
     )
   ),
 
@@ -4078,7 +4196,7 @@ boxplot(x, horizontal = TRUE, col = "#00695c")
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Visual Question
+## Question
 
 The boxplots compare delivery times for two restaurants. Which restaurant has the **more consistent delivery times**?
 ::::
@@ -4142,7 +4260,7 @@ restaurant_b <- data.frame(
 )
 
 restaurant_plot <- plot_ly(
-  height = 285
+  height = 230
 ) |>
   add_trace(
     data = restaurant_a,
@@ -4191,12 +4309,12 @@ restaurant_plot <- plot_ly(
     fillcolor = "rgba(249,168,37,0.26)",
 
     line = list(
-      color = "#B36B00",
+      color = "#F9A825",
       width = 2.2
     ),
 
     marker = list(
-      color = "#B36B00",
+      color = "#F9A825",
       size = 7,
       line = list(
         color = "#111111",
@@ -4272,7 +4390,9 @@ restaurant_plot <- plot_ly(
 
       showgrid = FALSE,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
 
       tickfont = list(
         family = "Arial",
@@ -4286,7 +4406,7 @@ restaurant_plot <- plot_ly(
 
     hoverlabel = list(
       bgcolor = "#111111",
-      bordercolor = "#666666",
+      bordercolor = "#667174",
       font = list(
         family = "Arial",
         size = 13,
@@ -4331,7 +4451,7 @@ htmltools::div(
 ##  {.quiz-question}
 
 :::: {.callout-note icon="false"}
-## Visual Question
+## Question
 
 Look at the boxplot. What kind of skewness does this shape suggest?
 ::::
@@ -4410,7 +4530,7 @@ value_range <- range(
 axis_padding <- diff(value_range) * 0.08
 
 skew_boxplot <- plot_ly(
-  height = 225
+  height = 190
 ) |>
   add_markers(
     data = hover_values,
@@ -4612,12 +4732,15 @@ skew_boxplot <- plot_ly(
     ),
 
     yaxis = list(
+      title = "",
       range = c(0.45, 1.55),
 
       showticklabels = FALSE,
       showgrid = FALSE,
       zeroline = FALSE,
-      showline = FALSE,
+      showline = TRUE,
+      linecolor = "#111111",
+      linewidth = 1.4,
 
       fixedrange = TRUE
     ),
@@ -4706,7 +4829,7 @@ Both groups have $\bar{x} = 15$, but Group B is much more spread out. Mean alone
 ::: {.taskbox}
 <span class="label">Example</span>
 
-Students in two tutorial sections completed the same short data-analysis task. Their completion times, in minutes, were:
+Two tutorial sections completed the same task. Completion times, in minutes:
 
 **Section A:** $6.4, 6.6, 6.7, 6.8, 6.9, 7.0, 7.1, 7.2, 7.3, 7.4, 7.6$
 
@@ -4716,9 +4839,9 @@ Students in two tutorial sections completed the same short data-analysis task. T
 
 **(b)** Find the **median completion time** for each section.
 
-**(c)** Which section has more **spread**? Use the standard deviation to support your answer.
+**(c)** Which section has more **spread**? Use the standard deviation.
 
-**(d)** The two sections have the same mean and median. What does the boxplot reveal that these measures of centre do not?
+**(d)** Both sections have the same mean and median. What does the boxplot reveal that these do not?
 :::
 
 :::
@@ -4830,7 +4953,7 @@ section_plot <- plot_ly(
     fillcolor = "rgba(249,168,37,0.26)",
 
     line = list(
-      color = "#B36B00",
+      color = "#F9A825",
       width = 2.2
     ),
 
@@ -4938,7 +5061,7 @@ section_plot <- plot_ly(
 
     hoverlabel = list(
       bgcolor = "#111111",
-      bordercolor = "#666666",
+      bordercolor = "#667174",
 
       font = list(
         family = "Arial",
@@ -5012,12 +5135,12 @@ round(cbind(
 
 | $x_i$ | $x_i - \bar{x}$ | $(x_i - \bar{x})^2$ |
 |---|---|---|
-| 2 | $-3$ | $9$ |
-| 4 | $-1$ | $1$ |
-| 4 | $-1$ | $1$ |
-| 6 | $+1$ | $1$ |
-| 6 | $+1$ | $1$ |
-| 8 | $+3$ | $9$ |
+| 2 | $2 - 5 = -3$ | $(-3)^2 = 9$ |
+| 4 | $4 - 5 = -1$ | $(-1)^2 = 1$ |
+| 4 | $4 - 5 = -1$ | $(-1)^2 = 1$ |
+| 6 | $6 - 5 = +1$ | $(+1)^2 = 1$ |
+| 6 | $6 - 5 = +1$ | $(+1)^2 = 1$ |
+| 8 | $8 - 5 = +3$ | $(+3)^2 = 9$ |
 | **Sum** | $0$ | $22$ |
 
 $$s^2 = \frac{22}{6 - 1} = 4.4, \quad s = \sqrt{4.4} \approx 2.10$$
@@ -5075,7 +5198,7 @@ $$0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 5, 6, 8, 10$$
     font-size: 14px !important;
     color: #444444 !important;
   ">
-    Yellow dotted line = median
+    Amber dotted line = median
   </span>
 </div>
 
@@ -5151,7 +5274,7 @@ textbook_plot <- plot_ly(
         layer = "above",
 
         line = list(
-          color = "#FFD000",
+          color = "#F9A825",
           width = 4,
           dash = "dot"
         )
@@ -5281,7 +5404,7 @@ htmltools::div(
 
 ---
 
-## Check in R: Bonus Example — Textbooks Owned
+## Check in R: Textbooks Owned
 
 ```{webr}
 #| autorun: false
@@ -5298,31 +5421,16 @@ boxplot(x, horizontal = TRUE, col = "#00695c")
 
 ---
 
-## Up Next
-
-::: {.examplebox}
-**Chapter 4 - Foundations of Inference**
-
-We move from describing **the data we have** (this chapter) to making statements about **a wider population** based on a sample. You will meet sampling distributions, point estimates, and the start of confidence intervals.
-:::
-
-<div class="home-button-row">
-<a href="../index.html" class="home-button">Back to Homepage</a>
-</div>
-
-
----
-
 ## Chapter Summary {.compact}
 
 :::: {.three-col}
 ::: {.card .fragment}
 <span class="label">Centre</span>
-**Mean** uses every value. **Median** is resistant to extremes. **Mode** is the most common value.
+**Mean** uses every value.<br>**Median** is resistant to extremes.<br>**Mode** is the most common value.
 :::
 ::: {.card .fragment}
 <span class="label">Spread</span>
-**Range** = max − min (sensitive). **IQR** = $Q_3 - Q_1$ (resistant). **SD** $s$ is the typical distance from $\bar{x}$.
+**Range** = max − min (sensitive).<br>**IQR** = $Q_3 - Q_1$ (resistant).<br>**SD** $s$ is the typical distance from $\bar{x}$.
 :::
 ::: {.card .fragment}
 <span class="label">Shape</span>
@@ -5337,4 +5445,16 @@ Read **skewness** from a histogram (which way does the tail point?) or a boxplot
 :::
 
 ---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 4 - Foundations of Inference**
+
+We move from describing **the data we have** (this chapter) to making statements about **a wider population** based on a sample. You will meet sampling distributions, point estimates, and the start of confidence intervals.
+:::
+
+<div class="home-button-row">
+<a href="../index.html" class="home-button">Back to Homepage</a>
+</div>
 

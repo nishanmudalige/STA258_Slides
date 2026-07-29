@@ -435,6 +435,14 @@ document.addEventListener(
 
 ```{r setup}
 #| include: false
+
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  plotly
+#   WebR (in-browser cells):         plotly
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
 library(plotly)
 set.seed(258)
 

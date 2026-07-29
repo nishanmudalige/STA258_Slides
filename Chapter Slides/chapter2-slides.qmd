@@ -18,6 +18,8 @@ format:
     height: 720
     margin: 0.055
     center: false
+revealjs-plugins:
+  - quiz
 webr:
   packages:
     - ggplot2
@@ -25,6 +27,13 @@ webr:
 live:
   show-solutions: true
 ---
+
+<!-- ── Packages used in this chapter ──────────────────────────────────
+     Rendered (knitr / build-time):  none (this chapter has no setup chunk)
+     WebR (in-browser cells):         ggplot2, dplyr
+       WebR packages are declared in the YAML `webr: packages` block above
+       so they load when the deck opens (see help.html).
+────────────────────────────────────────────────────────────────────── -->
 
 # Chapter 2: An Introduction to R {.title-slide}
 
@@ -87,7 +96,7 @@ live:
 .one-col       { grid-template-columns: 1fr; }
 .four-grid     { grid-template-columns: repeat(2, 1fr); }
 .web-grid      { grid-template-columns: 270px 1fr; }
-.exercise-grid { grid-template-columns: 340px 1fr; gap: 36px; }
+.exercise-grid { grid-template-columns: 340px 1fr; gap: 28px; }
 .col           {
   min-width: 0;
   display: flex;
@@ -471,7 +480,6 @@ live:
 }
 </style>
 
-</style>
 
 <script>
 document.addEventListener(
@@ -750,38 +758,6 @@ RStudio auto-detects R if R was installed first.
 
 ---
 
-## 2.2.3 Positron {.compact}
-
-:::: {.two-col-lean}
-::: {.col}
-::: {.defbox .fragment}
-**What is Positron?**
-
-Positron is a cross-platform desktop IDE developed by **Posit PBC** (formerly RStudio). It is built on the **Visual Studio Code** architecture and powered by **Electron**, and runs on Windows, macOS, and Linux.
-
-It supports R, Python, JavaScript, and Quarto documents.
-
-Download: [positron.posit.co](https://positron.posit.co)
-:::
-:::
-
-::: {.col}
-::: {.examplebox .fragment}
-**RStudio and Positron**
-
-RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.
-:::
-
-<br>
-
-::: {.thinkbox .fragment}
-Positron is optional and is not required for this course. RStudio will be used for course demonstrations, exercises, and assignments.
-:::
-:::
-::::
-
----
-
 ## RStudio Panes {#rstudio-panes}
 
 <div class="rstudio-diagram">
@@ -826,15 +802,49 @@ Browse files, view plots, load packages, and read help pages.
 
 ---
 
+## 2.2.3 Positron {.compact}
+
+:::: {.two-col-lean}
+::: {.col}
+::: {.defbox .fragment}
+**What is Positron?**
+
+Positron is a cross-platform desktop IDE developed by **Posit PBC** (formerly RStudio). It is built on the **Visual Studio Code** architecture and powered by **Electron**, and runs on Windows, macOS, and Linux.
+
+It supports R, Python, JavaScript, and Quarto documents.
+
+Download: [positron.posit.co](https://positron.posit.co)
+:::
+:::
+
+::: {.col}
+::: {.examplebox .fragment}
+**RStudio and Positron**
+
+RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.
+:::
+
+<br>
+
+::: {.thinkbox .fragment}
+Positron is optional and is not required for this course. RStudio will be used for course demonstrations, exercises, and assignments.
+:::
+:::
+::::
+
+---
+
 ## 2.3 Programming in R {.compact}
 
 **Why R for statistics?**
 
+::: {.incremental}
 - Built specifically for data analysis, statistics, and visualization
 - Rich ecosystem of packages and built-in statistical functions
 - Open source and free on every major operating system
 - Strong support for reproducible reporting through R Markdown and Quarto
 - Widely used in academia, industry, and government
+:::
 
 ---
 
@@ -1017,14 +1027,16 @@ For most applied statistics the main structure is the **data frame**, because it
 ```{webr}
 #| autorun: false
 
-# Assigning a vector
-v <- c(1, 2, 3, 4, 5)
-v
+# Create two numeric vectors
+x <- c(1, 2, 3)
+y <- c(4, 5, 6)
 
-# A vector of marks
-marks <- c(80, 75, 90, 88, 92)
-mean(marks)
-length(marks)
+x + y    # element-wise addition
+x * y    # element-wise multiplication
+x^2      # square each element
+
+mean(x)
+length(x)
 ```
 :::
 
@@ -1034,7 +1046,7 @@ length(marks)
 
 A vector stores multiple values of the same type in one object. The function `c()` combines values.
 
-`mean()` computes the average; `length()` counts the elements.
+Arithmetic operations are applied **element by element**. `mean()` computes the average, and `length()` counts the elements.
 :::
 :::
 ::::
@@ -1138,6 +1150,21 @@ marks[c(2, 4)]
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Given `marks <- c(80, 75, 90, 88, 92)`, what does `marks[c(2, 4)]` return?
+::::
+
+- [The 2nd and 4th elements: 75 and 88]{.correct data-explanation="R indexes from 1, so position 2 is 75 and position 4 is 88. c(2, 4) selects both of those positions."}
+- The 2nd through 4th elements: 75, 90, 88
+- The values 2 and 4
+- Elements 3 and 5: 90 and 92, because R counts from 0
+
+---
+
 ## Lists
 
 :::: {.two-col-lean}
@@ -1197,7 +1224,7 @@ det(m)     # determinant
 ::: {.defbox}
 **Matrix**
 
-A matrix is a two-dimensional data structure storing elements of the same type. It supports addition, multiplication, transposition, and inversion.
+A matrix is a two-dimensional data structure storing elements of the same type. Elements are selected using `[row, column]`. Matrices support addition, multiplication, and transposition, and a square, invertible matrix can also be inverted.
 
 Used in linear algebra, statistics, and data analysis.
 :::
@@ -1469,6 +1496,21 @@ class_data[1:2, c("student", "mark")]
 :::
 ::::
 :::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Which R data structure best holds a dataset where each column stores a different type - for example, student name (text), mark (number), and passed (TRUE/FALSE)?
+::::
+
+- [Data frame]{.correct data-explanation="A data frame is a table where each row is one observation and each column is one variable, and columns may hold different types - the standard structure for applied statistics."}
+- Numeric vector
+- Matrix
+- Factor
 
 ---
 
@@ -1813,30 +1855,54 @@ ggplot(class_data, aes(x = student, y = mark)) +
 
 ---
 
-## Chapter Summary {.scrollable}
+##  {.quiz-question}
 
-<div class="examplebox">
-<ul>
-<li><strong>R</strong> is an open-source language used for statistical computing, data analysis, and graphics.</li>
-<li><strong>RStudio</strong> provides an interface for writing scripts, running commands, viewing plots, and managing files.</li>
-<li>Scripts make analyses easier to save, reproduce, review, and rerun.</li>
-<li>Variables store values, while vectors store multiple values of the same type.</li>
-<li>Lists, matrices, arrays, factors, and data frames organize different forms of data.</li>
-<li>Indexing selects vector elements, data-frame rows, and data-frame columns.</li>
-<li>Functions such as <code>mean()</code>, <code>sort()</code>, <code>hist()</code>, and <code>summary()</code> perform reusable operations.</li>
-<li>Packages extend R with additional tools; install them once with <code>install.packages()</code> and load them each session with <code>library()</code>.</li>
-<li>Base R graphics and <code>ggplot2</code> can both be used to create statistical visualizations.</li>
-</ul>
-</div>
+:::: {.callout-note icon="false"}
+## Question
+
+You ran `install.packages("ggplot2")` last week. What do you need to do to use `ggplot2` in a new R session today?
+::::
+
+- [Call `library(ggplot2)` - packages must be loaded each session]{.correct data-explanation="install.packages() downloads a package once. library() loads it into each new session, and must be run before the package's functions are available."}
+- Run `install.packages("ggplot2")` again
+- Nothing - installed packages load automatically every session
+- Reinstall R
 
 ---
 
-## End of Chapter 2
+## Chapter Summary {.compact}
 
-<div class="center">
-<span class="big">End of Chapter 2</span><br><br>
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">R & RStudio</span>
+**R** is an open-source language for statistics, data analysis, and graphics.<br>**RStudio** is the interface for writing scripts, running code, and viewing plots.<br>**Scripts** make analyses easy to save, reproduce, and rerun.
+:::
+::: {.card .fragment}
+<span class="label">Data Structures</span>
+**Variables** store values or objects; **vectors** store multiple values of one type.<br>**Lists**, **matrices**, **arrays**, **factors**, and **data frames** organize richer data.<br>**Indexing** with `[ ]` selects elements, rows, and columns.
+:::
+::: {.card .fragment}
+<span class="label">Functions & Packages</span>
+**Functions** like `mean()`, `sort()`, and `summary()` reuse common operations.<br>**Packages** extend R: `install.packages()` once, `library()` each session.<br>**Base graphics** and **`ggplot2`** both create statistical plots.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** R turns statistical work into reusable, shareable scripts - write the code once, then rerun, tweak, and visualize it on any dataset.
+:::
+
+---
+
+## Up Next
+
+::: {.examplebox}
+**Chapter 3 - Descriptive Statistics**
+
+Now that you can run R, we use it to **summarize data** - measures of center and spread, and the plots that reveal the shape of a distribution.
+:::
 
 <div class="home-button-row">
 <a href="../index.html" class="home-button">Back to Homepage</a>
-</div>
 </div>

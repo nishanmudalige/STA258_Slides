@@ -25,13 +25,18 @@ webr:
     - multcomp
 live:
   show-solutions: true
-editor:
-  markdown:
-    wrap: 72
 ---
 
 ```{r setup}
 #| include: false
+
+# ── Packages used in this chapter ──────────────────────────────────
+#   Rendered (knitr / build-time):  ggplot2, dplyr, plotly
+#   WebR (in-browser cells):         multcomp
+#     WebR packages must also be declared in the YAML `webr: packages`
+#     block above so they load when the deck opens (see help.html).
+# ───────────────────────────────────────────────────────────────────
+
 library(ggplot2)
 library(dplyr)
 library(plotly)
@@ -56,7 +61,7 @@ plot_cols <- list(
   white       = "#ffffff"
 )
 
-plotly_anova_layout <- function(
+plotly_slide_layout <- function(
   p,
   title = NULL,
   x_title = NULL,
@@ -95,7 +100,7 @@ plotly_anova_layout <- function(
       displaylogo = FALSE,
       scrollZoom = FALSE,
       doubleClick = FALSE,
-      responsive = FALSE
+      responsive = TRUE
     )
 }
 ```
@@ -140,21 +145,21 @@ plotly_anova_layout <- function(
 .reveal h1 { font-size: 1.72em !important; }
 
 .reveal h2 {
-  font-size: 1.50em !important;
+  font-size: 1.6em !important;
   border-bottom: 3px solid var(--sta-teal);
   padding-bottom: 4px;
   margin-bottom: 12px;
 }
 
 .reveal h3 {
-  font-size: 1.08em !important;
+  font-size: 1.1em !important;
   margin-bottom: 0.2em;
 }
 
 .reveal p,
 .reveal li {
-  font-size: 0.76em;
-  line-height: 1.30;
+  font-size: 0.78em;
+  line-height: 1.35;
 }
 
 .title-slide { text-align: center !important; }
@@ -189,9 +194,9 @@ plotly_anova_layout <- function(
 .notebox,
 .mini-card,
 .stat-card {
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-radius: 10px;
-  font-size: 0.72em;
+  font-size: 0.74em;
   line-height: 1.24;
   box-sizing: border-box;
   margin-bottom: 8px;
@@ -264,16 +269,18 @@ plotly_anova_layout <- function(
 }
 
 .reveal table {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
+  margin: 6px auto;
   border-collapse: collapse;
-  border: 1.1px solid var(--sta-border);
-  font-size: 0.63em;
+  border: 1px solid var(--sta-border);
+  font-size: 0.67em;
 }
 
 .reveal th,
 .reveal td {
-  border: 1.1px solid var(--sta-border);
-  padding: 6px 8px;
+  border: 1px solid var(--sta-border);
+  padding: 7px 10px;
   vertical-align: top;
 }
 
@@ -300,9 +307,34 @@ plotly_anova_layout <- function(
   padding: 1px 4px;
 }
 
-.reveal section.compact h2 { font-size: 1.15em !important; }
+.reveal section.compact h2 { font-size: 1.1em !important; }
 .reveal section.compact p,
 .reveal section.compact li { font-size: 0.72em; }
+
+/* Per-slide fits: shrink dense slides so nothing clips the footer */
+.reveal section.anova-table-slide .defbox,
+.reveal section.anova-table-slide .examplebox,
+.reveal section.anova-table-slide .thinkbox,
+.reveal section.anova-table-slide .stat-card { font-size: 0.58em !important; padding: 9px 12px !important; }
+.reveal section.anova-table-slide table { font-size: 0.6em; }
+.reveal section.fisher-idea .defbox,
+.reveal section.fisher-idea .examplebox,
+.reveal section.fisher-idea .thinkbox,
+.reveal section.fisher-idea .stat-card { font-size: 0.61em !important; padding: 9px 12px !important; }
+/* Per-slide enlargements the user asked for */
+.reveal section.anova-prediction .defbox,
+.reveal section.anova-prediction .thinkbox { font-size: 0.62em !important; }
+.reveal section.anova-prediction .stat-card { font-size: 0.56em !important; }
+/* 8.2 Sources of Variation: bring its boxes in line with the other section slides */
+.reveal section.sources-var .defbox,
+.reveal section.sources-var .stat-card,
+.reveal section.sources-var .thinkbox { font-size: 0.64em !important; padding: 12px 15px !important; }
+/* Slide 5 data layout: table can be larger, there is room */
+.reveal section.data-notation table { font-size: 0.88em; }
+.reveal section.anova-rejects .defbox,
+.reveal section.anova-rejects .examplebox,
+.reveal section.anova-rejects .thinkbox,
+.reveal section.anova-rejects .stat-card { font-size: 0.8em !important; padding: 11px 14px !important; }
 
 .reveal section.quiz-question {
   display: flex !important;
@@ -400,16 +432,16 @@ plotly_anova_layout <- function(
 .reveal section.compact-r .cm-line span,
 .reveal section.compact-r pre,
 .reveal section.compact-r code {
-  font-size: 0.82em !important;
-  line-height: 1.08 !important;
+  font-size: 0.9em !important;
+  line-height: 1.2 !important;
   font-weight: 400 !important;
   text-shadow: none !important;
 }
 
 .reveal section.compact-r .cm-gutters,
 .reveal section.compact-r .cm-gutterElement {
-  font-size: 0.78em !important;
-  line-height: 1.08 !important;
+  font-size: 0.86em !important;
+  line-height: 1.2 !important;
   font-weight: 400 !important;
   text-shadow: none !important;
 }
@@ -489,14 +521,94 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(resizePlotlyOnSlides, 250);
   setTimeout(resizePlotlyOnSlides, 750);
   setTimeout(resizePlotlyOnSlides, 1500);
-  if (window.Reveal) {
-    Reveal.on("ready", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("slidechanged", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("fragmentshown", function () { setTimeout(resizePlotlyOnSlides, 300); });
-    Reveal.on("fragmenthidden", function () { setTimeout(resizePlotlyOnSlides, 300); });
-  }
+  (function bindRevealResize() {
+    if (window.Reveal && typeof window.Reveal.on === "function") {
+      Reveal.on("ready", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("slidechanged", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("fragmentshown", function () { setTimeout(resizePlotlyOnSlides, 300); });
+      Reveal.on("fragmenthidden", function () { setTimeout(resizePlotlyOnSlides, 300); });
+    } else {
+      window.setTimeout(bindRevealResize, 200);
+    }
+  })();
   window.addEventListener("resize", resizePlotlyOnSlides);
 });
+</script>
+
+<script>
+document.addEventListener(
+  "click",
+  function (event) {
+    const solutionButton = event.target.closest(
+      ".btn-exercise-solution"
+    );
+
+    if (solutionButton) {
+      const buttonGroup = solutionButton.closest(
+        ".btn-group-exercise-editor"
+      );
+
+      if (buttonGroup) {
+        buttonGroup.dataset.solutionButtonHtml =
+          solutionButton.outerHTML;
+      }
+
+      return;
+    }
+
+    const startOverButton = event.target.closest(
+      '.btn-exercise-editor[aria-label="Start Over"]'
+    );
+
+    if (!startOverButton) return;
+
+    const currentSlide = startOverButton.closest("section");
+
+    const buttonGroup = startOverButton.closest(
+      ".btn-group-exercise-editor"
+    );
+
+    if (!currentSlide || !buttonGroup) return;
+
+    window.setTimeout(function () {
+      const solutions = currentSlide.querySelectorAll(
+        ".exercise-solution"
+      );
+
+      solutions.forEach(function (solution) {
+        solution.classList.add("d-none");
+      });
+
+      if (
+        solutions.length === 0 ||
+        buttonGroup.querySelector(".btn-exercise-solution") ||
+        !buttonGroup.dataset.solutionButtonHtml
+      ) {
+        return;
+      }
+
+      const holder = document.createElement("div");
+
+      holder.innerHTML =
+        buttonGroup.dataset.solutionButtonHtml.trim();
+
+      const restoredButton = holder.firstElementChild;
+
+      if (!restoredButton) return;
+
+      restoredButton.onclick = function () {
+        solutions.forEach(function (solution) {
+          solution.classList.remove("d-none");
+        });
+
+        restoredButton.remove();
+      };
+
+      buttonGroup.appendChild(restoredButton);
+    }, 0);
+  },
+  true
+);
 </script>
 
 {{< include ../_extensions/r-wasm/live/_knitr.qmd >}}
@@ -508,21 +620,45 @@ University of Toronto Mississauga
 
 ---
 
-## Chapter Roadmap {.compact}
+## Chapter Roadmap {.compact .chapter8-roadmap}
+
+<style>
+.reveal section.chapter8-roadmap .three-col {
+  gap: 22px;
+  align-items: stretch;
+}
+
+.reveal section.chapter8-roadmap .card,
+.reveal section.chapter8-roadmap .stat-card {
+  font-size: 0.77em;
+  line-height: 1.27;
+  padding: 20px 22px;
+  min-height: 148px;
+  margin-bottom: 0;
+}
+
+.reveal section.chapter8-roadmap .label {
+  font-size: 1.04em;
+  margin-bottom: 8px;
+}
+</style>
 
 :::: {.three-col}
 ::: {.card .fragment}
 <span class="label">8.1 - ANOVA model</span>
+
 Compare $k \ge 3$ population means using one global model.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.2 - Variation split</span>
+
 Break total variation into treatment variation and error variation.
 :::
 
 ::: {.card .fragment}
 <span class="label">8.3 - ANOVA F test</span>
+
 Use the ANOVA table and a right-tailed $F$ distribution.
 :::
 ::::
@@ -532,24 +668,27 @@ Use the ANOVA table and a right-tailed $F$ distribution.
 :::: {.three-col}
 ::: {.stat-card .fragment}
 <span class="label">8.4 - Assumptions</span>
+
 Normal residuals, equal population variance, and independent observations.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.5 - Pairwise comparisons</span>
+
 After rejecting ANOVA, compare means in pairs.
 :::
 
 ::: {.stat-card .fragment}
 <span class="label">8.6 - R checks</span>
-Use `aov()`, `anova(lm())`, and `pairwise.t.test()` to check ANOVA and pairwise comparisons.
+
+Use `aov()`, `anova()`, `pairwise.t.test()`, and `glht()` to check ANOVA and pairwise comparisons.
 :::
 ::::
 
 
 ---
 
-## Why ANOVA? {.compact .why-anova}
+## 8.1 Why ANOVA? {.compact .why-anova}
 
 :::: {.why-anova-flow style="display:grid; grid-template-rows: auto auto auto; gap: 14px; align-items: stretch;"}
 
@@ -621,10 +760,12 @@ For observation $j$ in group $i$:
 $$
 Y_{ij}=\mu+\tau_i+\epsilon_{ij},
 \qquad
-\epsilon_{ij}\sim N(0,\sigma^2)
+\epsilon_{ij}\sim N(0,\sigma^2),
+\qquad
+\sum_{i=1}^{k}\tau_i=0
 $$
 
-Here, $Y_{ij}$ is the response value for observation $j$ in group $i$.
+Here, $Y_{ij}$ is the response value for observation $j$ in group $i$. The constraint $\sum_{i=1}^{k}\tau_i=0$ makes $\mu$ the overall population mean and uniquely defines the treatment effects.
 :::
 
 ::: {.defbox .fragment style="grid-column: 2; grid-row: 1; font-size: 0.62em; line-height: 1.14; padding: 15px 18px; margin-bottom: 0;"}
@@ -806,7 +947,7 @@ If this improvement is large compared with the within-group error, the ANOVA \(F
 
 ---
 
-## Sources of Variation
+## 8.2 Sources of Variation {.compact .sources-var}
 
 ::: {.defbox}
 ANOVA works by splitting variation into two pieces: variation **within** groups and variation **between** groups.
@@ -896,7 +1037,7 @@ ANOVA asks whether the **between-group variation** is large compared with the **
 
 ---
 
-## The ANOVA Table {.compact .anova-table-slide}
+## 8.3 The ANOVA Table {.compact .anova-table-slide}
 
 :::: {.anova-table-grid style="display:grid; grid-template-columns: 0.52fr 0.48fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
 
@@ -976,6 +1117,21 @@ The p-value is the right-tail area.
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+The one-way ANOVA $F$-statistic is computed as which ratio?
+::::
+
+- [Mean square between groups $\div$ mean square within groups]{.correct data-explanation="Correct. $F=\text{MST}/\text{MSE}$: the between-group mean square over the within-group mean square. A large F means between-group variation dominates."}
+- Mean square within groups $\div$ mean square between groups
+- Sum of squares between $\div$ sum of squares total
+- Mean square error $\div$ total sum of squares
+
+---
+
 ## ANOVA Hypothesis Test {.compact .anova-hyp-test}
 
 :::: {.anova-test-grid style="display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
@@ -1050,7 +1206,22 @@ Large $F^*$ values give evidence that the group means differ more than expected 
 
 ---
 
-## Assumptions of ANOVA {.compact .anova-assumptions}
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+In a one-way ANOVA comparing $k=3$ group means, what is the null hypothesis $H_0$?
+::::
+
+- [$\mu_1=\mu_2=\mu_3$]{.correct data-explanation="Correct. ANOVA tests whether all group means are equal; H0 states there is no difference among them."}
+- $\mu_1 \ne \mu_2 \ne \mu_3$
+- At least one $\mu_i$ differs from the others
+- $\sigma_1^2=\sigma_2^2=\sigma_3^2$
+
+---
+
+## 8.4 Assumptions of ANOVA {.compact .anova-assumptions}
 
 :::: {.assumptions-flow style="display:grid; grid-template-rows: auto auto; gap: 14px; align-items: stretch;"}
 
@@ -1088,186 +1259,693 @@ $$
 
 ---
 
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+Which of the following is **not** a standard assumption of one-way ANOVA?
+::::
+
+- [The groups must all have equal sample sizes]{.correct data-explanation="Correct. Equal sample sizes are convenient but not required. The assumptions are independent observations, normality within each group, and equal population variances."}
+- The observations are independent
+- The response is approximately normal within each group
+- The groups have equal population variances
+
+---
+
 ## ANOVA P-value Visual {.compact .anova-pvalue-visual}
-
-:::: {.two-col-wide style="display:grid; grid-template-columns: 0.46fr 0.54fr; gap: 18px; align-items: start;"}
-
-::: {.stat-card .fragment style="font-size: 0.66em; line-height: 1.18; padding: 16px 18px; margin-bottom: 0;"}
-<span class="label">Right-tail reference distribution</span>
-
-For $k=3$ groups and $n=18$ observations:
-
-$$
-df_1=k-1=2,
-\qquad
-df_2=n-k=15
-$$
-
-The shaded region is:
-
-$$
-P(F_{2,15}\ge F^*)
-$$
-
-In R, this is calculated with `lower.tail = FALSE`.
-:::
-
-::: {.stat-card .fragment style="font-size: 0.60em; line-height: 1.12; padding: 13px 15px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Interactive right-tail area</span>
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
-#| fig-width: 5.2
-#| fig-height: 3.0
 #| out-width: "100%"
-
-library(plotly)
 
 df1 <- 2
 df2 <- 15
 
 p_levels <- c(0.10, 0.05, 0.01)
 p_labels <- c("0.10", "0.05", "0.01")
-F_values <- qf(1 - p_levels, df1 = df1, df2 = df2)
 
-x_max <- 6.5
-x <- seq(0.001, x_max, length.out = 700)
-y <- df(x, df1 = df1, df2 = df2)
+z_values <- qnorm(1 - p_levels)
 
-plot_df <- data.frame(x = x, y = y)
+F_values <- qf(
+  1 - p_levels,
+  df1 = df1,
+  df2 = df2
+)
 
-p <- plot_ly(width = 520, height = 300)
+x_norm <- seq(
+  -3.5,
+  3.5,
+  length.out = 1000
+)
 
-p <- p |>
+y_norm <- dnorm(x_norm)
+
+x_f <- seq(
+  0.001,
+  7,
+  length.out = 1000
+)
+
+y_f <- df(
+  x_f,
+  df1 = df1,
+  df2 = df2
+)
+
+fig <- plot_ly(
+  width = 1120,
+  height = 450
+)
+
+# Permanent Normal curve
+fig <- fig |>
   add_trace(
-    data = plot_df,
-    x = ~x,
-    y = ~y,
+    x = x_norm,
+    y = y_norm,
+
     type = "scatter",
     mode = "lines",
-    line = list(color = "#263238", width = 3),
-    hovertemplate = "F = %{x:.2f}<br>Density = %{y:.3f}<extra></extra>",
+
+    line = list(
+      color = "#263238",
+      width = 3.6
+    ),
+
+    hovertemplate = paste0(
+      "z = %{x:.2f}",
+      "<br>Density = %{y:.3f}",
+      "<extra></extra>"
+    ),
+
+    showlegend = FALSE
+  )
+
+# Permanent F curve
+fig <- fig |>
+  add_trace(
+    x = x_f,
+    y = y_f,
+
+    type = "scatter",
+    mode = "lines",
+
+    xaxis = "x2",
+    yaxis = "y2",
+
+    line = list(
+      color = "#263238",
+      width = 3.6
+    ),
+
+    hovertemplate = paste0(
+      "F = %{x:.2f}",
+      "<br>Density = %{y:.3f}",
+      "<extra></extra>"
+    ),
+
     showlegend = FALSE
   )
 
 for (i in seq_along(p_levels)) {
+
+  z_star <- z_values[i]
   F_star <- F_values[i]
 
-  tail_x <- seq(F_star, x_max, length.out = 250)
-  tail_y <- df(tail_x, df1 = df1, df2 = df2)
+  normal_density_at_cutoff <- dnorm(z_star)
 
-  shade_x <- c(F_star, tail_x, x_max)
-  shade_y <- c(0, tail_y, 0)
+  f_density_at_cutoff <- df(
+    F_star,
+    df1 = df1,
+    df2 = df2
+  )
+
+  # Keep cutoff lines visible for very small tail densities.
+  normal_line_top <- max(
+    normal_density_at_cutoff,
+    0.105
+  )
+
+  f_line_top <- max(
+    f_density_at_cutoff,
+    0.135
+  )
+
+  normal_tail_x <- seq(
+    z_star,
+    max(x_norm),
+    length.out = 350
+  )
+
+  normal_tail_y <- dnorm(normal_tail_x)
+
+  f_tail_x <- seq(
+    F_star,
+    max(x_f),
+    length.out = 350
+  )
+
+  f_tail_y <- df(
+    f_tail_x,
+    df1 = df1,
+    df2 = df2
+  )
+
+  # Fixed upper label positions prevent labels from
+  # colliding with either distribution curve.
+  normal_label_x <- min(
+    z_star + 0.48,
+    2.85
+  )
+
+  normal_label_y <- 0.305
+
+  f_label_x <- min(
+    max(F_star - 0.50, 1.55),
+    5.85
+  )
+
+  f_label_y <- 0.225
 
   visible_now <- i == 2
 
-  p <- p |>
+  # Normal right-tail shading
+  fig <- fig |>
     add_trace(
-      x = shade_x,
-      y = shade_y,
+      x = c(
+        z_star,
+        normal_tail_x,
+        max(x_norm)
+      ),
+
+      y = c(
+        0,
+        normal_tail_y,
+        0
+      ),
+
       type = "scatter",
       mode = "lines",
+
       fill = "toself",
-      fillcolor = "rgba(245, 124, 0, 0.48)",
-      line = list(color = "rgba(245, 124, 0, 0)", width = 0),
+      fillcolor = "rgba(249,168,37,0.56)",
+
+      line = list(
+        color = "rgba(249,168,37,0)",
+        width = 0
+      ),
+
       hoverinfo = "skip",
       visible = visible_now,
       showlegend = FALSE
-    ) |>
+    )
+
+  # Normal cutoff
+  fig <- fig |>
     add_trace(
-      x = c(F_star, F_star),
-      y = c(0, df(F_star, df1 = df1, df2 = df2)),
+      x = c(z_star, z_star),
+      y = c(0, normal_line_top),
+
       type = "scatter",
       mode = "lines",
-      line = list(color = "#00695c", width = 3, dash = "dash"),
+
+      line = list(
+        color = "#00695c",
+        width = 3.2,
+        dash = "dash"
+      ),
+
       hovertemplate = paste0(
-        "F* = ", round(F_star, 2),
-        "<br>p-value = ", p_labels[i],
+        "z* = ",
+        round(z_star, 3),
+        "<br>Right-tail probability = ",
+        p_labels[i],
         "<extra></extra>"
       ),
+
       visible = visible_now,
       showlegend = FALSE
-    ) |>
+    )
+
+  # Normal cutoff label
+  fig <- fig |>
     add_trace(
-      x = min(F_star + 0.45, x_max - 1.0),
-      y = max(y) * 0.46,
+      x = normal_label_x,
+      y = normal_label_y,
+
       type = "scatter",
       mode = "text",
-      text = paste0("p-value = ", p_labels[i]),
-      textfont = list(color = "#263238", size = 13),
+
+      text = paste0(
+        "<b>z* = ",
+        round(z_star, 2),
+        "</b>"
+      ),
+
+      textfont = list(
+        family = "Arial",
+        size = 16,
+        color = "#00695c"
+      ),
+
+      hoverinfo = "skip",
+      visible = visible_now,
+      showlegend = FALSE
+    )
+
+  # F right-tail shading
+  fig <- fig |>
+    add_trace(
+      x = c(
+        F_star,
+        f_tail_x,
+        max(x_f)
+      ),
+
+      y = c(
+        0,
+        f_tail_y,
+        0
+      ),
+
+      type = "scatter",
+      mode = "lines",
+
+      xaxis = "x2",
+      yaxis = "y2",
+
+      fill = "toself",
+      fillcolor = "rgba(249,168,37,0.56)",
+
+      line = list(
+        color = "rgba(249,168,37,0)",
+        width = 0
+      ),
+
+      hoverinfo = "skip",
+      visible = visible_now,
+      showlegend = FALSE
+    )
+
+  # F cutoff
+  fig <- fig |>
+    add_trace(
+      x = c(F_star, F_star),
+      y = c(0, f_line_top),
+
+      type = "scatter",
+      mode = "lines",
+
+      xaxis = "x2",
+      yaxis = "y2",
+
+      line = list(
+        color = "#00695c",
+        width = 3.2,
+        dash = "dash"
+      ),
+
+      hovertemplate = paste0(
+        "F* = ",
+        round(F_star, 3),
+        "<br>Right-tail probability = ",
+        p_labels[i],
+        "<extra></extra>"
+      ),
+
+      visible = visible_now,
+      showlegend = FALSE
+    )
+
+  # F cutoff label
+  fig <- fig |>
+    add_trace(
+      x = f_label_x,
+      y = f_label_y,
+
+      type = "scatter",
+      mode = "text",
+
+      xaxis = "x2",
+      yaxis = "y2",
+
+      text = paste0(
+        "<b>F* = ",
+        round(F_star, 2),
+        "</b>"
+      ),
+
+      textfont = list(
+        family = "Arial",
+        size = 16,
+        color = "#00695c"
+      ),
+
       hoverinfo = "skip",
       visible = visible_now,
       showlegend = FALSE
     )
 }
 
-buttons <- lapply(seq_along(p_levels), function(i) {
-  visible <- rep(FALSE, 1 + 3 * length(p_levels))
-  visible[1] <- TRUE
+buttons <- lapply(
+  seq_along(p_levels),
+  function(i) {
 
-  start <- 2 + 3 * (i - 1)
-  visible[start:(start + 2)] <- TRUE
+    visible <- rep(
+      FALSE,
+      2 + 6 * length(p_levels)
+    )
 
-  list(
-    method = "update",
-    label = paste0("p-value = ", p_labels[i]),
-    args = list(
-      list(visible = visible),
-      list(
-        title = paste0(
-          "Right-tail area: P(F<sub>2,15</sub> ≥ ",
-          round(F_values[i], 2),
-          ") = ",
-          p_labels[i]
+    visible[1:2] <- TRUE
+
+    first_trace <- 3 + 6 * (i - 1)
+
+    visible[
+      first_trace:(first_trace + 5)
+    ] <- TRUE
+
+    list(
+      method = "update",
+
+      label = paste0(
+        "p = ",
+        p_labels[i]
+      ),
+
+      args = list(
+        list(
+          visible = visible
         )
       )
     )
-  )
-})
+  }
+)
 
-p |>
+fig |>
   layout(
-    title = paste0(
-      "Right-tail area: P(F<sub>2,15</sub> ≥ ",
-      round(F_values[2], 2),
-      ") = ",
-      p_labels[2]
+    font = list(
+      family = "Arial",
+      color = "#2f3437"
     ),
-    xaxis = list(
-      title = "F",
-      range = c(0, x_max),
-      zeroline = FALSE,
-      gridcolor = "rgba(0,0,0,0.08)"
+
+    margin = list(
+      l = 70,
+      r = 42,
+      t = 102,
+      b = 54
     ),
-    yaxis = list(
-      title = "Density",
-      range = c(0, max(y) * 1.05),
-      zeroline = FALSE,
-      gridcolor = "rgba(0,0,0,0.08)"
-    ),
-    margin = list(l = 45, r = 12, t = 54, b = 42),
+
     paper_bgcolor = "rgba(0,0,0,0)",
-    plot_bgcolor = "rgba(0,0,0,0)",
+    plot_bgcolor = "#ffffff",
+
+    showlegend = FALSE,
+    hovermode = "closest",
+    dragmode = FALSE,
+
+    # Normal horizontal axis
+    xaxis = list(
+      domain = c(0.02, 0.46),
+      anchor = "y",
+
+      title = list(
+        text = "z",
+        standoff = 9,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
+      ),
+
+      range = c(-3.5, 3.5),
+      tickmode = "linear",
+      tick0 = -3,
+      dtick = 1,
+
+      tickfont = list(
+        size = 13,
+        color = "#3f474b"
+      ),
+
+      showline = TRUE,
+      linecolor = "#596469",
+      linewidth = 1.1,
+
+      ticks = "outside",
+      tickcolor = "#596469",
+      ticklen = 4,
+
+      zeroline = FALSE,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(89,100,105,0.10)",
+      gridwidth = 1,
+
+      fixedrange = TRUE
+    ),
+
+    # Normal vertical axis
+    yaxis = list(
+      domain = c(0, 1),
+      anchor = "x",
+      side = "left",
+
+      title = list(
+        text = "Density",
+        standoff = 8,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
+      ),
+
+      range = c(0, 0.43),
+      tickmode = "linear",
+      tick0 = 0,
+      dtick = 0.1,
+
+      tickfont = list(
+        size = 13,
+        color = "#3f474b"
+      ),
+
+      showline = TRUE,
+      linecolor = "#596469",
+      linewidth = 1.1,
+
+      ticks = "outside",
+      tickcolor = "#596469",
+      ticklen = 4,
+
+      zeroline = FALSE,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(89,100,105,0.10)",
+      gridwidth = 1,
+
+      fixedrange = TRUE
+    ),
+
+    # F horizontal axis
+    xaxis2 = list(
+      domain = c(0.56, 1.00),
+      anchor = "y2",
+
+      title = list(
+        text = "F",
+        standoff = 9,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
+      ),
+
+      range = c(0, 7),
+      tickmode = "linear",
+      tick0 = 0,
+      dtick = 1,
+
+      tickfont = list(
+        size = 13,
+        color = "#3f474b"
+      ),
+
+      showline = TRUE,
+      linecolor = "#596469",
+      linewidth = 1.1,
+
+      ticks = "outside",
+      tickcolor = "#596469",
+      ticklen = 4,
+
+      zeroline = FALSE,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(89,100,105,0.10)",
+      gridwidth = 1,
+
+      fixedrange = TRUE
+    ),
+
+    # F vertical axis
+    # This axis is anchored to the F panel and placed
+    # on its left side, matching the Normal panel.
+    yaxis2 = list(
+      domain = c(0, 1),
+      anchor = "x2",
+      side = "left",
+
+      title = list(
+        text = "Density",
+        standoff = 8,
+        font = list(
+          size = 17,
+          color = "#2f3437"
+        )
+      ),
+
+      range = c(0, 1.05),
+      tickmode = "linear",
+      tick0 = 0,
+      dtick = 0.2,
+
+      tickfont = list(
+        size = 13,
+        color = "#3f474b"
+      ),
+
+      showline = TRUE,
+      linecolor = "#596469",
+      linewidth = 1.1,
+
+      ticks = "outside",
+      tickcolor = "#596469",
+      ticklen = 4,
+
+      zeroline = FALSE,
+
+      showgrid = TRUE,
+      gridcolor = "rgba(89,100,105,0.10)",
+      gridwidth = 1,
+
+      fixedrange = TRUE
+    ),
+
+    annotations = list(
+      # Normal panel heading
+      list(
+        x = 0.24,
+        y = 1.075,
+
+        xref = "paper",
+        yref = "paper",
+
+        xanchor = "center",
+        yanchor = "bottom",
+
+        text = "<b>Normal distribution</b>",
+
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 19,
+          color = "#00695c"
+        )
+      ),
+
+      # F panel heading
+      list(
+        x = 0.78,
+        y = 1.075,
+
+        xref = "paper",
+        yref = "paper",
+
+        xanchor = "center",
+        yanchor = "bottom",
+
+        text = "<b>F<sub>2,15</sub> distribution</b>",
+
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 19,
+          color = "#00695c"
+        )
+      ),
+
+      # Dropdown label
+      list(
+        x = 0.495,
+        y = 1.225,
+
+        xref = "paper",
+        yref = "paper",
+
+        xanchor = "right",
+        yanchor = "middle",
+
+        text = "<b>Right-tail probability</b>",
+
+        showarrow = FALSE,
+
+        font = list(
+          family = "Arial",
+          size = 15,
+          color = "#667174"
+        )
+      )
+    ),
+
     updatemenus = list(
       list(
         type = "dropdown",
         direction = "down",
         active = 1,
-        x = 0.02,
-        y = 1.14,
+
+        x = 0.51,
+        y = 1.225,
+
         xanchor = "left",
-        yanchor = "top",
+        yanchor = "middle",
+
+        bgcolor = "rgba(255,255,255,0.98)",
+        bordercolor = "#d8dee2",
+        borderwidth = 1,
+
+        font = list(
+          family = "Arial",
+          size = 14,
+          color = "#2f3437"
+        ),
+
+        pad = list(
+          t = 3,
+          r = 3,
+          b = 3,
+          l = 3
+        ),
+
         buttons = buttons
       )
     )
   ) |>
-  config(displayModeBar = FALSE, responsive = FALSE)
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    scrollZoom = FALSE,
+    doubleClick = FALSE,
+    responsive = TRUE
+  )
 ```
-:::
 
-::::
+::: {.notebox style="font-size: 0.59em; line-height: 1.15; padding: 9px 13px; margin-top: 7px; margin-bottom: 0;"}
+**Reading the panels:** Both graphs shade the same right-tail probability. For the ANOVA test, the relevant reference distribution is <em>F</em><sub>2,15</sub>, shown on the right.
+:::
 
 ---
 
@@ -1278,13 +1956,13 @@ p |>
 ::: {.taskbox style="grid-column: 1; grid-row: 1 / span 2; font-size: 0.60em; line-height: 1.13; padding: 17px 19px; margin-bottom: 0;"}
 <span class="label">Problem</span>
 
-A campus café wants to compare **three pickup systems** used during the same lunch rush period:
+A campus café wants to compare **three pickup systems**:
 
 - mobile order,
 - kiosk order,
 - counter order.
 
-For each system, the café records the number of minutes from **order confirmation** to **pickup**.
+During several comparable lunch periods, eligible orders are randomly assigned to one of the three systems. For each order, the café records the number of minutes from **order confirmation** to **pickup**.
 
 We want to know whether the population mean **pickup time** is the same for all three systems.
 
@@ -1393,7 +2071,7 @@ The ANOVA test tells us that at least one system has a different mean. It does *
 
 ---
 
-## Visual: Campus Café Pickup Systems
+## Visual: Campus Café Pickup Systems {.compact}
 
 ```{r}
 #| echo: false
@@ -1446,11 +2124,11 @@ plot_ly() |>
     hovertemplate = "System: %{x}<br>Mean wait time: %{y:.2f} minutes<extra></extra>",
     showlegend = FALSE
   ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Pickup wait times by ordering system",
     x_title = "Ordering system",
     y_title = "Wait time (minutes)",
-    height = 390,
+    height = 360,
     margin = list(l = 76, r = 25, t = 60, b = 70)
   ) |>
   layout(
@@ -1608,7 +2286,7 @@ The ANOVA test tells us that at least one class type has a different mean. It do
 
 ---
 
-## Visual: Gym Class Types
+## Visual: Gym Class Types {.compact}
 
 ```{r}
 #| echo: false
@@ -1633,7 +2311,10 @@ video <- data.frame(
 
 video_means <- video |>
   group_by(style) |>
-  summarise(mean_watch = mean(calories), .groups = "drop")
+  summarise(
+    mean_watch = mean(calories),
+    .groups = "drop"
+  )
 
 plot_ly() |>
   add_trace(
@@ -1644,9 +2325,16 @@ plot_ly() |>
     name = "",
     boxpoints = FALSE,
     whiskerwidth = 0.55,
-    line = list(color = "rgba(0,77,64,0.88)", width = 2.1),
+    line = list(
+      color = "rgba(0,77,64,0.88)",
+      width = 2.1
+    ),
     fillcolor = "rgba(200,230,243,0.40)",
-    hovertemplate = "Class type: %{x}<br>Calories burned: %{y:.1f}<extra></extra>",
+    hovertemplate = paste0(
+      "Class type: %{x}",
+      "<br>Calories burned: %{y:.1f}",
+      "<extra></extra>"
+    ),
     showlegend = FALSE
   ) |>
   add_markers(
@@ -1657,17 +2345,29 @@ plot_ly() |>
       size = 10,
       color = "#c62828",
       symbol = "circle",
-      line = list(color = "white", width = 1.2)
+      line = list(
+        color = "white",
+        width = 1.2
+      )
     ),
-    hovertemplate = "Class type: %{x}<br>Mean calories burned: %{y:.2f}<extra></extra>",
+    hovertemplate = paste0(
+      "Class type: %{x}",
+      "<br>Mean calories burned: %{y:.2f}",
+      "<extra></extra>"
+    ),
     showlegend = FALSE
   ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Calories burned by gym class type",
     x_title = "Gym class type",
     y_title = "Calories burned",
-    height = 390,
-    margin = list(l = 76, r = 25, t = 60, b = 82)
+    height = 360,
+    margin = list(
+      l = 76,
+      r = 25,
+      t = 60,
+      b = 82
+    )
   ) |>
   layout(
     yaxis = list(
@@ -1685,7 +2385,7 @@ plot_ly() |>
   )
 ```
 
-::: {.thinkbox style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;"}
+::: {.thinkbox .fragment style="font-size: 0.68em; line-height: 1.18; padding: 12px 15px; margin-top: 10px;" data-fragment-index="1"}
 The **red dots** show the sample mean calories burned for each gym class type.
 
 The **boxplots** show the within-group spread. The centers are noticeably different, especially for **HIIT** compared with **yoga**, which matches the ANOVA conclusion that not all group means are the same.
@@ -1808,7 +2508,22 @@ Use pairwise confidence intervals to compare specific group means: first **Fishe
 
 ---
 
-## Pairwise Confidence Intervals {.compact .pairwise-ci}
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A one-way ANOVA returns a large $F$-statistic and a small p-value. What can you conclude?
+::::
+
+- [At least one group mean differs from the others]{.correct data-explanation="Correct. A significant ANOVA rejects H0, showing at least one mean differs — but not which one. Post-hoc comparisons (e.g. Fisher's LSD) are needed to locate the differences."}
+- All of the group means are equal
+- Exactly one group mean differs from the rest
+- The group variances are unequal
+
+---
+
+## 8.5 Pairwise Confidence Intervals {.compact .pairwise-ci}
 
 :::: {.pairwise-ci-flow style="display:grid; grid-template-rows: auto 1fr; gap: 14px; align-items: stretch;"}
 
@@ -1886,6 +2601,21 @@ $$
 ::::
 
 ::::
+
+---
+
+##  {.quiz-question}
+
+:::: {.callout-note icon="false"}
+## Question
+
+A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
+::::
+
+- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
+- 16
+- 8
+- 3
 
 ---
 
@@ -2169,7 +2899,7 @@ However, **Target serve** and **Match-play serve** are not clearly different fro
 
 ---
 
-## Visual: Fisher LSD Pairwise Intervals
+## Visual: Fisher LSD Pairwise Intervals {.compact}
 
 ```{r}
 #| echo: false
@@ -2180,8 +2910,16 @@ library(plotly)
 
 badminton_lsd <- data.frame(
   comparison = factor(
-    c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
-    levels = c("Basic − Target", "Basic − Match-play", "Target − Match-play")
+    c(
+      "Basic − Target",
+      "Basic − Match-play",
+      "Target − Match-play"
+    ),
+    levels = c(
+      "Basic − Target",
+      "Basic − Match-play",
+      "Target − Match-play"
+    )
   ),
   difference = c(-5.00, -6.50, -1.50),
   lower = c(-7.72, -9.22, -4.22),
@@ -2197,7 +2935,10 @@ plot_ly(
   marker = list(
     size = 10,
     color = "rgba(198,40,40,1)",
-    line = list(color = "rgba(198,40,40,1)", width = 1.0)
+    line = list(
+      color = "rgba(198,40,40,1)",
+      width = 1.0
+    )
   ),
   error_y = list(
     type = "data",
@@ -2216,12 +2957,17 @@ plot_ly(
   customdata = ~cbind(lower, upper),
   showlegend = FALSE
 ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Fisher LSD intervals for pairwise mean differences",
     x_title = "Pairwise comparison",
     y_title = "Mean difference in accuracy score",
-    height = 350,
-    margin = list(l = 78, r = 20, t = 54, b = 82)
+    height = 332,
+    margin = list(
+      l = 78,
+      r = 20,
+      t = 54,
+      b = 82
+    )
   ) |>
   layout(
     shapes = list(
@@ -2243,7 +2989,9 @@ plot_ly(
     xaxis = list(
       title = list(
         text = "Pairwise comparison",
-        font = list(color = "rgba(0,0,0,0.88)")
+        font = list(
+          color = "rgba(0,0,0,0.88)"
+        )
       ),
       showline = TRUE,
       linecolor = "rgba(0,0,0,0.90)",
@@ -2252,19 +3000,30 @@ plot_ly(
       ticklen = 5,
       tickwidth = 1.2,
       tickcolor = "rgba(0,0,0,0.78)",
-      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      tickfont = list(
+        color = "rgba(0,0,0,0.82)",
+        size = 10
+      ),
       tickangle = 0,
       tickmode = "array",
-      tickvals = c("Basic − Target", "Basic − Match-play", "Target − Match-play"),
-      ticktext = c("Basic<br>vs<br>Target",
-                   "Basic<br>vs<br>Match-play",
-                   "Target<br>vs<br>Match-play"),
+      tickvals = c(
+        "Basic − Target",
+        "Basic − Match-play",
+        "Target − Match-play"
+      ),
+      ticktext = c(
+        "Basic<br>vs<br>Target",
+        "Basic<br>vs<br>Match-play",
+        "Target<br>vs<br>Match-play"
+      ),
       fixedrange = TRUE
     ),
     yaxis = list(
       title = list(
         text = "Mean difference in accuracy score",
-        font = list(color = "rgba(0,0,0,0.88)")
+        font = list(
+          color = "rgba(0,0,0,0.88)"
+        )
       ),
       zeroline = FALSE,
       showline = TRUE,
@@ -2274,7 +3033,10 @@ plot_ly(
       ticklen = 5,
       tickwidth = 1.2,
       tickcolor = "rgba(0,0,0,0.78)",
-      tickfont = list(color = "rgba(0,0,0,0.82)", size = 10),
+      tickfont = list(
+        color = "rgba(0,0,0,0.82)",
+        size = 10
+      ),
       fixedrange = TRUE,
       gridcolor = "rgba(0,0,0,0.06)",
       tickmode = "linear",
@@ -2285,7 +3047,7 @@ plot_ly(
   )
 ```
 
-::: {.thinkbox style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;"}
+::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.14; padding: 10px 13px; margin-top: 6px;" data-fragment-index="1"}
 The **red dots** show the observed pairwise mean differences. The **red vertical intervals** show the Fisher LSD intervals.
 
 The **black dashed line** marks 0. Intervals that avoid 0 indicate pairs that are significantly different. The first two intervals avoid 0, while **Target serve vs Match-play serve** contains 0.
@@ -2528,7 +3290,7 @@ $$
 
 ---
 
-## Visual: Phone Case Fisher LSD Pairwise Intervals
+## Visual: Phone Case Fisher LSD Pairwise Intervals {.compact}
 
 ```{r}
 #| echo: false
@@ -2589,11 +3351,11 @@ plot_ly(
   customdata = ~cbind(lower, upper),
   showlegend = FALSE
 ) |>
-  plotly_anova_layout(
+  plotly_slide_layout(
     title = "Fisher LSD intervals for pairwise mean repair-cost differences",
     x_title = "Pairwise comparison",
     y_title = "Mean repair-cost difference ($)",
-    height = 350,
+    height = 332,
     margin = list(l = 78, r = 20, t = 54, b = 82)
   ) |>
   layout(
@@ -2679,7 +3441,7 @@ score <- c(19, 20, 21, 23, 24, 25,
            24, 25, 26, 28, 29, 30,
            26, 27, 28, 29, 30, 31)
 
-drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+drill <- factor(   rep(     c("Basic serve", "Target serve", "Match-play serve"),     each = 6   ),   levels = c(     "Basic serve",     "Target serve",     "Match-play serve"   ) )
 
 fit <- aov(score ~ drill)
 
@@ -2722,19 +3484,21 @@ pairwise.t.test(cost, case,
 
 ## Bonferroni: Why Adjust? {.compact .bonferroni-idea}
 
-:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 13px; align-items: stretch;"}
+:::: {.bonferroni-flow style="display:grid; grid-template-rows: auto auto auto; gap: 9px; align-items: stretch;"}
 
-::: {.defbox style="font-size: 0.63em; line-height: 1.16; padding: 13px 18px; margin-bottom: 0;"}
+::: {.defbox style="font-size: 0.56em; line-height: 1.10; padding: 10px 15px; margin-bottom: 0;"}
 <span class="label">The issue</span>
 
 After ANOVA rejects, we may compare many pairs of means.
 
-Each pairwise comparison has a chance of making a Type I error, so doing many comparisons increases the chance of making **at least one false discovery**.
+Each pairwise comparison has a chance of making a Type I error, so doing
+many comparisons increases the chance of making **at least one false
+discovery**.
 :::
 
-:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: stretch;"}
+:::: {.three-col style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 11px; align-items: stretch;"}
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">1. Count comparisons</span>
 
 With $k$ groups, the number of pairwise comparisons is
@@ -2750,22 +3514,26 @@ m=\binom{4}{2}=6.
 $$
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">2. Experiment-wise error</span>
 
-If each comparison uses error rate $\alpha$, then the chance of making at least one Type I error is
+As the number of pairwise comparisons increases, the chance of making at
+least one Type I error across the full set also increases.
+
+If the comparisons were independent, this probability would be
 
 $$
-\alpha_E=1-(1-\alpha)^m.
+1-(1-\alpha)^m.
 $$
 
-As $m$ increases, $\alpha_E$ increases.
+Bonferroni does not require independence.
 :::
 
-::: {.stat-card .fragment style="font-size: 0.58em; line-height: 1.13; padding: 14px 16px; margin-bottom: 0;"}
+::: {.stat-card .fragment style="font-size: 0.51em; line-height: 1.07; padding: 10px 13px; margin-bottom: 0;"}
 <span class="label">3. Bonferroni correction</span>
 
-To keep the overall error rate controlled, Bonferroni uses a smaller per-comparison level:
+To keep the overall error rate controlled, Bonferroni uses a smaller
+per-comparison level:
 
 $$
 \frac{\alpha}{m}.
@@ -2780,12 +3548,16 @@ $$
 
 ::::
 
-::: {.thinkbox .fragment style="font-size: 0.64em; line-height: 1.17; padding: 13px 18px; margin-bottom: 0;"}
+::: {.thinkbox .fragment style="font-size: 0.54em; line-height: 1.09; padding: 10px 15px; margin-bottom: 0;"}
 <span class="label">Key idea</span>
 
-**Fisher's LSD** is more powerful, but it does not control the experiment-wise Type I error rate.
+**Protected Fisher's LSD** is used only after the overall ANOVA rejects.
+It gives narrower intervals and more power, but its protection against
+familywise Type I error weakens as the number of groups and pairwise
+comparisons increases.
 
-**Bonferroni** is more cautious: it uses wider intervals to protect against making false discoveries across many pairwise comparisons.
+**Bonferroni** is more cautious: it uses wider intervals to control the
+familywise Type I error rate across all planned pairwise comparisons.
 :::
 
 ::::
@@ -3044,7 +3816,7 @@ score <- c(19, 20, 21, 23, 24, 25,
            24, 25, 26, 28, 29, 30,
            26, 27, 28, 29, 30, 31)
 
-drill <- factor(rep(c("Static", "Footwork", "Coach-fed"), each = 6))
+drill <- factor(   rep(     c("Basic serve", "Target serve", "Match-play serve"),     each = 6   ),   levels = c(     "Basic serve",     "Target serve",     "Match-play serve"   ) )
 
 fit <- aov(score ~ drill)
 
@@ -3053,6 +3825,8 @@ anova(fit)
 pairwise.t.test(score, drill,
                 p.adjust.method = "bonferroni",
                 pool.sd = TRUE)
+
+# Reports Bonferroni-adjusted p-values rather than confidence intervals
 ```
 :::
 
@@ -3092,21 +3866,6 @@ confint(comp, calpha = qt(1 - 0.05 / (2 * m), df))
 
 ---
 
-##  {.quiz-question}
-
-:::: {.callout-note icon="false"}
-## Question
-
-A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean comparisons are possible?
-::::
-
-- [6]{.correct data-explanation="Correct. The number of pairwise comparisons is m = C(k, 2). With k = 4, m = C(4, 2) = 6."}
-- 16
-- 8
-- 3
-
----
-
 ## Final Checklist
 
 :::: {.two-col}
@@ -3124,13 +3883,50 @@ A one-way ANOVA has 4 groups and a significant p-value. How many pairwise mean c
 
 - Fill in df, SS, MS, and $F^*$.
 - Use the right-tail F p-value.
-- Reject only when the p-value is small.
+- Reject $H_0$ when the p-value is less than or equal to $\alpha$.
 - If ANOVA rejects, use pairwise comparisons.
 :::
 ::::
 
 ::: {.thinkbox .fragment}
 **One slide takeaway.** ANOVA compares several means by asking whether between-group variation is large compared with within-group error variation.
+:::
+
+---
+
+## Chapter Summary {.compact}
+
+:::: {.three-col}
+::: {.card .fragment}
+<span class="label">Global ANOVA test</span>
+Test
+
+$$
+H_0:\mu_1=\mu_2=\cdots=\mu_k
+$$
+
+against the claim that not all population means are equal.
+:::
+
+::: {.card .fragment}
+<span class="label">Variation and the F statistic</span>
+ANOVA splits total variation into treatment and error variation, then compares them using
+
+$$
+F^*=\frac{MSTr}{MSE}.
+$$
+:::
+
+::: {.card .fragment}
+<span class="label">After rejection</span>
+A significant ANOVA result says at least one mean differs. Use Fisher's LSD or Bonferroni intervals to determine which pairs differ.
+:::
+::::
+
+<br>
+
+::: {.thinkbox .fragment}
+**One slide takeaway.** Use ANOVA for the global question first, then use adjusted pairwise comparisons to investigate specific mean differences.
 :::
 
 ---

@@ -1020,14 +1020,16 @@ For most applied statistics the main structure is the **data frame**, because it
 ```{webr}
 #| autorun: false
 
-# Assigning a vector
-v <- c(1, 2, 3, 4, 5)
-v
+# Create two numeric vectors
+x <- c(1, 2, 3)
+y <- c(4, 5, 6)
 
-# A vector of marks
-marks <- c(80, 75, 90, 88, 92)
-mean(marks)
-length(marks)
+x + y    # element-wise addition
+x * y    # element-wise multiplication
+x^2      # square each element
+
+mean(x)
+length(x)
 ```
 :::
 
@@ -1037,7 +1039,7 @@ length(marks)
 
 A vector stores multiple values of the same type in one object. The function `c()` combines values.
 
-`mean()` computes the average; `length()` counts the elements.
+Arithmetic operations are applied **element by element**. `mean()` computes the average, and `length()` counts the elements.
 :::
 :::
 ::::

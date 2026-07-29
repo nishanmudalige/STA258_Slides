@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.8.25">
 
   <title>STA258 – Chapter 2: An Introduction to R - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,9 +18,6 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -99,7 +96,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -647,7 +644,6 @@
   line-height: 1;
 }
 </style>
-
 <script>
 document.addEventListener(
   "click",
@@ -877,29 +873,6 @@ University of Toronto Mississauga</p>
 </div>
 </div>
 </section>
-<section id="positron" class="slide level2 compact">
-<h2>2.2.3 Positron</h2>
-<div class="two-col-lean">
-<div class="col">
-<div class="defbox fragment">
-<p><strong>What is Positron?</strong></p>
-<p>Positron is a cross-platform desktop IDE developed by <strong>Posit PBC</strong> (formerly RStudio). It is built on the <strong>Visual Studio Code</strong> architecture and powered by <strong>Electron</strong>, and runs on Windows, macOS, and Linux.</p>
-<p>It supports R, Python, JavaScript, and Quarto documents.</p>
-<p>Download: <a href="https://positron.posit.co">positron.posit.co</a></p>
-</div>
-</div>
-<div class="col">
-<div class="examplebox fragment">
-<p><strong>RStudio and Positron</strong></p>
-<p>RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.</p>
-</div>
-<p><br></p>
-<div class="thinkbox fragment">
-<p>Positron is optional and is not required for this course. RStudio will be used for course demonstrations, exercises, and assignments.</p>
-</div>
-</div>
-</div>
-</section>
 <section id="rstudio-panes" class="slide level2">
 <h2>RStudio Panes</h2>
 <div class="rstudio-diagram">
@@ -934,15 +907,38 @@ University of Toronto Mississauga</p>
 </div>
 </div>
 </section>
+<section id="positron" class="slide level2 compact">
+<h2>2.2.3 Positron</h2>
+<div class="two-col-lean">
+<div class="col">
+<div class="defbox fragment">
+<p><strong>What is Positron?</strong></p>
+<p>Positron is a cross-platform desktop IDE developed by <strong>Posit PBC</strong> (formerly RStudio). It is built on the <strong>Visual Studio Code</strong> architecture and powered by <strong>Electron</strong>, and runs on Windows, macOS, and Linux.</p>
+<p>It supports R, Python, JavaScript, and Quarto documents.</p>
+<p>Download: <a href="https://positron.posit.co">positron.posit.co</a></p>
+</div>
+</div>
+<div class="col">
+<div class="examplebox fragment">
+<p><strong>RStudio and Positron</strong></p>
+<p>RStudio is maintained by Posit, a company that also develops Shiny, Quarto, and R Markdown.</p>
+</div>
+<p><br></p>
+<div class="thinkbox fragment">
+<p>Positron is optional and is not required for this course. RStudio will be used for course demonstrations, exercises, and assignments.</p>
+</div>
+</div>
+</div>
+</section>
 <section id="programming-in-r" class="slide level2 compact">
 <h2>2.3 Programming in R</h2>
 <p><strong>Why R for statistics?</strong></p>
 <ul>
-<li>Built specifically for data analysis, statistics, and visualization</li>
-<li>Rich ecosystem of packages and built-in statistical functions</li>
-<li>Open source and free on every major operating system</li>
-<li>Strong support for reproducible reporting through R Markdown and Quarto</li>
-<li>Widely used in academia, industry, and government</li>
+<li class="fragment">Built specifically for data analysis, statistics, and visualization</li>
+<li class="fragment">Rich ecosystem of packages and built-in statistical functions</li>
+<li class="fragment">Open source and free on every major operating system</li>
+<li class="fragment">Strong support for reproducible reporting through R Markdown and Quarto</li>
+<li class="fragment">Widely used in academia, industry, and government</li>
 </ul>
 </section>
 <section id="calculator" class="slide level2">
@@ -1189,7 +1185,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoidmFyaWFibGUtcHJhY3Rp
 
 </div>
 <script type="webr-6-contents">
-eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBBc3NpZ25pbmcgYSB2ZWN0b3JcbnYgPC0gYygxLCAyLCAzLCA0LCA1KVxudlxuXG4jIEEgdmVjdG9yIG9mIG1hcmtzXG5tYXJrcyA8LSBjKDgwLCA3NSwgOTAsIDg4LCA5Milcbm1lYW4obWFya3MpXG5sZW5ndGgobWFya3MpIn0=
+eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6IlxuIyBDcmVhdGUgdHdvIG51bWVyaWMgdmVjdG9yc1xueCA8LSBjKDEsIDIsIDMpXG55IDwtIGMoNCwgNSwgNilcblxueCArIHkgICAgIyBlbGVtZW50LXdpc2UgYWRkaXRpb25cbnggKiB5ICAgICMgZWxlbWVudC13aXNlIG11bHRpcGxpY2F0aW9uXG54XjIgICAgICAjIHNxdWFyZSBlYWNoIGVsZW1lbnRcblxubWVhbih4KVxubGVuZ3RoKHgpIn0=
 </script>
 </div>
 </div>
@@ -1198,7 +1194,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <div class="defbox">
 <p><strong>Numeric vector</strong></p>
 <p>A vector stores multiple values of the same type in one object. The function <code>c()</code> combines values.</p>
-<p><code>mean()</code> computes the average; <code>length()</code> counts the elements.</p>
+<p>Arithmetic operations are applied <strong>element by element</strong>. <code>mean()</code> computes the average, and <code>length()</code> counts the elements.</p>
 </div>
 </div>
 </div>
@@ -1369,7 +1365,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 <div class="col">
 <div class="defbox">
 <p><strong>Matrix</strong></p>
-<p>A matrix is a two-dimensional data structure storing elements of the same type. It supports addition, multiplication, transposition, and inversion.</p>
+<p>A matrix is a two-dimensional data structure storing elements of the same type. Elements are selected using <code>[row, column]</code>. Matrices support addition, multiplication, and transposition, and a square, invertible matrix can also be inverted.</p>
 <p>Used in linear algebra, statistics, and data analysis.</p>
 </div>
 </div>
@@ -1959,7 +1955,7 @@ eyJhdHRyIjp7ImVkaXQiOnRydWUsImV2YWwiOnRydWUsImV4ZXJjaXNlIjoiZ2dwbG90LXByYWN0aWNl
 <p><span class="label">R &amp; RStudio</span> <strong>R</strong> is an open-source language for statistics, data analysis, and graphics.<br><strong>RStudio</strong> is the interface for writing scripts, running code, and viewing plots.<br><strong>Scripts</strong> make analyses easy to save, reproduce, and rerun.</p>
 </div>
 <div class="card fragment">
-<p><span class="label">Data Structures</span> <strong>Variables</strong> store one value; <strong>vectors</strong> store many of one type.<br><strong>Lists</strong>, <strong>matrices</strong>, <strong>arrays</strong>, <strong>factors</strong>, and <strong>data frames</strong> organize richer data.<br><strong>Indexing</strong> with <code>[ ]</code> selects elements, rows, and columns.</p>
+<p><span class="label">Data Structures</span> <strong>Variables</strong> store values or objects; <strong>vectors</strong> store multiple values of one type.<br><strong>Lists</strong>, <strong>matrices</strong>, <strong>arrays</strong>, <strong>factors</strong>, and <strong>data frames</strong> organize richer data.<br><strong>Indexing</strong> with <code>[ ]</code> selects elements, rows, and columns.</p>
 </div>
 <div class="card fragment">
 <p><span class="label">Functions &amp; Packages</span> <strong>Functions</strong> like <code>mean()</code>, <code>sort()</code>, and <code>summary()</code> reuse common operations.<br><strong>Packages</strong> extend R: <code>install.packages()</code> once, <code>library()</code> each session.<br><strong>Base graphics</strong> and <strong><code>ggplot2</code></strong> both create statistical plots.</p>

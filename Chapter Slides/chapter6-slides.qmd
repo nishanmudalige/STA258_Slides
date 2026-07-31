@@ -25,6 +25,7 @@ webr:
     - dplyr
     - plotly
     - BSDA
+    - infer
 live:
   show-solutions: true
 ---
@@ -34,7 +35,7 @@ live:
 
 # ── Packages used in this chapter ──────────────────────────────────
 #   Rendered (knitr / build-time):  dplyr, plotly
-#   WebR (in-browser cells):         dplyr, plotly, BSDA
+#   WebR (in-browser cells):         dplyr, plotly, BSDA, infer
 #     WebR packages must also be declared in the YAML `webr: packages`
 #     block above so they load when the deck opens (see help.html).
 # ───────────────────────────────────────────────────────────────────
@@ -1652,10 +1653,17 @@ phat
 z_star
 p_value
 
-# Alternative Way: prop.test() runs the chi-square version of this test.
-# Its output reports X-squared (not z*), where X-squared = (z*)^2.
-# Uncomment to try it:
-# prop.test(x, n, p = p0, alternative = "greater", correct = FALSE)
+# Alternative Way: infer::prop_test() reports the z statistic directly
+# with z = TRUE (it should match z_star above). The yes/no outcomes are
+# fully determined by x and n, so we rebuild them from the counts:
+library(infer)
+cups <- data.frame(
+  reusable = factor(c(rep("yes", x), rep("no", n - x)),
+                    levels = c("yes", "no"))
+)
+
+prop_test(cups, reusable ~ NULL, success = "yes",
+          p = p0, alternative = "greater", z = TRUE)
 ```
 
 ---
@@ -2281,14 +2289,24 @@ There is evidence the daily push notification increases the check-in rate.
 ## Check in R: Two Proportions
 
 ```{webr}
-successes <- c(142, 118)
-totals <- c(360, 370)
+library(infer)
 
-prop.test(successes, totals, alternative = "greater", correct = FALSE)
+# Rebuild each group's yes/no check-in outcomes from the counts
+notifications <- data.frame(
+  group = factor(rep(c("push", "none"), c(360, 370)),
+                 levels = c("push", "none")),
+  checkin = factor(c(rep("yes", 142), rep("no", 360 - 142),
+                     rep("yes", 118), rep("no", 370 - 118)),
+                   levels = c("yes", "no"))
+)
+
+# infer::prop_test() reports the z statistic directly with z = TRUE
+prop_test(notifications, checkin ~ group, success = "yes",
+          order = c("push", "none"), alternative = "greater", z = TRUE)
 ```
 
 ::: {.thinkbox .fragment}
-`prop.test` reports the **chi-square** form ($\chi^2=(z^*)^2$) with p-value $0.0166$, so there is evidence the daily push notification increases the check-in rate.
+`infer::prop_test()` with `z = TRUE` reports the **z statistic directly** ($z^*\approx 2.13$) with p-value $0.0166$, so there is evidence the daily push notification increases the check-in rate.
 :::
 
 ---

@@ -1276,24 +1276,24 @@ increases by about **4.80 points**.
 
 ------------------------------------------------------------------------
 
-## Example: Study Hours and Assignment Score {.reg-estimate-example}
+## Example: Elevation and Air Temperature {.reg-estimate-example}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A student support team collects fictional data on how many hours students
-spent studying for an assignment.
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
+A weather station network records fictional afternoon temperatures at
+different elevations in the same region on a particular day.
 
-| Study hours $(x)$ | Assignment score $(y)$ |
+| Elevation in hundreds of metres $(x)$ | Air temperature in °C $(y)$ |
 |---:|---:|
-| 3 | 52 |
-| 4 | 57 |
-| 5 | 61 |
-| 6 | 63 |
-| 7 | 70 |
-| 8 | 73 |
-| 9 | 78 |
-| 10 | 82 |
+| 1 | 18.7 |
+| 2 | 18.0 |
+| 3 | 17.5 |
+| 4 | 16.6 |
+| 5 | 16.2 |
+| 6 | 15.4 |
+| 7 | 14.9 |
+| 8 | 14.1 |
 
 Estimate the regression equation.
 :::
@@ -1304,13 +1304,13 @@ Estimate the regression equation.
 We model:
 
 $$
-y=\text{assignment score}
+y=\text{air temperature in degrees Celsius}
 $$
 
 using:
 
 $$
-x=\text{study hours}
+x=\text{elevation in hundreds of metres}
 $$
 :::
 
@@ -1318,9 +1318,9 @@ $$
 <span class="label">Calculation</span>
 
 $$
-\bar{x}=6.500,
+\bar{x}=4.500,
 \qquad
-\bar{y}=67.000
+\bar{y}=16.425
 $$
 
 $$
@@ -1328,31 +1328,33 @@ S_{xx}=\sum(x_i-\bar{x})^2=42.000
 $$
 
 $$
-S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=179.000
+S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=-27.200
 $$
 
 $$
 \hat{\beta}_1=
-\frac{179.000}{42.000}
+\frac{S_{xy}}{S_{xx}}
 =
-4.262
+\frac{-27.200}{42.000}
+=
+-0.648
 $$
 
 $$
 \hat{\beta}_0=
-67.000-4.262(6.500)
+16.425-(-0.648)(4.500)
 =
-39.298
+19.339
 $$
 
 $$
-\hat{y}=39.298+4.262x
+\hat{y}=19.339-0.648x
 $$
 :::
 
 ::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-For each additional hour studied, the predicted assignment score increases
-by about **4.26 points**.
+For each additional 100 metres of elevation, the predicted air temperature
+decreases by about **0.65°C**.
 :::
 
 ::::

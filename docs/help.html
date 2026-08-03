@@ -812,7 +812,8 @@ window.exampleUpdate = function () {
 
   <p>A safe Git workflow is:</p>
 
-<pre><code>git status
+<pre><code>git branch --show-current
+git status
 git add "path/to/file"
 git status
 git commit -m "Describe the change"
@@ -820,11 +821,16 @@ git push origin HEAD</code></pre>
 
 <p>Example for updating one slide deck:</p>
 
-<pre><code>git status
+<pre><code>git branch --show-current
+git status
 git add "Chapter Slides/chapterN-slides.qmd"
 git status
 git commit -m "Update Chapter N slides"
 git push origin HEAD</code></pre>
+
+<div class="warning">
+  <p><strong>Before pushing:</strong> Confirm that <code>git branch --show-current</code> displays the branch you intend to update. The command <code>git push origin HEAD</code> pushes the currently checked-out branch to a branch with the same name on <code>origin</code>. If you are on the wrong branch, you will push that branch instead.</p>
+</div>
 
   <p>If rendering changes files in <code>docs/</code>, inspect <code>git status</code> and stage every generated file related to that render. This may include the chapter HTML as well as shared generated files such as <code>docs/sitemap.xml</code>.</p>
 

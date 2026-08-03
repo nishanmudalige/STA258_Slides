@@ -688,7 +688,7 @@ sd(x)
 </div>
 
   <div class="note">
-  <p><strong>Package overview comment:</strong> Each chapter's setup chunk (the <code>{r setup}</code> block at the top of the <code>.qmd</code>) opens with a short comment listing every package the chapter uses &mdash; both the render-time (knitr) packages loaded with <code>library()</code> and the WebR packages declared in the YAML above. This makes it easy to see at a glance what a chapter depends on.</p>
+  <p><strong>Package overview comment:</strong> When a chapter uses external packages, its setup chunk (the <code>{r setup}</code> block near the top of the <code>.qmd</code>) should include a short comment listing the render-time packages loaded with <code>library()</code> and the WebR packages declared in the YAML. This makes the chapter's dependencies easy to identify.</p>
 </div>
     
   

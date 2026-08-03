@@ -483,7 +483,9 @@
 
   <h3>Recommended YAML pattern</h3>
 
-  <pre><code>---
+<p>List only the WebR packages actually used by the chapter. The example below uses <code>plotly</code>, but other chapters may require packages such as <code>ggplot2</code>, <code>dplyr</code>, or <code>multcomp</code>.</p>
+
+<pre><code>---
 pagetitle: "Chapter N: Chapter Title - Slides"
 engine: knitr
 format:
@@ -507,8 +509,7 @@ revealjs-plugins:
   - quiz
 webr:
   packages:
-    - ggplot2
-    - dplyr
+    - plotly
 live:
   show-solutions: true
 ---</code></pre>

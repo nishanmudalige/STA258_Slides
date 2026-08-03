@@ -602,7 +602,9 @@ Back to Homepage button</code></pre>
 
   <h3>Recommended structure</h3>
 
-  <pre><code>---
+<p>Most current chapter examples use Plotly for the visual beside the task box. Keep the modebar hidden and size the plot so it fits within the 1280 × 720 slide.</p>
+
+<pre><code>---
 
 ## In-Class Example: Example Title {.scrollable}
 
@@ -623,19 +625,34 @@ Question text goes here.
 
 ::: {.col}
 ```{r}
-#| fig-width: 5.8
-#| fig-height: 4
-#| fig-align: center
 #| echo: false
+#| out-width: "100%"
 
-# Plot code goes here
+example_plot &lt;- plot_ly(
+  data = example_data,
+  x = ~x,
+  y = ~y,
+  type = "scatter",
+  mode = "markers"
+) |&gt;
+  layout(
+    height = 340,
+    margin = list(l = 60, r = 20, t = 20, b = 50)
+  ) |&gt;
+  config(
+    displayModeBar = FALSE,
+    displaylogo = FALSE,
+    responsive = TRUE
+  )
+
+example_plot
 ```
 :::
 ::::
 
 ---
 
-## Example Title - Check in R
+## Check in R: Example Title
 
 ```{webr}
 #| autorun: false

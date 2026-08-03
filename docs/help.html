@@ -809,9 +809,12 @@ git status
 git commit -m "Update Chapter N slides"
 git push origin HEAD</code></pre>
 
-  <p>If rendering changes files in <code>docs/</code>, also add only the matching rendered files shown by <code>git status</code>.</p>
+  <p>If rendering changes files in <code>docs/</code>, inspect <code>git status</code> and stage every generated file related to that render. This may include the chapter HTML as well as shared generated files such as <code>docs/sitemap.xml</code>.</p>
 
-  <pre><code>git add "docs/Chapter Slides/chapterN-slides.html"</code></pre>
+<pre><code>git status
+git add "docs/Chapter Slides/chapterN-slides.html"
+git add "docs/sitemap.xml"  # only if it changed during the render
+git status</code></pre>
 
 <h3>Other useful commands</h3>
 

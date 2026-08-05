@@ -1184,7 +1184,7 @@ the predictor and response.
 
 ------------------------------------------------------------------------
 
-## Example: Practice Problems and Quiz Score {.reg-estimate-example}
+## Example: Applied Force and Spring Extension {.reg-estimate-example}
 
 <style>
 .reveal section.reg-estimate-example .rg-calc mjx-container[display="true"],
@@ -1195,47 +1195,48 @@ the predictor and response.
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-A class collects fictional data on how many practice problem sets students
-completed before a quiz.
+::: {.taskbox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
+A laboratory records fictional measurements of the extension of a spring
+under different applied forces. The spring is measured only within its
+elastic range, where the relationship is approximately linear.
 
-| Practice sets completed $(x)$ | Quiz score $(y)$ |
+| Applied force in newtons $(x)$ | Spring extension in cm $(y)$ |
 |---:|---:|
-| 2 | 41 |
-| 3 | 47 |
-| 4 | 50 |
-| 5 | 56 |
-| 6 | 61 |
-| 7 | 65 |
-| 8 | 70 |
-| 9 | 75 |
+| 1 | 2.6 |
+| 2 | 4.7 |
+| 3 | 6.5 |
+| 4 | 8.9 |
+| 5 | 10.6 |
+| 6 | 13.0 |
+| 7 | 14.9 |
+| 8 | 17.1 |
 
 Estimate the regression equation.
 :::
 
-::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="2" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target model</span>
 
 We model:
 
 $$
-y=\text{quiz score}
+y=\text{spring extension in cm}
 $$
 
 using:
 
 $$
-x=\text{practice sets completed}
+x=\text{applied force in newtons}
 $$
 :::
 
-::: {.stat-card .rg-calc .fragment style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.12; padding: 16px 18px; margin-bottom: 0;"}
+::: {.stat-card .rg-calc .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.12; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
-\bar{x}=5.500,
+\bar{x}=4.500,
 \qquad
-\bar{y}=58.125
+\bar{y}=9.788
 $$
 
 $$
@@ -1243,84 +1244,84 @@ S_{xx}=\sum(x_i-\bar{x})^2=42.000
 $$
 
 $$
-S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=201.500
+S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=86.850
 $$
 
 $$
 \hat{\beta}_1=
 \frac{S_{xy}}{S_{xx}}
 =
-\frac{201.500}{42.000}
+\frac{86.850}{42.000}
 =
-4.798
+2.068
 $$
 
 $$
 \hat{\beta}_0=
-58.125-4.798(5.500)
+9.788-2.068(4.500)
 =
-31.738
+0.482
 $$
 
 $$
-\hat{y}=31.738+4.798x
+\hat{y}=0.482+2.068x
 $$
 :::
 
-::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-For each additional practice set completed, the predicted quiz score
-increases by about **4.80 points**.
+::: {.examplebox .fragment data-fragment-index="4" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+For each additional newton of applied force, the predicted spring extension
+increases by about **2.07 cm**.
 :::
 
 ::::
 
 ------------------------------------------------------------------------
 
-## Example: Study Hours and Assignment Score {.reg-estimate-example}
+## Example: Elevation and Air Temperature {.reg-estimate-example}
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 16px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.62em; line-height: 1.15; padding: 11px 15px; margin-bottom: 0;"}
-A student support team collects fictional data on how many hours students
-spent studying for an assignment.
+::: {.taskbox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
+A weather station network records fictional afternoon temperatures at
+different elevations in the same region on a particular day.
 
-| Study hours $(x)$ | Assignment score $(y)$ |
+| Elevation in hundreds of metres $(x)$ | Air temperature in °C $(y)$ |
 |---:|---:|
-| 3 | 52 |
-| 4 | 57 |
-| 5 | 61 |
-| 6 | 63 |
-| 7 | 70 |
-| 8 | 73 |
-| 9 | 78 |
-| 10 | 82 |
+| 1 | 18.7 |
+| 2 | 18.0 |
+| 3 | 17.5 |
+| 4 | 16.6 |
+| 5 | 16.2 |
+| 6 | 15.4 |
+| 7 | 14.9 |
+| 8 | 14.1 |
 
 Estimate the regression equation.
 :::
 
-::: {.notebox .fragment style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+::: {.notebox .fragment data-fragment-index="2" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Target model</span>
 
 We model:
 
 $$
-y=\text{assignment score}
+y=\text{air temperature in degrees Celsius}
 $$
 
 using:
 
 $$
-x=\text{study hours}
+x=\text{elevation in hundreds of metres}
 $$
 :::
 
-::: {.stat-card .rg-calc .fragment style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.12; padding: 16px 18px; margin-bottom: 0;"}
+::: {.stat-card .rg-calc .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 1; font-size: 0.72em; line-height: 1.12; padding: 16px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
 $$
-\bar{x}=6.500,
+\bar{x}=4.500,
 \qquad
-\bar{y}=67.000
+\bar{y}=16.425
 $$
 
 $$
@@ -1328,31 +1329,33 @@ S_{xx}=\sum(x_i-\bar{x})^2=42.000
 $$
 
 $$
-S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=179.000
+S_{xy}=\sum(x_i-\bar{x})(y_i-\bar{y})=-27.200
 $$
 
 $$
 \hat{\beta}_1=
-\frac{179.000}{42.000}
+\frac{S_{xy}}{S_{xx}}
 =
-4.262
+\frac{-27.200}{42.000}
+=
+-0.648
 $$
 
 $$
 \hat{\beta}_0=
-67.000-4.262(6.500)
+16.425-(-0.648)(4.500)
 =
-39.298
+19.339
 $$
 
 $$
-\hat{y}=39.298+4.262x
+\hat{y}=19.339-0.648x
 $$
 :::
 
-::: {.examplebox .fragment style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-For each additional hour studied, the predicted assignment score increases
-by about **4.26 points**.
+::: {.examplebox .fragment data-fragment-index="4" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
+For each additional 100 metres of elevation, the predicted air temperature
+decreases by about **0.65°C**.
 :::
 
 ::::
@@ -1364,15 +1367,16 @@ by about **4.26 points**.
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
 
 ::: {.col}
+
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Practice problems example</span>
+<span class="label">Applied force example</span>
 :::
 
 ```{webr}
 #| autorun: false
 
-x <- c(2, 3, 4, 5, 6, 7, 8, 9)
-y <- c(41, 47, 50, 56, 61, 65, 70, 75)
+x <- c(1, 2, 3, 4, 5, 6, 7, 8)
+y <- c(2.6, 4.7, 6.5, 8.9, 10.6, 13.0, 14.9, 17.1)
 
 xbar <- mean(x)
 ybar <- mean(y)
@@ -1384,24 +1388,30 @@ b1 <- Sxy / Sxx
 b0 <- ybar - b1 * xbar
 
 out <- round(data.frame(
-  xbar = xbar, ybar = ybar, Sxx = Sxx,
-  Sxy = Sxy, b0 = b0, b1 = b1
+  xbar = xbar,
+  ybar = ybar,
+  Sxx = Sxx,
+  Sxy = Sxy,
+  b0 = b0,
+  b1 = b1
 ), 3)
 
 print(out, row.names = FALSE)
 ```
+
 :::
 
 ::: {.col}
+
 ::: {.notebox style="font-size: 0.58em; line-height: 1.10; padding: 8px 11px; margin-bottom: 6px;"}
-<span class="label">Study hours example</span>
+<span class="label">Elevation example</span>
 :::
 
 ```{webr}
 #| autorun: false
 
-x <- c(3, 4, 5, 6, 7, 8, 9, 10)
-y <- c(52, 57, 61, 63, 70, 73, 78, 82)
+x <- c(1, 2, 3, 4, 5, 6, 7, 8)
+y <- c(18.7, 18.0, 17.5, 16.6, 16.2, 15.4, 14.9, 14.1)
 
 xbar <- mean(x)
 ybar <- mean(y)
@@ -1413,12 +1423,17 @@ b1 <- Sxy / Sxx
 b0 <- ybar - b1 * xbar
 
 out <- round(data.frame(
-  xbar = xbar, ybar = ybar, Sxx = Sxx,
-  Sxy = Sxy, b0 = b0, b1 = b1
+  xbar = xbar,
+  ybar = ybar,
+  Sxx = Sxx,
+  Sxy = Sxy,
+  b0 = b0,
+  b1 = b1
 ), 3)
 
 print(out, row.names = FALSE)
 ```
+
 :::
 
 ::::

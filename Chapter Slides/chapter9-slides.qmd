@@ -1338,12 +1338,14 @@ $$
 =
 \frac{-27.200}{42.000}
 =
+-0.647619\ldots
+\approx
 -0.648
 $$
 
 $$
 \hat{\beta}_0=
-16.425-(-0.648)(4.500)
+16.425-(-0.647619\ldots)(4.500)
 =
 19.339
 $$
@@ -4010,24 +4012,24 @@ R² = SSR / SST
 <div class="ttc-card-title">Predicted values</div>
 
 <div class="ttc-card-note">
-Use the fitted line: <span class="ttc-fit-eq">ŷ = 1.310 + 3.357x</span>.
+The fitted line is displayed as <span class="ttc-fit-eq">ŷ = 1.310 + 3.357x</span>. Predictions are calculated using the unrounded coefficients and then rounded to three decimal places.
 </div>
 
 <table class="ttc-clean-table ttc-pred-table">
   <thead>
     <tr>
       <th>x</th>
-      <th>Plug into fitted line</th>
+      <th>Using unrounded coefficients</th>
       <th>ŷ<sub>i</sub></th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>3</td><td>1.310 + 3.357(3)</td><td>11.381</td></tr>
-    <tr><td>5</td><td>1.310 + 3.357(5)</td><td>18.095</td></tr>
-    <tr><td>7</td><td>1.310 + 3.357(7)</td><td>24.810</td></tr>
-    <tr><td>9</td><td>1.310 + 3.357(9)</td><td>31.524</td></tr>
-    <tr><td>11</td><td>1.310 + 3.357(11)</td><td>38.238</td></tr>
-    <tr><td>13</td><td>1.310 + 3.357(13)</td><td>44.952</td></tr>
+    <tr><td>3</td><td>1.309524 + 3.357143(3)</td><td>11.381</td></tr>
+    <tr><td>5</td><td>1.309524 + 3.357143(5)</td><td>18.095</td></tr>
+    <tr><td>7</td><td>1.309524 + 3.357143(7)</td><td>24.810</td></tr>
+    <tr><td>9</td><td>1.309524 + 3.357143(9)</td><td>31.524</td></tr>
+    <tr><td>11</td><td>1.309524 + 3.357143(11)</td><td>38.238</td></tr>
+    <tr><td>13</td><td>1.309524 + 3.357143(13)</td><td>44.952</td></tr>
   </tbody>
 </table>
 :::
@@ -4715,8 +4717,8 @@ $$
 \begin{aligned}
 SE(\hat{\beta}_1)
 &=\frac{s}{\sqrt{S_{xx}}}
-=\frac{0.470}{\sqrt{117.500}}
-=0.043.
+=\frac{0.470400\ldots}{\sqrt{117.500}}
+=0.043396.
 \end{aligned}
 $$
 
@@ -4726,7 +4728,7 @@ $$
 \begin{aligned}
 t
 &=\frac{\hat{\beta}_1-0}{SE(\hat{\beta}_1)}
-=\frac{1.038}{0.043}
+=\frac{1.038298}{0.043396}
 =23.926,\\[-1pt]
 df
 &=n-2

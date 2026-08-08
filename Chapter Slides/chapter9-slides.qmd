@@ -4805,8 +4805,8 @@ y <- c(1, 1, 2, 2, 4)
 
 model <- lm(y ~ x)
 
-round(summary(model)$coefficients, 4)
-round(confint(model), 4)
+round(summary(model)$coefficients, 3)
+round(confint(model), 3)
 ```
 :::
 
@@ -4823,8 +4823,8 @@ y <- c(5, 7, 8, 10, 12, 13, 16, 17)
 
 model <- lm(y ~ x)
 
-round(summary(model)$coefficients, 4)
-round(confint(model), 4)
+round(summary(model)$coefficients, 3)
+round(confint(model), 3)
 ```
 :::
 

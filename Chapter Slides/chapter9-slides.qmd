@@ -5021,7 +5021,7 @@ F
 \end{aligned}
 $$
 
-Since $p=0.0354<0.05$, reject $H_0:\beta_1=0$.
+Since $p\approx0.035<0.05$, reject $H_0:\beta_1=0$.
 
 There is evidence that flyers posted are linearly related to new sign-ups in this fictional example.
 :::
@@ -5145,9 +5145,9 @@ y <- c(1, 1, 2, 2, 4)
 model <- lm(y ~ x)
 a <- anova(model)
 
-round(a, 4)
+round(a, 3)
 
-cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 3), "\n")
 ```
 :::
 
@@ -5165,9 +5165,9 @@ y <- c(18, 24, 31, 35, 43, 47)
 model <- lm(y ~ x)
 a <- anova(model)
 
-round(a, 4)
+round(a, 3)
 
-cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 3), "\n")
 ```
 :::
 

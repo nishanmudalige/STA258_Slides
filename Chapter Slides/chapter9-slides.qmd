@@ -1270,7 +1270,7 @@ $$
 
 ::: {.examplebox .fragment data-fragment-index="4" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional newton of applied force, the predicted spring extension
-increases by about **2.07 cm**.
+increases by about **2.068 cm**.
 :::
 
 ::::
@@ -1357,7 +1357,7 @@ $$
 
 ::: {.examplebox .fragment data-fragment-index="4" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
 For each additional 100 metres of elevation, the predicted air temperature
-decreases by about **0.65°C**.
+decreases by about **0.648°C**.
 :::
 
 ::::
@@ -4805,8 +4805,8 @@ y <- c(1, 1, 2, 2, 4)
 
 model <- lm(y ~ x)
 
-round(summary(model)$coefficients, 4)
-round(confint(model), 4)
+round(summary(model)$coefficients, 3)
+round(confint(model), 3)
 ```
 :::
 
@@ -4823,8 +4823,8 @@ y <- c(5, 7, 8, 10, 12, 13, 16, 17)
 
 model <- lm(y ~ x)
 
-round(summary(model)$coefficients, 4)
-round(confint(model), 4)
+round(summary(model)$coefficients, 3)
+round(confint(model), 3)
 ```
 :::
 
@@ -5016,12 +5016,12 @@ $$
 \begin{aligned}
 F
 &=\frac{MSR}{MSE}
-=\frac{4.900}{0.3667}
-=13.364.
+=\frac{4.900}{0.366666\ldots}
+\approx 13.364.
 \end{aligned}
 $$
 
-Since $p=0.0354<0.05$, reject $H_0:\beta_1=0$.
+Since $p\approx0.035<0.05$, reject $H_0:\beta_1=0$.
 
 There is evidence that flyers posted are linearly related to new sign-ups in this fictional example.
 :::
@@ -5094,8 +5094,8 @@ $$
 F=
 \frac{MSR}{MSE}
 =
-\frac{606.229}{0.943}
-=
+\frac{606.229}{0.942857\ldots}
+\approx
 642.970
 $$
 
@@ -5145,9 +5145,9 @@ y <- c(1, 1, 2, 2, 4)
 model <- lm(y ~ x)
 a <- anova(model)
 
-round(a, 4)
+round(a, 3)
 
-cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 3), "\n")
 ```
 :::
 
@@ -5165,9 +5165,9 @@ y <- c(18, 24, 31, 35, 43, 47)
 model <- lm(y ~ x)
 a <- anova(model)
 
-round(a, 4)
+round(a, 3)
 
-cat("\nTotal SS =", round(sum(a$`Sum Sq`), 4), "\n")
+cat("\nTotal SS =", round(sum(a$`Sum Sq`), 3), "\n")
 ```
 :::
 
@@ -5246,9 +5246,9 @@ For an 800 sq ft unit:
 $$
 \hat{y}
 =
-1090.476+220.238(8)
-=
-2852.38
+1090.476190\ldots+220.238095\ldots(8)
+\approx
+2852.381
 $$
 
 This is interpolation because $x=8$ is inside the observed range.
@@ -5258,9 +5258,9 @@ For a 2000 sq ft unit:
 $$
 \hat{y}
 =
-1090.476+220.238(20)
-=
-5495.24
+1090.476190\ldots+220.238095\ldots(20)
+\approx
+5495.238
 $$
 
 This is extrapolation because $x=20$ is outside the observed range.
@@ -5324,9 +5324,9 @@ For 8 days before the concert:
 $$
 \hat{y}
 =
-453.381-12.714(8)
-=
-351.67
+453.380952\ldots-12.714286\ldots(8)
+\approx
+351.667
 $$
 
 This is **interpolation** because $x=8$ is inside the observed range.
@@ -5336,9 +5336,9 @@ For 30 days before the concert:
 $$
 \hat{y}
 =
-453.381-12.714(30)
-=
-71.95
+453.380952\ldots-12.714286\ldots(30)
+\approx
+71.952
 $$
 
 This is **extrapolation** because $x=30$ is outside the observed range.
@@ -5393,7 +5393,7 @@ out <- data.frame(
     "interpolation",
     "extrapolation"
   ),
-  predicted_rent = round(predict(model, new_units), 2)
+  predicted_rent = round(predict(model, new_units), 3)
 )
 
 print(out, row.names = FALSE)
@@ -5422,7 +5422,7 @@ out <- data.frame(
     "interpolation",
     "extrapolation"
   ),
-  predicted_price = round(predict(model, new_days), 2)
+  predicted_price = round(predict(model, new_days), 3)
 )
 
 print(out, row.names = FALSE)

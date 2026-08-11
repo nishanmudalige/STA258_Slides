@@ -45,74 +45,6 @@ library(plotly)
 
 theme_set(theme_minimal(base_size = 13))
 set.seed(258)
-
-plot_cols <- list(
-  main        = "#00695c",
-  teal        = "#00695c",
-  teal_dark   = "#004d40",
-  teal_light  = "#e0f2f1",
-  blue        = "#c8e6f3",
-  blue_soft   = "#eef8fb",
-  grey        = "#f5f6f7",
-  gray        = "#f5f6f7",
-  yellow      = "#fff8e1",
-  orange      = "#f9a825",
-  text        = "#2f3437",
-  muted       = "#667174",
-  border      = "#d8dee2",
-  code        = "#f3f4f5",
-  white       = "#ffffff",
-  red         = "#c62828",
-  purple      = "#7e57c2"
-)
-
-plotly_slide_layout <- function(
-  p,
-  title = NULL,
-  x_title = NULL,
-  y_title = NULL,
-  width = NULL,
-  height = 390,
-  x_range = NULL,
-  y_range = NULL,
-  margin = list(l = 70, r = 25, t = 70, b = 60)
-) {
-  p |>
-    layout(
-      title = list(text = title, font = list(size = 16), x = 0.02),
-      width = width,
-      height = height,
-      margin = margin,
-      dragmode = FALSE,
-      xaxis = list(
-        title = x_title,
-        range = x_range,
-        fixedrange = TRUE,
-        zeroline = FALSE,
-        showline = TRUE,
-        linecolor = plot_cols$border,
-        gridcolor = "rgba(0,0,0,0.08)"
-      ),
-      yaxis = list(
-        title = y_title,
-        range = y_range,
-        fixedrange = TRUE,
-        zeroline = FALSE,
-        showline = TRUE,
-        linecolor = plot_cols$border,
-        gridcolor = "rgba(0,0,0,0.08)"
-      ),
-      paper_bgcolor = "rgba(0,0,0,0)",
-      plot_bgcolor = "white"
-    ) |>
-    config(
-      displayModeBar = FALSE,
-      displaylogo = FALSE,
-      scrollZoom = FALSE,
-      doubleClick = FALSE,
-      staticPlot = FALSE
-    )
-}
 ```
 
 # Chapter 10: Analysis of Categorical Data {.title-slide}
@@ -162,7 +94,7 @@ plotly_slide_layout <- function(
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
 
 .two-col, .two-col-lean, .two-col-wide,
-.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+.three-col, .four-grid, .exercise-grid, .one-col {
   display: grid;
   gap: 28px;
   align-items: start;
@@ -207,7 +139,8 @@ plotly_slide_layout <- function(
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 .card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+.mini-card .label, .stat-card .label,
+.thinkbox .label, .warnbox .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -267,6 +200,12 @@ plotly_slide_layout <- function(
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+/* Guarantee a visible bottom edge on every table */
+.reveal table { border-bottom: 1px solid var(--sta-border); }
+.reveal tbody tr:last-child td,
+.reveal tbody tr:last-child th { border-bottom: 1px solid var(--sta-border); }
+/* Breathing room between an example-box table and the text below it */
+.reveal .taskbox table, .reveal .notebox table { margin-bottom: 10px; }
 
 .reveal pre {
   width: 100%;
@@ -394,7 +333,7 @@ plotly_slide_layout <- function(
 }
 .reveal .plot-container { border-radius: 10px; }
 
-.home-button-row { text-align: center; margin-top: 24px; }
+.home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button,
 .reveal a.home-button:visited,
 .reveal a.home-button:link {
@@ -407,7 +346,7 @@ plotly_slide_layout <- function(
   font-weight: 700 !important;
   font-size: 0.9em !important;
   border: 2px solid var(--sta-teal-dark) !important;
-  margin-top: 18px !important;
+  margin-top: 24px !important;
 }
 .reveal a.home-button:hover {
   background: var(--sta-teal-dark) !important;
@@ -865,15 +804,15 @@ Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café dr
 .reveal section.gof-r-check .cm-line,
 .reveal section.gof-r-check pre,
 .reveal section.gof-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.95em !important;
+  line-height: 1.12 !important;
 }
 
 .reveal section.gof-r-check .cm-gutters,
 .reveal section.gof-r-check .cm-lineNumbers,
 .reveal section.gof-r-check .cm-gutterElement {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.95em !important;
+  line-height: 1.12 !important;
 }
 
 .reveal section.gof-r-check .cell-output,
@@ -887,6 +826,8 @@ Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café dr
 .reveal section.gof-r-check .notebox {
   margin-bottom: 5px !important;
 }
+
+.reveal section.gof-r-check .cell { margin-top: -10px !important; }
 </style>
 
 :::: {.two-col-wide style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;"}
@@ -989,6 +930,21 @@ $$
 ::: {.warnbox .fragment}
 This is always a **right-tail test**. Large $\chi^2$ values mean the observed counts are too far from the hypothesized model.
 :::
+
+---
+
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+A goodness-of-fit test compares observed counts across $k = 6$ categories to probabilities that are fully specified in advance. How many degrees of freedom does the chi-square test use?
+:::
+
+- $6$
+- [$5$]{.correct data-explanation="When the category probabilities are specified in advance, the goodness-of-fit test uses df = k - 1 = 6 - 1 = 5."}
+- $4$
+- It depends on the sample size $n$
 
 ---
 
@@ -1105,6 +1061,10 @@ $$
 \frac{(63-45)^2}{45}
 +
 \frac{(28-37.5)^2}{37.5}
+$$
+
+$$
+\qquad
 +
 \frac{(36-37.5)^2}{37.5}
 +
@@ -1190,7 +1150,7 @@ round(tt$expected, 1)
 
 ---
 
-## Reading the Chi-square Statistic
+## Reading the Chi-square Statistic {.gof-r-check}
 
 :::: {.two-col}
 ::: {.defbox}
@@ -1231,7 +1191,22 @@ round(data.frame(
 
 ---
 
-## 10.3 Assumptions for Chi-square Goodness of Fit
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+In a goodness-of-fit test the observed counts fall far from the expected counts, producing a large $\chi^2$ statistic. What does this indicate?
+:::
+
+- The sample size must have been too small
+- [The data give evidence against the null model]{.correct data-explanation="A large chi-square statistic means the observed counts are far from what $H_0$ predicts, so the data provide evidence against the null model."}
+- The expected counts were calculated incorrectly
+- The categories must be independent
+
+---
+
+## 10.3 Assumptions: Chi-sq goodness of fit
 
 ::: {.defbox}
 The chi-square approximation works well only when the expected counts are large enough.
@@ -1273,19 +1248,17 @@ Some expected counts are below 5, so the chi-square approximation may be unrelia
 
 ---
 
-## Assumption Checklist
+## Assumptions
 
 ::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
-<span class="label">Assumptions</span>
-
 <ul class="assumption-list" style="gap: 10px;">
-  <li><strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.</li>
+  <li class="fragment"><strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.</li>
 
-  <li><strong>One category per trial:</strong> Each observation should fall into exactly one of the possible categories.</li>
+  <li class="fragment"><strong>One category per trial:</strong> Each observation should fall into exactly one of the possible categories.</li>
 
-  <li><strong>Independent trials:</strong> The trials or observations should be independent.</li>
+  <li class="fragment"><strong>Independent trials:</strong> The trials or observations should be independent.</li>
 
-  <li><strong>Expected cell frequency:</strong> Each expected count should usually be at least 5.</li>
+  <li class="fragment"><strong>Expected cell frequency:</strong> Each expected count should usually be at least 5.</li>
 </ul>
 :::
 
@@ -1418,7 +1391,7 @@ $$
 $$
 :::
 
-::: {.examplebox style="font-size: 0.63em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;"}
+::: {.examplebox .fragment style="font-size: 0.63em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;"}
 At $\alpha=0.01$, the large P-value means we do not reject the model.
 :::
 :::
@@ -1443,7 +1416,7 @@ tt$expected
 
 ---
 
-## Chapter Summary
+## Chapter Summary {.compact}
 
 :::: {.three-col}
 ::: {.card .fragment}
@@ -1476,55 +1449,20 @@ Large values give evidence against $H_0$.
 
 <br>
 
-:::: {.three-col}
-::: {.stat-card .fragment}
-<span class="label">Degrees of freedom</span>
-
-When the category probabilities are specified in advance:
-
-$$
-df=k-1
-$$
+::: {.thinkbox .fragment}
+**Final takeaway.** A goodness-of-fit test turns a hypothesized probability model into expected counts $E_i = np_i$, then uses $\chi^2$ with $df = k-1$ to judge whether the observed counts are close enough to the null model, provided each expected count is at least 5.
 :::
-
-::: {.stat-card .fragment}
-<span class="label">P-value</span>
-Use the right-tail area under the chi-square distribution.
-:::
-
-::: {.stat-card .fragment}
-<span class="label">Assumption check</span>
-Each expected count should usually be at least 5.
-:::
-::::
 
 ---
 
-## End of Chapter 10
+## End of Chapter
 
-:::: {.three-col}
-::: {.card .fragment}
-<span class="label">You can now...</span>
-Recognize categorical count data and connect it to a multinomial model.
-:::
+::: {.examplebox}
+**That wraps up STA258**
 
-::: {.card .fragment}
-<span class="label">You can now...</span>
-Compute expected counts and a chi-square goodness-of-fit statistic.
-:::
-
-::: {.card .fragment}
-<span class="label">You can now...</span>
-Use `chisq.test()` to check the statistic, degrees of freedom, P-value, and expected counts.
-:::
-::::
-
-::: {.thinkbox .fragment style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;"}
-<span class="label">Final takeaway</span>
-
-Goodness-of-fit tests ask whether the observed category counts are close enough to what the null model predicted, allowing for natural sampling variation.
+You've gone from summarizing data to drawing inferences and modelling both numerical and categorical outcomes. Revisit any chapter from the homepage to review.
 :::
 
 <div class="home-button-row">
-<a href="../index.html" class="home-button">Back to Course Home</a>
+<a href="../index.html" class="home-button">Back to Homepage</a>
 </div>

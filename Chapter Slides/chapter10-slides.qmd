@@ -204,6 +204,8 @@ set.seed(258)
 .reveal table { border-bottom: 1px solid var(--sta-border); }
 .reveal tbody tr:last-child td,
 .reveal tbody tr:last-child th { border-bottom: 1px solid var(--sta-border); }
+/* Breathing room between an example-box table and the text below it */
+.reveal .taskbox table, .reveal .notebox table { margin-bottom: 10px; }
 
 .reveal pre {
   width: 100%;

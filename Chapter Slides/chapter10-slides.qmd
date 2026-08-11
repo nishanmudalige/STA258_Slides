@@ -200,6 +200,10 @@ set.seed(258)
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+/* Guarantee a visible bottom edge on every table */
+.reveal table { border-bottom: 1px solid var(--sta-border); }
+.reveal tbody tr:last-child td,
+.reveal tbody tr:last-child th { border-bottom: 1px solid var(--sta-border); }
 
 .reveal pre {
   width: 100%;

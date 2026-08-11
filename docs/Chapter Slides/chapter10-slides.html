@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+  <meta name="generator" content="quarto-1.9.37">
 
   <title>STA258 – Chapter 10: Analysis of Categorical Data - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -30,7 +33,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -181,7 +184,7 @@
 .title-slide p { font-size: 0.78em; color: var(--sta-muted); }
 
 .two-col, .two-col-lean, .two-col-wide,
-.three-col, .four-grid, .web-grid, .exercise-grid, .one-col {
+.three-col, .four-grid, .exercise-grid, .one-col {
   display: grid;
   gap: 28px;
   align-items: start;
@@ -226,7 +229,8 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.07);
 }
 .card .label, .taskbox .label, .notebox .label,
-.mini-card .label, .stat-card .label {
+.mini-card .label, .stat-card .label,
+.thinkbox .label, .warnbox .label {
   display: block;
   color: var(--sta-teal-dark);
   font-weight: 700;
@@ -286,6 +290,12 @@
   vertical-align: top;
 }
 .reveal th { background: var(--sta-teal-light); font-weight: bold; }
+/* Guarantee a visible bottom edge on every table */
+.reveal table { border-bottom: 1px solid var(--sta-border); }
+.reveal tbody tr:last-child td,
+.reveal tbody tr:last-child th { border-bottom: 1px solid var(--sta-border); }
+/* Breathing room between an example-box table and the text below it */
+.reveal .taskbox table, .reveal .notebox table { margin-bottom: 10px; }
 
 .reveal pre {
   width: 100%;
@@ -413,7 +423,7 @@
 }
 .reveal .plot-container { border-radius: 10px; }
 
-.home-button-row { text-align: center; margin-top: 24px; }
+.home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button,
 .reveal a.home-button:visited,
 .reveal a.home-button:link {
@@ -426,7 +436,7 @@
   font-weight: 700 !important;
   font-size: 0.9em !important;
   border: 2px solid var(--sta-teal-dark) !important;
-  margin-top: 18px !important;
+  margin-top: 24px !important;
 }
 .reveal a.home-button:hover {
   background: var(--sta-teal-dark) !important;
@@ -816,15 +826,15 @@ H_a:\text{the three probabilities are not all equal}
 .reveal section.gof-r-check .cm-line,
 .reveal section.gof-r-check pre,
 .reveal section.gof-r-check code {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.95em !important;
+  line-height: 1.12 !important;
 }
 
 .reveal section.gof-r-check .cm-gutters,
 .reveal section.gof-r-check .cm-lineNumbers,
 .reveal section.gof-r-check .cm-gutterElement {
-  font-size: 0.78em !important;
-  line-height: 1.05 !important;
+  font-size: 0.95em !important;
+  line-height: 1.12 !important;
 }
 
 .reveal section.gof-r-check .cell-output,
@@ -838,6 +848,8 @@ H_a:\text{the three probabilities are not all equal}
 .reveal section.gof-r-check .notebox {
   margin-bottom: 5px !important;
 }
+
+.reveal section.gof-r-check .cell { margin-top: -10px !important; }
 </style>
 <div class="two-col-wide" style="grid-template-columns: 1fr 1fr; gap: 18px; align-items: start;">
 <div class="col">
@@ -915,6 +927,25 @@ df=k-1
 <div class="warnbox fragment">
 <p>This is always a <strong>right-tail test</strong>. Large <span class="math inline">\(\chi^2\)</span> values mean the observed counts are too far from the hypothesized model.</p>
 </div>
+</section>
+<section id="section" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>A goodness-of-fit test compares observed counts across <span class="math inline">\(k = 6\)</span> categories to probabilities that are fully specified in advance. How many degrees of freedom does the chi-square test use?</p>
+</div>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(6\)</span></li>
+<li><span class="correct" data-explanation="When the category probabilities are specified in advance, the goodness-of-fit test uses df = k - 1 = 6 - 1 = 5."><span class="math inline">\(5\)</span></span></li>
+<li><span class="math inline">\(4\)</span></li>
+<li>It depends on the sample size <span class="math inline">\(n\)</span></li>
+</ul>
 </section>
 <section id="example-campus-food-pickup-slots" class="slide level2">
 <h2>Example: Campus Food Pickup Slots</h2>
@@ -1034,6 +1065,9 @@ H_a:\text{at least one probability differs}
 \frac{(63-45)^2}{45}
 +
 \frac{(28-37.5)^2}{37.5}
+\]</span></p>
+<p><span class="math display">\[
+\qquad
 +
 \frac{(36-37.5)^2}{37.5}
 +
@@ -1097,7 +1131,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </div>
 </div>
 </section>
-<section id="reading-the-chi-square-statistic" class="slide level2">
+<section id="reading-the-chi-square-statistic" class="slide level2 gof-r-check">
 <h2>Reading the Chi-square Statistic</h2>
 <div class="two-col">
 <div class="defbox">
@@ -1124,8 +1158,27 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </div>
 </div>
 </section>
-<section id="assumptions-for-chi-square-goodness-of-fit" class="slide level2">
-<h2>10.3 Assumptions for Chi-square Goodness of Fit</h2>
+<section id="section-1" class="slide level2 quiz-question">
+<h2></h2>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>In a goodness-of-fit test the observed counts fall far from the expected counts, producing a large <span class="math inline">\(\chi^2\)</span> statistic. What does this indicate?</p>
+</div>
+</div>
+</div>
+<ul>
+<li>The sample size must have been too small</li>
+<li><span class="correct" data-explanation="A large chi-square statistic means the observed counts are far from what $H_0$ predicts, so the data provide evidence against the null model.">The data give evidence against the null model</span></li>
+<li>The expected counts were calculated incorrectly</li>
+<li>The categories must be independent</li>
+</ul>
+</section>
+<section id="assumptions-chi-sq-goodness-of-fit" class="slide level2">
+<h2>10.3 Assumptions: Chi-sq goodness of fit</h2>
 <div class="defbox">
 <p>The chi-square approximation works well only when the expected counts are large enough.</p>
 <p>A common course rule is:</p>
@@ -1154,21 +1207,20 @@ E_i=np_i\ge 5
 </div>
 </div>
 </section>
-<section id="assumption-checklist" class="slide level2">
-<h2>Assumption Checklist</h2>
+<section id="assumptions" class="slide level2">
+<h2>Assumptions</h2>
 <div class="notebox" style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;">
-<p><span class="label">Assumptions</span></p>
 <ul class="assumption-list" style="gap: 10px;">
-<li>
+<li class="fragment">
 <strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.
 </li>
-<li>
+<li class="fragment">
 <strong>One category per trial:</strong> Each observation should fall into exactly one of the possible categories.
 </li>
-<li>
+<li class="fragment">
 <strong>Independent trials:</strong> The trials or observations should be independent.
 </li>
-<li>
+<li class="fragment">
 <strong>Expected cell frequency:</strong> Each expected count should usually be at least 5.
 </li>
 </ul>
@@ -1178,7 +1230,7 @@ E_i=np_i\ge 5
 <p>Check expected counts, not observed counts. A small observed count is not automatically a problem if the expected count condition is satisfied.</p>
 </div>
 </section>
-<section id="section" class="slide level2 quiz-question">
+<section id="section-2" class="slide level2 quiz-question">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -1296,7 +1348,7 @@ H_0:(p_1,p_2,p_3,p_4,p_5)
 (15,30,45,30,30)
 \]</span></p>
 </div>
-<div class="examplebox" style="font-size: 0.63em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;">
+<div class="examplebox fragment" style="font-size: 0.63em; line-height: 1.18; padding: 12px 15px; margin-top: 12px;">
 <p>At <span class="math inline">\(\alpha=0.01\)</span>, the large P-value means we do not reject the model.</p>
 </div>
 </div>
@@ -1314,7 +1366,7 @@ eyJhdHRyIjp7ImF1dG9ydW4iOmZhbHNlLCJlZGl0Ijp0cnVlLCJldmFsIjp0cnVlfSwiY29kZSI6Ilxu
 </div>
 </div>
 </section>
-<section id="chapter-summary" class="slide level2">
+<section id="chapter-summary" class="slide level2 compact">
 <h2>Chapter Summary</h2>
 <div class="three-col">
 <div class="card fragment">
@@ -1336,41 +1388,18 @@ E_i=np_i
 </div>
 </div>
 <p><br></p>
-<div class="three-col">
-<div class="stat-card fragment">
-<p><span class="label">Degrees of freedom</span></p>
-<p>When the category probabilities are specified in advance:</p>
-<p><span class="math display">\[
-df=k-1
-\]</span></p>
-</div>
-<div class="stat-card fragment">
-<p><span class="label">P-value</span> Use the right-tail area under the chi-square distribution.</p>
-</div>
-<div class="stat-card fragment">
-<p><span class="label">Assumption check</span> Each expected count should usually be at least 5.</p>
-</div>
+<div class="thinkbox fragment">
+<p><strong>Final takeaway.</strong> A goodness-of-fit test turns a hypothesized probability model into expected counts <span class="math inline">\(E_i = np_i\)</span>, then uses <span class="math inline">\(\chi^2\)</span> with <span class="math inline">\(df = k-1\)</span> to judge whether the observed counts are close enough to the null model, provided each expected count is at least 5.</p>
 </div>
 </section>
-<section id="end-of-chapter-10" class="slide level2">
-<h2>End of Chapter 10</h2>
-<div class="three-col">
-<div class="card fragment">
-<p><span class="label">You can now…</span> Recognize categorical count data and connect it to a multinomial model.</p>
-</div>
-<div class="card fragment">
-<p><span class="label">You can now…</span> Compute expected counts and a chi-square goodness-of-fit statistic.</p>
-</div>
-<div class="card fragment">
-<p><span class="label">You can now…</span> Use <code>chisq.test()</code> to check the statistic, degrees of freedom, P-value, and expected counts.</p>
-</div>
-</div>
-<div class="thinkbox fragment" style="font-size: 0.72em; line-height: 1.22; padding: 14px 18px; margin-top: 18px;">
-<p><span class="label">Final takeaway</span></p>
-<p>Goodness-of-fit tests ask whether the observed category counts are close enough to what the null model predicted, allowing for natural sampling variation.</p>
+<section id="end-of-chapter" class="slide level2">
+<h2>End of Chapter</h2>
+<div class="examplebox">
+<p><strong>That wraps up STA258</strong></p>
+<p>You’ve gone from summarizing data to drawing inferences and modelling both numerical and categorical outcomes. Revisit any chapter from the homepage to review.</p>
 </div>
 <div class="home-button-row">
-<p><a href="../index.html" class="home-button">Back to Course Home</a></p>
+<p><a href="../index.html" class="home-button">Back to Homepage</a></p>
 </div>
 
 

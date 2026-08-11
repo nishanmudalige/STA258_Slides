@@ -1405,7 +1405,7 @@ tt$expected
 
 ---
 
-## Chapter Summary
+## Chapter Summary {.compact}
 
 :::: {.three-col}
 ::: {.card .fragment}
@@ -1438,27 +1438,9 @@ Large values give evidence against $H_0$.
 
 <br>
 
-:::: {.three-col}
-::: {.stat-card .fragment}
-<span class="label">Degrees of freedom</span>
-
-When the category probabilities are specified in advance:
-
-$$
-df=k-1
-$$
+::: {.thinkbox .fragment}
+**One slide takeaway.** A goodness-of-fit test turns a hypothesized probability model into expected counts $E_i = np_i$, then uses $\chi^2$ with $df = k-1$ to judge whether the observed counts are close enough to the null model, provided each expected count is at least 5.
 :::
-
-::: {.stat-card .fragment}
-<span class="label">P-value</span>
-Use the right-tail area under the chi-square distribution.
-:::
-
-::: {.stat-card .fragment}
-<span class="label">Assumption check</span>
-Each expected count should usually be at least 5.
-:::
-::::
 
 ---
 

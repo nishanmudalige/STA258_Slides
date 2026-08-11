@@ -933,6 +933,21 @@ This is always a **right-tail test**. Large $\chi^2$ values mean the observed co
 
 ---
 
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+A goodness-of-fit test compares observed counts across $k = 6$ categories to probabilities that are fully specified in advance. How many degrees of freedom does the chi-square test use?
+:::
+
+- $6$
+- [$5$]{.correct data-explanation="When the category probabilities are specified in advance, the goodness-of-fit test uses df = k - 1 = 6 - 1 = 5."}
+- $4$
+- It depends on the sample size $n$
+
+---
+
 ## Example: Campus Food Pickup Slots
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
@@ -1176,6 +1191,21 @@ round(data.frame(
 
 ---
 
+##  {.quiz-question}
+
+::: {.callout-note icon="false"}
+## Question
+
+In a goodness-of-fit test the observed counts fall far from the expected counts, producing a large $\chi^2$ statistic. What does this indicate?
+:::
+
+- The sample size must have been too small
+- [The data give evidence against the null model]{.correct data-explanation="A large chi-square statistic means the observed counts are far from what $H_0$ predicts, so the data provide evidence against the null model."}
+- The expected counts were calculated incorrectly
+- The categories must be independent
+
+---
+
 ## 10.3 Assumptions: Chi-sq goodness of fit
 
 ::: {.defbox}
@@ -1258,36 +1288,6 @@ Which statement is best?
 - The test is fine because most observed counts are above 5
 - [The chi-square approximation is questionable because one expected count is below 5]{.correct data-explanation="The expected cell frequency condition checks expected counts, and here one expected count is 4, which is below 5."}
 - The degrees of freedom should be 5
-
----
-
-##  {.quiz-question}
-
-::: {.callout-note icon="false"}
-## Question
-
-A goodness-of-fit test compares observed counts across $k = 6$ categories to probabilities that are fully specified in advance. How many degrees of freedom does the chi-square test use?
-:::
-
-- $6$
-- [$5$]{.correct data-explanation="When the category probabilities are specified in advance, the goodness-of-fit test uses df = k - 1 = 6 - 1 = 5."}
-- $4$
-- It depends on the sample size $n$
-
----
-
-##  {.quiz-question}
-
-::: {.callout-note icon="false"}
-## Question
-
-In a goodness-of-fit test the observed counts fall far from the expected counts, producing a large $\chi^2$ statistic. What does this indicate?
-:::
-
-- The sample size must have been too small
-- [The data give evidence against the null model]{.correct data-explanation="A large chi-square statistic means the observed counts are far from what $H_0$ predicts, so the data provide evidence against the null model."}
-- The expected counts were calculated incorrectly
-- The categories must be independent
 
 ---
 

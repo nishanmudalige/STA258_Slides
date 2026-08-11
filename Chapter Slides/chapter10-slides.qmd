@@ -230,6 +230,9 @@ set.seed(258)
 .reveal section.compact p,
 .reveal section.compact li { font-size: 0.74em; }
 
+/* Vertically center a slide's content */
+.reveal section.vcenter { display: flex !important; flex-direction: column; justify-content: center; height: 100%; }
+
 .reveal section.quiz-question {
   display: flex !important;
   flex-direction: column !important;
@@ -1248,9 +1251,9 @@ Some expected counts are below 5, so the chi-square approximation may be unrelia
 
 ---
 
-## Assumptions
+## Assumptions {.vcenter}
 
-::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px; min-height: 320px; display: flex; flex-direction: column; justify-content: center;"}
+::: {.notebox style="font-size: 0.72em; line-height: 1.24; padding: 15px 18px; margin-top: 10px;"}
 <ul class="assumption-list" style="gap: 10px;">
   <li class="fragment"><strong>Categorical counts:</strong> The data should be counts in mutually exclusive categories.</li>
 

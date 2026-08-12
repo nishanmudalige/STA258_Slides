@@ -378,44 +378,6 @@ The result is one workflow from \textbf{source code} $\rightarrow$ \textbf{compu
 \end{beamercolorbox}
 \end{frame}
 
-% Slide 8
-\begin{frame}{A consistent visual system}
-\vspace{0.35em}
-\begin{columns}[T,onlytextwidth]
-\column{0.50\textwidth}
-\begin{itemize}
-  \item Common title and roadmap conventions
-  \item Reusable cards, callouts, and task boxes
-  \item Controlled typography and fixed slide dimensions
-  \item Consistent plot sizing and axis treatment
-  \item Predictable footer and navigation behavior
-\end{itemize}
-
-\vspace{0.35em}
-{\bfseries Why it matters:} students can focus on the statistical idea instead of relearning the interface from slide to slide.
-
-\column{0.45\textwidth}
-\begin{tikzpicture}[every node/.style={font=\small}]
-  \node[
-    draw=UTBlue!45,
-    fill=white,
-    rounded corners=5pt,
-    line width=0.7pt,
-    minimum width=5.05cm,
-    minimum height=4.25cm,
-    align=center,
-    inner sep=8pt
-  ] (box) {};
-  \node[anchor=north west,text width=4.45cm,align=left] at ([xshift=0.28cm,yshift=-0.22cm]box.north west)
-    {\textcolor{UTBlue}{\bfseries Example slide anatomy}};
-  \node[draw=Pantone633!55,fill=Pantone633!8,rounded corners=3pt,minimum width=4.25cm,minimum height=0.62cm,anchor=north,align=center] (q) at ([yshift=-0.95cm]box.north) {Context + question};
-  \node[draw=Pantone2985!70,fill=Pantone2985!15,rounded corners=3pt,minimum width=4.25cm,minimum height=0.62cm,below=0.20cm of q,align=center] (obs) {Observed data / visual};
-  \node[draw=Pantone227!45,fill=Pantone227!7,rounded corners=3pt,minimum width=4.25cm,minimum height=0.62cm,below=0.20cm of obs,align=center] (calc) {Calculation / interaction};
-  \node[draw=PantoneWarmRed!45,fill=PantoneWarmRed!7,rounded corners=3pt,minimum width=4.25cm,minimum height=0.62cm,below=0.20cm of calc,align=center] (con) {Interpretation / conclusion};
-\end{tikzpicture}
-\end{columns}
-\end{frame}
-
 % Slide 9
 \begin{frame}{In-browser interactivity}
 \vspace{0.25em}

@@ -11,6 +11,7 @@
 \usepackage{amsmath}
 \usepackage{array}
 \usepackage{hyperref}
+\usepackage{qrcode}
 
 % ---------- UTM-inspired palette ----------
 \definecolor{UTBlue}{HTML}{1E3765}
@@ -171,6 +172,47 @@
 \begin{frame}{Table of contents}
 \vspace*{0.8em}
 \tableofcontents
+\end{frame}
+
+% ============================================================
+% Slide 3 -- STA258 slide website
+% ============================================================
+\begin{frame}{STA258 slide website}
+\vspace{1.0em}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\vspace{0.6em}
+{\Large\bfseries Scan to explore the current course\par resource:}
+
+\vspace{0.75em}
+\begin{itemize}
+  \item Chapter landing pages
+  \item Interactive Reveal.js slide decks
+  \item WebR code blocks and exercises
+  \item PDF views for static access
+\end{itemize}
+
+\vspace{0.75em}
+{\ttfamily\small
+\begin{tabular}{@{}l@{}}
+https://nishanmudalige.github.io/STA258\_\\
+Slides/
+\end{tabular}}
+
+\column{0.46\textwidth}
+\vspace{0.1em}
+\begin{center}
+\begin{tikzpicture}
+  \node[
+    draw=Pantone2985!85!Pantone633,
+    line width=0.85pt,
+    rounded corners=5pt,
+    fill=white,
+    inner sep=16pt
+  ] {\textcolor{UTBlue}{\qrcode[height=4.0cm]{https://nishanmudalige.github.io/STA258_Slides/}}};
+\end{tikzpicture}
+\end{center}
+\end{columns}
 \end{frame}
 
 % ============================================================

@@ -2897,6 +2897,159 @@ A dataset has $r=-0.91$. What does this suggest?
 
 ------------------------------------------------------------------------
 
+## Example: Correlation Does Not Imply Causation
+
+::: {.defbox style="margin-bottom: 8px; font-size: 0.72em; line-height: 1.22; padding: 10px 14px;"}
+<span class="label">Problem situation</span>
+A published study compared **sunscreen sales per capita** with **melanoma (skin cancer)
+incidence** across 24 Northern European countries. Countries that bought more
+sunscreen had **more** skin cancer, not less.
+:::
+
+:::: {.two-col-wide style="grid-template-columns: 1.05fr 0.95fr; gap: 18px; align-items: start;"}
+
+::: {.col}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| out-width: "100%"
+
+# Real data: Williams, S. N., & Dienes, K. A. (2014). "Sunscreen Sales,
+# Socio-Economic Factors, and Melanoma Incidence in Northern Europe."
+# SAGE Open, 4(4). Sunscreen sales = volume per capita (1997-1999 avg);
+# melanoma incidence = new cases per 100,000 (2008 & 2012 avg).
+sun_df <- data.frame(
+  country = c(
+    "Belarus", "Czech Republic", "Estonia", "Hungary", "Latvia", "Lithuania",
+    "Poland", "Romania", "Russia", "Slovakia", "Slovenia", "Ukraine",
+    "Austria", "Belgium", "Denmark", "Finland", "France", "Germany",
+    "Ireland", "Netherlands", "Norway", "Switzerland", "Sweden",
+    "United Kingdom"
+  ),
+  region = c(
+    rep("Central / Eastern", 12),
+    rep("Western", 12)
+  ),
+  sunscreen = c(
+    0.40, 22.10, 17.70, 12.63, 23.20, 7.77,
+    14.87, 3.90, 2.23, 5.67, 34.00, 2.33,
+    61.33, 47.43, 42.10, 33.40, 29.77, 41.60,
+    45.33, 38.53, 64.50, 73.67, 20.90, 60.83
+  ),
+  melanoma = c(
+    4.00, 12.40, 6.80, 7.65, 5.05, 5.05,
+    4.10, 3.15, 3.90, 9.35, 15.35, 3.95,
+    8.85, 11.25, 18.85, 11.70, 9.15, 11.75,
+    13.25, 18.05, 17.90, 19.75, 17.00, 13.55
+  )
+)
+
+sun_r <- cor(sun_df$sunscreen, sun_df$melanoma)
+
+sun_fit <- lm(melanoma ~ sunscreen, data = sun_df)
+
+sun_line <- data.frame(
+  sunscreen = seq(0, 75, length.out = 200)
+)
+
+sun_line$melanoma <- predict(sun_fit, newdata = sun_line)
+
+east_df <- subset(sun_df, region == "Central / Eastern")
+west_df <- subset(sun_df, region == "Western")
+
+sun_hover <- paste(
+  "<b>%{text}</b><br>",
+  "Sunscreen sales: %{x:.1f} per capita<br>",
+  "Melanoma: %{y:.2f} per 100,000",
+  "<extra></extra>"
+)
+
+plot_ly() |>
+  add_markers(
+    data = east_df,
+    x = ~sunscreen,
+    y = ~melanoma,
+    text = ~country,
+    name = "Central / Eastern",
+    hovertemplate = sun_hover,
+    showlegend = TRUE,
+    marker = list(
+      color = plot_cols$secondary,
+      size = 9,
+      opacity = 0.88,
+      line = list(color = "white", width = 0.8)
+    )
+  ) |>
+  add_markers(
+    data = west_df,
+    x = ~sunscreen,
+    y = ~melanoma,
+    text = ~country,
+    name = "Western",
+    hovertemplate = sun_hover,
+    showlegend = TRUE,
+    marker = list(
+      color = plot_cols$accent,
+      size = 9,
+      opacity = 0.88,
+      line = list(color = "white", width = 0.8)
+    )
+  ) |>
+  add_lines(
+    data = sun_line,
+    x = ~sunscreen,
+    y = ~melanoma,
+    hoverinfo = "skip",
+    showlegend = FALSE,
+    line = list(color = plot_cols$slate, width = 3, dash = "dot")
+  ) |>
+  plotly_slide_layout(
+    title = paste0(
+      "Sunscreen sales vs melanoma (r = ",
+      sprintf("%.2f", sun_r),
+      ")"
+    ),
+    x_title = "Sunscreen sales (volume per capita)",
+    y_title = "Melanoma per 100,000",
+    height = 268,
+    showlegend = TRUE,
+    legend_y = -0.34,
+    margin = list(l = 62, r = 12, t = 50, b = 66)
+  )
+```
+
+[Data: Williams & Dienes (2014), *SAGE Open* 4(4).]{style="font-size: 0.52em; color: var(--sta-muted); display: block; margin-top: 0px;"}
+
+:::
+
+::: {.col}
+
+::: {.warnbox .fragment style="font-size: 0.66em; line-height: 1.2; padding: 10px 13px;"}
+<span class="label">The tempting (wrong) conclusion</span>
+"Sunscreen causes melanoma, so people should stop using it."
+:::
+
+::: {.notebox .fragment style="font-size: 0.66em; line-height: 1.2; padding: 10px 13px; margin-top: 8px;"}
+<span class="label">The lurking variable</span>
+**National income.** Wealthier countries buy more sunscreen, take more sunny
+holidays, and detect and report more cancers. In the authors' multivariate
+model income stayed significant, but the sunscreen effect did not.
+:::
+
+::: {.thinkbox .fragment style="font-size: 0.66em; line-height: 1.2; padding: 10px 13px; margin-top: 8px;"}
+<span class="label">Course reminder</span>
+$r$ measures **linear association only**, and a large $r$ is equally
+consistent with reverse causation or a confounding variable.
+:::
+
+:::
+
+::::
+
+------------------------------------------------------------------------
+
 ## 9.1.4 SSE, SSR, and SST
 
 ::: {.defbox .fragment}

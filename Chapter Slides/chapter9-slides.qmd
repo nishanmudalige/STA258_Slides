@@ -937,7 +937,8 @@ plot_ly() |>
       "y: %{y:.1f}",
       "<extra></extra>"
     ),
-    showlegend = FALSE,
+    name = "Observed data",
+    showlegend = TRUE,
     marker = list(
       color = "#111827",
       size = 11,
@@ -957,7 +958,8 @@ plot_ly() |>
       "ŷ: %{y:.1f}",
       "<extra></extra>"
     ),
-    showlegend = FALSE,
+    name = "Predicted",
+    showlegend = TRUE,
     marker = list(
       color = "white",
       size = 11,
@@ -974,12 +976,13 @@ plot_ly() |>
     height = 345,
     x_range = c(0.4, 8.7),
     y_range = c(34, 82),
-    showlegend = FALSE,
+    showlegend = TRUE,
+    legend_y = -0.30,
     margin = list(
       l = 66,
       r = 18,
       t = 54,
-      b = 56
+      b = 74
     ),
     annotations = list(
       list(

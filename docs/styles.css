@@ -19,3 +19,13 @@
 
 h1 { font-weight: 700; }
 h2 { font-weight: 600; }
+
+/* Chapter landing pages: show author names as a plain byline under the
+   subtitle, without Quarto's "AUTHOR" heading label. */
+.quarto-title-meta-heading { display: none; }
+/* Match Bootstrap's own specificity, which otherwise pins this to 0.9em */
+#title-block-header.quarto-title-block.default .quarto-title-meta-contents {
+  color: #555555;
+  font-size: 0.95em;
+  white-space: nowrap;
+}

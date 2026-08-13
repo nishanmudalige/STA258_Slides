@@ -6,10 +6,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/live-runtime/live-runtime.js" type="module"></script>
 <link href="../site_libs/quarto-contrib/live-runtime/live-runtime.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+  <meta name="generator" content="quarto-1.9.37">
 
   <title>STA258 – Chapter 2: An Introduction to R - Slides</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -96,7 +99,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-99dc501a69816b99e2083b82b4daf9b8.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-8f256d708726d40fbff7d707db68e007.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -202,6 +205,12 @@
 <section>
 <section id="chapter-2-an-introduction-to-r" class="title-slide slide level1 center">
 <h1>Chapter 2: An Introduction to R</h1>
+<!-- ── Packages used in this chapter ──────────────────────────────────
+     Rendered (knitr / build-time):  none (this chapter has no setup chunk)
+     WebR (in-browser cells):         ggplot2, dplyr
+       WebR packages are declared in the YAML `webr: packages` block above
+       so they load when the deck opens (see help.html).
+────────────────────────────────────────────────────────────────────── -->
 <style>
 :root {
   --sta-teal:        #00695c;
@@ -735,10 +744,10 @@ document.addEventListener(
   true
 );
 </script>
-<p>STA258: Statistics with Applied Probability<br>
-University of Toronto Mississauga</p>
+<p>STA258: Statistics with Applied Probability<br> University of Toronto Mississauga</p>
 
-<img data-src="../images/cat.png" alt="Course mascot" width="245" class="r-stretch"></section>
+<img data-src="../images/cat.png" style="margin-top:-14px; margin-bottom:-6px;" alt="Course mascot" width="245" class="r-stretch"><p><span style="font-size: 0.92em; color: var(--sta-text);">Nishan Mudalige, Sarah Halime, Ashwin Selvapandian</span></p>
+</section>
 <section id="chapter-roadmap" class="slide level2 compact">
 <h2>Chapter Roadmap</h2>
 <div class="three-col">

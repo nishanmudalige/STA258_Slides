@@ -176,12 +176,12 @@ body {
 
 .hero {
   text-align: center;
-  padding: 50px 20px 25px 20px;
+  padding: 28px 20px 20px 20px;
   border-bottom: 3px solid #00695c;
 }
 
 .hero h1 {
-  font-size: 42px;
+  font-size: 34px;
   margin-bottom: 5px;
 }
 
@@ -189,11 +189,18 @@ body {
   font-size: 24px;
   color: #555555;
   font-weight: normal;
+  margin-top: 14px;
 }
 
 .cat {
   text-align: center;
-  margin: 30px 0;
+  margin: 14px 0 0 0;
+}
+
+/* Trim Quarto's default gap above the hero so the page opens tight to the navbar */
+main.content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 .wip {
@@ -202,6 +209,13 @@ body {
   font-size: 24px;
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+.authors {
+  text-align: center;
+  font-size: 23px;
+  color: #444444;
+  margin: -22px 0 20px 0;
 }
 
 .intro {
@@ -279,6 +293,9 @@ University of Toronto Mississauga
 <div class="cat">
 <p><img src="images/cat.png" width="420"></p>
 </div>
+<p class="authors">
+Nishan Mudalige, Sarah Halime, Ashwin Selvapandian
+</p>
 <p class="wip">
 Work in Progress
 </p>

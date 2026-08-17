@@ -879,7 +879,8 @@ plot_ly() |>
     x = ~x,
     y = ~y,
     hoverinfo = "skip",
-    showlegend = FALSE,
+    name = "Predicted by model",
+    showlegend = TRUE,
     line = list(
       color = plot_cols$secondary,
       width = 4
@@ -959,7 +960,7 @@ plot_ly() |>
       "<extra></extra>"
     ),
     name = "Predicted values",
-    showlegend = TRUE,
+    showlegend = FALSE,
     marker = list(
       color = "white",
       size = 11,

@@ -4679,20 +4679,35 @@ $y$.
 .reveal section.flyers-example .flyers-calc .MathJax_Display {
   margin: 0.16em 0 0.2em 0 !important;
 }
+
 .reveal section.flyers-example .flyers-calc p {
   margin: 0 0 4px 0 !important;
 }
+
 .reveal section.flyers-example .flyers-calc p strong {
   display: inline-block;
   margin-top: 4px;
 }
+
+/* Let the yellow box use the remaining left-column height */
+.reveal section.flyers-example .flyers-problem {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Push the final question toward the bottom of the yellow box */
+.reveal section.flyers-example .flyers-problem > p:last-child {
+  margin-top: auto !important;
+  margin-bottom: 0 !important;
+  padding-top: 10px;
+}
 </style>
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 310px 190px; gap: 10px 16px; align-items: stretch; height: 512px;"}
+:::: {.example-grid style="display:grid; grid-template-columns: 0.38fr 0.62fr; grid-template-rows: 360px 220px; gap: 10px 16px; align-items: stretch; height: 590px;"}
 
-::: {.col style="grid-column: 1; grid-row: 1 / span 2; display:flex; flex-direction:column; gap:9px; min-height:0;"}
+::: {.col style="grid-column: 1; grid-row: 1 / span 2; display:flex; flex-direction:column; gap:9px; min-height:0; height:100%;"}
 
-::: {.taskbox style="font-size: 0.49em; line-height: 1.05; padding: 10px 14px; margin-bottom: 0; overflow: hidden; min-height: 350px;"}
+::: {.taskbox .flyers-problem style="font-size: 0.49em; line-height: 1.05; padding: 10px 14px; margin-bottom: 0; overflow: hidden; flex:1 1 auto; min-height:0;"}
 <span class="label">Problem</span>
 
 The `mtcars` dataset contains real road-test data for
@@ -4715,7 +4730,7 @@ $$
 Test whether the slope differs from 0.
 :::
 
-::: {.notebox .calc-left .fragment data-fragment-index="1" style="font-size: 0.50em; line-height: 1.06; padding: 10px 13px; margin-bottom: 0; overflow: hidden;"}
+::: {.notebox .calc-left .fragment data-fragment-index="1" style="font-size: 0.50em; line-height: 1.06; padding: 10px 13px; margin-bottom: 0; overflow: hidden; flex:0 0 auto;"}
 <span class="label">Hypotheses</span>
 
 $$
@@ -4727,7 +4742,7 @@ $$
 The reference distribution is $t_9$.
 :::
 
-::: {.notebox .calc-left .fragment data-fragment-index="3" style="font-size: 0.50em; line-height: 1.06; padding: 10px 13px; margin-bottom: 0; overflow: hidden;"}
+::: {.notebox .calc-left .fragment data-fragment-index="3" style="font-size: 0.50em; line-height: 1.06; padding: 10px 13px; margin-bottom: 0; overflow: hidden; flex:0 0 auto;"}
 <span class="label">Conclusion</span>
 
 Since the p-value is about **0.014**, reject $H_0$ at the 5% level.
@@ -4737,7 +4752,7 @@ There is evidence of a negative linear relationship between vehicle weight and f
 
 :::
 
-::: {.stat-card .flyers-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; align-self: start; font-size: 0.50em; line-height: 1.16; padding: 13px 17px; margin-bottom: 0;"}
+::: {.stat-card .flyers-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.16; padding: 13px 17px; margin-bottom: 0; height:100%;"}
 <span class="label">Calculation</span>
 
 From least squares:  
@@ -4811,7 +4826,7 @@ $=(-9.832,\;-1.462)$
 
 :::: {.example-grid style="display:grid; grid-template-columns: 0.37fr 0.63fr; grid-template-rows: 300px 200px; gap: 10px 16px; align-items: stretch; height: 510px;"}
 
-::: {.col style="grid-column: 1; grid-row: 1 / span 2; display:flex; flex-direction:column; gap:9px; min-height:0;"}
+::: {.col style="grid-column: 1; grid-row: 1 / span 2; display:flex; flex-direction:column; gap:9px; min-height:0; height:100%;"}
 
 ::: {.taskbox style="font-size: 0.53em; line-height: 1.07; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
 <span class="label">Problem</span>

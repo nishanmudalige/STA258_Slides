@@ -3015,9 +3015,25 @@ plot_ly() |>
     x_title = "Sunscreen sales (volume per capita)",
     y_title = "Melanoma per 100,000",
     height = 268,
-    showlegend = TRUE,
-    legend_y = -0.34,
-    margin = list(l = 62, r = 12, t = 50, b = 66)
+showlegend = TRUE,
+legend_y = -0.34,
+annotations = list(
+  list(
+    x = 1,
+    y = -0.34,
+    xref = "paper",
+    yref = "paper",
+    text = "Source: Williams & Dienes (2014), <i>SAGE Open</i> 4(4).",
+    showarrow = FALSE,
+    xanchor = "right",
+    yanchor = "middle",
+    font = list(
+      size = 10,
+      color = plot_cols$muted
+    )
+  )
+),
+margin = list(l = 62, r = 12, t = 50, b = 66)
   )
 ```
 

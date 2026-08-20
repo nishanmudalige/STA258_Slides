@@ -5109,121 +5109,105 @@ For simple linear regression, this tests whether the slope is zero.
 
 ------------------------------------------------------------------------
 
-## Example: ANOVA for Event Flyers and Sign-Ups {.flyers-anova-example}
+## Example: Car Age and Resale Price {.used-car-anova-example}
 
 <style>
-.reveal section.flyers-anova-example .anova-calc mjx-container[display="true"] {
-  text-align: left !important;
-  justify-content: flex-start !important;
-  margin: 0.55em 0 0.65em 0 !important;
+.reveal section.used-car-anova-example .car-calc mjx-container[display="true"],
+.reveal section.used-car-anova-example .car-calc .MathJax_Display {
+  margin: 0.4em 0 0.5em 0 !important;
 }
-
-.reveal section.flyers-anova-example .anova-calc .MathJax_Display {
-  text-align: left !important;
-  margin: 0.55em 0 0.65em 0 !important;
-}
-
-.reveal section.flyers-anova-example .anova-calc p {
-  margin: 0 0 8px 0 !important;
-}
-
-.reveal section.flyers-anova-example .anova-calc table {
-  font-size: 0.78em !important;
-  margin-bottom: 7px !important;
-}
-
-.reveal section.flyers-anova-example .anova-calc th,
-.reveal section.flyers-anova-example .anova-calc td {
-  padding: 3px 6px !important;
-  line-height: 1.03 !important;
+.reveal section.used-car-anova-example .car-calc p {
+  margin: 0 0 10px 0 !important;
 }
 </style>
 
-:::: {.example-grid style="display:grid; grid-template-columns: 0.39fr 0.61fr; grid-template-rows: 300px 200px; gap: 10px 16px; align-items: stretch; height: 510px;"}
+:::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
-::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.55em; line-height: 1.08; padding: 12px 14px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Problem</span>
+::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
+A dealership compares six used cars of the same model and similar trim levels.
 
-Return to the event flyers and sign-ups example.
+For each car:
+
+- $x=$ vehicle age in years
+- $y=$ resale price in thousands of dollars
 
 The fitted line is:
 
 $$
-\hat{y}=-0.100+0.700x
+\hat{y}=35.333-2.000x.
 $$
 
 The variation quantities are:
 
 $$
-SST=6.000,
+SST=97.333,
 \qquad
-SSR=4.900,
+SSR=70.000,
 \qquad
-SSE=1.100
+SSE=27.333.
 $$
 
-**Question.** Construct the ANOVA table and test whether the regression model explains a meaningful amount of variation in new sign-ups.
+**Question.** Construct the ANOVA table and test whether vehicle age is linearly related to resale price.
 :::
 
-::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.55em; line-height: 1.09; padding: 11px 13px; margin-bottom: 0; overflow: hidden;"}
-<span class="label">Target question</span>
+::: {.stat-card .car-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.28; padding: 12px 16px; margin-bottom: 0;"}
+<span class="label">Calculation</span>
 
-Does the number of flyers posted explain a statistically meaningful amount of variation in new sign-ups?
+There are $n=6$ cars, so:
 
-The ANOVA test checks whether regression variation is large compared with error variation.
-:::
-
-::: {.stat-card .calc-left .anova-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; align-self: start; font-size: 0.51em; line-height: 1.22; padding: 12px 16px; margin-bottom: 0;"}
-<span class="label">ANOVA calculations</span>
+$$
+df_{\text{Reg}}=1,
+\qquad
+df_{\text{Error}}=6-2=4,
+\qquad
+df_{\text{Total}}=5.
+$$
 
 | Source | SS | df | MS | F |
 |---|---:|---:|---:|---:|
-| Regression | 4.900 | 1 | 4.900 | 13.364 |
-| Error | 1.100 | 3 | 0.367 |  |
-| Total | 6.000 | 4 |  |  |
-
-**Manual work:**
+| Regression | 70.000 | 1 | 70.000 | 10.244 |
+| Error | 27.333 | 4 | 6.833 |  |
+| Total | 97.333 | 5 |  |  |
 
 $$
-\begin{aligned}
-&df_{\text{Reg}}=1,\\
-&df_{\text{Error}}=n-2=5-2=3,\\
-&df_{\text{Total}}=n-1=5-1=4.
-\end{aligned}
+F=
+\frac{MSR}{MSE}
+=
+\frac{70}{6.833}
+\approx
+10.244
 $$
 
-$$
-\begin{aligned}
-MSR
-&=\frac{SSR}{df_{\text{Reg}}}
-=\frac{4.900}{1}
-=4.900,\\[2pt]
-MSE
-&=\frac{SSE}{df_{\text{Error}}}
-=\frac{1.100}{3}
-=0.3667.
-\end{aligned}
-$$
+The p-value is approximately **0.033**.
+:::
+
+::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Hypotheses</span>
 
 $$
-\begin{aligned}
-F
-&=\frac{MSR}{MSE}
-=\frac{4.900}{0.366666\ldots}
-\approx 13.364.
-\end{aligned}
+H_0:\beta_1=0
+\qquad
+H_A:\beta_1\ne0
 $$
 
-Since $p\approx0.035<0.05$, reject $H_0:\beta_1=0$.
+The ANOVA $F$-test checks whether the regression model explains a statistically
+significant amount of variation compared with the leftover residual variation.
+:::
 
-There is evidence that flyers posted are linearly related to new sign-ups in this fictional example.
+::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
+<span class="label">Conclusion</span>
+
+Since $p\approx0.033<0.05$, we **reject $H_0$**.
+
+There is evidence that vehicle age is linearly related to resale price for
+these cars.
 :::
 
 ::::
 
 ---
 
-## Example: ANOVA — Battery Charging {.battery-anova-example}
+## Example: Battery Charging {.battery-anova-example}
 
 <style>
 .reveal section.battery-anova-example .battery-calc mjx-container[display="true"],

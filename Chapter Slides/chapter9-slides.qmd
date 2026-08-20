@@ -4666,31 +4666,31 @@ $y$.
 
 ------------------------------------------------------------------------
 
-## Example: Vehicle Weight and Fuel Economy {.flyers-example}
+## Example: Vehicle Weight and Fuel Economy {.vehicle-example}
 
 <style>
-.reveal section.flyers-example .flyers-calc mjx-container[display="true"],
-.reveal section.flyers-example .flyers-calc .MathJax_Display {
+.reveal section.vehicle-example .vehicle-calc mjx-container[display="true"],
+.reveal section.vehicle-example .vehicle-calc .MathJax_Display {
   margin: 0.16em 0 0.2em 0 !important;
 }
 
-.reveal section.flyers-example .flyers-calc p {
+.reveal section.vehicle-example .vehicle-calc p {
   margin: 0 0 4px 0 !important;
 }
 
-.reveal section.flyers-example .flyers-calc p strong {
+.reveal section.vehicle-example .vehicle-calc p strong {
   display: inline-block;
   margin-top: 4px;
 }
 
 /* Let the yellow box use the remaining left-column height */
-.reveal section.flyers-example .flyers-problem {
+.reveal section.vehicle-example .vehicle-problem {
   display: flex;
   flex-direction: column;
 }
 
 /* Push the final question toward the bottom of the yellow box */
-.reveal section.flyers-example .flyers-problem > p:last-child {
+.reveal section.vehicle-example .vehicle-problem > p:last-child {
   margin-top: auto !important;
   margin-bottom: 0 !important;
   padding-top: 10px;
@@ -4701,7 +4701,7 @@ $y$.
 
 ::: {.col style="grid-column: 1; grid-row: 1 / span 2; display:flex; flex-direction:column; gap:9px; min-height:0; height:100%;"}
 
-::: {.taskbox .flyers-problem style="font-size: 0.49em; line-height: 1.05; padding: 10px 14px; margin-bottom: 0; overflow: hidden; flex:1 1 auto; min-height:0;"}
+::: {.taskbox .vehicle-problem style="font-size: 0.49em; line-height: 1.05; padding: 10px 14px; margin-bottom: 0; overflow: hidden; flex:1 1 auto; min-height:0;"}
 <span class="label">Problem</span>
 
 The `mtcars` dataset contains real road-test data for
@@ -4746,7 +4746,7 @@ There is evidence of a negative linear relationship between vehicle weight and f
 
 :::
 
-::: {.stat-card .flyers-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.16; padding: 13px 17px; margin-bottom: 0; height:100%;"}
+::: {.stat-card .vehicle-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1 / span 2; font-size: 0.50em; line-height: 1.16; padding: 13px 17px; margin-bottom: 0; height:100%;"}
 <span class="label">Calculation</span>
 
 From least squares:  

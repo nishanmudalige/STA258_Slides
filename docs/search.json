@@ -907,7 +907,7 @@
     "href": "Chapter Slides/chapter9-slides.html#check-in-r-prediction",
     "title": "STA258",
     "section": "Check in R: Prediction",
-    "text": "Check in R: Prediction\n\n\n\nWater heating example\n\n\n\n\n\n\n\n\n\n\n\n\nThe Weeknd resale example"
+    "text": "Check in R: Prediction\n\n\n\nWater heating example\n\n\n\n\n\n\n\n\n\n\n\n\nConcert resale example"
   },
   {
     "objectID": "Chapter Slides/chapter9-slides.html#residual-plot-checks",
@@ -3757,5 +3757,12 @@
     "title": "STA258",
     "section": "Example: Heating Time and Water Temperature",
     "text": "Example: Heating Time and Water Temperature\n\n\nA lab heats a fixed volume of water on the same hot plate and records its temperature during the first five minutes, before boiling.\nThe fitted line is:\n\\[\n\\hat{y}=19.990+12.257x\n\\]\nwhere:\n\n\\(x=\\) heating time in minutes\n\\(y=\\) water temperature in °C\n\nPredict the temperature at:\n\\[\nx=2.5\n\\]\nand compare with predicting at:\n\\[\nx=8.\n\\]\n\n\nCalculation\nFor 2.5 minutes of heating:\n\\[\n\\hat{y}\n=\n19.990476\\ldots+12.257143\\ldots(2.5)\n\\approx\n50.633\n\\]\nThis is interpolation because \\(x=2.5\\) is inside the observed range.\nFor 8 minutes of heating:\n\\[\n\\hat{y}\n=\n19.990476\\ldots+12.257143\\ldots(8)\n\\approx\n118.048\n\\]\nThis is extrapolation because \\(x=8\\) is outside the observed range.\n\n\nPrediction target\nThe observed heating times only cover:\n\\[\n0\\le x\\le5.\n\\]\nPredictions inside this range are safer than predictions far outside it.\n\n\nThe 2.5-minute prediction is within the observed range. The 8-minute prediction gives about 118°C, showing why the fitted linear pattern should not be extended far beyond the data."
+  },
+  {
+    "objectID": "Chapter Slides/chapter9-slides.html#example-concert-ticket-resale-prices",
+    "href": "Chapter Slides/chapter9-slides.html#example-concert-ticket-resale-prices",
+    "title": "STA258",
+    "section": "Example: Concert Ticket Resale Prices",
+    "text": "Example: Concert Ticket Resale Prices\n\n\nA student tracks fictional resale ticket prices for a concert as the show gets closer.\nThe fitted line is:\n\\[\n\\hat{y}=453.381-12.714x\n\\]\nwhere:\n\n\\(x=\\) days before the concert\n\\(y=\\) resale ticket price in dollars\n\nPredict the resale price for:\n\\[\nx=8\n\\]\nand compare it with predicting at:\n\\[\nx=30.\n\\]\nObserved \\(x\\) values range from 3 to 13 days before the concert.\n\n\nCalculation\nFor 8 days before the concert:\n\\[\n\\hat{y}\n=\n453.380952\\ldots-12.714286\\ldots(8)\n\\approx\n351.667\n\\]\nThis is interpolation because \\(x=8\\) is inside the observed range.\nFor 30 days before the concert:\n\\[\n\\hat{y}\n=\n453.380952\\ldots-12.714286\\ldots(30)\n\\approx\n71.952\n\\]\nThis is extrapolation because \\(x=30\\) is outside the observed range.\n\n\nPrediction target\nThe observed data only cover the final stretch before the concert:\n\\[\n3 \\le x \\le 13.\n\\]\nPredictions inside this range are safer than predictions far outside it.\n\n\nThe 8-day prediction is reasonable if the line fits well. The 30-day prediction should be treated carefully because resale markets can behave very differently far away from show day."
   }
 ]

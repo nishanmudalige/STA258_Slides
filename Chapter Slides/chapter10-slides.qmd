@@ -842,10 +842,10 @@ Since $0.031<0.05$, we reject $H_0$. The sample suggests that the three café dr
 ```{webr}
 #| autorun: false
 
-x <- c(Netflix = 88,
-       YouTube = 72,
-       Disney = 50,
-       Prime = 30)
+x <- c(Netflix = 76,
+       PrimeVideo = 69,
+       DisneyPlus = 65,
+       AppleTV = 30)
 
 tt <- chisq.test(x)
 

@@ -193,11 +193,6 @@ f1_df <- data.frame(
   lap_gain = c(0.6, 1.0, 1.4, 1.5, 2.1, 2.4)
 )
 
-speed_teaser_df <- data.frame(
-  teaser_clips = c(1, 2, 3, 4, 5),
-  live_viewers = c(1, 1, 2, 2, 4)
-)
-
 starbucks_df <- data.frame(
   orders_ahead = c(2, 4, 5, 7, 8, 10, 12, 14),
   wait_time = c(5, 7, 8, 10, 12, 13, 16, 17)
@@ -212,7 +207,6 @@ ronaldo_fit <- lm(engagement_score ~ debate_clips, data = ronaldo_df)
 argentina_fit <- lm(replay_interest ~ highlight_min, data = argentina_df)
 caitlin_fit <- lm(groupchat_shares ~ highlight_clips, data = caitlin_df)
 f1_fit <- lm(lap_gain ~ practice_laps, data = f1_df)
-speed_teaser_fit <- lm(live_viewers ~ teaser_clips, data = speed_teaser_df)
 starbucks_fit <- lm(wait_time ~ orders_ahead, data = starbucks_df)
 condo_fit <- lm(rent ~ size_100sqft, data = condo_df)
 

@@ -5244,9 +5244,9 @@ There is evidence that flyers posted are linearly related to new sign-ups in thi
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.60em; line-height: 1.13; padding: 11px 15px; margin-bottom: 0;"}
-A device lab studies fictional data on battery charging.
+A device lab records six ordinary charging sessions from different phones.
 
-For each device:
+For each session:
 
 - $x=$ charging time in hours
 - $y=$ battery level increase in percentage points
@@ -5254,17 +5254,17 @@ For each device:
 The fitted line is:
 
 $$
-\hat{y}=12.400+5.886x.
+\hat{y}=48+8x.
 $$
 
 The variation quantities are:
 
 $$
-SST=610.000,
+SST=746,
 \qquad
-SSR=606.229,
+SSR=280,
 \qquad
-SSE=3.771.
+SSE=466.
 $$
 
 **Question.** Construct the ANOVA table and test whether charging time is linearly related to battery level increase.
@@ -5273,7 +5273,7 @@ $$
 ::: {.stat-card .battery-calc .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.70em; line-height: 1.28; padding: 12px 16px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
-There are $n=6$ devices, so:
+There are $n=6$ charging sessions, so:
 
 $$
 df_{\text{Reg}}=1,
@@ -5285,20 +5285,20 @@ $$
 
 | Source | SS | df | MS | F |
 |---|---:|---:|---:|---:|
-| Regression | 606.229 | 1 | 606.229 | 642.970 |
-| Error | 3.771 | 4 | 0.943 |  |
-| Total | 610.000 | 5 |  |  |
+| Regression | 280.000 | 1 | 280.000 | 2.403 |
+| Error | 466.000 | 4 | 116.500 |  |
+| Total | 746.000 | 5 |  |  |
 
 $$
 F=
 \frac{MSR}{MSE}
 =
-\frac{606.229}{0.942857\ldots}
+\frac{280}{116.5}
 \approx
-642.970
+2.403
 $$
 
-The p-value is less than 0.001.
+The p-value is approximately **0.196**.
 :::
 
 ::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
@@ -5317,9 +5317,10 @@ significant amount of variation compared with the leftover residual variation.
 ::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.64em; line-height: 1.14; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Conclusion</span>
 
-Since the p-value is very small, we reject $H_0$. There is strong evidence
-that charging time is linearly related to battery level increase in this
-fictional dataset.
+Since $p\approx0.196>0.05$, we **fail to reject $H_0$**.
+
+There is insufficient evidence that charging time is linearly related to
+battery level increase across these charging sessions.
 :::
 
 ::::

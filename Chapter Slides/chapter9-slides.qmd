@@ -5406,75 +5406,82 @@ This can be very inaccurate.
 
 ------------------------------------------------------------------------
 
-## Example: Toronto Condo Rent and Unit Size
+## Example: Heating Time and Water Temperature
 
 :::: {.example-grid style="display: grid; grid-template-columns: 0.87fr 1.13fr; grid-template-rows: auto auto; gap: 10px 18px; align-items: stretch;"}
 
 ::: {.taskbox style="grid-column: 1; grid-row: 1; font-size: 0.63em; line-height: 1.16; padding: 11px 15px; margin-bottom: 0;"}
-A housing analyst studies fictional Toronto condo listings.
+A lab heats a fixed volume of water on the same hot plate and records its
+temperature during the first five minutes, before boiling.
 
 The fitted line is:
 
 $$
-\hat{y}=1090.476+220.238x
+\hat{y}=19.990+12.257x
 $$
 
 where:
 
-- $x=$ unit size in hundreds of square feet
-- $y=$ monthly rent in dollars
+- $x=$ heating time in minutes
+- $y=$ water temperature in °C
 
-Predict rent for:
+Predict the temperature at:
 
 $$
-x=8
+x=2.5
 $$
 
 and compare with predicting at:
 
 $$
-x=20.
+x=8.
 $$
 :::
 
 ::: {.stat-card .fragment data-fragment-index="2" style="grid-column: 2; grid-row: 1; font-size: 0.74em; line-height: 1.14; padding: 14px 18px; margin-bottom: 0;"}
 <span class="label">Calculation</span>
 
-For an 800 sq ft unit:
+For 2.5 minutes of heating:
 
 $$
 \hat{y}
 =
-1090.476190\ldots+220.238095\ldots(8)
+19.990476\ldots+12.257143\ldots(2.5)
 \approx
-2852.381
+50.633
 $$
 
-This is interpolation because $x=8$ is inside the observed range.
+This is **interpolation** because $x=2.5$ is inside the observed range.
 
-For a 2000 sq ft unit:
+For 8 minutes of heating:
 
 $$
 \hat{y}
 =
-1090.476190\ldots+220.238095\ldots(20)
+19.990476\ldots+12.257143\ldots(8)
 \approx
-5495.238
+118.048
 $$
 
-This is extrapolation because $x=20$ is outside the observed range.
+This is **extrapolation** because $x=8$ is outside the observed range.
 :::
 
 ::: {.notebox .fragment data-fragment-index="1" style="grid-column: 1; grid-row: 2; font-size: 0.62em; line-height: 1.15; padding: 10px 14px; margin-bottom: 0;"}
 <span class="label">Prediction target</span>
 
-The observed data only cover units from 500 to 1200 sq ft.
+The observed heating times only cover:
+
+$$
+0\le x\le5.
+$$
+
+Predictions inside this range are safer than predictions far outside it.
 :::
 
 ::: {.examplebox .fragment data-fragment-index="3" style="grid-column: 2; grid-row: 2; font-size: 0.66em; line-height: 1.16; padding: 12px 15px; margin-bottom: 0; display: flex; align-items: center;"}
-The 800 sq ft prediction is within the data range. The 2000 sq ft
-prediction should be treated carefully because it is outside the range
-used to fit the model.
+The 2.5-minute prediction is within the observed range. The 8-minute
+prediction gives about **118°C**, showing why the fitted linear pattern
+should not be extended far beyond the data.
 :::
 
 ::::

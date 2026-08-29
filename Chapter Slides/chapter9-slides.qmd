@@ -648,12 +648,22 @@ condo_line$rent <- predict(condo_fit, newdata = condo_line)
     overflow: visible !important;
   }
 
-  /* Card treatment for the on-screen slide only. Height grows for the few
-     slides whose content is taller than reveal's fixed 720px, so the card
-     contains them instead of letting them paint outside it. */
-  .reveal .slides section.present:not(.stack) {
+  /* Slide content is a fixed 1080px wide inside a 1220px box, so it sits left
+     with a gap on the right. Centre it. */
+  .reveal .slides section.present:not(.stack) > * {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  /* Grow the card for slides taller than reveal's fixed 720px, so it contains
+     them instead of letting them paint outside it. Slides holding a .r-stretch
+     image are excluded: reveal sizes those by zeroing the image and measuring
+     what space is left, which collapses to nothing if the height is auto. */
+  .reveal .slides section.present:not(.stack):not(:has(.r-stretch)) {
     height: auto !important;
     min-height: 720px !important;
+  }
+  /* Card treatment for the on-screen slide only. */
+  .reveal .slides section.present:not(.stack) {
     background-color: #ffffff !important;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     border-radius: 6px;

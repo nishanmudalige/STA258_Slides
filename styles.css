@@ -27,5 +27,11 @@ h2 { font-weight: 600; }
 #title-block-header.quarto-title-block.default .quarto-title-meta-contents {
   color: #555555;
   font-size: 0.95em;
-  white-space: nowrap;
+}
+/* Keep the author line on one line on desktop only; on a phone there is
+   not enough width and nowrap forces horizontal overflow. */
+@media screen and (min-width: 769px) {
+  #title-block-header.quarto-title-block.default .quarto-title-meta-contents {
+    white-space: nowrap;
+  }
 }

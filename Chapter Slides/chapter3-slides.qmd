@@ -5575,6 +5575,14 @@ We move from describing **the data we have** (this chapter) to making statements
     vp.setAttribute("name", "viewport");
     document.head.appendChild(vp);
   }
+  // The PDF button opens ?print-pdf, where reveal lays every slide out at full
+  // size with no scaling, so a phone shows it at 1:1 and cuts it off. Widening
+  // the layout viewport scales the pages to fit, and as a side effect stops the
+  // max-width:768px rules below from matching at all.
+  if (/[?&]print-pdf/.test(location.search)) {
+    vp.setAttribute("content", "width=1280, user-scalable=yes");
+    return;
+  }
   vp.setAttribute(
     "content",
     "width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes"
@@ -5625,6 +5633,7 @@ We move from describing **the data we have** (this chapter) to making statements
       ".quiz-question ul",
       ".quiz-question li",
       ".quiz-question button",
+      "input[type=range]",
       ".plotly",
       ".js-plotly-plot"
     ];

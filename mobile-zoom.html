@@ -1,0 +1,17 @@
+<script>
+/* Mobile only: render the desktop layout at 560px and let the browser scale it
+   to fit, so a phone shows the same proportions rather than a zoomed-in column.
+   Does not apply to the slide decks, which use a different format. */
+(function () {
+  var TARGET = 560;
+  if (!window.matchMedia("(max-width: 768px)").matches) return;
+  if (window.innerWidth >= TARGET) return;
+  var vp = document.querySelector('meta[name="viewport"]');
+  if (!vp) {
+    vp = document.createElement("meta");
+    vp.setAttribute("name", "viewport");
+    document.head.appendChild(vp);
+  }
+  vp.setAttribute("content", "width=" + TARGET + ", user-scalable=yes");
+})();
+</script>

@@ -337,24 +337,79 @@ live:
 
 
 
-/* ---- Mobile: separate the slide from the page ------------------------
-   A slide is white on a white page, so on a phone (where the slide is
-   scaled down and does not fill the screen) there is no visible edge.
-   Tint the surrounding area so the slide reads as a distinct card.
-   Desktop is unaffected. */
+/* Mobile only. Desktop is unaffected. */
 @media screen and (max-width: 768px) {
   html,
   body,
   .reveal-viewport {
     background-color: #e5e7eb !important;
   }
-  /* Only the slide actually on screen gets the card treatment. Reveal keeps
-     neighbouring slides in the DOM, and it also marks the wrapper of a
-     vertical stack as .present, so both would otherwise show as extra
-     white cards behind the current one. */
-  /* The Run Code / Start Over labels are collapsed to zero width and only
-     expand on hover, so a phone shows a bare play icon until it is tapped.
-     There is no hover on touch, so keep the labels open on mobile. */
+  /* Reveal's left:30px with width:100% puts the slide right of centre. */
+  .reveal .slides > section,
+  .reveal .slides > section > section {
+    left: 0 !important;
+  }
+  /* Touch-sized controls in a row above the footer. */
+  .reveal .controls {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 14px !important;
+    box-sizing: border-box !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    bottom: 56px !important;
+    transform: none !important;
+  }
+  /* Teal pills instead of reveal's 36px arrow D-pad. */
+  .reveal .controls button.navigate-up,
+  .reveal .controls button.navigate-down {
+    position: static !important;
+    width: auto !important;
+    height: 42px !important;
+    min-width: 112px !important;
+    padding: 0 20px !important;
+    margin: 0 !important;
+    background: #00695c !important;
+    border-radius: 23px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 1 !important;
+  }
+  /* Keeps Next right-aligned on the first slide, where Previous is hidden. */
+  .reveal .controls button.navigate-down {
+    margin-left: auto !important;
+  }
+  /* Labels only, no chevrons. */
+  .reveal .controls button.navigate-up .controls-arrow,
+  .reveal .controls button.navigate-down .controls-arrow {
+    display: none !important;
+  }
+  .reveal .controls button.navigate-up::after,
+  .reveal .controls button.navigate-down::after {
+    color: #ffffff !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+  }
+  .reveal .controls button.navigate-up::after { content: "Previous" !important; }
+  .reveal .controls button.navigate-down::after { content: "Next" !important; }
+  /* Centre in the space above the buttons, not the whole viewport. */
+  .reveal .slides {
+    margin-top: -49px !important;
+  }
+  /* These decks navigate vertically, so the horizontal arrows are noise. */
+  .reveal .controls button.navigate-left,
+  .reveal .controls button.navigate-right {
+    display: none !important;
+  }
+
+  /* No hover on touch, so keep the Run Code labels open. */
   .card-header .btn-exercise-editor > .btn-label-exercise-editor,
   .qwebr-button > .btn-label-exercise-editor {
     max-width: 90px !important;
@@ -362,7 +417,12 @@ live:
     overflow: visible !important;
   }
 
+  /* Card treatment for the on-screen slide only. Height grows for the few
+     slides whose content is taller than reveal's fixed 720px, so the card
+     contains them instead of letting them paint outside it. */
   .reveal .slides section.present:not(.stack) {
+    height: auto !important;
+    min-height: 720px !important;
     background-color: #ffffff !important;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     border-radius: 6px;
@@ -1368,17 +1428,8 @@ We move into R - the tool we'll use to compute statistics, simulate samples, and
 
 ```{=html}
 <script>
-/*
- * Mobile only. Quarto ships the deck with
- *   user-scalable=no, maximum-scale=1.0
- * so on a phone the slide is shrunk to fit the screen AND pinch-zoom is
- * blocked, which leaves the text unreadable with no way in. Re-enable
- * zooming, and pack the scroll view so a slide sits at the top of the
- * screen rather than floating in the middle of it.
- *
- * The deck keeps its desktop layout, just scaled down. Nothing here runs
- * above 768px, so desktop rendering is untouched.
- */
+/* Mobile only: re-enable pinch-zoom, keep reveal out of scroll view, and let
+   interactive widgets receive touch. Nothing here runs above 768px. */
 (function () {
   if (!window.matchMedia("(max-width: 768px)").matches) return;
 
@@ -1394,17 +1445,9 @@ We move into R - the tool we'll use to compute statistics, simulate samples, and
   );
 
 
-  /*
-   * Keep reveal out of scroll view from the very start.
-   *
-   * Reveal switches itself into a vertical scroll view below 435px wide.
-   * Switching back out of it after load (toggleScrollView) rebuilds the
-   * slide DOM and orphans the WebR editors and quizzes that already
-   * initialised into it, so that is not an option. Instead, intercept the
-   * config on its way into Reveal.initialize, before reveal has laid
-   * anything out. reveal.js is loaded as a plain script after this one, so
-   * window.Reveal does not exist yet; catch the assignment.
-   */
+  /* Reveal scroll-views below 435px, and toggling out of it after load
+     orphans the WebR editors and quizzes. Patch the config on its way in
+     instead; reveal.js loads after this, so catch the assignment. */
   var _reveal;
   try {
     Object.defineProperty(window, "Reveal", {
@@ -1429,25 +1472,13 @@ We move into R - the tool we'll use to compute statistics, simulate samples, and
 
   function slideMode() {
     try {
-      // Reveal switches to a vertical scroll view below 435px wide. Turn
-      // that off so a phone swipes through discrete slides, the same way
-      // the deck behaves on a laptop.
       Reveal.configure({ controls: true, controlsLayout: "bottom-right" });
     } catch (e) {}
   }
 
-  /*
-   * Let the interactive parts of a slide receive touch.
-   *
-   * Reveal captures touch events on the deck to drive swipe navigation, so
-   * on a phone a tap or drag inside a WebR editor or a quiz is swallowed by
-   * the swipe handler and never reaches the widget. Reveal skips its own
-   * handling for any element that sits under [data-prevent-swipe], so tag
-   * the interactive containers with it.
-   *
-   * WebR editors and quiz controls are built at runtime, so re-tag as they
-   * appear rather than once on load.
-   */
+  /* Reveal's swipe handler swallows taps inside editors and quizzes; it skips
+     anything under [data-prevent-swipe]. These are built at runtime, so re-tag
+     as they appear. */
   function allowTouch() {
     var sels = [
       ".cell",
@@ -1468,16 +1499,13 @@ We move into R - the tool we'll use to compute statistics, simulate samples, and
     });
   }
   allowTouch();
-  // Retry on a fixed schedule rather than watching the DOM: WebR injects a
-  // large number of nodes while it loads, and a MutationObserver over the
-  // whole document would re-run this selector sweep on every one of them.
+  // Fixed schedule, not a MutationObserver: WebR injects thousands of nodes.
   [500, 1500, 3000, 6000, 10000, 20000, 40000].forEach(function (d) {
     setTimeout(allowTouch, d);
   });
   if (window.Reveal && Reveal.on) {
     Reveal.on("slidechanged", function () { setTimeout(allowTouch, 150); });
   }
-  // Catch anything that finishes loading later, without polling continuously.
   document.addEventListener("click", function () { setTimeout(allowTouch, 50); }, true);
 
   if (window.Reveal && Reveal.isReady && Reveal.isReady()) slideMode();

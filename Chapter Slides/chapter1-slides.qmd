@@ -417,6 +417,12 @@ live:
     overflow: visible !important;
   }
 
+  /* Markers sit outside the list box and the list has no left padding, so with
+     the box flush to the card edge the numbers and bullets fall off it. */
+  .reveal .slides section.present:not(.stack) ol,
+  .reveal .slides section.present:not(.stack) ul {
+    padding-left: 48px !important;
+  }
   /* Slide content is a fixed 1080px wide inside a 1220px box, so it sits left
      with a gap on the right. Centre it. */
   .reveal .slides section.present:not(.stack) > * {

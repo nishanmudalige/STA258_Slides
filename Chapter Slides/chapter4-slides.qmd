@@ -4216,7 +4216,7 @@ $P(\bar{X} \leq 4.5)$ approximately.
 
 **(c)** Find $P(\bar{X} > 3.8)$ approximately.
 
-**(d)** What sample size $n$ would make
+**(d)** Using the CLT approximation, what sample size $n$ would make
 $P(|\bar{X} - 4| < 0.25) \geq 0.95$?
 :::
 
@@ -4241,7 +4241,9 @@ pnorm(3.8, mean = mu, sd = se, lower.tail = FALSE)
 # 0.25/se_n >= 1.96  =>  se_n <= 0.25/1.96
 # sigma/sqrt(n) <= 0.25/1.96
 n_needed <- ceiling((2 * 1.96 / 0.25)^2)
-n_needed   # minimum n
+n_needed   # sample size from the CLT (normal) approximation
+# Note: an exact Poisson calculation, with S ~ Poisson(4n) and
+# P(3.75n < S < 4.25n), gives a slightly smaller minimum of 245.
 ```
 
 ------------------------------------------------------------------------

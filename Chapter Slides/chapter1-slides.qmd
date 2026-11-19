@@ -968,6 +968,13 @@ For each, decide: <strong>parameter</strong> or <strong>statistic</strong>?
 Below are weekly study hours for a sample of 10 students.<br>
 Calculate the sample mean.
 
+<div class="notebox">
+<strong>New to R?</strong> A function is used by writing its name followed by the data in brackets: <code>function_name(data)</code>.
+For example, <code>sum(c(2, 4, 6))</code> adds the values and returns <code>12</code>.
+Useful functions: <code>length()</code> counts the values, <code>mean()</code> gives the average, and <code>sd()</code> gives the standard deviation.
+We cover R properly in Chapter 2.
+</div>
+
 ```{webr}
 #| exercise: sample_mean
 
@@ -1378,6 +1385,10 @@ Below are some ages of UTM students in a sample. Compute:
 1. The sample size $n$
 2. The sample mean $\bar{x}$
 3. The sample standard deviation $s$
+
+<div class="notebox">
+<strong>Hint:</strong> use the functions <code>length()</code>, <code>mean()</code>, and <code>sd()</code>, each in the form <code>function_name(ages)</code>.
+</div>
 
 ```{webr}
 #| exercise: bonus_practice

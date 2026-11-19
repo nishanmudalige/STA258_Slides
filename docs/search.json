@@ -319,7 +319,7 @@
     "href": "Chapter Slides/chapter3-slides.html#quartiles",
     "title": "STA258",
     "section": "3.2.8 Quartiles",
-    "text": "3.2.8 Quartiles\n\nQuartiles\nThree values that split the sorted data into four equal-size groups.\n\nFirst quartile \\(Q_1\\): 25% of values below it.\nSecond quartile \\(Q_2\\): 50% of values below it. This is the median.\nThird quartile \\(Q_3\\): 75% of values below it.\n\n\n\nQuartiles are just three specific percentiles: \\(Q_1 = P_{25}\\), \\(Q_2 = P_{50}\\), \\(Q_3 = P_{75}\\)."
+    "text": "3.2.8 Quartiles\n\nQuartiles\nThree values that split the sorted data into four equal-size groups.\n\nFirst quartile \\(Q_1\\): 25% of values below it.\nSecond quartile \\(Q_2\\): 50% of values below it. This is the median.\nThird quartile \\(Q_3\\): 75% of values below it.\n\n\n\nQuartiles are just three specific percentiles: \\(Q_1 = P_{25}\\), \\(Q_2 = P_{50}\\), \\(Q_3 = P_{75}\\).\n\n\nNote: There is more than one accepted way to calculate quartiles, and they can give slightly different answers. These slides use R’s default method (quantile() type 7): for sorted data \\(x_{(1)} \\le \\dots \\le x_{(n)}\\), the \\(p^{\\text{th}}\\) quantile is found at position \\(1 + p(n-1)\\), interpolating between neighbouring values when the position is not a whole number."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#interquartile-range-iqr",
@@ -340,7 +340,7 @@
     "href": "Chapter Slides/chapter3-slides.html#check-in-r-final-exam-scores",
     "title": "STA258",
     "section": "Check in R: Final Exam Scores",
-    "text": "Check in R: Final Exam Scores"
+    "text": "Check in R: Final Exam Scores\n\n\n\n\n\n\n\n\n\nHow R gets these values (default method, \\(n = 12\\)):\n\n\\(Q_1\\): position \\(1 + 0.25(11) = 3.75\\), so \\(Q_1 = 61 + 0.75(65 - 61) = 64\\).\n\\(Q_3\\): position \\(1 + 0.75(11) = 9.25\\), so \\(Q_3 = 82 + 0.25(86 - 82) = 83\\).\n\\(\\text{IQR} = 83 - 64 = 19\\).\n\nAnother common hand method takes the median of the lower half and of the upper half: \\(Q_1 = (61 + 65)/2 = 63\\), \\(Q_3 = (82 + 86)/2 = 84\\), so \\(\\text{IQR} = 21\\). Both are established conventions; they differ only in how they interpolate between data values. The difference shrinks as \\(n\\) grows."
   },
   {
     "objectID": "Chapter Slides/chapter3-slides.html#section-2",

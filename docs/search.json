@@ -2552,7 +2552,7 @@
     "href": "Chapter Slides/chapter1-slides.html#compute-stat",
     "title": "STA258",
     "section": "Compute a Statistic Yourself",
-    "text": "Compute a Statistic Yourself\nBelow are weekly study hours for a sample of 10 students. Calculate the sample mean.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmean(study_hours)   # 19.6\nThis is \\(\\bar{x}\\), our estimate of the unknown population mean \\(\\mu\\)."
+    "text": "Compute a Statistic Yourself\nBelow are weekly study hours for a sample of 10 students. Calculate the sample mean.\n\nNew to R? A function is used by writing its name followed by the data in brackets: function_name(data). For example, sum(c(2, 4, 6)) adds the values and returns 12. Useful functions: length() counts the values, mean() gives the average, and sd() gives the standard deviation. We cover R properly in Chapter 2.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nmean(study_hours)   # 19.6\nThis is \\(\\bar{x}\\), our estimate of the unknown population mean \\(\\mu\\)."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#example-inference",
@@ -2692,7 +2692,7 @@
     "href": "Chapter Slides/chapter1-slides.html#bonus-practice",
     "title": "STA258",
     "section": "Bonus Practice",
-    "text": "Bonus Practice\nBelow are some ages of UTM students in a sample. Compute:\n\nThe sample size \\(n\\)\nThe sample mean \\(\\bar{x}\\)\nThe sample standard deviation \\(s\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nn    &lt;- length(ages)\nxbar &lt;- mean(ages)\ns    &lt;- sd(ages)\n\\(n = 12\\), \\(\\bar{x} \\approx 20.83\\), \\(s \\approx 1.59\\)."
+    "text": "Bonus Practice\nBelow are some ages of UTM students in a sample. Compute:\n\nThe sample size \\(n\\)\nThe sample mean \\(\\bar{x}\\)\nThe sample standard deviation \\(s\\)\n\n\nHint: use the functions length(), mean(), and sd(), each in the form function_name(ages).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\nn    &lt;- length(ages)\nxbar &lt;- mean(ages)\ns    &lt;- sd(ages)\n\\(n = 12\\), \\(\\bar{x} \\approx 20.83\\), \\(s \\approx 1.59\\)."
   },
   {
     "objectID": "Chapter Slides/chapter1-slides.html#chapter-summary",

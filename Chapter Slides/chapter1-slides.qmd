@@ -1228,6 +1228,7 @@ A researcher records each participant's **number of siblings**. What type of var
 <div class="center">
 ```{r}
 #| echo: false
+#| fig-alt: "Diagram of Population to Sample to Statistic. A large circle labelled Population (parameter), all individuals or measurements of interest, with parameters mu, p and sigma, has an arrow labelled 'Take a random sample' pointing to a smaller circle labelled Sample (n units), a subset selected from the population, x1 to xn. An arrow labelled 'Compute' points from the sample to a circle labelled Statistic (x-bar, p-hat, s), a numerical summary from the sample. A dashed red arrow labelled 'Infer back to population' returns from the statistic to the population: use the statistic to estimate the parameter and quantify uncertainty."
 knitr::include_graphics("../images/pop_sample_stat_diagram.png")
 ```
 </div>

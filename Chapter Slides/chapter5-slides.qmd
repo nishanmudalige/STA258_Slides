@@ -1011,6 +1011,27 @@ window.updateCiCalc = function () {
       ? "Population standard deviation"
       : "Sample standard deviation";
 
+  /*
+   * Number("") is 0, so check for blank fields before
+   * validating the numbers; otherwise an empty field is
+   * silently treated as zero.
+   */
+  var blankFields = [
+    ["ci-xbar", "Sample mean"],
+    ["ci-spread", spreadLabel.textContent],
+    ["ci-n", "Sample size"]
+  ].filter(function (field) {
+    return document.getElementById(field[0]).value.trim() === "";
+  }).map(function (field) {
+    return field[1];
+  });
+
+  if (blankFields.length > 0) {
+    output.innerHTML =
+      "Please enter a value for: " + blankFields.join(", ") + ".";
+    return;
+  }
+
   if (
     !Number.isFinite(xbar) ||
     !Number.isFinite(spread) ||

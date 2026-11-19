@@ -413,6 +413,7 @@ plotly_slide_layout <- function(
   border-radius: 8px;
   background: var(--sta-teal-light);
   font-weight: 700;
+  font-size: 0.75em;
 }
 .home-button-row { text-align: center; margin-top: 32px; }
 .reveal a.home-button, .reveal a.home-button:visited, .reveal a.home-button:link {
@@ -1010,6 +1011,27 @@ window.updateCiCalc = function () {
     mode === "z"
       ? "Population standard deviation"
       : "Sample standard deviation";
+
+  /*
+   * Number("") is 0, so check for blank fields before
+   * validating the numbers; otherwise an empty field is
+   * silently treated as zero.
+   */
+  var blankFields = [
+    ["ci-xbar", "Sample mean"],
+    ["ci-spread", spreadLabel.textContent],
+    ["ci-n", "Sample size"]
+  ].filter(function (field) {
+    return document.getElementById(field[0]).value.trim() === "";
+  }).map(function (field) {
+    return field[1];
+  });
+
+  if (blankFields.length > 0) {
+    output.innerHTML =
+      "Please enter a value for: " + blankFields.join(", ") + ".";
+    return;
+  }
 
   if (
     !Number.isFinite(xbar) ||
